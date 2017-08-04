@@ -1,0 +1,62 @@
+<?php
+
+namespace AppBundle\Entity;
+
+class DemandeEmbauche
+{
+    // Chaque demande devra contenir en plus:
+    // La ref du salon
+    // Le username ou id du demandeur
+    // Numéro de siret
+    // Date heure
+
+
+    protected $nom;
+    protected adresse_1;
+    protected adresse_2;
+    protected code_postal;
+    protected ville;
+    protected telephone;
+    protected email;
+    protected num_secu;
+    protected date_naissance;
+    protected ville_naissance;
+    protected nationalite;
+    protected situation_fam;
+    protected nb_enfant;
+    protected date_embauche;
+    protected deja_salarié;
+    protected salarié_lieu;
+    protected poste;
+
+    // Plusieurs diplômes possibles
+    protected diplomes;
+
+
+    protected classification;
+    protected echelon;
+    protected autre;
+
+    // Soit conventionnel soit autre:
+    protected salaire_base;
+
+    // CDI Apprentissage, prof.
+    // ou CDD   => Surcroit activité
+    //          => Absence (nature + date
+    //          => Renouvellement
+    protected type contrat;
+
+    //
+    protected surcroit_activité;
+
+    protected remplacemnt_nature;
+    protected remplacemnt_date;
+
+    protected remplacemnt_nom;
+    protected remplacemnt_date; // Soit date soit retour physique
+
+    protected renouvellement;
+
+    // Array associatif jour => nb d'heure + totale
+    protected temps_partiel;
+}

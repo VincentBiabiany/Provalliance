@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+{% block title %}Welcome{% endblock %}
+
+{% block body %}
+
+<div class="header">
+    <img style="display: block !important;margin: auto !important;" id="logotop" src="{{ asset('img/provost.png') }}">
+</div>
+<div class="head" >
+    Nelly, Bienvenue dans votre Espace Manager!
+</div>
+<div class="bg"></div>
+<div class="container">
+
+    <div class="row" style="max-width: 875px;margin: auto;">
+
+        <div class="col-sm-12">
+            <div id="myDropdown" style="margin:auto;"></div>
+        </div>
+
+
+    <div class="col-sm-12" style="padding-top:40px; max-width:1200px; margin:auto;">
+        <div class="col-sm-6 block">
+            <div onclick="window.location.href = '{{ path("home_juridique_rh") }}'"  class="under-block"><p class="carre">{{ "home.juridique_rh"|trans({}, "home") }}</p></div>
+        </div>
+        <div class="col-sm-6 block">
+            <div onclick="window.location.href = '{{ path("demande") }}'" class="under-block"><p class="carre">{{ "home.demand"|trans({}, "home") }}</p></div>
+        </div>
+    </div>
+
+    <div class="col-sm-12" style=" max-width:1200px;margin:auto;float:none;">
+        <div class="col-sm-6 block">
+            <div onclick="window.location.href = '{{ path("home_paie") }}'" class="under-block"><p class="carre">{{ "home.paie"|trans({}, "home") }}</p></div>
+        </div>
+        <div class="col-sm-6 block">
+            <div class="under-block"><p class="carre">{{ "home.ca"|trans({}, "home") }}</p></div>
+        </div>
+    </div>
+
+    <div class="col-sm-12" style=" max-width:1200px;margin:auto;float:none;">
+        <div class="col-sm-6 block">
+            <div class="under-block"><p class="carre"></p></div>
+        </div>
+        <div class="col-sm-6 block">
+            <div class="under-block"><p class="carre">{{ "home.volume"|trans({}, "home") }}</p></div>
+        </div>
+    </div>
+    <div class="col-sm-12" style=" max-width:1200px;margin:auto;float:none;">
+        <div class="col-sm-6 block">
+        </div>
+        <a  href="{{ path('fos_user_security_logout') }}"><div class="col-sm-4 deco block">
+            <span class="glyphicon glyphicon-off" style="padding-right:5px"></span>{{ "home.deconnexion"|trans({}, "home") }}
+        </div></a>
+    </div>
+
+</div>
+</div>
+<script src="https://cdn.rawgit.com/prashantchaudhary/ddslick/master/jquery.ddslick.min.js"></script>
+<script language="javascript">
+    var ddData = [
+        {
+            value: 1,
+            text: "La Défense",
+            imageSrc: "{{ asset('img/fab.png') }}"
+        },
+        {
+            value: 1,
+            text: "Boulogne",
+            imageSrc: "{{ asset('img/pro.png') }}"
+        },
+        {
+            value: 1,
+            text: "Versailles",
+            imageSrc: "{{ asset('img/sai.jpg') }}"
+        }
+    ];
+
+    $('#myDropdown').ddslick({
+        data:ddData,
+        width:200,
+        imagePosition:"center",
+        defaultSelectedIndex:1,
+        onSelected: function(selectedData){
+            logo = document.getElementById('logotop');
+            console.log(selectedData);
+            logo.src = selectedData.selectedData.imageSrc;
+            $.post('{{ path('homepage') }}', {variable: selectedData.selectedData.imageSrc});
+        }
+    });
+
+</script>
+
+
+{% endblock %}
+

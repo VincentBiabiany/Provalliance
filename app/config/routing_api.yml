@@ -1,0 +1,3 @@
+personnel:
+    type: rest
+    resource: ApiBundle\Controller\PersonnelController

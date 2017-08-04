@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ "home_paie.header"|trans({}, "home_paie") }}{% endblock %}
+
+{% block body %}
+
+<div class="header">
+    <img style="display: block !important;margin: auto !important;" id="logotop" src="{{ asset('img/provost.png') }}">
+</div>
+<div class="head" >
+    {{ "home_paie.header"|trans({}, "home_paie") }}
+</div>
+<div class="bg"></div>
+<div class="container">
+
+    <div class="row" style="max-width: 875px;margin: auto;">
+
+        <div class="col-sm-12" style="padding-top:40px; max-width:1200px; margin:auto;">
+            <div class="col-sm-6 block">
+
+                <div class="under-block" onclick="window.location.href ='{{ path("paie_acompte") }}'"><p class="carre">{{ "home_paie.acompte"|trans({}, "home_paie") }}</p></div>
+            </div>
+            <div class="col-sm-6 block">
+                <div class="under-block"><p class="carre">{{ "home_paie.rib"|trans({}, "home_paie") }}</p></div>
+            </div>
+        </div>
+
+        <div class="col-sm-12" style=" max-width:1200px;margin:auto;float:none;">
+            <div class="col-sm-6 block">
+                <div class="under-block"><p class="carre">{{ "home_paie.attestation"|trans({}, "home_paie") }}</p></div>
+            </div>
+
+            <div class="col-sm-6 block">
+                <div class="under-block"><p class="carre">{{ "home_paie.solde"|trans({}, "home_paie") }}</p></div>
+            </div>
+        </div>
+
+        <div class="col-sm-12" style=" max-width:1200px;margin:auto;float:none;">
+            <div class="col-sm-6 block">
+                <button class="btn-black" onclick="window.location.href = '{{ path("homepage") }}'" style="float:none;">Accueil</button>
+            </div>
+            <a href="{{ path('fos_user_security_logout') }}">
+                <div class="col-sm-4 deco block">
+                    <span class="glyphicon glyphicon-off" style="padding-right:5px"></span>{{ "home.deconnexion"|trans({}, "home") }}
+                </div>
+            </a>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
+

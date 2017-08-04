@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+{% block title %}Welcome{% endblock %}
+
+{% block body %}
+
+<div class="header">
+    <img style="display: block !important;margin: auto !important;" id="logotop" src="{{ asset('img/provost.png') }}">
+</div>
+<div class="head" >
+    {{ "home_rh.header"|trans({}, "home_rh") }}
+</div>
+<div class="bg"></div>
+<div class="container">
+
+    <div class="row"  style="padding-top:65px; max-width:875px; margin:auto;">
+
+        <div class="col-sm-12"  style=" max-width:1200px; margin:auto;">
+
+            <div onclick="window.location.href = '{{ path("rh_embauche") }}'" class="col-sm-6 block">
+                <div class="under-block"><p class="carre">{{ "home_rh.embauche"|trans({}, "home_rh") }}</p></div>
+            </div>
+            <div class="col-sm-6 block">
+                <div class="under-block"><p class="carre">{{ "home_rh.solde"|trans({}, "home_rh") }}</p></div>
+            </div>
+        </div>
+
+        <div class="col-sm-12"  style="padding-top:65px; max-width:1200px; margin:auto;" >
+
+            <div class="col-sm-6 text-center">
+                <button class="btn-black" onclick="window.location.href = '{{ path("homepage") }}'" style="float:none;">Accueil</button>
+            </div>
+            <a href="{{ path('fos_user_security_logout') }}"><div class="col-sm-4 deco block">
+                    <span class="glyphicon glyphicon-off" style="padding-right:5px"></span>{{ "home.deconnexion"|trans({}, "home") }}
+                </div></a>
+        </div>
+
+    </div>
+</div>
+<style>
+
+    .carre {
+        height: 90px !important;
+        margin-bottom: 25px;
+    }
+</style>
+
+
+
+
+
+{% endblock %}
+

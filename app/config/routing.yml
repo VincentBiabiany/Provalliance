@@ -1,0 +1,41 @@
+api:
+    resource: "@ApiBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+homepage:
+  path:       /
+  defaults:   {_controller: AppBundle:Home:index}
+
+home_juridique_rh:
+  path:       /juridique_rh
+  defaults:   {_controller: AppBundle:DemandeJuridiqueRH:index}
+
+home_paie:
+    path:     /paie
+    defaults: {_controller: AppBundle:DemandePaie:index}
+
+paie_acompte:
+    path:     /paie/acompte
+    defaults: {_controller: AppBundle:Acompte:index}
+
+
+rh_embauche:
+    path:     /embauche
+    defaults: {_controller: AppBundle:Embauche:index}
+
+demandee:
+    path:     /demande
+    defaults: {_controller: AppBundle:Demande:index}
+
+api:
+    prefix:   /api
+    type: rest
+    resource: "routing_api.yml"

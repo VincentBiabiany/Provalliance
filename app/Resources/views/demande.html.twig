@@ -1,0 +1,141 @@
+{% extends 'base.html.twig' %}
+{% block title %}Welcome{% endblock %}
+
+{% block body %}
+<div class="container">
+
+
+	<div class="header">
+		<img style="display: block !important;margin: auto !important;" id="logotop" src="{{ asset('img/provost.png') }}">
+	</div>
+	<div class="head">
+		Suivre les demandes
+	</div>
+
+	<div class="col-sm-12" style="padding-top: 50px;">
+
+
+		<table id="demande" data-toggle="table">
+			<thead>
+			<tr>
+				<th>Détails</th>
+				<th data-field="salon" data-sortable="true" >Salon</th>
+				<th data-field="demandeur" data-sortable="true" >Demandeur</th>
+				<th data-field="date" data-sortable="true" >Date</th>
+				<th data-field="statut" data-sortable="true" >Statut</th>
+				<th data-field="demande" data-sortable="true" >Type de demande</th>
+				<th data-field="collaborateur" data-sortable="true" >Collaborateur</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr class="rejete alert-danger">
+				<td id="t" class="click"><span class="glyphicon glyphicon-search"></span></td>
+				<td>FP_La Défense</td>
+				<td>DESCHAMPS Stéphane</td>
+				<td>01/06/2017</td>
+				<td>Rejetée</td>
+				<td>JLD_Boulogne-Billancourt</td>
+				<td>DUPONT Sophie</td>
+			</tr>
+			<tr class="encours alert-info">
+				<td class="click"><span class="glyphicon glyphicon-search click"></span></td>
+				<td>FP_LA_DEFENSE</td>
+				<td>DESCHAMPS Stéphane</td>
+				<td>16/06/2017</td>
+				<td>En cours</td>
+				<td>Demande Acompte</td>
+				<td>DESPRES Caroline</td>
+			</tr>
+			<tr class="encours alert-info">
+				<td class="click"><span class="glyphicon glyphicon-search click"></span></td>
+				<td>FP_La Défense</td>
+				<td>DESCHAMPS Stéphane</td>
+				<td>01/06/2017</td>
+				<td>En cours</td>
+				<td>Demande Acompte</td>
+				<td>DESCAMPS Sylvie</td>
+			</tr>
+			<tr class="encours alert-info">
+				<td class="click"><span class="glyphicon glyphicon-search click"></span></td>
+				<td class="click">JLD_Boulogne-Billancourt</td>
+				<td>DESCHAMPS Stéphane</td>
+				<td>23/05/2017</td>
+				<td>En cours</td>
+				<td>Formulaire d'embauche</td>
+				<td>DURET Claude</td>
+			</tr>
+			<tr class="traite alert-success">
+				<td class="click"><span class="glyphicon glyphicon-search click"></span></td>
+				<td>FP_La Défense</td>
+				<td>DESCHAMPS Stéphane</td>
+				<td>01/06/2017</td>
+				<td>Traitée</td>
+				<td>Attestation de salaire</td>
+				<td>CESARO Adrien</td>
+			</tr>
+			<tr class="traite alert-success">
+				<td class="click"><span class="glyphicon glyphicon-search click"></span></td>
+				<td>FP_La Défense</td>
+				<td>DESCHAMPS Stéphane</td>
+				<td>19/06/2017</td>
+				<td>Traitée</td>
+				<td>Solde de tout compte</td>
+				<td>LACHEB Sabrina</td>
+			</tr>
+			<tr class="traite alert-success">
+				<td class="click"><span class="glyphicon glyphicon-search click"></span></td>
+				<td>JLD_Boulogne-Billancourt</td>
+				<td>DESCHAMPS Stéphane</td>
+				<td>01/06/2017</td>
+				<td>Traitée</td>
+				<td>Attestation Salaire</td>
+				<td>GALIPON Emilie</td>
+			</tr>
+			<tr class="traite alert-success">
+				<td class="click"><span class="glyphicon glyphicon-search click"></span></td>
+				<td>JLD_Boulogne-Billancourt</td>
+				<td>DESCHAMPS Stéphane</td>
+				<td>01/06/2017</td>
+				<td>Traitée</td>
+				<td>Demande Acompte</td>
+				<td>AMAR Jérôme</td>
+			</tr>
+			<tr class="rejete alert-danger">
+				<td class="click"><span class="glyphicon glyphicon-search click"></span></td>
+				<td>FP_La Défense</td>
+				<td>DESCHAMPS Stéphane</td>
+				<td>30/05/2017</td>
+				<td>Rejetée</td>
+				<td>Solde de tout compte</td>
+				<td>DURET Claude</td>
+			</tr>
+			<tr class="rejete alert-danger">
+				<td onclick="window.location.href ='./home.php'" class="click"><span class="glyphicon glyphicon-search click"></span></td>
+				<td>JLD_Boulogne-Billancourt</td>
+				<td>DESCHAMPS Stéphane</td>
+				<td>25/05/2017</td>
+				<td>Rejetée</td>
+				<td>Formulaire d'embauche</td>
+				<td>DURAND Paul</td>
+			</tr>
+			</tbody>
+		</table>
+		<button style="float:left; margin-top: 50px;" onclick="window.location.href ='{{ path("homepage") }}'" class="btn-black">Précédent</button>
+		<div class="col-sm-4 deco block" onclick="window.location.href ='./login.html'">
+			<span class="glyphicon glyphicon-off" style="padding-right:5px"></span>Déconnexion
+		</div>
+	</div>
+	<script>
+		$(document).ready(function(){
+			$('.click').click(function(){
+				window.location.href ='./detail.php';
+			});
+
+		});
+
+
+	</script>
+
+</div>
+
+{% endblock %}
