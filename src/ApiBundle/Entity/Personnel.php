@@ -54,6 +54,13 @@ class Personnel
      * @ORM\Column(name="actif", type="boolean", nullable=true)
      */
     private $actif;
+    
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="sexe", type="string",length=45, nullable=true)
+     */
+    private $sexe;
 
     /**
      * @var integer

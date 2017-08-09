@@ -50,7 +50,7 @@ class Document
      *   @ORM\JoinColumn(name="TypeDocument_id", referencedColumnName="id")
      * })
      */
-    private $typedocument;
+    private $typeDocument;
 
     /**
      * @var \ApiBundle\Entity\Personnel

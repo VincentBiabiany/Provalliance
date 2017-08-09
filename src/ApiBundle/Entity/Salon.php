@@ -34,16 +34,16 @@ class Salon
     private $siret;
 
     /**
-     * @var string
+     * @var \DateTime
      *
-     * @ORM\Column(name="date_creation", type="string", length=45, nullable=true)
+     * @ORM\Column(name="date_creation", type="datetime", nullable=true)
      */
     private $dateCreation;
 
     /**
-     * @var string
+     * @var \DateTime
      *
-     * @ORM\Column(name="date_fermeture", type="string", length=45, nullable=true)
+     * @ORM\Column(name="date_fermeture", type="datetime", nullable=true)
      */
     private $dateFermeture;
 
@@ -114,15 +114,6 @@ class Salon
      */
     private $adresse;
 
-    /**
-     * @var \ApiBundle\Entity\ResponsableR
-     *
-     * @ORM\ManyToOne(targetEntity="ApiBundle\Entity\ResponsableR", cascade={"persist"})
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="responsable_id", referencedColumnName="id")
-     * })
-     */
-    private $responsable;
 
     /**
      * Set nom
@@ -422,31 +413,6 @@ class Salon
     public function getAdresse()
     {
         return $this->adresse;
-    }
-
-
-    /**
-     * Set responsable
-     *
-     * @param \ApiBundle\Entity\ResponsableR $responsable
-     *
-     * @return Personnel
-     */
-    public function setResponsable(\ApiBundle\Entity\ResponsableR $responsable = null)
-    {
-        $this->responsable = $responsable;
-
-        return $this;
-    }
-
-    /**
-     * Get responsable
-     *
-     * @return \ApiBundle\Entity\ResponsableR
-     */
-    public function getResponsable()
-    {
-        return $this->responsable;
     }
 
 }

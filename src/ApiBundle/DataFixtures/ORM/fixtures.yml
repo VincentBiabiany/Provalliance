@@ -59,18 +59,19 @@ ApiBundle\Entity\Salon:
         date_fermeture: <dateTime()>
         marque: ''
         langue_defaut: <languageCode()>
-        marlix: ''
-        sage_paie: ''
-        adresse: '@pays_1'
-        groupe: '@pays_1'
-        enseigne: '@pays_1'
+        marlix: <randomNumber()>
+        sage_paie: <randomNumber()>
+        adresse: '@adresse*'
+        groupe: '@groupe*'
+        enseigne: '@enseigne*'
 
 ApiBundle\Entity\Personnel:
     personnel{1..5}:
         nom: <fr_FR:firstName()>
         prenom: <fr_FR:lastName()>
-        date_embauche: <fr_FR:phoneNumber()>
-        date_fin_contrat: ''
+        date_embauche: <dateTime()>
+        date_fin_contrat: <dateTime()>
         type_contrat: ''
+        actif: <boolean($chanceOfGettingTrue = 50)>
         sexe: <fr_FR:title()>
-        adresse: '@pays_1'
+        adresse: '@adresse*'
