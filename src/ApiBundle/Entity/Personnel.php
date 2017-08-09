@@ -243,6 +243,29 @@ class Personnel
     {
         return $this->actif;
     }
+    /**
+     * Set sexe
+     *
+     * @param boolean $sexe
+     *
+     * @return Personnel
+     */
+    public function setSexe($sexe)
+    {
+        $this->sexe = $sexe;
+
+        return $this;
+    }
+
+    /**
+     * Get sexe
+     *
+     * @return boolean
+     */
+    public function getSexe()
+    {
+        return $this->sexe;
+    }
 
     /**
      * Get id

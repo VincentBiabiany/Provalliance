@@ -5,12 +5,12 @@ namespace ApiBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Typedocument
+ * TypeDocument
  *
- * @ORM\Table(name="typedocument")
+ * @ORM\Table(name="type_document")
  * @ORM\Entity
  */
-class Typedocument
+class TypeDocument
 {
     /**
      * @var string
@@ -35,7 +35,7 @@ class Typedocument
      *
      * @param string $nom
      *
-     * @return Typedocument
+     * @return TypeDocument
      */
     public function setNom($nom)
     {

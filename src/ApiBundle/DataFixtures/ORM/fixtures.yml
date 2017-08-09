@@ -1,0 +1,76 @@
+ApiBundle\Entity\Pays:
+    pays_1:
+        nom: 'France'
+    pays_2:
+        nom: 'Allemagne'
+
+ApiBundle\Entity\Profession:
+    profession_1:
+        nom: 'manager'
+    profession_2:
+        nom: 'coordinateur' 
+    profession_3:
+        nom: 'juridique' 
+    profession_4:
+        nom: 'paie'
+    profession_5:
+        nom: 'Administrateur'
+    profession_6:
+        nom: 'pilotage economique'
+    profession_7:
+        nom: 'directeur filiales'
+    profession_8:
+        nom: 'responsable'
+        
+ApiBundle\Entity\Adresse:
+    adresse{1..10}:
+        rue: <fr_FR:streetName()>
+        cp: <fr_FR:postcode()>
+        ville: <fr_FR:streetName()>
+        telephone1: <fr_FR:phoneNumber()>
+        telephone2: ''
+        fax: ''
+        portable: <fr_FR:phoneNumber()>
+        email: <email()>
+        pays: '@pays_1'
+
+ApiBundle\Entity\Enseigne:
+    enseigne_1:
+        nom: 'Enseigne 1'
+    enseigne_2:
+        nom: 'Enseigne 2' 
+    enseigne_3:
+        nom: 'Enseigne 3' 
+        
+ApiBundle\Entity\Groupe:
+    groupe_1:
+        nom: 'Groupe 1'
+    groupe_2:
+        nom: 'Groupe 2' 
+    groupe_3:
+        nom: 'Groupe 3' 
+        
+ApiBundle\Entity\Salon:
+    salon{1..5}:
+        nom: <fr_FR:company()>
+        code_interne: <randomNumber()>
+        siret: ''
+        date_creation: <dateTime()>
+        date_fermeture: <dateTime()>
+        marque: ''
+        langue_defaut: <languageCode()>
+        marlix: ''
+        sage_paie: ''
+        adresse: '@pays_1'
+        groupe: '@pays_1'
+        enseigne: '@pays_1'
+
+ApiBundle\Entity\Personnel:
+    personnel{1..5}:
+        nom: <fr_FR:firstName()>
+        prenom: <fr_FR:lastName()>
+        date_embauche: <fr_FR:phoneNumber()>
+        date_fin_contrat: ''
+        type_contrat: ''
+        sexe: <fr_FR:title()>
+        adresse: '@pays_1'

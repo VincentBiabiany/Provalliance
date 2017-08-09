@@ -78,7 +78,7 @@ class Adresse
     private $id;
 
     /**
-     * @var \AppBundle\Entity\Pays
+     * @var \ApiBundle\Entity\Pays
      *
      * @ORM\ManyToOne(targetEntity="ApiBundle\Entity\Pays", cascade={"persist"})
      * @ORM\JoinColumns({

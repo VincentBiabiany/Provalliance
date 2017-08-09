@@ -369,7 +369,7 @@ class Salon
     /**
      * Get groupe
      *
-     * @return \AppBundle\Entity\Groupe
+     * @return \ApiBundle\Entity\Groupe
      */
     public function getGroupe()
     {

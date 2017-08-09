@@ -53,7 +53,7 @@ class Document
     private $typedocument;
 
     /**
-     * @var \AppBundle\Entity\Personnel
+     * @var \ApiBundle\Entity\Personnel
      *
      * @ORM\ManyToOne(targetEntity="ApiBundle\Entity\Personnel")
      * @ORM\JoinColumns({

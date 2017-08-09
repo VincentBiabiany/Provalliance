@@ -42,31 +42,31 @@ twig:
 # Doctrine Configuration
 doctrine:
     dbal:
-        default_connection: default
+        default_connection: referentiel
         connections:
             default:
                 driver: pdo_mysql
-                host: '%database_host%'
-                port: '%database_port%'
-                dbname: '%database_name%'
-                user: '%database_user%'
-                password: '%database_password%'
+                host: '%database_host_webapp%'
+                port: '%database_port_webapp%'
+                dbname: '%database_name_webapp%'
+                user: '%database_user_webapp%'
+                password: '%database_password_webapp%'
                 charset: UTF8
                 
             referentiel:
                 driver: pdo_mysql
-                host: '%database_host%'
-                port: '%database_port%'
-                dbname: '%referentiel_dbname%'
-                user: '%database_user%'
-                password: '%database_password%'
+                host: '%database_host_referentiel%'
+                port: '%database_port_referentiel%'
+                dbname: '%database_name_referentiel%'
+                user: '%database_user_referentiel%'
+                password: '%database_password_referentiel%'
                 charset: UTF8
 
     orm:
         #auto_generate_proxy_classes: '%kernel.debug%'
         #naming_strategy: doctrine.orm.naming_strategy.underscore
         #auto_mapping: true
-        default_entity_manager: default
+        default_entity_manager: referentiel
         entity_managers:
             default:
                 connection: default
@@ -76,6 +76,7 @@ doctrine:
                 connection: referentiel
                 mappings:
                    ApiBundle: ~
+                            
 
 # Swiftmailer Configuration
 swiftmailer:
