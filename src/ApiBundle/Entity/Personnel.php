@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Personnel
  *
- * @ORM\Table(name="personnel", indexes={@ORM\Index(name="fk_Personnel_Adresse1_idx", columns={"Adresse_id"})})
+ * @ORM\Table(name="personnel", indexes={@ORM\Index(name="fk_personnel_adresse1_idx", columns={"adresse_id"})})
  * @ORM\Entity
  */
 class Personnel
@@ -47,18 +47,17 @@ class Personnel
      */
     private $typeContrat;
 
-
     /**
      * @var boolean
      *
      * @ORM\Column(name="actif", type="boolean", nullable=true)
      */
     private $actif;
-    
+
     /**
-     * @var boolean
+     * @var string
      *
-     * @ORM\Column(name="sexe", type="string",length=45, nullable=true)
+     * @ORM\Column(name="sexe", type="string", length=1, nullable=true)
      */
     private $sexe;
 
@@ -74,271 +73,35 @@ class Personnel
     /**
      * @var \ApiBundle\Entity\Adresse
      *
-     * @ORM\ManyToOne(targetEntity="ApiBundle\Entity\Adresse", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="ApiBundle\Entity\Adresse")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="Adresse_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="adresse_id", referencedColumnName="id")
      * })
      */
     private $adresse;
 
-
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="ApiBundle\Entity\Profession", inversedBy="personnel", cascade={"persist"})
-     * @ORM\JoinTable(name="personnel_has_profession",
+     * @ORM\ManyToMany(targetEntity="ApiBundle\Entity\Salon", inversedBy="personnel")
+     * @ORM\JoinTable(name="personnel_has_salon",
      *   joinColumns={
-     *     @ORM\JoinColumn(name="Personnel_id", referencedColumnName="id")
+     *     @ORM\JoinColumn(name="personnel_id", referencedColumnName="id")
      *   },
      *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="Profession_id", referencedColumnName="id")
+     *     @ORM\JoinColumn(name="salon_id", referencedColumnName="id")
      *   }
      * )
      */
-    private $profession;
+    private $salon;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->profession = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->salon = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-
-    /**
-     * Set nom
-     *
-     * @param string $nom
-     *
-     * @return Personnel
-     */
-    public function setNom($nom)
-    {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    /**
-     * Get nom
-     *
-     * @return string
-     */
-    public function getNom()
-    {
-        return $this->nom;
-    }
-
-    /**
-     * Set prenom
-     *
-     * @param string $prenom
-     *
-     * @return Personnel
-     */
-    public function setPrenom($prenom)
-    {
-        $this->prenom = $prenom;
-
-        return $this;
-    }
-
-    /**
-     * Get prenom
-     *
-     * @return string
-     */
-    public function getPrenom()
-    {
-        return $this->prenom;
-    }
-
-    /**
-     * Set dateEmbauche
-     *
-     * @param \DateTime $dateEmbauche
-     *
-     * @return Personnel
-     */
-    public function setDateEmbauche($dateEmbauche)
-    {
-        $this->dateEmbauche = $dateEmbauche;
-
-        return $this;
-    }
-
-    /**
-     * Get dateEmbauche
-     *
-     * @return \DateTime
-     */
-    public function getDateEmbauche()
-    {
-        return $this->dateEmbauche;
-    }
-
-    /**
-     * Set dateFinContrat
-     *
-     * @param \DateTime $dateFinContrat
-     *
-     * @return Personnel
-     */
-    public function setDateFinContrat($dateFinContrat)
-    {
-        $this->dateFinContrat = $dateFinContrat;
-
-        return $this;
-    }
-
-    /**
-     * Get dateFinContrat
-     *
-     * @return \DateTime
-     */
-    public function getDateFinContrat()
-    {
-        return $this->dateFinContrat;
-    }
-
-    /**
-     * Set typeContrat
-     *
-     * @param string $typeContrat
-     *
-     * @return Personnel
-     */
-    public function setTypeContrat($typeContrat)
-    {
-        $this->typeContrat = $typeContrat;
-
-        return $this;
-    }
-
-    /**
-     * Get typeContrat
-     *
-     * @return string
-     */
-    public function getTypeContrat()
-    {
-        return $this->typeContrat;
-    }
-
-
-    /**
-     * Set actif
-     *
-     * @param boolean $actif
-     *
-     * @return Personnel
-     */
-    public function setActif($actif)
-    {
-        $this->actif = $actif;
-
-        return $this;
-    }
-
-    /**
-     * Get actif
-     *
-     * @return boolean
-     */
-    public function getActif()
-    {
-        return $this->actif;
-    }
-    /**
-     * Set sexe
-     *
-     * @param boolean $sexe
-     *
-     * @return Personnel
-     */
-    public function setSexe($sexe)
-    {
-        $this->sexe = $sexe;
-
-        return $this;
-    }
-
-    /**
-     * Get sexe
-     *
-     * @return boolean
-     */
-    public function getSexe()
-    {
-        return $this->sexe;
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set adresse
-     *
-     * @param \ApiBundle\Entity\Adresse $adresse
-     *
-     * @return Personnel
-     */
-    public function setAdresse(\ApiBundle\Entity\Adresse $adresse = null)
-    {
-        $this->adresse = $adresse;
-
-        return $this;
-    }
-
-    /**
-     * Get adresse
-     *
-     * @return \ApiBundle\Entity\Adresse
-     */
-    public function getAdresse()
-    {
-        return $this->adresse;
-    }
-
-    /**
-     * Add profession
-     *
-     * @param \ApiBundle\Entity\Profession $profession
-     *
-     * @return Personnel
-     */
-    public function addProfession(\ApiBundle\Entity\Profession $profession)
-    {
-        $this->profession[] = $profession;
-
-        return $this;
-    }
-
-    /**
-     * Remove profession
-     *
-     * @param \ApiBundle\Entity\Profession $profession
-     */
-    public function removeProfession(\ApiBundle\Entity\Profession $profession)
-    {
-        $this->profession->removeElement($profession);
-    }
-
-    /**
-     * Get profession
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getProfession()
-    {
-        return $this->profession;
-    }
 }
+

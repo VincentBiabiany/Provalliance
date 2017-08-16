@@ -31,13 +31,13 @@ class Pays
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="ApiBundle\Entity\Langue", inversedBy="pays", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="ApiBundle\Entity\Langue", inversedBy="pays")
      * @ORM\JoinTable(name="pays_has_langue",
      *   joinColumns={
-     *     @ORM\JoinColumn(name="Pays_id", referencedColumnName="id")
+     *     @ORM\JoinColumn(name="pays_id", referencedColumnName="id")
      *   },
      *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="Langue_id", referencedColumnName="id")
+     *     @ORM\JoinColumn(name="langue_id", referencedColumnName="id")
      *   }
      * )
      */
@@ -51,72 +51,5 @@ class Pays
         $this->langue = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-
-    /**
-     * Set nom
-     *
-     * @param string $nom
-     *
-     * @return Pays
-     */
-    public function setNom($nom)
-    {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    /**
-     * Get nom
-     *
-     * @return string
-     */
-    public function getNom()
-    {
-        return $this->nom;
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Add langue
-     *
-     * @param \ApiBundle\Entity\Langue $langue
-     *
-     * @return Pays
-     */
-    public function addLangue(\ApiBundle\Entity\Langue $langue)
-    {
-        $this->langue[] = $langue;
-
-        return $this;
-    }
-
-    /**
-     * Remove langue
-     *
-     * @param \ApiBundle\Entity\Langue $langue
-     */
-    public function removeLangue(\ApiBundle\Entity\Langue $langue)
-    {
-        $this->langue->removeElement($langue);
-    }
-
-    /**
-     * Get langue
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getLangue()
-    {
-        return $this->langue;
-    }
 }
+

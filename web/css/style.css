@@ -1,12 +1,61 @@
-@font-face {
-	font-family: 'Brown';
-	src: url('fonts/Brown-Light.otf');  
-	font-weight: regular;
-}
+/*STYLE GENERAL*/
+
 body,p,a,h1,h2,h3,h4 {
 	font-family: 'Brown';
 	color:white;
 }
+@font-face {
+	font-family: 'Brown';
+	src: url('../fonts/Brown-Light.otf');  
+	font-weight: regular;
+}
+.header{
+    z-index: 2;
+    position: fixed;
+	top: 0;
+    left: 0;
+   	width: 100%;
+    background-color: white;
+    padding-top:15px;
+}
+
+.btn-black{
+	background-color:white !important;    
+	max-width: 150px; 
+	text-align: center !important;
+	vertical-align: middle;
+	line-height: 30px;
+	font-size: 16px;
+	width: 150px;
+   	border-radius: 9%;
+    font-family: 'Brown' !important;
+    float: right;
+	border: 1px solid black;
+	color: black;
+    font-weight: bold;
+}
+
+
+/*STYLE LOGIN*/
+#Nova{
+    padding-top:50px; 
+    color: black;
+    float:right
+}
+#Nova a{
+    color: black;
+}
+
+
+
+/*STYLE FORMULAIRES*/
+#formContent{
+    
+    max-width: 700px; 
+    margin: auto;
+}
+
+
 .label{
 	background-color:#B39C8C;    
 	/*max-width: 158px;*/
@@ -26,32 +75,6 @@ body,p,a,h1,h2,h3,h4 {
     	box-shadow: none !important;
 
 }
-.btn-black{
-	background-color:white !important;    
-	max-width: 150px; 
-	text-align: center !important;
-	vertical-align: middle;
-	line-height: 30px;
-	font-size: 16px;
-	width: 150px;
-   	border-radius: 9%;
-    	font-family: 'Brown' !important;
-    	float: right;
-	border: 1px solid black;
-	color: black;
-    	font-weight: bold;
-}
-
-.header{
-    	z-index: 2;
-    	position: fixed;
-	top: 0;
-    	left: 0;
-   	width: 100%;
-    	background-color: white;
-        padding-top:15px;
-}
-
 .carre{
 	height: 80px;
     	background-color: black;
@@ -86,7 +109,7 @@ body,p,a,h1,h2,h3,h4 {
 }
 
 .bg { 
-  background: url(fond-filigrane.png) no-repeat center center fixed; 
+  background: url(../img/fond-filigrane.png) no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

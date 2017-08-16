@@ -5,26 +5,26 @@ namespace ApiBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ResponsableR
+ * DateProfession
  *
- * @ORM\Table(name="responsable_r")
+ * @ORM\Table(name="date_profession")
  * @ORM\Entity
  */
-class ResponsableR
+class DateProfession
 {
     /**
-     * @var string
+     * @var \DateTime
      *
-     * @ORM\Column(name="nom", type="string", length=45, nullable=true)
+     * @ORM\Column(name="debut", type="datetime", nullable=true)
      */
-    private $nom;
+    private $debut;
 
     /**
-     * @var string
+     * @var \DateTime
      *
-     * @ORM\Column(name="prenom", type="string", length=45, nullable=true)
+     * @ORM\Column(name="fin", type="datetime", nullable=true)
      */
-    private $prenom;
+    private $fin;
 
     /**
      * @var integer

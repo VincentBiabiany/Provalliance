@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Document
  *
- * @ORM\Table(name="document", indexes={@ORM\Index(name="fk_Document_Personnel1_idx", columns={"Personnel_id"}), @ORM\Index(name="fk_Document_TypeDocument1_idx", columns={"TypeDocument_id"})})
+ * @ORM\Table(name="document", indexes={@ORM\Index(name="fk_document_personnel1_idx", columns={"personnel_id"}), @ORM\Index(name="fk_document_type_document1_idx", columns={"type_document_id"})})
  * @ORM\Entity
  */
 class Document
@@ -43,154 +43,25 @@ class Document
     private $id;
 
     /**
-     * @var \ApiBundle\Entity\Typedocument
-     *
-     * @ORM\ManyToOne(targetEntity="ApiBundle\Entity\Typedocument", cascade={"persist"})
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="TypeDocument_id", referencedColumnName="id")
-     * })
-     */
-    private $typeDocument;
-
-    /**
      * @var \ApiBundle\Entity\Personnel
      *
      * @ORM\ManyToOne(targetEntity="ApiBundle\Entity\Personnel")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="Personnel_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="personnel_id", referencedColumnName="id")
      * })
      */
     private $personnel;
 
-
-
     /**
-     * Set nom
+     * @var \ApiBundle\Entity\TypeDocument
      *
-     * @param string $nom
-     *
-     * @return Document
+     * @ORM\ManyToOne(targetEntity="ApiBundle\Entity\TypeDocument")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="type_document_id", referencedColumnName="id")
+     * })
      */
-    public function setNom($nom)
-    {
-        $this->nom = $nom;
+    private $typeDocument;
 
-        return $this;
-    }
 
-    /**
-     * Get nom
-     *
-     * @return string
-     */
-    public function getNom()
-    {
-        return $this->nom;
-    }
-
-    /**
-     * Set type
-     *
-     * @param string $type
-     *
-     * @return Document
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    /**
-     * Get type
-     *
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * Set dateUpload
-     *
-     * @param \DateTime $dateUpload
-     *
-     * @return Document
-     */
-    public function setDateUpload($dateUpload)
-    {
-        $this->dateUpload = $dateUpload;
-
-        return $this;
-    }
-
-    /**
-     * Get dateUpload
-     *
-     * @return \DateTime
-     */
-    public function getDateUpload()
-    {
-        return $this->dateUpload;
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set typedocument
-     *
-     * @param \ApiBundle\Entity\Typedocument $typedocument
-     *
-     * @return Document
-     */
-    public function setTypedocument(\ApiBundle\Entity\Typedocument $typedocument = null)
-    {
-        $this->typedocument = $typedocument;
-
-        return $this;
-    }
-
-    /**
-     * Get typedocument
-     *
-     * @return \ApiBundle\Entity\Typedocument
-     */
-    public function getTypedocument()
-    {
-        return $this->typedocument;
-    }
-
-    /**
-     * Set personnel
-     *
-     * @param \ApiBundle\Entity\Personnel $personnel
-     *
-     * @return Document
-     */
-    public function setPersonnel(\ApiBundle\Entity\Personnel $personnel = null)
-    {
-        $this->personnel = $personnel;
-
-        return $this;
-    }
-
-    /**
-     * Get personnel
-     *
-     * @return \ApiBundle\Entity\Personnel
-     */
-    public function getPersonnel()
-    {
-        return $this->personnel;
-    }
 }
+
