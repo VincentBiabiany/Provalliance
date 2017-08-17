@@ -5,12 +5,12 @@ namespace ApiBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Groupe
+ * Langue
  *
- * @ORM\Table(name="groupe")
+ * @ORM\Table(name="langue")
  * @ORM\Entity
  */
-class Groupe
+class Langue
 {
     /**
      * @var string
@@ -28,39 +28,20 @@ class Groupe
      */
     private $id;
 
-
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="ApiBundle\Entity\Pays", mappedBy="langue")
+     */
+    private $pays;
 
     /**
-     * Set nom
-     *
-     * @param string $nom
-     *
-     * @return Groupe
+     * Constructor
      */
-    public function setNom($nom)
+    public function __construct()
     {
-        $this->nom = $nom;
-
-        return $this;
+        $this->pays = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    /**
-     * Get nom
-     *
-     * @return string
-     */
-    public function getNom()
-    {
-        return $this->nom;
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 }
+

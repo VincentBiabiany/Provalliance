@@ -28,8 +28,8 @@ ApiBundle\Entity\Adresse:
         cp: <fr_FR:postcode()>
         ville: <fr_FR:streetName()>
         telephone1: <fr_FR:phoneNumber()>
-        telephone2: ''
-        fax: ''
+        telephone2: <fr_FR:phoneNumber()>
+        fax: <fr_FR:phoneNumber()>
         portable: <fr_FR:phoneNumber()>
         email: <email()>
         pays: '@pays_1'
@@ -73,5 +73,5 @@ ApiBundle\Entity\Personnel:
         date_fin_contrat: <dateTime()>
         type_contrat: ''
         actif: <boolean($chanceOfGettingTrue = 50)>
-        sexe: <fr_FR:title()>
+        sexe: 'M'
         adresse: '@adresse*'

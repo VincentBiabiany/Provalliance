@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * DemandeAcompte
+ * AppBundle\Entity\DemandeAcompte
  *
  * @ORM\Table(name="demande_acompte")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\DemandeAcompteRepository")
@@ -44,20 +44,18 @@ class DemandeAcompte
     
      /**
      * @var \ApiBundle\Entity\Personnel
-     *
-     * @ORM\ManyToOne(targetEntity="ApiBundle\Entity\Personnel", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="\ApiBundle\Entity\Personnel", cascade={"persist"})
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="Demandeur_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="demandeur_id", referencedColumnName="id")
      * })
      */
     private $demandeur;
 
     /**
      * @var \ApiBundle\Entity\Personnel
-     *
-     * @ORM\ManyToOne(targetEntity="ApiBundle\Entity\Personnel", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="\ApiBundle\Entity\Personnel", cascade={"persist"})
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="Personnel_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="personnel_id", referencedColumnName="id")
      * })
      */
     private $personnel;

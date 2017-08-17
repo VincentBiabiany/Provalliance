@@ -20,9 +20,9 @@ class Adresse
     private $rue;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="cp", type="integer", nullable=true)
+     * @ORM\Column(name="cp", type="string", nullable=true)
      */
     private $cp;
 
@@ -34,30 +34,30 @@ class Adresse
     private $ville;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="telephone1", type="integer", nullable=true)
+     * @ORM\Column(name="telephone1", type="string", nullable=true)
      */
     private $telephone1;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="telephone2", type="integer", nullable=true)
+     * @ORM\Column(name="telephone2", type="string", nullable=true)
      */
     private $telephone2;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="fax", type="integer", nullable=true)
+     * @ORM\Column(name="fax", type="string", nullable=true)
      */
     private $fax;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="portable", type="integer", nullable=true)
+     * @ORM\Column(name="portable", type="string", nullable=true)
      */
     private $portable;
 
@@ -88,5 +88,230 @@ class Adresse
     private $pays;
 
 
-}
 
+    /**
+     * Set rue
+     *
+     * @param string $rue
+     *
+     * @return Adresse
+     */
+    public function setRue($rue)
+    {
+        $this->rue = $rue;
+
+        return $this;
+    }
+
+    /**
+     * Get rue
+     *
+     * @return string
+     */
+    public function getRue()
+    {
+        return $this->rue;
+    }
+
+    /**
+     * Set cp
+     *
+     * @param string $cp
+     *
+     * @return Adresse
+     */
+    public function setCp($cp)
+    {
+        $this->cp = $cp;
+
+        return $this;
+    }
+
+    /**
+     * Get cp
+     *
+     * @return string
+     */
+    public function getCp()
+    {
+        return $this->cp;
+    }
+
+    /**
+     * Set ville
+     *
+     * @param string $ville
+     *
+     * @return Adresse
+     */
+    public function setVille($ville)
+    {
+        $this->ville = $ville;
+
+        return $this;
+    }
+
+    /**
+     * Get ville
+     *
+     * @return string
+     */
+    public function getVille()
+    {
+        return $this->ville;
+    }
+
+    /**
+     * Set telephone1
+     *
+     * @param string $telephone1
+     *
+     * @return Adresse
+     */
+    public function setTelephone1($telephone1)
+    {
+        $this->telephone1 = $telephone1;
+
+        return $this;
+    }
+
+    /**
+     * Get telephone1
+     *
+     * @return string
+     */
+    public function getTelephone1()
+    {
+        return $this->telephone1;
+    }
+
+    /**
+     * Set telephone2
+     *
+     * @param string $telephone2
+     *
+     * @return Adresse
+     */
+    public function setTelephone2($telephone2)
+    {
+        $this->telephone2 = $telephone2;
+
+        return $this;
+    }
+
+    /**
+     * Get telephone2
+     *
+     * @return string
+     */
+    public function getTelephone2()
+    {
+        return $this->telephone2;
+    }
+
+    /**
+     * Set fax
+     *
+     * @param string $fax
+     *
+     * @return Adresse
+     */
+    public function setFax($fax)
+    {
+        $this->fax = $fax;
+
+        return $this;
+    }
+
+    /**
+     * Get fax
+     *
+     * @return string
+     */
+    public function getFax()
+    {
+        return $this->fax;
+    }
+
+    /**
+     * Set portable
+     *
+     * @param string $portable
+     *
+     * @return Adresse
+     */
+    public function setPortable($portable)
+    {
+        $this->portable = $portable;
+
+        return $this;
+    }
+
+    /**
+     * Get portable
+     *
+     * @return string
+     */
+    public function getPortable()
+    {
+        return $this->portable;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     *
+     * @return Adresse
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set pays
+     *
+     * @param \ApiBundle\Entity\Pays $pays
+     *
+     * @return Adresse
+     */
+    public function setPays(\ApiBundle\Entity\Pays $pays = null)
+    {
+        $this->pays = $pays;
+
+        return $this;
+    }
+
+    /**
+     * Get pays
+     *
+     * @return \ApiBundle\Entity\Pays
+     */
+    public function getPays()
+    {
+        return $this->pays;
+    }
+}

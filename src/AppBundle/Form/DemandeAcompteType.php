@@ -13,18 +13,18 @@ class DemandeAcompteType extends AbstractType
     {
         
         //Récupère info sur User actuel
-        $user = $this->getUser();
-        $userId= $user->getId();
+//        $user = $this->getUser();
+//        $userId= $user->getId();
         
-        $builder
-            ->add('nom')
-            ->add('prenom')
-            ->add('solde')
-            ->add('id_personnel', HiddenType::class, array(
-            'data' => '12'))
-            ->add('id_demandeur', HiddenType::class, array(
-            'data' => $userId))
-            ;
+//        $builder
+//            ->add('nom')
+//            ->add('prenom')
+//            ->add('solde')
+////            ->add('id_personnel', HiddenType::class, array(
+////            'data' => '12'))
+//            ->add('id_demandeur', HiddenType::class, array(
+//            'data' => 6))
+//            ;
     }
 
 

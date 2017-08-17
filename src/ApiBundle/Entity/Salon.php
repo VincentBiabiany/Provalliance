@@ -20,9 +20,9 @@ class Salon
     private $nom;
 
     /**
-     * @var string
+     * @var int
      *
-     * @ORM\Column(name="code_interne", type="string", length=45, nullable=true)
+     * @ORM\Column(name="code_interne", type="integer", nullable=true)
      */
     private $codeInterne;
 
@@ -129,5 +129,336 @@ class Salon
         $this->personnel = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-}
 
+    /**
+     * Set nom
+     *
+     * @param string $nom
+     *
+     * @return Salon
+     */
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    /**
+     * Get nom
+     *
+     * @return string
+     */
+    public function getNom()
+    {
+        return $this->nom;
+    }
+
+    /**
+     * Set codeInterne
+     *
+     * @param integer $codeInterne
+     *
+     * @return Salon
+     */
+    public function setCodeInterne($codeInterne)
+    {
+        $this->codeInterne = $codeInterne;
+
+        return $this;
+    }
+
+    /**
+     * Get codeInterne
+     *
+     * @return integer
+     */
+    public function getCodeInterne()
+    {
+        return $this->codeInterne;
+    }
+
+    /**
+     * Set siret
+     *
+     * @param string $siret
+     *
+     * @return Salon
+     */
+    public function setSiret($siret)
+    {
+        $this->siret = $siret;
+
+        return $this;
+    }
+
+    /**
+     * Get siret
+     *
+     * @return string
+     */
+    public function getSiret()
+    {
+        return $this->siret;
+    }
+
+    /**
+     * Set dateCreation
+     *
+     * @param \DateTime $dateCreation
+     *
+     * @return Salon
+     */
+    public function setDateCreation($dateCreation)
+    {
+        $this->dateCreation = $dateCreation;
+
+        return $this;
+    }
+
+    /**
+     * Get dateCreation
+     *
+     * @return \DateTime
+     */
+    public function getDateCreation()
+    {
+        return $this->dateCreation;
+    }
+
+    /**
+     * Set dateFermeture
+     *
+     * @param \DateTime $dateFermeture
+     *
+     * @return Salon
+     */
+    public function setDateFermeture($dateFermeture)
+    {
+        $this->dateFermeture = $dateFermeture;
+
+        return $this;
+    }
+
+    /**
+     * Get dateFermeture
+     *
+     * @return \DateTime
+     */
+    public function getDateFermeture()
+    {
+        return $this->dateFermeture;
+    }
+
+    /**
+     * Set marque
+     *
+     * @param string $marque
+     *
+     * @return Salon
+     */
+    public function setMarque($marque)
+    {
+        $this->marque = $marque;
+
+        return $this;
+    }
+
+    /**
+     * Get marque
+     *
+     * @return string
+     */
+    public function getMarque()
+    {
+        return $this->marque;
+    }
+
+    /**
+     * Set langueDefaut
+     *
+     * @param string $langueDefaut
+     *
+     * @return Salon
+     */
+    public function setLangueDefaut($langueDefaut)
+    {
+        $this->langueDefaut = $langueDefaut;
+
+        return $this;
+    }
+
+    /**
+     * Get langueDefaut
+     *
+     * @return string
+     */
+    public function getLangueDefaut()
+    {
+        return $this->langueDefaut;
+    }
+
+    /**
+     * Set marlix
+     *
+     * @param string $marlix
+     *
+     * @return Salon
+     */
+    public function setMarlix($marlix)
+    {
+        $this->marlix = $marlix;
+
+        return $this;
+    }
+
+    /**
+     * Get marlix
+     *
+     * @return string
+     */
+    public function getMarlix()
+    {
+        return $this->marlix;
+    }
+
+    /**
+     * Set sagePaie
+     *
+     * @param integer $sagePaie
+     *
+     * @return Salon
+     */
+    public function setSagePaie($sagePaie)
+    {
+        $this->sagePaie = $sagePaie;
+
+        return $this;
+    }
+
+    /**
+     * Get sagePaie
+     *
+     * @return integer
+     */
+    public function getSagePaie()
+    {
+        return $this->sagePaie;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set adresse
+     *
+     * @param \ApiBundle\Entity\Adresse $adresse
+     *
+     * @return Salon
+     */
+    public function setAdresse(\ApiBundle\Entity\Adresse $adresse = null)
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    /**
+     * Get adresse
+     *
+     * @return \ApiBundle\Entity\Adresse
+     */
+    public function getAdresse()
+    {
+        return $this->adresse;
+    }
+
+    /**
+     * Set enseigne
+     *
+     * @param \ApiBundle\Entity\Enseigne $enseigne
+     *
+     * @return Salon
+     */
+    public function setEnseigne(\ApiBundle\Entity\Enseigne $enseigne = null)
+    {
+        $this->enseigne = $enseigne;
+
+        return $this;
+    }
+
+    /**
+     * Get enseigne
+     *
+     * @return \ApiBundle\Entity\Enseigne
+     */
+    public function getEnseigne()
+    {
+        return $this->enseigne;
+    }
+
+    /**
+     * Set groupe
+     *
+     * @param \ApiBundle\Entity\Groupe $groupe
+     *
+     * @return Salon
+     */
+    public function setGroupe(\ApiBundle\Entity\Groupe $groupe = null)
+    {
+        $this->groupe = $groupe;
+
+        return $this;
+    }
+
+    /**
+     * Get groupe
+     *
+     * @return \ApiBundle\Entity\Groupe
+     */
+    public function getGroupe()
+    {
+        return $this->groupe;
+    }
+
+    /**
+     * Add personnel
+     *
+     * @param \ApiBundle\Entity\Personnel $personnel
+     *
+     * @return Salon
+     */
+    public function addPersonnel(\ApiBundle\Entity\Personnel $personnel)
+    {
+        $this->personnel[] = $personnel;
+
+        return $this;
+    }
+
+    /**
+     * Remove personnel
+     *
+     * @param \ApiBundle\Entity\Personnel $personnel
+     */
+    public function removePersonnel(\ApiBundle\Entity\Personnel $personnel)
+    {
+        $this->personnel->removeElement($personnel);
+    }
+
+    /**
+     * Get personnel
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPersonnel()
+    {
+        return $this->personnel;
+    }
+}

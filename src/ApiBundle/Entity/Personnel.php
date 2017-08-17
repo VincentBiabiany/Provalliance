@@ -5,9 +5,9 @@ namespace ApiBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Personnel
+ * ApiBundle\Entity\Personnel
  *
- * @ORM\Table(name="personnel", indexes={@ORM\Index(name="fk_personnel_adresse1_idx", columns={"adresse_id"})})
+ * @ORM\Table(name="personnels.personnel", indexes={@ORM\Index(name="fk_personnel_adresse1_idx", columns={"adresse_id"})})
  * @ORM\Entity
  */
 class Personnel
@@ -103,5 +103,240 @@ class Personnel
         $this->salon = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-}
 
+    /**
+     * Set nom
+     *
+     * @param string $nom
+     *
+     * @return Personnel
+     */
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    /**
+     * Get nom
+     *
+     * @return string
+     */
+    public function getNom()
+    {
+        return $this->nom;
+    }
+
+    /**
+     * Set prenom
+     *
+     * @param string $prenom
+     *
+     * @return Personnel
+     */
+    public function setPrenom($prenom)
+    {
+        $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    /**
+     * Get prenom
+     *
+     * @return string
+     */
+    public function getPrenom()
+    {
+        return $this->prenom;
+    }
+
+    /**
+     * Set dateEmbauche
+     *
+     * @param \DateTime $dateEmbauche
+     *
+     * @return Personnel
+     */
+    public function setDateEmbauche($dateEmbauche)
+    {
+        $this->dateEmbauche = $dateEmbauche;
+
+        return $this;
+    }
+
+    /**
+     * Get dateEmbauche
+     *
+     * @return \DateTime
+     */
+    public function getDateEmbauche()
+    {
+        return $this->dateEmbauche;
+    }
+
+    /**
+     * Set dateFinContrat
+     *
+     * @param \DateTime $dateFinContrat
+     *
+     * @return Personnel
+     */
+    public function setDateFinContrat($dateFinContrat)
+    {
+        $this->dateFinContrat = $dateFinContrat;
+
+        return $this;
+    }
+
+    /**
+     * Get dateFinContrat
+     *
+     * @return \DateTime
+     */
+    public function getDateFinContrat()
+    {
+        return $this->dateFinContrat;
+    }
+
+    /**
+     * Set typeContrat
+     *
+     * @param string $typeContrat
+     *
+     * @return Personnel
+     */
+    public function setTypeContrat($typeContrat)
+    {
+        $this->typeContrat = $typeContrat;
+
+        return $this;
+    }
+
+    /**
+     * Get typeContrat
+     *
+     * @return string
+     */
+    public function getTypeContrat()
+    {
+        return $this->typeContrat;
+    }
+
+    /**
+     * Set actif
+     *
+     * @param boolean $actif
+     *
+     * @return Personnel
+     */
+    public function setActif($actif)
+    {
+        $this->actif = $actif;
+
+        return $this;
+    }
+
+    /**
+     * Get actif
+     *
+     * @return boolean
+     */
+    public function getActif()
+    {
+        return $this->actif;
+    }
+
+    /**
+     * Set sexe
+     *
+     * @param string $sexe
+     *
+     * @return Personnel
+     */
+    public function setSexe($sexe)
+    {
+        $this->sexe = $sexe;
+
+        return $this;
+    }
+
+    /**
+     * Get sexe
+     *
+     * @return string
+     */
+    public function getSexe()
+    {
+        return $this->sexe;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set adresse
+     *
+     * @param \ApiBundle\Entity\Adresse $adresse
+     *
+     * @return Personnel
+     */
+    public function setAdresse(\ApiBundle\Entity\Adresse $adresse = null)
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    /**
+     * Get adresse
+     *
+     * @return \ApiBundle\Entity\Adresse
+     */
+    public function getAdresse()
+    {
+        return $this->adresse;
+    }
+
+    /**
+     * Add salon
+     *
+     * @param \ApiBundle\Entity\Salon $salon
+     *
+     * @return Personnel
+     */
+    public function addSalon(\ApiBundle\Entity\Salon $salon)
+    {
+        $this->salon[] = $salon;
+
+        return $this;
+    }
+
+    /**
+     * Remove salon
+     *
+     * @param \ApiBundle\Entity\Salon $salon
+     */
+    public function removeSalon(\ApiBundle\Entity\Salon $salon)
+    {
+        $this->salon->removeElement($salon);
+    }
+
+    /**
+     * Get salon
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSalon()
+    {
+        return $this->salon;
+    }
+}
