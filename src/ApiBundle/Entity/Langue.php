@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Langue
  *
- * @ORM\Table(name="langue")
+ * @ORM\Table(name="referentiel.langue")
  * @ORM\Entity
  */
 class Langue
@@ -31,7 +31,7 @@ class Langue
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="ApiBundle\Entity\Pays", mappedBy="langue")
+     * @ORM\ManyToMany(targetEntity="ApiBundle\Entity\Pays", mappedBy="referentiel.langue")
      */
     private $pays;
 

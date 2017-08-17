@@ -6,6 +6,8 @@ api:
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
+    prefix:   /
+
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
@@ -35,7 +37,7 @@ demandee:
     path:     /demande
     defaults: {_controller: AppBundle:Demande:index}
 
-api:
-    prefix:   /api
-    type: rest
-    resource: "routing_api.yml"
+#api:
+#    prefix:   /api
+#    type: rest
+#    resource: "routing_api.yml"

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ApiBundle\Entity\Personnel
  *
- * @ORM\Table(name="personnels.personnel", indexes={@ORM\Index(name="fk_personnel_adresse1_idx", columns={"adresse_id"})})
+ * @ORM\Table(name="referentiel.personnel", indexes={@ORM\Index(name="fk_personnel_adresse1_idx", columns={"adresse_id"})})
  * @ORM\Entity
  */
 class Personnel
@@ -83,8 +83,8 @@ class Personnel
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="ApiBundle\Entity\Salon", inversedBy="personnel")
-     * @ORM\JoinTable(name="personnel_has_salon",
+     * @ORM\ManyToMany(targetEntity="ApiBundle\Entity\Salon", inversedBy="referentiel.personnel")
+     * @ORM\JoinTable(name="referentiel.personnel_has_salon",
      *   joinColumns={
      *     @ORM\JoinColumn(name="personnel_id", referencedColumnName="id")
      *   },

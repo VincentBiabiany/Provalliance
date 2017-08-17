@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Pays
  *
- * @ORM\Table(name="pays")
+ * @ORM\Table(name="referentiel.pays")
  * @ORM\Entity
  */
 class Pays
@@ -32,7 +32,7 @@ class Pays
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\ManyToMany(targetEntity="ApiBundle\Entity\Langue", inversedBy="pays")
-     * @ORM\JoinTable(name="pays_has_langue",
+     * @ORM\JoinTable(name="referentiel.pays_has_langue",
      *   joinColumns={
      *     @ORM\JoinColumn(name="pays_id", referencedColumnName="id")
      *   },

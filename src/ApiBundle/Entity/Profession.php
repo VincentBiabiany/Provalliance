@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Profession
  *
- * @ORM\Table(name="profession")
+ * @ORM\Table(name="referentiel.profession")
  * @ORM\Entity
  */
 class Profession

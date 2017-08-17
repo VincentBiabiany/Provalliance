@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Salon
  *
- * @ORM\Table(name="salon", indexes={@ORM\Index(name="fk_salon_adresse1_idx", columns={"adresse_id"}), @ORM\Index(name="fk_salon_groupe1_idx", columns={"groupe_id"}), @ORM\Index(name="fk_salon_enseigne1_idx", columns={"enseigne_id"})})
+ * @ORM\Table(name="referentiel.salon", indexes={@ORM\Index(name="fk_salon_adresse1_idx", columns={"adresse_id"}), @ORM\Index(name="fk_salon_groupe1_idx", columns={"groupe_id"}), @ORM\Index(name="fk_salon_enseigne1_idx", columns={"enseigne_id"})})
  * @ORM\Entity
  */
 class Salon
@@ -117,7 +117,7 @@ class Salon
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="ApiBundle\Entity\Personnel", mappedBy="salon")
+     * @ORM\ManyToMany(targetEntity="ApiBundle\Entity\Personnel", mappedBy="referentiel.salon")
      */
     private $personnel;
 
