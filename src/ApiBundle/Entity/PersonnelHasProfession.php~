@@ -7,17 +7,17 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * PersonnelHasProfession
  *
- * @ORM\Table(name="personnel_has_profession", indexes={@ORM\Index(name="fk_personnel_has_profession_profession1_idx", columns={"profession_id"}), @ORM\Index(name="fk_personnel_has_profession_personnel1_idx", columns={"personnel_id"}), @ORM\Index(name="fk_personnel_has_profession_date_profession1_idx", columns={"date_profession_id"})})
+ * @ORM\Table(name="referentiel.personnel_has_profession", indexes={@ORM\Index(name="fk_personnel_has_profession_profession1_idx", columns={"profession_id"}), @ORM\Index(name="fk_personnel_has_profession_personnel1_idx", columns={"personnel_id"}), @ORM\Index(name="fk_personnel_has_profession_date_profession1_idx", columns={"date_profession_id"})})
  * @ORM\Entity
  */
 class PersonnelHasProfession
 {
     /**
-     * @var \ApiBundle\Entity\DateProfession
+     * @var \ApiBundle\Entity\Date
      *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\OneToOne(targetEntity="ApiBundle\Entity\DateProfession")
+     * @ORM\OneToOne(targetEntity="ApiBundle\Entity\Date")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="date_profession_id", referencedColumnName="id")
      * })

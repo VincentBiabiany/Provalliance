@@ -31,8 +31,8 @@ class Pays
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="ApiBundle\Entity\Langue", inversedBy="pays")
-     * @ORM\JoinTable(name="referentiel.pays_has_langue",
+     * @ORM\ManyToMany(targetEntity="ApiBundle\Entity\Langue", inversedBy="referentiel.pays")
+     * @ORM\JoinTable(name="pays_has_langue",
      *   joinColumns={
      *     @ORM\JoinColumn(name="pays_id", referencedColumnName="id")
      *   },
