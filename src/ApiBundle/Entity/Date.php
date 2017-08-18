@@ -5,12 +5,12 @@ namespace ApiBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * DateProfession
+ * Date
  *
- * @ORM\Table(name="referentiel.date_profession")
+ * @ORM\Table(name="referentiel.date")
  * @ORM\Entity
  */
-class DateProfession
+class Date
 {
     /**
      * @var \DateTime
@@ -25,6 +25,13 @@ class DateProfession
      * @ORM\Column(name="fin", type="datetime", nullable=true)
      */
     private $fin;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="actif", type="boolean", nullable=false)
+     */
+    private $actif;
 
     /**
      * @var integer
@@ -42,7 +49,7 @@ class DateProfession
      *
      * @param \DateTime $debut
      *
-     * @return DateProfession
+     * @return Date
      */
     public function setDebut($debut)
     {
@@ -66,7 +73,7 @@ class DateProfession
      *
      * @param \DateTime $fin
      *
-     * @return DateProfession
+     * @return Date
      */
     public function setFin($fin)
     {
@@ -83,6 +90,30 @@ class DateProfession
     public function getFin()
     {
         return $this->fin;
+    }
+
+    /**
+     * Set actif
+     *
+     * @param boolean $actif
+     *
+     * @return Date
+     */
+    public function setActif($actif)
+    {
+        $this->actif = $actif;
+
+        return $this;
+    }
+
+    /**
+     * Get actif
+     *
+     * @return boolean
+     */
+    public function getActif()
+    {
+        return $this->actif;
     }
 
     /**

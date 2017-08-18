@@ -20,9 +20,9 @@ class Adresse
     private $rue;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="cp", type="string", nullable=true)
+     * @ORM\Column(name="cp", type="integer", nullable=true)
      */
     private $cp;
 
@@ -36,28 +36,28 @@ class Adresse
     /**
      * @var string
      *
-     * @ORM\Column(name="telephone1", type="string", nullable=true)
+     * @ORM\Column(name="telephone1", type="string", length=30, nullable=true)
      */
     private $telephone1;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="telephone2", type="string", nullable=true)
+     * @ORM\Column(name="telephone2", type="string", length=30, nullable=true)
      */
     private $telephone2;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="fax", type="string", nullable=true)
+     * @ORM\Column(name="fax", type="string", length=30, nullable=true)
      */
     private $fax;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="portable", type="string", nullable=true)
+     * @ORM\Column(name="portable", type="string", length=30, nullable=true)
      */
     private $portable;
 
@@ -116,7 +116,7 @@ class Adresse
     /**
      * Set cp
      *
-     * @param string $cp
+     * @param integer $cp
      *
      * @return Adresse
      */
@@ -130,7 +130,7 @@ class Adresse
     /**
      * Get cp
      *
-     * @return string
+     * @return integer
      */
     public function getCp()
     {

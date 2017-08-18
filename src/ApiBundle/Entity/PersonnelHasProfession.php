@@ -13,11 +13,11 @@ use Doctrine\ORM\Mapping as ORM;
 class PersonnelHasProfession
 {
     /**
-     * @var \ApiBundle\Entity\DateProfession
+     * @var \ApiBundle\Entity\Date
      *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\OneToOne(targetEntity="ApiBundle\Entity\DateProfession")
+     * @ORM\OneToOne(targetEntity="ApiBundle\Entity\Date")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="date_profession_id", referencedColumnName="id")
      * })
@@ -53,11 +53,11 @@ class PersonnelHasProfession
     /**
      * Set dateProfession
      *
-     * @param \ApiBundle\Entity\DateProfession $dateProfession
+     * @param \ApiBundle\Entity\Date $dateProfession
      *
      * @return PersonnelHasProfession
      */
-    public function setDateProfession(\ApiBundle\Entity\DateProfession $dateProfession)
+    public function setDateProfession(\ApiBundle\Entity\Date $dateProfession)
     {
         $this->dateProfession = $dateProfession;
 
@@ -67,7 +67,7 @@ class PersonnelHasProfession
     /**
      * Get dateProfession
      *
-     * @return \ApiBundle\Entity\DateProfession
+     * @return \ApiBundle\Entity\Date
      */
     public function getDateProfession()
     {

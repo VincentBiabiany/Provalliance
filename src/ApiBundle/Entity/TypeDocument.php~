@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TypeDocument
  *
- * @ORM\Table(name="type_document")
+ * @ORM\Table(name="referentiel.type_document")
  * @ORM\Entity
  */
 class TypeDocument

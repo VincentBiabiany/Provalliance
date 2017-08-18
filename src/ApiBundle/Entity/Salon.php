@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Salon
  *
- * @ORM\Table(name="referentiel.salon", indexes={@ORM\Index(name="fk_salon_adresse1_idx", columns={"adresse_id"}), @ORM\Index(name="fk_salon_groupe1_idx", columns={"groupe_id"}), @ORM\Index(name="fk_salon_enseigne1_idx", columns={"enseigne_id"})})
+ * @ORM\Table(name="referentiel.salon", indexes={@ORM\Index(name="fk_salon_adresse1_idx", columns={"adresse_id"}), @ORM\Index(name="fk_salon_groupe1_idx", columns={"groupe_id"}), @ORM\Index(name="fk_salon_enseigne1_idx", columns={"enseigne_id"}), @ORM\Index(name="fk_salon_date1_idx", columns={"date_id"})})
  * @ORM\Entity
  */
 class Salon
@@ -20,9 +20,9 @@ class Salon
     private $nom;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="code_interne", type="integer", nullable=true)
+     * @ORM\Column(name="code_interne", type="string", length=45, nullable=true)
      */
     private $codeInterne;
 
@@ -32,20 +32,6 @@ class Salon
      * @ORM\Column(name="siret", type="string", length=45, nullable=true)
      */
     private $siret;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="date_creation", type="datetime", nullable=true)
-     */
-    private $dateCreation;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="date_fermeture", type="datetime", nullable=true)
-     */
-    private $dateFermeture;
 
     /**
      * @var string
@@ -93,6 +79,16 @@ class Salon
      * })
      */
     private $adresse;
+
+    /**
+     * @var \ApiBundle\Entity\Date
+     *
+     * @ORM\ManyToOne(targetEntity="ApiBundle\Entity\Date")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="date_id", referencedColumnName="id")
+     * })
+     */
+    private $date;
 
     /**
      * @var \ApiBundle\Entity\Enseigne
@@ -157,7 +153,7 @@ class Salon
     /**
      * Set codeInterne
      *
-     * @param integer $codeInterne
+     * @param string $codeInterne
      *
      * @return Salon
      */
@@ -171,7 +167,7 @@ class Salon
     /**
      * Get codeInterne
      *
-     * @return integer
+     * @return string
      */
     public function getCodeInterne()
     {
@@ -200,54 +196,6 @@ class Salon
     public function getSiret()
     {
         return $this->siret;
-    }
-
-    /**
-     * Set dateCreation
-     *
-     * @param \DateTime $dateCreation
-     *
-     * @return Salon
-     */
-    public function setDateCreation($dateCreation)
-    {
-        $this->dateCreation = $dateCreation;
-
-        return $this;
-    }
-
-    /**
-     * Get dateCreation
-     *
-     * @return \DateTime
-     */
-    public function getDateCreation()
-    {
-        return $this->dateCreation;
-    }
-
-    /**
-     * Set dateFermeture
-     *
-     * @param \DateTime $dateFermeture
-     *
-     * @return Salon
-     */
-    public function setDateFermeture($dateFermeture)
-    {
-        $this->dateFermeture = $dateFermeture;
-
-        return $this;
-    }
-
-    /**
-     * Get dateFermeture
-     *
-     * @return \DateTime
-     */
-    public function getDateFermeture()
-    {
-        return $this->dateFermeture;
     }
 
     /**
@@ -378,6 +326,30 @@ class Salon
     public function getAdresse()
     {
         return $this->adresse;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \ApiBundle\Entity\Date $date
+     *
+     * @return Salon
+     */
+    public function setDate(\ApiBundle\Entity\Date $date = null)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \ApiBundle\Entity\Date
+     */
+    public function getDate()
+    {
+        return $this->date;
     }
 
     /**

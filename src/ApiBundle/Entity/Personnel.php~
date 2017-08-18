@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Personnel
  *
- * @ORM\Table(name="personnel", indexes={@ORM\Index(name="fk_personnel_adresse1_idx", columns={"adresse_id"})})
+ * @ORM\Table(name="referentiel.personnel", indexes={@ORM\Index(name="fk_personnel_adresse1_idx", columns={"adresse_id"})})
  * @ORM\Entity
  */
 class Personnel
@@ -25,20 +25,6 @@ class Personnel
      * @ORM\Column(name="prenom", type="string", length=45, nullable=true)
      */
     private $prenom;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="date_embauche", type="datetime", nullable=true)
-     */
-    private $dateEmbauche;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="date_fin_contrat", type="datetime", nullable=true)
-     */
-    private $dateFinContrat;
 
     /**
      * @var string
@@ -83,7 +69,7 @@ class Personnel
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="ApiBundle\Entity\Salon", inversedBy="personnel")
+     * @ORM\ManyToMany(targetEntity="ApiBundle\Entity\Salon", inversedBy="referentiel.personnel")
      * @ORM\JoinTable(name="personnel_has_salon",
      *   joinColumns={
      *     @ORM\JoinColumn(name="personnel_id", referencedColumnName="id")

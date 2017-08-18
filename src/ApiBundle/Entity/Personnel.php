@@ -5,7 +5,7 @@ namespace ApiBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ApiBundle\Entity\Personnel
+ * Personnel
  *
  * @ORM\Table(name="referentiel.personnel", indexes={@ORM\Index(name="fk_personnel_adresse1_idx", columns={"adresse_id"})})
  * @ORM\Entity
@@ -25,20 +25,6 @@ class Personnel
      * @ORM\Column(name="prenom", type="string", length=45, nullable=true)
      */
     private $prenom;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="date_embauche", type="datetime", nullable=true)
-     */
-    private $dateEmbauche;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="date_fin_contrat", type="datetime", nullable=true)
-     */
-    private $dateFinContrat;
 
     /**
      * @var string
@@ -84,7 +70,7 @@ class Personnel
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\ManyToMany(targetEntity="ApiBundle\Entity\Salon", inversedBy="referentiel.personnel")
-     * @ORM\JoinTable(name="referentiel.personnel_has_salon",
+     * @ORM\JoinTable(name="personnel_has_salon",
      *   joinColumns={
      *     @ORM\JoinColumn(name="personnel_id", referencedColumnName="id")
      *   },
@@ -150,54 +136,6 @@ class Personnel
     public function getPrenom()
     {
         return $this->prenom;
-    }
-
-    /**
-     * Set dateEmbauche
-     *
-     * @param \DateTime $dateEmbauche
-     *
-     * @return Personnel
-     */
-    public function setDateEmbauche($dateEmbauche)
-    {
-        $this->dateEmbauche = $dateEmbauche;
-
-        return $this;
-    }
-
-    /**
-     * Get dateEmbauche
-     *
-     * @return \DateTime
-     */
-    public function getDateEmbauche()
-    {
-        return $this->dateEmbauche;
-    }
-
-    /**
-     * Set dateFinContrat
-     *
-     * @param \DateTime $dateFinContrat
-     *
-     * @return Personnel
-     */
-    public function setDateFinContrat($dateFinContrat)
-    {
-        $this->dateFinContrat = $dateFinContrat;
-
-        return $this;
-    }
-
-    /**
-     * Get dateFinContrat
-     *
-     * @return \DateTime
-     */
-    public function getDateFinContrat()
-    {
-        return $this->dateFinContrat;
     }
 
     /**
