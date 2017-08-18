@@ -1,3 +1,9 @@
+ApiBundle\Entity\Date:
+    date{1..5}:
+        debut: <dateTime()>
+        fin: <dateTime()>
+        actif: <boolean($chanceOfGettingTrue = 50)>
+
 ApiBundle\Entity\Pays:
     pays_1:
         nom: 'France'
@@ -25,7 +31,6 @@ ApiBundle\Entity\Profession:
 ApiBundle\Entity\Adresse:
     adresse{1..10}:
         rue: <fr_FR:streetName()>
-        cp: <fr_FR:postcode()>
         ville: <fr_FR:streetName()>
         telephone1: <fr_FR:phoneNumber()>
         telephone2: <fr_FR:phoneNumber()>
@@ -55,12 +60,11 @@ ApiBundle\Entity\Salon:
         nom: <fr_FR:company()>
         code_interne: <randomNumber()>
         siret: ''
-        date_creation: <dateTime()>
-        date_fermeture: <dateTime()>
         marque: ''
         langue_defaut: <languageCode()>
         marlix: <randomNumber()>
         sage_paie: <randomNumber()>
+        date: '@date*'
         adresse: '@adresse*'
         groupe: '@groupe*'
         enseigne: '@enseigne*'
@@ -69,8 +73,6 @@ ApiBundle\Entity\Personnel:
     personnel{1..5}:
         nom: <fr_FR:firstName()>
         prenom: <fr_FR:lastName()>
-        date_embauche: <dateTime()>
-        date_fin_contrat: <dateTime()>
         type_contrat: ''
         actif: <boolean($chanceOfGettingTrue = 50)>
         sexe: 'M'
