@@ -18,11 +18,11 @@ class User extends BaseUser
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-	
+
 	/**
      * @var int
      *
-     * @ORM\Column(name="personnel_id", type="integer")
+     * @ORM\Column(name="personnel_id", type="integer", nullable=true)
      */
     private $idPersonnel;
 

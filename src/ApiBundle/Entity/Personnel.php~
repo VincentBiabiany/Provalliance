@@ -3,14 +3,13 @@
 namespace ApiBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use AppBundle\Model\TestInterface;
 /**
  * Personnel
  *
  * @ORM\Table(name="referentiel.personnel", indexes={@ORM\Index(name="fk_personnel_adresse1_idx", columns={"adresse_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="ApiBundle\Repository\PersonnelRepository")
  */
-class Personnel implements TestInterface
+class Personnel
 {
     /**
      * @var string
@@ -18,10 +17,6 @@ class Personnel implements TestInterface
      * @ORM\Column(name="nom", type="string", length=45, nullable=true)
      */
     private $nom;
-
-    function getName(){
-            return "test";
-    }
 
     /**
      * @var string

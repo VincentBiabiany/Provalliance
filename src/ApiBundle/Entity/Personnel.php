@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Personnel
  *
  * @ORM\Table(name="referentiel.personnel", indexes={@ORM\Index(name="fk_personnel_adresse1_idx", columns={"adresse_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="ApiBundle\Repository\PersonnelRepository")
  */
 class Personnel
 {

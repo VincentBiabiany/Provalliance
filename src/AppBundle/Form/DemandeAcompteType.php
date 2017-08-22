@@ -11,12 +11,15 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use ApiBundle\Repository\PersonnelRepository;
 
 class DemandeAcompteType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
+
+      $idSalon = $options["idSalon"];
+      $builder
             ->add('montant', NumberType::class, array(
                 'label' => 'demandeacompte.montant',
                 'translation_domain' => 'demandeacompte'
@@ -26,6 +29,13 @@ class DemandeAcompteType extends AbstractType
                 'class' => 'ApiBundle:Personnel',
                 // use the User.username property as the visible option string
                 'choice_label' => 'nom',
+
+                'query_builder' => function (PersonnelRepository $er) use ($idSalon) {
+                    return $er->createQueryBuilder('p')
+                          ->where('p.salon = ?idSalon')
+                          ->setParameter(1, $idSalon);
+                  },
+
                 'label' => 'demandeacompte.nom',
                 'translation_domain' => 'demandeacompte'
               ))
@@ -40,6 +50,7 @@ class DemandeAcompteType extends AbstractType
 	{
 		$resolver->setDefaults(array(
 			'data_class' => DemandeAcompte::class,
+      'idSalon' => null
 		));
 	}
 }

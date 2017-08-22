@@ -20,7 +20,7 @@ class AcompteController extends Controller
     public function indexAction(Request $request)
     {
         $demandeacompte = new DemandeAcompte();
-        $form = $this->createForm(DemandeAcompteType::class, $demandeacompte);
+        $form = $this->createForm(DemandeAcompteType::class, $demandeacompte, array("idSalon" =>11));
 
         $form->handleRequest($request);
 
