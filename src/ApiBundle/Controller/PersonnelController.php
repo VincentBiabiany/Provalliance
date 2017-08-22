@@ -11,7 +11,6 @@ class PersonnelController extends FOSRestController
     {
 		$em = $this->getDoctrine()->getManager();
         $users = $em->getRepository('AppBundle:User')->findAll();
-
         $data = array("hello" => $users);
         $view = $this->view($data);
         return $this->handleView($view);
