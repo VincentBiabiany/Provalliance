@@ -25,7 +25,8 @@ class DemandeAcompte extends DemandeForm
      *
      * @ORM\Column(name="personnel_id", type="integer")
      */
-    private $personnel;
+    private $idPersonnel;
+
 
     /**
      * Set montant
@@ -49,29 +50,29 @@ class DemandeAcompte extends DemandeForm
     public function getMontant()
     {
         return $this->montant;
-    }   
+    }
 
     /**
-     * Set personnel
+     * Set idPersonnel
      *
-     * @param integer $personnel
+     * @param integer $idPersonnel
      *
      * @return DemandeAcompte
      */
-    public function setPersonnel($personnel)
+    public function setIdPersonnel($idPersonnel)
     {
-        $this->personnel = $personnel;
+        $this->idPersonnel = $idPersonnel;
 
         return $this;
     }
 
     /**
-     * Get personnel
+     * Get idPersonnel
      *
      * @return integer
      */
-    public function getPersonnel()
+    public function getIdPersonnel()
     {
-        return $this->personnel;
+        return $this->idPersonnel;
     }
 }

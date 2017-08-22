@@ -25,35 +25,22 @@ class AcompteController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
           $demande = new Demande();
           $acompte = new DemandeAcompte();
           $em = $this->getDoctrine()->getManager();
 
           $montant = $form["montant"]->getData();
-          $personnel = $form["personnel"]->getData();
+          $personnel = $form["idPersonnel"]->getData();
 
-          $acompte->setMontant($montant)->setPersonnel($personnel->getId());
-          $demande->setTypeform($acompte);
+          $acompte->setMontant($montant)->setIdPersonnel($personnel->getId());
+          $demande->setDemandeform($acompte);
 
           $em->persist($demande);
           $em->flush();
+          $this->addFlash("success", "La demande d'acompte pour ".$personnel->getNom()." a correctement été envoyé !.\n Un mail vous sera envoyé une fois votre demande traité. ");
 
           return $this->redirectToRoute('homepage');
        }
-       /*$acompte = new DemandeAcompte();
-        $acompte->setMontant(250)->setPersonnel(1);*/
-        //
-        // $ribsalarie = new RibSalarie();
-        // $ribsalarie->setRib(1)->setPersonnel(6);
-        //
-        // $demande = new Demande();
-        // // $demande->setTypeform($acompte);
-        // $demande->setTypeform($ribsalarie);
-        // $em = $this->getDoctrine()->getManager();
-        //
-        // $em->persist($demande);
-        // $em->flush();
 
         return $this->render('paie_acompte.html.twig', array(
                 'form'=> $form->createView(),

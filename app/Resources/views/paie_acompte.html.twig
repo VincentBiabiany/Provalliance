@@ -2,7 +2,7 @@
 {% block title %}Welcome{% endblock %}
 
 {% block body %}
-
+{% trans_default_domain "demandeacompte" %}
 <div class="header">
 	<img style="display: block !important;margin: auto !important;" id="logotop" src="{{ asset('img/provost.png') }}">
 </div>
@@ -12,51 +12,44 @@
 
 
 {{ form_start(form, {'attr': {'class': 'my-form-class'} }) }}
-    {{ form_widget(form) }}
-{{ form_end(form) }}
 
-<!--
+
 <div class="container">
 	<div style="max-width: 100%; margin: auto;">
-			
+
 		<div class="row">
 			<form class="form-horizontal" onsubmit="event.preventDefault();" style="margin: auto;width: 50%;">
 			  <div class="form-group" style="padding-top: 50px">
-				<label class="control-label label col-sm-3 col-xs-12" for="nom">Nom</label>
+				<label class="control-label label col-sm-3 col-xs-12" for="personnel"> {{ form_label(form.idPersonnel) }}</label>
 				 <div class="col-sm-9">
-					<input type="text" class="form-control" id="nom" >
-				</div>	
-			  </div>	
-			  
-			  <div class="form-group">	
-				<label class="control-label label col-sm-3 col-xs-12" for="prenom">Prénom</label>
-				<div class="col-sm-9">
-					<input type="text" class="form-control" id="prenom">
+
+                     {{ form_row(form.idPersonnel, { 'attr': {'class': 'form-control'} }) }}
 				</div>
-			</div>	
-			<div class="form-group">	
-				<label class="control-label label col-sm-3 col-xs-12" for="prenom">Montant</label>
+			  </div>
+
+			<div class="form-group">
+				<label class="control-label label col-sm-3 col-xs-12" for="montant">{{ form_label(form.montant) }}</label>
 				<div class="col-sm-9">
-					<input type="number" class="form-control" id="prenom">
+
+                        {{ form_row(form.montant, { 'attr': {'class': 'form-control'} }) }}
+
 				</div>
 			 </div>
-			  
-			  
-			  
+
+
+
 				<div class="col-sm-12" style="padding: 0;">
-					<button  onclick="window.location.href ='{{ path("home_paie") }}'" style="float:left;"   class="btn-black">Précédent</button>
-					<button  type="submit" id="gotohome"class="btn-black">Envoyer</button>
+					<button  onclick="window.location.href ='{{ path("home_paie") }}'" class="btn-black precedent">Précédent</button>
+                    {{ form_end(form) }}
 				</div>
 			</form>
-			<div class="col-sm-4 deco block" onclick="window.location.href ='./login.html'">
+			<div class="col-sm-4 deco block" onclick="window.location.href =''">
 				<span class="glyphicon glyphicon-off" style="padding-right:5px"></span>Déconnexion
 			</div>
 		</div>
-		
-		
+
+
 	</div>
 
 </div>
--->
-
 {% endblock %}

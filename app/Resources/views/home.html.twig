@@ -18,7 +18,12 @@
             <div id="myDropdown" style="margin:auto;"></div>
         </div>
 
-
+	{% for flash_message in app.session.flashBag.get('success') %}
+		<div class="alert alert-success success">
+			{{ flash_message }}
+		</div>
+	{% endfor %}
+	
     <div class="col-sm-12" style="padding-top:40px; max-width:1200px; margin:auto;">
         <div class="col-sm-6 block">
             <div onclick="window.location.href = '{{ path("home_juridique_rh") }}'"  class="under-block"><p class="carre">{{ "home.juridique_rh"|trans({}, "home") }}</p></div>
