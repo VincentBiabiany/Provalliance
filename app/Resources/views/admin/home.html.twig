@@ -1,0 +1,51 @@
+{% extends './base.html.twig' %}
+{% block title %}Administration{% endblock %}
+
+{% block body %}
+{% trans_default_domain "admin_home" %}
+
+<div class="container">
+	<div class="header">
+	</div>
+	<div class="head">
+		Administration
+	</div>
+
+	<div class="col-sm-12" style="padding-top: 50px;">
+
+			<div class="row" style="max-width: 875px;margin: auto;">
+
+	        <div class="col-sm-12" style="padding-top:40px; max-width:1200px; margin:auto;">
+	            <div class="col-sm-6 block">
+
+	                <div class="under-block" onclick="window.location.href ='{{ path("createAccount") }}'"><p class="carre">{{ "admin_home.create"|trans({}, "admin_home") }}</p></div>
+	            </div>
+	            <div class="col-sm-6 block">
+	                <div class="under-block" onclick="window.location.href ='{{ path("editAccount") }}'"><p class="carre">{{ "admin_home.edit"|trans({}, "admin_home") }}</p></div>
+	            </div>
+	        </div>
+
+	        <div class="col-sm-12" style=" max-width:1200px;margin:auto;float:none;">
+	            <div class="col-sm-6 block">
+	                <button class="btn-black" onclick="window.location.href = '{{ path("homepage") }}'" style="float:none;">Accueil</button>
+	            </div>
+	            <a href="{{ path('fos_user_security_logout') }}">
+	                <div class="col-sm-4 deco block">
+	                    <span class="glyphicon glyphicon-off" style="padding-right:5px"></span>{{ "home.deconnexion"|trans({}, "home") }}
+	                </div>
+	            </a>
+	        </div>
+	    </div>
+	</div>
+	<a href="{{ path('fos_user_security_logout') }}">
+			<div class="col-sm-4 deco block">
+					<span class="glyphicon glyphicon-off" style="padding-right:5px"></span>{{ "home.deconnexion"|trans({}, "home") }}
+			</div>
+	</a>
+	</div>
+
+
+
+</div>
+
+{% endblock %}

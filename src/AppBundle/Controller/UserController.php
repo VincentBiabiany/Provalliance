@@ -13,10 +13,9 @@ use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 
-
 class UserController extends Controller
 {
-   
+
 
       /**
      * @Route("/create", name="user_create")
@@ -27,7 +26,7 @@ class UserController extends Controller
 
         $form = $formFactory->createForm();
         $form ->add('enabled', ChoiceType::class, array(
-                 'choices'  => array('Activer' => 1,'Desactiver' => 0), 
+                 'choices'  => array('Activer' => 1,'Desactiver' => 0),
                         'expanded' => true,
                         'multiple' => false));
         $form-> add('Valider', SubmitType::class, array(
@@ -38,10 +37,10 @@ class UserController extends Controller
                       )
                      )
                 );
-         
+
           if ($request->isMethod('POST')) {
             $form->handleRequest($request);
-            
+
             if ($form->isValid()) {
                   $task = $form->getData();
 
@@ -52,9 +51,9 @@ class UserController extends Controller
 	            return $this->redirect($this->generateUrl('homepage'));
             }
         }
-        
-         return $this->render('@FOSUser/Security/create_user.html.twig',['form' => $form->createView()]);  
-        
+
+         return $this->render('@FOSUser/Security/create_user.html.twig',['form' => $form->createView()]);
+
     }
-    
+
 }
