@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * DemandeEmbauche
  *
- * @ORM\Table(name="demande_embauche")
+ * @ORM\Table(name="webapp.demande_embauche")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\DemandeEmbaucheRepository")
  */
 class DemandeEmbauche

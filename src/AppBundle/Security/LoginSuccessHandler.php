@@ -18,30 +18,25 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface {
         $this->authorizationChecker = $authorizationChecker;
     }
 
-    
-   public function onAuthenticationSuccess(Request $request, TokenInterface $token) {   
+   public function onAuthenticationSuccess(Request $request, TokenInterface $token) {
          // On récupère la liste des rôles d'un utilisateur
         $roles = $token->getRoles();
-//       var_dump($roles);
-//       return;
         // On transforme le tableau d'instance en tableau simple
-        $rolesTab = array_map(function($role){ 
-          return $role->getRole(); 
+        $rolesTab = array_map(function($role){
+          return $role->getRole();
         }, $roles);
         // S'il s'agit d'un admin ou d'un super admin on le redirige vers le backoffice
-        if (in_array('ROLE_ADMIN', $rolesTab, true) || in_array('ROLE_SUPER_ADMIN', $rolesTab, true))
-            $redirection = new RedirectResponse($this->router->generate('adminHome'));
-
-        // sinon il s'agit d'un membre
+        if (in_array('ROLE_PAIE', $rolesTab, true) || in_array('ROLE_JURIDIQUE', $rolesTab, true))
+            $redirection = new RedirectResponse($this->router->generate('demande'));
         else
             $redirection = new RedirectResponse($this->router->generate('homepage'));
- 
-        return $redirection;  
+
+        return $redirection;
    }
 }
-      
-    
-    
+
+
+
 //    public function onAuthenticationSuccess(Request $request, TokenInterface $token) {
 //
 //        $response = null;

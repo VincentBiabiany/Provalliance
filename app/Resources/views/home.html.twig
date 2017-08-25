@@ -18,6 +18,11 @@
             <div id="myDropdown" style="margin:auto;"></div>
         </div>
 
+	{% for flash_message in app.session.flashBag.get('success') %}
+		<div class="alert alert-success success">
+			{{ flash_message }}
+		</div>
+	{% endfor %}
 
     <div class="col-sm-12" style="padding-top:40px; max-width:1200px; margin:auto;">
         <div class="col-sm-6 block">
@@ -57,22 +62,20 @@
 </div>
 <script src="https://cdn.rawgit.com/prashantchaudhary/ddslick/master/jquery.ddslick.min.js"></script>
 <script language="javascript">
-    var ddData = [
+var ddData = [
+     {% for salon in salons %}
         {
-            value: 1,
-            text: "La Défense",
-            imageSrc: "{{ asset('img/fab.png') }}"
-        },
-        {
-            value: 1,
-            text: "Boulogne",
-            imageSrc: "{{ asset('img/pro.png') }}"
-        },
-        {
-            value: 1,
-            text: "Versailles",
-            imageSrc: "{{ asset('img/sai.jpg') }}"
-        }
+            value: {{ salon.id }},
+            text: "{{ salon.nom }}",
+
+            imageSrc: "{{ asset("img/") ~ salon.enseigne.logo }}"
+               {% if loop.last %}
+                 }
+               {% else %}
+                 },
+               {% endif %}
+
+     {% endfor %}
     ];
 
     $('#myDropdown').ddslick({
@@ -84,7 +87,7 @@
             logo = document.getElementById('logotop');
             console.log(selectedData);
             logo.src = selectedData.selectedData.imageSrc;
-            $.post('{{ path('homepage') }}', {variable: selectedData.selectedData.imageSrc});
+            $.post('{{ path('selected_salon') }}', {idSalon: selectedData.selectedData.value, img: logo.src});
         }
     });
 
@@ -92,4 +95,3 @@
 
 
 {% endblock %}
-

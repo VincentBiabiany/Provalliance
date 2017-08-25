@@ -15,7 +15,8 @@ class EmbaucheController extends Controller
      */
     public function indexAction(Request $request)
     {
-        return $this->render('embauche.html.twig', array(
-        ));
+      return $this->render('embauche.html.twig', array(
+        )
+      );
     }
 }

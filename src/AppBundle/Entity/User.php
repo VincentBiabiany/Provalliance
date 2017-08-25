@@ -19,9 +19,40 @@ class User extends BaseUser
      */
     protected $id;
 
+	/**
+     * @var int
+     *
+     * @ORM\Column(name="personnel_id", type="integer", nullable=true)
+     */
+    private $idPersonnel;
+
     public function __construct()
     {
         parent::__construct();
         // your own logic
+    }
+
+    /**
+     * Set idPersonnel
+     *
+     * @param integer $idPersonnel
+     *
+     * @return User
+     */
+    public function setIdPersonnel($idPersonnel)
+    {
+        $this->idPersonnel = $idPersonnel;
+
+        return $this;
+    }
+
+    /**
+     * Get idPersonnel
+     *
+     * @return integer
+     */
+    public function getIdPersonnel()
+    {
+        return $this->idPersonnel;
     }
 }

@@ -4,13 +4,13 @@
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-		
+
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-		<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">	
-        <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+			<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
 
 		<!-- Optional theme -->
-		<link rel="stylesheet" href="{{ asset('css/bootstrap-theme.min.css') }}" > 
+		<link rel="stylesheet" href="{{ asset('css/bootstrap-theme.min.css') }}" >
 
 		<script type="text/javascript" src="{{ asset('js/jquery-1.11.0.min.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('js/jquery-migrate-1.2.1.min.js') }}"></script>
@@ -19,15 +19,6 @@
 		<script src="{{ asset('js/bootstrap.min.js') }}"></script>
     </head>
     <body>
-
-	
-		{% for type, messages in app.session.flashBag.all %}
-			{% for message in messages %}
-				<div class="{{ type }}">
-					{{ message|trans({}, 'FOSUserBundle') }}
-				</div>
-			{% endfor %}
-		{% endfor %}
 		{% block fos_user_content %}{% endblock %}
 
         {% block body %}{% endblock %}
