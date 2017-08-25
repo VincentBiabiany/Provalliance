@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use ApiBundle\Repository\PersonnelRepository;
+use Doctrine\ORM\EntityRepository;
 
 class DemandeAcompteType extends AbstractType
 {
@@ -28,12 +28,16 @@ class DemandeAcompteType extends AbstractType
                 // query choices from this entity
                 'class' => 'ApiBundle:Personnel',
                 // use the User.username property as the visible option string
-                'choice_label' => 'nom',
 
-                'query_builder' => function (PersonnelRepository $er) use ($idSalon) {
+                'choice_label' => function ($personnel) {
+                      return $personnel->getNom() ." ". $personnel->getPrenom();
+                    },
+
+                'query_builder' => function (EntityRepository $er) use ($idSalon) {
                     return $er->createQueryBuilder('p')
-                          ->where('p.salon = ?idSalon')
-                          ->setParameter(1, $idSalon);
+                          ->join('p.salon', 'm')
+                          ->where('m.id = :idSalon')
+                          ->setParameter('idSalon', $idSalon);
                   },
 
                 'label' => 'demandeacompte.nom',
@@ -41,6 +45,7 @@ class DemandeAcompteType extends AbstractType
               ))
             ->add('Envoyer', SubmitType::class, array(
                 'label' => 'demandeacompte.envoyer',
+                'attr' => array('class' =>'btn-black end'),
                 'translation_domain' => 'demandeacompte'
               ))
         ;

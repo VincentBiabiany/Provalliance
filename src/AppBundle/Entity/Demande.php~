@@ -10,6 +10,7 @@ use AppBundle\Entity\DemandeForm;
  *
  * @ORM\Table(name="Demande")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\DemandeRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Demande
 {
@@ -64,9 +65,22 @@ class Demande
      */
     private $status;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="service", type="string", length=45, nullable=true)
+     */
+    private $service;
 
     /**
-     * @ORM\prePersist
+     * @var int
+     *
+     * @ORM\Column(name="salon_id", type="integer", length=45, nullable=true)
+     */
+    private $idSalon;
+
+    /**
+     * @ORM\PrePersist
      */
     public function prePersist() {
         $this->setDateEnvoi(new \DateTime());
@@ -201,5 +215,29 @@ class Demande
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set idSalon
+     *
+     * @param integer $idSalon
+     *
+     * @return Demande
+     */
+    public function setIdSalon($idSalon)
+    {
+        $this->idSalon = $idSalon;
+
+        return $this;
+    }
+
+    /**
+     * Get idSalon
+     *
+     * @return integer
+     */
+    public function getIdSalon()
+    {
+        return $this->idSalon;
     }
 }

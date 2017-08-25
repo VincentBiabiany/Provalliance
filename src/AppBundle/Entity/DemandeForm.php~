@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 abstract class DemandeForm
 {
-	/**
+    /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -20,7 +20,14 @@ abstract class DemandeForm
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-	
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type_form", type="string", length=255, nullable=true)
+     */
+    private $typeForm;
+
     /**
      * Get id
      *
@@ -31,4 +38,28 @@ abstract class DemandeForm
         return $this->id;
     }
 
+
+    /**
+     * Set typeForm
+     *
+     * @param string $typeForm
+     *
+     * @return DemandeForm
+     */
+    public function setTypeForm($typeForm)
+    {
+        $this->typeForm = $typeForm;
+
+        return $this;
+    }
+
+    /**
+     * Get typeForm
+     *
+     * @return string
+     */
+    public function getTypeForm()
+    {
+        return $this->typeForm;
+    }
 }

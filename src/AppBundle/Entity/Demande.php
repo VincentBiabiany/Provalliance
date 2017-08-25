@@ -65,6 +65,19 @@ class Demande
      */
     private $status;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="service", type="string", length=45, nullable=true)
+     */
+    private $service;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="salon_id", type="integer", length=45, nullable=true)
+     */
+    private $idSalon;
 
     /**
      * @ORM\PrePersist
@@ -202,5 +215,53 @@ class Demande
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set idSalon
+     *
+     * @param integer $idSalon
+     *
+     * @return Demande
+     */
+    public function setIdSalon($idSalon)
+    {
+        $this->idSalon = $idSalon;
+
+        return $this;
+    }
+
+    /**
+     * Get idSalon
+     *
+     * @return integer
+     */
+    public function getIdSalon()
+    {
+        return $this->idSalon;
+    }
+
+    /**
+     * Set service
+     *
+     * @param string $service
+     *
+     * @return Demande
+     */
+    public function setService($service)
+    {
+        $this->service = $service;
+
+        return $this;
+    }
+
+    /**
+     * Get service
+     *
+     * @return string
+     */
+    public function getService()
+    {
+        return $this->service;
     }
 }

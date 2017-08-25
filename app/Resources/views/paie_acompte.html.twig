@@ -4,7 +4,7 @@
 {% block body %}
 {% trans_default_domain "demandeacompte" %}
 <div class="header">
-	<img style="display: block !important;margin: auto !important;" id="logotop" src="{{ asset('img/provost.png') }}">
+	<img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
 </div>
 <div class="head">
 	Demande d'acompte
@@ -43,9 +43,12 @@
                     {{ form_end(form) }}
 				</div>
 			</form>
-			<div class="col-sm-4 deco block" onclick="window.location.href =''">
-				<span class="glyphicon glyphicon-off" style="padding-right:5px"></span>Déconnexion
-			</div>
+		</div>
+		<a href="{{ path('fos_user_security_logout') }}">
+				<div class="col-sm-4 deco block">
+						<span class="glyphicon glyphicon-off" style="padding-right:5px"></span>{{ "home.deconnexion"|trans({}, "home") }}
+				</div>
+		</a>
 		</div>
 
 

@@ -16,6 +16,10 @@ homepage:
   path:       /
   defaults:   {_controller: AppBundle:Home:index}
 
+selected_salon:
+  path: /selected_salon
+  defaults:   {_controller: AppBundle:Home:SelectedSalon}
+
 home_juridique_rh:
   path:       /juridique_rh
   defaults:   {_controller: AppBundle:DemandeJuridiqueRH:index}

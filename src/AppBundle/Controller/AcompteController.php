@@ -19,32 +19,40 @@ class AcompteController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $demandeacompte = new DemandeAcompte();
-        $form = $this->createForm(DemandeAcompteType::class, $demandeacompte, array("idSalon" =>11));
+      $img = $request->getSession()->get('img');
+      $idSalon = $request->getSession()->get('idSalon');
 
-        $form->handleRequest($request);
+      $demandeacompte = new DemandeAcompte();
+      $form = $this->createForm(DemandeAcompteType::class, $demandeacompte, array("idSalon" => $idSalon));
+      $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-          $demande = new Demande();
-          $acompte = new DemandeAcompte();
-          $em = $this->getDoctrine()->getManager();
+      $img = $request->getSession()->get('img');
 
-          $montant = $form["montant"]->getData();
-          $personnel = $form["idPersonnel"]->getData();
+      if ($form->isSubmitted() && $form->isValid()) {
+        $demande = new Demande();
+        $acompte = new DemandeAcompte();
+        $em = $this->getDoctrine()->getManager();
 
-          $acompte->setMontant($montant)->setIdPersonnel($personnel->getId());
-          $demande->setDemandeform($acompte);
+        $montant = $form["montant"]->getData();
+        $personnel = $form["idPersonnel"]->getData();
 
-          $em->persist($demande);
-          $em->flush();
-          $this->addFlash("success", "La demande d'acompte pour ".$personnel->getNom()." a correctement été envoyé !.\n Un mail vous sera envoyé une fois votre demande traité. ");
+        $acompte->setTypeForm("Demande d'acompte");
+        $acompte->setMontant($montant)->setIdPersonnel($personnel->getId());
+        $demande->setIdSalon($idSalon);
 
-          return $this->redirectToRoute('homepage');
+        $demande->setDemandeform($acompte);
+
+        $em->persist($demande);
+        $em->flush();
+        $this->addFlash("success", "La demande d'acompte pour ".$personnel->getNom()." a correctement été envoyé !.\n Un mail vous sera envoyé une fois votre demande traité. ");
+
+        return $this->redirectToRoute('homepage');
        }
 
-        return $this->render('paie_acompte.html.twig', array(
-                'form'=> $form->createView(),
-            )
-        );
+       return $this->render('paie_acompte.html.twig', array(
+              'img' => $img,
+              'form' => $form->createView(),
+          )
+       );
     }
 }

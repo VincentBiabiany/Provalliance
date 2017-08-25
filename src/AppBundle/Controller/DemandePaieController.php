@@ -15,7 +15,9 @@ class DemandePaieController extends Controller
      */
     public function indexAction(Request $request)
     {
-        return $this->render('home_paie.html.twig', array(
-        ));
+      $img = $request->getSession()->get('img');
+      return $this->render('home_paie.html.twig', array(
+        'img' => $img
+      ));
     }
 }
