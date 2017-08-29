@@ -15,8 +15,8 @@ use AppBundle\Entity\DemandeForm;
 class Demande
 {
     const STATUS_EN_COURS = "en cours";
-    const STATUS_TRAITEE  = "traitée";
-    const STATUS_REJETEE  = "rejetée";
+    const STATUS_TRAITE  = "traité";
+    const STATUS_REJETE  = "rejeté";
     /**
      * @var int
      *
@@ -37,7 +37,7 @@ class Demande
     /**
      * @var \AppBundle\Entity\User
      *
-     * @ORM\OneToOne(targetEntity="User", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="User", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * })

@@ -14,39 +14,34 @@
 
     <div class="row"  style="padding-top:65px; max-width:875px; margin:auto;">
 
-        <div class="col-sm-12"  style=" max-width:1200px; margin:auto;">
-
-            <div onclick="window.location.href = '{{ path("rh_embauche") }}'" class="col-sm-6 block">
-                <div class="under-block"><p class="carre">{{ "home_rh.embauche"|trans({}, "home_rh") }}</p></div>
-            </div>
-            <div class="col-sm-6 block">
-                <div class="under-block"><p class="carre">{{ "home_rh.solde"|trans({}, "home_rh") }}</p></div>
-            </div>
-        </div>
-
-        <div class="col-sm-12"  style="padding-top:65px; max-width:1200px; margin:auto;" >
-
-            <div class="col-sm-6 text-center">
-                <button class="btn-black" onclick="window.location.href = '{{ path("homepage") }}'" style="float:none;">Accueil</button>
-            </div>
-            <a href="{{ path('fos_user_security_logout') }}"><div class="col-sm-4 deco block">
-                    <span class="glyphicon glyphicon-off" style="padding-right:5px"></span>{{ "home.deconnexion"|trans({}, "home") }}
-                </div></a>
-        </div>
+      {{ form(form) }}
 
     </div>
 </div>
-<style>
 
-    .carre {
-        height: 90px !important;
-        margin-bottom: 25px;
+<script>
+var $situ = $('#demande_embauche_nationalite');
+
+$situ.change(function() {
+  // ... retrieve the corresponding form.
+  var $form = $(this).closest('form');
+  // Simulate form data, but only include the selected sport value.
+  var data = {};
+  data['demande_embauche_nationalite'] = $situ.val();
+  // Submit data via AJAX to the form's action path.
+  $.ajax({
+    url : $form.attr('action'),
+    type: $form.attr('method'),
+    data : data,
+    success: function(html) {
+      console.log(html)
+      // Replace current position field ...
+      $('#demande_embauche_nationalite').append($(html).find('#demande_embauche_address1'));
+      // Position field now displays the appropriate positions.
     }
-</style>
-
-
-
+  });
+});
+</script>
 
 
 {% endblock %}
-

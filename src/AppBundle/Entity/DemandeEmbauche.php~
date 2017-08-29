@@ -108,6 +108,13 @@ class DemandeEmbauche
     /**
      * @var string
      *
+     * @ORM\Column(name="situation_famille", type="integer")
+     */
+    private $situationFamille;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="date_embauche", type="string", length=255)
      */
     private $dateEmbauche;

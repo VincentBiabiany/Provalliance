@@ -17,45 +17,80 @@ class DemandeAcompteType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
       $idSalon = $options["idSalon"];
-      $builder
-            ->add('montant', NumberType::class, array(
-                'label' => 'demandeacompte.montant',
-                'translation_domain' => 'demandeacompte'
-              ))
-            ->add('idPersonnel', EntityType::class, array(
-                // query choices from this entity
-                'class' => 'ApiBundle:Personnel',
-                // use the User.username property as the visible option string
+      $idPersonnel = $options["idPersonnel"];
 
-                'choice_label' => function ($personnel) {
-                      return $personnel->getNom() ." ". $personnel->getPrenom();
+      if ($idSalon == null){
+        $builder
+              ->add('montant', NumberType::class, array(
+                  'attr' => array(
+                    'readonly' => true,
+                  ),
+                  'label' => 'demandeacompte.montant',
+                  'translation_domain' => 'demandeacompte'
+                ))
+              ->add('idPersonnel', EntityType::class, array(
+                  'attr' => array(
+                    'readonly' => true,
+                  ),
+                  // query choices from this entity
+                  'class' => 'ApiBundle:Personnel',
+                  // use the User.username property as the visible option string
+                  'choice_label' => function ($personnel) {
+                        return $personnel->getNom() ." ". $personnel->getPrenom();
+                      },
+
+                  'query_builder' => function (EntityRepository $er) use ($idPersonnel) {
+                      return $er->createQueryBuilder('p')
+                            ->where('p.id = :idPersonnel')
+                            ->setParameter('idPersonnel', $idPersonnel);
                     },
+                  'label' => 'demandeacompte.nom',
+                  'translation_domain' => 'demandeacompte'
+                ))
+          ;
+      } else {
+        $builder
+              ->add('montant', NumberType::class, array(
+                  'label' => 'demandeacompte.montant',
+                  'translation_domain' => 'demandeacompte'
+                ))
+              ->add('idPersonnel', EntityType::class, array(
+                  // query choices from this entity
+                  'class' => 'ApiBundle:Personnel',
+                  // use the User.username property as the visible option string
 
-                'query_builder' => function (EntityRepository $er) use ($idSalon) {
-                    return $er->createQueryBuilder('p')
-                          ->join('p.salon', 'm')
-                          ->where('m.id = :idSalon')
-                          ->setParameter('idSalon', $idSalon);
-                  },
+                  'choice_label' => function ($personnel) {
+                        return $personnel->getNom() ." ". $personnel->getPrenom();
+                      },
 
-                'label' => 'demandeacompte.nom',
-                'translation_domain' => 'demandeacompte'
-              ))
-            ->add('Envoyer', SubmitType::class, array(
-                'label' => 'demandeacompte.envoyer',
-                'attr' => array('class' =>'btn-black end'),
-                'translation_domain' => 'demandeacompte'
-              ))
-        ;
+                  'query_builder' => function (EntityRepository $er) use ($idSalon) {
+                      return $er->createQueryBuilder('p')
+                            ->join('p.salon', 'm')
+                            ->where('m.id = :idSalon')
+                            ->setParameter('idSalon', $idSalon);
+                    },
+                  'label' => 'demandeacompte.nom',
+                  'translation_domain' => 'demandeacompte'
+                ))
+              ->add('Envoyer', SubmitType::class, array(
+                  'label' => 'demandeacompte.envoyer',
+                  'attr' => array('class' =>'btn-black end'),
+                  'translation_domain' => 'demandeacompte'
+                ))
+          ;
+      }
+
+
+
     }
 
 	public function configureOptions(OptionsResolver $resolver)
 	{
 		$resolver->setDefaults(array(
 			'data_class' => DemandeAcompte::class,
-      'idSalon' => null
+      'idSalon' => null,
+      'idPersonnel' => null
 		));
 	}
 }

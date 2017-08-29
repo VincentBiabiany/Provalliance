@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+{% block title %}Welcome{% endblock %}
+
+{% block body %}
+{% trans_default_domain "demandeacompte" %}
+
+<div class="header">
+	<img style="display: block !important;margin: auto !important;" id="logotop" src="{{ asset("img/") ~ salon.enseigne.logo }}">
+</div>
+
+<div class="head">
+	{{ typedemande }}
+</div>
+
+<div class="container">
+	<div style="max-width: 100%; margin: auto;">
+
+		{% form_theme form 'form/acompte.html.twig' %}
+		{% block content %}
+				{{ form_start(form) }}
+				{{ form_end(form) }}
+			{% endblock %}
+
+      <div class="col-sm-12" style="background-color: #B39C8C; padding: 25px;">
+          <p> <b>Demandeur : </b>{{ demandeur.nom }} {{ demandeur.prenom }} </p>
+          <p> <p> <b>Date d'envoie :</b>  {{ date }} </p> <b>Satus :</b>  {{ status }} {% if dateTraitement is not null %} le {{ dateTraitement }} {% endif %}</p>
+          <p> <b>Salon :</b> {{ salon.nom }} </p>
+          <p> <b>Adresse :</b>  {{ salon.adresse.rue }} {{ salon.adresse.cp }} {{ salon.adresse.ville }}  </p>
+          <p> <b>Siret :</b>  {{ salon.siret }}</p>
+      </div>
+
+		{% if is_granted('ROLE_PAIE') or is_granted('ROLE_JURIDIQUE') %}
+			<div class="col-sm-12" style="max-width: 100%; margin: auto;">
+						{{ form_row(form2.reject, {'attr': {'class': 'btn-black end alert-danger'} }) }}
+						{{ form_row(form2.accept, {'attr': {'class': 'btn-black end alert-success'} }) }}
+			</div>
+		{% endif  %}
+
+		<a href="{{ path('fos_user_security_logout') }}">
+				<div class="col-sm-4 deco block">
+						<span class="glyphicon glyphicon-off" style="padding-right:5px"></span>{{ "home.deconnexion"|trans({}, "home") }}
+				</div>
+		</a>
+		<div class="col-sm-12" style="padding: 0;">
+			<button  onclick="window.location.href ='{{ path("home_paie") }}'" class="btn-black precedent">Précédent</button>
+		</div>
+	</div>
+</div>
+
+
+{% endblock %}
