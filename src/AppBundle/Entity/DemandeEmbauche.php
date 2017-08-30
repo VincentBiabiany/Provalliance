@@ -108,6 +108,13 @@ class DemandeEmbauche
     /**
      * @var string
      *
+     * @ORM\Column(name="situation_famille", type="integer")
+     */
+    private $situationFamille;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="date_embauche", type="string", length=255)
      */
     private $dateEmbauche;
@@ -929,5 +936,29 @@ class DemandeEmbauche
     public function getTempsPartiel()
     {
         return $this->tempsPartiel;
+    }
+
+    /**
+     * Set situationFamille
+     *
+     * @param integer $situationFamille
+     *
+     * @return DemandeEmbauche
+     */
+    public function setSituationFamille($situationFamille)
+    {
+        $this->situationFamille = $situationFamille;
+
+        return $this;
+    }
+
+    /**
+     * Get situationFamille
+     *
+     * @return integer
+     */
+    public function getSituationFamille()
+    {
+        return $this->situationFamille;
     }
 }

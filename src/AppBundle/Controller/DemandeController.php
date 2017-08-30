@@ -7,6 +7,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use AppBundle\Entity\DemandeAcompte;
+use AppBundle\Entity\Demande;
+use AppBundle\Form\DemandeAcompteType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class DemandeController extends Controller
 {
@@ -42,13 +47,11 @@ class DemandeController extends Controller
     ];
 
     if (in_array('ROLE_PAIE', $this->getUser()->getRoles(), true)) {
-
       $demandes = $this->getDoctrine()
                        ->getManager()->getRepository('AppBundle:Demande')
                        ->findBy(array("service" => "paie"));
 
     } else if (in_array('ROLE_JURIDIQUE', $this->getUser()->getRoles(), true)){
-
       $demandes = $this->getDoctrine()
                        ->getManager()->getRepository('AppBundle:Demande')
                        ->findBy(array("service" => "juridique"));
@@ -66,11 +69,15 @@ class DemandeController extends Controller
 
     $em = $this->getDoctrine()->getManager("referentiel");
 
-    foreach ( $demandes as $demande ) {
-      $demandeur = $em->getRepository('ApiBundle:Personnel')->findOneBy(array('id' => $demande->getUser()->getIdPersonnel()));
-      $collab = $em->getRepository('ApiBundle:Personnel')->findOneBy(array('id' => $demande->getDemandeform()->getIdPersonnel()));
+    foreach ($demandes as $demande) {
+      $demandeur = $em->getRepository('ApiBundle:Personnel')
+                      ->findOneBy(array('id' => $demande->getUser()->getIdPersonnel()));
+
+      $collab = $em->getRepository('ApiBundle:Personnel')
+                   ->findOneBy(array('id' => $demande->getDemandeform()->getIdPersonnel()));
       $date = $demande->getDateEnvoi();
       $output['data'][] = [
+        'id'               => $demande->getId(),
         ''                 => '<span class="glyphicon glyphicon-search click"></span>',
         'Salon'            => $em->getRepository('ApiBundle:Salon')->findOneBy(array("id" => $demande->getidSalon()))->getNom(),
         'Demandeur'        => $demandeur->getNom() . " " . $demandeur->getPrenom(),
@@ -83,4 +90,85 @@ class DemandeController extends Controller
     return new Response(json_encode($output), 200, ['Content-Type' => 'application/json']);
   }
 
+  /**
+   * @Route("/demande/{id}", name="demande_detail", requirements={"id": "\d+"})
+   */
+  public function detailIdAction(Request $request, $id)
+  {
+    $demande = $this->getDoctrine()
+                    ->getManager()
+                    ->getRepository('AppBundle:Demande')
+                    ->findOneBy(array("id" => $id));
+
+    $em = $this->getDoctrine()->getManager("referentiel");
+
+    $salon = $em->getRepository('ApiBundle:Salon')
+                ->findOneBy(array('id' => $demande->getidSalon()));
+
+    $demandeur = $em->getRepository('ApiBundle:Personnel')
+                    ->findOneBy(array('id' => $demande->getUser()->getIdPersonnel()));
+
+    $status = $demande->getStatus();
+    $typedemande = $demande->getDemandeform()->getTypeForm();
+    $date = $demande->getDateEnvoi();
+    $dateTraitement = $demande->getDateTraitement();
+
+    $defaultData = array('message' => 'Type your message here');
+    $form2 = $this->createFormBuilder($defaultData)
+                      ->setMethod("POST")
+                      ->add('message', TextareaType::class)
+                      ->add('accept', SubmitType::class)
+                      ->add('reject', SubmitType::class)
+                      ->getForm();
+
+    $form2->handleRequest($request);
+
+    if ($form2->isSubmitted()) {
+      if ($form2->get('reject')->isClicked())
+      {
+        $demande->setStatus(Demande::STATUS_REJETE);
+        $demande->setDateTraitement(new \DateTime());
+      }
+      else
+      {
+        $demande->setStatus(Demande::STATUS_TRAITE);
+        $demande->setDateTraitement(new \DateTime());
+      }
+      $this->getDoctrine()->getManager()->flush();
+      return $this->redirectToRoute("demande");
+    }
+
+    if ($demande->getDemandeform()->getTypeForm() == "Demande d'acompte")
+    {
+      $demandeacompte = new DemandeAcompte();
+      $demandeacompte = $demande->getDemandeform();
+      $form = $this->createForm(DemandeAcompteType::class,
+                                $demandeacompte,
+                                array("idSalon" => null,
+                                      "idPersonnel" => $demande->getDemandeform()->getIdPersonnel()
+                                    ));
+    }
+    if($dateTraitement)
+      $dateTraitement = $dateTraitement->format('d-m-Y H:i');
+    return $this->render('demande_detail.html.twig', array(
+      'demandeur'       => $demandeur,
+      'date'            => $date->format('d-m-Y H:i'),
+      'dateTraitement'  => $dateTraitement,
+      'status'          => $status,
+      'typedemande'     => $typedemande,
+      'salon'           => $salon,
+      'form'            => $form->createView(),
+      'form2'           => $form2->createView(),
+    ));
+  }
+
+  /**
+   * @Route("/detail", name="detail")
+   */
+  public function detailAction(Request $request)
+  {
+    return new Response($this->generateUrl('demande_detail',
+                                            array('id' => $request->get('id')
+                                          )));
+  }
 }

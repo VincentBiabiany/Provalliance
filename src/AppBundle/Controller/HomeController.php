@@ -14,7 +14,6 @@ class HomeController extends Controller
      */
     public function indexAction(Request $request)
     {
-
       $idPersonnnel = $this->getUser()->getIdPersonnel();
       $em = $this->getDoctrine()->getManager('referentiel');
       $personnel = $em->getRepository('ApiBundle:Personnel')->findOneBy(array('id' => $idPersonnnel));

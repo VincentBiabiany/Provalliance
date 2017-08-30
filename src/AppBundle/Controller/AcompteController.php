@@ -1,7 +1,5 @@
 <?php
-
 namespace AppBundle\Controller;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\BrowserKit\Response;
@@ -11,7 +9,6 @@ use AppBundle\Entity\DemandeAcompte;
 use AppBundle\Entity\Demande;
 use AppBundle\Entity\RibSalarie;
 use AppBundle\Form\DemandeAcompteType;
-
 class AcompteController extends Controller
 {
     /**
@@ -38,17 +35,18 @@ class AcompteController extends Controller
 
         $acompte->setTypeForm("Demande d'acompte");
         $acompte->setMontant($montant)->setIdPersonnel($personnel->getId());
-        $demande->setIdSalon($idSalon);
 
+        $demande->setService('paie');
+        $demande->setUser($this->getUser());
+        $demande->setIdSalon($idSalon);
         $demande->setDemandeform($acompte);
 
         $em->persist($demande);
         $em->flush();
-        $this->addFlash("success", "La demande d'acompte pour ".$personnel->getNom()." a correctement été envoyé !.\n Un mail vous sera envoyé une fois votre demande traité. ");
 
+        $this->addFlash("success", "La demande d'acompte pour ".$personnel->getNom()." a correctement été envoyé ! Un mail vous sera envoyé une fois votre demande traité.");
         return $this->redirectToRoute('homepage');
        }
-
        return $this->render('paie_acompte.html.twig', array(
               'img' => $img,
               'form' => $form->createView(),
