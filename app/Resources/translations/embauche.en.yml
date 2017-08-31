@@ -1,0 +1,54 @@
+embauche.attention:     Be carefull!
+embauche.msg:           Before starting to fill this form, please verify if you posses all these following documents in electronic format \:
+embauche.pi:            Identity Document
+embauche.diplome:       Diploma
+embauche.cartev:        health insurance card
+embauche.rib:           RIB bank
+embauche.adhesion:      health care mutual
+
+embauche.nom:           First name
+embauche.prenom:        Last name
+embauche.daten:         Birthday
+embauche.adr1:          Address 1
+embauche.adr2:          Address 2
+embauche.cp:            Postcode
+embauche.ville:         City
+embauche.tel:           Telephone
+embauche.nat:           Nationality
+embauche.nat.fr:        French
+embauche.nat.etr:       Foreigner
+embauche.ss:            Social security number
+embauche.email:         Email
+embauche.fam:           Family situation
+embauche.fam.marie:     Married
+embauche.fam.pacse:     Civil union
+embauche.fam.conc:      Concubinage
+embauche.fam.celib:     Bachelor
+embauche.nbenf:         Number of child
+embauche.villen:        City of birth
+
+
+embauche.dateemb:       Date d'embauche
+embauche.ancien:        Ancien salarié
+embauche.ancien.oui:    Yes
+embauche.ancien.no:     No
+embauche.poste:         Poste
+embauche.poste.coif:    Hairdresser
+embauche.poste.tech:    Technician
+embauche.poste.autre:   Other
+
+embauche.diplome.CAP:   CAP
+embauche.diplome.BEP:   BEP
+embauche.diplome.Autre: Other
+
+embauche.class:         Classification
+embauche.salaire:       Salaire base
+embauche.salaire.con:   Salaire Conventionnel
+embauche.salaire.other: Autre
+embauche.contrat:       Type de contrat
+embauche.partiel:       Temps partiel
+
+
+embauche.step1:         Etape 2
+embauche.step2:         Etape 3
+embauche.send:          Envoyer

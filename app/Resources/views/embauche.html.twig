@@ -2,23 +2,22 @@
 {% block title %}Welcome{% endblock %}
 
 {% block body %}
-
+{% trans_default_domain "embauche" %}
 <div class="header">
-    <img style="display: block !important;margin: auto !important;" id="logotop" src="{{ asset('img/provost.png') }}">
+    <img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
 </div>
 <div class="head" >
-    {{ "home_rh.header"|trans({}, "home_rh") }}
+    {{ "embauche.header"|trans({}, "embauche") }}
 </div>
 <div class="bg"></div>
 <div class="container">
 <div class="alert alert-danger" style="max-width: 875px; margin :auto; padding-top: 25px;">
-		<strong>Attention ! </strong> Avant de commencer à remplir le formulaire, veuillez vérifier que vous disposez toutes les pièces justificatives suivantes <strong>au format électronique :</strong>
-		<ul>
-		  <li>Pièce d'Identité</li>
-		  <li>Diplôme</li>
-		  <li>Attestation de carte vitale</li>
-		  <li>RIB</li>
-		  <li>Adhésion Mutuelle</li>
+		<strong> {{ "embauche.attention"|trans({}, "embauche") }} </strong> {{ "embauche.msg"|trans({}, "embauche") }}
+		  <li>{{ "embauche.pi"|trans({}, "embauche") }}</li>
+		  <li>{{ "embauche.diplome"|trans({}, "embauche") }}</li>
+		  <li>{{ "embauche.cartev"|trans({}, "embauche") }}</li>
+		  <li>{{ "embauche.rib"|trans({}, "embauche") }}</li>
+		  <li>{{ "embauche.adhesion"|trans({}, "embauche") }}</li>
 		</ul>
 	</div>
 	<div style="max-width: 100%; margin: auto;">
@@ -29,52 +28,52 @@
 
 			  <div class="form-group " style="padding-top: 50px">
 
-  				<label class="control-label label col-sm-3 col-xs-12" >Nom</label>
+  				<label class="control-label label col-sm-3 col-xs-12">{{ "embauche.nom"|trans({}, "embauche") }}</label>
   				<div class="col-sm-3">
   					      {{ form_widget(form.nom) }}
   				</div>
 
-  				<label class="control-label label col-sm-3 col-xs-12" >Prénom</label>
+  				<label class="control-label label col-sm-3 col-xs-12" >{{ "embauche.prenom"|trans({}, "embauche") }}</label>
   				<div class="col-sm-3">
   					     {{ form_widget(form.prenom) }}
   				</div>
 			  </div>
 
 			  <div class="form-group row">
-  				<label class="control-label label col-sm-3 col-xs-12" for="demande_embauche_dateNaissance">Date de naissance</label>
+  				<label class="control-label label col-sm-3 col-xs-12" for="demande_embauche_dateNaissance">{{ "embauche.daten"|trans({}, "embauche") }}</label>
   				<div class="col-sm-3">
   					     {{ form_widget(form.dateNaissance) }}
   				</div>
 			  </div>
 
 			  <div class="form-group row">
-  				<label class="control-label label col-sm-3 col-xs-12" for="adr">Adresse 1</label>
+  				<label class="control-label label col-sm-3 col-xs-12" for="adr">{{ "embauche.adr1"|trans({}, "embauche") }}</label>
   				<div class="col-sm-9">
   					     {{ form_widget(form.addresse1) }}
   				</div>
 			  </div>
 
         <div class="form-group row">
-          <label class="control-label label col-sm-3 col-xs-12" for="adr">Adresse 2</label>
+          <label class="control-label label col-sm-3 col-xs-12" for="adr">{{ "embauche.adr2"|trans({}, "embauche") }}</label>
           <div class="col-sm-9">
                  {{ form_widget(form.addresse2) }}
           </div>
         </div>
 
 			  <div class="form-group" style="">
-				 <label class="control-label label col-sm-3 col-xs-12">Code postal</label>
+				 <label class="control-label label col-sm-3 col-xs-12">{{ "embauche.cp"|trans({}, "embauche") }}</label>
   				<div class="col-sm-3">
   					    {{ form_widget(form.codePostal) }}
   				</div>
 
-  				<label class="control-label label col-sm-3 col-xs-12">Ville</label>
+  				<label class="control-label label col-sm-3 col-xs-12">{{ "embauche.ville"|trans({}, "embauche") }}</label>
   				<div class="col-sm-3">
   					     {{ form_widget(form.ville) }}
   				</div>
 			  </div>
 
 			  <div class="form-group" >
-  				<label class="control-label label col-sm-3 col-xs-12" for="tel">Téléphone</label>
+  				<label class="control-label label col-sm-3 col-xs-12" for="tel">{{ "embauche.tel"|trans({}, "embauche") }}</label>
   				<div class="col-sm-9">
   					     {{ form_widget(form.telephone) }}
   				</div>
@@ -82,19 +81,19 @@
 			  </div>
 
 			  <div class="form-group">
-  				<label class="control-label label col-sm-3 col-xs-12" for="Nationalité">Nationalité</label>
-  				<div class="col-sm-8" style="display: inline-flex" >
+  				<label class="control-label label col-sm-3 col-xs-12" for="Nationalité">{{ "embauche.nat"|trans({}, "embauche") }}</label>
+  				<div class="col-sm-3 append" style="display: inline-flex">
               {{ form(form.nationalite) }}
   				</div>
 			  </div>
 
 			  <div class="form-group">
-         <label class="control-label label col-sm-3 col-xs-12">N° de Sécu</label>
+         <label class="control-label label col-sm-3 col-xs-12">{{ "embauche.ss"|trans({}, "embauche") }}</label>
          <div class="col-sm-3">
                {{ form_widget(form.numSecu) }}
          </div>
 
-         <label class="control-label label col-sm-3 col-xs-12">Email</label>
+         <label class="control-label label col-sm-3 col-xs-12">{{ "embauche.email"|trans({}, "embauche") }}</label>
          <div class="col-sm-3">
                 {{ form_widget(form.email) }}
          </div>
@@ -102,19 +101,19 @@
 
 			 <div class="form-group" style="">
 
-				<label class="control-label label col-sm-3 col-xs-12"  for="fam">Situation familiale</label>
+				<label class="control-label label col-sm-3 col-xs-12"  for="fam">{{ "embauche.fam"|trans({}, "embauche") }}</label>
 				 <div class="col-sm-3">
 					      {{ form_widget(form.situationFamille) }}
 				</div>
 
-				<label class="control-label label col-sm-3 col-xs-12" for="enf">Nombre d'enfant(s)</label>
+				<label class="control-label label col-sm-3 col-xs-12" for="enf">{{ "embauche.nbenf"|trans({}, "embauche") }}</label>
 				<div class="col-sm-3 col-xs-12">
 					     {{ form_widget(form.nbEnfant) }}
 				</div>
       </div>
 
       <div class="form-group">
-        <label class="control-label label col-sm-3 col-xs-12" for="Nationalité">Ville naissance</label>
+        <label class="control-label label col-sm-3 col-xs-12" for="Nationalité">{{ "embauche.villen"|trans({}, "embauche") }}</label>
         <div class="col-sm-8" style="display: inline-flex" >
             {{ form_widget(form.villeNaissance) }}
         </div>
@@ -122,20 +121,31 @@
     {{ form_end(form) }}
 </div>
 <script>
-var $situ = $('#demande_embauche_nationalite');
-$situ.change(function() {
-	var elemnt = $('.append');
-	console.log("yo");
-	var input = document.createElement("input");
-  input.type = "text";
-	input.className = "form-control";
-	elemnt.parent().append('<div><label for="demande_embauche_autre" class="required">Autre</label><input type="text" id="demande_embauche_autre" name="demande_embauche[autre]" required="required" maxlength="255"></div>');
+ $(document).ready(function(){
+  var $situ = $('#demande_embauche_nationalite');
+  var count = 0;
+  $situ.change(function() {
+    var isChecked = $('#demande_embauche_nationalite_1').prop('checked');
+      if (isChecked && count == 0) {
+        count++
+      	var elemnt = $('.append');
+      	var input = document.createElement("input");
+        input.type = "text";
+      	input.className = "form-control";
+      	elemnt.parent().append('<div id="at"> <label for="demande_embauche_autre" class="control-label label col-sm-3 col-xs-12 required">Autre</label> \
+        <div id="autre" class="col-sm-3"> \
+        <input type="text" id="demande_embauche_autre" name="demande_embauche[autre]" class="form-control" required="required" maxlength="255"></div></div>');
+      } else if ( count != 0) {
+          $('#at').remove();
+          count = 0;
+      }
+    });
 });
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/locales/bootstrap-datepicker.fr.min.js"></script>
+<script src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap-datepicker.fr.min.js') }}"></script>
+<link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker.min.css') }}"/>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css"/>
 <script>
     $(document).ready(function() {
         $('.js-datepicker').datepicker({

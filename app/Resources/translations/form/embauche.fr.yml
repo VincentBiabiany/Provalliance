@@ -1,0 +1,29 @@
+embauche.header:        Demande d'embauche
+embauche.attention:     Attention !
+embauche.msg:           Avant de commencer à remplir le formulaire, veuillez vérifier que vous disposez toutes les pièces justificatives suivantes au format électronique :
+embauche.pi:            Pièce d'identité
+embauche.diplome:       Diplôme(s)
+embauche.cartev:        Attestation de carte vitale
+embauche.rib:           RIB
+embauche.adhesion:      Adhésion Mutuelle
+
+embauche.nom:           Nom
+embauche.prenom:        Prénom
+embauche.daten:         Date de naissance
+embauche.adr1:          Adresse 1
+embauche.adr2:          Adresse 2
+embauche.cp:            Code postal
+embauche.ville:         Ville
+embauche.tel:           Téléphone
+embauche.nat:           Nationalité
+embauche.nat.fr:        Française
+embauche.nat.etr:       Etrangère
+embauche.ss:            N° de Sécu
+embauche.email:         Email
+embauche.fam:           Situation familliale
+embauche.fam.marie:     Marié
+embauche.fam.pacse:     Pacsé
+embauche.fam.conc:      Concubinage
+embauche.fam.celib:     Célibataire
+embauche.nbenf:         Nombre d'enfant(s)
+embauche.villen:        Ville naissance

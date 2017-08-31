@@ -34,39 +34,56 @@ class DemandeEmbaucheType extends AbstractType
             ->add('dateNaissance', DateType::class, array(
                               'widget' => 'single_text',
                               'html5' => false,
+                              'format' => 'd-M-y',
                               'attr' => ['class' => 'js-datepicker form-control']))
             ->add('villeNaissance')
             ->add('nationalite', ChoiceType::class, array(
                 'choices'  => array(
-                    'Francaise' => 'francaise',
-                    'Etrangère' => 'etrangère',
+                    'Francaise' => 'embauche.nat.fr',
+                    'Etrangère' => 'embauche.nat.etr',
               ),
+                'translation_domain' => 'embauche',
+                'choice_translation_domain' => 'embauche',
                 'expanded' => true,
                 'multiple' => false,
             ))
             ->add('nbEnfant', null, array('attr' => ['class' => 'form-control']))
             ->add('situationFamille', ChoiceType::class, array(
                 'choices'  => array(
-                    'Marié' => 'marié',
-                    'Pacsé' => 'pacsé',
-                    'Concubinage' => 'concubinage',
-                    'Célibataire' => 'célibataire',
+                    'Marié' => 'embauche.fam.marie',
+                    'Pacsé' => 'embauche.fam.pacse',
+                    'Concubinage' => 'embauche.fam.conc',
+                    'Célibataire' => 'embauche.fam.celib',
+
               ),
+                'choice_translation_domain' => 'embauche',
+                'translation_domain' => 'embauche',
                 'attr' => ['class' => 'form-control']
             ))
             ->add('villeNaissance', null, array('attr' => ['class' => 'form-control']))
             ->add('Envoyer', SubmitType::class, array(
-                              'label' => 'demandeacompte.envoyer',
+                              'label' => 'embauche.step1',
                               'attr' => array('class' =>'btn-black end'),
-                              'translation_domain' => 'demandeacompte'
+                              'translation_domain' => 'embauche',
                             ))
             ;
+          //   $builder->addEventListener(
+          //       FormEvents::POST_SUBMIT,
+          //       function(FormEvent $event){
+          //         $form = $event->getForm(); // FormInterface
+          //         $data = $form->getData();
+          //         $dateNaissance = $data->getDateNaissance()->format('yyyy-mm-dd');
+          //         $data->setDateNaissance($dateNaissance);
+          //         $event->setData($data);
+          //       }
+          // );
           break;
         case '2':
           $builder->add('dateembauche', DateType::class, array(
                             'widget' => 'single_text',
                             'html5' => false,
-                            'attr' => ['class' => 'js-datepicker form-control'],))
+                            'format' => 'd-M-y',
+                            'attr' => ['class' => 'js-datepicker form-control']))
                   ->add('dejaSalarie', ChoiceType::class,array(
                            'choices' => array('Oui' => true, 'Non' => false),
                            'expanded' => true,
@@ -94,10 +111,15 @@ class DemandeEmbaucheType extends AbstractType
                          ))
                   ->add('typeContrat', ChoiceType::class,array(
                            'choices' => array('CDI' => 'CDI', 'Contrat d\'apprentissage' => 'Contrat d\'apprentissage', '
-Contrat de profes.' => 'Contrat de profes.'),
+Contrat de profes.' => 'Contrat de profes.', 'CDD' => 'CDD'),
                            'expanded' => true,
                            'multiple' => false,
                          ))
+                   ->add('Envoyer', SubmitType::class, array(
+                                     'label' => 'embauche.step2',
+                                     'attr' => array('class' =>'btn-black end'),
+                                     'translation_domain' => 'embauche',
+                          ))
                          ;
           break;
       }
