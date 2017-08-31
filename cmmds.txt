@@ -1,35 +1,15 @@
 ############## COMMANDE DOCTRINE ##############
 
-php bin\console server:run
 
-php bin/console doctrine:database:create
- 
-php bin/console doctrine:database:drop --force
-  
-php bin/console doctrine:generate:entity
-  
-php bin/console doctrine:schema:validate
-  
 php bin/console doctrine:schema:update --force
-   
-php bin/console doctrine:mapping:import --force AppBundle xml
-
-php bin/console doctrine:mapping:convert annotation ./src
-
 php bin/console doctrine:fixtures:load
-
 php bin/console doctrine:schema:update --force --em=default
-
 php bin/console doctrine:schema:update --dump-sql --em=default
-
-
- php bin/console doctrine:database:create --connection=default
-
-
+php bin/console doctrine:generate:entities AppBundle
 ############## COMMANDE GIT ##############
 
 git add .
-   
+
 git commit -m "Ajouté itinéraire dans checklist-vacances.md"
 
 git push origin master

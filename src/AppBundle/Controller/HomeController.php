@@ -20,7 +20,8 @@ class HomeController extends Controller
       $salons = $personnel->getSalon();
 
       return $this->render('home.html.twig', [
-          'salons'=>$salons
+          'salons'    => $salons,
+          'personnel' => $personnel
       ]);
     }
 

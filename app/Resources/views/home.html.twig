@@ -7,7 +7,7 @@
     <img style="display: block !important;margin: auto !important;" id="logotop" src="{{ asset('img/provost.png') }}">
 </div>
 <div class="head" >
-    Nelly, Bienvenue dans votre Espace Manager!
+    {{ personnel.prenom }} {{ personnel.nom }}, Bienvenue dans votre Espace Manager!
 </div>
 <div class="bg"></div>
 <div class="container">
@@ -19,7 +19,7 @@
         </div>
 
 	{% for flash_message in app.session.flashBag.get('success') %}
-		<div class="alert alert-success success">
+		<div class="alert alert-success success col-sm-12">
 			{{ flash_message }}
 		</div>
 	{% endfor %}

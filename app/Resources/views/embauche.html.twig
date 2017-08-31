@@ -11,37 +11,138 @@
 </div>
 <div class="bg"></div>
 <div class="container">
+<div class="alert alert-danger" style="max-width: 875px; margin :auto; padding-top: 25px;">
+		<strong>Attention ! </strong> Avant de commencer à remplir le formulaire, veuillez vérifier que vous disposez toutes les pièces justificatives suivantes <strong>au format électronique :</strong>
+		<ul>
+		  <li>Pièce d'Identité</li>
+		  <li>Diplôme</li>
+		  <li>Attestation de carte vitale</li>
+		  <li>RIB</li>
+		  <li>Adhésion Mutuelle</li>
+		</ul>
+	</div>
+	<div style="max-width: 100%; margin: auto;">
 
-    <div class="row"  style="padding-top:65px; max-width:875px; margin:auto;">
+		<div class="row">
+        {{ form_start(form, { 'attr' : { 'class': 'form-horizontal' } })}}
+			<div style="margin: auto;width: 75%;">
 
-      {{ form(form) }}
+			  <div class="form-group " style="padding-top: 50px">
 
-    </div>
+  				<label class="control-label label col-sm-3 col-xs-12" >Nom</label>
+  				<div class="col-sm-3">
+  					      {{ form_widget(form.nom) }}
+  				</div>
+
+  				<label class="control-label label col-sm-3 col-xs-12" >Prénom</label>
+  				<div class="col-sm-3">
+  					     {{ form_widget(form.prenom) }}
+  				</div>
+			  </div>
+
+			  <div class="form-group row">
+  				<label class="control-label label col-sm-3 col-xs-12" for="demande_embauche_dateNaissance">Date de naissance</label>
+  				<div class="col-sm-3">
+  					     {{ form_widget(form.dateNaissance) }}
+  				</div>
+			  </div>
+
+			  <div class="form-group row">
+  				<label class="control-label label col-sm-3 col-xs-12" for="adr">Adresse 1</label>
+  				<div class="col-sm-9">
+  					     {{ form_widget(form.addresse1) }}
+  				</div>
+			  </div>
+
+        <div class="form-group row">
+          <label class="control-label label col-sm-3 col-xs-12" for="adr">Adresse 2</label>
+          <div class="col-sm-9">
+                 {{ form_widget(form.addresse2) }}
+          </div>
+        </div>
+
+			  <div class="form-group" style="">
+				 <label class="control-label label col-sm-3 col-xs-12">Code postal</label>
+  				<div class="col-sm-3">
+  					    {{ form_widget(form.codePostal) }}
+  				</div>
+
+  				<label class="control-label label col-sm-3 col-xs-12">Ville</label>
+  				<div class="col-sm-3">
+  					     {{ form_widget(form.ville) }}
+  				</div>
+			  </div>
+
+			  <div class="form-group" >
+  				<label class="control-label label col-sm-3 col-xs-12" for="tel">Téléphone</label>
+  				<div class="col-sm-9">
+  					     {{ form_widget(form.telephone) }}
+  				</div>
+
+			  </div>
+
+			  <div class="form-group">
+  				<label class="control-label label col-sm-3 col-xs-12" for="Nationalité">Nationalité</label>
+  				<div class="col-sm-8" style="display: inline-flex" >
+              {{ form(form.nationalite) }}
+  				</div>
+			  </div>
+
+			  <div class="form-group">
+         <label class="control-label label col-sm-3 col-xs-12">N° de Sécu</label>
+         <div class="col-sm-3">
+               {{ form_widget(form.numSecu) }}
+         </div>
+
+         <label class="control-label label col-sm-3 col-xs-12">Email</label>
+         <div class="col-sm-3">
+                {{ form_widget(form.email) }}
+         </div>
+			  </div>
+
+			 <div class="form-group" style="">
+
+				<label class="control-label label col-sm-3 col-xs-12"  for="fam">Situation familiale</label>
+				 <div class="col-sm-3">
+					      {{ form_widget(form.situationFamille) }}
+				</div>
+
+				<label class="control-label label col-sm-3 col-xs-12" for="enf">Nombre d'enfant(s)</label>
+				<div class="col-sm-3 col-xs-12">
+					     {{ form_widget(form.nbEnfant) }}
+				</div>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label label col-sm-3 col-xs-12" for="Nationalité">Ville naissance</label>
+        <div class="col-sm-8" style="display: inline-flex" >
+            {{ form_widget(form.villeNaissance) }}
+        </div>
+      </div>
+    {{ form_end(form) }}
 </div>
-
 <script>
 var $situ = $('#demande_embauche_nationalite');
-
 $situ.change(function() {
-  // ... retrieve the corresponding form.
-  var $form = $(this).closest('form');
-  // Simulate form data, but only include the selected sport value.
-  var data = {};
-  data['demande_embauche_nationalite'] = $situ.val();
-  // Submit data via AJAX to the form's action path.
-  $.ajax({
-    url : $form.attr('action'),
-    type: $form.attr('method'),
-    data : data,
-    success: function(html) {
-      console.log(html)
-      // Replace current position field ...
-      $('#demande_embauche_nationalite').append($(html).find('#demande_embauche_address1'));
-      // Position field now displays the appropriate positions.
-    }
-  });
+	var elemnt = $('.append');
+	console.log("yo");
+	var input = document.createElement("input");
+  input.type = "text";
+	input.className = "form-control";
+	elemnt.parent().append('<div><label for="demande_embauche_autre" class="required">Autre</label><input type="text" id="demande_embauche_autre" name="demande_embauche[autre]" required="required" maxlength="255"></div>');
 });
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/locales/bootstrap-datepicker.fr.min.js"></script>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css"/>
+<script>
+    $(document).ready(function() {
+        $('.js-datepicker').datepicker({
+            format: 'dd-mm-yyyy',
+            language: 'fr'
+          });
+    });
+</script>
 
 {% endblock %}

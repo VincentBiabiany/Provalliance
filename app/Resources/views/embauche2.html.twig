@@ -1,0 +1,152 @@
+{% extends 'base.html.twig' %}
+{% block title %}Welcome{% endblock %}
+
+{% block body %}
+
+<div class="header">
+    <img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
+</div>
+<div class="head" >
+    {{ "home_rh.header"|trans({}, "home_rh") }}
+</div>
+<div class="bg"></div>
+<div class="container">
+<div class="alert alert-danger" style="max-width: 875px; margin :auto; padding-top: 25px;">
+		<strong>Attention ! </strong> Avant de commencer à remplir le formulaire, veuillez vérifier que vous disposez toutes les pièces justificatives suivantes <strong>au format électronique :</strong>
+		<ul>
+		  <li>Pièce d'Identité</li>
+		  <li>Diplôme</li>
+		  <li>Attestation de carte vitale</li>
+		  <li>RIB</li>
+		  <li>Adhésion Mutuelle</li>
+		</ul>
+	</div>
+<div style="max-width: 100%; margin: auto;">
+
+<div class="row">
+
+<div class="container">
+	<div style="max-width: 100%; margin: auto;">
+
+		<div class="row">
+				        {{ form_start(form, { 'attr' : { 'class': 'form-horizontal' } }) }}
+				<div class="row">
+				  <div class="form-group *" style="padding-bottom:25px; padding-top: 50px">
+  					<label class="control-label label col-sm-3 col-xs-12"  for="embauche">Date d'embauche</label>
+  					 <div class="col-sm-3">
+  						       {{ form(form.dateembauche) }}
+  					</div>
+
+  					<label class="control-label label col-sm-3 col-xs-12" for="groupe">Ancien salarié</label>
+  					<div class="col-sm-3 pad-box" style="display: inline-flex" >
+                    {{ form(form.dejaSalarie) }}
+  					</div>
+				  </div>
+
+				  <div class="form-group">
+  					<label class="control-label label col-sm-3 col-xs-12" for="date">Poste</label>
+  		              {{ form(form.poste) }}
+				  </div>
+
+				  <div class="form-group row">
+  					<label class="control-label label col-sm-3 col-xs-12" for="date">Diplômes obtenus</label>
+  					<div class="col-sm-8 pad-box" style="display: inline-flex" >
+                    {{ form(form.diplomes) }}
+  					</div>
+				  </div>
+
+				  <div class="form-group row" style="">
+  					<label class="control-label label col-sm-3 col-xs-12"  for="nom">Classification</label>
+  					 <div class="col-sm-8 pad-box" >
+  						<div class="col-xs-4" style="display: inline-flex" >
+  						        {{ form(form.classification) }}
+  						</div>
+  						<div class="col-xs-4" style="display: inline-flex" >
+                      {{ form(form.diplomes) }}
+  						</div>
+  						<div class="col-xs-4" style="display: inline-flex" >
+  							<input type="radio"  name="groupe"  style="color:black"><p style="color:black; font-size:15px">Autre</p>
+  						</div>
+  					</div>
+				   </div>
+
+				 <div class="form-group row" style="">
+					<label class="control-label label col-sm-3 col-xs-12" for="prenom">Salaire Base</label>
+					 <div class="col-sm-8 pad-box">
+						<div class="col-xs-4" style="display: inline-flex" >
+							         {{ form(form.salaireBase) }}
+						</div>
+						<div class="col-xs-4" style="display: inline-flex" >
+							<input type="radio"  name="groupe"  style="color:black"><p style="color:black; font-size:15px">Autre</p>
+						</div>
+					</div>
+				  </div>
+
+				  <label class="control-label label col-sm-3 col-xs-12"  for="nom">Type de contrat</label>
+				  <div class="form-group" >
+                      {{ form(form.typeContrat) }}
+				  </div>
+
+				  <div class="form-group">
+					<label class="control-label label col-sm-3 col-xs-12" for="Nationalité">Temps partiel</label>
+					<div class="col-sm-8 pad-box" style="display: inline-flex" >
+						<div class="col-sm-8 " style="display: inline-flex" >
+							<input type="checkbox"  name="Nationalité"  style="color:black"><p style="color:black;font-size:15px">LU</p>
+						</div>
+						<div class="col-xs-8" style="display: inline-flex" >
+							<input type="checkbox"  name="Nationalité"  style="color:black"><p style="color:black; font-size:15px">MA</p>
+						</div>
+						<div class="col-sm-8" style="display: inline-flex" >
+							<input type="checkbox"  name="Nationalité"  style="color:black"><p style="color:black;font-size:15px">ME</p>
+						</div>
+						<div class="col-xs-8" style="display: inline-flex" >
+							<input type="checkbox"  name="Nationalité"  style="color:black"><p style="color:black; font-size:15px">JE</p>
+						</div>
+						<div class="col-xs-8" style="display: inline-flex" >
+							<input type="checkbox"  name="groupe"  style="color:black"><p style="color:black; font-size:15px">VE</p>
+						</div>
+						<div class="col-xs-8" style="display: inline-flex" >
+							<input type="checkbox"  name="groupe"  style="color:black"><p style="color:black; font-size:15px">SA</p>
+						</div>
+						<div class="col-xs-8 pad-box" style="display: inline-flex" >
+							<input type="number"  name="groupe"  style="color:black"><p style="color:black; font-size:15px">TOTAL</p>
+						</div>
+					</div>
+				  </div>
+        </div>
+      {{ form_end(form) }}
+
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+
+<script>
+
+
+var $situ = $('#demande_embauche_nationalite');
+
+$situ.change(function() {
+	var elemnt = $('.append');
+	console.log("yo");
+	var input = document.createElement("input");
+  input.type = "text";
+	input.className = "form-control";
+	elemnt.parent().append('<div><label for="demande_embauche_autre" class="required">Autre</label><input type="text" id="demande_embauche_autre" name="demande_embauche[autre]" required="required" maxlength="255"></div>');
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/locales/bootstrap-datepicker.fr.min.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css"/>
+<script>
+    $(document).ready(function() {
+        $('.js-datepicker').datepicker({
+            format: 'yyyy-mm-dd'//format: 'dd-mm-yyyy',
+            //language: 'fr'
+          });
+    });
+</script>
+
+{% endblock %}

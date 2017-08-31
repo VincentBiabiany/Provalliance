@@ -113,10 +113,8 @@ class DemandeController extends Controller
     $date = $demande->getDateEnvoi();
     $dateTraitement = $demande->getDateTraitement();
 
-    $defaultData = array('message' => 'Type your message here');
-    $form2 = $this->createFormBuilder($defaultData)
+    $form2 = $this->createFormBuilder()
                       ->setMethod("POST")
-                      ->add('message', TextareaType::class)
                       ->add('accept', SubmitType::class)
                       ->add('reject', SubmitType::class)
                       ->getForm();

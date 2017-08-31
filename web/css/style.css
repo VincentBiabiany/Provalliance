@@ -6,7 +6,7 @@ body,p,a,h1,h2,h3,h4 {
 }
 @font-face {
 	font-family: 'Brown';
-	src: url('../fonts/Brown-Light.otf');  
+	src: url('../fonts/Brown-Light.otf');
 	font-weight: regular;
 }
 .header{
@@ -20,8 +20,8 @@ body,p,a,h1,h2,h3,h4 {
 }
 
 .btn-black{
-	background-color:white !important;    
-	max-width: 150px; 
+	background-color:white !important;
+	max-width: 150px;
 	text-align: center !important;
 	vertical-align: middle;
 	line-height: 30px;
@@ -34,11 +34,17 @@ body,p,a,h1,h2,h3,h4 {
 	color: black;
     font-weight: bold;
 }
-
-
+.radio-b{
+	color:black;
+	font-size:15px;
+}
+label.required {
+	color:black;
+	font-size:15px;
+}
 /*STYLE LOGIN*/
 #Nova{
-    padding-top:50px; 
+    padding-top:50px;
     color: black;
     float:right
 }
@@ -50,14 +56,14 @@ body,p,a,h1,h2,h3,h4 {
 
 /*STYLE FORMULAIRES*/
 #formContent{
-    
-    max-width: 700px; 
+
+    max-width: 700px;
     margin: auto;
 }
 
 
 .label{
-	background-color:#B39C8C;    
+	background-color:#B39C8C;
 	/*max-width: 158px;*/
 	text-align: center !important;
 	vertical-align: middle;
@@ -65,10 +71,10 @@ body,p,a,h1,h2,h3,h4 {
 	font-size: 16px;
 	color:black;
 }
-.form-control {   
+.form-control {
 	border-radius: 0 !important;
 	border: 1px solid #000;
-	border-top: 0 !important;	
+	border-top: 0 !important;
    	border-left: 0 !important;
     	border-right: 0 !important;
 	webkit-box-shadow: none !important;
@@ -108,8 +114,8 @@ body,p,a,h1,h2,h3,h4 {
     	z-index: 23;
 }
 
-.bg { 
-  background: url(../img/fond-filigrane.png) no-repeat center center fixed; 
+.bg {
+  background: url(../img/fond-filigrane.png) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -117,11 +123,11 @@ body,p,a,h1,h2,h3,h4 {
   min-height: 100%;
 
   min-height: 100%;
-	
+
   /* Set up proportionate scaling */
   width: 100%;
   height: auto;
-	
+
   /* Set up positioning */
   position: fixed;
   top: 0;
@@ -131,8 +137,8 @@ body,p,a,h1,h2,h3,h4 {
 }
 .logo-prov {
 	margin: auto;
-	display: block; 
-	padding-bottom:50px; 
+	display: block;
+	padding-bottom:50px;
 	max-width:450px;
 }
 
@@ -141,7 +147,7 @@ body,p,a,h1,h2,h3,h4 {
 	color: white;
 
 }
-@media (max-width:767px){	
+@media (max-width:767px){
     	.label{
 		max-width:100%;
     	}
@@ -155,7 +161,7 @@ body,p,a,h1,h2,h3,h4 {
 	.login-form {
    		width: 75%;
    		margin: auto;
-	}	
+	}
 }
 @media (max-width: 1024px) {
 	.carre {
@@ -213,7 +219,7 @@ td, th {
     text-align: left;
     padding: 8px;
     color: black;
-    text-align: center; 
+    text-align: center;
 }
 
 tr:nth-child(even) {

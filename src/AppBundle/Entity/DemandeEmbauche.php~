@@ -31,6 +31,13 @@ class DemandeEmbauche
     /**
      * @var string
      *
+     * @ORM\Column(name="prenom", type="string", length=255)
+     */
+    private $prenom;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="addresse_1", type="string", length=255)
      */
     private $addresse1;
@@ -115,7 +122,7 @@ class DemandeEmbauche
     /**
      * @var string
      *
-     * @ORM\Column(name="date_embauche", type="string", length=255)
+     * @ORM\Column(name="date_embauche", type="datetime", length=255)
      */
     private $dateEmbauche;
 
@@ -199,7 +206,7 @@ class DemandeEmbauche
     /**
      * @var string
      *
-     * @ORM\Column(name="remplacement_date", type="string", length=255)
+     * @ORM\Column(name="remplacement_date", type="datetime", length=255)
      */
     private $remplacementDate;
 
@@ -213,7 +220,7 @@ class DemandeEmbauche
     /**
      * @var string
      *
-     * @ORM\Column(name="remplacement_date2", type="string", length=255)
+     * @ORM\Column(name="remplacement_date2", type="datetime", length=255)
      */
     private $remplacementDate2;
 
@@ -227,10 +234,9 @@ class DemandeEmbauche
     /**
      * @var array
      *
-     * @ORM\Column(name="temps_partiel", type="array")
+     * @ORM\Column(name="temps_partiel", type="json_array")
      */
     private $tempsPartiel;
-
 
     /**
      * Get id
@@ -936,5 +942,53 @@ class DemandeEmbauche
     public function getTempsPartiel()
     {
         return $this->tempsPartiel;
+    }
+
+    /**
+     * Set situationFamille
+     *
+     * @param integer $situationFamille
+     *
+     * @return DemandeEmbauche
+     */
+    public function setSituationFamille($situationFamille)
+    {
+        $this->situationFamille = $situationFamille;
+
+        return $this;
+    }
+
+    /**
+     * Get situationFamille
+     *
+     * @return integer
+     */
+    public function getSituationFamille()
+    {
+        return $this->situationFamille;
+    }
+
+    /**
+     * Set prenom
+     *
+     * @param string $prenom
+     *
+     * @return DemandeEmbauche
+     */
+    public function setPrenom($prenom)
+    {
+        $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    /**
+     * Get prenom
+     *
+     * @return string
+     */
+    public function getPrenom()
+    {
+        return $this->prenom;
     }
 }

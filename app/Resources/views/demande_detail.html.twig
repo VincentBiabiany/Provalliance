@@ -31,8 +31,10 @@
 
 		{% if is_granted('ROLE_PAIE') or is_granted('ROLE_JURIDIQUE') %}
 			<div class="col-sm-12" style="max-width: 100%; margin: auto;">
-						{{ form_row(form2.reject, {'attr': {'class': 'btn-black end alert-danger'} }) }}
-						{{ form_row(form2.accept, {'attr': {'class': 'btn-black end alert-success'} }) }}
+				 {{ form_start(form) }}
+						{{ form_widget(form2.reject, {'attr': {'class': 'btn-black end alert-danger'} }) }}
+						{{ form_widget(form2.accept, {'attr': {'class': 'btn-black end alert-success'} }) }}
+					{{ form_end(form) }}
 			</div>
 		{% endif  %}
 
@@ -42,7 +44,7 @@
 				</div>
 		</a>
 		<div class="col-sm-12" style="padding: 0;">
-			<button  onclick="window.location.href ='{{ path("home_paie") }}'" class="btn-black precedent">Précédent</button>
+			<button  onclick="window.location.href ='{{ path("demande") }}'" class="btn-black precedent">Précédent</button>
 		</div>
 	</div>
 </div>
