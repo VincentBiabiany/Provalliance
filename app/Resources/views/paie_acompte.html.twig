@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% form_theme form 'form/error.html.twig' %}
 {% block title %}Welcome{% endblock %}
 
 {% block body %}
@@ -11,19 +12,18 @@
 </div>
 
 
-{{ form_start(form, {'attr': {'class': 'my-form-class'} }) }}
-
 
 <div class="container">
-	<div style="max-width: 100%; margin: auto;">
+  <div id="actions" class="off">
+		{{ form_start(form, {'attr': {'class': 'demande_acompte', 'id':'formAccompte'} }) }}
 
-		<div class="row">
-			<form class="form-horizontal" onsubmit="event.preventDefault();" style="margin: auto;width: 50%;">
-			  <div class="form-group" style="padding-top: 50px">
+		    {{ form_errors(form)}}
+		<div class="row"  style="max-width: 875px; margin: auto;">
+			  <div class="form-group">
 				<label class="control-label label col-sm-3 col-xs-12" for="personnel"> {{ form_label(form.idPersonnel) }}</label>
 				 <div class="col-sm-9">
 
-                     {{ form_row(form.idPersonnel, { 'attr': {'class': 'form-control'} }) }}
+                     {{ form_widget(form.idPersonnel, { 'attr': {'class': 'form-control'} }) }}
 				</div>
 			  </div>
 
@@ -31,26 +31,41 @@
 				<label class="control-label label col-sm-3 col-xs-12" for="montant">{{ form_label(form.montant) }}</label>
 				<div class="col-sm-9">
 
-                        {{ form_row(form.montant, { 'attr': {'class': 'form-control'} }) }}
+                        {{ form_widget(form.montant, { 'attr': {'class': 'form-control'} }) }}
+												<div id="infoMontant">
+														<span class="min">150€ min</span>
+														<span class="max">1500€ max.</span>
+												</div>
+
 
 				</div>
 			 </div>
 
-				<div class="col-sm-12" style="padding: 0;">
-					<button  onclick="window.location.href ='{{ path("home_paie") }}'" class="btn-black precedent">Précédent</button>
-                    {{ form_end(form) }}
-				</div>
-			</form>
 		</div>
+		<div id="actionsButtons">
+			   {{ form_end(form) }}
+					<a href="{{ path('home_paie') }}" class="btn-black precedent">Précédent</a>
+
+    </div>
 		<a href="{{ path('fos_user_security_logout') }}">
 				<div class="col-sm-4 deco block">
 						<span class="glyphicon glyphicon-off" style="padding-right:5px"></span>{{ "home.deconnexion"|trans({}, "home") }}
 				</div>
 		</a>
-		</div>
+
 
 
 	</div>
+</div>
 
 </div>
+
+<script language="javascript">
+// With JQuery
+$("#demande_acompte_montant").slider({
+	tooltip: 'always'
+});
+
+</script>
+
 {% endblock %}

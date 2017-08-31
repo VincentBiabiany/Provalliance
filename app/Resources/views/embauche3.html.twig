@@ -1,0 +1,138 @@
+{% extends 'base.html.twig' %}
+{% block title %}Welcome{% endblock %}
+
+{% block body %}
+
+<div class="header">
+    <img style="display: block !important;margin: auto !important;" id="logotop" src="{{ asset('img/provost.png') }}">
+</div>
+<div class="head" >
+    {{ "home_rh.header"|trans({}, "home_rh") }}
+</div>
+<div class="bg"></div>
+<div class="container">
+<div class="alert alert-danger" style="max-width: 875px; margin :auto; padding-top: 25px;">
+		<strong>Attention ! </strong> Avant de commencer à remplir le formulaire, veuillez vérifier que vous disposez toutes les pièces justificatives suivantes <strong>au format électronique :</strong>
+		<ul>
+		  <li>Pièce d'Identité</li>
+		  <li>Diplôme</li>
+		  <li>Attestation de carte vitale</li>
+		  <li>RIB</li>
+		  <li>Adhésion Mutuelle</li>
+		</ul>
+	</div>
+	<div style="max-width: 100%; margin: auto;">
+			
+		<div class="row">
+			<form class="form-horizontal" onsubmit="event.preventDefault();" style="margin: auto;width: 75%;">
+			  <div class="form-group *" style="padding-top: 50px">
+			  
+				<label class="control-label label col-sm-3 col-xs-12" for="nom">Nom</label>
+				 <div class="col-sm-3">
+					<input type="text" class="form-control" id="nom" >
+				</div>
+				
+				<label class="control-label label col-sm-3 col-xs-12" for="prenom">Prénom</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" id="prenom">
+				</div>
+				
+			  </div>	
+			  
+			  
+			  <div class="form-group row">
+				<label class="control-label label col-sm-3 col-xs-12" for="date">Date de naissance</label>
+				<div class="col-sm-3">
+					<input type="date" class="form-control" id="date">
+				</div>
+			  </div>
+			  
+			  <div class="form-group row">
+				<label class="control-label label col-sm-3 col-xs-12" for="adr">Adresse</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" id="adr">
+				</div>
+			  </div>
+			  
+			  
+			  <div class="form-group" style="">
+			  
+				<label class="control-label label col-sm-3 col-xs-12"  for="nom">Code postal</label>
+				 <div class="col-sm-3">
+					<input type="text" class="form-control" id="nom" >
+				</div>
+				
+				<label class="control-label label col-sm-3 col-xs-12" for="prenom">Ville</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" id="prenom">
+				</div>
+			  </div>
+			  
+						  
+			  <div class="form-group" >
+				<label class="control-label label col-sm-3 col-xs-12" for="tel">Téléphone</label>
+				<div class="col-sm-9">
+					<input type="number" class="form-control" id="tel">
+				</div>
+			  </div>
+			  
+			  <div class="form-group">
+				<label class="control-label label col-sm-3 col-xs-12" for="Nationalité">Nationalité</label>
+				<div class="col-sm-8" style="display: inline-flex" >
+					<div class="col-sm-8" style="display: inline-flex;padding-top: 10px;" >
+						<input type="radio"  id="fr" name="Nationalité"  style="color:black"><p style="color:black;font-size:15px">Française</p>
+						</div>
+					<div class="col-xs-8" style="display: inline-flex;padding-top: 10px;" id="test">
+						<input type="radio" id="autre" onclick="addFields();" name="Nationalité"  style="color:black"><p style="color:black; font-size:15px">Autre</p>
+					</div>
+				</div>
+			  </div>	
+			  
+			  <div class="form-group">
+				<label class="control-label label col-sm-3 col-xs-12" for="tel">N° de Sécu</label>
+				<div class="col-sm-8">
+					<input style="width: 34%;" type="number" class="form-control" id="tel">
+				</div>
+			  </div>
+			  
+			  <div class="form-group" style="">
+			  
+				<label class="control-label label col-sm-3 col-xs-12"  for="fam">Situation familiale</label>
+				 <div class="col-sm-3">
+					<input type="text" class="form-control" id="fam" >
+				</div>
+				
+				<label class="control-label label col-sm-3 col-xs-12" for="enf">Nombre d'enfant(s)</label>
+				<div class="col-sm-3 col-xs-12">
+					<input type="number" class="form-control" id="enf">
+				</div>
+</div>
+
+<script>
+
+
+var $situ = $('#demande_embauche_nationalite');
+
+$situ.change(function() {
+	var elemnt = $('.append');
+	console.log("yo");
+	var input = document.createElement("input");
+  input.type = "text";
+	input.className = "form-control";
+	elemnt.parent().append('<div><label for="demande_embauche_autre" class="required">Autre</label><input type="text" id="demande_embauche_autre" name="demande_embauche[autre]" required="required" maxlength="255"></div>');
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/locales/bootstrap-datepicker.fr.min.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css"/>
+<script>
+    $(document).ready(function() {
+        $('.js-datepicker').datepicker({
+            format: 'dd-mm-yyyy',
+            language: 'fr'
+          });
+    });
+</script>
+
+{% endblock %}

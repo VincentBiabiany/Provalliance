@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Entity\DemandeForm;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * AppBundle\Entity\DemandeAcompte

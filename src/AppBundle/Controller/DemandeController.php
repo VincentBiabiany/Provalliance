@@ -113,7 +113,7 @@ class DemandeController extends Controller
     $date = $demande->getDateEnvoi();
     $dateTraitement = $demande->getDateTraitement();
 
-    $defaultData = array('message' => 'Type your message here');
+    $defaultData = array('message' => 'Ecrire un commentaire');
     $form2 = $this->createFormBuilder($defaultData)
                       ->setMethod("POST")
                       ->add('message', TextareaType::class)

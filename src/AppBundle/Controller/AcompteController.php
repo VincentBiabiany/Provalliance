@@ -2,7 +2,7 @@
 namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\BrowserKit\Response;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use AppBundle\Entity\DemandeAcompte;
@@ -24,32 +24,51 @@ class AcompteController extends Controller
       $form->handleRequest($request);
 
       $img = $request->getSession()->get('img');
+              if ($form->isSubmitted() && $form->isValid()) {
 
-      if ($form->isSubmitted() && $form->isValid()) {
-        $demande = new Demande();
-        $acompte = new DemandeAcompte();
-        $em = $this->getDoctrine()->getManager();
+                $validator = $this->get('validator');
+                $errors = $validator->validate($form);
+                    if (count($errors) > 0) {
 
-        $montant = $form["montant"]->getData();
-        $personnel = $form["idPersonnel"]->getData();
 
-        $acompte->setTypeForm("Demande d'acompte");
-        $acompte->setMontant($montant)->setIdPersonnel($personnel->getId());
+                            $errorsString = (string) $errors;
+                            return $this->render('paie_acompte.html.twig', array(
+                                   'img' => $img,
+                                   'form' => $form->createView(),
+                                   'errors' => $errorsString
+                               )
+                            );
 
-        $demande->setService('paie');
-        $demande->setUser($this->getUser());
-        $demande->setIdSalon($idSalon);
-        $demande->setDemandeform($acompte);
 
-        $em->persist($demande);
-        $em->flush();
+                        }else{
 
-        $this->addFlash("success", "La demande d'acompte pour ".$personnel->getNom()." a correctement été envoyé ! Un mail vous sera envoyé une fois votre demande traité.");
-        return $this->redirectToRoute('homepage');
-       }
+                            $demande = new Demande();
+                            $acompte = new DemandeAcompte();
+                            $em = $this->getDoctrine()->getManager();
+
+                            $montant = $form["montant"]->getData();
+                            dump($form);
+                            $personnel = $form["idPersonnel"]->getData();
+
+                            $acompte->setTypeForm("Demande d'acompte");
+                            $acompte->setMontant($montant)->setIdPersonnel($personnel->getId());
+
+                            $demande->setService('paie');
+                            $demande->setUser($this->getUser());
+                            $demande->setIdSalon($idSalon);
+                            $demande->setDemandeform($acompte);
+
+                            $em->persist($demande);
+                            $em->flush();
+
+                            $this->addFlash("success", "La demande d'acompte pour ".$personnel->getNom()." a correctement été envoyé ! Un mail vous sera envoyé une fois votre demande traité.");
+                            return $this->redirectToRoute('homepage');
+                            }
+                    }
        return $this->render('paie_acompte.html.twig', array(
               'img' => $img,
               'form' => $form->createView(),
+              'errors' => null
           )
        );
     }

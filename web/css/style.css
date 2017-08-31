@@ -10,13 +10,13 @@ body,p,a,h1,h2,h3,h4,h5 {
 	font-weight: regular;
 }
 .header{
-    z-index: 2;
-    position: fixed;
+	z-index: 2;
+	position: fixed;
 	top: 0;
-    left: 0;
-   	width: 100%;
-    background-color: white;
-    padding-top:15px;
+	left: 0;
+	width: 100%;
+	background-color: white;
+	height: 100px;
 }
 
 .btn-black{
@@ -46,9 +46,54 @@ body,p,a,h1,h2,h3,h4,h5 {
     color: black;
 }
 
+/*CONTENT */
+#actions{
+	display: table;
+	position: relative;
+	height: auto;
+	width: auto;
+	margin: auto;
+	clear: both;
 
+}
+.slider.slider-horizontal {
+    margin-top: 20px;
+}
+.on {
 
+	opacity: 1;
+}
+.off.home {
+	opacity: 0.2;
+
+}
+.blockAction{
+	display: block;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	clear: both;
+	z-index: 10;
+
+}
 /*STYLE FORMULAIRES*/
+.alert{
+	clear: both;
+   position: relative;
+}
+
+.closeAlert{
+	font-size: 11px;
+	height: 20px;
+	color: green;
+	width: 20px;
+	position: absolute;
+	right: 0px;
+	top: 7px;
+	cursor: pointer;
+}
 #formContent{
 
     max-width: 700px;
@@ -65,6 +110,9 @@ body,p,a,h1,h2,h3,h4,h5 {
 	font-size: 16px;
 	color:black;
 }
+.error_list{
+
+}
 .form-control {
 	border-radius: 0 !important;
 	border: 1px solid #000;
@@ -75,17 +123,99 @@ body,p,a,h1,h2,h3,h4,h5 {
     	box-shadow: none !important;
 
 }
+#detailDemandeAccompte select.form-control {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+}
+
+
+label.required{
+	color: black;
+	font-size: 15px;
+	padding-right: 10px;
+
+}
+
+/***** DEMANDE ACCOMPTE FORMULARE ********/
+form#formAccompte{
+	margin-top: 40px;
+	width: 650px;
+	position: relative;
+}
+
+
+.demande_acompte .form-group {
+    margin-bottom: 15px;
+    clear: both;
+    height: 65px;
+}
+.demande_acompte .form-group .slider-handle {
+    background-color: #B39C8C;
+		background-image : none;
+}
+.demande_acompte .form-group .slider-track-high {
+    background-color: black;
+
+}
+
+.demande_acompte .form-group .slider.slider-horizontal {
+    width: 100%;
+    height: 20px;
+}
+
+#infoMontant{
+position: relative;
+display: block;
+color: #333;
+font-size: 14px;
+}
+#infoMontant .min{
+float: left;
+}
+#infoMontant .max{
+float: right;
+}
+
+
+#actionsButtons{
+	display: block;
+	margin-top: 20px;
+	width: auto;
+
+}
+/***** DEMANDE EMBAUCHE FORMULARE ********/
+
+#formEmbauche, #formEmbaucheStep2{
+
+ max-width: inherit;
+}
+
+
+.precedent{
+
+	float: left;
+	}
+.precedent:hover{
+
+	float: left;
+	text-decoration: none;
+	color: black;
+	}
+
 .carre{
 	height: 80px;
-    	background-color: black;
-    	text-align: center;
-    	width: 230px;
-    	margin: auto;
-    	font-size: 18px;
-    	border-radius: 10px;
-    	cursor: pointer;
-	display: table-cell; /* comportement visuel de cellule */
-  	vertical-align: middle;
+	background-color: black;
+	text-align: center;
+	width: 230px;
+	margin: auto;
+	font-size: 18px;
+	border-radius: 10px;
+	cursor: pointer;
+	display: table-cell;
+	vertical-align: middle;
+
 }
 .block{
 	padding-bottom: 25px;
@@ -99,9 +229,9 @@ body,p,a,h1,h2,h3,h4,h5 {
 
 .deco {
 	/*float: right;*/
-   	color: black;
-    	font-size: 25px;
-	cursor: pointer;
+    	color: black;
+      font-size: 15px;
+	    cursor: pointer;
     	position: fixed;
     	top: 24px;
     	right: 55px;
@@ -184,15 +314,13 @@ label.dd-option-text {
     z-index: 2;
     width: 500px;
     background-color: #B39C8C;
-    /*line-height:65px;*/
     margin: auto;
     display: block;
     text-align: center;
-    font-size: 22px;
+    font-size: 17px;
     text-transform: uppercase;
-    /*padding-top: 92px;*/
-    padding-top:105px;
     z-index: 58;
+		margin-top: 100px;
 
 }
 

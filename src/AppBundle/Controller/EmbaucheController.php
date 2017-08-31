@@ -18,12 +18,11 @@ class EmbaucheController extends Controller
     public function indexAction(Request $request)
     {
       $demandeEmbauche = new DemandeEmbauche();
-      $form = $this->createForm(DemandeEmbaucheType::class, $demandeEmbauche);
+      $form = $this->createForm(DemandeEmbaucheType::class, $demandeEmbauche, array('step' => '1'));
       $form->handleRequest($request);
       if ($form->isSubmitted() && $form->isValid()) {
-          // ... save the meetup, redirect etc.
+          return $this->index2Action($request, $form->getData());
       }
-
 
       return $this->render('embauche.html.twig', array(
         'img'   => $request->getSession()->get('img'),
@@ -31,4 +30,21 @@ class EmbaucheController extends Controller
         )
       );
     }
+
+    public function index2Action(Request $request, $demandeEmbauche)
+    {
+      $form = $this->createForm(DemandeEmbaucheType::class, $demandeEmbauche, array('step' => '2'));
+      //$form->handleRequest($request);
+      if ($form->isSubmitted() && $form->isValid()) {
+          //$this->index2Action($request);
+      }
+
+      return $this->render('embauche2.html.twig', array(
+        'img'   => $request->getSession()->get('img'),
+        'form'  => $form->createView()
+        )
+      );
+    }
+
+
 }

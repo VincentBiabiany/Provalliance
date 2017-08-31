@@ -10,7 +10,9 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+
 use Doctrine\ORM\EntityRepository;
 
 class DemandeAcompteType extends AbstractType
@@ -25,13 +27,18 @@ class DemandeAcompteType extends AbstractType
               ->add('montant', NumberType::class, array(
                   'attr' => array(
                     'readonly' => true,
+                    'disabled' => true,
+                    'class' =>'onlyread'
                   ),
                   'label' => 'demandeacompte.montant',
-                  'translation_domain' => 'demandeacompte'
+                  'translation_domain' => 'demandeacompte',
                 ))
+
               ->add('idPersonnel', EntityType::class, array(
                   'attr' => array(
                     'readonly' => true,
+                    'disabled' => true,
+                    'class' =>'onlyread form-control'
                   ),
                   // query choices from this entity
                   'class' => 'ApiBundle:Personnel',
@@ -50,11 +57,22 @@ class DemandeAcompteType extends AbstractType
                 ))
           ;
       } else {
-        $builder
-              ->add('montant', NumberType::class, array(
-                  'label' => 'demandeacompte.montant',
-                  'translation_domain' => 'demandeacompte'
-                ))
+       $builder
+
+                ->add('montant', RangeType::class, [
+                     'label' => 'demandeacompte.montant',
+                     'translation_domain' => 'demandeacompte',
+                     'attr' => [
+                        "data-provide" => "slider",
+                        "data-slider-min" => "150",
+                        "data-slider-max" => "1500",
+                        "min" => "150",
+                        "max" => "1500",
+                        "data-slider-step" => "1",
+                        "data-slider-value"=> 150,
+                        "data"=> 150
+                     ]
+             ])
               ->add('idPersonnel', EntityType::class, array(
                   // query choices from this entity
                   'class' => 'ApiBundle:Personnel',

@@ -73,6 +73,13 @@ class Demande
     private $service;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="message", type="string", nullable=true)
+     */
+    private $message;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="salon_id", type="integer", length=45, nullable=true)
