@@ -270,7 +270,7 @@ class Personnel
     /**
      * Get salon
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Salon
      */
     public function getSalon()
     {
