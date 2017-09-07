@@ -51,23 +51,7 @@
               <div class="under-block"><p class="carre">{{ "home.volume"|trans({}, "home") }}</p></div>
           </div>
       </div>
-      <div class="col-sm-12" style=" max-width:1200px;margin:auto;float:none;">
-          <div class="col-sm-6 block">
-          </div>
-          <a  href="{{ path('fos_user_security_logout') }}">
-             <div class="col-sm-4 deco block">
-                 <span class="glyphicon glyphicon-off" style="padding-right:5px"></span>{{ "home.deconnexion"|trans({}, "home") }}
-             </div>
-          </a>
-          {% if is_granted('ROLE_ADMIN')  %}
-            <a  href="{{ path('adminHome') }}">
-              <div class="col-sm-4 gestion block">
-                  <span class="glyphicon glyphicon-wrench" style="padding-right:5px"></span>{{ "home.gestion"|trans({}, "home") }}
-            </div>
-           </a>
-         {% endif  %}
 
-      </div>
    </div>
 </div>
 </div>

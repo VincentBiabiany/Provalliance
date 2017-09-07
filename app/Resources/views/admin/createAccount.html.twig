@@ -7,31 +7,45 @@
 	Administration - Créer un compte
 </div>
 
+<div class="container">
+  <div id="actions">
+		  <div id="fil">
+				 <span id="base">
+						 	<span id="stepOne" class="step active"></span>
+						 	<span id="stepTwo" class="step"></span>
+						 	<span id="stepThree" class="step"></span>
+							<label id="labelOne" class="labelFil active">Choix du salon</label>
+							<label id="labelTwo"class="labelFil">Choix du personnel</label>
+							<label id="labelThree"class="labelFil">Création du compte</label>
+				 </<span>
+			 </div>
+					<div id="CreateFormStep">
+						<div id="NotSelect" class="alert alert-danger hide">
+								Vous devez sélectionner un salon
+								<span class="closeAlert glyphicon glyphicon-remove"></span>
 
-{{ form_start(form, {'attr': {'id': 'createAccount'} }) }}
+					 </div>
+						{{ form_start(form, {'attr': {'id': 'createAccount'} }) }}
 
 
-			<div class="container">
-				<div style="max-width: 100%; margin: auto;">
+										<div style="max-width: 100%; margin: auto;">
 
-					<div class="row">
-							  <div class="form-group" style="padding-top: 50px">
-										<label class="control-label label col-sm-3 col-xs-12" for="salon"> {{ form_label(form.nom) }}</label>
-												 <div class="col-sm-9">
-			 									 				{{ form_widget(form.nom, { 'attr': {'class': 'form-control'} }) }}
-												</div>
-							  </div>
+											<div class="row">
+													  <div class="form-group" style="padding-top: 50px">
+																<label class="control-label label col-sm-3 col-xs-12" for="salon"> {{ form_label(form.nom) }}</label>
+																		 <div class="col-sm-9">
+									 									 				{{ form_widget(form.nom, { 'attr': {'class': 'form-control'} }) }}
+																		</div>
+													  </div>
+											</div>
+										</div>
+
+						 {{ form_end(form) }}
+						 <a id="form_Suivant" class="btn btn-success" href="#">{{ "admin_create.suivant"|trans({}, "admin_create") }} </a>
 					</div>
-				</div>
-			</div>
 
- {{ form_end(form) }}
-<br/>
-<br/>
-<br/>
-<br/>
-
-
+	</div>
+</div>
 
 
 		<a href="{{ path('fos_user_security_logout') }}">
@@ -44,4 +58,37 @@
 
 	</div>
 
-	{% endblock %}
+	<script type="text/javascript">
+
+	$('.closeAlert').bind('click', function(){
+				$(".alert").css('display','none');
+				$(".alert").remove();
+
+	});
+
+
+    $("#form_Suivant").bind('click', function(){
+
+			ChangeEstate('stepTwo','labelTwo',1,'next');
+
+ 						if( !$('#form_nom').val() ){
+								$('#NotSelect').removeClass( "hide" ).addClass( "show" );
+
+											}else{
+
+												ChangeEstate('stepTwo','labelTwo',1);
+
+											$('#CreateFormStep').fadeOut('slow', function(){ //on fait disparaitre l ancien contenu
+													 idsalon = $('#form_nom').val();
+													$( "#CreateFormStep" ).load("/admin/createS2/"+idsalon ,
+																							//on charge le nouveau
+																				 function(){
+																										 $('#CreateFormStep').fadeIn('slow');
+																									}); // on fait apparaitre le nouveau contenu
+											 });
+							}
+
+});
+		</script>
+
+		{% endblock %}

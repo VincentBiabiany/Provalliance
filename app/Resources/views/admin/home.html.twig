@@ -10,7 +10,12 @@
 	<div class="head">
 		Administration
 	</div>
-
+	{% for flash_message in app.session.flashBag.get('success') %}
+		<div class="alert alert-success success">
+			{{ flash_message }}
+      <span class="closeAlert glyphicon glyphicon-remove"></span>
+		</div>
+	{% endfor %}
 	<div class="col-sm-12" style="padding-top: 50px;">
 
 			<div class="row" style="max-width: 875px;margin: auto;">
@@ -21,7 +26,7 @@
 	                <div class="under-block" onclick="window.location.href ='{{ path("createAccount") }}'"><p class="carre">{{ "admin_home.create"|trans({}, "admin_home") }}</p></div>
 	            </div>
 	            <div class="col-sm-6 block">
-	                <div class="under-block" onclick="window.location.href ='{{ path("editAccount") }}'"><p class="carre">{{ "admin_home.edit"|trans({}, "admin_home") }}</p></div>
+	                <div class="under-block" onclick="window.location.href ='{{ path("listeAccount") }}'"><p class="carre">{{ "admin_home.gestion"|trans({}, "admin_home") }}</p></div>
 	            </div>
 	        </div>
 
@@ -47,5 +52,12 @@
 
 
 </div>
+<script language="javascript">
+$('.closeAlert').bind('click', function(){
+			$(".alert").css('display','none');
+			$(".alert").remove();
 
+});
+
+</script>
 {% endblock %}

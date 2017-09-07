@@ -46,11 +46,7 @@
 			<button style="float:left; margin-top: 50px;" onclick="window.location.href ='{{ path("homepage") }}'" class="btn-black">Précédent</button>
 		{% endif %}
 	</div>
-	<a href="{{ path('fos_user_security_logout') }}">
-			<div class="col-sm-4 deco block">
-					<span class="glyphicon glyphicon-off" style="padding-right:5px"></span>{{ "home.deconnexion"|trans({}, "home") }}
-			</div>
-	</a>
+
 	</div>
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/jquery.dataTables.min.css') }}">
 	<script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>

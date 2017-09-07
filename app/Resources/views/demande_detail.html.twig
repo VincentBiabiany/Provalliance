@@ -51,17 +51,18 @@
 						{{ form_end(form2) }}
 			</div>
 		{% endif  %}
-
-		<a href="{{ path('fos_user_security_logout') }}">
-				<div class="col-sm-4 deco block">
-						<span class="glyphicon glyphicon-off" style="padding-right:5px"></span>{{ "home.deconnexion"|trans({}, "home") }}
-				</div>
-		</a>
 		<div class="col-sm-12" style="padding: 0;">
 			<button  onclick="window.location.href ='{{ path("demande") }}'" class="btn-black precedent">Précédent</button>
 		</div>
 	</div>
 </div>
 
+<script language="javascript">
+$('.closeAlert').bind('click', function(){
+			$(".alert").css('display','none');
+			$(".alert").remove();
 
+});
+
+</script>
 {% endblock %}

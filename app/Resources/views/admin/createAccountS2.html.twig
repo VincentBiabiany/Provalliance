@@ -1,17 +1,9 @@
-{% extends 'base.html.twig' %}
-{% block title %}Welcome{% endblock %}
 
-{% block body %}
 {% trans_default_domain "demandeacompte" %}
-<div class="head">
-	Administration - Créer un compte
-</div>
-
 
 {{ form_start(formS2, {'attr': {'id': 'createAccountS2'} }) }}
 
 
-			<div class="container">
 				<div style="max-width: 100%; margin: auto;">
 
 					<div class="row">
@@ -23,25 +15,47 @@
 							  </div>
 					</div>
 				</div>
-			</div>
 
  {{ form_end(formS2) }}
-<br/>
-<br/>
-<br/>
-<br/>
+ <a id="form_Suivant" class="btn btn-success suivant" href="#">{{ "admin_create.suivant"|trans({}, "admin_create") }} </a>
+ <a id="form_Precedent" class="btn btn-default" href="#">{{ "admin_create.precedent"|trans({}, "admin_create") }} </a>
 
 
 
-
-		<a href="{{ path('fos_user_security_logout') }}">
-				<div class="col-sm-4 deco block">
-						<span class="glyphicon glyphicon-off" style="padding-right:5px"></span>{{ "home.deconnexion"|trans({}, "home") }}
-				</div>
-		</a>
-		</div>
+ 	<script type="text/javascript">
 
 
-	</div>
+   $(".btn-success").bind('click', function(){
 
-	{% endblock %}
+     ChangeEstate('stepThree','labelThree',2,'next');
+
+      			$('#CreateFormStep').fadeOut('slow', function(){ //on fait disparaitre l ancien contenu
+													var idPersonnel = $('#form_nom').val();
+
+ 													$( "#CreateFormStep" ).load("/admin/createS3/"+idPersonnel ,
+ 																							//on charge le nouveau
+ 																				 function(){
+
+
+ 																										 $('#CreateFormStep').fadeIn('slow');
+ 																									}); // on fait apparaitre le nouveau contenu
+ 											 });
+
+ });
+   $("#form_Precedent").bind('click', function(){
+
+     ChangeEstate('stepOne','labelOne',2,'prev');
+
+ 			$('#CreateFormStep').fadeOut('slow', function(){
+
+ 													$( "#CreateFormStep" ).load("/admin/create",
+ 																				 function(){
+
+
+ 																										 $('#CreateFormStep').fadeIn('slow');
+
+ 																									});
+ 											 });
+
+ });
+ 		</script>

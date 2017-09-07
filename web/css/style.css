@@ -2,7 +2,7 @@
 
 body,p,a,h1,h2,h3,h4,h5 {
 	font-family: 'Brown';
-	color:white;
+
 }
 @font-face {
 	font-family: 'Brown';
@@ -54,7 +54,7 @@ body,p,a,h1,h2,h3,h4,h5 {
 	width: auto;
 	margin: auto;
 	clear: both;
-
+  padding-top: 20px;
 }
 .slider.slider-horizontal {
     margin-top: 20px;
@@ -138,13 +138,152 @@ label.required{
 
 }
 
-/***** DEMANDE ACCOMPTE FORMULARE ********/
-form#formAccompte{
-	margin-top: 40px;
-	width: 650px;
+/***** CREATION COMPTE USER ADMIN FORMULARE ********/
+#form_Suivant, #fos_user_registration_form_Valider{
 	position: relative;
+	margin-bottom: 50px;
+	margin-top: 20px;
+	float: right;
+	clear: both;
 }
 
+#form_Precedent{
+	position: absolute;
+	left: 0;
+	margin-bottom: 50px;
+	margin-top: 20px;
+
+}
+
+#fil{
+position: relative;
+width: 650px;
+height: 55px;
+margin-top: 25px;
+
+}
+
+#base{
+	position: relative;
+	width: 80%;
+	height: 5px;
+	display: block;
+	margin: auto;
+	background-color: #888;
+
+}
+
+.step{
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	background-color:#888;
+	top: -3px;
+	border-radius: 50%;
+
+}
+.step.active{
+	background-color: #B39C8C;
+	width: 20px;
+	height: 20px;
+	top: -7px;
+}
+
+.labelFil{
+	color: #333;
+	position: absolute;
+	top: 15px;
+	text-align: center;
+	width: 70px;
+	/*opacity: 0.2;*/
+	line-height: 14px;
+	font-weight: lighter;
+
+}
+
+.labelFil.active {
+	color: black;
+	/*opacity: 1;*/
+	font-weight: bold;
+}
+#labelOne{
+ text-align: left;
+}
+#labelThree{
+ text-align: right;
+}
+#stepOne, #labelOne{
+	left: -1%;
+}
+#stepTwo {
+	left: 50%;
+}
+#stepThree, #labelThree{
+	right: -1%;
+}
+
+#labelTwo{
+ left: 45%;
+}
+
+.AccountInfo{
+	width: 70%;
+	text-align: center;
+	margin: auto;
+
+}
+ h2{
+	clear: both;
+}
+form#formAccompte	, form#createAccount, form#createAccountS2, form#createAccountS3, form#editAccount{
+	/*margin-top: 25px;*/
+	width: 650px;
+	position: relative;
+
+}
+
+
+#ListePersonnel a{
+	color:black;
+}
+span.state{
+	position: relative;
+	display: block;
+	margin: auto;
+	width: 10px;
+	height: 10px;
+}
+span.actif{
+background-color: green;
+
+}
+span.inactif{
+	background-color: red;
+}
+
+#chgPwd{
+	position: relative;
+	color: black;
+	display: block;
+	top: 20px;
+	margin-left: 15px;
+}
+.containerModal{
+	margin: 0;
+}
+
+.containerModal #actions{
+	margin: auto;
+
+}
+ form#changePassword{
+	 margin-top: 15px;
+	 width: 450px;
+	 position: relative;
+	 margin-bottom: 10px;
+
+ }
+/***** DEMANDE ACCOMPTE FORMULARE ********/
 
 .demande_acompte .form-group {
     margin-bottom: 15px;
@@ -215,7 +354,7 @@ float: right;
 	cursor: pointer;
 	display: table-cell;
 	vertical-align: middle;
-
+  color: white;
 }
 .block{
 	padding-bottom: 25px;
@@ -333,6 +472,7 @@ label.dd-option-text {
     text-transform: uppercase;
     z-index: 58;
 		margin-top: 100px;
+		color: white;
 
 }
 

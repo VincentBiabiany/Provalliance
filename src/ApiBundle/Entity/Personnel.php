@@ -40,6 +40,20 @@ class Personnel
     private $sexe;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="matricule", type="string", length=45, nullable=true)
+     */
+    private $matricule;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="compte", type="boolean", nullable=true)
+     */
+    private $compte;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
@@ -177,7 +191,31 @@ class Personnel
     {
         return $this->sexe;
     }
-    
+
+    /**
+     * Set compte
+     *
+     * @param boolean $compte
+     *
+     * @return Personnel
+     */
+    public function setCompte($compte)
+    {
+        $this->compte = $compte;
+
+        return $this;
+    }
+
+    /**
+     * Get compte
+     *
+     * @return boolean
+     */
+    public function getCompte()
+    {
+        return $this->compte;
+    }
+
     /**
      * Set matricule
      *
