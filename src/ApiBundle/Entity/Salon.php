@@ -33,12 +33,6 @@ class Salon
      */
     private $siret;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="marque", type="string", length=45, nullable=true)
-     */
-    private $marque;
 
     /**
      * @var string
@@ -198,29 +192,6 @@ class Salon
         return $this->siret;
     }
 
-    /**
-     * Set marque
-     *
-     * @param string $marque
-     *
-     * @return Salon
-     */
-    public function setMarque($marque)
-    {
-        $this->marque = $marque;
-
-        return $this;
-    }
-
-    /**
-     * Get marque
-     *
-     * @return string
-     */
-    public function getMarque()
-    {
-        return $this->marque;
-    }
 
     /**
      * Set langueDefaut

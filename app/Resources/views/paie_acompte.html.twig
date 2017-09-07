@@ -14,7 +14,14 @@
 
 
 <div class="container">
+
   <div id="actions" class="off">
+		
+		<div class="alert alert-info fade in">
+			<a href="#" class="close" data-dismiss="alert">&times;</a>
+			<strong>Information:</strong> Pour que la demande d’acompte soit validée ce mois-ci veuillez envoyer<br/> votre demande avant le <u>17</u> du mois
+	  </div>
+
 		{{ form_start(form, {'attr': {'class': 'demande_acompte', 'id':'formAccompte'} }) }}
 
 		    {{ form_errors(form)}}

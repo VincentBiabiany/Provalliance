@@ -25,11 +25,7 @@ class UserController extends Controller
          $formFactory = $this->container->get('fos_user.registration.form.factory');
 
         $form = $formFactory->createForm();
-    //     $form->add('salon', EntityType::class, array(
-    //          'class'       => 'ApiBundle:Salon',
-    //          'placeholder' => '',
-    //      ));
-    //  ;
+
         $form ->add('enabled', ChoiceType::class, array(
                  'choices'  => array('Activer' => 1,'Desactiver' => 0),
                         'expanded' => true,
@@ -43,11 +39,11 @@ class UserController extends Controller
                      )
                 );
 
-          if ($request->isMethod('POST')) {
+         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
 
             if ($form->isValid()) {
-                  $task = $form->getData();
+                 $task = $form->getData();
 
                  $em = $this->getDoctrine()->getManager();
                  $em->persist($task);

@@ -47,7 +47,6 @@ class AcompteController extends Controller
                             $em = $this->getDoctrine()->getManager();
 
                             $montant = $form["montant"]->getData();
-                            dump($form);
                             $personnel = $form["idPersonnel"]->getData();
 
                             $acompte->setTypeForm("Demande d'acompte");

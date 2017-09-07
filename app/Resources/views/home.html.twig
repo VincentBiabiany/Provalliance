@@ -54,12 +54,21 @@
       <div class="col-sm-12" style=" max-width:1200px;margin:auto;float:none;">
           <div class="col-sm-6 block">
           </div>
-          <a  href="{{ path('fos_user_security_logout') }}"><div class="col-sm-4 deco block">
-              <span class="glyphicon glyphicon-off" style="padding-right:5px"></span>{{ "home.deconnexion"|trans({}, "home") }}
-          </div></a>
+          <a  href="{{ path('fos_user_security_logout') }}">
+             <div class="col-sm-4 deco block">
+                 <span class="glyphicon glyphicon-off" style="padding-right:5px"></span>{{ "home.deconnexion"|trans({}, "home") }}
+             </div>
+          </a>
+          {% if is_granted('ROLE_ADMIN')  %}
+            <a  href="{{ path('adminHome') }}">
+              <div class="col-sm-4 gestion block">
+                  <span class="glyphicon glyphicon-wrench" style="padding-right:5px"></span>{{ "home.gestion"|trans({}, "home") }}
+            </div>
+           </a>
+         {% endif  %}
+
       </div>
    </div>
-
 </div>
 </div>
 <script src="{{ asset('js/jquery.ddslick.min.js') }}"></script>
@@ -83,7 +92,12 @@ var ddData = [
         data:ddData,
         width:200,
         imagePosition:"center",
+        {% if app.session.get('idSalon') %}
+            defaultSelectedIndex:  {{ app.session.get('numero') }},
+        {% else %}
         selectText: "Veuillez choisir un salon",
+        {% endif %}
+
         onSelected: function(selectedData){
 
              if ($("#actions").is('.off')){
@@ -93,7 +107,8 @@ var ddData = [
 
             logo = document.getElementById('logotop');
             logo.src = selectedData.selectedData.imageSrc;
-            $.post('{{ path('selected_salon') }}', {idSalon: selectedData.selectedData.value, img: logo.src});
+            var ddData = $('#myDropdown').data('ddslick');
+            $.post('{{ path('selected_salon') }}', {idSalon: selectedData.selectedData.value, img: logo.src, numero: ddData.selectedIndex });
         }
     });
 

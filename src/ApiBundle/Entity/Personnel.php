@@ -26,13 +26,6 @@ class Personnel
     private $prenom;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="type_contrat", type="string", length=45, nullable=true)
-     */
-    private $typeContrat;
-
-    /**
      * @var boolean
      *
      * @ORM\Column(name="actif", type="boolean", nullable=true)
@@ -138,30 +131,6 @@ class Personnel
     }
 
     /**
-     * Set typeContrat
-     *
-     * @param string $typeContrat
-     *
-     * @return Personnel
-     */
-    public function setTypeContrat($typeContrat)
-    {
-        $this->typeContrat = $typeContrat;
-
-        return $this;
-    }
-
-    /**
-     * Get typeContrat
-     *
-     * @return string
-     */
-    public function getTypeContrat()
-    {
-        return $this->typeContrat;
-    }
-
-    /**
      * Set actif
      *
      * @param boolean $actif
@@ -207,6 +176,30 @@ class Personnel
     public function getSexe()
     {
         return $this->sexe;
+    }
+    
+    /**
+     * Set matricule
+     *
+     * @param string $matricule
+     *
+     * @return Personnel
+     */
+    public function setMatricule($matricule)
+    {
+        $this->matricule = $matricule;
+
+        return $this;
+    }
+
+    /**
+     * Get matricule
+     *
+     * @return string
+     */
+    public function getMatricule()
+    {
+        return $this->matricule;
     }
 
     /**

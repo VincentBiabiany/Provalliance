@@ -92,7 +92,8 @@ class Demande
     public function prePersist() {
         $this->setDateEnvoi(new \DateTime());
         $this->setStatus(self::STATUS_EN_COURS);
-    }
+        $this->setDateTraitement(new \DateTime());
+ }
 
     /**
      * Get id
@@ -174,6 +175,30 @@ class Demande
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * Set message
+     *
+     * @param string $message
+     *
+     * @return Demande
+     */
+    public function setMessage($message)
+    {
+        $this->message = $message;
+
+        return $this;
+    }
+
+    /**
+     * Get message
+     *
+     * @return string
+     */
+    public function getMessage()
+    {
+        return $this->message;
     }
 
     /**

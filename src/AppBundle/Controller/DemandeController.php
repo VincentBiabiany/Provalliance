@@ -12,6 +12,9 @@ use AppBundle\Entity\Demande;
 use AppBundle\Form\DemandeAcompteType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 class DemandeController extends Controller
 {
@@ -75,7 +78,7 @@ class DemandeController extends Controller
 
       $collab = $em->getRepository('ApiBundle:Personnel')
                    ->findOneBy(array('id' => $demande->getDemandeform()->getIdPersonnel()));
-      $date = $demande->getDateEnvoi();
+      $date = $demande->getDateTraitement();
       $output['data'][] = [
         'id'               => $demande->getId(),
         ''                 => '<span class="glyphicon glyphicon-search click"></span>',
@@ -112,11 +115,12 @@ class DemandeController extends Controller
     $typedemande = $demande->getDemandeform()->getTypeForm();
     $date = $demande->getDateEnvoi();
     $dateTraitement = $demande->getDateTraitement();
+    $message = $demande->getMessage();
 
-    $defaultData = array('message' => 'Ecrire un commentaire');
-    $form2 = $this->createFormBuilder($defaultData)
+
+    $form2 = $this->createFormBuilder()
                       ->setMethod("POST")
-                      ->add('message', TextareaType::class)
+                      ->add('message', TextareaType::class, array( 'label' => 'Motif','data' => $message))
                       ->add('accept', SubmitType::class)
                       ->add('reject', SubmitType::class)
                       ->getForm();
@@ -126,13 +130,24 @@ class DemandeController extends Controller
     if ($form2->isSubmitted()) {
       if ($form2->get('reject')->isClicked())
       {
+
+            if($form2["message"]->getData() == null){
+
+              $this->addFlash("error", "Il est obligatoire de saisir un motif pour votre rejet de demande d'acompte");
+              return $this->redirect($this->generateUrl('demande_detail', array('id' => $id)));
+              die();
+
+               }
         $demande->setStatus(Demande::STATUS_REJETE);
         $demande->setDateTraitement(new \DateTime());
+        $demande->setMessage($form2["message"]->getData());
+
       }
       else
       {
         $demande->setStatus(Demande::STATUS_TRAITE);
         $demande->setDateTraitement(new \DateTime());
+        $demande->setMessage($form2["message"]->getData());
       }
       $this->getDoctrine()->getManager()->flush();
       return $this->redirectToRoute("demande");
@@ -155,6 +170,7 @@ class DemandeController extends Controller
       'date'            => $date->format('d-m-Y H:i'),
       'dateTraitement'  => $dateTraitement,
       'status'          => $status,
+      'message'         => $message,
       'typedemande'     => $typedemande,
       'salon'           => $salon,
       'form'            => $form->createView(),

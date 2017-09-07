@@ -26,12 +26,25 @@
           <p> <p> <b>Date d'envoie :</b>  {{ date }} </p> <b>Satus :</b>  {{ status }} {% if dateTraitement is not null %} le {{ dateTraitement }} {% endif %}</p>
           <p> <b>Salon :</b> {{ salon.nom }} </p>
           <p> <b>Adresse :</b>  {{ salon.adresse.rue }} {{ salon.adresse.cp }} {{ salon.adresse.ville }}  </p>
-          <p> <b>Siret :</b>  {{ salon.siret }}</p>
+	{% if is_granted('ROLE_PAIE') or is_granted('ROLE_JURIDIQUE') %}
+				  <p> <b>Siret :</b>  {{ salon.siret }}</p>
+				  <p> <b>code Interne :</b>  {{ salon.codeInterne }}</p>
+					{% endif  %}
+
       </div>
 
 		{% if is_granted('ROLE_PAIE') or is_granted('ROLE_JURIDIQUE') %}
 			<div class="col-sm-12" style="max-width: 100%; margin: auto;">
-					  {{ form_start(form2) }}
+					  {{ form_start(form2, {'attr': {'novalidate': 'novalidate'}}) }}
+
+							{% for flash_message in app.session.flashBag.get('error') %}
+								<div class="alert alert-danger danger">
+									{{ flash_message }}
+						      <span class="closeAlert glyphicon glyphicon-remove"></span>
+								</div>
+							{% endfor %}
+					    	{{ form_row(form2.message, {'attr': {'class': 'form-control'} }) }}
+
 
 								{{ form_row(form2.reject, {'attr': {'class': 'btn-black end alert-danger'} }) }}
 								{{ form_row(form2.accept, {'attr': {'class': 'btn-black end alert-success'} }) }}

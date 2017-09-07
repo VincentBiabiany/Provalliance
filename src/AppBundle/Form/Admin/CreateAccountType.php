@@ -25,7 +25,6 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use ApiBundle\Repository\PersonnelRepository;
-use Symfony\Component\HttpFoundation\Request;
 
 
 class CreateAccountType extends AbstractType
@@ -60,10 +59,11 @@ class CreateAccountType extends AbstractType
                            FormEvents::PRE_SET_DATA,
                            function (FormEvent $event) use ($formModifier) {
                                // this would be your entity, i.e. SalonMeetup
+                            //    $form = $event->getForm();
                                $data = $event->getData();
-$salon2 =22;
+                                    //   $salon2 =$data->getSalon();
+                                      $salon2 ="test";
 
-var_dump($event);
                                $formModifier($event->getForm(),  $salon2);
 
                            }
@@ -87,6 +87,5 @@ var_dump($event);
 
 	public function configureOptions(OptionsResolver $resolver)
 	{
-        $resolver->setRequired('idsalon');
 	}
 }

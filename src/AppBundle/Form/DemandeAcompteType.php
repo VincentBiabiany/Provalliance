@@ -68,7 +68,7 @@ class DemandeAcompteType extends AbstractType
                         "data-slider-max" => "1500",
                         "min" => "150",
                         "max" => "1500",
-                        "data-slider-step" => "1",
+                        "data-slider-step" => "10",
                         "data-slider-value"=> 150,
                         "data"=> 150
                      ]

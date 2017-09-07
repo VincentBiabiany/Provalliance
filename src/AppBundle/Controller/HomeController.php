@@ -31,11 +31,12 @@ class HomeController extends Controller
     public function SelectedSalonAction(Request $request)
     {
       if($request->isXmlHttpRequest()) {
-        $idSalon = $request->request->get("idSalon");
-        $request->getSession()->set("idSalon", $idSalon);
-
-        $img = $request->request->get("img");
-        $request->getSession()->set("img", $img);
+            $idSalon = $request->request->get("idSalon");
+            $request->getSession()->set("idSalon", $idSalon);
+            $img = $request->request->get("img");
+            $request->getSession()->set("img", $img);
+            $numero = $request->request->get("numero");
+            $request->getSession()->set("numero", $numero);
       }
       return new Response("ok", 200, ['Content-Type' => 'application/json']);
     }

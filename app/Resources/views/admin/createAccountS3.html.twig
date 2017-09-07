@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+{% block title %}Welcome{% endblock %}
+
+{% block body %}
+{% trans_default_domain "demandeacompte" %}
+<div class="head">
+	Administration - Créer un compte
+</div>
+
+
+{{ form_start(formS3, {'attr': {'id': 'createAccountS3'} }) }}
+
+
+			<div class="container">
+				<div style="max-width: 100%; margin: auto;">
+
+					<div class="row">
+							  <div class="form-group" style="padding-top: 50px">
+										<label class="control-label label col-sm-3 col-xs-12" for="salon"> {{ form_label(formS3.email) }}</label>
+												 <div class="col-sm-9">
+			 									 				{{ form_widget(formS3.email, { 'attr': {'class': 'form-control','value':'test@gmail.com'} }) }}
+												</div>
+							  </div>
+							  <div class="form-group" style="padding-top: 50px">
+										<label class="control-label label col-sm-3 col-xs-12" for="salon"> {{ form_label(formS3.username) }}</label>
+												 <div class="col-sm-9">
+			 									 				{{ form_widget(formS3.username, { 'attr': {'class': 'form-control','value':'test'} }) }}
+												</div>
+							  </div>
+							  <div class="form-group" style="padding-top: 50px">
+										<label class="control-label label col-sm-3 col-xs-12" for="salon"> {{ form_label(formS3.plainPassword.first) }}</label>
+												 <div class="col-sm-9">
+			 									 				{{ form_widget(formS3.plainPassword.first, { 'attr': {'class': 'form-control','value':'azert'} }) }}
+												</div>
+							  </div>
+							  <div class="form-group" style="padding-top: 50px">
+										<label class="control-label label col-sm-3 col-xs-12" for="salon"> {{ form_label(formS3.plainPassword.second) }}</label>
+												 <div class="col-sm-9">
+			 									 				{{ form_widget(formS3.plainPassword.second, { 'attr': {'class': 'form-control','value':'azert'} }) }}
+												</div>
+							  </div>
+				
+							  <div class="form-group" style="padding-top: 50px">
+										<label class="control-label label col-sm-3 col-xs-12" for="salon"> {{ form_label(formS3.enabled) }}</label>
+												 <div class="col-sm-9">
+			 									 				{{ form_widget(formS3.enabled, { 'attr': {'class': 'form-control'} }) }}
+												</div>
+							  </div>
+					</div>
+				</div>
+			</div>
+
+ {{ form_end(formS3) }}
+<br/>
+<br/>
+<br/>
+<br/>
+
+
+
+
+		<a href="{{ path('fos_user_security_logout') }}">
+				<div class="col-sm-4 deco block">
+						<span class="glyphicon glyphicon-off" style="padding-right:5px"></span>{{ "home.deconnexion"|trans({}, "home") }}
+				</div>
+		</a>
+		</div>
+
+
+	</div>
+
+	{% endblock %}
