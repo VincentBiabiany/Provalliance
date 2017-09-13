@@ -14,7 +14,7 @@ class AcompteController extends Controller
     /**
      * @Route("/paie/acompte", name="acompte")
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request,\Swift_Mailer $mailer)
     {
       $img = $request->getSession()->get('img');
       $idSalon = $request->getSession()->get('idSalon');
@@ -59,6 +59,26 @@ class AcompteController extends Controller
 
                             $em->persist($demande);
                             $em->flush();
+
+                            // Notification par Mail
+                            $destinataire = $em->getRepository('AppBundle:User')->findOneBy(array('idPersonnel' => $personnel->getId()));
+                            $destinataire = $destinataire->getEmail();
+
+                            $user = $this->getUser();
+                            $emetteur = $user->getEmail();
+
+                            $message = (new \Swift_Message('Nouvelle demande d\'Acompte '))
+                               ->setFrom('send@example.com')
+                               ->setTo('recipient@example.com')
+                               ->setBody(
+                                   $this->renderView(
+                                       'emails/demande_acompte.html.twig',
+                                       array('personnel' => $personnel->getNom().$personnel->getPrenom(),
+                                              'user' => $user->getUsername())
+                                   ),
+                                   'text/html'
+                               );
+                            $mailer->send($message);
 
                             $this->addFlash("success", "La demande d'acompte pour ".$personnel->getNom()." a correctement été envoyé ! Un mail vous sera envoyé une fois votre demande traité.");
                             return $this->redirectToRoute('homepage');
