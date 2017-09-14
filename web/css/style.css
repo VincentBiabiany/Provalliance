@@ -27,14 +27,21 @@ body,p,a,h1,h2,h3,h4,h5 {
 	line-height: 30px;
 	font-size: 16px;
 	width: 150px;
-   	border-radius: 9%;
-    font-family: 'Brown' !important;
-    float: right;
+  border-radius: 9%;
+  font-family: 'Brown' !important;
+  float: right;
 	border: 1px solid black;
 	color: black;
-    font-weight: bold;
+  font-weight: bold;
 }
-
+#topNav{
+		position: fixed;
+    top: 30px;
+		z-index: 3;
+}
+#topNav a{
+    color: black;
+}
 
 /*STYLE LOGIN*/
 #Nova{
@@ -367,14 +374,11 @@ float: right;
 }
 
 .deco {
-	/*float: right;*/
-    	color: black;
-      font-size: 15px;
-	    cursor: pointer;
-    	position: fixed;
-    	top: 24px;
-    	right: 55px;
-    	z-index: 23;
+	color: black;
+	font-size: 15px;
+	cursor: pointer;
+	position: absolute;
+	right: 55px;
 }
 
 .gestion {

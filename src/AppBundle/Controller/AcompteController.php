@@ -62,7 +62,7 @@ class AcompteController extends Controller
 
                             // Notification par Mail
                             $destinataire = $em->getRepository('AppBundle:User')->findOneBy(array('idPersonnel' => $personnel->getId()));
-                            $destinataire = $destinataire->getEmail();
+                            // $destinataire = $destinataire->getEmail();
 
                             $user = $this->getUser();
                             $emetteur = $user->getEmail();
@@ -80,7 +80,7 @@ class AcompteController extends Controller
                                );
                             $mailer->send($message);
 
-                            $this->addFlash("success", "La demande d'acompte pour ".$personnel->getNom()." a correctement été envoyé ! Un mail vous sera envoyé une fois votre demande traité.");
+                            $this->addFlash("success", "La demande d'acompte pour ".$personnel->getNom()." a correctement été envoyée ! Un mail vous sera envoyé une fois votre demande traitée.");
                             return $this->redirectToRoute('homepage');
                             }
                     }

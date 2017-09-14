@@ -25,7 +25,7 @@
  	<script type="text/javascript">
 
 
-   $(".btn-success").bind('click', function(){
+   $("#form_Suivant").bind('click', function(){
 
      ChangeEstate('stepThree','labelThree',2,'next');
 
@@ -35,8 +35,6 @@
  													$( "#CreateFormStep" ).load("/admin/createS3/"+idPersonnel ,
  																							//on charge le nouveau
  																				 function(){
-
-
  																										 $('#CreateFormStep').fadeIn('slow');
  																									}); // on fait apparaitre le nouveau contenu
  											 });
@@ -48,7 +46,7 @@
 
  			$('#CreateFormStep').fadeOut('slow', function(){
 
- 													$( "#CreateFormStep" ).load("/admin/create",
+ 													$( "#CreateFormStep" ).load("/admin/createS1",
  																				 function(){
 
 

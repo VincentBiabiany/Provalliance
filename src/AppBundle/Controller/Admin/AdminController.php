@@ -30,20 +30,28 @@ class AdminController extends Controller
      */
     public function createAccountAction(Request $request)
     {
-           $form = $this->createFormBuilder()
-                       ->add('nom', EntityType::class, array(
-                          'class' => 'ApiBundle:Salon',
-                          'choice_label' => 'nom',
-                          'label' => 'admin_create.nom',
-                          'placeholder' => ' Choisir un salon',
-                          'translation_domain' => 'admin_create'
-                       ))
-                     ->getForm()
-                ;
 
-         return $this->render('admin/createAccount.html.twig',['form'=>$form->createView()]);
+         return $this->render('admin/createAccount.html.twig');
     }
 
+    /**
+     * @Route("/admin/createS1", name="createAccountS1")
+     */
+    public function createAccountActionS1(Request $request)
+    {
+      $form = $this->createFormBuilder()
+                  ->add('nom', EntityType::class, array(
+                     'class' => 'ApiBundle:Salon',
+                     'choice_label' => 'nom',
+                     'label' => 'admin_create.nom',
+                     'placeholder' => ' Choisir un salon',
+                     'translation_domain' => 'admin_create'
+                  ))
+                ->getForm()
+           ;
+           return $this->render('admin/createAccountS1.html.twig',['form'=>$form->createView()]);
+
+    }
     /**
      * @Route("/admin/createS2/{id}", name="createAccountS2")
      */
@@ -136,6 +144,8 @@ class AdminController extends Controller
 
                        $roles= $formS3["roles"]->getData();
                        $newUser->addRole($roles);
+                       $newUser->setLastLogin(new \DateTime());
+
                        $em->persist($newUser);
                        $em->flush();
 
@@ -144,7 +154,7 @@ class AdminController extends Controller
                        $em->flush();
 
                    $this->addFlash("success", "Le compte utilisateur pour ".$personnel->getNom()." a correctement été crée !");
-                  //  return $this->redirect($this->generateUrl('adminHome'));
+                   return $this->redirect($this->generateUrl('adminHome'));
                       }
            }
 
@@ -345,12 +355,15 @@ class AdminController extends Controller
       $form->handleRequest($request);
 
          if ($form->isSubmitted() && $form->isValid()) {
-            /** @var $userManager UserManagerInterface */
-            $userManager = $this->get('fos_user.user_manager');
+            $task = $form->getData();
 
-            $userManager->updateUser($user);
+              $em = $this->getDoctrine()->getManager();
+              $em->persist($task);
+              $em->flush();
 
+            $this->addFlash("success", "Mot de passe correctement modifié");
             return $this->redirect($this->generateUrl('listeAccount'));
+
         }
 
         return $this->render('admin/change_password.html.twig', array(

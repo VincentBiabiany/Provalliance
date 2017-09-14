@@ -33,6 +33,13 @@ class User extends BaseUser
     }
 
     /**
+     * @ORM\PrePersist
+     */
+    public function prePersist() {
+        $this->setLastLogin(new \DateTime());
+
+ }
+    /**
      * Set idPersonnel
      *
      * @param integer $idPersonnel
