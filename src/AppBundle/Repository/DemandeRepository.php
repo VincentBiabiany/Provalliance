@@ -10,4 +10,17 @@ namespace AppBundle\Repository;
  */
 class DemandeRepository extends \Doctrine\ORM\EntityRepository
 {
+
+  public function getNb() {
+
+            return $this->createQueryBuilder('d')
+                ->select('COUNT(d)')
+                ->getQuery()
+                ->getResult();
+            }
+
+
+
+
+
 }

@@ -8,15 +8,15 @@ use AppBundle\Entity\DemandeForm;
 /**
  * AppBundle\Entity\Demande
  *
- * @ORM\Table(name="Demande")
+ * @ORM\Table(name="demande")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\DemandeRepository")
  * @ORM\HasLifecycleCallbacks()
  */
 class Demande
 {
-    const STATUS_EN_COURS = "en cours";
-    const STATUS_TRAITE  = "traité";
-    const STATUS_REJETE  = "rejeté";
+    const statut_REJETE  = 0;
+    const statut_EN_COURS = 1;
+    const statut_TRAITE  = 2;
     /**
      * @var int
      *
@@ -61,9 +61,9 @@ class Demande
     /**
      * @var string
      *
-     * @ORM\Column(name="status", type="string", length=45, nullable=true)
+     * @ORM\Column(name="statut", type="string", length=45, nullable=true)
      */
-    private $status;
+    private $statut;
 
     /**
      * @var string
@@ -91,7 +91,7 @@ class Demande
      */
     public function prePersist() {
         $this->setDateEnvoi(new \DateTime());
-        $this->setStatus(self::STATUS_EN_COURS);
+        $this->setstatut(self::statut_EN_COURS);
         $this->setDateTraitement(new \DateTime());
  }
 
@@ -154,27 +154,27 @@ class Demande
     }
 
     /**
-     * Set status
+     * Set statut
      *
-     * @param string $status
+     * @param string $statut
      *
      * @return Demande
      */
-    public function setStatus($status)
+    public function setstatut($statut)
     {
-        $this->status = $status;
+        $this->statut = $statut;
 
         return $this;
     }
 
     /**
-     * Get status
+     * Get statut
      *
      * @return string
      */
-    public function getStatus()
+    public function getstatut()
     {
-        return $this->status;
+        return $this->statut;
     }
 
     /**

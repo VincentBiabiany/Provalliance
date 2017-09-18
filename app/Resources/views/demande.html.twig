@@ -23,6 +23,7 @@
 				<th>Statut</th>
 				<th>Type de demande</th>
 				<th>Collaborateur</th>
+				<th>Marque</th>
 			</tr>
 			</thead>
 			<tfoot>
@@ -35,6 +36,7 @@
 				<th>Statut</th>
 				<th>Type de demande</th>
 				<th>Collaborateur</th>
+				<th>Marque</th>
 			</tr>
 			</tfoot>
 			<tbody>
@@ -60,32 +62,33 @@
 							url:"{{ path('paginate') }}",
 					} ,
 					"sAjaxDataProp": "data",
-					"pageLength": 10,
-					"order": [[ 3, 'asc' ]],
+					"pageLength": 5,
+					"order": [[ 5, 'asc' ]],
 					"columns":[
 						  {"data": "id"},
 							{"data": "", "class":"details-control", "orderable":false,},
-							{"data": "Salon"},
-							{"data": "Demandeur"},
-							{"data": "Date"},
-							{"data": "Statut"},
-							{"data": "Type de demande"},
-							{"data": "Collaborateur"},
+							{"data": "Salon","name":"x"},
+							{"data": "Demandeur","name":"x"},
+							{"data": "dateEnvoi","name":"x"},
+							{"data": "statut","name":"default", "class":"statut"},
+							{"data": "Type de demande","name":"x"},
+							{"data": "Collaborateur","name":"x"},
+							{"data": "Marque","name":"x"},
 					],
 					"columnDefs": [
 							{
 									"targets": [0],
 									"visible": false,
-									"searchable": false
+									"searchable": true
 							}
 					],
 					"fnRowCallback": function( nRow, columns, iDisplayIndex ) {
-						 if ( columns.Statut == "en cours")
+						 if ( columns.statut == "En cours")
 						  {
 								$(nRow).addClass("encours alert-info");
 						  }
 							else if
-							( columns.Statut == "rejeté"){
+							( columns.statut == "Rejeté"){
 								$(nRow).addClass("rejete alert-danger");
 						  }
 						 else
@@ -95,6 +98,7 @@
 						 return nRow;
 				 }
 			});
+
 
 			$('#demande tbody').on( 'click', 'tr td.details-control', function () {
 					var id = dt.row(this).data()['id'];

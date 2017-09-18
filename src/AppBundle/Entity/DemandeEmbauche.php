@@ -1,16 +1,16 @@
 <?php
 
 namespace AppBundle\Entity;
-
+use AppBundle\Entity\DemandeForm;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * DemandeEmbauche
  *
- * @ORM\Table(name="webapp.demande_embauche")
+ * @ORM\Table(name="demande_embauche")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\DemandeEmbaucheRepository")
  */
-class DemandeEmbauche
+class DemandeEmbauche extends DemandeForm
 {
     /**
      * @var int

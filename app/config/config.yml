@@ -86,10 +86,12 @@ doctrine:
         default_entity_manager: default
         entity_managers:
             default:
+                naming_strategy: doctrine.orm.naming_strategy.underscore
                 connection: default
                 mappings:
                     AppBundle:  ~
             referentiel:
+                naming_strategy: doctrine.orm.naming_strategy.underscore
                 connection: referentiel
                 mappings:
                    ApiBundle: ~

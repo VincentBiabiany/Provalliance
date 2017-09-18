@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * AppBundle\Entity\DemandeAcompte
  *
- * @ORM\Table(name="webapp.demande_acompte")
+ * @ORM\Table(name="demande_acompte")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\DemandeAcompteRepository")
  */
 class DemandeAcompte extends DemandeForm

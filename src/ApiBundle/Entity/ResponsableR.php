@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ResponsableR
  *
- * @ORM\Table(name="referentiel.responsable_r")
+ * @ORM\Table(name="responsable_r")
  * @ORM\Entity
  */
 class ResponsableR

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Groupe
  *
- * @ORM\Table(name="referentiel.groupe")
+ * @ORM\Table(name="groupe")
  * @ORM\Entity
  */
 class Groupe

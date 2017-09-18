@@ -23,7 +23,7 @@
 
       <div class="col-sm-12" style="background-color: #B39C8C; padding: 25px;">
           <p> <b>Demandeur : </b>{{ demandeur.nom }} {{ demandeur.prenom }} </p>
-          <p> <p> <b>Date d'envoi :</b>  {{ date }} </p> <b>Satut:</b>  {{ status }} {% if dateTraitement is not null %} le {{ dateTraitement }} {% endif %}</p>
+          <p> <p> <b>Date d'envoi :</b>  {{ date }} </p> <b>Satut:</b>  {{ statut }} {% if dateTraitement is not null %} le {{ dateTraitement }} {% endif %}</p>
           <p> <b>Salon :</b> {{ salon.nom }} </p>
           <p> <b>Adresse :</b>  {{ salon.adresse.rue }} {{ salon.adresse.cp }} {{ salon.adresse.ville }}  </p>
 	{% if is_granted('ROLE_PAIE') or is_granted('ROLE_JURIDIQUE') %}
