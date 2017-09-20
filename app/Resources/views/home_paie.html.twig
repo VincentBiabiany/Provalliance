@@ -5,6 +5,8 @@
 
 <div class="header">
     <img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
+    <hr/>
+    <span id="nomSalon">{{ app.session.get('nomSalon') }}</span>
 </div>
 <div class="head" >
     {{ "home_paie.header"|trans({}, "home_paie") }}
@@ -38,7 +40,7 @@
             <div class="col-sm-6 block">
                 <button class="btn-black" onclick="window.location.href = '{{ path("homepage") }}'" style="float:none;">Accueil</button>
             </div>
-          
+
         </div>
     </div>
 </div>

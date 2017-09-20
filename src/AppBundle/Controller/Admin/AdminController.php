@@ -26,6 +26,14 @@ class AdminController extends Controller
         return $this->render('admin/home.html.twig');
    }
    /**
+     * @Route("/admin/create_type", name="createType")
+     */
+    public function createTypeAction(Request $request)
+    {
+
+         return $this->render('admin/createType.html.twig');
+    }
+   /**
      * @Route("/admin/create", name="createAccount")
      */
     public function createAccountAction(Request $request)
@@ -45,6 +53,7 @@ class AdminController extends Controller
                      'choice_label' => 'nom',
                      'label' => 'admin_create.nom',
                      'placeholder' => ' Choisir un salon',
+                     'multiple' => true,
                      'translation_domain' => 'admin_create'
                   ))
                 ->getForm()
@@ -83,7 +92,6 @@ class AdminController extends Controller
             ->getForm()
           ;
           return $this->render('admin/createAccountS2.html.twig',['formS2'=>$formS2->createView()]);
-
     }
 
     /**
@@ -92,23 +100,16 @@ class AdminController extends Controller
    public function createAccountActionS3(Request $request)
    {
       $formFactory = $this->container->get('fos_user.registration.form.factory');
-      $idPersonnel = $request->get('id');
+      $idSalon = $request->get('id');
 
-      $formS3 = $formFactory->createForm( array('action' => $this->generateUrl('createAccountS3', array('id' => $idPersonnel))));
+      $formS3 = $formFactory->createForm( array('action' => $this->generateUrl('createAccountS3', array('id' => $idSalon))));
 
-      $formS3 ->add('idPersonnel', HiddenType::class, array(
-                      'data' => $idPersonnel));
+      $formS3 ->add('idSalon', HiddenType::class, array(
+                      'data' => $idSalon));
       $formS3 ->add('enabled', ChoiceType::class, array(
               'choices'  => array('Activer' => 1,'Desactiver' => 0),
                      'expanded' => true,
                      'multiple' => false));
-      $formS3 ->add('roles', ChoiceType::class, array(
-               'choices' => array('Administrateur' => 'ROLE_ADMIN', 'Service Paie' => 'ROLE_PAIE', 'Service Juridique' => 'ROLE_Juridique'),
-               'expanded' => false,
-               'multiple' => false,
-               'mapped' => false,
-           )
-       );
       $formS3-> add('Valider', SubmitType::class, array(
             'label' => 'Créer un utilisateur',
             'translation_domain' => 'FOSUserBundle',
@@ -118,16 +119,12 @@ class AdminController extends Controller
                   )
             );
 
-       $em= $this->getDoctrine()->getManager('referentiel');
-       $personnel = $em->getRepository('ApiBundle:Personnel')->findOneBy(array('id' => $idPersonnel));
+
 
             if ($request->isMethod('POST')) {
                 $formS3->handleRequest($request);
 
-                if ($formS3->isValid()) {
-                       //On met a jour le champ 'compte' de la table Personnel
-                       $personnel->setCompte(1);
-                       $em->flush();
+                if ($formS3->isSubmitted()) {
 
                        //On enregistre les infos principales du User
                        $em = $this->getDoctrine()->getManager();
@@ -142,23 +139,18 @@ class AdminController extends Controller
                                          ->getRepository('AppBundle:User')
                                          ->findOneBy(array("id" => $idNewUser));
 
-                       $roles= $formS3["roles"]->getData();
-                       $newUser->addRole($roles);
+                       $newUser->addRole("ROLE_MANAGER");
                        $newUser->setLastLogin(new \DateTime());
 
                        $em->persist($newUser);
                        $em->flush();
 
-                       //On met a jour le champ 'compte' de la table Personnel
-                       $personnel->setCompte(1);
-                       $em->flush();
-
-                   $this->addFlash("success", "Le compte utilisateur pour ".$personnel->getNom()." a correctement été crée !");
+                   $this->addFlash("success", "Le compte Manager a correctement été crée !");
                    return $this->redirect($this->generateUrl('adminHome'));
                       }
            }
 
-            return $this->render('admin/createAccountS3.html.twig',['formS3'=>$formS3->createView(),'Personnel'=> $personnel]);
+            return $this->render('admin/createAccountS3.html.twig',['formS3'=>$formS3->createView()]);
 
 
    }

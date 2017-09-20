@@ -95,13 +95,14 @@ class DemandeController extends Controller
 
     public function displayDemandes($typeFilter,$column,$dir,$idsalon,$search,$start,$length){
         //Requete dans la bdd en fonction de la colonne et de la direction récupérée
-
-
      $demandes = self::wichService($typeFilter,$column,$dir,$idsalon,$search,$start,$length);
 
           $entitym = $this->getDoctrine()->getManager();
           $demandeRepo = $entitym->getRepository('AppBundle:Demande');
-          $nb = $demandeRepo->getNb();
+          $role= $this->getUser()->getRoles();
+          $role= $role[0];
+
+          $nb = $demandeRepo->getNb($role,$idsalon);
           $output = array(
                'data' => array(),
                'recordsFiltered' => $nb[0][1],
@@ -255,6 +256,7 @@ class DemandeController extends Controller
         $demande->setMessage($form2["message"]->getData());
       }
       $this->getDoctrine()->getManager()->flush();
+      $this->addFlash("success", "Demande correctement traitée");
       return $this->redirectToRoute("demande");
     }
 

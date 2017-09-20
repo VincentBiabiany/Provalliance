@@ -1,11 +1,13 @@
 {% extends 'base.html.twig' %}
 {% form_theme form 'form/error.html.twig' %}
-{% block title %}Welcome{% endblock %}
+{% block title %}Demande d'accomtpe{% endblock %}
 
 {% block body %}
 {% trans_default_domain "demandeacompte" %}
 <div class="header">
 	<img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
+	<hr/>
+	<span id="nomSalon">{{ app.session.get('nomSalon') }}</span>
 </div>
 <div class="head">
 	Demande d'acompte
@@ -19,7 +21,7 @@
 
 		<div class="alert alert-info fade in">
 			<a href="#" class="close" data-dismiss="alert">&times;</a>
-			<strong>Information:</strong> Pour que la demande d’acompte soit validée ce mois-ci veuillez envoyer<br/> votre demande entre le <u>17</u> du mois
+			<strong>Information:</strong> Pour que la demande d’acompte soit validée ce mois-ci veuillez envoyer<br/> votre demande entre <u>le 14 et le 17</u> du mois
 	  </div>
 
 		{{ form_start(form, {'attr': {'class': 'demande_acompte', 'id':'formAccompte'} }) }}
@@ -29,22 +31,13 @@
 			  <div class="form-group">
 				<label class="control-label label col-sm-3 col-xs-12" for="personnel"> {{ form_label(form.idPersonnel) }}</label>
 				 <div class="col-sm-9">
-
                      {{ form_widget(form.idPersonnel, { 'attr': {'class': 'form-control'} }) }}
 				</div>
 			  </div>
-
 			<div class="form-group">
 				<label class="control-label label col-sm-3 col-xs-12" for="montant">{{ form_label(form.montant) }}</label>
 				<div class="col-sm-9">
-
                         {{ form_widget(form.montant, { 'attr': {'class': 'form-control'} }) }}
-												<div id="infoMontant">
-														<span class="min">150€ min</span>
-														<span class="max">1500€ max.</span>
-												</div>
-
-
 				</div>
 			 </div>
 
@@ -61,12 +54,5 @@
 
 </div>
 
-<script language="javascript">
-// With JQuery
-$("#demande_acompte_montant").slider({
-	tooltip: 'always'
-});
-
-</script>
 
 {% endblock %}

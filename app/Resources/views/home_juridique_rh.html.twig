@@ -5,6 +5,8 @@
 
 <div class="header">
     <img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
+    <hr/>
+    <span id="nomSalon">{{ app.session.get('nomSalon') }}</span>
 </div>
 <div class="head" >
     {{ "home_juridique_rh.header"|trans({}, "home_juridique_rh") }}

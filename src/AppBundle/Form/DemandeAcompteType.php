@@ -12,6 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 use Doctrine\ORM\EntityRepository;
 
@@ -58,21 +59,11 @@ class DemandeAcompteType extends AbstractType
           ;
       } else {
        $builder
-
-                ->add('montant', RangeType::class, [
+                ->add('montant', IntegerType::class, array(
                      'label' => 'demandeacompte.montant',
                      'translation_domain' => 'demandeacompte',
-                     'attr' => [
-                        "data-provide" => "slider",
-                        "data-slider-min" => "150",
-                        "data-slider-max" => "1500",
-                        "min" => "150",
-                        "max" => "1500",
-                        "data-slider-step" => "10",
-                        "data-slider-value"=> 150,
-                        "data"=> 150
-                     ]
-             ])
+                     'attr' => array('min' => '0')
+                ))
               ->add('idPersonnel', EntityType::class, array(
                   // query choices from this entity
                   'class' => 'ApiBundle:Personnel',

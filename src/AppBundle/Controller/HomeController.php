@@ -14,14 +14,12 @@ class HomeController extends Controller
      */
     public function indexAction(Request $request)
     {
-      $idPersonnnel = $this->getUser()->getIdPersonnel();
-      $em = $this->getDoctrine()->getManager('referentiel');
-      $personnel = $em->getRepository('ApiBundle:Personnel')->findOneBy(array('id' => $idPersonnnel));
-      $salons = $personnel->getSalon();
+      $user = $this->getUser();
+      $salons = $this->getUser()->getIdSalon();
 
       return $this->render('home.html.twig', [
           'salons'=>$salons,
-          'personnel'=>$personnel
+          'user'=>$user
       ]);
     }
 
@@ -37,6 +35,8 @@ class HomeController extends Controller
             $request->getSession()->set("img", $img);
             $numero = $request->request->get("numero");
             $request->getSession()->set("numero", $numero);
+            $nomSalon = $request->request->get("nomSalon");
+            $request->getSession()->set("nomSalon", $nomSalon);
       }
       return new Response("ok", 200, ['Content-Type' => 'application/json']);
     }

@@ -1,2 +1,5 @@
+admin_home_create.titre: Type de Compte
 admin_home.create:     Créer un nouveau compte
 admin_home.gestion: Gestion des comptes utilisateurs
+admin_home_create.manager: Compte Manager
+admin_home_create.service: Compte Service

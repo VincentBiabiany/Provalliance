@@ -1,15 +1,23 @@
 {% extends 'base.html.twig' %}
-{% block title %}Welcome{% endblock %}
+{% block title %}Suivi des demandes{% endblock %}
 
 {% block body %}
 <div class="container">
 	<div class="header">
 		<img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
+		<hr/>
+		<span id="nomSalon">{{ app.session.get('nomSalon') }}</span>
 	</div>
 	<div class="head">
 		Suivre les demandes
 	</div>
 
+	{% for flash_message in app.session.flashBag.get('success') %}
+		<div id="flashDemande" class="alert alert-success success">
+			{{ flash_message }}
+      <span class="closeAlert glyphicon glyphicon-remove"></span>
+		</div>
+	{% endfor %}
 	<div class="col-sm-12" style="padding-top: 50px;">
 
 		<table id="demande" class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -63,7 +71,7 @@
 					} ,
 					"sAjaxDataProp": "data",
 					"pageLength": 5,
-					"order": [[ 5, 'asc' ]],
+					"order": [[ 5, 'asc' ],[ 4, 'desc' ]],
 					"columns":[
 						  {"data": "id"},
 							{"data": "", "class":"details-control", "orderable":false,},

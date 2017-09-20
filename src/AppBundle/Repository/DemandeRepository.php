@@ -11,16 +11,33 @@ namespace AppBundle\Repository;
 class DemandeRepository extends \Doctrine\ORM\EntityRepository
 {
 
-  public function getNb() {
+  public function getNb($role,$idsalon) {
+      if ($role =='ROLE_PAIE') {
 
-            return $this->createQueryBuilder('d')
-                ->select('COUNT(d)')
-                ->getQuery()
-                ->getResult();
-            }
+        return $this->createQueryBuilder('d')
+            ->select('COUNT(d)')
+            ->where('d.service = :serviceUser')
+            ->setParameter('serviceUser', 'paie')
+            ->getQuery()
+            ->getResult();
 
 
+      }elseif ($role =='ROLE_JURIDIQUE') {
+        return $this->createQueryBuilder('d')
+            ->select('COUNT(d)')
+            ->where('d.service = :serviceUser')
+            ->setParameter('serviceUser', 'juridique')
+            ->getQuery()
+            ->getResult();
 
-
+      }else {
+        return $this->createQueryBuilder('d')
+            ->select('COUNT(d)')
+            ->where('d.idSalon = :salon')
+            ->setParameter('salon', $idsalon)
+            ->getQuery()
+            ->getResult();
+        }
+   }
 
 }

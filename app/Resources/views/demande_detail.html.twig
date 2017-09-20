@@ -1,11 +1,17 @@
 {% extends 'base.html.twig' %}
-{% block title %}Welcome{% endblock %}
+{% block title %}Résumé de la demande{% endblock %}
 
 {% block body %}
 {% trans_default_domain "demandeacompte" %}
 
 <div class="header">
+	{% if is_granted('ROLE_ADMIN') %}
+
 	<img style="display: block !important;margin: auto !important;" id="logotop" src="{{ asset("img/") ~ salon.enseigne.logo }}">
+	<hr/>
+	<span id="nomSalon">{{ app.session.get('nomSalon') }}</span>
+	{% endif  %}
+
 </div>
 
 <div class="head">
@@ -45,7 +51,7 @@
 							{% endfor %}
 					    	{{ form_row(form2.message, {'attr': {'class': 'form-control'} }) }}
 
-
+<br/>
 								{{ form_row(form2.reject, {'attr': {'class': 'btn-black end alert-danger'} }) }}
 								{{ form_row(form2.accept, {'attr': {'class': 'btn-black end alert-success'} }) }}
 						{{ form_end(form2) }}

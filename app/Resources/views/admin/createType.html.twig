@@ -1,5 +1,5 @@
 {% extends './base.html.twig' %}
-{% block title %}Administration{% endblock %}
+{% block title %}{{ "admin_home_create.titre"|trans({}, "admin_home") }}{% endblock %}
 
 {% block body %}
 {% trans_default_domain "admin_home" %}
@@ -23,10 +23,10 @@
 	        <div class="col-sm-12" style="padding-top:40px; max-width:1200px; margin:auto;">
 	            <div class="col-sm-6 block">
 
-	                <div class="under-block" onclick="window.location.href ='{{ path("createType") }}'"><p class="carre">{{ "admin_home.create"|trans({}, "admin_home") }}</p></div>
+	                <div class="under-block" onclick="window.location.href ='{{ path("createAccount") }}'"><p class="carre">{{ "admin_home_create.manager"|trans({}, "admin_home") }}</p></div>
 	            </div>
 	            <div class="col-sm-6 block">
-	                <div class="under-block" onclick="window.location.href ='{{ path("listeAccount") }}'"><p class="carre">{{ "admin_home.gestion"|trans({}, "admin_home") }}</p></div>
+	                <div class="under-block" onclick="window.location.href ='{{ path("createAccount") }}'"><p class="carre">{{ "admin_home_create.service"|trans({}, "admin_home") }}</p></div>
 	            </div>
 	        </div>
 
