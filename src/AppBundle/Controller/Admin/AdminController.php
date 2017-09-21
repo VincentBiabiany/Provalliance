@@ -34,12 +34,12 @@ class AdminController extends Controller
          return $this->render('admin/createType.html.twig');
     }
    /**
-     * @Route("/admin/create", name="createAccount")
+     * @Route("/admin/create", name="createAccountManager")
      */
     public function createAccountAction(Request $request)
     {
 
-         return $this->render('admin/createAccount.html.twig');
+         return $this->render('admin/createAccountManager.html.twig');
     }
 
     /**
@@ -53,7 +53,7 @@ class AdminController extends Controller
                      'choice_label' => 'nom',
                      'label' => 'admin_create.nom',
                      'placeholder' => ' Choisir un salon',
-                     'multiple' => true,
+                     'multiple' => false,
                      'translation_domain' => 'admin_create'
                   ))
                 ->getForm()
@@ -100,12 +100,11 @@ class AdminController extends Controller
    public function createAccountActionS3(Request $request)
    {
       $formFactory = $this->container->get('fos_user.registration.form.factory');
-      $idSalon = $request->get('id');
+      $idPersonnel = $request->get('id');
+      $formS3 = $formFactory->createForm( array('action' => $this->generateUrl('createAccountS3', array('id' => $idPersonnel))));
 
-      $formS3 = $formFactory->createForm( array('action' => $this->generateUrl('createAccountS3', array('id' => $idSalon))));
-
-      $formS3 ->add('idSalon', HiddenType::class, array(
-                      'data' => $idSalon));
+      $formS3 ->add('idPersonnel', HiddenType::class, array(
+                      'data' => $idPersonnel));
       $formS3 ->add('enabled', ChoiceType::class, array(
               'choices'  => array('Activer' => 1,'Desactiver' => 0),
                      'expanded' => true,
@@ -119,12 +118,16 @@ class AdminController extends Controller
                   )
             );
 
-
+            $em= $this->getDoctrine()->getManager('referentiel');
+                   $personnel = $em->getRepository('ApiBundle:Personnel')->findOneBy(array('id' => $idPersonnel));
 
             if ($request->isMethod('POST')) {
                 $formS3->handleRequest($request);
 
                 if ($formS3->isSubmitted()) {
+                   //On met a jour le champ 'compte' de la table Personnel
+                        $personnel->setCompte(1);
+                        $em->flush();
 
                        //On enregistre les infos principales du User
                        $em = $this->getDoctrine()->getManager();
@@ -150,10 +153,77 @@ class AdminController extends Controller
                       }
            }
 
-            return $this->render('admin/createAccountS3.html.twig',['formS3'=>$formS3->createView()]);
+            return $this->render('admin/createAccountS3.html.twig',['formS3'=>$formS3->createView(),'Personnel'=> $personnel]);
 
 
    }
+
+
+       /**
+         * @Route("/admin/create_service", name="createAccountService")
+         */
+      public function createAccountServiceAction(Request $request)
+      {
+         $formFactory = $this->container->get('fos_user.registration.form.factory');
+         $form = $formFactory->createForm( array('action' => $this->generateUrl('createAccountService')));
+         $form ->add('idPersonnel', HiddenType::class, array(
+                         'data' => 0));
+         $form ->add('enabled', ChoiceType::class, array(
+                 'choices'  => array('Activer' => 1,'Desactiver' => 0),
+                        'expanded' => true,
+                        'multiple' => false));
+         $form ->add('roles', ChoiceType::class, array(
+                  'choices' => array('Service Paie' => 'ROLE_PAIE', 'Service Juridique / RH ' => 'ROLE_Juridique'),
+                  'expanded' => false,
+                  'multiple' => false,
+                  'mapped' => false,
+              )
+          );
+         $form-> add('Valider', SubmitType::class, array(
+               'label' => 'Créer un utilisateur',
+               'translation_domain' => 'FOSUserBundle',
+               'attr' => array(
+                     'class' => 'btn btn-primary'
+                      )
+                     )
+               );
+
+               if ($request->isMethod('POST')) {
+                   $form->handleRequest($request);
+
+                   if ($form->isSubmitted()) {
+
+                          //On enregistre les infos principales du User
+                          $em = $this->getDoctrine()->getManager();
+                          $user = $form->getData();
+                          $em->persist($user);
+                          $em->flush();
+
+                          //On assigne un role à ce même User
+                          $idNewUser = $user->getId();
+                          $newUser = $this->getDoctrine()
+                                            ->getManager()
+                                            ->getRepository('AppBundle:User')
+                                            ->findOneBy(array("id" => $idNewUser));
+
+                          $roles= $form["roles"]->getData();
+                          $newUser->addRole($roles);
+                          $newUser->setLastLogin(new \DateTime());
+
+                          $em->persist($newUser);
+                          $em->flush();
+
+                      $this->addFlash("success", "Le compte Service a correctement été crée !");
+                      return $this->redirect($this->generateUrl('adminHome'));
+                         }
+              }
+
+               return $this->render('admin/createAccountService.html.twig',['form'=>$form->createView()]);
+
+
+      }
+
+
 
     /**
      * @Route("/admin/liste", name="listeAccount")
@@ -249,7 +319,14 @@ class AdminController extends Controller
                       $req= $this->getDoctrine()->getManager('referentiel');
                       $personnel = $req->getRepository('ApiBundle:Personnel')->findOneBy(array('id' => $userIdPersonnel));
 
-                      $identitePersonnel = $personnel->getNom().' '.$personnel->getPrenom();
+                      //On recupere les infos du personnel dans le cas des comptes liés (manager)
+                      if($user->getIdPersonnel() != 0){
+
+                        $identitePersonnel = $personnel->getNom().' '.$personnel->getPrenom();
+
+                     }else{
+                        $identitePersonnel = null;
+                     }
                       $formFactory = $this->container->get('fos_user.registration.form.factory');
                       $form = $formFactory->createForm();
 

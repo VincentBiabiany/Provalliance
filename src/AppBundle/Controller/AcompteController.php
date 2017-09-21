@@ -81,7 +81,7 @@ class AcompteController extends Controller
                                );
                             $mailer->send($message);
 
-                            $this->addFlash("success", "La demande d'acompte pour ".$personnel->getNom()." a correctement été envoyée ! Un mail vous sera envoyé une fois votre demande traitée.");
+                            $this->addFlash("success", "La demande d'acompte pour ".$personnel->getNom()." ".$personnel->getPrenom()." a correctement été envoyée ! Un mail vous sera envoyé une fois votre demande traitée.");
                             return $this->redirectToRoute('homepage');
                             }
                     }

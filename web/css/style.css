@@ -414,10 +414,12 @@ span.inactif{
 	color: black;
 	font-size: 15px;
 	cursor: pointer;
-	position: absolute;
-	right: 55px;
 }
+#logout{
+	right: 55px;
+	position: absolute;
 
+}
 .gestion {
 	/*float: right;*/
     	color: black;
