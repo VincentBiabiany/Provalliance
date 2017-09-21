@@ -45,7 +45,7 @@ class AdminController extends Controller
     /**
      * @Route("/admin/createS1", name="createAccountS1")
      */
-    public function createAccountActionS1(Request $request)
+    public function createAccountSaAction(Request $request)
     {
       $form = $this->createFormBuilder()
                   ->add('nom', EntityType::class, array(
@@ -97,7 +97,7 @@ class AdminController extends Controller
     /**
      * @Route("/admin/createS3/{id}", name="createAccountS3")
      */
-   public function createAccountActionS3(Request $request)
+   public function createAccounS3tAction(Request $request)
    {
       $formFactory = $this->container->get('fos_user.registration.form.factory');
       $idPersonnel = $request->get('id');

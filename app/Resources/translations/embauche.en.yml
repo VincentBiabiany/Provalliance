@@ -1,3 +1,4 @@
+embauche.header:        Job application
 embauche.attention:     Be carefull!
 embauche.msg:           Before starting to fill this form, please verify if you posses all these following documents in electronic format \:
 embauche.pi:            Identity Document
@@ -27,28 +28,50 @@ embauche.fam.celib:     Bachelor
 embauche.nbenf:         Number of child
 embauche.villen:        City of birth
 
-
 embauche.dateemb:       Date d'embauche
 embauche.ancien:        Ancien salarié
+embauche.lieu:          Lieu
 embauche.ancien.oui:    Yes
 embauche.ancien.no:     No
 embauche.poste:         Poste
 embauche.poste.coif:    Hairdresser
 embauche.poste.tech:    Technician
-embauche.poste.autre:   Other
 
 embauche.diplome.CAP:   CAP
 embauche.diplome.BEP:   BEP
-embauche.diplome.Autre: Other
 
 embauche.class:         Classification
-embauche.salaire:       Salaire base
+embauche.niveau:        Niveau
+embauche.echelon:       Echelon
+
+embauche.salaire:       Base salary
 embauche.salaire.con:   Salaire Conventionnel
-embauche.salaire.other: Autre
 embauche.contrat:       Type de contrat
-embauche.partiel:       Temps partiel
+embauche.partiel:       Part time
 
 
-embauche.step1:         Etape 2
-embauche.step2:         Etape 3
-embauche.send:          Envoyer
+embauche.cdi:           CDI
+embauche.appr:          Contrat d'apprentissage
+embauche.pro:           Contrat de profes.
+embauche.cdd:           CDD
+
+embauche.cdd.surcroit:  More activity
+embauche.cdd.rempla:    Replacement
+embauche.cdd.nature:    Reason of absence
+embauche.cdd.nom:       Name of replaced
+embauche.cdd.date:      Until
+embauche.cdd.renouv:    Renouvellement du CDD pour le même motif
+embauche.cdd.retour:    Until physical return
+
+embauche.partiel:       Part time
+embauche.lundi:         Monday
+embauche.mardi:         Tuesday
+embauche.mercredi:      Wednesday
+embauche.jeudi:         Thursday
+embauche.vendredi:      Friday
+
+embauche.autre:         Other
+
+embauche.step1:         Step 2
+embauche.step2:         Step 3
+embauche.send:          Send

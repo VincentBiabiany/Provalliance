@@ -5,8 +5,8 @@
 
 <div class="header">
     <img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
-    <hr/>
-    <span id="nomSalon">{{ app.session.get('nomSalon') }}</span>
+	<hr/>
+	<span id="nomSalon">{{ app.session.get('nomSalon') }}</span>
 </div>
 <div class="head" >
     {{ "embauche.header"|trans({}, "embauche") }}
@@ -158,7 +158,14 @@
 </div>
 
 <script>
+$('#demande_embauche_Envoyer').parent().append('<button  onclick="history.back()" style="float:left;" class="btn-black end">back</button>');
+</script>
 
+
+
+
+
+<script>
 $(document).ready(function(){
 
   // Controle du champs CDD
@@ -290,6 +297,26 @@ $(document).ready(function(){
   $addListener($situ3, "diplome", "diplomes", 2, 3);
   $addListener($situ4, "classification", "classification", 2 , 4);
   $addListener($situ5, "salaire", "salaireBase", 1, 5);
+
+
+
+  $('#demande_embauche_autre').change(function(){
+    console.log('change')
+      if( $('#demande_embauche_autre').val().length > 0 ) {
+        $('#demande_embauche_niveau').attr('disabled','disabled');
+        $('#demande_embauche_echelon').prop('disabled', true);
+
+        console.log('disabled')
+      }
+      else
+      {
+        $('#demande_embauche_niveau').prop('disabled', false);
+        $('#demande_embauche_echelon').prop('disabled', false);
+          console.log('enabled')
+      }
+});
+
+
 
 });
 </script>

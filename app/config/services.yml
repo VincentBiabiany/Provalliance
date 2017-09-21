@@ -45,3 +45,7 @@ services:
         #arguments: ['%kernel.default_locale%']
         tags:
             - { name: kernel.event_subscriber, method: onKernelRequest }
+            
+    AppBundle\Service\FileUploader:
+        arguments:
+            $targetDir: '%files_directory%'

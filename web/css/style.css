@@ -1,3 +1,28 @@
+
+.datepicker.datepicker-dropdown.dropdown-menu.datepicker-orient-left.datepicker-orient-top {
+margin-top: 100px;
+}
+
+/* For Firefox */
+input[type='number'] {
+-moz-appearance:textfield;
+}
+
+/* Webkit browsers like Safari and Chrome */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+
+
+
+
+
+
+
+
+
 /*STYLE GENERAL*/
 
 body,p,a,h1,h2,h3,h4,h5 {
@@ -32,7 +57,12 @@ body,p,a,h1,h2,h3,h4,h5 {
 		z-index: 3;
 }
 #topNav a{
-    color: black;
+	color: #333;
+	font-weight: light;
+}
+#logout a:hover{
+    color: red;
+
 }
 img#logotop{
 	width: 250px;
@@ -280,7 +310,7 @@ margin-top: 25px;
  h2{
 	clear: both;
 }
-form#formAccompte	, form#createAccount, form#createAccountS2, form#createAccountS3, form#editAccount{
+form#formAccompte	, form#createAccount, form#createAccountS2, form#createAccountS3, form#editAccount,form#createAccountService{
 	/*margin-top: 25px;*/
 	width: 650px;
 	position: relative;
@@ -389,7 +419,7 @@ span.inactif{
 
 .carre{
 	height: 80px;
-	background-color: black;
+	background-color: #333;
 	text-align: center;
 	width: 230px;
 	margin: auto;
@@ -399,6 +429,10 @@ span.inactif{
 	display: table-cell;
 	vertical-align: middle;
   color: white;
+}
+.carre:hover{
+	background-color: black;
+
 }
 .block{
 	padding-bottom: 25px;

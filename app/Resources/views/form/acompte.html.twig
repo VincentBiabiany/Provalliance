@@ -8,23 +8,57 @@
 				{{ form_widget(form, { 'attr' : {'class': 'form-control' } }) }}
 	</div>
 </div>
+
 {% endspaceless %}
 {% endblock form_row %}
 
-
-	<!-- <form class="form-horizontal" onsubmit="event.preventDefault();" style="margin: auto;width: 50%;">
-			<div class="form-group" style="padding-top: 50px">
-			<label class="control-label label col-sm-3 col-xs-12" for="personnel"> </label>
-			 <div class="col-sm-9">
-
-			</div>
-			</div>
-
-		<div class="form-group">
-			<label class="control-label label col-sm-3 col-xs-12" for="montant"></label>
+{% block _demande_embauche_carteId_row %}
+<div class="form-group" style="padding-top: 50px">
+	<label class="control-label label col-sm-3 col-xs-12" for="personnel"> {{ form_label(form) }}</label>
+		<a href="{{ asset('uploads/files/' ~ value ) }}" >
 			<div class="col-sm-9">
+					{{ form_widget(form, { 'attr' : {'class': 'getDocument form-control' } }) }}
+		  </div>
+		</a>
+</div>
+{% endblock %}
 
+{% block _demande_embauche_carteVitale_row %}
+<div class="form-group" style="padding-top: 50px">
+	<label class="control-label label col-sm-3 col-xs-12" for="personnel"> {{ form_label(form) }}</label>
+		<a href="{{ asset('uploads/files/' ~ value ) }}" >
+			<div class="col-sm-9">
+					{{ form_widget(form, { 'attr' : {'class': 'getDocument form-control' } }) }}
 			</div>
-		 </div>
+		</a>
+</div>
+{% endblock %}
 
-	</form> -->
+{% block _demande_embauche_diplomeFile_row %}
+<div class="form-group" style="padding-top: 50px">
+	<label class="control-label label col-sm-3 col-xs-12" for="personnel"> {{ form_label(form) }}</label>
+		<a href="{{ asset('uploads/files/' ~ value ) }}" >
+			<div class="col-sm-9">
+					{{ form_widget(form, { 'attr' : {'class': 'getDocument form-control' } }) }}
+			</div>
+		</a>
+</div>
+{% endblock %}
+
+{% block _demande_embauche_rib_row %}
+<div class="form-group" style="padding-top: 50px">
+	<label class="control-label label col-sm-3 col-xs-12" for="personnel"> {{ form_label(form) }}</label>
+		<a href="{{ asset('uploads/files/' ~ value ) }}" ><div class="col-sm-9">
+				{{ form_widget(form, { 'attr' : {'class': 'getDocument form-control' } }) }}
+	 </div></a>
+</div>
+{% endblock %}
+
+{% block _demande_embauche_mutuelle_row %}
+<div class="form-group" style="padding-top: 50px">
+	<label class="control-label label col-sm-3 col-xs-12" for="personnel"> {{ form_label(form) }}</label>
+		<a href="{{ asset('uploads/files/' ~ value ) }}" ><div class="col-sm-9">
+				{{ form_widget(form, { 'attr' : {'class': 'getDocument form-control' } }) }}
+	 </div></a>
+</div>
+{% endblock %}
