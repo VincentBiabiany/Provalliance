@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}Demande d'embauche{% endblock %}
+{% block title %}Welcome{% endblock %}
 
 {% block body %}
 
@@ -21,7 +21,7 @@
 	<div style="max-width: 100%; margin: auto;">
 
 		<div class="row">
-				        {{ form_start(form, { 'attr' : { 'class': 'form-horizontal','id':'formEmbaucheStep2' } }) }}
+				        {{ form_start(form, { 'attr' : { 'class': 'form-horizontal' } }) }}
 				<div class="row">
 				  <div class="form-group *" style="padding-bottom:25px; padding-top: 50px">
   					<label class="control-label label col-sm-3 col-xs-12"  for="embauche">{{ "embauche.dateemb"|trans({}, "embauche") }}</label>
@@ -33,74 +33,123 @@
           <div class="form-group">
             <label class="control-label label col-sm-3 col-xs-12" for="groupe">{{ "embauche.ancien"|trans({}, "embauche") }}</label>
             <div class="col-sm-3 pad-box append" style="display: inline-flex" >
-                    {{ form(form.dejaSalarie) }}
+                    {{ form_widget(form.dejaSalarie) }}
             </div>
           </div>
 
 
 				  <div class="form-group">
-  					<label class="control-label label col-sm-3 col-xs-12 append2" for="date">{{ "embauche.poste"|trans({}, "embauche") }}</label>
-              <div class="col-sm-3 pad-box" style="display: inline-flex" >
-                    {{ form_widget(form.poste) }}
-				      </div>
+  					<label class="control-label label col-sm-3 col-xs-12" for="date">{{ "embauche.poste"|trans({}, "embauche") }}</label>
+            <div class="col-sm-3 pad-box append" style="display: inline-flex" >
+                    {{ form_widget(form.postes) }}
+				    </div>
           </div>
+
 				  <div class="form-group">
   					<label class="control-label label col-sm-3 col-xs-12" for="date">{{ "embauche.diplome"|trans({}, "embauche") }}</label>
   					<div class="col-sm-3 pad-box" style="display: inline-flex" >
-                    {{ form(form.diplomes) }}
+                    {{ form_widget(form.diplomes) }}
   					</div>
 				  </div>
 
 				  <div class="form-group" style="">
   					<label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "embauche.class"|trans({}, "embauche") }}</label>
-  					 <div class="col-sm-3 pad-box" >
-  						      {{ form(form.classification) }}
-
+  					<div class="col-sm-3 pad-box" >
+  						<label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "embauche.niveau"|trans({}, "embauche") }}</label>{{ form_widget(form.niveau) }}
+            </div>
+            <div class="col-sm-3 pad-box" >
+              <label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "embauche.echelon"|trans({}, "embauche") }}</label> {{ form_widget(form.echelon) }}
   					</div>
+            <div class="col-sm-3 pad-box" >
+              <label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "embauche.autre"|trans({}, "embauche") }}</label> {{ form_widget(form.autre) }}
+            </div>
 				   </div>
 
 				  <div class="form-group row" style="">
   					<label class="control-label label col-sm-3 col-xs-12" for="prenom">{{ "embauche.salaire"|trans({}, "embauche") }}</label>
   					 <div class="col-sm-3 pad-box">
-  							     {{ form(form.salaireBase) }}
+  							     {{ form_widget(form.salaireBase) }}
   					</div>
-  				  </div>
+  				 </div>
 
 				  <div class="form-group row" style="">
 				     <label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "embauche.contrat"|trans({}, "embauche") }}</label>
 				      <div class="col-sm-8 pad-box" >
-                      {{ form(form.typeContrat) }}
+                      {{ form_widget(form.typeContrat) }}
               </div>
 				  </div>
 
-				  <div class="form-group">
-					<label class="control-label label col-sm-3 col-xs-12" for="Nationalité">{{ "embauche.partiel"|trans({}, "embauche") }}</label>
-					<div class="col-sm-8 pad-box" style="display: inline-flex" >
-						<div class="col-sm-8 " style="display: inline-flex" >
-							<input type="checkbox"  name="Nationalité"  style="color:black"><p style="color:black;font-size:15px">LU</p>
-						</div>
-						<div class="col-xs-8" style="display: inline-flex" >
-							<input type="checkbox"  name="Nationalité"  style="color:black"><p style="color:black; font-size:15px">MA</p>
-						</div>
-						<div class="col-sm-8" style="display: inline-flex" >
-							<input type="checkbox"  name="Nationalité"  style="color:black"><p style="color:black;font-size:15px">ME</p>
-						</div>
-						<div class="col-xs-8" style="display: inline-flex" >
-							<input type="checkbox"  name="Nationalité"  style="color:black"><p style="color:black; font-size:15px">JE</p>
-						</div>
-						<div class="col-xs-8" style="display: inline-flex" >
-							<input type="checkbox"  name="groupe"  style="color:black"><p style="color:black; font-size:15px">VE</p>
-						</div>
-						<div class="col-xs-8" style="display: inline-flex" >
-							<input type="checkbox"  name="groupe"  style="color:black"><p style="color:black; font-size:15px">SA</p>
-						</div>
-						<div class="col-xs-8 pad-box" style="display: inline-flex" >
-							<input type="number"  name="groupe"  style="color:black"><p style="color:black; font-size:15px">TOTAL</p>
-						</div>
-					</div>
-				  </div>
+				  <div class="form-group row" style="display:none" id="block-cdd">
+				     <label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "embauche.cdd"|trans({}, "embauche") }}</label>
+
+              <div class="col-sm-8 pad-box" style="display: inline-flex">
+                <div id="demande_embauche_CDD">
+
+                  <div class="col-sm-12">
+                    <input type="radio" id="demande_embauche_CDD_0" name="demande_embauche[raison][raison]" value="embauche.cdd.surcroit">
+                    <label for="demande_embauche_CDD_0" class="required">{{ "embauche.cdd.surcroit"|trans({}, "embauche") }}</label>
+                    <div style="display:none;">
+                        <div class="col-xs-12">
+                          <label class="control-label label">{{ "embauche.cdd.date"|trans({}, "embauche") }}</label><input type="text" id="demande_embauche[raison][jusquau]" name="demande_embauche[raison][jusquau]" class="js-datepicker form-control">
+                        </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12">
+                    <input type="radio" id="demande_embauche_CDD_1" name="demande_embauche[raison][raison]" value="embauche.cdd.rempla">
+                    <label for="demande_embauche_CDD_1" class="required">{{ "embauche.cdd.rempla"|trans({}, "embauche") }}</label>
+                    <div style="display:none;">
+                      <div class="col-xs-12">
+
+                        <label class="control-label label">{{ "embauche.cdd.nature"|trans({}, "embauche") }}</label><input type="text" id="demande_embauche[raison][absence]" name="demande_embauche[raison][absence]"  class="form-control">
+                        <label class="control-label label">{{ "embauche.cdd.nom"|trans({}, "embauche") }}</label><input type="text" id="demande_embauche[raison][nom]" name="demande_embauche[raison][nom]"  class="form-control">
+
+                        <div id="test" >
+                          <label class="control-label label">{{ "embauche.cdd.date"|trans({}, "embauche") }}</label>
+                          <input type="text" id="demande_embauche[raison][jusquau2]" class="jusquau js-datepicker form-control" name="demande_embauche[raison][jusquau]">
+                        </div>
+
+                        <div>
+                          <input type="checkbox" class="retourPhysique" id="demande_embauche[raison][retour]" name="demande_embauche[raison][retour]" value="embauche.cdd.retour">
+                          <label for="demande_embauche[raison][retour]" style="color:black;">{{ "embauche.cdd.retour"|trans({}, "embauche") }}</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12">
+                    <input type="radio" id="demande_embauche_CDD_2" name="demande_embauche[raison][raison]" value="embauche.cdd.renouv">
+                    <label for="demande_embauche_CDD_2" class="required">{{ "embauche.cdd.renouv"|trans({}, "embauche") }}</label>
+                    <div style="display:none;">
+                      <div class="col-xs-12">
+                        <label class="control-label label">{{ "embauche.cdd.date"|trans({}, "embauche") }}</label>
+                        <input type="text" id="demande_embauche[raison][jusquau]" name="demande_embauche[raison][jusquau]" class="js-datepicker form-control">
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div> <!-- FIN CDD -->
+
+
+            <!-- Temps partiel -->
+           <div class="form-group row" style="">
+    					<label class="control-label label col-sm-3 col-xs-12" for="prenom">{{ "embauche.cdd.partiel"|trans({}, "embauche") }}</label>
+    					 <div class="col-sm-3 pad-box">
+                 <label class="control-label label col-sm-12 col-xs-12"  for="nom"></label><br>
+                 <label for="demande_embauche_heure" class="label">{{ "embauche.lundi"|trans({}, "embauche") }}</label>      <input type="number" name="demande_embauche[heure][lundi]"    min="0" max="8" id="demande_embauche[heure][lundi]" class="form-control">
+                 <label for="demande_embauche_heure" class="label">{{ "embauche.mardi"|trans({}, "embauche") }}</label>      <input type="number" name="demande_embauche[heure][mardi]"    min="0" max="8" id="demande_embauche[heure][mardi]" class="form-control">
+                 <label for="demande_embauche_heure" class="label">{{ "embauche.mercredi"|trans({}, "embauche") }}</label>   <input type="number" name="demande_embauche[heure][mercredi]" min="0" max="8" id="demande_embauche[heure][mercredi]" class="form-control">
+                 <label for="demande_embauche_heure" class="label">{{ "embauche.jeudi"|trans({}, "embauche") }}</label>      <input type="number" name="demande_embauche[heure][jeudi]"    min="0" max="8" id="demande_embauche[heure][jeudi]" class="form-control">
+                 <label for="demande_embauche_heure" class="label">{{ "embauche.vendredi"|trans({}, "embauche") }}</label>   <input type="number" name="demande_embauche[heure][vendredi]" min="0" max="8" id="demande_embauche[heure][vendredi]" class="form-control">
+    					</div>
+    				</div>
+
+
+          {{ form_end(form) }}
+
         </div>
-      {{ form_end(form) }}
 
       </div>
     </div>
@@ -111,97 +160,136 @@
 <script>
 
 $(document).ready(function(){
- var $situ = $('#demande_embauche_dejaSalarie');
- var $situ2 = $('#demande_embauche_poste');
- var $situ3 = $('#demande_embauche_poste');
- var $situ3 = $('#demande_embauche_diplomes');
- var $situ4 = $('#demande_embauche_classification');
- var $situ5 = $('#demande_embauche_salaireBase');
- var count = 0;
- var count2 = 0;
- var count3 = 0;
- var count4 = 0;
- var count5 = 0;
 
- $situ.change(function() {
-   var isChecked = $('#demande_embauche_dejaSalarie_0').prop('checked');
-     if (isChecked && count == 0) {
-       count++;
-       var input = document.createElement("input");
-       input.type = "text";
-       input.className = "form-control";
-       $situ.parent().parent().parent().append('<div id="at"> <label for="demande_embauche_lieu" class="control-label label col-sm-3 col-xs-12 required">Lieu</label> \
-       <div id="autre" class="col-sm-3"> \
-       <input type="text" id="demande_embauche_lieu" name="demande_embauche[lieu]" class="form-control" required="required" maxlength="255"></div></div>');
-     } else if ( count != 0) {
-         $('#at').remove();
-         count = 0;
+  // Controle du champs CDD
+  // Si coché alors on déploit le détail
+  if ($('input[name="demande_embauche[typeContrat]"]:checked').val() == "embauche.cdd")
+  {
+    $('#block-cdd').show();
+    $('input[name="demande_embauche[raison][raison]"]').attr('required', 'required');
+  }
+
+  $('#demande_embauche_typeContrat').change(function(){
+    if ($('input[name="demande_embauche[typeContrat]"]:checked').val() == "embauche.cdd")
+    {
+      $('#block-cdd').show();
+      $('input[name="demande_embauche[raison][raison]"]').attr('required', 'required');
+    }
+    else
+    {
+      $('#block-cdd').hide();
+      $('input[name="demande_embauche[raison][raison]"]').removeAttr('required', 'required');
+    }
+  });
+
+  // Gère le champ "jusqu'au" du CDD
+  $('#demande_embauche_CDD').change(function(){
+
+    // Montre le champ jusqu'au + required
+    $('input[name="demande_embauche[raison][raison]"]:checked', '#demande_embauche_CDD').next().next().show();
+    $('input[name="demande_embauche[raison][raison]"]:checked', '#demande_embauche_CDD').next().next().children().children().attr('required','required')
+    $('input[name="demande_embauche[raison][raison]"]:checked', '#demande_embauche_CDD').next().next().children().children().removeAttr('disabled', 'disabled')
+
+    // Cache les autres champs non checked et enlève le required
+    $('input[name="demande_embauche[raison][raison]"]:not(:checked)').next().next().hide();
+    $('input[name="demande_embauche[raison][raison]"]:not(:checked)').removeAttr('required','required');
+    $('input[name="demande_embauche[raison][raison]"]:not(:checked)').next().next().children().children().removeAttr('required', 'required')
+    $('input[name="demande_embauche[raison][raison]"]:not(:checked)').next().next().children().children().attr('disabled', 'disabled')
+
+    if ($('.retourPhysique').is(':not(:checked)') && $('#demande_embauche_CDD_1').is(':checked'))
+      $('.jusquau').attr('required','required')
+    else {
+       $('.jusquau').removeAttr('required','required')
      }
-   });
+  });
 
-   $situ2.change(function() {
-     var isChecked = $('#demande_embauche_poste_2').prop('checked');
-       if (isChecked && count2 == 0) {
-         count2++;
-         var input = document.createElement("input");
-         input.type = "text";
-         input.className = "form-control";
-         $situ2.parent().parent().append('<div id="at2"> <label for="demande_embauche_poste_autre" class="control-label label col-sm-3 col-xs-12 required">Autre</label> \
-         <div id="autre" class="col-sm-3"> \
-         <input type="text" id="demande_embauche_poste_autre" name="demande_embauche[poste_autre]" class="form-control" required="required" maxlength="255"></div></div>');
-       } else if ( count2 != 0) {
-           $('#at2').remove();
-           count2 = 0;
-       }
-     });
+  // Cas spécifique
+  // Si coché 'retour physique' alors on cache le 'jusqu'au'
+  $('input[name="demande_embauche[raison][retour]"]').change(function(){
+    if ($('input[name="demande_embauche[raison][retour]"]').prop('checked') == true)
+    {
+      console.log('hide')
+      $('#test').hide();
+      $('#demande_embauche[raison][jusquau2]').removeAttr('required','required')
+    }
+    else
+    {
+      console.log('show')
+      $('#test').show();
+      $('#demande_embauche[raison][jusquau2]').attr('required','required')
+    }
 
-     $situ3.change(function() {
-       var isChecked = $('#demande_embauche_diplomes_2').prop('checked');
-         if (isChecked && count3 == 0) {
-           count3++;
-           var input = document.createElement("input");
-           input.type = "text";
-           input.className = "form-control";
-           $situ3.parent().parent().parent().append('<div id="at3"> <label for="demande_embauche_diplomes_autre" class="control-label label col-sm-3 col-xs-12 required">Autre</label> \
-           <div id="autre" class="col-sm-3"> \
-           <input type="text" id="demande_embauche_diplomes_autre" name="demande_embauche[diplomes_autre]" class="form-control" required="required" maxlength="255"></div></div>');
-         } else if ( count3 != 0) {
-             $('#at3').remove();
-             count3 = 0;
-         }
-       });
+  });
 
-       $situ4.change(function() {
-         var isChecked = $('#demande_embauche_classification_2').prop('checked');
-           if (isChecked && count4 == 0) {
-             count4++;
-             var input = document.createElement("input");
-             input.type = "text";
-             input.className = "form-control";
-             $situ4.parent().parent().parent().append('<div id="at4"> <label for="demande_embauche_classification_autre" class="control-label label col-sm-3 col-xs-12 required">Autre</label> \
-             <div id="autre" class="col-sm-3"> \
-             <input type="text" id="demande_embauche_classification_autre" name="demande_embauche[classification_autre]" class="form-control" required="required" maxlength="255"></div></div>');
-           } else if ( count4 != 0) {
-               $('#at4').remove();
-               count4 = 0;
-           }
-         });
+  var $situ =  $('#demande_embauche_dejaSalarie');
+  var $situ2 = $('#demande_embauche_postes');
+  var $situ3 = $('#demande_embauche_diplomes');
+  var $situ4 = $('#demande_embauche_classification');
+  var $situ5 = $('#demande_embauche_salaireBase');
 
-         $situ5.change(function() {
-           var isChecked = $('#demande_embauche_salaireBase_1').prop('checked');
-             if (isChecked && count5 == 0) {
-               count5++;
-               var input = document.createElement("input");
-               input.type = "text";
-               input.className = "form-control";
-               $situ5.parent().parent().parent().append('<div id="at5"> <label for="demande_embauche_salaireBases_autre" class="control-label label col-sm-3 col-xs-12 required">Autre</label> \
-               <div id="autre" class="col-sm-3"> \
-               <input type="text" id="demande_embauche_salaireBase_autre" name="demande_embauche[salaireBase_autre]" class="form-control" required="required" maxlength="255"></div></div>');
-             } else if ( count5 != 0) {
-                 $('#at5').remove();
-                 count5 = 0;
-             }
-           });
+
+  // Gère les champs "autre"
+
+  $addListener = function($form, $name, $champ, $nb, idInt){
+    var addFieldAjax = function() {
+      var isChecked = $('#demande_embauche_' + $champ + '_' + $nb).prop('checked');
+      if ( (isChecked && $('#at' + idInt).length == 0)  ){
+        var $form2 = $(this).closest('form');
+        // Simulate form data, but only include the selected sport value.
+        var data = {};
+        data["demande_embauche[" + $name + "]" ] = $name;
+        console.log(data);
+        // Submit data via AJAX to the form's action path.
+        $.ajax({
+          url : "{{path('rh_embauche2')}}",
+          type: $form2.attr('method'),
+          data : data,
+          success: function(html) {
+              //console.log(html);
+              // Replace current position field ...
+              var label = $(html).find('label[for="demande_embauche_autre_'+$name+'"]').text();
+              console.log(label);
+              var input = $(html).find('#demande_embauche_autre_' + $name);
+              var elem = '<div id="at' + idInt +'"><label for="demande_embauche_autre_' + $name + '" class="control-label label col-sm-3 col-xs-12 required">' + label + '</label><div id="autre' + idInt +'" class="col-sm-3"></div></div>';
+
+              $form.parent().parent().append(elem);
+              input.appendTo('#autre' + idInt);
+            }
+        }); // Fin ajax
+      } else {
+        $('#at' + idInt).remove();
+      }
+    }
+
+    if($('#demande_embauche_' + $champ + '_' + $nb).prop('checked')){
+      var data = {};
+      data["demande_embauche[" + $name + "]" ] = $name;
+      console.log(data);
+      $.ajax({
+        url : "{{absolute_url(path('rh_embauche2'))}}",
+        type: "POST",
+        data : data,
+        success: function(html) {
+            //console.log(html);
+            // Replace current position field ...
+            var label = $(html).find('label[for="demande_embauche_autre_' + $name + '"]').text();
+            console.log(label);
+            var input = $(html).find('#demande_embauche_autre_' + $name);
+            var elem = '<div id="at' + idInt +'"><label for="demande_embauche_autre_' + $name + '" class="control-label label col-sm-3 col-xs-12 required">' + label + '</label><div id="autre' + idInt +'" class="col-sm-3"></div></div>';
+
+            $form.parent().parent().append(elem);
+            input.appendTo('#autre' + idInt);
+          }
+      }); // Fin ajax
+    }
+    $form.change(addFieldAjax); // Fin change()
+  }
+
+  $addListener($situ, "lieu", "dejaSalarie", 0, 1);
+  $addListener($situ2, "poste", "postes", 2, 2);
+  $addListener($situ3, "diplome", "diplomes", 2, 3);
+  $addListener($situ4, "classification", "classification", 2 , 4);
+  $addListener($situ5, "salaire", "salaireBase", 1, 5);
 
 });
 </script>
@@ -214,7 +302,6 @@ $(document).ready(function(){
     $(document).ready(function() {
         $('.js-datepicker').datepicker({
             format: 'dd-mm-yyyy',
-            //language: 'fr'
           });
     });
 </script>

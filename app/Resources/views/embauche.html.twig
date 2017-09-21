@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}Demande d'embauche{% endblock %}
+{% block title %}Welcome{% endblock %}
 
 {% block body %}
 {% trans_default_domain "embauche" %}
@@ -23,9 +23,8 @@
 		</ul>
 	</div>
 	<div style="max-width: 100%; margin: auto;">
-
 		<div class="row">
-        {{ form_start(form, { 'attr' : { 'class': 'form-horizontal','id':'formEmbauche' } })}}
+        {{ form_start(form, { 'attr' : { 'class': 'form-horizontal', 'id': 'form1' } })}}
 			<div style="margin: auto;width: 75%;">
 
 			  <div class="form-group " style="padding-top: 50px">
@@ -121,40 +120,56 @@
         </div>
       </div>
     {{ form_end(form) }}
+
 </div>
+
+
 <script>
- $(document).ready(function(){
-  var $situ = $('#demande_embauche_nationalite');
   var count = 0;
+  var $situ = $('#demande_embauche_nationalite');
+  // When sport gets selected ...
   $situ.change(function() {
     var isChecked = $('#demande_embauche_nationalite_1').prop('checked');
-      if (isChecked && count == 0) {
+  if (isChecked && count == 0) {
         count++
-      	var elemnt = $('.append');
-      	var input = document.createElement("input");
-        input.type = "text";
-      	input.className = "form-control";
-      	elemnt.parent().append('<div id="at"> <label for="demande_embauche_autre" class="control-label label col-sm-3 col-xs-12 required">Autre</label> \
-        <div id="autre" class="col-sm-3"> \
-        <input type="text" id="demande_embauche_autre" name="demande_embauche[autre]" class="form-control" required="required" maxlength="255"></div></div>');
+        var $form = $(this).closest('form');
+        var data = {}
+        data["demande_embauche"] = "test" //$('#form1').serializeObject();
+        console.log(data);
+        // Submit data via AJAX to the form's action path.
+        console.log($form);
+        $.ajax({
+          url : "{{path('rh_embauche')}}",
+          type: $form.attr('method'),
+          data : data,
+          success: function(html) {
+            //console.log(html);
+            // Replace current position field ...
+            var label = $(html).find('label[for="demande_embauche_autre2"]').text();
+            console.log(label);
+            var input = $(html).find('#demande_embauche_autre2').addClass('form-control');
+            var elem = '<div id="at"><label for="demande_embauche_autre2" class="control-label label col-sm-3 col-xs-12 required">' + label + '</label><div id="autre" class="col-sm-3"></div></div>';
+            $('#demande_embauche_nationalite').parent().parent().append(elem);
+            console.log($(html).find('#demande_embauche_autre2'))
+            input.appendTo('#autre');
+          }
+        });
       } else if ( count != 0) {
           $('#at').remove();
           count = 0;
       }
-    });
-});
+  });
 </script>
+
 <script src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap-datepicker.fr.min.js') }}"></script>
 <link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker.min.css') }}"/>
 
 <script>
-    $(document).ready(function() {
-        $('.js-datepicker').datepicker({
-            format: 'dd-mm-yyyy',
-            language: 'fr'
-          });
-    });
+    $('.js-datepicker').datepicker({
+        format: 'dd-mm-yyyy',
+        language: 'fr'
+      });
 </script>
 
 {% endblock %}

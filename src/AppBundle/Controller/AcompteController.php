@@ -73,8 +73,9 @@ class AcompteController extends Controller
                                ->setBody(
                                    $this->renderView(
                                        'emails/demande_acompte.html.twig',
-                                       array('personnel' => $personnel->getNom().$personnel->getPrenom(),
-                                              'user' => $user->getUsername())
+                                       array('personnel' => $personnel->getNom().' '.$personnel->getPrenom(),
+                                              'user' => $user->getUsername(),
+                                              'demande' => 'd\'acompte')
                                    ),
                                    'text/html'
                                );
