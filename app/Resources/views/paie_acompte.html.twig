@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% form_theme form 'form/error.html.twig' %}
-{% block title %}Demande d'accomtpe{% endblock %}
+{% block title %}Demande d'acompte{% endblock %}
 
 {% block body %}
 {% trans_default_domain "demandeacompte" %}
@@ -21,9 +21,9 @@
 
 		<div class="alert alert-info fade in">
 			<a href="#" class="close" data-dismiss="alert">&times;</a>
-			<strong>Information:</strong> Pour que la demande d’acompte soit validée ce mois-ci veuillez envoyer<br/> votre demande entre <u>le 14 et le 17</u> du mois
+			<span class="glyphicons glyphicons-info-sign"></span>
+ Pour que la demande d’acompte soit validée ce mois-ci veuillez envoyer<br/> votre demande entre <u>le 14 et le 17</u> du mois
 	  </div>
-
 		{{ form_start(form, {'attr': {'class': 'demande_acompte', 'id':'formAccompte'} }) }}
 
 		    {{ form_errors(form)}}

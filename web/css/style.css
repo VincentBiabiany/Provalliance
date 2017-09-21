@@ -32,7 +32,12 @@ body,p,a,h1,h2,h3,h4,h5 {
 		z-index: 3;
 }
 #topNav a{
-    color: black;
+	color: #333;
+	font-weight: light;
+}
+#logout a:hover{
+    color: red;
+
 }
 img#logotop{
 	width: 250px;
@@ -389,7 +394,7 @@ span.inactif{
 
 .carre{
 	height: 80px;
-	background-color: black;
+	background-color: #333;
 	text-align: center;
 	width: 230px;
 	margin: auto;
@@ -399,6 +404,10 @@ span.inactif{
 	display: table-cell;
 	vertical-align: middle;
   color: white;
+}
+.carre:hover{
+	background-color: black;
+
 }
 .block{
 	padding-bottom: 25px;
@@ -414,10 +423,12 @@ span.inactif{
 	color: black;
 	font-size: 15px;
 	cursor: pointer;
-	position: absolute;
-	right: 55px;
 }
+#logout{
+	right: 55px;
+	position: absolute;
 
+}
 .gestion {
 	/*float: right;*/
     	color: black;

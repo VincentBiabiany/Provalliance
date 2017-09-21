@@ -9,9 +9,7 @@
 
 <div class="container">
   <div id="actions">
-		<div class="AccountInfo alert alert-warning">
-		  Vous  êtes sur le point de modifier le compte utilisateur de <br/> <strong>{{ identitePersonnel }}</strong>
-		</div>
+	
 <h2> Informations générales </h2>
 
 			{{ form_start(form, {'attr': {'id': 'editAccount'} } ) }}
@@ -51,7 +49,10 @@
      {{ form_end(form) }}
 		 <h2> Sécurité </h2>
 		 <a id="chgPwd" data-toggle="modal" data-target="#myModal" href="{{ path('changePassword',{'idUser': idUser}) }}">Changer le Mot de passe</a>
-
+		 <br/>
+		 <br/>
+		 <br/>
+		 <br/>
    </div>
 </div>
 

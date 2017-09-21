@@ -14,14 +14,15 @@ class HomeController extends Controller
      */
     public function indexAction(Request $request)
     {
-      $user = $this->getUser();
-      $salons = $this->getUser()->getIdSalon();
-
-      return $this->render('home.html.twig', [
-          'salons'=>$salons,
-          'user'=>$user
-      ]);
-    }
+       $idPersonnnel = $this->getUser()->getIdPersonnel();
+       $em = $this->getDoctrine()->getManager('referentiel');
+       $personnel = $em->getRepository('ApiBundle:Personnel')->findOneBy(array('id' => $idPersonnnel));
+       $salons = $personnel->getSalon();
+       return $this->render('home.html.twig', [
+           'salons'=>$salons,
+           'personnel'=>$personnel
+       ]);
+     }
 
     /**
      * @Route("/selected_salon", name="selected_salon")

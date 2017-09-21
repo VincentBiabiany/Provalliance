@@ -22,9 +22,9 @@ class User extends BaseUser
 	/**
      * @var int
      *
-     * @ORM\Column(name="salon_id", type="integer", nullable=true)
+     * @ORM\Column(name="personnel_id", type="integer", nullable=true)
      */
-    private $idSalon;
+    private $idPersonnel;
 
     public function __construct()
     {
@@ -40,26 +40,26 @@ class User extends BaseUser
 
  }
     /**
-     * Set idSalon
+     * Set idPersonnel
      *
-     * @param integer $idSalon
+     * @param integer idPersonnel
      *
      * @return User
      */
-    public function setIdSalon($idSalon)
+    public function setIdPersonnel($idPersonnel)
     {
-        $this->idSalon = $idSalon;
+        $this->idPersonnel = $idPersonnel;
 
         return $this;
     }
 
     /**
-     * Get idSalon
+     * Get idPersonnel
      *
      * @return integer
      */
-    public function getIdSalon()
+    public function getIdPersonnel()
     {
-        return $this->idSalon;
+        return $this->idPersonnel;
     }
 }

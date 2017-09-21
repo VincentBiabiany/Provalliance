@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+{% block title %}Welcome{% endblock %}
+
+{% block body %}
+{% trans_default_domain "demandeacompte" %}
+<div class="head">
+	Administration - Créer un compte Service
+</div>
+
+<div class="container">
+  <div id="actions">
+			<div class="AccountInfo alert alert-warning">
+			  Vous  êtes sur le point de créer un compte Service
+			</div>
+
+{{ form_start(form, {'attr': {'id': 'createAccountService'} } ) }}
+
+
+				<div style="max-width: 100%; margin: auto;">
+
+					<div class="row">
+							  <div class="form-group" style="padding-top: 50px">
+										<label class="control-label label col-sm-3 col-xs-12" for="salon"> {{ form_label(form.email) }}</label>
+												 <div class="col-sm-9">
+			 									 				{{ form_widget(form.email, { 'attr': {'class': 'form-control','value':'service_paie@gmail.com'} }) }}
+												</div>
+							  </div>
+							  <div class="form-group" style="padding-top: 50px">
+										<label class="control-label label col-sm-3 col-xs-12" for="salon"> {{ form_label(form.username) }}</label>
+												 <div class="col-sm-9">
+			 									 				{{ form_widget(form.username, { 'attr': {'class': 'form-control','value':'Sandrine'} }) }}
+												</div>
+							  </div>
+							  <div class="form-group" style="padding-top: 50px">
+										<label class="control-label label col-sm-3 col-xs-12" for="salon"> {{ form_label(form.plainPassword.first) }}</label>
+												 <div class="col-sm-9">
+			 									 				{{ form_widget(form.plainPassword.first, { 'attr': {'class': 'form-control','value':'azerty'} }) }}
+												</div>
+							  </div>
+							  <div class="form-group" style="padding-top: 50px">
+										<label class="control-label label col-sm-3 col-xs-12" for="salon"> {{ form_label(form.plainPassword.second) }}</label>
+												 <div class="col-sm-9">
+			 									 				{{ form_widget(form.plainPassword.second, { 'attr': {'class': 'form-control','value':'azerty'} }) }}
+												</div>
+							  </div>
+								<div class="form-group" style="padding-top: 50px">
+										<label class="control-label label col-sm-3 col-xs-12" for="salon"> {{ form_label(form.roles) }}</label>
+												 <div class="col-sm-9">
+			 									 				{{ form_widget(form.roles, { 'attr': {'class': 'form-control'} }) }}
+												</div>
+							  </div>
+							  <div class="form-group" style="padding-top: 50px">
+										<label class="control-label label col-sm-3 col-xs-12" for="salon"> {{ form_label(form.enabled) }}</label>
+												 <div class="col-sm-9">
+			 									 				{{ form_widget(form.enabled, { 'attr': {'class': 'form-control'} }) }}
+												</div>
+							  </div>
+					</div>
+				</div>
+
+ {{ form_end(form) }}
+
+ <a id="form_Precedent" class="btn btn-default" href="#">{{ "admin_create.precedent"|trans({}, "admin_create") }} </a>
+</div>
+</div>
+
+ <script type="text/javascript">
+
+ $("#form_Precedent").bind('click', function(){
+
+	 ChangeEstate('labelTwo','stepTwo',3,'prev');
+
+		$('#CreateFormStep').fadeOut('slow', function(){
+
+												$( "#CreateFormStep" ).load("/admin/createS2/"+{{app.session.get('idSalonAdmin')}},
+																			 function(){
+
+
+																									 $('#CreateFormStep').fadeIn('slow');
+
+																								});
+										 });
+
+});
+ </script>
+ {% endblock %}

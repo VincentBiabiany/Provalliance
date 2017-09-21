@@ -23,7 +23,7 @@
     </head>
     <body>
       <div id="topNav" class="col-sm-12">
-          <div class="col-sm-6 block">
+          <div class="col-sm-6 deco block">
             {% if is_granted('ROLE_ADMIN') %}
               <a  href="{{ path('homepage') }}">
                <span class="glyphicon glyphicon-home" style="padding-right:5px"></span>{{ "home.accueil"|trans({}, "home") }}
@@ -31,7 +31,7 @@
             {% endif  %}
 
           </div>
-             <div class="col-sm-4 deco block">
+             <div id="logout" class="col-sm-4 deco block">
                  <a  href="{{ path('fos_user_security_logout') }}">
                     <span class="glyphicon glyphicon-off" style="padding-right:5px"></span>{{ "home.deconnexion"|trans({}, "home") }}
                  </a>
