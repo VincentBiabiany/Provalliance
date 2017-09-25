@@ -9,6 +9,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use AppBundle\Form\DemandeEmbaucheType;
 use AppBundle\Entity\DemandeEmbauche;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use AppBundle\Entity\Demande;
+use AppBundle\Service\FileUploader;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class EmbaucheController extends Controller
 {
@@ -19,9 +23,12 @@ class EmbaucheController extends Controller
     {
       $demandeEmbauche = new DemandeEmbauche();
       $form = $this->createForm(DemandeEmbaucheType::class, $demandeEmbauche, array('step' => '1'));
+
       $form->handleRequest($request);
       if ($form->isSubmitted() && $form->isValid()) {
-          return $this->index2Action($request, $form->getData());
+        $session = $request->getSession();
+        $session->set('demande', $form->getData());
+        return $this->redirectToRoute('rh_embauche2');
       }
 
       return $this->render('embauche.html.twig', array(
@@ -30,16 +37,96 @@ class EmbaucheController extends Controller
         )
       );
     }
-
-    public function index2Action(Request $request, $demandeEmbauche)
+    /**
+     * @Route("/embauche2", name="rh_embauche2")
+     */
+    public function index2Action(Request $request)
     {
-      $form = $this->createForm(DemandeEmbaucheType::class, $demandeEmbauche, array('step' => '2'));
-      //$form->handleRequest($request);
+      $session = $request->getSession();
+      $form = $this->createForm(DemandeEmbaucheType::class, $session->get('demande'), array('step' => '2'));
+
+      $form->handleRequest($request);
+
       if ($form->isSubmitted() && $form->isValid()) {
-          //$this->index2Action($request);
+        dump($form->getData());
+        $session->set('demande', $form->getData());
+       return $this->redirectToRoute('rh_embauche3');
       }
 
       return $this->render('embauche2.html.twig', array(
+        'img'   => $request->getSession()->get('img'),
+        'form'  => $form->createView()
+        )
+      );
+    }
+
+    /**
+     * @Route("/embauche3", name="rh_embauche3")
+     */
+    public function index3Action(Request $request, FileUploader $fileUploader, \Swift_Mailer $mailer)
+    {
+      $session = $request->getSession();
+      $form = $this->createForm(DemandeEmbaucheType::class, $session->get('demande'), array('step' => '3'));
+
+      $form->handleRequest($request);
+      if ($form->isSubmitted() && $form->isValid()) {
+        $em = $this->getDoctrine()->getManager();
+
+        $demande = new Demande();
+        $demande->setService('juridique');
+        $demande->setUser($this->getUser());
+        $demande->setIdSalon($idSalon = $request->getSession()->get('idSalon'));
+
+        $demandeEmbauche = $form->getData();//$request->getSession()->get('demande');
+
+        $fileName = $fileUploader->upload($demandeEmbauche->getCarteId());
+        $demandeEmbauche->setCarteId($fileName);
+
+        $fileName = $fileUploader->upload($demandeEmbauche->getCarteVitale());
+        $demandeEmbauche->setCarteVitale($fileName);
+
+        $fileName = $fileUploader->upload($demandeEmbauche->getRib());
+        $demandeEmbauche->setRib($fileName);
+
+        $fileName = $fileUploader->upload($demandeEmbauche->getDiplomeFile());
+        $demandeEmbauche->setDiplomeFile($fileName);
+
+        $fileName = $fileUploader->upload($demandeEmbauche->getMutuelle());
+        $demandeEmbauche->setMutuelle($fileName);
+
+        $demandeEmbauche->setTypeForm("Demande d'embauche");
+        $demande->setDemandeform($demandeEmbauche);
+
+        // Notification par Mail
+        // $destinataire = $em->getRepository('AppBundle:User')->findOneBy(array('idPersonnel' => $personnel->getId()));
+        // $destinataire = $destinataire->getEmail();
+
+        $user = $this->getUser();
+        $emetteur = $user->getEmail();
+
+        $message = (new \Swift_Message('Nouvelle demande d\'embauche '))
+           ->setFrom('send@example.com')
+           ->setTo('recipient@example.com')
+           ->setBody(
+               $this->renderView(
+                   'emails/demande_acompte.html.twig',
+                   array('personnel' => $demandeEmbauche->getNom(). ' '.$demandeEmbauche->getPrenom(),
+                          'user' => $user->getUsername(),
+                          'demande' => 'd\'embauche'
+                        )
+               ),
+               'text/html'
+           );
+        $mailer->send($message);
+
+        $em->persist($demande);
+        $em->flush();
+        $this->addFlash("success", "La demande d'embauche pour ".$demandeEmbauche->getNom()." a correctement été envoyé ! Un mail vous sera envoyé une fois votre demande traité.");
+
+        return $this->redirectToRoute('homepage');
+      }
+
+      return $this->render('embauche3.html.twig', array(
         'img'   => $request->getSession()->get('img'),
         'form'  => $form->createView()
         )

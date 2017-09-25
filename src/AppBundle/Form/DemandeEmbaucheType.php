@@ -30,7 +30,7 @@ class DemandeEmbaucheType extends AbstractType
             ->add('prenom', null, array('attr' => ['class' => 'form-control']))
             ->add('addresse1', null, array('attr' => ['class' => 'form-control']))
             ->add('addresse2', null, array('attr' => ['class' => 'form-control']))
-            ->add('codePostal', NumberType::class, array('attr' => ['class' => 'form-control']))
+            ->add('codePostal', null, array('attr' => ['class' => 'form-control']))
             ->add('ville', null, array('attr' => ['class' => 'form-control']))
             ->add('telephone', null, array('attr' => ['class' => 'form-control']))
             ->add('email', EmailType::class, array('attr' => ['class' => 'form-control']))
@@ -305,10 +305,11 @@ class DemandeEmbaucheType extends AbstractType
 
           case '3':
             $builder
-             ->add('carteId', FileType::class, array('required'   => false,))
-             ->add('carteVitale', FileType::class, array('required'   => false,))
-             ->add('diplomeFile', FileType::class, array('required'   => false))
-             ->add('rib', FileType::class, array('required'   => false))
+             ->add('carteId', FileType::class)
+             ->add('carteVitale', FileType::class)
+             ->add('diplomeFile', FileType::class)
+             ->add('rib', FileType::class)
+             ->add('mutuelle', FileType::class)
              ->add('Envoyer', SubmitType::class, array(
                                                   'label' => 'embauche.send',
                                                   'attr' => array('class' =>'btn-black end'),
@@ -513,7 +514,8 @@ class DemandeEmbaucheType extends AbstractType
                       ->add('carteId', TextType::class, array('attr' => ['class' => 'getDocument', 'readonly' => true]))
                       ->add('carteVitale', TextType::class, array('attr' => ['class' => 'getDocument', 'readonly' => true]))
                       ->add('diplomeFile', TextType::class, array('attr' => ['class' => 'getDocument', 'readonly' => true]))
-                      ->add('rib', TextType::class, array('attr' => ['class' => 'getDocument', 'readonly' => true]));
+                      ->add('rib', TextType::class, array('attr' => ['class' => 'getDocument', 'readonly' => true]))
+                      ->add('mutuelle', TextType::class, array('attr' => ['class' => 'getDocument', 'readonly' => true]));
                   }
                 );
             break;

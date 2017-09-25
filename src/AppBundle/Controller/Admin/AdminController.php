@@ -45,7 +45,11 @@ class AdminController extends Controller
     /**
      * @Route("/admin/createS1", name="createAccountS1")
      */
+<<<<<<< HEAD
     public function createAccountStep1Action(Request $request)
+=======
+    public function createAccountSaAction(Request $request)
+>>>>>>> bbda9465a95d75db2e86d8970b73dcbf79706cd4
     {
       $form = $this->createFormBuilder()
                   ->add('nom', EntityType::class, array(
@@ -97,11 +101,19 @@ class AdminController extends Controller
     /**
      * @Route("/admin/createS3", name="createAccountS3")
      */
+<<<<<<< HEAD
    public function createAccountStep3Action(Request $request)
    {
       $formFactory = $this->container->get('fos_user.registration.form.factory');
       $idPersonnel = $request->get('idpersonnel');
       $formS3 = $formFactory->createForm( array('action' => $this->generateUrl('createAccountS3')));
+=======
+   public function createAccounS3tAction(Request $request)
+   {
+      $formFactory = $this->container->get('fos_user.registration.form.factory');
+      $idPersonnel = $request->get('id');
+      $formS3 = $formFactory->createForm( array('action' => $this->generateUrl('createAccountS3', array('id' => $idPersonnel))));
+>>>>>>> bbda9465a95d75db2e86d8970b73dcbf79706cd4
 
       $formS3 ->add('idPersonnel', HiddenType::class, array(
                       'data' => $idPersonnel));
@@ -153,11 +165,82 @@ class AdminController extends Controller
                       }
            }
 
+<<<<<<< HEAD
             return $this->render('admin/createAccountStep3.html.twig',
                      ['formS3'=>$formS3->createView(),'Personnel'=> $personnel]);
+=======
+            return $this->render('admin/createAccountS3.html.twig',['formS3'=>$formS3->createView(),'Personnel'=> $personnel]);
+>>>>>>> bbda9465a95d75db2e86d8970b73dcbf79706cd4
 
 
    }
+       /**
+         * @Route("/admin/create_service", name="createAccountService")
+         */
+      public function createAccountServiceAction(Request $request)
+      {
+         $formFactory = $this->container->get('fos_user.registration.form.factory');
+         $form = $formFactory->createForm( array('action' => $this->generateUrl('createAccountService')));
+         $form ->add('idPersonnel', HiddenType::class, array(
+                         'data' => 0));
+         $form ->add('enabled', ChoiceType::class, array(
+                 'choices'  => array('Activer' => 1,'Desactiver' => 0),
+                        'expanded' => true,
+                        'multiple' => false));
+         $form ->add('roles', ChoiceType::class, array(
+                  'choices' => array('Service Paie' => 'ROLE_PAIE', 'Service Juridique / RH ' => 'ROLE_Juridique'),
+                  'expanded' => false,
+                  'multiple' => false,
+                  'mapped' => false,
+              )
+          );
+         $form-> add('Valider', SubmitType::class, array(
+               'label' => 'Créer un utilisateur',
+               'translation_domain' => 'FOSUserBundle',
+               'attr' => array(
+                     'class' => 'btn btn-primary'
+                      )
+                     )
+               );
+
+               if ($request->isMethod('POST')) {
+                   $form->handleRequest($request);
+
+                   if ($form->isSubmitted()) {
+
+                          //On enregistre les infos principales du User
+                          $em = $this->getDoctrine()->getManager();
+                          $user = $form->getData();
+                          $em->persist($user);
+                          $em->flush();
+
+                          //On assigne un role à ce même User
+                          $idNewUser = $user->getId();
+                          $newUser = $this->getDoctrine()
+                                            ->getManager()
+                                            ->getRepository('AppBundle:User')
+                                            ->findOneBy(array("id" => $idNewUser));
+
+                          $roles= $form["roles"]->getData();
+                          $newUser->addRole($roles);
+                          $newUser->setLastLogin(new \DateTime());
+
+                          $em->persist($newUser);
+                          $em->flush();
+
+                      $this->addFlash("success", "Le compte Service a correctement été crée !");
+                      return $this->redirect($this->generateUrl('adminHome'));
+                         }
+              }
+
+               return $this->render('admin/createAccountService.html.twig',['form'=>$form->createView()]);
+
+
+      }
+
+
+
+
        /**
          * @Route("/admin/create_service", name="createAccountService")
          */

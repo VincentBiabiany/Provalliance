@@ -5,8 +5,8 @@
 {% trans_default_domain "embauche" %}
 <div class="header">
     <img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
-    <hr/>
-    <span id="nomSalon">{{ app.session.get('nomSalon') }}</span>
+	<hr/>
+	<span id="nomSalon">{{ app.session.get('nomSalon') }}</span>
 </div>
 <div class="head" >
     {{ "embauche.header"|trans({}, "embauche") }}
@@ -122,8 +122,9 @@
     {{ form_end(form) }}
 
 </div>
-
-
+<script>
+$('#demande_embauche_Envoyer').parent().append('<button  onclick="history.back()" style="float:left;" class="btn-black end">back</button>');
+</script>
 <script>
   var count = 0;
   var $situ = $('#demande_embauche_nationalite');
@@ -168,7 +169,7 @@
 <script>
     $('.js-datepicker').datepicker({
         format: 'dd-mm-yyyy',
-        language: 'fr'
+        language: 'fr',
       });
 </script>
 

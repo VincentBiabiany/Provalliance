@@ -56,6 +56,7 @@
 
 											$('#CreateFormStep').fadeOut('slow', function(){ //on fait disparaitre l ancien contenu
 													 idsalon = $('#form_nom').val();
+<<<<<<< HEAD:app/Resources/views/admin/createAccountStep1.html.twig
 
 																	 $.ajax({
 														 				url : "{{path('createAccountS2')}}",
@@ -67,6 +68,13 @@
 														 				}
 														 			});
 
+=======
+													$( "#CreateFormStep" ).load("/admin/createS2/"+idsalon ,
+																							//on charge le nouveau
+																				 function(){
+																										 $('#CreateFormStep').fadeIn('slow');
+																									}); // on fait apparaitre le nouveau contenu
+>>>>>>> bbda9465a95d75db2e86d8970b73dcbf79706cd4:app/Resources/views/admin/createAccountS1.html.twig
 											 });
 
 

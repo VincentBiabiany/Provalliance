@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
-{% block title %}Demande d'embauche{% endblock %}
+{% block title %}Welcome{% endblock %}
 
 {% block body %}
 
 <div class="header">
-    <img style="display: block !important;margin: auto !important;" id="logotop" src="{{ asset('img/provost.png') }}">
-    <hr/>
-    <span id="nomSalon">{{ app.session.get('nomSalon') }}</span>
+    <img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
+	<hr/>
+	<span id="nomSalon">{{ app.session.get('nomSalon') }}</span>
 </div>
 <div class="head" >
         {{ "embauche.header"|trans({}, "embauche") }}
@@ -42,7 +42,7 @@
     		<p class="col-sm-6 upload">Adhésion mutuelle</p>
     		<div class="col-sm-3"></div>
     		<label class="col-sm-3 label">
-    				Joindre <input type="file" style="display: none;">
+    				Joindre {{ form_widget(form.mutuelle) }}
     		</label>
     	</div>
     	<div class="col-sm-12" style="padding-right:0;padding-left:0;">
@@ -58,4 +58,8 @@
     </div>
   </div>
 </div>
+
+<script>
+$('#demande_embauche_Envoyer').parent().append('<button  onclick="history.back()" style="float:left;" class="btn-black end">back</button>');
+</script>
 {% endblock %}

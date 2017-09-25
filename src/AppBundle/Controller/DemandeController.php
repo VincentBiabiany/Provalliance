@@ -8,8 +8,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\DemandeAcompte;
-use AppBundle\Entity\Demande;
+use AppBundle\Entity\DemandeEmbauche;
 use AppBundle\Form\DemandeAcompteType;
+use AppBundle\Form\DemandeEmbaucheType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -114,8 +115,13 @@ class DemandeController extends Controller
         $demandeur = $em->getRepository('ApiBundle:Personnel')
                         ->findOneBy(array('id' => $demande->getUser()->getIdPersonnel()));
 
-        $collab = $em->getRepository('ApiBundle:Personnel')
-                     ->findOneBy(array('id' => $demande->getDemandeform()->getIdPersonnel()));
+ 		if ($demande->getDemandeform()->getTypeForm() == "Demande d'acompte"){
+			$collab = $em->getRepository('ApiBundle:Personnel')
+					->findOneBy(array('id' => $demande->getDemandeform()->getIdPersonnel()));
+			$collab = $collab->getNom() . " " . $collab->getPrenom();
+		}else{
+			$collab = $demande->getDemandeform()->getNom() . " " . $demande->getDemandeform()->getPrenom();
+		}
         $date = $demande->getDateTraitement();
         if($demande->getstatut() == 0){
             $statut="Rejeté";
@@ -135,7 +141,7 @@ class DemandeController extends Controller
           'dateEnvoi'        => $date->format('d-m-Y H:i'),
           'statut'           => $statut,
           'Type de demande'  => $demande->getDemandeform()->getTypeForm(),
-          'Collaborateur'    => $collab->getNom() . " " . $collab->getPrenom(),
+          'Collaborateur'    => $collab,
           'Marque'           => ""
         ];
       }
@@ -270,6 +276,18 @@ class DemandeController extends Controller
                                       "idPersonnel" => $demande->getDemandeform()->getIdPersonnel()
                                     ));
     }
+	
+	if ($demande->getDemandeform()->getTypeForm() == "Demande d'embauche")
+    {
+      $demandeEmbauche = new DemandeEmbauche();
+      $demandeEmbauche = $demande->getDemandeform();
+      $form = $this->createForm(DemandeEmbaucheType::class,
+                                $demandeEmbauche,
+                                array("step" => 4,
+                                    ));
+    }
+	
+
     if($dateTraitement)
       $dateTraitement = $dateTraitement->format('d-m-Y H:i');
     return $this->render('demande_detail.html.twig', array(
