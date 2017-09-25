@@ -45,7 +45,7 @@ class AdminController extends Controller
     /**
      * @Route("/admin/createS1", name="createAccountS1")
      */
-    public function createAccountActionS1(Request $request)
+    public function createAccountStep1Action(Request $request)
     {
       $form = $this->createFormBuilder()
                   ->add('nom', EntityType::class, array(
@@ -58,16 +58,16 @@ class AdminController extends Controller
                   ))
                 ->getForm()
            ;
-           return $this->render('admin/createAccountS1.html.twig',['form'=>$form->createView()]);
+           return $this->render('admin/createAccountStep1.html.twig',['form'=>$form->createView()]);
 
     }
     /**
-     * @Route("/admin/createS2/{id}", name="createAccountS2")
+     * @Route("/admin/createS2", name="createAccountS2")
      */
-    public function createAccountActionS2(Request $request)
+    public function createAccountStep2Action(Request $request)
     {
             $personnel = new Personnel();
-            $idSalon = $request->get('id');
+            $idSalon = $request->get('idsalon');
             //On sauvegarde le salon en cas de retour en arrière
             $request->getSession()->set("idSalonAdmin", $idSalon);
 
@@ -91,17 +91,17 @@ class AdminController extends Controller
               ))
             ->getForm()
           ;
-          return $this->render('admin/createAccountS2.html.twig',['formS2'=>$formS2->createView()]);
+          return $this->render('admin/createAccountStep2.html.twig',['formS2'=>$formS2->createView()]);
     }
 
     /**
-     * @Route("/admin/createS3/{id}", name="createAccountS3")
+     * @Route("/admin/createS3", name="createAccountS3")
      */
-   public function createAccountActionS3(Request $request)
+   public function createAccountStep3Action(Request $request)
    {
       $formFactory = $this->container->get('fos_user.registration.form.factory');
-      $idPersonnel = $request->get('id');
-      $formS3 = $formFactory->createForm( array('action' => $this->generateUrl('createAccountS3', array('id' => $idPersonnel))));
+      $idPersonnel = $request->get('idpersonnel');
+      $formS3 = $formFactory->createForm( array('action' => $this->generateUrl('createAccountS3')));
 
       $formS3 ->add('idPersonnel', HiddenType::class, array(
                       'data' => $idPersonnel));
@@ -153,12 +153,11 @@ class AdminController extends Controller
                       }
            }
 
-            return $this->render('admin/createAccountS3.html.twig',['formS3'=>$formS3->createView(),'Personnel'=> $personnel]);
+            return $this->render('admin/createAccountStep3.html.twig',
+                     ['formS3'=>$formS3->createView(),'Personnel'=> $personnel]);
 
 
    }
-
-
        /**
          * @Route("/admin/create_service", name="createAccountService")
          */
@@ -435,7 +434,7 @@ class AdminController extends Controller
 
         }
 
-        return $this->render('admin/change_password.html.twig', array(
+        return $this->render('admin/changePassword.html.twig', array(
          'form' => $form->createView(),
          'identitePersonnel' => $identitePersonnel
       ));

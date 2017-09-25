@@ -55,13 +55,15 @@
 
 		$('#CreateFormStep').fadeOut('slow', function(){
 
-												$( "#CreateFormStep" ).load("/admin/createS2/"+{{app.session.get('idSalonAdmin')}},
-																			 function(){
-
-
-																									 $('#CreateFormStep').fadeIn('slow');
-
-																								});
+                            $.ajax({
+                             url : "{{path('createAccountS2')}}",
+                             type: 'POST',
+                             data : 'idsalon='+{{app.session.get('idSalonAdmin')}},
+                             success: function(html) {
+                                     $('#CreateFormStep').html(html);
+                                     $('#CreateFormStep').fadeIn('slow');
+                             }
+                           });
 										 });
 
 });

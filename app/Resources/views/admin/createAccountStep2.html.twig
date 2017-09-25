@@ -31,12 +31,16 @@
 
       			$('#CreateFormStep').fadeOut('slow', function(){ //on fait disparaitre l ancien contenu
 													var idPersonnel = $('#form_nom').val();
-
- 													$( "#CreateFormStep" ).load("/admin/createS3/"+idPersonnel ,
- 																							//on charge le nouveau
- 																				 function(){
- 																										 $('#CreateFormStep').fadeIn('slow');
- 																									}); // on fait apparaitre le nouveau contenu
+													
+																				 $.ajax({
+																	 				url : "{{path('createAccountS3')}}",
+																	 				type: 'POST',
+																	 				data : 'idpersonnel=' + idPersonnel,
+																	 				success: function(html) {
+																					      	$('#CreateFormStep').html(html);
+										 															$('#CreateFormStep').fadeIn('slow');
+																	 				}
+																	 			});
  											 });
 
  });
@@ -46,13 +50,14 @@
 
  			$('#CreateFormStep').fadeOut('slow', function(){
 
- 													$( "#CreateFormStep" ).load("/admin/createS1",
- 																				 function(){
-
-
- 																										 $('#CreateFormStep').fadeIn('slow');
-
- 																									});
+																					 $.ajax({
+																		 				url : "{{path('createAccountS1')}}",
+																		 				type: 'POST',
+																		 				success: function(html) {
+																						      	$('#CreateFormStep').html(html);
+											 															$('#CreateFormStep').fadeIn('slow');
+																		 				}
+																		 			});
  											 });
 
  });

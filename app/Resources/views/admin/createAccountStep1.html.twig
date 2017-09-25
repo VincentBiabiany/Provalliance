@@ -56,12 +56,22 @@
 
 											$('#CreateFormStep').fadeOut('slow', function(){ //on fait disparaitre l ancien contenu
 													 idsalon = $('#form_nom').val();
-													$( "#CreateFormStep" ).load("/admin/createS2/"+idsalon ,
-																							//on charge le nouveau
-																				 function(){
-																										 $('#CreateFormStep').fadeIn('slow');
-																									}); // on fait apparaitre le nouveau contenu
+
+																	 $.ajax({
+														 				url : "{{path('createAccountS2')}}",
+														 				type: 'POST',
+														 				data : 'idsalon=' + idsalon,
+														 				success: function(html) {
+																		      	$('#CreateFormStep').html(html);
+							 															$('#CreateFormStep').fadeIn('slow');
+														 				}
+														 			});
+
 											 });
+
+
+
+
 							}
 
 });
