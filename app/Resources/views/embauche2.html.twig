@@ -11,75 +11,71 @@
 <div class="head" >
     {{ "embauche.header"|trans({}, "embauche") }}
 </div>
-<div class="bg"></div>
 <div class="container">
-<div style="max-width: 100%; margin: auto;">
 
-<div class="row">
+<div id="wrapperForm" class="row">
 
-<div class="container">
-	<div style="max-width: 100%; margin: auto;">
-
-		<div class="row">
-				        {{ form_start(form, { 'attr' : { 'class': 'form-horizontal' } }) }}
-				<div class="row">
-				  <div class="form-group *" style="padding-bottom:25px; padding-top: 50px">
+		{{ form_start(form, { 'attr' : { 'id':'demandeEmbauche2','class': 'allForm form-horizontal' } }) }}
+				  <div class="form-group">
   					<label class="control-label label col-sm-3 col-xs-12"  for="embauche">{{ "embauche.dateemb"|trans({}, "embauche") }}</label>
   					 <div class="col-sm-3">
-  						       {{ form(form.dateembauche) }}
+  						       {{ form_widget(form.dateembauche) }}
   					</div>
 				  </div>
 
           <div class="form-group">
             <label class="control-label label col-sm-3 col-xs-12" for="groupe">{{ "embauche.ancien"|trans({}, "embauche") }}</label>
-            <div class="col-sm-3 pad-box append" style="display: inline-flex" >
+            <div class="col-sm-3 col-xs-12 pad-box append" style="display: inline-flex" >
                     {{ form_widget(form.dejaSalarie) }}
             </div>
           </div>
 
 
-				  <div class="form-group">
+		  <div class="form-group">
   					<label class="control-label label col-sm-3 col-xs-12" for="date">{{ "embauche.poste"|trans({}, "embauche") }}</label>
-            <div class="col-sm-3 pad-box append" style="display: inline-flex" >
+                    <div class="col-sm-4 col-xs-12 pad-box append" style="display: inline-flex" >
                     {{ form_widget(form.postes) }}
 				    </div>
           </div>
 
-				  <div class="form-group">
+		<div class="form-group">
   					<label class="control-label label col-sm-3 col-xs-12" for="date">{{ "embauche.diplome"|trans({}, "embauche") }}</label>
-  					<div class="col-sm-3 pad-box" style="display: inline-flex" >
+  					<div class="col-sm-4 col-xs-12 pad-box" style="display: inline-flex" >
                     {{ form_widget(form.diplomes) }}
   					</div>
-				  </div>
+		 </div>
 
-				  <div class="form-group" style="">
-  					<label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "embauche.class"|trans({}, "embauche") }}</label>
-  					<div class="col-sm-3 pad-box" >
-  						<label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "embauche.niveau"|trans({}, "embauche") }}</label>{{ form_widget(form.niveau) }}
+		<div id="Classification" class="form-group" >
+  			<label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "embauche.class"|trans({}, "embauche") }}</label>
+  				<div class="col-sm-3 col-xs-12" >
+  					<label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "embauche.niveau"|trans({}, "embauche") }}</label>
+                    {{ form_widget(form.niveau) }}
+                </div>
+                <div class="col-sm-3 col-xs-12" >
+                    <label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "embauche.echelon"|trans({}, "embauche") }}</label>
+                    {{ form_widget(form.echelon) }}
+  				</div>
+            <div class="col-sm-3 col-xs-12" >
+                    <label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "embauche.autre"|trans({}, "embauche") }}</label>
+                    {{ form_widget(form.autre) }}
             </div>
-            <div class="col-sm-3 pad-box" >
-              <label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "embauche.echelon"|trans({}, "embauche") }}</label> {{ form_widget(form.echelon) }}
-  					</div>
-            <div class="col-sm-3 pad-box" >
-              <label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "embauche.autre"|trans({}, "embauche") }}</label> {{ form_widget(form.autre) }}
-            </div>
-				   </div>
+		</div>
 
-				  <div class="form-group row" style="">
+			<div class="form-group row" >
   					<label class="control-label label col-sm-3 col-xs-12" for="prenom">{{ "embauche.salaire"|trans({}, "embauche") }}</label>
-  					 <div class="col-sm-3 pad-box">
-  							     {{ form_widget(form.salaireBase) }}
+  					 <div class="col-sm-4 col-xs-12 pad-box">
+  					{{ form_widget(form.salaireBase) }}
   					</div>
-  				 </div>
+  			</div>
 
-				  <div class="form-group row" style="">
+			<div class="form-group row" >
 				     <label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "embauche.contrat"|trans({}, "embauche") }}</label>
-				      <div class="col-sm-8 pad-box" >
+				      <div class="col-sm-8 col-xs-12 pad-box" >
                       {{ form_widget(form.typeContrat) }}
-              </div>
-				  </div>
+                      </div>
+			</div>
 
-				  <div class="form-group row" style="display:none" id="block-cdd">
+			<div class="form-group row" style="display:none" id="block-cdd">
 				     <label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "embauche.cdd"|trans({}, "embauche") }}</label>
 
               <div class="col-sm-8 pad-box" style="display: inline-flex">
@@ -134,31 +130,41 @@
 
 
             <!-- Temps partiel -->
-           <div class="form-group row" style="">
-    					<label class="control-label label col-sm-3 col-xs-12" for="prenom">{{ "embauche.cdd.partiel"|trans({}, "embauche") }}</label>
-    					 <div class="col-sm-3 pad-box">
-                 <label class="control-label label col-sm-12 col-xs-12"  for="nom"></label><br>
-                 <label for="demande_embauche_heure" class="label">{{ "embauche.lundi"|trans({}, "embauche") }}</label>      <input type="number" name="demande_embauche[heure][lundi]"    min="0" max="8" id="demande_embauche[heure][lundi]" class="form-control">
-                 <label for="demande_embauche_heure" class="label">{{ "embauche.mardi"|trans({}, "embauche") }}</label>      <input type="number" name="demande_embauche[heure][mardi]"    min="0" max="8" id="demande_embauche[heure][mardi]" class="form-control">
-                 <label for="demande_embauche_heure" class="label">{{ "embauche.mercredi"|trans({}, "embauche") }}</label>   <input type="number" name="demande_embauche[heure][mercredi]" min="0" max="8" id="demande_embauche[heure][mercredi]" class="form-control">
-                 <label for="demande_embauche_heure" class="label">{{ "embauche.jeudi"|trans({}, "embauche") }}</label>      <input type="number" name="demande_embauche[heure][jeudi]"    min="0" max="8" id="demande_embauche[heure][jeudi]" class="form-control">
-                 <label for="demande_embauche_heure" class="label">{{ "embauche.vendredi"|trans({}, "embauche") }}</label>   <input type="number" name="demande_embauche[heure][vendredi]" min="0" max="8" id="demande_embauche[heure][vendredi]" class="form-control">
-    					</div>
+           <div id="tempsPartiel" class="form-group row" >
+    		    <label class="control-label label col-sm-3 col-xs-12" for="prenom">{{ "embauche.cdd.partiel"|trans({}, "embauche") }}</label>
+    		    	<div id="listeJours" class="col-sm-9 col-xs-12 pad-box">
+                        <label class="control-label label col-sm-12 col-xs-12"  for="nom"></label>
+                          <div class="jour">
+                           <label for="demande_embauche_heure" class="label">{{ "embauche.lundi"|trans({}, "embauche") }}</label>
+                           <input type="number" name="demande_embauche[heure][lundi]"    min="0" max="8" id="demande_embauche[heure][lundi]" class="form-control">
+                          </div>
+                           <div class="jour">
+                           <label for="demande_embauche_heure" class="label">{{ "embauche.mardi"|trans({}, "embauche") }}</label>
+                           <input type="number" name="demande_embauche[heure][mardi]"    min="0" max="8" id="demande_embauche[heure][mardi]" class="form-control">
+                          </div>
+                           <div class="jour">
+                           <label for="demande_embauche_heure" class="label">{{ "embauche.mercredi"|trans({}, "embauche") }}</label>
+                           <input type="number" name="demande_embauche[heure][mercredi]" min="0" max="8" id="demande_embauche[heure][mercredi]" class="form-control">
+                          </div>
+                           <div class="jour">
+                           <label for="demande_embauche_heure" class="label">{{ "embauche.jeudi"|trans({}, "embauche") }}</label>
+                           <input type="number" name="demande_embauche[heure][jeudi]"    min="0" max="8" id="demande_embauche[heure][jeudi]" class="form-control">
+                          </div>
+                           <div class="jour">
+                           <label for="demande_embauche_heure" class="label">{{ "embauche.vendredi"|trans({}, "embauche") }}</label>
+                           <input type="number" name="demande_embauche[heure][vendredi]" min="0" max="8" id="demande_embauche[heure][vendredi]" class="form-control">
+                          </div>
+                    	</div>
     				</div>
 
 
           {{ form_end(form) }}
 
-        </div>
-
-      </div>
-    </div>
-  </div>
   </div>
 </div>
 
 <script>
-$('#demande_embauche_Envoyer').parent().append('<button  onclick="history.back()" style="float:left;" class="btn-black end">back</button>');
+$('#demande_embauche_Envoyer').parent().append('<button  onclick="history.back()" class="btn-black precedent">{{ "embauche.back"|trans({}, "embauche") }}</button>');
 </script>
 
 
@@ -257,7 +263,7 @@ $(document).ready(function(){
               var label = $(html).find('label[for="demande_embauche_autre_'+$name+'"]').text();
               console.log(label);
               var input = $(html).find('#demande_embauche_autre_' + $name);
-              var elem = '<div id="at' + idInt +'"><label for="demande_embauche_autre_' + $name + '" class="control-label label col-sm-3 col-xs-12 required">' + label + '</label><div id="autre' + idInt +'" class="col-sm-3"></div></div>';
+              var elem = '<div id="at' + idInt +'"><label for="demande_embauche_autre_' + $name + '" class="control-label label col-sm-3 col-xs-12 required">' + label + '</label><div id="autre' + idInt +'" class="other col-sm-3"></div></div>';
 
               $form.parent().parent().append(elem);
               input.appendTo('#autre' + idInt);
@@ -282,7 +288,7 @@ $(document).ready(function(){
             var label = $(html).find('label[for="demande_embauche_autre_' + $name + '"]').text();
             console.log(label);
             var input = $(html).find('#demande_embauche_autre_' + $name);
-            var elem = '<div id="at' + idInt +'"><label for="demande_embauche_autre_' + $name + '" class="control-label label col-sm-3 col-xs-12 required">' + label + '</label><div id="autre' + idInt +'" class="col-sm-3"></div></div>';
+            var elem = '<div id="at' + idInt +'"><label for="demande_embauche_autre_' + $name + '" class="control-label label col-sm-3 col-xs-12 required">' + label + '</label><div id="autre' + idInt +'" class="other col-sm-3"></div></div>';
 
             $form.parent().parent().append(elem);
             input.appendTo('#autre' + idInt);

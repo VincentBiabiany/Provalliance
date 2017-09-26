@@ -8,7 +8,7 @@
 	<div class="header">
 	</div>
 	<div class="head">
-		Administration
+		{{ "admin_home.header"|trans({}, "admin_home") }}
 	</div>
 	{% for flash_message in app.session.flashBag.get('success') %}
 		<div class="alert alert-success success">
@@ -32,7 +32,7 @@
 
 	        <div class="col-sm-12" style=" max-width:1200px;margin:auto;float:none;">
 	            <div class="col-sm-6 block">
-	                <button class="btn-black" onclick="window.location.href = '{{ path("homepage") }}'" style="float:none;">Accueil</button>
+	                <button class="btn-black precedent" onclick="window.location.href = '{{ path("homepage") }}'">{{ "admin_home_create.back"|trans({}, "admin_home") }}</button>
 	            </div>
 
 	        </div>

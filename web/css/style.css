@@ -42,7 +42,7 @@ body,p,a,h1,h2,h3,h4,h5 {
 	left: 0;
 	width: 100%;
 	background-color: white;
-	height: 100px;
+	height: 85px;
 }
 
 .header hr{
@@ -60,6 +60,24 @@ body,p,a,h1,h2,h3,h4,h5 {
 	color: #333;
 	font-weight: light;
 }
+
+.deco {
+	color: black;
+	font-size: 15px;
+	cursor: pointer;
+}
+@media only screen and (max-width : 765px){
+		.deco a span.libelle{
+			display: none;
+		}
+		#logout {
+    text-align: right;
+		}
+		#home {
+    text-align: left;
+		}
+}
+
 #logout a:hover{
     color: red;
 
@@ -87,28 +105,27 @@ img#logotop{
 	text-align: center;
 	font-size: 17px;
 	z-index: 58;
-	margin-top: 100px;
+	margin-top: 85px;
 	color: white;
 	height: 45px;
 	padding-top: 6px;
-	line-height: 15px;
+	line-height: 28px;
 }
 /* FIN HEADER */
 
 .btn-black{
-	background-color:white !important;
+	background-color: #b39b8b !important;
 	max-width: 150px;
 	text-align: center !important;
 	vertical-align: middle;
-	line-height: 30px;
+	line-height: 35px;
 	font-size: 16px;
 	width: 150px;
-  border-radius: 9%;
-  font-family: 'Brown' !important;
-  float: right;
-	border: 1px solid black;
-	color: black;
-  font-weight: bold;
+	font-family: 'Brown' !important;
+	float: right;
+	color: white;
+	font-weight: lighter;
+	border: none;
 }
 
 /*STYLE LOGIN*/
@@ -169,21 +186,40 @@ img#logotop{
 	top: 7px;
 	cursor: pointer;
 }
+.allForm{
+	margin-top: 30px;
+
+}
+#wrapperForm{
+	width: 875px;
+	margin: auto;
+  margin-bottom: 50px;
+}
 #formContent{
 
     max-width: 700px;
     margin: auto;
 }
 
+.form-group{
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+	position: relative;
+	display: block;
+	height: auto;
+}
+
 
 .label{
-	background-color:#B39C8C;
-	/*max-width: 158px;*/
-	text-align: center !important;
-	vertical-align: middle;
-	line-height: 30px;
-	font-size: 16px;
-	color:black;
+	    background-color: #333;
+	    text-align: left !important;
+	    vertical-align: middle;
+	    line-height: 30px;
+	    font-size: 16px;
+	    color: white;
+	    width: 175px;
+	    font-weight: 100;
+    padding: .3em 1.12em .3em;
 }
 .error_list{
 
@@ -192,10 +228,11 @@ img#logotop{
 	border-radius: 0 !important;
 	border: 1px solid #000;
 	border-top: 0 !important;
-   	border-left: 0 !important;
-    	border-right: 0 !important;
+  border-left: 0 !important;
+  border-right: 0 !important;
 	webkit-box-shadow: none !important;
-    	box-shadow: none !important;
+  box-shadow: none !important;
+	width: inherit;
 
 }
 #detailDemandeAccompte select.form-control {
@@ -207,12 +244,130 @@ img#logotop{
 
 
 label.required{
-	color: black;
+	color: white;
 	font-size: 15px;
-	padding-right: 10px;
+	font-weight: lighter;
+	line-height: 30px;
+
+}
+.end{
+   background-color: #45bd43 !important;
+}
+.end:hover{
+   background-color: #fff !important;
+	 color: #45bd43;
+}
+/******* FORMULAIRE EMBAUCHE ******/
+#infoEmbauche{
+	max-width: 875px;
+	margin :auto;
+
+}
+#demande_embauche_codePostal, #demande_embauche_dateNaissance, #demande_embauche_dateembauche{
+	width: 125px;
+}
+
+#demande_embauche_nom, #demande_embauche_numSecu, #demande_embauche_situationFamille,
+#demande_embauche_telephone, #demande_embauche_villeNaissance{
+	width: 180px;
+}
+
+#demande_embauche_prenom, #demande_embauche_ville, #demande_embauche_email, #demande_embauche_autre2{
+	width: 100%;
+
+}
+#demande_embauche_addresse1, #demande_embauche_addresse2{
+	width: 583px;
+
+}
+#demande_embauche_nbEnfant{
+	width: 130px;
+
+}
+#demande_embauche_nationalite label.required, #demande_embauche_dejaSalarie label.required
+,#demande_embauche_postes label.required, #demande_embauche_diplomes label.required,
+#demande_embauche_salaireBase label.required, #demande_embauche_typeContrat label.required,
+#demande_embauche_CDD label.required{
+  color: black;
+  margin-left: 2px;
+	margin-right: 10px;
+}
+
+#demande_embauche_nationalite_1{
+	margin-left: 10px;
+
 
 }
 
+#demandeEmbauche2 .form-group{
+
+	height: auto;
+
+
+}
+
+#demandeEmbauche3 label{
+	width: 215px;
+
+}
+#Classification, #tempsPartiel{
+	 height: 85px;
+}
+#Classification div{
+	width: 110px;
+	text-align: center;
+	margin-right: 15px;
+}
+#Classification div label{
+	background-color: #797979 !important;
+}
+#Classification div select,#Classification div input, div.other input{
+	width: 100%;
+}
+.jour{
+    float: left;
+    width: 50px;
+		margin-left: 20px;
+	}
+	.jour label{
+		display: block;
+    text-align: center !important;
+    background-color: #797979 !important;
+    line-height: inherit;
+	}
+	#listeJours{
+		padding: 0;
+	}
+
+	/***** RESPONSIVE DESIGN **********/
+@media only screen and (max-width : 765px){
+		.label {
+		    width: 100%;
+				text-align: center;
+		}
+		#demande_embauche_nom,#demande_embauche_prenom, #demande_embauche_ville, #demande_embauche_email,
+		#demande_embauche_numSecu, #demande_embauche_situationFamille,#demande_embauche_telephone,
+		#demande_embauche_villeNaissance, #demande_embauche_addresse1, #demande_embauche_addresse2,
+		#demande_embauche_nbEnfant, #demande_embauche_nationalite, #demande_embauche_nationalite_1,
+		#demande_embauche_codePostal, #demande_embauche_dateNaissance{
+			width: 100%;
+
+		}
+		#wrapperForm {
+		    width: 414px;
+		    margin: auto;
+		}
+
+		.form-control{
+			 margin-bottom: 20px;
+		}
+		form#formAccompte	, form#createAccount, form#createAccountS2,
+		form#createAccountS3, form#editAccount,form#createAccountService{
+			width: 414px !important;
+
+		}
+
+}
 /***** CREATION COMPTE USER ADMIN FORMULARE ********/
 #form_Suivant, #fos_user_registration_form_Valider{
 	position: relative;
@@ -221,6 +376,7 @@ label.required{
 	float: right;
 	clear: both;
 }
+
 
 #form_Precedent{
 	position: absolute;
@@ -316,8 +472,12 @@ form#formAccompte	, form#createAccount, form#createAccountS2, form#createAccount
 	position: relative;
 
 }
-
-
+#CreateFormStep #form_nom{
+	width:100%;
+}
+#createAccountS3 input,#createAccountS3 select{
+		width:100%;
+}
 #ListePersonnel a{
 	color:black;
 }
@@ -365,10 +525,35 @@ span.inactif{
    margin: auto;
    text-align: center;
  }
+ #form_message {
 
- textarea#form_message{
+
+ }
+
+ #form_message textarea{
 	 border-color: grey;
 	 background-color: #eee;
+	 width: 100% !important;
+	 height: 80px !important;
+	 margin-bottom: 15px;
+ }
+ #infosDemande{
+	 background-color: #eeeeee;
+	 padding: 25px;
+	 margin-bottom: 20px;
+ }
+ .accept{
+
+ }
+
+ .reject{
+	 background-color: #c5443b !important;
+
+ }
+ #separatorDetailDemande{
+	 display: block;
+	 width: 100%;
+	 border-color: #333;
 
  }
 /***** DEMANDE ACCOMPTE FORMULARE ********/
@@ -444,16 +629,6 @@ span.inactif{
 	display: inline-block;
 }
 
-.deco {
-	color: black;
-	font-size: 15px;
-	cursor: pointer;
-}
-#logout{
-	right: 55px;
-	position: absolute;
-
-}
 .gestion {
 	/*float: right;*/
     	color: black;
@@ -500,9 +675,7 @@ span.inactif{
 
 }
 @media (max-width:767px){
-    	.label{
-		max-width:100%;
-    	}
+
 	.carre {
   	  	height: 80px;
    		margin-bottom: 25px;
@@ -521,27 +694,43 @@ span.inactif{
 	}
 }
 
+/********* dropdown-menu HOME ********/
 
-.dd-selected {
-    color: black !important;
-}
 #myDropdown{margin:auto;}
+#myDropdown .dd-select a{
+	font-weight: 100;
+	color: white;
+	text-align: center;
+}
+#myDropdown a:hover{
 
+	color: #b39b8b;
+	text-decoration: inherit;
+}
+#myDropdown .dd-select{
+border:none;
 
+}
+#myDropdown .dd-select .dd-pointer-down{
+    border: solid 5px transparent !important;
+    border-top: solid 5px #fff !important;
+    margin-top: -3px;
+}
+#myDropdown .dd-select .dd-pointer-up{
+    border: solid 5px transparent !important;
+    border-bottom: solid 5px #fff !important;
+    margin-top: -8px;
+}
 label.dd-selected-text {
-    line-height: 21px !important;
-    margin-left: 10px;
+	line-height: 21px !important;
+	margin-left: 10px;
+	font-weight: 100;
 }
 
 label.dd-option-text {
     line-height: 16px !important;
     margin-left: 10px;
 }
-
-
-
-
-.form-group{margin-left:0 !important;margin-right:0 !important;}
 
 
 /* BACK LOG */

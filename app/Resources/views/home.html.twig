@@ -7,9 +7,8 @@
     <img style="display: block !important;margin: auto !important;" id="logotop" src="">
 </div>
 <div class="head" >
-Bonjour  {{ personnel.nom  }} {{ personnel.prenom  }} <br/> Bienvenue dans votre Espace Manager !
+Bonjour  {{ personnel.prenom  }} {{ personnel.nom  }} <br/>
 </div>
-<div class="bg"></div>
 <div class="container">
 
     <div class="row" style="max-width: 875px;margin: auto;">
@@ -39,18 +38,10 @@ Bonjour  {{ personnel.nom  }} {{ personnel.prenom  }} <br/> Bienvenue dans votre
           <div class="col-sm-6 block">
               <div onclick="window.location.href = '{{ path("home_paie") }}'" class="under-block"><p class="carre">{{ "home.paie"|trans({}, "home") }}</p></div>
           </div>
-          <div class="col-sm-6 block">
-              <div class="under-block"><p class="carre">{{ "home.ca"|trans({}, "home") }}</p></div>
-          </div>
+
       </div>
 
-      <div class="col-sm-12" style=" max-width:1200px;margin:auto;float:none;">
-        <div class="col-sm-6 block">
-        </div>
-          <div class="col-sm-6 block">
-              <div class="under-block"><p class="carre">{{ "home.volume"|trans({}, "home") }}</p></div>
-          </div>
-      </div>
+
 
    </div>
 </div>
@@ -75,6 +66,7 @@ var ddData = [
     $('#myDropdown').ddslick({
         data:ddData,
         width:200,
+        background: '#000',
         imagePosition:"center",
         {% if app.session.get('idSalon') %}
             defaultSelectedIndex:  {{ app.session.get('numero') }},

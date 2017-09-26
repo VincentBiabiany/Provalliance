@@ -32,7 +32,7 @@ class DemandeAcompteType extends AbstractType
                     'class' =>'onlyread'
                   ),
                   'label' => 'demandeacompte.montant',
-                  'translation_domain' => 'demandeacompte',
+                  'translation_domain' => 'demande_acompte',
                 ))
 
               ->add('idPersonnel', EntityType::class, array(
@@ -54,14 +54,14 @@ class DemandeAcompteType extends AbstractType
                             ->setParameter('idPersonnel', $idPersonnel);
                     },
                   'label' => 'demandeacompte.nom',
-                  'translation_domain' => 'demandeacompte'
+                  'translation_domain' => 'demande_acompte'
                 ))
           ;
       } else {
        $builder
                 ->add('montant', IntegerType::class, array(
                      'label' => 'demandeacompte.montant',
-                     'translation_domain' => 'demandeacompte',
+                     'translation_domain' => 'demande_acompte',
                      'attr' => array('min' => '0')
                 ))
               ->add('idPersonnel', EntityType::class, array(
@@ -80,12 +80,12 @@ class DemandeAcompteType extends AbstractType
                             ->setParameter('idSalon', $idSalon);
                     },
                   'label' => 'demandeacompte.nom',
-                  'translation_domain' => 'demandeacompte'
+                  'translation_domain' => 'demande_acompte'
                 ))
               ->add('Envoyer', SubmitType::class, array(
                   'label' => 'demandeacompte.envoyer',
                   'attr' => array('class' =>'btn-black end'),
-                  'translation_domain' => 'demandeacompte'
+                  'translation_domain' => 'demande_acompte'
                 ))
           ;
       }

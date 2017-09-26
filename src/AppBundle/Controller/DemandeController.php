@@ -232,7 +232,11 @@ class DemandeController extends Controller
 
     $form2 = $this->createFormBuilder()
                       ->setMethod("POST")
-                      ->add('message', TextareaType::class, array( 'label' => 'Motif','data' => $message))
+                      ->add('message', TextareaType::class, array(
+                                    'attr' => ['class' => 'form-control col-sm-9 col-xs-12'],
+                                    'label_attr' => ['class' => 'control-label label col-sm-3 col-xs-12'],
+                                    'label' => 'Motif',
+                                    'data' => $message))
                       ->add('accept', SubmitType::class)
                       ->add('reject', SubmitType::class)
                       ->getForm();
@@ -276,7 +280,7 @@ class DemandeController extends Controller
                                       "idPersonnel" => $demande->getDemandeform()->getIdPersonnel()
                                     ));
     }
-	
+
 	if ($demande->getDemandeform()->getTypeForm() == "Demande d'embauche")
     {
       $demandeEmbauche = new DemandeEmbauche();
@@ -286,7 +290,7 @@ class DemandeController extends Controller
                                 array("step" => 4,
                                     ));
     }
-	
+
 
     if($dateTraitement)
       $dateTraitement = $dateTraitement->format('d-m-Y H:i');

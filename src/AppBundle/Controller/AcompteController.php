@@ -73,7 +73,7 @@ class AcompteController extends Controller
                                ->setBody(
                                    $this->renderView(
                                        'emails/demande_acompte.html.twig',
-                                       array('personnel' => $personnel->getNom().' '.$personnel->getPrenom(),
+                                       array('personnel' => $personnel->getPrenom().' '.$personnel->getNom(),
                                               'user' => $user->getUsername(),
                                               'demande' => 'd\'acompte')
                                    ),
@@ -81,7 +81,7 @@ class AcompteController extends Controller
                                );
                             $mailer->send($message);
 
-                            $this->addFlash("success", "La demande d'acompte pour ".$personnel->getNom()." ".$personnel->getPrenom()." a correctement été envoyée ! Un mail vous sera envoyé une fois votre demande traitée.");
+                            $this->addFlash("success", "La demande d'acompte pour ".$personnel->getPrenom()." ".$personnel->getNom()." a correctement été envoyée ! Un mail vous sera envoyé une fois votre demande traitée.");
                             return $this->redirectToRoute('homepage');
                             }
                     }

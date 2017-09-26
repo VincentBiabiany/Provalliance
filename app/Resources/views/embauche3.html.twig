@@ -11,55 +11,48 @@
 <div class="head" >
         {{ "embauche.header"|trans({}, "embauche") }}
 </div>
-
 <div class="container">
-  <div style="max-width: 100%; margin: auto;">
-    <div class="row" style="margin:auto; display:block; padding-top: 50px;">
 
-       {{ form_start(form, { 'attr' : { 'class': 'form-horizontal' } }) }}
-    	<div class="col-sm-12" style="padding-right:0;padding-left:0;">
-    		<p class="col-sm-6 upload">Diplômes</p>
-    		<div class="col-sm-3"></div>
-    		<label class="col-sm-3 label">
-    			{{ form_widget(form.diplomeFile) }}
-    		</label>
+    <div id="wrapperForm" class="row" >
+
+       {{ form_start(form, { 'attr' : { 'id':'demandeEmbauche3','class': 'allForm form-horizontal' } }) }}
+    	<div class="form-group" >
+    			<label class="control-label label col-sm-4 col-xs-12" >{{ "embauche.diplome"|trans({}, "embauche") }}</label>
+    		  <div class="col-sm-6 col-sm-offset-2">
+    			 {{ form_widget(form.diplomeFile) }}
+    		  </div>
     	</div>
-    	<div class="col-sm-12" style="padding-right:0;padding-left:0;">
-    		<p class="col-sm-6 upload">Attestation Carte Vitale</p>
-    		<div class="col-sm-3"></div>
-    		<label class="col-sm-3 label">
-    			Joindre {{ form_widget(form.carteVitale) }}
-    		</label>
+    	<div class="form-group" >
+          <label class="control-label label col-sm-4 col-xs-12">{{ "embauche.cartev"|trans({}, "embauche") }}</label>
+      		<div class="col-sm-6 col-sm-offset-2">
+      			 {{ form_widget(form.carteVitale) }}
+      	  </div>
     	</div>
-    	<div class="col-sm-12" style="padding-right:0;padding-left:0;">
-    		<p class="col-sm-6 upload">RIB</p>
-    		<div class="col-sm-3"></div>
-    		<label class=" col-sm-3 label">
-    			Joindre {{ form_widget(form.rib) }}
-    		</label>
+      <div class="form-group" >
+          <label class="control-label label col-sm-4 col-xs-12">{{ "embauche.rib"|trans({}, "embauche") }}</label>
+      		<div class="col-sm-6 col-sm-offset-2">
+    			 {{ form_widget(form.rib) }}
+    	    </div>
     	</div>
-    	<div class="col-sm-12" style="padding-right:0;padding-left:0;">
-    		<p class="col-sm-6 upload">Adhésion mutuelle</p>
-    		<div class="col-sm-3"></div>
-    		<label class="col-sm-3 label">
-    				Joindre {{ form_widget(form.mutuelle) }}
-    		</label>
+      <div class="form-group" >
+          <label class="control-label label col-sm-4 col-xs-12">{{ "embauche.adhesion"|trans({}, "embauche") }}</label>
+          <div class="col-sm-6 col-sm-offset-2">
+    				 {{ form_widget(form.mutuelle) }}
+    		  </div>
     	</div>
-    	<div class="col-sm-12" style="padding-right:0;padding-left:0;">
-    		<p class="col-sm-6 upload">Pièce d'identité</p>
-    		<div class="col-sm-3"></div>
-    		<label class="col-sm-3 label">
-    			Joindre {{ form_widget(form.carteId) }}
-    		</label>
-		</div>
+      <div class="form-group" >
+          <label class="control-label label col-sm-3 col-xs-12">{{ "embauche.pi"|trans({}, "embauche") }}</label>
+          <div class="col-sm-6 col-sm-offset-2">
+    			 {{ form_widget(form.carteId) }}
+    		  </div>
+		  </div>
       {{ form_end(form) }}
 
 
-    </div>
   </div>
 </div>
 
 <script>
-$('#demande_embauche_Envoyer').parent().append('<button  onclick="history.back()" style="float:left;" class="btn-black end">back</button>');
+$('#demande_embauche_Envoyer').parent().append('<button  onclick="history.back()" style="float:left;" class="btn-black precedent">{{ "embauche.back"|trans({}, "embauche") }} </button>');
 </script>
 {% endblock %}

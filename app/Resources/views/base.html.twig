@@ -22,24 +22,27 @@
     		<script src="{{ asset('js/Helpers.js') }}"></script>
     </head>
     <body>
-      <div id="topNav" class="col-sm-12">
-          <div class="col-sm-6 deco block">
+      <div id="topNav" class="col-sm-12 col-xs-12">
+          <div id="home" class="col-sm-6 col-xs-6 deco block">
             {% if is_granted('ROLE_ADMIN') %}
               <a  href="{{ path('homepage') }}">
-               <span class="glyphicon glyphicon-home" style="padding-right:5px"></span>{{ "home.accueil"|trans({}, "home") }}
+               <span class="glyphicon glyphicon-home" style="padding-right:5px"></span>
+               <span class="libelle">{{ "home.accueil"|trans({}, "home") }}</span>
               </a>
             {% endif  %}
 
           </div>
-             <div id="logout" class="col-sm-4 deco block">
+             <div id="logout" class="col-sm-6 col-xs-6 deco block">
                  <a  href="{{ path('fos_user_security_logout') }}">
-                    <span class="glyphicon glyphicon-off" style="padding-right:5px"></span>{{ "home.deconnexion"|trans({}, "home") }}
+                    <span class="glyphicon glyphicon-off" style="padding-right:5px"></span>
+                    <span class="libelle">{{ "home.deconnexion"|trans({}, "home") }}</span>
                  </a>
 
              </div>
 
 
       </div>
+      <div class="bg"></div>
 		{% block fos_user_content %}{% endblock %}
 
 

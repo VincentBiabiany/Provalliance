@@ -1,4 +1,5 @@
 embauche.header:        Demande d'embauche
+embauche.back:          Retour
 embauche.attention:     Attention !
 embauche.msg:           Avant de commencer à remplir le formulaire, veuillez vérifier que vous disposez toutes les pièces justificatives suivantes au format électronique \:
 embauche.pi:            Pièce d'identité
@@ -62,12 +63,13 @@ embauche.cdd.date:      Jusqu'au
 embauche.cdd.renouv:    Renouvellement du CDD pour le même motif
 embauche.cdd.retour:    Jusqu'au retour physique
 
-embauche.partiel:       Temps partiel
-embauche.lundi:         Lundi
-embauche.mardi:         Mardi
-embauche.mercredi:      Mercredi
-embauche.jeudi:         Jeudi
-embauche.vendredi:      Vendredi
+embauche.cdd.partiel:       Temps partiel
+embauche.lundi:         Lu
+embauche.mardi:         Ma
+embauche.mercredi:      Me
+embauche.jeudi:         Je
+embauche.vendredi:      Ve
+embauche.samedi:        Sa
 
 
 embauche.autre:         Autre

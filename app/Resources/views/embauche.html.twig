@@ -11,9 +11,8 @@
 <div class="head" >
     {{ "embauche.header"|trans({}, "embauche") }}
 </div>
-<div class="bg"></div>
 <div class="container">
-<div class="alert alert-danger" style="max-width: 875px; margin :auto; padding-top: 25px;">
+    <div id="infoEmbauche" class="alert alert-danger" >
 		<strong> {{ "embauche.attention"|trans({}, "embauche") }} </strong> {{ "embauche.msg"|trans({}, "embauche") }}
 		  <li>{{ "embauche.pi"|trans({}, "embauche") }}</li>
 		  <li>{{ "embauche.diplome"|trans({}, "embauche") }}</li>
@@ -22,60 +21,59 @@
 		  <li>{{ "embauche.adhesion"|trans({}, "embauche") }}</li>
 		</ul>
 	</div>
-	<div style="max-width: 100%; margin: auto;">
-		<div class="row">
-        {{ form_start(form, { 'attr' : { 'class': 'form-horizontal', 'id': 'form1' } })}}
-			<div style="margin: auto;width: 75%;">
+		<div id="wrapperForm" class="row">
+        {{ form_start(form, { 'attr' : { 'class': 'allForm form-horizontal', 'id': 'form1' } })}}
 
-			  <div class="form-group " style="padding-top: 50px">
+			  <div class="form-group">
 
   				<label class="control-label label col-sm-3 col-xs-12">{{ "embauche.nom"|trans({}, "embauche") }}</label>
-  				<div class="col-sm-3">
+  				<div class="col-sm-3 col-xs-12">
   					      {{ form_widget(form.nom) }}
   				</div>
 
   				<label class="control-label label col-sm-3 col-xs-12" >{{ "embauche.prenom"|trans({}, "embauche") }}</label>
-  				<div class="col-sm-3">
+  				<div class="col-sm-3 col-xs-12">
   					     {{ form_widget(form.prenom) }}
   				</div>
 			  </div>
 
-			  <div class="form-group row">
+			  <div class="form-group">
   				<label class="control-label label col-sm-3 col-xs-12" for="demande_embauche_dateNaissance">{{ "embauche.daten"|trans({}, "embauche") }}</label>
-  				<div class="col-sm-3">
+  				<div class="col-sm-3 col-xs-12">
   					     {{ form_widget(form.dateNaissance) }}
   				</div>
 			  </div>
 
-			  <div class="form-group row">
+			  <div class="form-group">
   				<label class="control-label label col-sm-3 col-xs-12" for="adr">{{ "embauche.adr1"|trans({}, "embauche") }}</label>
-  				<div class="col-sm-9">
+  				<div class="col-sm-9 col-xs-12">
   					     {{ form_widget(form.addresse1) }}
   				</div>
 			  </div>
 
-        <div class="form-group row">
+        <div class="form-group">
           <label class="control-label label col-sm-3 col-xs-12" for="adr">{{ "embauche.adr2"|trans({}, "embauche") }}</label>
-          <div class="col-sm-9">
+          <div class="col-sm-9 col-xs-12">
                  {{ form_widget(form.addresse2) }}
           </div>
         </div>
 
-			  <div class="form-group" style="">
+			  <div class="form-group" >
 				 <label class="control-label label col-sm-3 col-xs-12">{{ "embauche.cp"|trans({}, "embauche") }}</label>
-  				<div class="col-sm-3">
-  					    {{ form_widget(form.codePostal) }}
+  				<div class="col-sm-3 col-xs-12">
+  					    {{ form_widget(form.codePostal)}}
+
   				</div>
 
   				<label class="control-label label col-sm-3 col-xs-12">{{ "embauche.ville"|trans({}, "embauche") }}</label>
-  				<div class="col-sm-3">
+  				<div class="col-sm-3 col-xs-12">
   					     {{ form_widget(form.ville) }}
   				</div>
 			  </div>
 
 			  <div class="form-group" >
   				<label class="control-label label col-sm-3 col-xs-12" for="tel">{{ "embauche.tel"|trans({}, "embauche") }}</label>
-  				<div class="col-sm-9">
+  				<div class="col-sm-9 col-xs-12">
   					     {{ form_widget(form.telephone) }}
   				</div>
 
@@ -83,27 +81,27 @@
 
 			  <div class="form-group">
   				<label class="control-label label col-sm-3 col-xs-12" for="Nationalité">{{ "embauche.nat"|trans({}, "embauche") }}</label>
-  				<div class="col-sm-3 append" style="display: inline-flex">
-              {{ form(form.nationalite) }}
+  				<div class="col-sm-3 col-xs-12 append" style="display: inline-flex">
+              {{ form_widget(form.nationalite) }}
   				</div>
-			  </div>
+		 </div>
 
-			  <div class="form-group">
-         <label class="control-label label col-sm-3 col-xs-12">{{ "embauche.ss"|trans({}, "embauche") }}</label>
-         <div class="col-sm-3">
-               {{ form_widget(form.numSecu) }}
-         </div>
+		<div class="form-group">
+                     <label class="control-label label col-sm-3 col-xs-12">{{ "embauche.ss"|trans({}, "embauche") }}</label>
+                     <div class="col-sm-3 col-xs-12">
+                           {{ form_widget(form.numSecu) }}
+                     </div>
 
-         <label class="control-label label col-sm-3 col-xs-12">{{ "embauche.email"|trans({}, "embauche") }}</label>
-         <div class="col-sm-3">
-                {{ form_widget(form.email) }}
-         </div>
-			  </div>
+                     <label class="control-label label col-sm-3 col-xs-12">{{ "embauche.email"|trans({}, "embauche") }}</label>
+                     <div class="col-sm-3 col-xs-12">
+                            {{ form_widget(form.email) }}
+                     </div>
+		</div>
 
-			 <div class="form-group" style="">
+		<div class="form-group">
 
 				<label class="control-label label col-sm-3 col-xs-12"  for="fam">{{ "embauche.fam"|trans({}, "embauche") }}</label>
-				 <div class="col-sm-3">
+				 <div class="col-sm-3 col-xs-12">
 					      {{ form_widget(form.situationFamille) }}
 				</div>
 
@@ -115,15 +113,17 @@
 
       <div class="form-group">
         <label class="control-label label col-sm-3 col-xs-12" for="Nationalité">{{ "embauche.villen"|trans({}, "embauche") }}</label>
-        <div class="col-sm-8" style="display: inline-flex" >
+        <div class="col-sm-8 col-xs-12" style="display: inline-flex" >
             {{ form_widget(form.villeNaissance) }}
         </div>
-      </div>
+    </div><br/>
+
     {{ form_end(form) }}
 
 </div>
+</div>
 <script>
-$('#demande_embauche_Envoyer').parent().append('<button  onclick="history.back()" style="float:left;" class="btn-black end">back</button>');
+$('#demande_embauche_Envoyer').parent().append('<button  onclick="history.back()" class="btn-black precedent">{{ "embauche.back"|trans({}, "embauche") }}</button>');
 </script>
 <script>
   var count = 0;
@@ -149,7 +149,7 @@ $('#demande_embauche_Envoyer').parent().append('<button  onclick="history.back()
             var label = $(html).find('label[for="demande_embauche_autre2"]').text();
             console.log(label);
             var input = $(html).find('#demande_embauche_autre2').addClass('form-control');
-            var elem = '<div id="at"><label for="demande_embauche_autre2" class="control-label label col-sm-3 col-xs-12 required">' + label + '</label><div id="autre" class="col-sm-3"></div></div>';
+            var elem = '<div id="at"><label for="demande_embauche_autre2" class="control-label label col-sm-3 col-xs-12 required">' + label + '</label><div id="autre" class="col-sm-3 col-xs-12"></div></div>';
             $('#demande_embauche_nationalite').parent().parent().append(elem);
             console.log($(html).find('#demande_embauche_autre2'))
             input.appendTo('#autre');

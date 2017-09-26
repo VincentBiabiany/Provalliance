@@ -3,3 +3,4 @@ home_paie.rib:          RIB salarié
 home_paie.attestation:  Demande d'attestation de salaire
 home_paie.solde:        Final settlement
 home_paie.header:       Nouvelle demande paie
+home_paie.back:         Back

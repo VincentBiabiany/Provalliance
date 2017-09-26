@@ -1,11 +1,12 @@
 embauche.header:        Job application
+embauche.back:          Back
 embauche.attention:     Be carefull!
 embauche.msg:           Before starting to fill this form, please verify if you posses all these following documents in electronic format \:
 embauche.pi:            Identity Document
 embauche.diplome:       Diploma
-embauche.cartev:        health insurance card
+embauche.cartev:        Health insurance card
 embauche.rib:           RIB bank
-embauche.adhesion:      health care mutual
+embauche.adhesion:      Health care mutual
 
 embauche.nom:           First name
 embauche.prenom:        Last name
@@ -70,7 +71,7 @@ embauche.mercredi:      Wednesday
 embauche.jeudi:         Thursday
 embauche.vendredi:      Friday
 
-embauche.autre:         Other
+embauche.autre:         Precise
 
 embauche.step1:         Step 2
 embauche.step2:         Step 3

@@ -110,7 +110,7 @@ class EmbaucheController extends Controller
            ->setBody(
                $this->renderView(
                    'emails/demande_acompte.html.twig',
-                   array('personnel' => $demandeEmbauche->getNom(). ' '.$demandeEmbauche->getPrenom(),
+                   array('personnel' => $demandeEmbauche->getPrenom(). ' '.$demandeEmbauche->getNom(),
                           'user' => $user->getUsername(),
                           'demande' => 'd\'embauche'
                         )
@@ -121,7 +121,7 @@ class EmbaucheController extends Controller
 
         $em->persist($demande);
         $em->flush();
-        $this->addFlash("success", "La demande d'embauche pour ".$demandeEmbauche->getNom()." a correctement été envoyé ! Un mail vous sera envoyé une fois votre demande traité.");
+        $this->addFlash("success", "La demande d'embauche pour ".$demandeEmbauche->getPrenom()." ".$demandeEmbauche->getNom()."a correctement été envoyé ! Un mail vous sera envoyé une fois votre demande traité.");
 
         return $this->redirectToRoute('homepage');
       }

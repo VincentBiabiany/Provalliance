@@ -80,6 +80,7 @@ class DemandeEmbaucheType extends AbstractType
                   $form->add('autre2', TextType::class, array(
                         'attr' => array( ),
                         'label' => 'embauche.autre',
+                        'translation_domain' => 'embauche',
                         'mapped' => false
                   ));
                 })
@@ -187,7 +188,7 @@ class DemandeEmbaucheType extends AbstractType
                            'choices' => array(
                                   'embauche.cdi'  => 'embauche.cdi',
                                   'embauche.appr' => 'embauche.appr',
-                                  'embauche.pro.' => 'embauche.pro',
+                                  'embauche.pro' => 'embauche.pro',
                                   'embauche.cdd'  => 'embauche.cdd'
                            ),
                            'choice_translation_domain' => 'embauche',

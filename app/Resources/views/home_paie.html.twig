@@ -11,7 +11,6 @@
 <div class="head" >
     {{ "home_paie.header"|trans({}, "home_paie") }}
 </div>
-<div class="bg"></div>
 <div class="container">
   <div id="actions" class="off">
     <div class="row" style="max-width: 875px;margin: auto;">
@@ -36,9 +35,9 @@
             </div>
         </div>
 
-        <div class="col-sm-12" style=" max-width:1200px;margin:auto;float:none;">
+        <div class="col-sm-12">
             <div class="col-sm-6 block">
-                <button class="btn-black" onclick="window.location.href = '{{ path("homepage") }}'" style="float:none;">Précédent</button>
+                <button class="btn-black precedent" onclick="window.location.href = '{{ path("homepage") }}'" >{{ "home_paie.back"|trans({}, "home_paie") }}</button>
             </div>
 
         </div>

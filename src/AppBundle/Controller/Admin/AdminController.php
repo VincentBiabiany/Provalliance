@@ -88,7 +88,7 @@ class AdminController extends Controller
                            ->setParameter('idSalon', $idSalon);
                   },
                  'label' => 'demandeacompte.nom',
-                 'translation_domain' => 'demandeacompte'
+                 'translation_domain' => 'demande_acompte'
               ))
             ->getForm()
           ;

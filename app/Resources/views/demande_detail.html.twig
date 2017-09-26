@@ -2,7 +2,6 @@
 {% block title %}Résumé de la demande{% endblock %}
 
 {% block body %}
-{% trans_default_domain "demandeacompte" %}
 
 <div class="header">
 	{% if is_granted('ROLE_ADMIN') %}
@@ -17,17 +16,15 @@
 <div class="head">
 	{{ typedemande }}
 </div>
-
 <div class="container">
-	<div style="max-width: 100%; margin: auto;">
-
+	<div id="wrapperForm" class="row">
 		{% form_theme form 'form/acompte.html.twig' %}
 		{% block content %}
-				{{ form_start(form, {'attr': {'class': '', 'id':'detailDemandeAccompte'} }) }}
+				{{ form_start(form, {'attr': {'class': ''} }) }}
 				{{ form_end(form) }}
 			{% endblock %}
 
-      <div class="col-sm-12" style="background-color: #B39C8C; padding: 25px;">
+      <div id="infosDemande" class="col-sm-12">
           <p> <b>Demandeur : </b>{{ demandeur.nom }} {{ demandeur.prenom }} </p>
           <p> <p> <b>Date d'envoi :</b>  {{ date }} </p> <b>Satut:</b>  {{ statut }} {% if dateTraitement is not null %} le {{ dateTraitement }} {% endif %}</p>
           <p> <b>Salon :</b> {{ salon.nom }} </p>
@@ -40,8 +37,9 @@
       </div>
 
 		{% if is_granted('ROLE_PAIE') or is_granted('ROLE_JURIDIQUE') %}
-			<div class="col-sm-12" style="max-width: 100%; margin: auto;">
-					  {{ form_start(form2, {'attr': {'novalidate': 'novalidate'}}) }}
+			<div class="" style="max-width: 100%; margin: auto;">
+				<hr id="separatorDetailDemande"/>
+					  {{ form_start(form2, {'attr': {'id':'form_message','novalidate': 'novalidate'}}) }}
 
 							{% for flash_message in app.session.flashBag.get('error') %}
 								<div class="alert alert-danger danger">
@@ -49,11 +47,11 @@
 						      <span class="closeAlert glyphicon glyphicon-remove"></span>
 								</div>
 							{% endfor %}
-					    	{{ form_row(form2.message, {'attr': {'class': 'form-control'} }) }}
+					    	{{ form_row(form2.message) }}
 
 <br/>
-								{{ form_row(form2.reject, {'attr': {'class': 'btn-black end alert-danger'} }) }}
-								{{ form_row(form2.accept, {'attr': {'class': 'btn-black end alert-success'} }) }}
+								{{ form_row(form2.reject, {'attr': {'class': 'btn-black end reject'} }) }}
+								{{ form_row(form2.accept, {'attr': {'class': 'btn-black end accept'} }) }}
 						{{ form_end(form2) }}
 			</div>
 		{% endif  %}
