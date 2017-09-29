@@ -4,12 +4,11 @@
 {% block body %}
 
 <div class="header">
-    <img style="display: block !important;margin: auto !important;" id="logotop" src="{{ asset('img/provost.png') }}">
+    <img style="display: block !important;margin: auto !important;" id="logotop" src="">
 </div>
 <div class="head" >
-    Nelly, Bienvenue dans votre Espace Manager!
+Bonjour  {{ personnel.prenom  }} {{ personnel.nom  }} <br/>
 </div>
-<div class="bg"></div>
 <div class="container">
 
     <div class="row" style="max-width: 875px;margin: auto;">
@@ -21,53 +20,39 @@
 	{% for flash_message in app.session.flashBag.get('success') %}
 		<div class="alert alert-success success">
 			{{ flash_message }}
+      <span class="closeAlert glyphicon glyphicon-remove"></span>
 		</div>
 	{% endfor %}
+   <div id="actions" class="home off">
+     <div class="blockAction"></div>
+      <div class="col-sm-12" style="padding-top:40px; max-width:1200px; margin:auto;">
+          <div class="col-sm-6 block">
+              <div onclick="window.location.href = '{{ path("home_juridique_rh") }}'"  class="under-block"><p class="carre">{{ "home.juridique_rh"|trans({}, "home") }}</p></div>
+          </div>
+          <div class="col-sm-6 block">
+              <div onclick="window.location.href = '{{ path("demande") }}'" class="under-block"><p class="carre">{{ "home.demand"|trans({}, "home") }}</p></div>
+          </div>
+      </div>
 
-    <div class="col-sm-12" style="padding-top:40px; max-width:1200px; margin:auto;">
-        <div class="col-sm-6 block">
-            <div onclick="window.location.href = '{{ path("home_juridique_rh") }}'"  class="under-block"><p class="carre">{{ "home.juridique_rh"|trans({}, "home") }}</p></div>
-        </div>
-        <div class="col-sm-6 block">
-            <div onclick="window.location.href = '{{ path("demande") }}'" class="under-block"><p class="carre">{{ "home.demand"|trans({}, "home") }}</p></div>
-        </div>
-    </div>
+      <div class="col-sm-12" style=" max-width:1200px;margin:auto;float:none;">
+          <div class="col-sm-6 block">
+              <div onclick="window.location.href = '{{ path("home_paie") }}'" class="under-block"><p class="carre">{{ "home.paie"|trans({}, "home") }}</p></div>
+          </div>
 
-    <div class="col-sm-12" style=" max-width:1200px;margin:auto;float:none;">
-        <div class="col-sm-6 block">
-            <div onclick="window.location.href = '{{ path("home_paie") }}'" class="under-block"><p class="carre">{{ "home.paie"|trans({}, "home") }}</p></div>
-        </div>
-        <div class="col-sm-6 block">
-            <div class="under-block"><p class="carre">{{ "home.ca"|trans({}, "home") }}</p></div>
-        </div>
-    </div>
+      </div>
 
-    <div class="col-sm-12" style=" max-width:1200px;margin:auto;float:none;">
-        <div class="col-sm-6 block">
-            <div class="under-block"><p class="carre"></p></div>
-        </div>
-        <div class="col-sm-6 block">
-            <div class="under-block"><p class="carre">{{ "home.volume"|trans({}, "home") }}</p></div>
-        </div>
-    </div>
-    <div class="col-sm-12" style=" max-width:1200px;margin:auto;float:none;">
-        <div class="col-sm-6 block">
-        </div>
-        <a  href="{{ path('fos_user_security_logout') }}"><div class="col-sm-4 deco block">
-            <span class="glyphicon glyphicon-off" style="padding-right:5px"></span>{{ "home.deconnexion"|trans({}, "home") }}
-        </div></a>
-    </div>
 
+
+   </div>
 </div>
 </div>
-<script src="https://cdn.rawgit.com/prashantchaudhary/ddslick/master/jquery.ddslick.min.js"></script>
+<script src="{{ asset('js/jquery.ddslick.min.js') }}"></script>
 <script language="javascript">
 var ddData = [
      {% for salon in salons %}
         {
             value: {{ salon.id }},
             text: "{{ salon.nom }}",
-
             imageSrc: "{{ asset("img/") ~ salon.enseigne.logo }}"
                {% if loop.last %}
                  }
@@ -81,17 +66,37 @@ var ddData = [
     $('#myDropdown').ddslick({
         data:ddData,
         width:200,
+        background: '#000',
         imagePosition:"center",
-        defaultSelectedIndex:1,
+        {% if app.session.get('idSalon') %}
+            defaultSelectedIndex:  {{ app.session.get('numero') }},
+        {% else %}
+        selectText: "Veuillez choisir un salon",
+        {% endif %}
+
         onSelected: function(selectedData){
+
+             if ($("#actions").is('.off')){
+                  $("#actions").attr('class','on');
+                  $(".blockAction").remove();
+                }
+
             logo = document.getElementById('logotop');
-            console.log(selectedData);
             logo.src = selectedData.selectedData.imageSrc;
-            $.post('{{ path('selected_salon') }}', {idSalon: selectedData.selectedData.value, img: logo.src});
+            text = selectedData.selectedData.text;
+            var ddData = $('#myDropdown').data('ddslick');
+            $.post('{{ path('selected_salon') }}', {idSalon: selectedData.selectedData.value, nomSalon: text, img: logo.src, numero: ddData.selectedIndex });
         }
     });
 
-</script>
+
+    $('.closeAlert').bind('click', function(){
+          $(".alert").css('display','none');
+          $(".alert").remove();
+
+    });
+
+    </script>
 
 
 {% endblock %}

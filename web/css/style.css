@@ -1,44 +1,136 @@
+
+.datepicker.datepicker-dropdown.dropdown-menu.datepicker-orient-left.datepicker-orient-top {
+margin-top: 100px;
+}
+
+/* For Firefox */
+input[type='number'] {
+-moz-appearance:textfield;
+}
+
+/* Webkit browsers like Safari and Chrome */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+
+
+
+
+
+
+
+
+
 /*STYLE GENERAL*/
 
-body,p,a,h1,h2,h3,h4 {
+body,p,a,h1,h2,h3,h4,h5 {
 	font-family: 'Brown';
-	color:white;
+
 }
 @font-face {
 	font-family: 'Brown';
-	src: url('../fonts/Brown-Light.otf');  
+	src: url('../fonts/Brown-Light.otf');
 	font-weight: regular;
 }
+/* HEADER */
 .header{
-    z-index: 2;
-    position: fixed;
+	z-index: 2;
+	position: fixed;
 	top: 0;
-    left: 0;
-   	width: 100%;
-    background-color: white;
-    padding-top:15px;
+	left: 0;
+	width: 100%;
+	background-color: white;
+	height: 85px;
 }
+
+.header hr{
+	width: 250px;
+	margin: auto;
+	z-index: 10;
+	position: relative;
+}
+#topNav{
+		position: fixed;
+    top: 30px;
+		z-index: 3;
+}
+#topNav a{
+	color: #333;
+	font-weight: light;
+}
+
+.deco {
+	color: black;
+	font-size: 15px;
+	cursor: pointer;
+}
+@media only screen and (max-width : 765px){
+		.deco a span.libelle{
+			display: none;
+		}
+		#logout {
+    text-align: right;
+		}
+		#home {
+    text-align: left;
+		}
+}
+
+#logout a:hover{
+    color: red;
+
+}
+img#logotop{
+	width: 250px;
+
+}
+
+#nomSalon{
+	    display: block;
+	    width: 150px;
+	    margin: auto;
+	    text-transform: uppercase;
+	    letter-spacing: 2px;
+	    font-weight: bold;
+	    text-align: center;
+	    font-size: 12px;
+}
+.head {
+	width: 500px;
+	background-color: #B39C8C;
+	margin: auto;
+	display: block;
+	text-align: center;
+	font-size: 17px;
+	z-index: 58;
+	margin-top: 85px;
+	color: white;
+	height: 45px;
+	padding-top: 6px;
+	line-height: 28px;
+}
+/* FIN HEADER */
 
 .btn-black{
-	background-color:white !important;    
-	max-width: 150px; 
+	background-color: #b39b8b !important;
+	max-width: 150px;
 	text-align: center !important;
 	vertical-align: middle;
-	line-height: 30px;
+	line-height: 35px;
 	font-size: 16px;
 	width: 150px;
-   	border-radius: 9%;
-    font-family: 'Brown' !important;
-    float: right;
-	border: 1px solid black;
-	color: black;
-    font-weight: bold;
+	font-family: 'Brown' !important;
+	float: right;
+	color: white;
+	font-weight: lighter;
+	border: none;
 }
-
 
 /*STYLE LOGIN*/
 #Nova{
-    padding-top:50px; 
+    padding-top:50px;
     color: black;
     float:right
 }
@@ -46,46 +138,486 @@ body,p,a,h1,h2,h3,h4 {
     color: black;
 }
 
+/*CONTENT */
+#actions{
+	display: table;
+	position: relative;
+	height: auto;
+	width: auto;
+	margin: auto;
+	clear: both;
+  padding-top: 20px;
+}
+.slider.slider-horizontal {
+    margin-top: 20px;
+}
+.on {
 
+	opacity: 1;
+}
+.off.home {
+	opacity: 0.2;
 
+}
+.blockAction{
+	display: block;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	clear: both;
+	z-index: 10;
+
+}
 /*STYLE FORMULAIRES*/
+.alert{
+	clear: both;
+   position: relative;
+}
+
+.closeAlert{
+	font-size: 11px;
+	height: 20px;
+	color: green;
+	width: 20px;
+	position: absolute;
+	right: 0px;
+	top: 7px;
+	cursor: pointer;
+}
+.allForm{
+	margin-top: 30px;
+
+}
+#wrapperForm{
+	width: 875px;
+	margin: auto;
+  margin-bottom: 50px;
+}
 #formContent{
-    
-    max-width: 700px; 
+
+    max-width: 700px;
     margin: auto;
+}
+
+.form-group{
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+	position: relative;
+	display: block;
+	height: auto;
 }
 
 
 .label{
-	background-color:#B39C8C;    
-	/*max-width: 158px;*/
-	text-align: center !important;
-	vertical-align: middle;
-	line-height: 30px;
-	font-size: 16px;
-	color:black;
+	    background-color: #333;
+	    text-align: left !important;
+	    vertical-align: middle;
+	    line-height: 30px;
+	    font-size: 16px;
+	    color: white;
+	    width: 175px;
+	    font-weight: 100;
+    padding: .3em 1.12em .3em;
 }
-.form-control {   
-	border-radius: 0 !important;
-	border: 1px solid #000;
-	border-top: 0 !important;	
-   	border-left: 0 !important;
-    	border-right: 0 !important;
-	webkit-box-shadow: none !important;
-    	box-shadow: none !important;
+.error_list{
 
 }
+.form-control {
+	border-radius: 0 !important;
+	border: 1px solid #000;
+	border-top: 0 !important;
+  border-left: 0 !important;
+  border-right: 0 !important;
+	webkit-box-shadow: none !important;
+  box-shadow: none !important;
+	width: inherit;
+
+}
+#detailDemandeAccompte select.form-control {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+}
+
+
+label.required{
+	color: white;
+	font-size: 15px;
+	font-weight: lighter;
+	line-height: 30px;
+
+}
+.end{
+   background-color: #45bd43 !important;
+}
+.end:hover{
+   background-color: #fff !important;
+	 color: #45bd43;
+}
+/******* FORMULAIRE EMBAUCHE ******/
+#infoEmbauche{
+	max-width: 875px;
+	margin :auto;
+
+}
+#demande_embauche_codePostal, #demande_embauche_dateNaissance, #demande_embauche_dateembauche{
+	width: 125px;
+}
+
+#demande_embauche_nom, #demande_embauche_numSecu, #demande_embauche_situationFamille,
+#demande_embauche_telephone, #demande_embauche_villeNaissance{
+	width: 180px;
+}
+
+#demande_embauche_prenom, #demande_embauche_ville, #demande_embauche_email, #demande_embauche_autre2{
+	width: 100%;
+
+}
+#demande_embauche_addresse1, #demande_embauche_addresse2{
+	width: 583px;
+
+}
+#demande_embauche_nbEnfant{
+	width: 130px;
+
+}
+#demande_embauche_nationalite label.required, #demande_embauche_dejaSalarie label.required
+,#demande_embauche_postes label.required, #demande_embauche_diplomes label.required,
+#demande_embauche_salaireBase label.required, #demande_embauche_typeContrat label.required,
+#demande_embauche_CDD label.required{
+  color: black;
+  margin-left: 2px;
+	margin-right: 10px;
+}
+
+#demande_embauche_nationalite_1{
+	margin-left: 10px;
+
+
+}
+
+#demandeEmbauche2 .form-group{
+
+	height: auto;
+
+
+}
+
+#demandeEmbauche3 label{
+	width: 215px;
+
+}
+#Classification, #tempsPartiel{
+	 height: 85px;
+}
+#Classification div{
+	width: 110px;
+	text-align: center;
+	margin-right: 15px;
+}
+#Classification div label{
+	background-color: #797979 !important;
+}
+#Classification div select,#Classification div input, div.other input{
+	width: 100%;
+}
+.jour{
+    float: left;
+    width: 50px;
+		margin-left: 20px;
+	}
+	.jour label{
+		display: block;
+    text-align: center !important;
+    background-color: #797979 !important;
+    line-height: inherit;
+	}
+	#listeJours{
+		padding: 0;
+	}
+
+	/***** RESPONSIVE DESIGN **********/
+@media only screen and (max-width : 765px){
+		.label {
+		    width: 100%;
+				text-align: center;
+		}
+		#demande_embauche_nom,#demande_embauche_prenom, #demande_embauche_ville, #demande_embauche_email,
+		#demande_embauche_numSecu, #demande_embauche_situationFamille,#demande_embauche_telephone,
+		#demande_embauche_villeNaissance, #demande_embauche_addresse1, #demande_embauche_addresse2,
+		#demande_embauche_nbEnfant, #demande_embauche_nationalite, #demande_embauche_nationalite_1,
+		#demande_embauche_codePostal, #demande_embauche_dateNaissance{
+			width: 100%;
+
+		}
+		#wrapperForm {
+		    width: 414px;
+		    margin: auto;
+		}
+
+		.form-control{
+			 margin-bottom: 20px;
+		}
+		form#formAccompte	, form#createAccount, form#createAccountS2,
+		form#createAccountS3, form#editAccount,form#createAccountService{
+			width: 414px !important;
+
+		}
+
+}
+/***** CREATION COMPTE USER ADMIN FORMULARE ********/
+#form_Suivant, #fos_user_registration_form_Valider{
+	position: relative;
+	margin-bottom: 50px;
+	margin-top: 20px;
+	float: right;
+	clear: both;
+}
+
+
+#form_Precedent{
+	position: absolute;
+	left: 0;
+	margin-bottom: 50px;
+	margin-top: 20px;
+
+}
+
+#fil{
+position: relative;
+width: 650px;
+height: 55px;
+margin-top: 25px;
+
+}
+
+#base{
+	position: relative;
+	width: 80%;
+	height: 5px;
+	display: block;
+	margin: auto;
+	background-color: #888;
+
+}
+
+.step{
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	background-color:#888;
+	top: -3px;
+	border-radius: 50%;
+
+}
+.step.active{
+	background-color: #B39C8C;
+	width: 20px;
+	height: 20px;
+	top: -7px;
+}
+
+.labelFil{
+	color: #333;
+	position: absolute;
+	top: 15px;
+	text-align: center;
+	width: 70px;
+	/*opacity: 0.2;*/
+	line-height: 14px;
+	font-weight: lighter;
+
+}
+
+.labelFil.active {
+	color: black;
+	/*opacity: 1;*/
+	font-weight: bold;
+}
+#labelOne{
+ text-align: left;
+}
+#labelThree{
+ text-align: right;
+}
+#stepOne, #labelOne{
+	left: -1%;
+}
+#stepTwo {
+	left: 50%;
+}
+#stepThree, #labelThree{
+	right: -1%;
+}
+
+#labelTwo{
+ left: 45%;
+}
+
+.AccountInfo{
+	width: 70%;
+	text-align: center;
+	margin: auto;
+
+}
+ h2{
+	clear: both;
+}
+form#formAccompte	, form#createAccount, form#createAccountS2, form#createAccountS3, form#editAccount,form#createAccountService{
+	/*margin-top: 25px;*/
+	width: 650px;
+	position: relative;
+
+}
+#CreateFormStep #form_nom{
+	width:100%;
+}
+#createAccountS3 input,#createAccountS3 select{
+		width:100%;
+}
+#ListePersonnel a{
+	color:black;
+}
+span.state{
+	position: relative;
+	display: block;
+	margin: auto;
+	width: 10px;
+	height: 10px;
+}
+span.actif{
+background-color: green;
+
+}
+span.inactif{
+	background-color: red;
+}
+
+#chgPwd{
+	position: relative;
+	color: black;
+	display: block;
+	top: 20px;
+	margin-left: 15px;
+}
+.containerModal{
+	margin: 0;
+}
+
+.containerModal #actions{
+	margin: auto;
+
+}
+ form#changePassword{
+	 margin-top: 15px;
+	 width: 450px;
+	 position: relative;
+	 margin-bottom: 10px;
+
+ }
+
+ /***** DEMANDE ******/
+ #flashDemande{
+	 width: 350px;
+   margin: auto;
+   text-align: center;
+ }
+ #form_message {
+
+
+ }
+
+ #form_message textarea{
+	 border-color: grey;
+	 background-color: #eee;
+	 width: 100% !important;
+	 height: 80px !important;
+	 margin-bottom: 15px;
+ }
+ #infosDemande{
+	 background-color: #eeeeee;
+	 padding: 25px;
+	 margin-bottom: 20px;
+ }
+ .accept{
+
+ }
+
+ .reject{
+	 background-color: #c5443b !important;
+
+ }
+ #separatorDetailDemande{
+	 display: block;
+	 width: 100%;
+	 border-color: #333;
+
+ }
+/***** DEMANDE ACCOMPTE FORMULARE ********/
+
+.demande_acompte .form-group {
+    margin-bottom: 15px;
+    clear: both;
+    height: 65px;
+}
+.demande_acompte .form-group .slider-handle {
+    background-color: #B39C8C;
+		background-image : none;
+}
+.demande_acompte .form-group .slider-track-high {
+    background-color: black;
+
+}
+
+.demande_acompte .form-group .slider.slider-horizontal {
+    width: 100%;
+    height: 20px;
+}
+
+#actionsButtons{
+	display: block;
+	margin-top: 20px;
+	width: auto;
+
+}
+/***** DEMANDE EMBAUCHE FORMULARE ********/
+
+#formEmbauche, #formEmbaucheStep2{
+
+ max-width: inherit;
+}
+
+
+.precedent{
+
+	float: left;
+	}
+.precedent:hover{
+
+	float: left;
+	text-decoration: none;
+	color: black;
+	}
+
 .carre{
 	height: 80px;
-    	background-color: black;
-    	text-align: center;
-    	width: 230px;
-    	margin: auto;
-    	font-size: 18px;
-    	border-radius: 10px;
-    	cursor: pointer;
-	display: table-cell; /* comportement visuel de cellule */
-  	vertical-align: middle;
+	background-color: #333;
+	text-align: center;
+	width: 230px;
+	margin: auto;
+	font-size: 18px;
+	border-radius: 10px;
+	cursor: pointer;
+	display: table-cell;
+	vertical-align: middle;
+  color: white;
+}
+.carre:hover{
+	background-color: black;
+
 }
 .block{
 	padding-bottom: 25px;
@@ -97,19 +629,20 @@ body,p,a,h1,h2,h3,h4 {
 	display: inline-block;
 }
 
-.deco {
+.gestion {
 	/*float: right;*/
-   	color: black;
-    	font-size: 25px;
-	cursor: pointer;
+    	color: black;
+      font-size: 15px;
+	    cursor: pointer;
     	position: fixed;
-    	top: 24px;
-    	right: 55px;
+    	top: 44px;
+    	right: 73px;
     	z-index: 23;
+
 }
 
-.bg { 
-  background: url(../img/fond-filigrane.png) no-repeat center center fixed; 
+.bg {
+  background: url(../img/fond-filigrane.png) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -117,11 +650,11 @@ body,p,a,h1,h2,h3,h4 {
   min-height: 100%;
 
   min-height: 100%;
-	
+
   /* Set up proportionate scaling */
   width: 100%;
   height: auto;
-	
+
   /* Set up positioning */
   position: fixed;
   top: 0;
@@ -131,8 +664,8 @@ body,p,a,h1,h2,h3,h4 {
 }
 .logo-prov {
 	margin: auto;
-	display: block; 
-	padding-bottom:50px; 
+	display: block;
+	padding-bottom:50px;
 	max-width:450px;
 }
 
@@ -141,10 +674,8 @@ body,p,a,h1,h2,h3,h4 {
 	color: white;
 
 }
-@media (max-width:767px){	
-    	.label{
-		max-width:100%;
-    	}
+@media (max-width:767px){
+
 	.carre {
   	  	height: 80px;
    		margin-bottom: 25px;
@@ -155,7 +686,7 @@ body,p,a,h1,h2,h3,h4 {
 	.login-form {
    		width: 75%;
    		margin: auto;
-	}	
+	}
 }
 @media (max-width: 1024px) {
 	.carre {
@@ -163,41 +694,43 @@ body,p,a,h1,h2,h3,h4 {
 	}
 }
 
+/********* dropdown-menu HOME ********/
 
-.dd-selected {
-    color: black !important;
-}
 #myDropdown{margin:auto;}
+#myDropdown .dd-select a{
+	font-weight: 100;
+	color: white;
+	text-align: center;
+}
+#myDropdown a:hover{
 
+	color: #b39b8b;
+	text-decoration: inherit;
+}
+#myDropdown .dd-select{
+border:none;
 
+}
+#myDropdown .dd-select .dd-pointer-down{
+    border: solid 5px transparent !important;
+    border-top: solid 5px #fff !important;
+    margin-top: -3px;
+}
+#myDropdown .dd-select .dd-pointer-up{
+    border: solid 5px transparent !important;
+    border-bottom: solid 5px #fff !important;
+    margin-top: -8px;
+}
 label.dd-selected-text {
-    line-height: 21px !important;
-    margin-left: 10px;
+	line-height: 21px !important;
+	margin-left: 10px;
+	font-weight: 100;
 }
 
 label.dd-option-text {
     line-height: 16px !important;
     margin-left: 10px;
 }
-
-.head {
-    z-index: 2;
-    width: 500px;
-    background-color: #B39C8C;
-    /*line-height:65px;*/
-    margin: auto;
-    display: block;
-    text-align: center;
-    font-size: 22px;
-    text-transform: uppercase;
-    /*padding-top: 92px;*/
-    padding-top:105px;
-    z-index: 58;
-
-}
-
-
-.form-group{margin-left:0 !important;margin-right:0 !important;}
 
 
 /* BACK LOG */
@@ -213,7 +746,7 @@ td, th {
     text-align: left;
     padding: 8px;
     color: black;
-    text-align: center; 
+    text-align: center;
 }
 
 tr:nth-child(even) {

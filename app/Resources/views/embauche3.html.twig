@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+{% block title %}Welcome{% endblock %}
+
+{% block body %}
+
+<div class="header">
+    <img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
+	<hr/>
+	<span id="nomSalon">{{ app.session.get('nomSalon') }}</span>
+</div>
+<div class="head" >
+        {{ "embauche.header"|trans({}, "embauche") }}
+</div>
+<div class="container">
+
+    <div id="wrapperForm" class="row" >
+
+       {{ form_start(form, { 'attr' : { 'id':'demandeEmbauche3','class': 'allForm form-horizontal' } }) }}
+    	<div class="form-group" >
+    			<label class="control-label label col-sm-4 col-xs-12" >{{ "embauche.diplome"|trans({}, "embauche") }}</label>
+    		  <div class="col-sm-6 col-sm-offset-2">
+    			 {{ form_widget(form.diplomeFile) }}
+    		  </div>
+    	</div>
+    	<div class="form-group" >
+          <label class="control-label label col-sm-4 col-xs-12">{{ "embauche.cartev"|trans({}, "embauche") }}</label>
+      		<div class="col-sm-6 col-sm-offset-2">
+      			 {{ form_widget(form.carteVitale) }}
+      	  </div>
+    	</div>
+      <div class="form-group" >
+          <label class="control-label label col-sm-4 col-xs-12">{{ "embauche.rib"|trans({}, "embauche") }}</label>
+      		<div class="col-sm-6 col-sm-offset-2">
+    			 {{ form_widget(form.rib) }}
+    	    </div>
+    	</div>
+      <div class="form-group" >
+          <label class="control-label label col-sm-4 col-xs-12">{{ "embauche.adhesion"|trans({}, "embauche") }}</label>
+          <div class="col-sm-6 col-sm-offset-2">
+    				 {{ form_widget(form.mutuelle) }}
+    		  </div>
+    	</div>
+      <div class="form-group" >
+          <label class="control-label label col-sm-3 col-xs-12">{{ "embauche.pi"|trans({}, "embauche") }}</label>
+          <div class="col-sm-6 col-sm-offset-2">
+    			 {{ form_widget(form.carteId) }}
+    		  </div>
+		  </div>
+      {{ form_end(form) }}
+
+
+  </div>
+</div>
+
+<script>
+$('#demande_embauche_Envoyer').parent().append('<button  onclick="history.back()" style="float:left;" class="btn-black precedent">{{ "embauche.back"|trans({}, "embauche") }} </button>');
+</script>
+{% endblock %}

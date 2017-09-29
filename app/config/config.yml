@@ -75,18 +75,23 @@ doctrine:
                 password: '%database_password%'
                 charset: UTF8
     orm:
-        #auto_generate_proxy_classes: '%kernel.debug%'
+        # auto_generate_proxy_classes: '%kernel.debug%'
         #naming_strategy: doctrine.orm.naming_strategy.underscore
         #auto_mapping: true
+        # auto_generate_proxy_classes:  true # <- change to true
+        # proxy_dir:            '%kernel.cache_dir%/doctrine/orm/Proxies'
+        # proxy_namespace:      Proxies
         resolve_target_entities:
             AppBundle\Model\PersonnelInterface: ApiBundle\Entity\Personnel
         default_entity_manager: default
         entity_managers:
             default:
+                naming_strategy: doctrine.orm.naming_strategy.underscore
                 connection: default
                 mappings:
                     AppBundle:  ~
             referentiel:
+                naming_strategy: doctrine.orm.naming_strategy.underscore
                 connection: referentiel
                 mappings:
                    ApiBundle: ~
@@ -99,7 +104,7 @@ swiftmailer:
     password: '%mailer_password%'
     spool: { type: memory }
 
-    
+
 fos_user:
     db_driver: orm
     firewall_name: main
@@ -108,7 +113,7 @@ fos_user:
     from_email:
          address: "%mailer_user%"
          sender_name: "%mailer_user%"
-         
+
 fos_rest:
     routing_loader:
         default_format: json                            # All responses should be JSON formated

@@ -17,7 +17,7 @@ homepage:
   defaults:   {_controller: AppBundle:Home:index}
 
 selected_salon:
-  path: /selected_salon
+  path:       /selected_salon
   defaults:   {_controller: AppBundle:Home:SelectedSalon}
 
 home_juridique_rh:
@@ -37,9 +37,17 @@ rh_embauche:
     path:     /embauche
     defaults: {_controller: AppBundle:Embauche:index}
 
-demandee:
+demande:
     path:     /demande
     defaults: {_controller: AppBundle:Demande:index}
+
+createAccountSa:
+    path:     /admin/createS1
+    defaults: {_controller: AppBundle:Admin:createAccountSa}
+
+# createAccountS2:
+#     path:     /admin/createS2
+#     defaults: {_controller: AppBundle:Admin:createAccountS2}
 
 #api:
 #    prefix:   /api

@@ -34,7 +34,7 @@ services:
     #     arguments:
     #         $someArgument: 'some_value'
 
-    
+
     authentication.handler.login_success_handler:
         class:  AppBundle\Security\LoginSuccessHandler
         arguments:  ['@router', '@security.authorization_checker']
@@ -45,3 +45,7 @@ services:
         #arguments: ['%kernel.default_locale%']
         tags:
             - { name: kernel.event_subscriber, method: onKernelRequest }
+            
+    AppBundle\Service\FileUploader:
+        arguments:
+            $targetDir: '%files_directory%'

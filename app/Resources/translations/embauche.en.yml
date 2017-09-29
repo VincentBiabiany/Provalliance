@@ -1,0 +1,78 @@
+embauche.header:        Job application
+embauche.back:          Back
+embauche.attention:     Be carefull!
+embauche.msg:           Before starting to fill this form, please verify if you posses all these following documents in electronic format \:
+embauche.pi:            Identity Document
+embauche.diplome:       Diploma
+embauche.cartev:        Health insurance card
+embauche.rib:           RIB bank
+embauche.adhesion:      Health care mutual
+
+embauche.nom:           First name
+embauche.prenom:        Last name
+embauche.daten:         Birthday
+embauche.adr1:          Address 1
+embauche.adr2:          Address 2
+embauche.cp:            Postcode
+embauche.ville:         City
+embauche.tel:           Telephone
+embauche.nat:           Nationality
+embauche.nat.fr:        French
+embauche.nat.etr:       Foreigner
+embauche.ss:            Social security number
+embauche.email:         Email
+embauche.fam:           Family situation
+embauche.fam.marie:     Married
+embauche.fam.pacse:     Civil union
+embauche.fam.conc:      Concubinage
+embauche.fam.celib:     Bachelor
+embauche.nbenf:         Number of child
+embauche.villen:        City of birth
+
+embauche.dateemb:       Date d'embauche
+embauche.ancien:        Ancien salarié
+embauche.lieu:          Lieu
+embauche.ancien.oui:    Yes
+embauche.ancien.no:     No
+embauche.poste:         Poste
+embauche.poste.coif:    Hairdresser
+embauche.poste.tech:    Technician
+
+embauche.diplome.CAP:   CAP
+embauche.diplome.BEP:   BEP
+
+embauche.class:         Classification
+embauche.niveau:        Niveau
+embauche.echelon:       Echelon
+
+embauche.salaire:       Base salary
+embauche.salaire.con:   Salaire Conventionnel
+embauche.contrat:       Type de contrat
+embauche.partiel:       Part time
+
+
+embauche.cdi:           CDI
+embauche.appr:          Contrat d'apprentissage
+embauche.pro:           Contrat de profes.
+embauche.cdd:           CDD
+
+embauche.cdd.surcroit:  More activity
+embauche.cdd.rempla:    Replacement
+embauche.cdd.nature:    Reason of absence
+embauche.cdd.nom:       Name of replaced
+embauche.cdd.date:      Until
+embauche.cdd.renouv:    Renouvellement du CDD pour le même motif
+embauche.cdd.retour:    Until physical return
+
+embauche.partiel:       Part time
+embauche.lundi:         Monday
+embauche.mardi:         Tuesday
+embauche.mercredi:      Wednesday
+embauche.jeudi:         Thursday
+embauche.vendredi:      Friday
+
+embauche.autre:         Precise
+
+embauche.step1:         Step 2
+embauche.step2:         Step 3
+embauche.send:          Send

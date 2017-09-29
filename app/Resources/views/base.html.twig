@@ -6,20 +6,45 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-			<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+			<link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
 
 		<!-- Optional theme -->
 		<link rel="stylesheet" href="{{ asset('css/bootstrap-theme.min.css') }}" >
+        <link rel="stylesheet" href="{{ asset('css/bootstrap-slider.min.css') }}">
 
 		<script type="text/javascript" src="{{ asset('js/jquery-1.11.0.min.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('js/jquery-migrate-1.2.1.min.js') }}"></script>
 
-		<!-- Latest compiled and minified JavaScript -->
-		<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    		<!-- Latest compiled and minified JavaScript -->
+    		<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    		<script src="{{ asset('js/bootstrap-slider.min.js') }}"></script>
+    		<script src="{{ asset('js/Helpers.js') }}"></script>
     </head>
     <body>
+      <div id="topNav" class="col-sm-12 col-xs-12">
+          <div id="home" class="col-sm-6 col-xs-6 deco block">
+            {% if is_granted('ROLE_ADMIN') %}
+              <a  href="{{ path('homepage') }}">
+               <span class="glyphicon glyphicon-home" style="padding-right:5px"></span>
+               <span class="libelle">{{ "home.accueil"|trans({}, "home") }}</span>
+              </a>
+            {% endif  %}
+
+          </div>
+             <div id="logout" class="col-sm-6 col-xs-6 deco block">
+                 <a  href="{{ path('fos_user_security_logout') }}">
+                    <span class="glyphicon glyphicon-off" style="padding-right:5px"></span>
+                    <span class="libelle">{{ "home.deconnexion"|trans({}, "home") }}</span>
+                 </a>
+
+             </div>
+
+
+      </div>
+      <div class="bg"></div>
 		{% block fos_user_content %}{% endblock %}
+
 
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+{% block title %}Welcome{% endblock %}
+
+{% block body %}
+{% trans_default_domain "demandeacompte" %}
+<div class="head">
+	Administration - Créer un compte Manager
+</div>
+
+<div class="container">
+  <div id="actions">
+		  <div id="fil">
+				 <span id="base">
+					 <span id="stepOne" class="step active"></span>
+ 						 	<span id="stepTwo" class="step"></span>
+ 						 	<span id="stepThree" class="step"></span>
+ 							<label id="labelOne" class="labelFil active">Choix du salon</label>
+ 							<label id="labelTwo"class="labelFil">Choix du collaborateur</label>
+ 							<label id="labelThree"class="labelFil">Création du compte</label>
+				 </<span>
+			 </div>
+					<div id="CreateFormStep">
+
+
+					</div>
+
+	</div>
+</div>
+
+
+
+		</div>
+
+
+	</div>
+
+	<script type="text/javascript">
+
+			$( "#CreateFormStep" ).load("/admin/createS1"); // on fait apparaitre le nouveau contenu
+
+		</script>
+
+		{% endblock %}

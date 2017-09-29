@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Entity\DemandeForm;
 
 /**
  * DemandeEmbauche
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="webapp.demande_embauche")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\DemandeEmbaucheRepository")
  */
-class DemandeEmbauche
+class DemandeEmbauche extends DemandeForm
 {
     /**
      * @var int
@@ -31,6 +32,13 @@ class DemandeEmbauche
     /**
      * @var string
      *
+     * @ORM\Column(name="prenom", type="string", length=255)
+     */
+    private $prenom;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="addresse_1", type="string", length=255)
      */
     private $addresse1;
@@ -43,9 +51,9 @@ class DemandeEmbauche
     private $addresse2;
 
     /**
-     * @var string
+     * @var int
      *
-     * @ORM\Column(name="code_postal", type="string", length=255)
+     * @ORM\Column(name="code_postal", type="integer")
      */
     private $codePostal;
 
@@ -80,7 +88,7 @@ class DemandeEmbauche
     /**
      * @var string
      *
-     * @ORM\Column(name="date_naissance", type="string", length=255)
+     * @ORM\Column(name="date_naissance", type="datetime", length=255)
      */
     private $dateNaissance;
 
@@ -101,14 +109,21 @@ class DemandeEmbauche
     /**
      * @var int
      *
-     * @ORM\Column(name="nb_enfant", type="integer")
+     * @ORM\Column(name="nb_enfant", type="integer", nullable=true)
      */
     private $nbEnfant;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="date_embauche", type="string", length=255)
+     * @ORM\Column(name="situation_famille", type="string")
+     */
+    private $situationFamille;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="date_embauche", type="datetime", length=255)
      */
     private $dateEmbauche;
 
@@ -122,16 +137,16 @@ class DemandeEmbauche
     /**
      * @var string
      *
-     * @ORM\Column(name="salarie_lieu", type="string", length=255)
+     * @ORM\Column(name="salarie_lieu", type="string", length=255,  nullable=true)
      */
     private $salarieLieu;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="poste", type="string", length=255)
+     * @ORM\Column(name="postes", type="string", length=255)
      */
-    private $poste;
+    private $postes;
 
     /**
      * @var array
@@ -143,97 +158,108 @@ class DemandeEmbauche
     /**
      * @var string
      *
-     * @ORM\Column(name="classification", type="string", length=255)
+     * @ORM\Column(name="niveau", type="string", length=255,  nullable=true)
      */
-    private $classification;
+    private $niveau;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="echelon", type="string", length=255)
+     * @ORM\Column(name="echelon", type="string", length=255,  nullable=true)
      */
     private $echelon;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="autre", type="string", length=255)
+     * @ORM\Column(name="autre", type="string", length=255,  nullable=true)
      */
     private $autre;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="salaire_base", type="string", length=255)
+     * @ORM\Column(name="salaire_base", type="string", length=255,  nullable=true)
      */
     private $salaireBase;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="type_contrat", type="string", length=255)
+     * @ORM\Column(name="type_contrat", type="string", length=255,  nullable=true)
      */
     private $typeContrat;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="surcroit_activite", type="string", length=255)
+     * @ORM\Column(name="cdd_raison", type="string", length=255,  nullable=true)
      */
-    private $surcroitActivite;
+    private $cddRaison;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="remplacement_nature", type="string", length=255)
+     * @ORM\Column(name="remplacement_nature", type="string", length=255,  nullable=true)
      */
     private $remplacementNature;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="remplacement_date", type="string", length=255)
+     * @ORM\Column(name="cdd_date", type="datetime", length=255,  nullable=true)
      */
-    private $remplacementDate;
+    private $cddDate;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="remplacement_nom", type="string", length=255)
+     * @ORM\Column(name="remplacement_nom", type="string", length=255,  nullable=true)
      */
     private $remplacementNom;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="remplacement_date2", type="string", length=255)
-     */
-    private $remplacementDate2;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="renouvellement", type="string", length=255)
-     */
-    private $renouvellement;
-
-    /**
      * @var array
      *
-     * @ORM\Column(name="temps_partiel", type="array")
+     * @ORM\Column(name="temps_partiel", type="json_array",  nullable=true)
      */
     private $tempsPartiel;
 
 
     /**
-     * Get id
+     * @var string
      *
-     * @return int
+     * @ORM\Column(name="carte_id", type="string", length=255)
      */
-    public function getId()
-    {
-        return $this->id;
-    }
+    protected $carteId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="diplome_file", type="string", length=255)
+     */
+    protected $diplomeFile;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="carte_vitale", type="string", length=255)
+     */
+    protected $carteVitale;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="rib", type="string", length=255)
+     */
+    protected $rib;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mutuelle", type="string", length=255)
+     */
+    protected $mutuelle;
 
     /**
      * Set nom
@@ -257,6 +283,30 @@ class DemandeEmbauche
     public function getNom()
     {
         return $this->nom;
+    }
+
+    /**
+     * Set prenom
+     *
+     * @param string $prenom
+     *
+     * @return DemandeEmbauche
+     */
+    public function setPrenom($prenom)
+    {
+        $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    /**
+     * Get prenom
+     *
+     * @return string
+     */
+    public function getPrenom()
+    {
+        return $this->prenom;
     }
 
     /**
@@ -372,7 +422,7 @@ class DemandeEmbauche
     /**
      * Get telephone
      *
-     * @return int
+     * @return integer
      */
     public function getTelephone()
     {
@@ -420,7 +470,7 @@ class DemandeEmbauche
     /**
      * Get numSecu
      *
-     * @return int
+     * @return integer
      */
     public function getNumSecu()
     {
@@ -430,7 +480,7 @@ class DemandeEmbauche
     /**
      * Set dateNaissance
      *
-     * @param string $dateNaissance
+     * @param \DateTime $dateNaissance
      *
      * @return DemandeEmbauche
      */
@@ -444,7 +494,7 @@ class DemandeEmbauche
     /**
      * Get dateNaissance
      *
-     * @return string
+     * @return \DateTime
      */
     public function getDateNaissance()
     {
@@ -516,7 +566,7 @@ class DemandeEmbauche
     /**
      * Get nbEnfant
      *
-     * @return int
+     * @return integer
      */
     public function getNbEnfant()
     {
@@ -524,9 +574,33 @@ class DemandeEmbauche
     }
 
     /**
+     * Set situationFamille
+     *
+     * @param string $situationFamille
+     *
+     * @return DemandeEmbauche
+     */
+    public function setSituationFamille($situationFamille)
+    {
+        $this->situationFamille = $situationFamille;
+
+        return $this;
+    }
+
+    /**
+     * Get situationFamille
+     *
+     * @return string
+     */
+    public function getSituationFamille()
+    {
+        return $this->situationFamille;
+    }
+
+    /**
      * Set dateEmbauche
      *
-     * @param string $dateEmbauche
+     * @param \DateTime $dateEmbauche
      *
      * @return DemandeEmbauche
      */
@@ -540,7 +614,7 @@ class DemandeEmbauche
     /**
      * Get dateEmbauche
      *
-     * @return string
+     * @return \DateTime
      */
     public function getDateEmbauche()
     {
@@ -596,27 +670,27 @@ class DemandeEmbauche
     }
 
     /**
-     * Set poste
+     * Set postes
      *
-     * @param string $poste
+     * @param string $postes
      *
      * @return DemandeEmbauche
      */
-    public function setPoste($poste)
+    public function setPostes($postes)
     {
-        $this->poste = $poste;
+        $this->postes = $postes;
 
         return $this;
     }
 
     /**
-     * Get poste
+     * Get postes
      *
      * @return string
      */
-    public function getPoste()
+    public function getPostes()
     {
-        return $this->poste;
+        return $this->postes;
     }
 
     /**
@@ -644,27 +718,27 @@ class DemandeEmbauche
     }
 
     /**
-     * Set classification
+     * Set niveau
      *
-     * @param string $classification
+     * @param string $niveau
      *
      * @return DemandeEmbauche
      */
-    public function setClassification($classification)
+    public function setNiveau($niveau)
     {
-        $this->classification = $classification;
+        $this->niveau = $niveau;
 
         return $this;
     }
 
     /**
-     * Get classification
+     * Get niveau
      *
      * @return string
      */
-    public function getClassification()
+    public function getNiveau()
     {
-        return $this->classification;
+        return $this->niveau;
     }
 
     /**
@@ -764,27 +838,27 @@ class DemandeEmbauche
     }
 
     /**
-     * Set surcroitActivite
+     * Set cddRaison
      *
-     * @param string $surcroitActivite
+     * @param string $cddRaison
      *
      * @return DemandeEmbauche
      */
-    public function setSurcroitActivite($surcroitActivite)
+    public function setCddRaison($cddRaison)
     {
-        $this->surcroitActivite = $surcroitActivite;
+        $this->cddRaison = $cddRaison;
 
         return $this;
     }
 
     /**
-     * Get surcroitActivite
+     * Get cddRaison
      *
      * @return string
      */
-    public function getSurcroitActivite()
+    public function getCddRaison()
     {
-        return $this->surcroitActivite;
+        return $this->cddRaison;
     }
 
     /**
@@ -812,27 +886,27 @@ class DemandeEmbauche
     }
 
     /**
-     * Set remplacementDate
+     * Set cddDate
      *
-     * @param string $remplacementDate
+     * @param \DateTime $cddDate
      *
      * @return DemandeEmbauche
      */
-    public function setRemplacementDate($remplacementDate)
+    public function setCddDate($cddDate)
     {
-        $this->remplacementDate = $remplacementDate;
+        $this->cddDate = $cddDate;
 
         return $this;
     }
 
     /**
-     * Get remplacementDate
+     * Get cddDate
      *
-     * @return string
+     * @return \DateTime
      */
-    public function getRemplacementDate()
+    public function getCddDate()
     {
-        return $this->remplacementDate;
+        return $this->cddDate;
     }
 
     /**
@@ -860,54 +934,6 @@ class DemandeEmbauche
     }
 
     /**
-     * Set remplacementDate2
-     *
-     * @param string $remplacementDate2
-     *
-     * @return DemandeEmbauche
-     */
-    public function setRemplacementDate2($remplacementDate2)
-    {
-        $this->remplacementDate2 = $remplacementDate2;
-
-        return $this;
-    }
-
-    /**
-     * Get remplacementDate2
-     *
-     * @return string
-     */
-    public function getRemplacementDate2()
-    {
-        return $this->remplacementDate2;
-    }
-
-    /**
-     * Set renouvellement
-     *
-     * @param string $renouvellement
-     *
-     * @return DemandeEmbauche
-     */
-    public function setRenouvellement($renouvellement)
-    {
-        $this->renouvellement = $renouvellement;
-
-        return $this;
-    }
-
-    /**
-     * Get renouvellement
-     *
-     * @return string
-     */
-    public function getRenouvellement()
-    {
-        return $this->renouvellement;
-    }
-
-    /**
      * Set tempsPartiel
      *
      * @param array $tempsPartiel
@@ -929,5 +955,125 @@ class DemandeEmbauche
     public function getTempsPartiel()
     {
         return $this->tempsPartiel;
+    }
+
+    /**
+     * Set carteId
+     *
+     * @param string $carteId
+     *
+     * @return DemandeEmbauche
+     */
+    public function setCarteId($carteId)
+    {
+        $this->carteId = $carteId;
+
+        return $this;
+    }
+
+    /**
+     * Get carteId
+     *
+     * @return string
+     */
+    public function getCarteId()
+    {
+        return $this->carteId;
+    }
+
+    /**
+     * Set diplomeFile
+     *
+     * @param string $diplomeFile
+     *
+     * @return DemandeEmbauche
+     */
+    public function setDiplomeFile($diplomeFile)
+    {
+        $this->diplomeFile = $diplomeFile;
+
+        return $this;
+    }
+
+    /**
+     * Get diplomeFile
+     *
+     * @return string
+     */
+    public function getDiplomeFile()
+    {
+        return $this->diplomeFile;
+    }
+
+    /**
+     * Set carteVitale
+     *
+     * @param string $carteVitale
+     *
+     * @return DemandeEmbauche
+     */
+    public function setCarteVitale($carteVitale)
+    {
+        $this->carteVitale = $carteVitale;
+
+        return $this;
+    }
+
+    /**
+     * Get carteVitale
+     *
+     * @return string
+     */
+    public function getCarteVitale()
+    {
+        return $this->carteVitale;
+    }
+
+    /**
+     * Set rib
+     *
+     * @param string $rib
+     *
+     * @return DemandeEmbauche
+     */
+    public function setRib($rib)
+    {
+        $this->rib = $rib;
+
+        return $this;
+    }
+
+    /**
+     * Get rib
+     *
+     * @return string
+     */
+    public function getRib()
+    {
+        return $this->rib;
+    }
+
+    /**
+     * Set mutuelle
+     *
+     * @param string $mutuelle
+     *
+     * @return DemandeEmbauche
+     */
+    public function setMutuelle($mutuelle)
+    {
+        $this->mutuelle = $mutuelle;
+
+        return $this;
+    }
+
+    /**
+     * Get mutuelle
+     *
+     * @return string
+     */
+    public function getMutuelle()
+    {
+        return $this->mutuelle;
     }
 }

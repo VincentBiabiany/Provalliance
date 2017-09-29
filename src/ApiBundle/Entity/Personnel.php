@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Personnel
  *
- * @ORM\Table(name="referentiel.personnel", indexes={@ORM\Index(name="fk_personnel_adresse1_idx", columns={"adresse_id"})})
+ * @ORM\Table(name="personnel", indexes={@ORM\Index(name="fk_personnel_adresse1_idx", columns={"adresse_id"})})
  * @ORM\Entity(repositoryClass="ApiBundle\Repository\PersonnelRepository")
  */
 class Personnel
@@ -26,13 +26,6 @@ class Personnel
     private $prenom;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="type_contrat", type="string", length=45, nullable=true)
-     */
-    private $typeContrat;
-
-    /**
      * @var boolean
      *
      * @ORM\Column(name="actif", type="boolean", nullable=true)
@@ -45,6 +38,20 @@ class Personnel
      * @ORM\Column(name="sexe", type="string", length=1, nullable=true)
      */
     private $sexe;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="matricule", type="string", length=45, nullable=true)
+     */
+    private $matricule;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="compte", type="boolean", nullable=true)
+     */
+    private $compte;
 
     /**
      * @var integer
@@ -68,7 +75,7 @@ class Personnel
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="ApiBundle\Entity\Salon", inversedBy="referentiel.personnel")
+     * @ORM\ManyToMany(targetEntity="ApiBundle\Entity\Salon", inversedBy="personnel")
      * @ORM\JoinTable(name="personnel_has_salon",
      *   joinColumns={
      *     @ORM\JoinColumn(name="personnel_id", referencedColumnName="id")
@@ -138,30 +145,6 @@ class Personnel
     }
 
     /**
-     * Set typeContrat
-     *
-     * @param string $typeContrat
-     *
-     * @return Personnel
-     */
-    public function setTypeContrat($typeContrat)
-    {
-        $this->typeContrat = $typeContrat;
-
-        return $this;
-    }
-
-    /**
-     * Get typeContrat
-     *
-     * @return string
-     */
-    public function getTypeContrat()
-    {
-        return $this->typeContrat;
-    }
-
-    /**
      * Set actif
      *
      * @param boolean $actif
@@ -207,6 +190,54 @@ class Personnel
     public function getSexe()
     {
         return $this->sexe;
+    }
+
+    /**
+     * Set compte
+     *
+     * @param boolean $compte
+     *
+     * @return Personnel
+     */
+    public function setCompte($compte)
+    {
+        $this->compte = $compte;
+
+        return $this;
+    }
+
+    /**
+     * Get compte
+     *
+     * @return boolean
+     */
+    public function getCompte()
+    {
+        return $this->compte;
+    }
+
+    /**
+     * Set matricule
+     *
+     * @param string $matricule
+     *
+     * @return Personnel
+     */
+    public function setMatricule($matricule)
+    {
+        $this->matricule = $matricule;
+
+        return $this;
+    }
+
+    /**
+     * Get matricule
+     *
+     * @return string
+     */
+    public function getMatricule()
+    {
+        return $this->matricule;
     }
 
     /**
@@ -270,7 +301,7 @@ class Personnel
     /**
      * Get salon
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Salon
      */
     public function getSalon()
     {

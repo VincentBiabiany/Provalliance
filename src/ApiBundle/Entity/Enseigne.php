@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Enseigne
  *
- * @ORM\Table(name="referentiel.enseigne")
+ * @ORM\Table(name="enseigne")
  * @ORM\Entity
  */
 class Enseigne

@@ -10,4 +10,6 @@ namespace ApiBundle\Repository;
  */
 class PersonnelRepository extends \Doctrine\ORM\EntityRepository
 {
+
+
 }

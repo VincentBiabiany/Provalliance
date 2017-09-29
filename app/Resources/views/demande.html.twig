@@ -1,38 +1,50 @@
 {% extends 'base.html.twig' %}
-{% block title %}Welcome{% endblock %}
+{% block title %}Suivi des demandes{% endblock %}
 
 {% block body %}
 <div class="container">
 	<div class="header">
 		<img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
+		<hr/>
+		<span id="nomSalon">{{ app.session.get('nomSalon') }}</span>
 	</div>
 	<div class="head">
-		Suivre les demandes
+		{{ "suividemande.header"|trans({}, "suivi_demandes") }}
 	</div>
 
+	{% for flash_message in app.session.flashBag.get('success') %}
+		<div id="flashDemande" class="alert alert-success success">
+			{{ flash_message }}
+      <span class="closeAlert glyphicon glyphicon-remove"></span>
+		</div>
+	{% endfor %}
 	<div class="col-sm-12" style="padding-top: 50px;">
 
 		<table id="demande" class="table table-striped table-bordered" cellspacing="0" width="100%">
 			<thead>
 			<tr>
+				<th>id</th>
 				<th class="click"></th>
-				<th>Salon</th>
-				<th>Demandeur</th>
-				<th>Date</th>
-				<th>Statut</th>
-				<th>Type de demande</th>
-				<th>Collaborateur</th>
+				<th>{{ "suividemande.salon"|trans({}, "suivi_demandes") }}</th>
+				<th>{{ "suividemande.demandeur"|trans({}, "suivi_demandes") }}</th>
+				<th>{{ "suividemande.date"|trans({}, "suivi_demandes") }}</th>
+				<th>{{ "suividemande.statut"|trans({}, "suivi_demandes") }}</th>
+				<th>{{ "suividemande.typedemande"|trans({}, "suivi_demandes") }}</th>
+				<th>{{ "suividemande.collaborateur"|trans({}, "suivi_demandes") }}</th>
+				<th>{{ "suividemande.marque"|trans({}, "suivi_demandes") }}</th>
 			</tr>
 			</thead>
 			<tfoot>
 			<tr>
+				<th>id</th>
 				<th class="click"></th>
-				<th>Salon</th>
-				<th>Demandeur</th>
-				<th>Date</th>
-				<th>Statut</th>
-				<th>Type de demande</th>
-				<th>Collaborateur</th>
+				<th>{{ "suividemande.salon"|trans({}, "suivi_demandes") }}</th>
+				<th>{{ "suividemande.demandeur"|trans({}, "suivi_demandes") }}</th>
+				<th>{{ "suividemande.date"|trans({}, "suivi_demandes") }}</th>
+				<th>{{ "suividemande.statut"|trans({}, "suivi_demandes") }}</th>
+				<th>{{ "suividemande.typedemande"|trans({}, "suivi_demandes") }}</th>
+				<th>{{ "suividemande.collaborateur"|trans({}, "suivi_demandes") }}</th>
+				<th>{{ "suividemande.marque"|trans({}, "suivi_demandes") }}</th>
 			</tr>
 			</tfoot>
 			<tbody>
@@ -41,21 +53,16 @@
 
 
 		{% if not is_granted('ROLE_PAIE') and not is_granted('ROLE_JURIDIQUE') %}
-			<button style="float:left; margin-top: 50px;" onclick="window.location.href ='{{ path("homepage") }}'" class="btn-black">Précédent</button>
+			<button style="float:left; margin-top: 50px;" onclick="window.location.href ='{{ path("homepage") }}'" class="btn-black precedent">{{ "suividemande.back"|trans({}, "suivi_demandes") }}</button>
 		{% endif %}
 	</div>
-	<a href="{{ path('fos_user_security_logout') }}">
-			<div class="col-sm-4 deco block">
-					<span class="glyphicon glyphicon-off" style="padding-right:5px"></span>{{ "home.deconnexion"|trans({}, "home") }}
-			</div>
-	</a>
-	</div>
 
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
-	<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+	</div>
+	<link rel="stylesheet" type="text/css" href="{{ asset('css/jquery.dataTables.min.css') }}">
+	<script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
 	<script type="text/javascript" class="init">
 		$(document).ready(function(){
-			$('#demande').DataTable({
+			var dt  = $('#demande').DataTable({
 					"processing": true,
 					"serverSide": true,
 					"ajax":{
@@ -63,24 +70,33 @@
 							url:"{{ path('paginate') }}",
 					} ,
 					"sAjaxDataProp": "data",
-					"pageLength": 10,
-					"order": [[ 1, 'asc' ]],
+					"pageLength": 20,
+					"order": [[ 5, 'asc' ],[ 4, 'desc' ]],
 					"columns":[
-							{"data": ""},
-							{"data": "Salon"},
-							{"data": "Demandeur"},
-							{"data": "Date"},
-							{"data": "Statut"},
-							{"data": "Type de demande"},
-							{"data": "Collaborateur"},
+						  {"data": "id"},
+							{"data": "", "class":"details-control", "orderable":false,},
+							{"data": "Salon","name":"x"},
+							{"data": "Demandeur","name":"x"},
+							{"data": "dateEnvoi","name":"x"},
+							{"data": "statut","name":"default", "class":"statut"},
+							{"data": "Type de demande","name":"x"},
+							{"data": "Collaborateur","name":"x"},
+							{"data": "Marque","name":"x"},
+					],
+					"columnDefs": [
+							{
+									"targets": [0],
+									"visible": false,
+									"searchable": true
+							}
 					],
 					"fnRowCallback": function( nRow, columns, iDisplayIndex ) {
-						 if ( columns.Statut == "en cours")
+						 if ( columns.statut == "En cours")
 						  {
 								$(nRow).addClass("encours alert-info");
 						  }
 							else if
-							( columns.Statut == "rejeté"){
+							( columns.statut == "Rejeté"){
 								$(nRow).addClass("rejete alert-danger");
 						  }
 						 else
@@ -90,6 +106,22 @@
 						 return nRow;
 				 }
 			});
+
+
+			$('#demande tbody').on( 'click', 'tr td.details-control', function () {
+					var id = dt.row(this).data()['id'];
+					//window.location.href =
+					$.ajax({
+					  url: "test.html",
+							url: "{{ path('detail') }}",
+						  data: {"id" : id}
+						}).done(function( response ) {
+					    window.location.href = response;
+				  });
+				}
+			);
+
+
 		});
 
 	</script>

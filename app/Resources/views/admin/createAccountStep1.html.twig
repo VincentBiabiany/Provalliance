@@ -1,0 +1,78 @@
+{% trans_default_domain "demandeacompte" %}
+
+						<div id="NotSelect" class="alert alert-danger hide">
+								Vous devez sélectionner un salon
+								<span class="closeAlert glyphicon glyphicon-remove"></span>
+
+					 </div>
+						{{ form_start(form, {'attr': {'id': 'createAccount'} }) }}
+
+
+										<div style="max-width: 100%; margin: auto;">
+
+											<div class="row">
+													  <div class="form-group" style="padding-top: 50px">
+																<label class="control-label label col-sm-3 col-xs-12" for="salon"> {{ form_label(form.nom) }}</label>
+																		 <div class="col-sm-6 col-xs-12">
+									 									 				{{ form_widget(form.nom, { 'attr': {'class': 'form-control'} }) }}
+																		</div>
+													  </div>
+											</div>
+										</div>
+
+						 {{ form_end(form) }}
+						 <a id="form_Suivant" class="btn btn-success" href="#">{{ "admin_create.suivant"|trans({}, "admin_create") }} </a>
+					</div>
+
+	</div>
+</div>
+
+
+
+		</div>
+
+
+	</div>
+
+	<script type="text/javascript">
+
+	$('.closeAlert').bind('click', function(){
+				$(".alert").css('display','none');
+				$(".alert").remove();
+
+	});
+
+
+    $("#form_Suivant").bind('click', function(){
+
+			ChangeEstate('stepTwo','labelTwo',1,'next');
+
+ 						if( !$('#form_nom').val() ){
+								$('#NotSelect').removeClass( "hide" ).addClass( "show" );
+
+											}else{
+
+												ChangeEstate('stepTwo','labelTwo',1);
+
+											$('#CreateFormStep').fadeOut('slow', function(){ //on fait disparaitre l ancien contenu
+													 idsalon = $('#form_nom').val();
+
+																	 $.ajax({
+														 				url : "{{path('createAccountS2')}}",
+														 				type: 'POST',
+														 				data : 'idsalon=' + idsalon,
+														 				success: function(html) {
+																		      	$('#CreateFormStep').html(html);
+							 															$('#CreateFormStep').fadeIn('slow');
+														 				}
+														 			});
+
+											 });
+
+
+
+
+							}
+
+});
+		</script>

@@ -1,0 +1,7 @@
+admin_home.header:         Administration
+admin_home.create:         Créer un nouveau compte
+admin_home.gestion:        Gestion des comptes utilisateurs
+
+admin_home_create.manager: Compte Manager
+admin_home_create.service: Compte Service
+admin_home_create.back:    Retour

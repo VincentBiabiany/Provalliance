@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Salon
  *
- * @ORM\Table(name="referentiel.salon", indexes={@ORM\Index(name="fk_salon_adresse1_idx", columns={"adresse_id"}), @ORM\Index(name="fk_salon_groupe1_idx", columns={"groupe_id"}), @ORM\Index(name="fk_salon_enseigne1_idx", columns={"enseigne_id"}), @ORM\Index(name="fk_salon_date1_idx", columns={"date_id"})})
+ * @ORM\Table(name="salon", indexes={@ORM\Index(name="fk_salon_adresse1_idx", columns={"adresse_id"}), @ORM\Index(name="fk_salon_groupe1_idx", columns={"groupe_id"}), @ORM\Index(name="fk_salon_enseigne1_idx", columns={"enseigne_id"}), @ORM\Index(name="fk_salon_date1_idx", columns={"date_id"})})
  * @ORM\Entity
  */
 class Salon
@@ -33,12 +33,6 @@ class Salon
      */
     private $siret;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="marque", type="string", length=45, nullable=true)
-     */
-    private $marque;
 
     /**
      * @var string
@@ -113,7 +107,7 @@ class Salon
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="ApiBundle\Entity\Personnel", mappedBy="referentiel.salon")
+     * @ORM\ManyToMany(targetEntity="ApiBundle\Entity\Personnel", mappedBy="salon")
      */
     private $personnel;
 
@@ -198,29 +192,6 @@ class Salon
         return $this->siret;
     }
 
-    /**
-     * Set marque
-     *
-     * @param string $marque
-     *
-     * @return Salon
-     */
-    public function setMarque($marque)
-    {
-        $this->marque = $marque;
-
-        return $this;
-    }
-
-    /**
-     * Get marque
-     *
-     * @return string
-     */
-    public function getMarque()
-    {
-        return $this->marque;
-    }
 
     /**
      * Set langueDefaut

@@ -4,11 +4,12 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Entity\DemandeForm;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * AppBundle\Entity\DemandeAcompte
  *
- * @ORM\Table(name="webapp.demande_acompte")
+ * @ORM\Table(name="demande_acompte")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\DemandeAcompteRepository")
  */
 class DemandeAcompte extends DemandeForm

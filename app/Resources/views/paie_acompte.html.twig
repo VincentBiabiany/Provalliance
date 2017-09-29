@@ -1,58 +1,53 @@
 {% extends 'base.html.twig' %}
-{% block title %}Welcome{% endblock %}
+{% form_theme form 'form/error.html.twig' %}
+{% block title %}Demande d'acompte{% endblock %}
 
 {% block body %}
-{% trans_default_domain "demandeacompte" %}
+{% trans_default_domain "demande_acompte" %}
 <div class="header">
 	<img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
+	<hr/>
+	<span id="nomSalon">{{ app.session.get('nomSalon') }}</span>
 </div>
 <div class="head">
-	Demande d'acompte
+{{ "demandeacompte.titre"|trans({}, "demande_acompte") }}
 </div>
-
-
-{{ form_start(form, {'attr': {'class': 'my-form-class'} }) }}
-
-
 <div class="container">
-	<div style="max-width: 100%; margin: auto;">
 
-		<div class="row">
-			<form class="form-horizontal" onsubmit="event.preventDefault();" style="margin: auto;width: 50%;">
-			  <div class="form-group" style="padding-top: 50px">
-				<label class="control-label label col-sm-3 col-xs-12" for="personnel"> {{ form_label(form.idPersonnel) }}</label>
-				 <div class="col-sm-9">
+  <div id="actions" class="off">
 
-                     {{ form_row(form.idPersonnel, { 'attr': {'class': 'form-control'} }) }}
-				</div>
+		<div class="alert alert-info">
+			<span class="glyphicons glyphicons-info-sign"></span>
+			{{ "demandeacompte.info"|trans({}, "demande_acompte") }}
+
+	  </div>
+				<div id="wrapperForm" class="row">
+		{{ form_start(form, {'attr': {'class': 'demande_acompte', 'id':'formAccompte'} }) }}
+
+		    {{ form_errors(form)}}
+			  <div class="form-group">
+					<label class="control-label label col-sm-4 col-xs-12" for="personnel"> {{ form_label(form.idPersonnel) }}</label>
+					 <div class="col-sm-8  col-xs-12">
+	                     {{ form_widget(form.idPersonnel, { 'attr': {'class': 'form-control'} }) }}
+					</div>
 			  </div>
-
 			<div class="form-group">
-				<label class="control-label label col-sm-3 col-xs-12" for="montant">{{ form_label(form.montant) }}</label>
-				<div class="col-sm-9">
-
-                        {{ form_row(form.montant, { 'attr': {'class': 'form-control'} }) }}
-
-				</div>
+					<label class="control-label label col-sm-4 col-xs-12" for="montant">{{ form_label(form.montant) }}</label>
+					<div class="col-sm-8  col-xs-12">
+	                        {{ form_widget(form.montant, { 'attr': {'class': 'form-control'} }) }}
+					</div>
 			 </div>
 
-
-
-				<div class="col-sm-12" style="padding: 0;">
-					<button  onclick="window.location.href ='{{ path("home_paie") }}'" class="btn-black precedent">Précédent</button>
-                    {{ form_end(form) }}
-				</div>
-			</form>
 		</div>
-		<a href="{{ path('fos_user_security_logout') }}">
-				<div class="col-sm-4 deco block">
-						<span class="glyphicon glyphicon-off" style="padding-right:5px"></span>{{ "home.deconnexion"|trans({}, "home") }}
-				</div>
-		</a>
-		</div>
-
-
-	</div>
+		<div id="actionsButtons">
+			   {{ form_end(form) }}
+					<a href="{{ path('home_paie') }}" class="btn-black precedent">
+							{{ "demandeacompte.back"|trans({}, "demande_acompte") }}
+					</a>
+	  </div>
+   </div>
 
 </div>
+
+
 {% endblock %}

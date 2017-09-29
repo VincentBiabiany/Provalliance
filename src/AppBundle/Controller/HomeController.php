@@ -14,16 +14,15 @@ class HomeController extends Controller
      */
     public function indexAction(Request $request)
     {
-
-      $idPersonnnel = $this->getUser()->getIdPersonnel();
-      $em = $this->getDoctrine()->getManager('referentiel');
-      $personnel = $em->getRepository('ApiBundle:Personnel')->findOneBy(array('id' => $idPersonnnel));
-      $salons = $personnel->getSalon();
-
-      return $this->render('home.html.twig', [
-          'salons'=>$salons
-      ]);
-    }
+       $idPersonnnel = $this->getUser()->getIdPersonnel();
+       $em = $this->getDoctrine()->getManager('referentiel');
+       $personnel = $em->getRepository('ApiBundle:Personnel')->findOneBy(array('id' => $idPersonnnel));
+       $salons = $personnel->getSalon();
+       return $this->render('home.html.twig', [
+           'salons'=>$salons,
+           'personnel'=>$personnel
+       ]);
+     }
 
     /**
      * @Route("/selected_salon", name="selected_salon")
@@ -31,11 +30,14 @@ class HomeController extends Controller
     public function SelectedSalonAction(Request $request)
     {
       if($request->isXmlHttpRequest()) {
-        $idSalon = $request->request->get("idSalon");
-        $request->getSession()->set("idSalon", $idSalon);
-
-        $img = $request->request->get("img");
-        $request->getSession()->set("img", $img);
+            $idSalon = $request->request->get("idSalon");
+            $request->getSession()->set("idSalon", $idSalon);
+            $img = $request->request->get("img");
+            $request->getSession()->set("img", $img);
+            $numero = $request->request->get("numero");
+            $request->getSession()->set("numero", $numero);
+            $nomSalon = $request->request->get("nomSalon");
+            $request->getSession()->set("nomSalon", $nomSalon);
       }
       return new Response("ok", 200, ['Content-Type' => 'application/json']);
     }

@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+{% block title %}Welcome{% endblock %}
+
+{% block body %}
+{% trans_default_domain "demandeacompte" %}
+<div class="head">
+	Administration - Gestion des Utilisateurs
+</div>
+
+<div class="container">
+  <div id="actions">
+
+				<table id="ListePersonnel" class="table table-striped table-bordered" cellspacing="0" width="100%">
+					<thead>
+					<tr>
+						<th>id</th>
+						<th class="click"></th>
+						<th>Personnel</th>
+						<th>Dernière Connexion</th>
+						<th>Rôle</th>
+						<th>Actif</th>
+					</tr>
+					</thead>
+					<tfoot>
+					<tr>
+						<th>id</th>
+						<th class="click"></th>
+						<th>Personnel</th>
+						<th>Dernière Connexion</th>
+						<th>Rôle</th>
+						<th>Actif</th>
+					</tr>
+					</tfoot>
+					<tbody>
+					</tbody>
+				</table>
+				<br/>
+				<br/>
+				<div class="col-sm-12" style=" max-width:1200px;margin:auto;float:none;">
+						<div class="col-sm-6 block">
+								<button class="btn-black" onclick="window.location.href = '{{ path("adminHome") }}'" style="float:none;">Précédent</button>
+						</div>
+
+				</div>
+	</div>
+</div>
+
+		</div>
+
+
+	</div>
+
+
+
+	<link rel="stylesheet" type="text/css" href="{{ asset('css/jquery.dataTables.min.css') }}">
+	<script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+	<script type="text/javascript">
+
+
+				var dt  = $('#ListePersonnel').DataTable({
+						"processing": true,
+						"serverSide": true,
+						"ajax":{
+								type: 'POST',
+								url:"{{ path('adminAccountPaginate') }}",
+						} ,
+						"sAjaxDataProp": "data",
+						"pageLength": 10,
+						"order": [[ 1, 'asc' ]],
+						"columns":[
+								{"data": "id"},
+								{"data": "", "class":"details-control", "orderable":false,},
+								{"data": "User"},
+								{"data": "Dernière Connexion"},
+								{"data": "Rôle"},
+								{"data": "Actif"},
+						],
+						"columnDefs": [
+								{
+										"targets": [0],
+										"visible": false,
+										"searchable": false
+								}
+						],
+						"fnRowCallback": function( nRow, columns, iDisplayIndex ) {
+
+					 }
+				});
+
+
+		</script>
+
+		{% endblock %}

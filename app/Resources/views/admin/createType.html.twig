@@ -1,0 +1,55 @@
+{% extends './base.html.twig' %}
+{% block title %}{{ "admin_home_create.titre"|trans({}, "admin_home") }}{% endblock %}
+
+{% block body %}
+{% trans_default_domain "admin_home" %}
+
+<div class="container">
+	<div class="header">
+	</div>
+	<div class="head">
+		{{ "admin_home.header"|trans({}, "admin_home") }}
+	</div>
+	{% for flash_message in app.session.flashBag.get('success') %}
+		<div class="alert alert-success success">
+			{{ flash_message }}
+      <span class="closeAlert glyphicon glyphicon-remove"></span>
+		</div>
+	{% endfor %}
+	<div class="col-sm-12" style="padding-top: 50px;">
+
+			<div class="row" style="max-width: 875px;margin: auto;">
+
+	        <div class="col-sm-12" style="padding-top:40px; max-width:1200px; margin:auto;">
+	            <div class="col-sm-6 block">
+
+	                <div class="under-block" onclick="window.location.href ='{{ path("createAccountManager") }}'"><p class="carre">{{ "admin_home_create.manager"|trans({}, "admin_home") }}</p></div>
+	            </div>
+	            <div class="col-sm-6 block">
+	                <div class="under-block" onclick="window.location.href ='{{ path("createAccountService") }}'"><p class="carre">{{ "admin_home_create.service"|trans({}, "admin_home") }}</p></div>
+	            </div>
+	        </div>
+
+	        <div class="col-sm-12" style=" max-width:1200px;margin:auto;float:none;">
+	            <div class="col-sm-6 block">
+	                <button class="btn-black precedent" onclick="window.location.href = '{{ path("homepage") }}'">{{ "admin_home_create.back"|trans({}, "admin_home") }}</button>
+	            </div>
+
+	        </div>
+	    </div>
+	</div>
+
+	</div>
+
+
+
+</div>
+<script language="javascript">
+$('.closeAlert').bind('click', function(){
+			$(".alert").css('display','none');
+			$(".alert").remove();
+
+});
+
+</script>
+{% endblock %}

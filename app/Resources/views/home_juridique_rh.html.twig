@@ -5,11 +5,12 @@
 
 <div class="header">
     <img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
+    <hr/>
+    <span id="nomSalon">{{ app.session.get('nomSalon') }}</span>
 </div>
 <div class="head" >
     {{ "home_juridique_rh.header"|trans({}, "home_juridique_rh") }}
 </div>
-<div class="bg"></div>
 <div class="container">
 
     <div class="row"  style="padding-top:65px; max-width:875px; margin:auto;">
@@ -18,7 +19,7 @@
 
 
             <div class="col-sm-12" style="padding-top:65px; max-width:1200px; margin:auto;">
-                <div onclick="window.location.href = ''" class="col-sm-4 block">
+                <div onclick="window.location.href = '{{ path('rh_embauche') }}'" class="col-sm-4 block">
                     <div class="under-block"><p class="carre">{{ "home_juridique_rh.embauche"|trans({}, "home_juridique_rh") }}</p></div>
                 </div>
                 <div class="col-sm-4 block">
@@ -59,13 +60,10 @@
         <div class="col-sm-12"  style="padding-top:65px; max-width:1200px; margin:auto;" >
 
             <div class="col-sm-4 text-center">
-                <button class="btn-black" onclick="window.location.href = '{{ path("homepage") }}'" style="float:none;">Accueil</button>
+              <button class="btn-black" onclick="window.location.href = '{{ path("homepage") }}'" style="float:none;">Précédent</button>
             </div>
             <div class="col-sm-4">
             </div>
-            <a href="{{ path('fos_user_security_logout') }}"><div class="col-sm-4 deco block">
-                    <span class="glyphicon glyphicon-off" style="padding-right:5px"></span>{{ "home.deconnexion"|trans({}, "home") }}
-                </div></a>
         </div>
 
     </div>

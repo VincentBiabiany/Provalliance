@@ -1,0 +1,64 @@
+
+{% trans_default_domain "demandeacompte" %}
+
+{{ form_start(formS2, {'attr': {'id': 'createAccountS2'} }) }}
+
+
+				<div style="max-width: 100%; margin: auto;">
+
+					<div class="row">
+							  <div class="form-group" style="padding-top: 50px">
+										<label class="control-label label col-sm-3 col-xs-12" for="salon"> {{ form_label(formS2.nom) }}</label>
+												 <div class="col-sm-6 col-xs-12">
+			 									 				{{ form_widget(formS2.nom, { 'attr': {'class': 'form-control'} }) }}
+												</div>
+							  </div>
+					</div>
+				</div>
+
+ {{ form_end(formS2) }}
+ <a id="form_Suivant" class="btn btn-success suivant" href="#">{{ "admin_create.suivant"|trans({}, "admin_create") }} </a>
+ <a id="form_Precedent" class="btn btn-default" href="#">{{ "admin_create.precedent"|trans({}, "admin_create") }} </a>
+
+
+
+ 	<script type="text/javascript">
+
+
+   $("#form_Suivant").bind('click', function(){
+
+     ChangeEstate('stepThree','labelThree',2,'next');
+
+      			$('#CreateFormStep').fadeOut('slow', function(){ //on fait disparaitre l ancien contenu
+													var idPersonnel = $('#form_nom').val();
+
+																				 $.ajax({
+																	 				url : "{{path('createAccountS3')}}",
+																	 				type: 'POST',
+																	 				data : 'idpersonnel=' + idPersonnel,
+																	 				success: function(html) {
+																					      	$('#CreateFormStep').html(html);
+										 															$('#CreateFormStep').fadeIn('slow');
+																	 				}
+																	 			});
+ 											 });
+
+ });
+   $("#form_Precedent").bind('click', function(){
+
+     ChangeEstate('stepOne','labelOne',2,'prev');
+
+ 			$('#CreateFormStep').fadeOut('slow', function(){
+
+																					 $.ajax({
+																		 				url : "{{path('createAccountS1')}}",
+																		 				type: 'POST',
+																		 				success: function(html) {
+																						      	$('#CreateFormStep').html(html);
+											 															$('#CreateFormStep').fadeIn('slow');
+																		 				}
+																		 			});
+ 											 });
+
+ });
+ 		</script>

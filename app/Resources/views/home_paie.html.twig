@@ -5,13 +5,14 @@
 
 <div class="header">
     <img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
+    <hr/>
+    <span id="nomSalon">{{ app.session.get('nomSalon') }}</span>
 </div>
 <div class="head" >
     {{ "home_paie.header"|trans({}, "home_paie") }}
 </div>
-<div class="bg"></div>
 <div class="container">
-
+  <div id="actions" class="off">
     <div class="row" style="max-width: 875px;margin: auto;">
 
         <div class="col-sm-12" style="padding-top:40px; max-width:1200px; margin:auto;">
@@ -34,18 +35,14 @@
             </div>
         </div>
 
-        <div class="col-sm-12" style=" max-width:1200px;margin:auto;float:none;">
+        <div class="col-sm-12">
             <div class="col-sm-6 block">
-                <button class="btn-black" onclick="window.location.href = '{{ path("homepage") }}'" style="float:none;">Accueil</button>
+                <button class="btn-black precedent" onclick="window.location.href = '{{ path("homepage") }}'" >{{ "home_paie.back"|trans({}, "home_paie") }}</button>
             </div>
-            <a href="{{ path('fos_user_security_logout') }}">
-                <div class="col-sm-4 deco block">
-                    <span class="glyphicon glyphicon-off" style="padding-right:5px"></span>{{ "home.deconnexion"|trans({}, "home") }}
-                </div>
-            </a>
+
         </div>
     </div>
-
+</div>
 </div>
 
 {% endblock %}

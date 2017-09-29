@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="webapp.fos_user")
+ * @ORM\Table(name="fos_user")
  */
 class User extends BaseUser
 {
@@ -33,9 +33,16 @@ class User extends BaseUser
     }
 
     /**
+     * @ORM\PrePersist
+     */
+    public function prePersist() {
+        $this->setLastLogin(new \DateTime());
+
+ }
+    /**
      * Set idPersonnel
      *
-     * @param integer $idPersonnel
+     * @param integer idPersonnel
      *
      * @return User
      */
