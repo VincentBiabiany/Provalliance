@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'form/error.html.twig' %}
+{% block title %}Autre demande{% endblock %}
+
+{% block body %}
+{% trans_default_domain "autre_demande" %}
+<div class="header">
+	<img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
+	<hr/>
+	<span id="nomSalon">{{ app.session.get('nomSalon') }}</span>
+</div>
+<div class="head">
+{{ "autredemande.titre"|trans({}, "autre_demande") }}
+</div>
+<div class="container">
+
+
+	<div id="wrapperForm" class="row">
+					<div class="alert alert-info">
+						<span class="glyphicons glyphicons-info-sign"></span>
+						* {{ "autredemande.requis"|trans({}, "autre_demande") }}
+
+				  </div>
+		{{ form_start(form, {'attr': {'class': 'allForm form-horizontal autre_demande', 'id':'formAutreDemande'} }) }}
+
+		    {{ form_errors(form)}}
+			  <div class="form-group">
+					<label class="control-label label col-sm-4 col-xs-12" for="personnel"> {{ form_label(form.idPersonnel) }}</label>
+					 <div class="col-sm-8  col-xs-12">
+	                     {{ form_widget(form.idPersonnel, { 'attr': {'class': 'form-control'} }) }}
+					</div>
+			  </div>
+			<div class="form-group">
+					<label class="control-label label col-sm-4 col-xs-12" for="service">{{ form_label(form.service) }} *</label>
+					<div class="col-sm-8  col-xs-12">
+	                        {{ form_widget(form.service, { 'attr': {'class': 'form-control'} }) }}
+					</div>
+			</div>
+			<div class="form-group">
+					<label class="control-label label col-sm-4 col-xs-12" for="objet">{{ form_label(form.objet) }} *</label>
+					<div class="col-sm-8  col-xs-12">
+	                        {{ form_widget(form.objet, { 'attr': {'class': 'form-control'} }) }}
+					</div>
+			</div>
+			<div class="form-group">
+					<label class="control-label label col-sm-4 col-xs-12" for="pieceJointes">{{ form_label(form.pieceJointes) }}</label>
+					<div class="col-sm-8  col-xs-12">
+	                        {{ form_widget(form.pieceJointes, { 'attr': {'class': 'form-control'} }) }}
+					</div>
+			</div>
+			<div class="form-group">
+					<label class="control-label label col-sm-4 col-xs-12" for="objet">{{ form_label(form.commentaire) }} *</label>
+					<div class="col-sm-8  col-xs-12">
+	                        {{ form_widget(form.commentaire, { 'attr': {'class': 'form-control'} }) }}
+					</div>
+			</div>
+			{{ form_end(form) }}
+			<div id="actionsButtons">
+						<a href="{{ path('homepage') }}" class="btn-black precedent">
+								{{ "autredemande.back"|trans({}, "autre_demande") }}
+						</a>
+		  </div>
+
+		</div>
+
+		</div>
+
+</div>
+
+
+{% endblock %}
