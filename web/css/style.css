@@ -60,7 +60,11 @@ body,p,a,h1,h2,h3,h4,h5 {
 	color: #333;
 	font-weight: light;
 }
+.posLogoHome{
 
+	padding-top:14PX;
+
+}
 .deco {
 	color: black;
 	font-size: 15px;
@@ -96,6 +100,7 @@ img#logotop{
 	    font-weight: bold;
 	    text-align: center;
 	    font-size: 12px;
+			margin-top: 3px;
 }
 .head {
 	width: 500px;
@@ -271,7 +276,6 @@ label.required{
 #demande_embauche_telephone, #demande_embauche_villeNaissance{
 	width: 180px;
 }
-
 #demande_embauche_prenom, #demande_embauche_ville, #demande_embauche_email, #demande_embauche_autre2{
 	width: 100%;
 
@@ -609,7 +613,7 @@ span.inactif{
 	width: 230px;
 	margin: auto;
 	font-size: 18px;
-	border-radius: 10px;
+	border-radius: 5px;
 	cursor: pointer;
 	display: table-cell;
 	vertical-align: middle;
@@ -700,7 +704,7 @@ span.inactif{
 #myDropdown .dd-select a{
 	font-weight: 100;
 	color: white;
-	text-align: center;
+	text-align: left;
 }
 #myDropdown a:hover{
 
@@ -721,12 +725,20 @@ border:none;
     border-bottom: solid 5px #fff !important;
     margin-top: -8px;
 }
+.dd-selected {
+		height: 35px;
+		margin-left: 10px;
+    padding: 7px  !important;
+}
 label.dd-selected-text {
 	line-height: 21px !important;
 	margin-left: 10px;
 	font-weight: 100;
 }
+.dd-option-image, .dd-selected-image {
 
+    max-width: 90px  !important;
+}
 label.dd-option-text {
     line-height: 16px !important;
     margin-left: 10px;
