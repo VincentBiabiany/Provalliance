@@ -30,15 +30,18 @@ Bonjour  {{ personnel.prenom  }} {{ personnel.nom  }} <br/>
               <div onclick="window.location.href = '{{ path("home_juridique_rh") }}'"  class="under-block"><p class="carre">{{ "home.juridique_rh"|trans({}, "home") }}</p></div>
           </div>
           <div class="col-sm-6 block">
-              <div onclick="window.location.href = '{{ path("demande") }}'" class="under-block"><p class="carre">{{ "home.demand"|trans({}, "home") }}</p></div>
+              <div onclick="window.location.href = '{{ path("home_paie") }}'" class="under-block"><p class="carre">{{ "home.paie"|trans({}, "home") }}</p></div>
           </div>
       </div>
 
       <div class="col-sm-12" style=" max-width:1200px;margin:auto;float:none;">
-          <div class="col-sm-6 block">
-              <div onclick="window.location.href = '{{ path("home_paie") }}'" class="under-block"><p class="carre">{{ "home.paie"|trans({}, "home") }}</p></div>
-          </div>
 
+          <div class="col-sm-6 block">
+              <div onclick="window.location.href = '{{ path("demande") }}'" class="under-block"><p class="carre">{{ "home.demand"|trans({}, "home") }}</p></div>
+          </div>
+          <div class="col-sm-6 block">
+              <div onclick="window.location.href = '{{ path("autre_demande") }}'" class="under-block"><p class="carre">{{ "home.autre_demand"|trans({}, "home") }}</p></div>
+          </div>
       </div>
 
 
@@ -52,7 +55,7 @@ var ddData = [
      {% for salon in salons %}
         {
             value: {{ salon.id }},
-            text: "{{ salon.nom }}",
+            text: " {{salon.enseigne.nom}} {{ salon.nom }}",
             imageSrc: "{{ asset("img/") ~ salon.enseigne.logo }}"
                {% if loop.last %}
                  }
@@ -65,7 +68,7 @@ var ddData = [
 
     $('#myDropdown').ddslick({
         data:ddData,
-        width:200,
+        width:300,
         background: '#000',
         imagePosition:"center",
         {% if app.session.get('idSalon') %}
@@ -95,7 +98,7 @@ var ddData = [
           $(".alert").remove();
 
     });
-
+$('.header').addClass('posLogoHome');
     </script>
 
 
