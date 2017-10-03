@@ -1,14 +1,10 @@
-ApiBundle\Entity\Date:
-    date{1..5}:
-        debut: <dateTime()>
-        fin: <dateTime()>
-        actif: <boolean($chanceOfGettingTrue = 50)>
+ApiBundle\Entity\Langue:
+    langue_1:
+        nom: 'fr'
 
 ApiBundle\Entity\Pays:
     pays_1:
         nom: 'France'
-    pays_2:
-        nom: 'Allemagne'
 
 ApiBundle\Entity\Profession:
     profession_1:
@@ -16,40 +12,22 @@ ApiBundle\Entity\Profession:
     profession_2:
         nom: 'coordinateur'
     profession_3:
-        nom: 'juridique'
+        nom: 'coiffeur'
     profession_4:
-        nom: 'paie'
-    profession_5:
-        nom: 'Administrateur'
-    profession_6:
-        nom: 'pilotage economique'
-    profession_7:
         nom: 'directeur filiales'
-    profession_8:
+    profession_5:
         nom: 'responsable'
-
-ApiBundle\Entity\Adresse:
-    adresse{1..10}:
-        rue: <fr_FR:streetAddress()>
-        cp: 92100
-        ville: <fr_FR:city()>
-        telephone1: <fr_FR:phoneNumber()>
-        telephone2: <fr_FR:phoneNumber()>
-        fax: <fr_FR:phoneNumber()>
-        portable: <fr_FR:phoneNumber()>
-        email: <email()>
-        pays: '@pays_1'
 
 ApiBundle\Entity\Enseigne:
     enseigne_1:
-        nom: 'Franck Provost'
-        logo: 'fab.png'
+        nom: 'F P'
+        logo: 'franck_provost.svg'
     enseigne_2:
-        nom: 'Fabio Salsa'
-        logo: 'pro.png'
+        nom: 'J L'
+        logo: 'jean_louis_david.svg'
     enseigne_3:
-        nom: 'Saint-Algue'
-        logo: 'sai.jpg'
+        nom: 'ST ALGUE '
+        logo: 'saint_algue.svg'
 
 ApiBundle\Entity\Groupe:
     groupe_1:
@@ -61,50 +39,108 @@ ApiBundle\Entity\Groupe:
 
 ApiBundle\Entity\Salon:
     salon_1:
-        nom: 'La Défense'
-        code_interne: <randomNumber()>
-        siret: ''
-        marque: ''
-        langue_defaut: <languageCode()>
-        marlix: <randomNumber()>
-        sage_paie: <randomNumber()>
-        date: '@date*'
-        adresse: '@adresse*'
+        appelation: 'Cergy'
+        forme_juridique: 'sarl'
+        rcs_ville: '455 658 968 RCS'
+        code_naf: <randomNumber(5)>
+        siren: ''
+        capital: '30 000 €'
+        raison_sociale: ''
+        adresse1: <fr_FR:address()>
+        adresse2: <fr_FR:address()>
+        code_postal: <fr_FR:postcode()>
+        ville: <fr_FR:city()>
+        telephone1: <fr_FR:phoneNumber()>
+        telephone2: <fr_FR:phoneNumber()>
+        email: <email()>
+        code_marlix: <randomNumber()>
+        date_ouverture: <dateTime()>
+        date_fermeture_sociale: <dateTime()>
+        date_fermeture_commerciale: <dateTime()>
+        actif: 1
         groupe: '@groupe*'
         enseigne: '@enseigne*'
+        pays: '@pays*'
 
     salon_2:
-        nom: 'Boulogne'
-        code_interne: <randomNumber()>
-        siret: ''
-        marque: ''
-        langue_defaut: <languageCode()>
-        marlix: <randomNumber()>
-        sage_paie: <randomNumber()>
-        date: '@date*'
-        adresse: '@adresse*'
+        appelation: 'Boulogne'
+        forme_juridique: 'sarl'
+        rcs_ville: '455 658 968 RCS'
+        code_naf: <randomNumber(5)>
+        siren: ''
+        capital: '64 000 €'
+        raison_sociale: ''
+        adresse1: <fr_FR:address()>
+        adresse2: <fr_FR:address()>
+        code_postal: <fr_FR:postcode()>
+        ville: <fr_FR:city()>
+        telephone1: <fr_FR:phoneNumber()>
+        telephone2: <fr_FR:phoneNumber()>
+        email: <email()>
+        code_marlix: <randomNumber()>
+        date_ouverture: <dateTime()>
+        date_fermeture_sociale: <dateTime()>
+        date_fermeture_commerciale: <dateTime()>
+        actif: 1
         groupe: '@groupe*'
         enseigne: '@enseigne*'
+        pays: '@pays*'
 
     salon_3:
-        nom: 'Versailles'
-        code_interne: <randomNumber()>
-        siret: ''
-        marque: ''
-        langue_defaut: <languageCode()>
-        marlix: <randomNumber()>
-        sage_paie: <randomNumber()>
-        date: '@date*'
-        adresse: '@adresse*'
+        appelation: 'Parly Grine'
+        forme_juridique: 'sarl'
+        rcs_ville: '455 658 968 RCS'
+        code_naf: <randomNumber(5)>
+        siren: ''
+        capital: '55 000 €'
+        raison_sociale: ''
+        adresse1: <fr_FR:address()>
+        adresse2: <fr_FR:address()>
+        code_postal: <fr_FR:postcode()>
+        ville: <fr_FR:city()>
+        telephone1: <fr_FR:phoneNumber()>
+        telephone2: <fr_FR:phoneNumber()>
+        email: <email()>
+        code_marlix: <randomNumber()>
+        date_ouverture: <dateTime()>
+        date_fermeture_sociale: <dateTime()>
+        date_fermeture_commerciale: <dateTime()>
+        actif: 1
         groupe: '@groupe*'
         enseigne: '@enseigne*'
-
+        pays: '@pays*'
 
 ApiBundle\Entity\Personnel:
-    personnel{1..20}:
+    personnel{1..15}:
+        civilite: <fr_FR:title()>
         nom: <fr_FR:firstName()>
         prenom: <fr_FR:lastName()>
-        type_contrat: ''
+        date_naissance: <dateTime()>
+        ville_naissance: <fr_FR:city()>
+        pays_naissance: <fr_FR:country()>
+        sexe: <fr_FR:title()>
+        nationalite: ''
+        niveau: ''
+        echelon: ''
+        adresse1: <fr_FR:address()>
+        adresse2: <fr_FR:address()>
+        codepostal: <fr_FR:postcode()>
+        ville: <fr_FR:city()>
+        telephone1: <fr_FR:phoneNumber()>
+        telephone2: <fr_FR:phoneNumber()>
+        email: <email()>
         actif: 1
-        sexe: 'M'
-        adresse: '@adresse*'
+
+ApiBundle\Entity\PersonnelHasSalon:
+    personnelhassalon{1..15}:
+        profession: '@profession*'
+        personnelMatricule: '@personnel<current()>'
+        salonSage: '@salon*'
+        date_debut: <dateTime()>
+        date_fin: <dateTime()>
+        actif: 1
+
+# AppBundle\Entity\Account:
+#     account{1..15}:
+#         idPersonnel: '<numberBetween(1,15)>'
+#         etat: 0

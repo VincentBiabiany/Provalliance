@@ -49,9 +49,9 @@ class AdminController extends Controller
     public function createAccountStep1Action(Request $request)
     {
       $form = $this->createFormBuilder()
-                  ->add('nom', EntityType::class, array(
+                  ->add('appelation', EntityType::class, array(
                      'class' => 'ApiBundle:Salon',
-                     'choice_label' => 'nom',
+                     'choice_label' => 'appelation',
                      'label' => 'admin_create.nom',
                      'placeholder' => ' Choisir un salon',
                      'multiple' => false,
@@ -83,7 +83,7 @@ class AdminController extends Controller
                  'query_builder' => function (EntityRepository $er) use ($idSalon) {
                      return $er->createQueryBuilder('p')
                            ->join('p.salon', 'm')
-                           ->where('m.id = :idSalon')
+                           ->where('m.sage = :idSalon')
                            ->andWhere('p.compte = 0')
                            ->setParameter('idSalon', $idSalon);
                   },
@@ -134,7 +134,7 @@ class AdminController extends Controller
                    //On met a jour le champ 'compte' de la table Personnel
                         $idP= $formS3["idPersonnel"]->getData();
                         $em= $this->getDoctrine()->getManager('referentiel');
-                        $personnel = $em->getRepository('ApiBundle:Personnel')->findOneBy(array('id' => $idP));
+                        $personnel = $em->getRepository('ApiBundle:Personnel')->findOneBy(array('matricule' => $idP));
                         $personnel->setCompte(1);
                         $em->flush();
 
@@ -239,9 +239,9 @@ class AdminController extends Controller
     {
 
       $form = $this->createFormBuilder()
-                  ->add('nom', EntityType::class, array(
+                  ->add('appelation', EntityType::class, array(
                      'class' => 'ApiBundle:Salon',
-                     'choice_label' => 'nom',
+                     'choice_label' => 'appelation',
                      'label' => 'admin_create.nom',
                      'placeholder' => ' Choisir un salon',
                      'translation_domain' => 'admin_create'
@@ -324,7 +324,7 @@ class AdminController extends Controller
                       //On récupere le Personnel associé au compte
                       $userIdPersonnel = $user->getIdPersonnel();
                       $req= $this->getDoctrine()->getManager('referentiel');
-                      $personnel = $req->getRepository('ApiBundle:Personnel')->findOneBy(array('id' => $userIdPersonnel));
+                      $personnel = $req->getRepository('ApiBundle:Personnel')->findOneBy(array('matricule' => $userIdPersonnel));
 
                       //On recupere les infos du personnel dans le cas des comptes liés (manager)
                       if($user->getIdPersonnel() != 0){
@@ -408,7 +408,7 @@ class AdminController extends Controller
       //On récupere le Personnel associé au compte
       $userIdPersonnel = $user->getIdPersonnel();
       $req= $this->getDoctrine()->getManager('referentiel');
-      $personnel = $req->getRepository('ApiBundle:Personnel')->findOneBy(array('id' => $userIdPersonnel));
+      $personnel = $req->getRepository('ApiBundle:Personnel')->findOneBy(array('matricule' => $userIdPersonnel));
 
       $identitePersonnel = $personnel->getNom().' '.$personnel->getPrenom();
 

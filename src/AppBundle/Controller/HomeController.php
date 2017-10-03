@@ -16,7 +16,7 @@ class HomeController extends Controller
     {
        $idPersonnnel = $this->getUser()->getIdPersonnel();
        $em = $this->getDoctrine()->getManager('referentiel');
-       $personnel = $em->getRepository('ApiBundle:Personnel')->findOneBy(array('id' => $idPersonnnel));
+       $personnel = $em->getRepository('ApiBundle:Personnel')->findOneBy(array('matricule' => $idPersonnnel));
        $salons = $personnel->getSalon();
        return $this->render('home.html.twig', [
            'salons'=>$salons,

@@ -26,12 +26,12 @@
 
       <div id="infosDemande" class="col-sm-12">
           <p> <b>Demandeur : </b>{{ demandeur.nom }} {{ demandeur.prenom }} </p>
-          <p> <p> <b>Date d'envoi :</b>  {{ date }} </p> <b>Satut:</b>  {{ statut }} {% if dateTraitement is not null %} le {{ dateTraitement }} {% endif %}</p>
-          <p> <b>Salon :</b> {{ salon.nom }} </p>
-          <p> <b>Adresse :</b>  {{ salon.adresse.rue }} {{ salon.adresse.cp }} {{ salon.adresse.ville }}  </p>
+          <p> <p> <b>Date d'envoi :</b>  {{ date }} </p> <b>Statut:</b>  {{ statut }} {% if dateTraitement is not null %} le {{ dateTraitement }} {% endif %}</p>
+          <p> <b>Salon :</b> {{ salon.appelation }} </p>
+          <p> <b>Adresse :</b>  {{ salon.adresse1 }} {{ salon.codepostal }} {{ salon.ville }}  </p>
 	{% if is_granted('ROLE_PAIE') or is_granted('ROLE_JURIDIQUE') %}
-				  <p> <b>Siret :</b>  {{ salon.siret }}</p>
-				  <p> <b>Code Interne :</b>  {{ salon.codeInterne }}</p>
+				  <p> <b>Siren :</b>  {{ salon.siren }}</p>
+				  <p> <b>Rcs :</b>  {{ salon.rcsVille }}</p>
 					{% endif  %}
 
       </div>

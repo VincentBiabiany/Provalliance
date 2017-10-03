@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use AppBundle\Entity\Demande;
 use AppBundle\Entity\DemandeAcompte;
 use AppBundle\Entity\DemandeEmbauche;
 use AppBundle\Form\DemandeAcompteType;
@@ -113,11 +114,11 @@ class DemandeController extends Controller
       $em = $this->getDoctrine()->getManager("referentiel");
       foreach ($demandes as $demande ) {
         $demandeur = $em->getRepository('ApiBundle:Personnel')
-                        ->findOneBy(array('id' => $demande->getUser()->getIdPersonnel()));
+                        ->findOneBy(array('matricule' => $demande->getUser()->getIdPersonnel()));
 
  		if ($demande->getDemandeform()->getTypeForm() == "Demande d'acompte"){
 			$collab = $em->getRepository('ApiBundle:Personnel')
-					->findOneBy(array('id' => $demande->getDemandeform()->getIdPersonnel()));
+					->findOneBy(array('matricule' => $demande->getDemandeform()->getIdPersonnel()));
 			$collab = $collab->getNom() . " " . $collab->getPrenom();
 		}else{
 			$collab = $demande->getDemandeform()->getNom() . " " . $demande->getDemandeform()->getPrenom();
@@ -136,7 +137,7 @@ class DemandeController extends Controller
         $output['data'][] = [
           'id'               => $demande->getId(),
           ''                 => '<span class="glyphicon glyphicon-search click"></span>',
-          'Salon'            => $em->getRepository('ApiBundle:Salon')->findOneBy(array("id" => $demande->getidSalon()))->getNom(),
+          'Salon'            => $em->getRepository('ApiBundle:Salon')->findOneBy(array("sage" => $demande->getidSalon()))->getAppelation(),
           'Demandeur'        => $demandeur->getNom() . " " . $demandeur->getPrenom(),
           'dateEnvoi'        => $date->format('d-m-Y H:i'),
           'statut'           => $statut,
@@ -218,10 +219,10 @@ class DemandeController extends Controller
     $em = $this->getDoctrine()->getManager("referentiel");
 
     $salon = $em->getRepository('ApiBundle:Salon')
-                ->findOneBy(array('id' => $demande->getidSalon()));
+                ->findOneBy(array('sage' => $demande->getidSalon()));
 
     $demandeur = $em->getRepository('ApiBundle:Personnel')
-                    ->findOneBy(array('id' => $demande->getUser()->getIdPersonnel()));
+                    ->findOneBy(array('matricule' => $demande->getUser()->getIdPersonnel()));
 
     $statut = $demande->getstatut();
     $typedemande = $demande->getDemandeform()->getTypeForm();
