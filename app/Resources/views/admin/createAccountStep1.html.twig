@@ -12,9 +12,9 @@
 
 											<div class="row">
 													  <div class="form-group" style="padding-top: 50px">
-																<label class="control-label label col-sm-3 col-xs-12" for="salon"> {{ form_label(form.nom) }}</label>
+																<label class="control-label label col-sm-3 col-xs-12" for="salon"> {{ form_label(form.appelation) }}</label>
 																		 <div class="col-sm-6 col-xs-12">
-									 									 				{{ form_widget(form.nom, { 'attr': {'class': 'form-control'} }) }}
+									 									 				{{ form_widget(form.appelation, { 'attr': {'class': 'form-control'} }) }}
 																		</div>
 													  </div>
 											</div>
@@ -47,7 +47,7 @@
 
 			ChangeEstate('stepTwo','labelTwo',1,'next');
 
- 						if( !$('#form_nom').val() ){
+ 						if( !$('#form_appelation').val() ){
 								$('#NotSelect').removeClass( "hide" ).addClass( "show" );
 
 											}else{
@@ -55,7 +55,7 @@
 												ChangeEstate('stepTwo','labelTwo',1);
 
 											$('#CreateFormStep').fadeOut('slow', function(){ //on fait disparaitre l ancien contenu
-													 idsalon = $('#form_nom').val();
+													 idsalon = $('#form_appelation').val();
 
 																	 $.ajax({
 														 				url : "{{path('createAccountS2')}}",

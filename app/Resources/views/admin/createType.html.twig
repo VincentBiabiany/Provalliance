@@ -4,22 +4,24 @@
 {% block body %}
 {% trans_default_domain "admin_home" %}
 
-<div class="container">
+
 	<div class="header">
 	</div>
 	<div class="head">
 		{{ "admin_home.header"|trans({}, "admin_home") }}
 	</div>
-	{% for flash_message in app.session.flashBag.get('success') %}
+	<div class="container">
+<div id="actions" class="off">
+		{% for flash_message in app.session.flashBag.get('success') %}
 		<div class="alert alert-success success">
 			{{ flash_message }}
       <span class="closeAlert glyphicon glyphicon-remove"></span>
 		</div>
 	{% endfor %}
-	<div class="col-sm-12" style="padding-top: 50px;">
+	<div class="col-sm-12" >
 
-			<div class="row" style="max-width: 875px;margin: auto;">
-
+			<div class="row" >
+<h4 class="SubtitleAdmin">Quel type de compte souhaitez-vous créer ?</h4>
 	        <div class="col-sm-12" style="padding-top:40px; max-width:1200px; margin:auto;">
 	            <div class="col-sm-6 block">
 
@@ -32,7 +34,7 @@
 
 	        <div class="col-sm-12" style=" max-width:1200px;margin:auto;float:none;">
 	            <div class="col-sm-6 block">
-	                <button class="btn-black precedent" onclick="window.location.href = '{{ path("homepage") }}'">{{ "admin_home_create.back"|trans({}, "admin_home") }}</button>
+	                <button class="btn-black precedent" onclick="window.location.href = '{{ path("adminHome") }}'">{{ "admin_home_create.back"|trans({}, "admin_home") }}</button>
 	            </div>
 
 	        </div>
