@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Salon
  *
- * @ORM\Table(name="salon", indexes={@ORM\Index(name="fk_salon_groupe1_idx", columns={"groupe_id"}), @ORM\Index(name="fk_salon_enseigne1_idx", columns={"enseigne_id"}), @ORM\Index(name="fk_salon_pays1_idx", columns={"pays_id"})})
+ * @ORM\Table(name="salon", indexes={@ORM\Index(name="fk_salon_adresse1_idx", columns={"adresse_id"}), @ORM\Index(name="fk_salon_groupe1_idx", columns={"groupe_id"}), @ORM\Index(name="fk_salon_enseigne1_idx", columns={"enseigne_id"}), @ORM\Index(name="fk_salon_date1_idx", columns={"date_id"})})
  * @ORM\Entity
  */
 class Salon
@@ -15,144 +15,74 @@ class Salon
     /**
      * @var string
      *
-     * @ORM\Column(name="appelation", type="string", length=100, nullable=true)
+     * @ORM\Column(name="nom", type="string", length=45, nullable=true)
      */
-    private $appelation;
+    private $nom;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="forme_juridique", type="string", length=60, nullable=true)
+     * @ORM\Column(name="code_interne", type="string", length=45, nullable=true)
      */
-    private $formeJuridique;
+    private $codeInterne;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="rcs_ville", type="string", length=80, nullable=true)
+     * @ORM\Column(name="siret", type="string", length=45, nullable=true)
      */
-    private $rcsVille;
+    private $siret;
+
 
     /**
      * @var string
      *
-     * @ORM\Column(name="code_naf", type="string", length=6, nullable=true)
+     * @ORM\Column(name="langue_defaut", type="string", length=45, nullable=true)
      */
-    private $codeNaf;
+    private $langueDefaut;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="siren", type="string", length=45, nullable=true)
+     * @ORM\Column(name="marlix", type="string", length=20, nullable=true)
      */
-    private $siren;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="capital", type="string", length=45, nullable=true)
-     */
-    private $capital;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="raison_sociale", type="string", length=45, nullable=true)
-     */
-    private $raisonSociale;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="adresse1", type="string", length=80, nullable=true)
-     */
-    private $adresse1;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="adresse2", type="string", length=80, nullable=true)
-     */
-    private $adresse2;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="code_postal", type="string", length=15, nullable=true)
-     */
-    private $codePostal;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="ville", type="string", length=80, nullable=true)
-     */
-    private $ville;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="telephone1", type="string", length=45, nullable=true)
-     */
-    private $telephone1;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="telephone2", type="string", length=45, nullable=true)
-     */
-    private $telephone2;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=45, nullable=true)
-     */
-    private $email;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="code_marlix", type="string", length=20, nullable=true)
-     */
-    private $codeMarlix;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="date_ouverture", type="datetime", nullable=true)
-     */
-    private $dateOuverture;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="date_fermeture_sociale", type="datetime", nullable=true)
-     */
-    private $dateFermetureSociale;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="date_fermeture_commerciale", type="datetime", nullable=true)
-     */
-    private $dateFermetureCommerciale;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="actif", type="boolean", nullable=true)
-     */
-    private $actif;
+    private $marlix;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="sage", type="integer")
+     * @ORM\Column(name="sage_paie", type="integer", nullable=true)
+     */
+    private $sagePaie;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $sage;
+    private $id;
+
+    /**
+     * @var \ApiBundle\Entity\Adresse
+     *
+     * @ORM\ManyToOne(targetEntity="ApiBundle\Entity\Adresse")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="adresse_id", referencedColumnName="id")
+     * })
+     */
+    private $adresse;
+
+    /**
+     * @var \ApiBundle\Entity\Date
+     *
+     * @ORM\ManyToOne(targetEntity="ApiBundle\Entity\Date")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="date_id", referencedColumnName="id")
+     * })
+     */
+    private $date;
 
     /**
      * @var \ApiBundle\Entity\Enseigne
@@ -175,481 +105,222 @@ class Salon
     private $groupe;
 
     /**
-     * @var \ApiBundle\Entity\Pays
+     * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToOne(targetEntity="ApiBundle\Entity\Pays")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="pays_id", referencedColumnName="id")
-     * })
+     * @ORM\ManyToMany(targetEntity="ApiBundle\Entity\Personnel", mappedBy="salon")
      */
-    private $pays;
+    private $personnel;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->personnel = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
 
     /**
-     * Set appelation
+     * Set nom
      *
-     * @param string $appelation
+     * @param string $nom
      *
      * @return Salon
      */
-    public function setAppelation($appelation)
+    public function setNom($nom)
     {
-        $this->appelation = $appelation;
+        $this->nom = $nom;
 
         return $this;
     }
 
     /**
-     * Get appelation
+     * Get nom
      *
      * @return string
      */
-    public function getAppelation()
+    public function getNom()
     {
-        return $this->appelation;
+        return $this->nom;
     }
 
     /**
-     * Set formeJuridique
+     * Set codeInterne
      *
-     * @param string $formeJuridique
+     * @param string $codeInterne
      *
      * @return Salon
      */
-    public function setFormeJuridique($formeJuridique)
+    public function setCodeInterne($codeInterne)
     {
-        $this->formeJuridique = $formeJuridique;
+        $this->codeInterne = $codeInterne;
 
         return $this;
     }
 
     /**
-     * Get formeJuridique
+     * Get codeInterne
      *
      * @return string
      */
-    public function getFormeJuridique()
+    public function getCodeInterne()
     {
-        return $this->formeJuridique;
+        return $this->codeInterne;
     }
 
     /**
-     * Set rcsVille
+     * Set siret
      *
-     * @param string $rcsVille
+     * @param string $siret
      *
      * @return Salon
      */
-    public function setRcsVille($rcsVille)
+    public function setSiret($siret)
     {
-        $this->rcsVille = $rcsVille;
+        $this->siret = $siret;
 
         return $this;
     }
 
     /**
-     * Get rcsVille
+     * Get siret
      *
      * @return string
      */
-    public function getRcsVille()
+    public function getSiret()
     {
-        return $this->rcsVille;
+        return $this->siret;
     }
 
+
     /**
-     * Set codeNaf
+     * Set langueDefaut
      *
-     * @param string $codeNaf
+     * @param string $langueDefaut
      *
      * @return Salon
      */
-    public function setCodeNaf($codeNaf)
+    public function setLangueDefaut($langueDefaut)
     {
-        $this->codeNaf = $codeNaf;
+        $this->langueDefaut = $langueDefaut;
 
         return $this;
     }
 
     /**
-     * Get codeNaf
+     * Get langueDefaut
      *
      * @return string
      */
-    public function getCodeNaf()
+    public function getLangueDefaut()
     {
-        return $this->codeNaf;
+        return $this->langueDefaut;
     }
 
     /**
-     * Set siren
+     * Set marlix
      *
-     * @param string $siren
+     * @param string $marlix
      *
      * @return Salon
      */
-    public function setSiren($siren)
+    public function setMarlix($marlix)
     {
-        $this->siren = $siren;
+        $this->marlix = $marlix;
 
         return $this;
     }
 
     /**
-     * Get siren
+     * Get marlix
      *
      * @return string
      */
-    public function getSiren()
+    public function getMarlix()
     {
-        return $this->siren;
+        return $this->marlix;
     }
 
     /**
-     * Set capital
+     * Set sagePaie
      *
-     * @param string $capital
+     * @param integer $sagePaie
      *
      * @return Salon
      */
-    public function setCapital($capital)
+    public function setSagePaie($sagePaie)
     {
-        $this->capital = $capital;
+        $this->sagePaie = $sagePaie;
 
         return $this;
     }
 
     /**
-     * Get capital
-     *
-     * @return string
-     */
-    public function getCapital()
-    {
-        return $this->capital;
-    }
-
-    /**
-     * Set raisonSociale
-     *
-     * @param string $raisonSociale
-     *
-     * @return Salon
-     */
-    public function setRaisonSociale($raisonSociale)
-    {
-        $this->raisonSociale = $raisonSociale;
-
-        return $this;
-    }
-
-    /**
-     * Get raisonSociale
-     *
-     * @return string
-     */
-    public function getRaisonSociale()
-    {
-        return $this->raisonSociale;
-    }
-
-    /**
-     * Set adresse1
-     *
-     * @param string $adresse1
-     *
-     * @return Salon
-     */
-    public function setAdresse1($adresse1)
-    {
-        $this->adresse1 = $adresse1;
-
-        return $this;
-    }
-
-    /**
-     * Get adresse1
-     *
-     * @return string
-     */
-    public function getAdresse1()
-    {
-        return $this->adresse1;
-    }
-
-    /**
-     * Set adresse2
-     *
-     * @param string $adresse2
-     *
-     * @return Salon
-     */
-    public function setAdresse2($adresse2)
-    {
-        $this->adresse2 = $adresse2;
-
-        return $this;
-    }
-
-    /**
-     * Get adresse2
-     *
-     * @return string
-     */
-    public function getAdresse2()
-    {
-        return $this->adresse2;
-    }
-
-    /**
-     * Set codePostal
-     *
-     * @param string $codePostal
-     *
-     * @return Salon
-     */
-    public function setCodePostal($codePostal)
-    {
-        $this->codePostal = $codePostal;
-
-        return $this;
-    }
-
-    /**
-     * Get codePostal
-     *
-     * @return string
-     */
-    public function getCodePostal()
-    {
-        return $this->codePostal;
-    }
-
-    /**
-     * Set ville
-     *
-     * @param string $ville
-     *
-     * @return Salon
-     */
-    public function setVille($ville)
-    {
-        $this->ville = $ville;
-
-        return $this;
-    }
-
-    /**
-     * Get ville
-     *
-     * @return string
-     */
-    public function getVille()
-    {
-        return $this->ville;
-    }
-
-    /**
-     * Set telephone1
-     *
-     * @param string $telephone1
-     *
-     * @return Salon
-     */
-    public function setTelephone1($telephone1)
-    {
-        $this->telephone1 = $telephone1;
-
-        return $this;
-    }
-
-    /**
-     * Get telephone1
-     *
-     * @return string
-     */
-    public function getTelephone1()
-    {
-        return $this->telephone1;
-    }
-
-    /**
-     * Set telephone2
-     *
-     * @param string $telephone2
-     *
-     * @return Salon
-     */
-    public function setTelephone2($telephone2)
-    {
-        $this->telephone2 = $telephone2;
-
-        return $this;
-    }
-
-    /**
-     * Get telephone2
-     *
-     * @return string
-     */
-    public function getTelephone2()
-    {
-        return $this->telephone2;
-    }
-
-    /**
-     * Set email
-     *
-     * @param string $email
-     *
-     * @return Salon
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * Set codeMarlix
-     *
-     * @param string $codeMarlix
-     *
-     * @return Salon
-     */
-    public function setCodeMarlix($codeMarlix)
-    {
-        $this->codeMarlix = $codeMarlix;
-
-        return $this;
-    }
-
-    /**
-     * Get codeMarlix
-     *
-     * @return string
-     */
-    public function getCodeMarlix()
-    {
-        return $this->codeMarlix;
-    }
-
-    /**
-     * Set dateOuverture
-     *
-     * @param \DateTime $dateOuverture
-     *
-     * @return Salon
-     */
-    public function setDateOuverture($dateOuverture)
-    {
-        $this->dateOuverture = $dateOuverture;
-
-        return $this;
-    }
-
-    /**
-     * Get dateOuverture
-     *
-     * @return \DateTime
-     */
-    public function getDateOuverture()
-    {
-        return $this->dateOuverture;
-    }
-
-    /**
-     * Set dateFermetureSociale
-     *
-     * @param \DateTime $dateFermetureSociale
-     *
-     * @return Salon
-     */
-    public function setDateFermetureSociale($dateFermetureSociale)
-    {
-        $this->dateFermetureSociale = $dateFermetureSociale;
-
-        return $this;
-    }
-
-    /**
-     * Get dateFermetureSociale
-     *
-     * @return \DateTime
-     */
-    public function getDateFermetureSociale()
-    {
-        return $this->dateFermetureSociale;
-    }
-
-    /**
-     * Set dateFermetureCommerciale
-     *
-     * @param \DateTime $dateFermetureCommerciale
-     *
-     * @return Salon
-     */
-    public function setDateFermetureCommerciale($dateFermetureCommerciale)
-    {
-        $this->dateFermetureCommerciale = $dateFermetureCommerciale;
-
-        return $this;
-    }
-
-    /**
-     * Get dateFermetureCommerciale
-     *
-     * @return \DateTime
-     */
-    public function getDateFermetureCommerciale()
-    {
-        return $this->dateFermetureCommerciale;
-    }
-
-    /**
-     * Set actif
-     *
-     * @param boolean $actif
-     *
-     * @return Salon
-     */
-    public function setActif($actif)
-    {
-        $this->actif = $actif;
-
-        return $this;
-    }
-
-    /**
-     * Get actif
-     *
-     * @return boolean
-     */
-    public function getActif()
-    {
-        return $this->actif;
-    }
-
-    /**
-     * Get sage
+     * Get sagePaie
      *
      * @return integer
      */
-    public function getSage()
+    public function getSagePaie()
     {
-        return $this->sage;
+        return $this->sagePaie;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set adresse
+     *
+     * @param \ApiBundle\Entity\Adresse $adresse
+     *
+     * @return Salon
+     */
+    public function setAdresse(\ApiBundle\Entity\Adresse $adresse = null)
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    /**
+     * Get adresse
+     *
+     * @return \ApiBundle\Entity\Adresse
+     */
+    public function getAdresse()
+    {
+        return $this->adresse;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \ApiBundle\Entity\Date $date
+     *
+     * @return Salon
+     */
+    public function setDate(\ApiBundle\Entity\Date $date = null)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \ApiBundle\Entity\Date
+     */
+    public function getDate()
+    {
+        return $this->date;
     }
 
     /**
@@ -701,26 +372,36 @@ class Salon
     }
 
     /**
-     * Set pays
+     * Add personnel
      *
-     * @param \ApiBundle\Entity\Pays $pays
+     * @param \ApiBundle\Entity\Personnel $personnel
      *
      * @return Salon
      */
-    public function setPays(\ApiBundle\Entity\Pays $pays = null)
+    public function addPersonnel(\ApiBundle\Entity\Personnel $personnel)
     {
-        $this->pays = $pays;
+        $this->personnel[] = $personnel;
 
         return $this;
     }
 
     /**
-     * Get pays
+     * Remove personnel
      *
-     * @return \ApiBundle\Entity\Pays
+     * @param \ApiBundle\Entity\Personnel $personnel
      */
-    public function getPays()
+    public function removePersonnel(\ApiBundle\Entity\Personnel $personnel)
     {
-        return $this->pays;
+        $this->personnel->removeElement($personnel);
+    }
+
+    /**
+     * Get personnel
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPersonnel()
+    {
+        return $this->personnel;
     }
 }

@@ -15,6 +15,7 @@
 	{% for flash_message in app.session.flashBag.get('success') %}
 		<div id="flashDemande" class="alert alert-success success">
 			{{ flash_message }}
+      <span class="closeAlert glyphicon glyphicon-remove"></span>
 		</div>
 	{% endfor %}
 	<div class="col-sm-12" style="padding-top: 50px;">

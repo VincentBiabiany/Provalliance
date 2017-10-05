@@ -43,7 +43,7 @@ class AutreDemandeController extends Controller
                             $acompte = new AutreDemande();
                             $em = $this->getDoctrine()->getManager();
 
-                            $this->addFlash("success", "Votre demande a bien été prise en compte.");
+                            $this->addFlash("success", "Votre demande bien été prise en compte.");
                             return $this->redirectToRoute('homepage');
                             }
                     }
