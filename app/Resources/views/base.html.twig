@@ -24,7 +24,7 @@
     <body>
       <div id="topNav" class="col-sm-12 col-xs-12">
           <div id="home" class="col-sm-6 col-xs-6 deco block">
-            {% if is_granted('ROLE_ADMIN') %}
+            {% if not is_granted('ROLE_JURIDIQUE') %}
               <a  href="{{ path('homepage') }}">
                <span class="glyphicon glyphicon-home" style="padding-right:5px"></span>
                <span class="libelle">{{ "home.accueil"|trans({}, "home") }}</span>
