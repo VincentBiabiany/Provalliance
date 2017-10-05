@@ -15,14 +15,6 @@ input[type=number]::-webkit-outer-spin-button {
 margin: 0;
 }
 
-
-
-
-
-
-
-
-
 /*STYLE GENERAL*/
 
 body,p,a,h1,h2,h3,h4,h5 {
@@ -291,7 +283,7 @@ label.required{
 #demande_embauche_nationalite label.required, #demande_embauche_dejaSalarie label.required
 ,#demande_embauche_postes label.required, #demande_embauche_diplomes label.required,
 #demande_embauche_salaireBase label.required, #demande_embauche_typeContrat label.required,
-#demande_embauche_CDD label.required{
+#demande_embauche_CDD label.required, #fos_user_registration_form_enabled label.required{
   color: black;
   margin-left: 2px;
 	margin-right: 10px;
@@ -380,7 +372,10 @@ label.required{
 	float: right;
 	clear: both;
 }
+.SubtitleAdmin{
+padding-left: 25px;
 
+}
 
 #form_Precedent{
 	position: absolute;
@@ -783,6 +778,4 @@ padding-top: 10px;
 
 .upload {
 color:black;
-}
-
 }

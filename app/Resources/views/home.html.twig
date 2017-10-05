@@ -54,8 +54,8 @@ Bonjour  {{ personnel.prenom  }} {{ personnel.nom  }} <br/>
 var ddData = [
      {% for salon in salons %}
         {
-            value: {{ salon.id }},
-            text: " {{salon.enseigne.nom}} {{ salon.nom }}",
+            value: {{ salon.sage }},
+            text: " {{salon.enseigne.nom}} {{ salon.appelation }}",
             imageSrc: "{{ asset("img/") ~ salon.enseigne.logo }}"
                {% if loop.last %}
                  }

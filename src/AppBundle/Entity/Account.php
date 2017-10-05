@@ -3,42 +3,51 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use AppBundle\Entity\DemandeForm;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * AppBundle\Entity\DemandeAcompte
+ * AppBundle\Entity\Account
  *
- * @ORM\Table(name="demande_acompte")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\DemandeAcompteRepository")
+ * @ORM\Table(name="account")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\AccountRepository")
  */
-class DemandeAcompte extends DemandeForm
+
+class Account
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="montant", type="integer")
-     */
-    private $montant;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="personnel_id", type="integer")
+     * @ORM\Column(name="personnel_matricule", type="integer")
      */
     private $idPersonnel;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="etat", type="integer")
+     */
+    private $etat;
 
     /**
-     * Set montant
+     * @var int
      *
-     * @param integer $montant
-     *
-     * @return DemandeAcompte
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    public function setMontant($montant)
+    private $id;
+
+    /**
+     * Set etat
+     *
+     * @param integer $etat
+     *
+     * @return Account
+     */
+    public function setEtat($etat)
     {
-        $this->montant = $montant;
+        $this->etat = $etat;
 
         return $this;
     }
@@ -48,9 +57,9 @@ class DemandeAcompte extends DemandeForm
      *
      * @return integer
      */
-    public function getMontant()
+    public function getEtat()
     {
-        return $this->montant;
+        return $this->etat;
     }
 
     /**
@@ -58,7 +67,7 @@ class DemandeAcompte extends DemandeForm
      *
      * @param integer $idPersonnel
      *
-     * @return DemandeAcompte
+     * @return Account
      */
     public function setIdPersonnel($idPersonnel)
     {
