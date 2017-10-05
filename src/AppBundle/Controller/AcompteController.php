@@ -50,7 +50,7 @@ class AcompteController extends Controller
                             $personnel = $form["idPersonnel"]->getData();
 
                             $acompte->setTypeForm("Demande d'acompte");
-                            $acompte->setMontant($montant)->setIdPersonnel($personnel->getMatricule());
+                            $acompte->setMontant($montant)->setIdPersonnel($personnel->getId());
 
                             $demande->setService('paie');
                             $demande->setUser($this->getUser());
@@ -61,7 +61,7 @@ class AcompteController extends Controller
                             $em->flush();
 
                             // Notification par Mail
-                            $destinataire = $em->getRepository('AppBundle:User')->findOneBy(array('idPersonnel' => $personnel->getMatricule()));
+                            $destinataire = $em->getRepository('AppBundle:User')->findOneBy(array('idPersonnel' => $personnel->getId()));
                             // $destinataire = $destinataire->getEmail();
 
                             $user = $this->getUser();

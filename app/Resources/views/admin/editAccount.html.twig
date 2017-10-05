@@ -2,18 +2,15 @@
 {% block title %}Welcome{% endblock %}
 
 {% block body %}
-{% trans_default_domain "admin_edit" %}
 
 <div class="head">
-	{{ "admin_edit.header"|trans({}, "admin_edit") }}
-
+	Administration - Modifier un compte utilisateur
 </div>
 
 <div class="container">
   <div id="actions">
 
-<h2> </h2>
-{{ "admin_edit.infogene"|trans({}, "admin_edit") }}
+<h2> Informations générales </h2>
 
 			{{ form_start(form, {'attr': {'id': 'editAccount'} } ) }}
 
@@ -21,48 +18,41 @@
 				<div style="max-width: 100%; margin: auto;">
 
 					<div class="row">
-
+							  <div class="form-group" style="padding-top: 50px">
+										<label class="control-label label col-sm-3 col-xs-12" for="salon"> {{ form_label(form.email) }}</label>
+												 <div class="col-sm-9">
+			 									 				{{ form_widget(form.email, { 'attr': {'class': 'form-control'} }) }}
+												</div>
+							  </div>
 							  <div class="form-group" style="padding-top: 50px">
 										<label class="control-label label col-sm-3 col-xs-12" for="salon"> {{ form_label(form.username) }}</label>
-												 <div class="col-sm-6">
+												 <div class="col-sm-9">
 			 									 				{{ form_widget(form.username, { 'attr': {'class': 'form-control'} }) }}
 												</div>
 							  </div>
 
 							  <div class="form-group" style="padding-top: 50px">
 										<label class="control-label label col-sm-3 col-xs-12" for="salon"> {{ form_label(form.roles) }}</label>
-												 <div class="col-sm-6">
+												 <div class="col-sm-9">
 			 									 				{{ form_widget(form.roles, { 'attr': {'class': 'form-control'} }) }}
 												</div>
 							  </div>
 							  <div class="form-group" style="padding-top: 50px">
 										<label class="control-label label col-sm-3 col-xs-12" for="salon"> {{ form_label(form.enabled) }}</label>
-												 <div class="col-sm-8">
-			 									 				{{ form_widget(form.enabled, { 'attr': {'class': ''} }) }}
+												 <div class="col-sm-9">
+			 									 				{{ form_widget(form.enabled, { 'attr': {'class': 'form-control'} }) }}
 												</div>
 							  </div>
-								<div class="form-group" style="padding-top: 50px">
-										<label class="control-label label col-sm-3 col-xs-12" for="salon"> {{ form_label(form.email) }}</label>
-												 <div class="col-sm-8">
-																{{ form_widget(form.email, { 'attr': {'class': 'form-control'} }) }}
-												</div>
-								</div>
 					</div>
 				</div>
-				{{ form_end(form) }}
 
-
-		 <h2> {{ "admin_edit.securite"|trans({}, "admin_edit") }} </h2>
+     {{ form_end(form) }}
+		 <h2> Sécurité </h2>
 		 <a id="chgPwd" data-toggle="modal" data-target="#myModal" href="{{ path('changePassword',{'idUser': idUser}) }}">Changer le Mot de passe</a>
 		 <br/>
 		 <br/>
 		 <br/>
 		 <br/>
-		 <div id="actionsButtons">
-						<a href="{{ path('adminHome') }}" class="btn-black precedent">
-						{{ "admin_edit.back"|trans({}, "admin_edit") }}
-						</a>
-			</div>
    </div>
 </div>
 

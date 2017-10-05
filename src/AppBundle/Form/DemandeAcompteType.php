@@ -50,7 +50,7 @@ class DemandeAcompteType extends AbstractType
 
                   'query_builder' => function (EntityRepository $er) use ($idPersonnel) {
                       return $er->createQueryBuilder('p')
-                            ->where('p.matricule = :idPersonnel')
+                            ->where('p.id = :idPersonnel')
                             ->setParameter('idPersonnel', $idPersonnel);
                     },
                   'label' => 'demandeacompte.nom',
@@ -76,7 +76,7 @@ class DemandeAcompteType extends AbstractType
                   'query_builder' => function (EntityRepository $er) use ($idSalon) {
                       return $er->createQueryBuilder('p')
                             ->join('p.salon', 'm')
-                            ->where('m.sage = :idSalon')
+                            ->where('m.id = :idSalon')
                             ->setParameter('idSalon', $idSalon);
                     },
                   'label' => 'demandeacompte.nom',
