@@ -6,46 +6,42 @@
 {% trans_default_domain "demande_acompte" %}
 <div class="header">
 	<img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
-	<hr/>
-	<span id="nomSalon">{{ app.session.get('nomSalon') }}</span>
 </div>
+
 <div class="head">
-{{ "demandeacompte.titre"|trans({}, "demande_acompte") }}
+	{{ "demandeacompte.titre"|trans({}, "demande_acompte") }}
 </div>
+
 <div class="container">
-
-  <div id="actions" class="off">
-
+	<div id="actions" class="formAction off">
 		<div class="alert alert-info">
 			<span class="glyphicons glyphicons-info-sign"></span>
 			{{ "demandeacompte.info"|trans({}, "demande_acompte") }}
 
-	  </div>
-				<div id="wrapperForm" class="row">
+		</div>
 		{{ form_start(form, {'attr': {'class': 'demande_acompte', 'id':'formAccompte'} }) }}
 
-		    {{ form_errors(form)}}
-			  <div class="form-group">
+		{{ form_errors(form)}}
+				<div class="form-group">
 					<label class="control-label label col-sm-4 col-xs-12" for="personnel"> {{ form_label(form.idPersonnel) }}</label>
-					 <div class="col-sm-8  col-xs-12">
-	                     {{ form_widget(form.idPersonnel, { 'attr': {'class': 'form-control'} }) }}
+					<div class="col-sm-9  col-xs-12">
+						{{ form_widget(form.idPersonnel, { 'attr': {'class': 'form-control'} }) }}
 					</div>
-			  </div>
-			<div class="form-group">
+				</div>
+				<div class="form-group">
 					<label class="control-label label col-sm-4 col-xs-12" for="montant">{{ form_label(form.montant) }}</label>
-					<div class="col-sm-8  col-xs-12">
-	                        {{ form_widget(form.montant, { 'attr': {'class': 'form-control'} }) }}
+					<div class="col-sm-9  col-xs-12">
+						{{ form_widget(form.montant, { 'attr': {'class': 'form-control'} }) }}
 					</div>
-			 </div>
+				</div>
 
-		</div>
 		<div id="actionsButtons">
-			   {{ form_end(form) }}
-					<a href="{{ path('home_paie') }}" class="btn-black precedent">
-							{{ "demandeacompte.back"|trans({}, "demande_acompte") }}
-					</a>
-	  </div>
-   </div>
+			{{ form_end(form) }}
+						<a href="{{ path('home_paie') }}" class="btn-black precedent">
+								{{ "demandeacompte.back"|trans({}, "demande_acompte") }}
+						</a>
+		</div>
+	</div>
 
 </div>
 

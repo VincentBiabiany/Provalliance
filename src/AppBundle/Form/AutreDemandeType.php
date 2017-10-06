@@ -58,10 +58,9 @@ class AutreDemandeType extends AbstractType
                 'required'  => false))
 
           ->add('commentaire', TextareaType::class, array(
-                        'attr' => ['class' => 'form-control col-sm-9 col-xs-12'],
-                        'label_attr' => ['class' => 'control-label label col-sm-3 col-xs-12'],
                         'label' => 'autredemande.commentaire',
                         'translation_domain' => 'autre_demande',
+                        'attr' => array('rows' => '5')
             ))
                  ->add('Envoyer', SubmitType::class, array(
                       'label' => 'autredemande.envoyer',

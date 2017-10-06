@@ -131,11 +131,12 @@ class AdminController extends Controller
                 $formS3->handleRequest($request);
 
                 if ($formS3->isSubmitted()) {
-                   //On met a jour le champ 'compte' de la table Personnel
+                   //On met a jour le champ 'compte' de la table Account
                         $idP= $formS3["idPersonnel"]->getData();
-                        $em= $this->getDoctrine()->getManager('referentiel');
-                        $personnel = $em->getRepository('ApiBundle:Personnel')->findOneBy(array('matricule' => $idP));
-                        $personnel->setCompte(1);
+                        $em= $this->getDoctrine()->getManager();
+                        $personnel = $em->getRepository('AppBundle:Account')->findOneBy(array('idPersonnel' => $idP));
+
+                        $personnel->setEtat(1);
                         $em->flush();
 
                        //On enregistre les infos principales du User
