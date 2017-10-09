@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use AppBundle\Entity\Demande;
+use AppBundle\Entity\DemandeEntity;
 use AppBundle\Entity\DemandeAcompte;
 use AppBundle\Entity\DemandeEmbauche;
 use AppBundle\Form\DemandeAcompteType;
@@ -36,7 +36,7 @@ class DemandeController extends Controller
                 //Requete en bdd en fonction du type de filre
                 if (($typeFilter == 'x') or ($typeFilter == 'init') or ($typeFilter == 'search')) {
                     $repository = $this->getDoctrine()
-                                        ->getRepository('AppBundle:Demande');
+                                        ->getRepository('AppBundle:DemandeEntity');
 
                         if (in_array('ROLE_PAIE', $this->getUser()->getRoles(), true)) {
                                $query = $repository->createQueryBuilder('p')
@@ -72,20 +72,20 @@ class DemandeController extends Controller
                     }else if($typeFilter == 'default'){
                         if (in_array('ROLE_PAIE', $this->getUser()->getRoles(), true)) {
                           $demandes = $this->getDoctrine()
-                                           ->getManager()->getRepository('AppBundle:Demande')
+                                           ->getManager()->getRepository('AppBundle:DemandeEntity')
                                            ->findBy(array("service" => "paie"),
                                                     array($column => $dir),
                                                           $length, $start);
 
                         } else if (in_array('ROLE_JURIDIQUE', $this->getUser()->getRoles(), true)){
                           $demandes = $this->getDoctrine()
-                                           ->getManager()->getRepository('AppBundle:Demande')
+                                           ->getManager()->getRepository('AppBundle:DemandeEntity')
                                            ->findBy(array("service" => "juridique"),
                                                     array($column => $dir),
                                                           $length, $start);
                         } else {
                           $demandes = $this->getDoctrine()
-                                           ->getManager()->getRepository('AppBundle:Demande')
+                                           ->getManager()->getRepository('AppBundle:DemandeEntity')
                                            ->findBy(array("idSalon" => $idsalon),
                                                     array($column => $dir),
                                                           $length, $start);
@@ -100,7 +100,7 @@ class DemandeController extends Controller
      $demandes = self::wichService($typeFilter,$column,$dir,$idsalon,$search,$start,$length);
 
           $entitym = $this->getDoctrine()->getManager();
-          $demandeRepo = $entitym->getRepository('AppBundle:Demande');
+          $demandeRepo = $entitym->getRepository('AppBundle:DemandeEntity');
           $role= $this->getUser()->getRoles();
           $role= $role[0];
 
@@ -206,117 +206,7 @@ class DemandeController extends Controller
 
       }
 }
-  /**
-   * @Route("/demande/{id}", name="demande_detail", requirements={"id": "\d+"})
-   */
-  public function detailIdAction(Request $request, $id)
-  {
-    $demande = $this->getDoctrine()
-                    ->getManager()
-                    ->getRepository('AppBundle:Demande')
-                    ->findOneBy(array("id" => $id));
 
-    $em = $this->getDoctrine()->getManager("referentiel");
-
-    $salon = $em->getRepository('ApiBundle:Salon')
-                ->findOneBy(array('sage' => $demande->getidSalon()));
-
-    $demandeur = $em->getRepository('ApiBundle:Personnel')
-                    ->findOneBy(array('matricule' => $demande->getUser()->getIdPersonnel()));
-
-    $statut = $demande->getstatut();
-    $typedemande = $demande->getDemandeform()->getTypeForm();
-    $date = $demande->getDateEnvoi();
-    $dateTraitement = $demande->getDateTraitement();
-    $message = $demande->getMessage();
-
-
-    $form2 = $this->createFormBuilder()
-                      ->setMethod("POST")
-                      ->add('message', TextareaType::class, array(
-                                    'attr' => ['class' => 'form-control col-sm-9 col-xs-12'],
-                                    'label_attr' => ['class' => 'control-label label col-sm-3 col-xs-12'],
-                                    'label' => 'Motif',
-                                    'data' => $message))
-                      ->add('accept', SubmitType::class)
-                      ->add('reject', SubmitType::class)
-                      ->getForm();
-
-    $form2->handleRequest($request);
-
-    if ($form2->isSubmitted()) {
-      if ($form2->get('reject')->isClicked())
-      {
-
-            if($form2["message"]->getData() == null){
-
-              $this->addFlash("error", "Il est obligatoire de saisir un motif pour votre rejet de demande d'acompte");
-              return $this->redirect($this->generateUrl('demande_detail', array('id' => $id)));
-              die();
-
-               }
-        $demande->setstatut(Demande::statut_REJETE);
-        $demande->setDateTraitement(new \DateTime());
-        $demande->setMessage($form2["message"]->getData());
-
-      }
-      else
-      {
-        $demande->setstatut(Demande::statut_TRAITE);
-        $demande->setDateTraitement(new \DateTime());
-        $demande->setMessage($form2["message"]->getData());
-      }
-      $this->getDoctrine()->getManager()->flush();
-      $this->addFlash("success", "Demande correctement traitée");
-      return $this->redirectToRoute("demande");
-    }
-
-    if ($demande->getDemandeform()->getTypeForm() == "Demande d'acompte")
-    {
-      $demandeacompte = new DemandeAcompte();
-      $demandeacompte = $demande->getDemandeform();
-      $form = $this->createForm(DemandeAcompteType::class,
-                                $demandeacompte,
-                                array("idSalon" => null,
-                                      "idPersonnel" => $demande->getDemandeform()->getIdPersonnel()
-                                    ));
-    }
-
-	if ($demande->getDemandeform()->getTypeForm() == "Demande d'embauche")
-    {
-      $demandeEmbauche = new DemandeEmbauche();
-      $demandeEmbauche = $demande->getDemandeform();
-      $form = $this->createForm(DemandeEmbaucheType::class,
-                                $demandeEmbauche,
-                                array("step" => 4,
-                                    ));
-    }
-
-
-    if($dateTraitement)
-      $dateTraitement = $dateTraitement->format('d-m-Y H:i');
-    return $this->render('demande_detail.html.twig', array(
-      'demandeur'       => $demandeur,
-      'date'            => $date->format('d-m-Y H:i'),
-      'dateTraitement'  => $dateTraitement,
-      'statut'          => $statut,
-      'message'         => $message,
-      'typedemande'     => $typedemande,
-      'salon'           => $salon,
-      'form'            => $form->createView(),
-      'form2'           => $form2->createView(),
-    ));
-  }
-
-  /**
-   * @Route("/detail", name="detail")
-   */
-  public function detailAction(Request $request)
-  {
-    return new Response($this->generateUrl('demande_detail',
-                                            array('id' => $request->get('id')
-                                          )));
-  }
 
 
 }
