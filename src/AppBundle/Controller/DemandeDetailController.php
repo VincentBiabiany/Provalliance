@@ -105,7 +105,7 @@ class DemandeDetailController extends Controller
                                     ));
     }
 
-  if ($demande->getDemandeform()->getTypeForm() == "Demande d'embauche")
+	if ($demande->getDemandeform()->getTypeForm() == "Demande d'embauche")
     {
       $demandeEmbauche = new DemandeEmbauche();
       $demandeEmbauche = $demande->getDemandeform();
