@@ -20,40 +20,40 @@
 	<div id="wrapperForm" class="row">
 		{% form_theme form 'form/acompte.html.twig' %}
 		{% block content %}
-				{{ form_start(form, {'attr': {'class': ''} }) }}
-				{{ form_end(form) }}
-			{% endblock %}
+		{{ form_start(form, {'attr': {'class': ''} }) }}
+		{{ form_end(form) }}
+		{% endblock %}
 
-      <div id="infosDemande" class="col-sm-12">
-          <p> <b>Demandeur : </b>{{ demandeur.nom }} {{ demandeur.prenom }} </p>
-          <p> <p> <b>Date d'envoi :</b>  {{ date }} </p> <b>Statut:</b>  {{ statut }} {% if dateTraitement is not null %} le {{ dateTraitement }} {% endif %}</p>
-          <p> <b>Salon :</b> {{ salon.appelation }} </p>
-          <p> <b>Adresse :</b>  {{ salon.adresse1 }} {{ salon.codepostal }} {{ salon.ville }}  </p>
-	{% if is_granted('ROLE_PAIE') or is_granted('ROLE_JURIDIQUE') %}
-				  <p> <b>Siren :</b>  {{ salon.siren }}</p>
-				  <p> <b>Rcs :</b>  {{ salon.rcsVille }}</p>
-					{% endif  %}
+		<div id="infosDemande" class="col-sm-12">
+			<p> <b>Demandeur : </b>{{ demandeur.nom }} {{ demandeur.prenom }} </p>
+			<p> <p> <b>Date d'envoi :</b>  {{ date }} </p> <b>Statut:</b>  {{ statut }} {% if dateTraitement is not null %} le {{ dateTraitement }} {% endif %}</p>
+			<p> <b>Salon :</b> {{ salon.appelation }} </p>
+			<p> <b>Adresse :</b>  {{ salon.adresse1 }} {{ salon.codepostal }} {{ salon.ville }}  </p>
+			{% if is_granted('ROLE_PAIE') or is_granted('ROLE_JURIDIQUE') %}
+			<p> <b>Siren :</b>  {{ salon.siren }}</p>
+			<p> <b>Rcs :</b>  {{ salon.rcsVille }}</p>
+			{% endif  %}
 
-      </div>
+		</div>
 
 		{% if is_granted('ROLE_PAIE') or is_granted('ROLE_JURIDIQUE') %}
-			<div class="" style="max-width: 100%; margin: auto;">
-				<hr id="separatorDetailDemande"/>
-					  {{ form_start(form2, {'attr': {'id':'form_message','novalidate': 'novalidate'}}) }}
+		<div class="" style="max-width: 100%; margin: auto;">
+			<hr id="separatorDetailDemande"/>
+			{{ form_start(form2, {'attr': {'id':'form_message','novalidate': 'novalidate'}}) }}
 
-							{% for flash_message in app.session.flashBag.get('error') %}
-								<div class="alert alert-danger danger">
-									{{ flash_message }}
-						      <span class="closeAlert glyphicon glyphicon-remove"></span>
-								</div>
-							{% endfor %}
-					    	{{ form_row(form2.message) }}
-
-<br/>
-								{{ form_row(form2.reject, {'attr': {'class': 'btn-black end reject'} }) }}
-								{{ form_row(form2.accept, {'attr': {'class': 'btn-black end accept'} }) }}
-						{{ form_end(form2) }}
+			{% for flash_message in app.session.flashBag.get('error') %}
+			<div class="alert alert-danger danger">
+				{{ flash_message }}
+				<span class="closeAlert glyphicon glyphicon-remove"></span>
 			</div>
+			{% endfor %}
+			{{ form_row(form2.message) }}
+
+			<br/>
+			{{ form_row(form2.reject, {'attr': {'class': 'btn-black end reject'} }) }}
+			{{ form_row(form2.accept, {'attr': {'class': 'btn-black end accept'} }) }}
+			{{ form_end(form2) }}
+		</div>
 		{% endif  %}
 		<div class="col-sm-12" style="padding: 0;">
 			<button  onclick="window.location.href ='{{ path("demande") }}'" class="btn-black precedent">Précédent</button>
@@ -63,8 +63,8 @@
 
 <script language="javascript">
 $('.closeAlert').bind('click', function(){
-			$(".alert").css('display','none');
-			$(".alert").remove();
+	$(".alert").css('display','none');
+	$(".alert").remove();
 
 });
 

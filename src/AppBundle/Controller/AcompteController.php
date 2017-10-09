@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use AppBundle\Entity\DemandeAcompte;
-use AppBundle\Entity\Demande;
+use AppBundle\Entity\DemandeSimple;
 use AppBundle\Entity\RibSalarie;
 use AppBundle\Form\DemandeAcompteType;
 class AcompteController extends Controller
@@ -42,7 +42,7 @@ class AcompteController extends Controller
 
                         }else{
 
-                            $demande = new Demande();
+                            $demande = new DemandeSimple();
                             $acompte = new DemandeAcompte();
                             $em = $this->getDoctrine()->getManager();
 

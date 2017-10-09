@@ -85,4 +85,14 @@ class Account
     {
         return $this->idPersonnel;
     }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 }

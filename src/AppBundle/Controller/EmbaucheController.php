@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use AppBundle\Form\DemandeEmbaucheType;
 use AppBundle\Entity\DemandeEmbauche;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use AppBundle\Entity\Demande;
+use AppBundle\Entity\DemandeComplexe;
 use AppBundle\Service\FileUploader;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
@@ -72,7 +72,7 @@ class EmbaucheController extends Controller
       if ($form->isSubmitted() && $form->isValid()) {
         $em = $this->getDoctrine()->getManager();
 
-        $demande = new Demande();
+        $demande = new DemandeComplexe();
         $demande->setService('juridique');
         $demande->setUser($this->getUser());
         $demande->setIdSalon($idSalon = $request->getSession()->get('idSalon'));

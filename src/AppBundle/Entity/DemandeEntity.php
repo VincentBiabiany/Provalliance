@@ -3,20 +3,17 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use AppBundle\Entity\DemandeForm;
 
 /**
- * AppBundle\Entity\Demande
- *
- * @ORM\Table(name="demande")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\DemandeRepository")
- * @ORM\HasLifecycleCallbacks()
+ * @ORM\Entity
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
+ * @ORM\DiscriminatorMap({"demande_entity" = "DemandeEntity", "demande_simple" = "DemandeSimple", "demande_complexe" = "DemandeComplexe"})
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\DemandeEntityRepository")
  */
-class Demande
+
+abstract class DemandeEntity
 {
-    const statut_REJETE  = 0;
-    const statut_EN_COURS = 1;
-    const statut_TRAITE  = 2;
     /**
      * @var int
      *
@@ -25,13 +22,12 @@ class Demande
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
     /**
      * @var \AppBundle\Entity\DemandeForm
-	   *
+     *
      * @ORM\OneToOne(targetEntity="DemandeForm", cascade={"persist"})
      *
-	   */
+     */
     protected $demandeform;
 
     /**
@@ -72,12 +68,6 @@ class Demande
      */
     private $service;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="message", type="string", nullable=true)
-     */
-    private $message;
 
     /**
      * @var int
@@ -93,7 +83,7 @@ class Demande
         $this->setDateEnvoi(new \DateTime());
         $this->setstatut(self::statut_EN_COURS);
         $this->setDateTraitement(new \DateTime());
- }
+  }
 
     /**
      * Get id
@@ -175,30 +165,6 @@ class Demande
     public function getstatut()
     {
         return $this->statut;
-    }
-
-    /**
-     * Set message
-     *
-     * @param string $message
-     *
-     * @return Demande
-     */
-    public function setMessage($message)
-    {
-        $this->message = $message;
-
-        return $this;
-    }
-
-    /**
-     * Get message
-     *
-     * @return string
-     */
-    public function getMessage()
-    {
-        return $this->message;
     }
 
     /**
@@ -296,4 +262,4 @@ class Demande
     {
         return $this->service;
     }
-}
+  }
