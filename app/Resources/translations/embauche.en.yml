@@ -1,7 +1,7 @@
 embauche.header:        Job application
 embauche.back:          Back
 embauche.attention:     Be carefull!
-embauche.msg:           Before starting to fill this form, please verify if you posses all these following documents in electronic format \:
+embauche.msg:           Before starting to fill this form, please verify if you posses all these following documents in electronic format :
 embauche.pi:            Identity Document
 embauche.diplome:       Diploma
 embauche.cartev:        Health insurance card
@@ -19,7 +19,7 @@ embauche.tel:           Telephone
 embauche.nat:           Nationality
 embauche.nat.fr:        French
 embauche.nat.etr:       Foreigner
-embauche.ss:            Social security number
+embauche.ss:            Social security n°
 embauche.email:         Email
 embauche.fam:           Family situation
 embauche.fam.marie:     Married
@@ -65,14 +65,21 @@ embauche.cdd.renouv:    Renouvellement du CDD pour le même motif
 embauche.cdd.retour:    Until physical return
 
 embauche.partiel:       Part time
-embauche.lundi:         Monday
-embauche.mardi:         Tuesday
-embauche.mercredi:      Wednesday
-embauche.jeudi:         Thursday
-embauche.vendredi:      Friday
+embauche.lundi:         Mon
+embauche.mardi:         Tue
+embauche.mercredi:      Wed
+embauche.jeudi:         Thu
+embauche.vendredi:      Fri
+embauche.samedi:        Sat
 
 embauche.autre:         Precise
+
+embauche.sexe:          Sexe
+embauche.sexe.m:        M
+embauche.sexe.f:        F
 
 embauche.step1:         Step 2
 embauche.step2:         Step 3
 embauche.send:          Send
+embauche.retourac:      Back to home
+embauche.poursuivre:    Continue
