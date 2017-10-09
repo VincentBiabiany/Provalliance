@@ -7,11 +7,11 @@
     <img style="display: block !important;margin: auto !important;" id="logotop" src="">
 </div>
 <div class="head" >
-Bonjour  {{ personnel.prenom  }} {{ personnel.nom  }} <br/>
+Bonjour  {{ personnel.prenom  }} {{ personnel.nom|upper  }} <br/>
 </div>
 <div class="container">
 
-    <div class="row" style="max-width: 875px;margin: auto;">
+    <div class="row">
 
         <div class="col-sm-12">
             <div id="myDropdown" style="margin:auto;"></div>
@@ -23,9 +23,9 @@ Bonjour  {{ personnel.prenom  }} {{ personnel.nom  }} <br/>
       <span class="closeAlert glyphicon glyphicon-remove"></span>
 		</div>
 	{% endfor %}
-   <div id="actions" class="home off">
+   <div id="actions" class="home off menuAction">
      <div class="blockAction"></div>
-      <div class="col-sm-12" style="padding-top:40px; max-width:1200px; margin:auto;">
+      <div class="col-sm-12">
           <div class="col-sm-6 block">
               <div onclick="window.location.href = '{{ path("home_juridique_rh") }}'"  class="under-block"><p class="carre">{{ "home.juridique_rh"|trans({}, "home") }}</p></div>
           </div>
@@ -34,7 +34,7 @@ Bonjour  {{ personnel.prenom  }} {{ personnel.nom  }} <br/>
           </div>
       </div>
 
-      <div class="col-sm-12" style=" max-width:1200px;margin:auto;float:none;">
+      <div class="col-sm-12">
 
           <div class="col-sm-6 block">
               <div onclick="window.location.href = '{{ path("demande") }}'" class="under-block"><p class="carre">{{ "home.demand"|trans({}, "home") }}</p></div>
@@ -68,9 +68,9 @@ var ddData = [
 
     $('#myDropdown').ddslick({
         data:ddData,
-        width:300,
-        background: '#000',
-        imagePosition:"center",
+        width:500,
+        background: '#fff',
+        imagePosition:"left",
         {% if app.session.get('idSalon') %}
             defaultSelectedIndex:  {{ app.session.get('numero') }},
         {% else %}
@@ -80,7 +80,7 @@ var ddData = [
         onSelected: function(selectedData){
 
              if ($("#actions").is('.off')){
-                  $("#actions").attr('class','on');
+                  $('#actions').removeClass('off').addClass('on');
                   $(".blockAction").remove();
                 }
 
