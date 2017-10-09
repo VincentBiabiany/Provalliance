@@ -4,162 +4,197 @@
 {% block body %}
 {% trans_default_domain "embauche" %}
 <div class="header">
-    <img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
-	<hr/>
-	<span id="nomSalon">{{ app.session.get('nomSalon') }}</span>
+  <img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
 </div>
 <div class="head" >
-    {{ "embauche.header"|trans({}, "embauche") }}
+  {{ "embauche.header"|trans({}, "embauche") }}
 </div>
 <div class="container">
-    <div id="infoEmbauche" class="alert alert-danger" >
-		<strong> {{ "embauche.attention"|trans({}, "embauche") }} </strong> {{ "embauche.msg"|trans({}, "embauche") }}
-		  <li>{{ "embauche.pi"|trans({}, "embauche") }}</li>
-		  <li>{{ "embauche.diplome"|trans({}, "embauche") }}</li>
-		  <li>{{ "embauche.cartev"|trans({}, "embauche") }}</li>
-		  <li>{{ "embauche.rib"|trans({}, "embauche") }}</li>
-		  <li>{{ "embauche.adhesion"|trans({}, "embauche") }}</li>
-		</ul>
-	</div>
-		<div id="wrapperForm" class="row">
-        {{ form_start(form, { 'attr' : { 'class': 'allForm form-horizontal', 'id': 'form1' } })}}
 
-			  <div class="form-group">
+<div id="wrapperForm" class="row">
+  {{ form_start(form, { 'attr' : { 'class': 'allForm form-horizontal', 'id': 'form1' } })}}
 
-  				<label class="control-label label col-sm-3 col-xs-12">{{ "embauche.nom"|trans({}, "embauche") }}</label>
-  				<div class="col-sm-3 col-xs-12">
-  					      {{ form_widget(form.nom) }}
-  				</div>
+  <div class="form-group">
 
-  				<label class="control-label label col-sm-3 col-xs-12" >{{ "embauche.prenom"|trans({}, "embauche") }}</label>
-  				<div class="col-sm-3 col-xs-12">
-  					     {{ form_widget(form.prenom) }}
-  				</div>
-			  </div>
+    <label class="control-label label col-sm-3 col-xs-12">{{ "embauche.nom"|trans({}, "embauche") }}</label>
+    <div class="col-sm-3 col-xs-12">
+      {{ form_widget(form.nom) }}
+    </div>
 
-			  <div class="form-group">
-  				<label class="control-label label col-sm-3 col-xs-12" for="demande_embauche_dateNaissance">{{ "embauche.daten"|trans({}, "embauche") }}</label>
-  				<div class="col-sm-3 col-xs-12">
-  					     {{ form_widget(form.dateNaissance) }}
-  				</div>
-			  </div>
+    <label class="control-label label col-sm-3 col-xs-12" >{{ "embauche.prenom"|trans({}, "embauche") }}</label>
+    <div class="col-sm-3 col-xs-12">
+      {{ form_widget(form.prenom) }}
+    </div>
+  </div>
 
-			  <div class="form-group">
-  				<label class="control-label label col-sm-3 col-xs-12" for="adr">{{ "embauche.adr1"|trans({}, "embauche") }}</label>
-  				<div class="col-sm-9 col-xs-12">
-  					     {{ form_widget(form.addresse1) }}
-  				</div>
-			  </div>
+  <div class="form-group">
+    <label class="control-label label col-sm-3 col-xs-12" for="demande_embauche_dateNaissance">{{ "embauche.daten"|trans({}, "embauche") }}</label>
+    <div class="col-sm-3 col-xs-12">
+      {{ form_widget(form.dateNaissance) }}
+    </div>
+  </div>
 
-        <div class="form-group">
-          <label class="control-label label col-sm-3 col-xs-12" for="adr">{{ "embauche.adr2"|trans({}, "embauche") }}</label>
-          <div class="col-sm-9 col-xs-12">
-                 {{ form_widget(form.addresse2) }}
-          </div>
-        </div>
+  <div class="form-group">
+    <label class="control-label label col-sm-3 col-xs-12" for="adr">{{ "embauche.adr1"|trans({}, "embauche") }}</label>
+    <div class="col-sm-9 col-xs-12">
+      {{ form_widget(form.addresse1) }}
+    </div>
+  </div>
 
-			  <div class="form-group" >
-				 <label class="control-label label col-sm-3 col-xs-12">{{ "embauche.cp"|trans({}, "embauche") }}</label>
-  				<div class="col-sm-3 col-xs-12">
-  					    {{ form_widget(form.codePostal)}}
+  <div class="form-group">
+    <label class="control-label label col-sm-3 col-xs-12" for="adr">{{ "embauche.adr2"|trans({}, "embauche") }}</label>
+    <div class="col-sm-9 col-xs-12">
+      {{ form_widget(form.addresse2) }}
+    </div>
+  </div>
 
-  				</div>
+  <div class="form-group" >
+    <label class="control-label label col-sm-3 col-xs-12">{{ "embauche.cp"|trans({}, "embauche") }}</label>
+    <div class="col-sm-3 col-xs-12">
+      {{ form_widget(form.codePostal)}}
 
-  				<label class="control-label label col-sm-3 col-xs-12">{{ "embauche.ville"|trans({}, "embauche") }}</label>
-  				<div class="col-sm-3 col-xs-12">
-  					     {{ form_widget(form.ville) }}
-  				</div>
-			  </div>
+    </div>
 
-			  <div class="form-group" >
-  				<label class="control-label label col-sm-3 col-xs-12" for="tel">{{ "embauche.tel"|trans({}, "embauche") }}</label>
-  				<div class="col-sm-9 col-xs-12">
-  					     {{ form_widget(form.telephone) }}
-  				</div>
+    <label class="control-label label col-sm-3 col-xs-12">{{ "embauche.ville"|trans({}, "embauche") }}</label>
+    <div class="col-sm-3 col-xs-12">
+      {{ form_widget(form.ville) }}
+    </div>
+  </div>
 
-			  </div>
+  <div class="form-group" >
+    <label class="control-label label col-sm-3 col-xs-12" for="tel">{{ "embauche.tel"|trans({}, "embauche") }}</label>
+    <div class="col-sm-9 col-xs-12">
+      {{ form_widget(form.telephone) }}
+    </div>
 
-			  <div class="form-group">
-  				<label class="control-label label col-sm-3 col-xs-12" for="Nationalité">{{ "embauche.nat"|trans({}, "embauche") }}</label>
-  				<div class="col-sm-3 col-xs-12 append" style="display: inline-flex">
-              {{ form_widget(form.nationalite) }}
-  				</div>
-		 </div>
+  </div>
 
-		<div class="form-group">
-                     <label class="control-label label col-sm-3 col-xs-12">{{ "embauche.ss"|trans({}, "embauche") }}</label>
-                     <div class="col-sm-3 col-xs-12">
-                           {{ form_widget(form.numSecu) }}
-                     </div>
+  <div class="form-group">
+    <label class="control-label label col-sm-3 col-xs-12" for="Nationalité">{{ "embauche.nat"|trans({}, "embauche") }}</label>
+    <div class="col-sm-3 col-xs-12 append" style="display: inline-flex">
+      {{ form_widget(form.nationalite) }}
+    </div>
+  </div>
 
-                     <label class="control-label label col-sm-3 col-xs-12">{{ "embauche.email"|trans({}, "embauche") }}</label>
-                     <div class="col-sm-3 col-xs-12">
-                            {{ form_widget(form.email) }}
-                     </div>
-		</div>
+  <div class="form-group">
+    <label class="control-label label col-sm-3 col-xs-12">{{ "embauche.ss"|trans({}, "embauche") }}</label>
+    <div class="col-sm-3 col-xs-12">
+      {{ form_widget(form.numSecu) }}
+    </div>
 
-		<div class="form-group">
+    <label class="control-label label col-sm-3 col-xs-12">{{ "embauche.email"|trans({}, "embauche") }}</label>
+    <div class="col-sm-3 col-xs-12">
+      {{ form_widget(form.email) }}
+    </div>
+  </div>
 
-				<label class="control-label label col-sm-3 col-xs-12"  for="fam">{{ "embauche.fam"|trans({}, "embauche") }}</label>
-				 <div class="col-sm-3 col-xs-12">
-					      {{ form_widget(form.situationFamille) }}
-				</div>
+  <div class="form-group">
 
-				<label class="control-label label col-sm-3 col-xs-12" for="enf">{{ "embauche.nbenf"|trans({}, "embauche") }}</label>
-				<div class="col-sm-3 col-xs-12">
-					     {{ form_widget(form.nbEnfant) }}
-				</div>
+    <label class="control-label label col-sm-3 col-xs-12"  for="fam">{{ "embauche.fam"|trans({}, "embauche") }}</label>
+    <div class="col-sm-3 col-xs-12">
+      {{ form_widget(form.situationFamille) }}
+    </div>
+
+    <label class="control-label label col-sm-3 col-xs-12" for="enf">{{ "embauche.nbenf"|trans({}, "embauche") }}</label>
+    <div class="col-sm-3 col-xs-12">
+      {{ form_widget(form.nbEnfant) }}
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label label col-sm-3 col-xs-12" for="Nationalité">{{ "embauche.villen"|trans({}, "embauche") }}</label>
+    <div class="col-sm-8 col-xs-12" style="display: inline-flex" >
+      {{ form_widget(form.villeNaissance) }}
+    </div>
+  </div><br/>
+
+  {{ form_end(form) }}
+
+</div>
+
+<!-- .......................... POP-UP ................................-->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 style="color:black;" class="modal-title">{{ "embauche.attention"|trans({}, "embauche") }}</h4>
       </div>
 
-      <div class="form-group">
-        <label class="control-label label col-sm-3 col-xs-12" for="Nationalité">{{ "embauche.villen"|trans({}, "embauche") }}</label>
-        <div class="col-sm-8 col-xs-12" style="display: inline-flex" >
-            {{ form_widget(form.villeNaissance) }}
+      <div class="modal-body">
+
+        <div id="infoEmbauche" class="" >
+          <p style="color:black;">{{ "embauche.msg"|trans({}, "embauche") }}  </br></p>
+
+          <ul>
+            <li>{{ "embauche.pi"|trans({}, "embauche") }}</li>
+            <li>{{ "embauche.diplome"|trans({}, "embauche") }}</li>
+            <li>{{ "embauche.cartev"|trans({}, "embauche") }}</li>
+            <li>{{ "embauche.rib"|trans({}, "embauche") }}</li>
+            <li>{{ "embauche.adhesion"|trans({}, "embauche") }}</li>
+          </ul>
         </div>
-    </div><br/>
 
-    {{ form_end(form) }}
+      </div>
 
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">{{ "embauche.poursuivre"|trans({}, "embauche") }}</button>
+        <button type="button" style="float:left;" class="btn btn-default"  onclick="window.location.href = '{{ path("homepage") }}'">{{ "embauche.retourac"|trans({}, "embauche") }}</button>
+      </div>
+    </div>
+
+  </div>
 </div>
-</div>
+
+
+<script type="text/javascript">
+
+  $('#topNav').css('display','none');
+  $('#myModal').modal('show');
+
+</script>
+
+
 <script>
 $('#demande_embauche_Envoyer').parent().append('<button  onclick="history.back()" class="btn-black precedent">{{ "embauche.back"|trans({}, "embauche") }}</button>');
 </script>
+
 <script>
-  var count = 0;
-  var $situ = $('#demande_embauche_nationalite');
-  // When sport gets selected ...
-  $situ.change(function() {
-    var isChecked = $('#demande_embauche_nationalite_1').prop('checked');
+var count = 0;
+var $situ = $('#demande_embauche_nationalite');
+// When sport gets selected ...
+$situ.change(function() {
+  var isChecked = $('#demande_embauche_nationalite_1').prop('checked');
   if (isChecked && count == 0) {
-        count++
-        var $form = $(this).closest('form');
-        var data = {}
-        data["demande_embauche"] = "test" //$('#form1').serializeObject();
-        console.log(data);
-        // Submit data via AJAX to the form's action path.
-        console.log($form);
-        $.ajax({
-          url : "{{path('rh_embauche')}}",
-          type: $form.attr('method'),
-          data : data,
-          success: function(html) {
-            //console.log(html);
-            // Replace current position field ...
-            var label = $(html).find('label[for="demande_embauche_autre2"]').text();
-            console.log(label);
-            var input = $(html).find('#demande_embauche_autre2').addClass('form-control');
-            var elem = '<div id="at"><label for="demande_embauche_autre2" class="control-label label col-sm-3 col-xs-12 required">' + label + '</label><div id="autre" class="col-sm-3 col-xs-12"></div></div>';
-            $('#demande_embauche_nationalite').parent().parent().append(elem);
-            console.log($(html).find('#demande_embauche_autre2'))
-            input.appendTo('#autre');
-          }
-        });
-      } else if ( count != 0) {
-          $('#at').remove();
-          count = 0;
+    count++
+    var $form = $(this).closest('form');
+    var data = {}
+    data["demande_embauche"] = "test" //$('#form1').serializeObject();
+    console.log(data);
+    // Submit data via AJAX to the form's action path.
+    console.log($form);
+    $.ajax({
+      url : "{{path('rh_embauche')}}",
+      type: $form.attr('method'),
+      data : data,
+      success: function(html) {
+        //console.log(html);
+        // Replace current position field ...
+        var label = $(html).find('label[for="demande_embauche_autre2"]').text();
+        console.log(label);
+        var input = $(html).find('#demande_embauche_autre2').addClass('form-control');
+        var elem = '<div id="at"><label for="demande_embauche_autre2" class="control-label label col-sm-3 col-xs-12 required">' + label + '</label><div id="autre" class="col-sm-3 col-xs-12"></div></div>';
+        $('#demande_embauche_nationalite').parent().parent().append(elem);
+        console.log($(html).find('#demande_embauche_autre2'))
+        input.appendTo('#autre');
       }
-  });
+    });
+  } else if ( count != 0) {
+    $('#at').remove();
+    count = 0;
+  }
+});
 </script>
 
 <script src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script>
@@ -167,10 +202,10 @@ $('#demande_embauche_Envoyer').parent().append('<button  onclick="history.back()
 <link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker.min.css') }}"/>
 
 <script>
-    $('.js-datepicker').datepicker({
-        format: 'dd-mm-yyyy',
-        language: 'fr',
-      });
+$('.js-datepicker').datepicker({
+  format: 'dd-mm-yyyy',
+  language: 'fr',
+});
 </script>
 
 {% endblock %}
