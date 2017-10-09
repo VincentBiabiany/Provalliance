@@ -1,7 +1,7 @@
 embauche.header:        Demande d'embauche
 embauche.back:          Retour
 embauche.attention:     Attention !
-embauche.msg:           Avant de commencer à remplir le formulaire, veuillez vérifier que vous disposez toutes les pièces justificatives suivantes au format électronique \:
+embauche.msg:           Avant de commencer à remplir le formulaire, veuillez vérifier que vous disposez toutes les pièces justificatives suivantes au format électronique :
 embauche.pi:            Pièce d'identité
 embauche.diplome:       Diplôme(s)
 embauche.cartev:        Attestation de carte vitale
@@ -74,6 +74,12 @@ embauche.samedi:        Sa
 
 embauche.autre:         Autre
 
+embauche.sexe:          Sexe
+embauche.sexe.m:        M
+embauche.sexe.f:        F
+
 embauche.step1:         Etape 2
 embauche.step2:         Etape 3
 embauche.send:          Envoyer
+embauche.retourac:      Retourner à l'accueil
+embauche.poursuivre:    Poursuivre
