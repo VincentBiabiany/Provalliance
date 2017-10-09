@@ -14,7 +14,7 @@ Bonjour  {{ personnel.prenom  }} {{ personnel.nom|upper  }} <br/>
     <div class="row">
 
         <div class="col-sm-12">
-            <div id="myDropdown" style="margin:auto;"></div>
+            <div id="myDropdown" class="origin"></div>
         </div>
 
 	{% for flash_message in app.session.flashBag.get('success') %}
@@ -70,7 +70,6 @@ var ddData = [
         data:ddData,
         width:500,
         background: '#fff',
-        imagePosition:"left",
         {% if app.session.get('idSalon') %}
             defaultSelectedIndex:  {{ app.session.get('numero') }},
         {% else %}

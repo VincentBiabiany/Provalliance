@@ -8,6 +8,10 @@
 </div>
 <div class="head" >
   {{ "home_juridique_rh.header"|trans({}, "home_juridique_rh") }}
+
+</div>
+<div class="nomSalon">
+  {{ app.session.get('nomSalon') }}
 </div>
 <div class="container">
   <div id="actions" class="menuActionBig off">
@@ -49,7 +53,7 @@
             <div class="under-block"><p class="carre">{{ "home_juridique_rh.mission"|trans({}, "home_juridique_rh") }}</p></div>
           </div>
         </div>
-        
+
         <button class="btn-black precedent" onclick="window.location.href = '{{ path("homepage") }}'" style="float:none;">Précédent</button>
       </div>
     </div>

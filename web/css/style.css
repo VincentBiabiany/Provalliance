@@ -98,6 +98,16 @@ img#logotop{
 	padding-top: 6px;
 	line-height: 28px;
 }
+
+.nomSalon{
+	background-color: #fff;
+	width: 500px;
+	height: 35px;
+	color: #333;
+	margin: auto;
+	text-align: center;
+  line-height: 30px;
+}
 /* FIN HEADER */
 
 .btn-black{
@@ -718,9 +728,15 @@ span.inactif{
 #myDropdown .dd-select a{
 	font-weight: 100;
 	color: black;
-	text-align: left;
-	width: 265px;
+	text-align: center;
+	width: auto;
 	margin: auto;
+}
+.dd-option-image, .dd-selected-image {
+    float: none !important;
+	}
+#myDropdown.origin .dd-select a{
+	width: 165px;
 }
 #myDropdown .dd-select a label{
 	color: black;
