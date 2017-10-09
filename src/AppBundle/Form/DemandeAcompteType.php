@@ -22,7 +22,7 @@ class DemandeAcompteType extends AbstractType
     {
       $idSalon = $options["idSalon"];
       $idPersonnel = $options["idPersonnel"];
-
+      //Construit le formulaire d'accompte pour le résumé de la demande
       if ($idSalon == null){
         $builder
               ->add('montant', NumberType::class, array(
@@ -58,6 +58,7 @@ class DemandeAcompteType extends AbstractType
                 ))
           ;
       } else {
+
        $builder
                 ->add('montant', IntegerType::class, array(
                      'label' => 'demandeacompte.montant',

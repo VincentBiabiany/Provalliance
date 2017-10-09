@@ -402,11 +402,11 @@ padding-left: 25px;
 }
 
 #fil{
-position: relative;
-width: 650px;
-height: 55px;
-margin-top: 25px;
-
+	position: relative;
+	width: 650px;
+	height: 55px;
+	margin-top: 25px;
+	margin: auto;
 }
 
 #base{
@@ -573,9 +573,8 @@ span.inactif{
  }
 /***** DEMANDE ACCOMPTE FORMULARE ********/
 
-.demande_acompte .form-group {
+.demande_acompte .form-group, #createAccountService  .form-group {
     margin-bottom: 15px;
-    clear: both;
     height: 65px;
 }
 .demande_acompte .form-group .slider-handle {

@@ -72,21 +72,16 @@ class AdminController extends Controller
             //On sauvegarde le salon en cas de retour en arrière
             $request->getSession()->set("idSalonAdmin", $idSalon);
 
+            $entitym = $this->getDoctrine()->getManager();
+            $demandeRepo = $entitym->getRepository('AppBundle:Account');
+            $listePersonnel = $demandeRepo->getPersonnelBySalon($idsalon);
+
             $formS2 = $this->createFormBuilder()
             ->add('nom', EntityType::class, array(
                  // query choices from this entity
                  'class' => 'ApiBundle:Personnel',
                  // use the User.username property as the visible option string
-                 'choice_label' => function ($personnel) {
-                       return $personnel->getNom() ." ". $personnel->getPrenom();
-                     },
-                 'query_builder' => function (EntityRepository $er) use ($idSalon) {
-                     return $er->createQueryBuilder('p')
-                           ->join('p.salon', 'm')
-                           ->where('m.sage = :idSalon')
-                           ->andWhere('p.compte = 0')
-                           ->setParameter('idSalon', $idSalon);
-                  },
+                 'choice' => $listePersonnel,
                  'label' => 'demandeacompte.nom',
                  'translation_domain' => 'demande_acompte'
               ))

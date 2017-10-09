@@ -3,36 +3,21 @@
 						<div id="NotSelect" class="alert alert-danger hide">
 								Vous devez sélectionner un salon
 								<span class="closeAlert glyphicon glyphicon-remove"></span>
-
 					 </div>
-						{{ form_start(form, {'attr': {'id': 'createAccount'} }) }}
+					 {{ form_start(form, {'attr': {'id': 'createAccount'} }) }}
 
-
-										<div style="max-width: 100%; margin: auto;">
-
-											<div class="row">
-													  <div class="form-group" style="padding-top: 50px">
-																<label class="control-label label col-sm-3 col-xs-12" for="salon"> {{ form_label(form.appelation) }}</label>
-																		 <div class="col-sm-6 col-xs-12">
-									 									 				{{ form_widget(form.appelation, { 'attr': {'class': 'form-control'} }) }}
-																		</div>
-													  </div>
-											</div>
-										</div>
-
-						 {{ form_end(form) }}
-						 <a id="form_Suivant" class="btn btn-success" href="#">{{ "admin_create.suivant"|trans({}, "admin_create") }} </a>
-					</div>
-
-	</div>
-</div>
-
-
-
-		</div>
-
-
-	</div>
+							 <div class="form-group">
+								 <label class="control-label label col-sm-3 col-xs-12" for="salon"> {{ form_label(form.appelation) }}</label>
+								 <div class="col-sm-9 col-xs-12">
+									 {{ form_widget(form.appelation, { 'attr': {'class': 'form-control'} }) }}
+								 </div>
+							 </div>
+						 <div id="actionsButtons">
+				 			{{ form_end(form) }}
+									<a id="form_Suivant" class="btn btn-success" href="#">
+											{{ "admin_create.suivant"|trans({}, "admin_create") }}
+								  </a>
+				 		 </div>
 
 	<script type="text/javascript">
 

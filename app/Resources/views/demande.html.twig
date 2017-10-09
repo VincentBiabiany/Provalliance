@@ -5,13 +5,13 @@
 <div class="container">
 	<div class="header">
 		<img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
-		<hr/>
-		<span id="nomSalon">{{ app.session.get('nomSalon') }}</span>
 	</div>
 	<div class="head">
 		{{ "suividemande.header"|trans({}, "suivi_demandes") }}
 	</div>
-
+	<div class="nomSalon">
+	  {{ app.session.get('nomSalon') }}
+	</div>
 	{% for flash_message in app.session.flashBag.get('success') %}
 		<div id="flashDemande" class="alert alert-success success">
 			{{ flash_message }}
