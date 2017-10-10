@@ -1,33 +1,27 @@
 <?php
 //
-namespace AppBundle\Admin\Repository;
+namespace AppBundle\Repository\Admin;
 use Doctrine\ORM\EntityRepository;
+use ApiBundle\Entity\Personnel;
 
 class AccountRepository extends EntityRepository
 {
+  //Fonction getAccountOFF : Récupere tout le personnel n'ayant pas encore de compte utilisateur
 
-  public function getPersonnelBySalon($idsalon) {
-        //recupere tout le personnel du salon ayant pour id $idsalon
-        $em = $this->getDoctrine()->getManager("referentiel");
-        $listes = $em->getRepository('ApiBundle:Personnel')
-                    ->findBy(array('salon' => $idsalon));
+  public function getAccountOff($idsalon) {
+        $qb = $this->createQueryBuilder('p');
+        $listes = $qb->select('p')
+                  ->where("p.etat = :etat")
+                  ->setParameter('etat', 0)
+                  ->getQuery()
+                  ->getResult();
 
-        //supprime les personnels ayant deja un compte utilisateur
-        foreach ($listes as $Personnel ) {
-          $em2 = $this->getDoctrine()->getManager()->getRepository('AppBundle:Account');
+            foreach ($listes as $liste ) {
 
-              if ( $Personnel->getEtat() == 1){
-                    unset($listes[$Personnel]);
-
-              }
-
-        }
-        return listes;
+                $personnel[]= $liste->getIdPersonnel();
+            }
+            return $personnel;
     }
 
-
-  public function getState($idsalon) {
-
-  }
 
 }

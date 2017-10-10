@@ -73,15 +73,16 @@ class AdminController extends Controller
             $request->getSession()->set("idSalonAdmin", $idSalon);
 
             $entitym = $this->getDoctrine()->getManager();
-            $demandeRepo = $entitym->getRepository('AppBundle:Account');
-            $listePersonnel = $demandeRepo->getPersonnelBySalon($idsalon);
+            $accountRepo = $entitym->getRepository('AppBundle:Account');
+            $listeAccount = $accountRepo->getAccountOff($idSalon);
+
+            $entity = $this->getDoctrine()->getManager('referentiel');
+            $personnelRepo = $entity->getRepository('ApiBundle:Personnel');
+            $listePerso = $personnelRepo->getPerso($listeAccount,$idSalon);
 
             $formS2 = $this->createFormBuilder()
-            ->add('nom', EntityType::class, array(
-                 // query choices from this entity
-                 'class' => 'ApiBundle:Personnel',
-                 // use the User.username property as the visible option string
-                 'choice' => $listePersonnel,
+            ->add('nom', ChoiceType::class, array(
+                 'choices' => $listePerso,
                  'label' => 'demandeacompte.nom',
                  'translation_domain' => 'demande_acompte'
               ))
