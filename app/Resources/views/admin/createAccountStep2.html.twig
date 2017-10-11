@@ -1,17 +1,21 @@
 
 {% trans_default_domain "demandeacompte" %}
 
-{{ form_start(formS2, {'attr': {'id': 'createAccountS2'} }) }}
-							  <div class="form-group" style="padding-top: 50px">
+{{ form_start(formS2, {'attr': {'id': 'createAccountS2', 'class':'createAccount'} }) }}
+							  <div class="form-group">
 										<label class="control-label label col-sm-3 col-xs-12" for="salon"> {{ form_label(formS2.nom) }}</label>
-												 <div class="col-sm-6 col-xs-12">
+												 <div class="col-sm-9 col-xs-12">
 			 									 				{{ form_widget(formS2.nom, { 'attr': {'class': 'form-control'} }) }}
 												</div>
 							  </div>
 						<div id="actionsButtons">
  								{{ form_end(formS2) }}
- 								<a id="form_Suivant" class="btn btn-success suivant" href="#">{{ "admin_create.suivant"|trans({}, "admin_create") }} </a>
- 								<a id="form_Precedent" class="btn btn-default" href="#">{{ "admin_create.precedent"|trans({}, "admin_create") }} </a>
+								<a id="form_Suivant" class="btn-black end" href="#">
+										{{ "global.next"|trans({}, "global") }}
+								</a>
+ 								<a id="form_Precedent" class="btn-black precedent" href="#">
+										{{ "global.back"|trans({}, "global") }}
+ 								</a>
 						</div>
 
 

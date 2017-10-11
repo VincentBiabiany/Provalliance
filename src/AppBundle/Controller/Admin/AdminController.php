@@ -118,7 +118,7 @@ class AdminController extends Controller
             'label' => 'Créer un utilisateur',
             'translation_domain' => 'FOSUserBundle',
             'attr' => array(
-                  'class' => 'btn btn-primary'
+                  'class' => 'btn-black end'
                    )
                   )
             );
@@ -186,10 +186,10 @@ class AdminController extends Controller
          $form ->add('email', EmailType::class, array(
                   'required'  => false));
          $form-> add('Valider', SubmitType::class, array(
-               'label' => 'Créer un utilisateur',
+               'label' => 'Créer un service',
                'translation_domain' => 'FOSUserBundle',
                'attr' => array(
-                     'class' => 'btn btn-primary'
+                     'class' => 'btn-black end'
                       )
                      )
                );

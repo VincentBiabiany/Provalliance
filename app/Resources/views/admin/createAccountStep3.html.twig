@@ -5,47 +5,47 @@
   Vous  êtes sur le point de créer un compte Manager
 </div>
 
-{{ form_start(formS3, {'attr': {'id': 'createAccountS3'} } ) }}
+{{ form_start(formS3, {'attr': {'id': 'createAccountS3', 'class':'createAccount'} } ) }}
 
-							  <div class="form-group" style="padding-top: 50px">
+							  <div class="form-group">
 										<label class="control-label label col-sm-3 col-xs-12" for="salon"> {{ form_label(formS3.username) }}</label>
-												 <div class="col-sm-4 col-xs-12">
+												 <div class="col-sm-9 col-xs-12">
 			 									 				{{ form_widget(formS3.username, { 'attr': {'class': 'form-control','value':'test'} }) }}
 												</div>
 							  </div>
-							  <div class="form-group" style="padding-top: 50px">
+							  <div class="form-group">
 										<label class="control-label label col-sm-3 col-xs-12" for="salon"> {{ form_label(formS3.plainPassword.first) }}</label>
-												 <div class="col-sm-4 col-xs-12">
+												 <div class="col-sm-9 col-xs-12">
 			 									 				{{ form_widget(formS3.plainPassword.first, { 'attr': {'class': 'form-control','value':'azert'} }) }}
 												</div>
 							  </div>
-							  <div class="form-group" style="padding-top: 50px">
+							  <div class="form-group">
 										<label class="control-label label col-sm-3 col-xs-12" for="salon"> {{ form_label(formS3.plainPassword.second) }}</label>
-												 <div class="col-sm-4 col-xs-12">
+												 <div class="col-sm-9 col-xs-12">
 			 									 				{{ form_widget(formS3.plainPassword.second, { 'attr': {'class': 'form-control','value':'azert'} }) }}
 												</div>
 							  </div>
-								<div class="form-group" style="padding-top: 50px">
+								<div class="form-group">
 										<label class="control-label label col-sm-3 col-xs-12" for="salon"> {{ form_label(formS3.roles) }}</label>
-												 <div class="col-sm-4 col-xs-12">
+												 <div class="col-sm-9 col-xs-12">
 			 									 				{{ form_widget(formS3.roles, { 'attr': {'class': 'form-control'} }) }}
 												</div>
 							  </div>
-							  <div class="form-group" style="padding-top: 50px">
+							  <div class="form-group">
 										<label class="control-label label col-sm-3 col-xs-12" for="salon"> {{ form_label(formS3.enabled) }}</label>
-												 <div class="col-sm-8 col-xs-12">
+												 <div class="col-sm-9 col-xs-12">
 			 									 				{{ form_widget(formS3.enabled, { 'attr': {'class': ''} }) }}
 												</div>
 							  </div>
-								<div class="form-group" style="padding-top: 50px">
+								<div class="form-group">
 										<label class="control-label label col-sm-3 col-xs-12" for="salon"> {{ form_label(formS3.email) }}</label>
-												 <div class="col-sm-6 col-xs-12">
+												 <div class="col-sm-9 col-xs-12">
 																{{ form_widget(formS3.email, { 'attr': {'class': 'form-control'} }) }}
 												</div>
 								</div>
 								<div id="actionsButtons">
 									{{ form_end(formS3) }}
-									<a id="form_Precedent" class="btn btn-default precedent" href="#">{{ "admin_create.precedent"|trans({}, "admin_create") }} </a>
+									<a id="form_Precedent" class="btn-black precedent" href="#">{{ "admin_create.precedent"|trans({}, "admin_create") }} </a>
 	 				 		  </div>
  <script type="text/javascript">
 

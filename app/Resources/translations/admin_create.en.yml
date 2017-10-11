@@ -3,3 +3,5 @@ admin_create.personnel: Personnel
 admin_create.envoyer: Send
 admin_create.suivant: Next
 admin_create.precedent: Previous
+admin_create.titre: Choix du type de compte
+admin_create.creation: Créer un compte
