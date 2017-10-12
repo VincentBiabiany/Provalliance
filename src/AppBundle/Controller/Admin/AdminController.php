@@ -103,20 +103,27 @@ class AdminController extends Controller
       $formS3 ->add('idPersonnel', HiddenType::class, array(
                       'data' => $idPersonnel));
       $formS3 ->add('enabled', ChoiceType::class, array(
-              'choices'  => array('Activer' => 1,'Desactiver' => 0),
-                     'expanded' => true,
-                     'multiple' => false));
+              'choices'  => array('Activer' => 1,'Désactiver' => 0),
+              'expanded' => true,
+              'multiple' => false,
+              'label' => 'admin_create.etat',
+              'translation_domain' => 'admin_create'
+                      ));
       $formS3 ->add('roles', ChoiceType::class, array(
-               'choices' => array('Manager' => 'ROLE_MANAGER', 'COORDINATEUR' => 'ROLE_COORD'),
+               'choices' => array('Manager' => 'ROLE_MANAGER', 'Coordinateur' => 'ROLE_COORD'),
                'expanded' => false,
                'multiple' => false,
                'mapped' => false,
+               'label' => 'admin_create.role',
+               'translation_domain' => 'admin_create'
            ) );
       $formS3 ->add('email', EmailType::class, array(
-               'required'  => false));
+               'required'  => false,
+               'label' => 'admin_create.email',
+               'translation_domain' => 'admin_create'));
       $formS3-> add('Valider', SubmitType::class, array(
-            'label' => 'Créer un utilisateur',
-            'translation_domain' => 'FOSUserBundle',
+            'label' => 'global.valider',
+            'translation_domain' => 'global',
             'attr' => array(
                   'class' => 'btn-black end'
                    )
@@ -150,6 +157,8 @@ class AdminController extends Controller
 
                        $newUser->addRole("ROLE_MANAGER");
                        $newUser->setLastLogin(new \DateTime());
+                       $newUser->setCreation(new \DateTime());
+
 
                        $em->persist($newUser);
                        $em->flush();
@@ -174,24 +183,28 @@ class AdminController extends Controller
          $form ->add('idPersonnel', HiddenType::class, array(
                          'data' => 0));
          $form ->add('enabled', ChoiceType::class, array(
-                 'choices'  => array('Activer' => 1,'Desactiver' => 0),
-                        'expanded' => true,
-                        'multiple' => false));
+                  'choices'  => array('Activer' => 1,'Desactiver' => 0),
+                  'expanded' => true,
+                  'multiple' => false,
+                  'label' => 'admin_create.etat',
+                  'translation_domain' => 'admin_create'));
          $form ->add('roles', ChoiceType::class, array(
                   'choices' => array('Service Paie' => 'ROLE_PAIE', 'Service Juridique / RH ' => 'ROLE_Juridique'),
                   'expanded' => false,
                   'multiple' => false,
                   'mapped' => false,
+                  'label' => 'admin_create.role',
+                  'translation_domain' => 'admin_create'
               ) );
          $form ->add('email', EmailType::class, array(
-                  'required'  => false));
+                  'required'  => false,
+                  'label' => 'admin_create.email',
+                  'translation_domain' => 'admin_create'));
          $form-> add('Valider', SubmitType::class, array(
-               'label' => 'Créer un service',
-               'translation_domain' => 'FOSUserBundle',
+               'label' => 'global.valider',
+               'translation_domain' => 'global',
                'attr' => array(
-                     'class' => 'btn-black end'
-                      )
-                     )
+                     'class' => 'btn-black end'))
                );
 
                if ($request->isMethod('POST')) {
@@ -215,6 +228,7 @@ class AdminController extends Controller
                           $roles= $form["roles"]->getData();
                           $newUser->addRole($roles);
                           $newUser->setLastLogin(new \DateTime());
+                          $newUser->setCreation(new \DateTime());
 
                           $em->persist($newUser);
                           $em->flush();
@@ -243,8 +257,7 @@ class AdminController extends Controller
                      'placeholder' => ' Choisir un salon',
                      'translation_domain' => 'admin_create'
                   ))
-                ->getForm()
-           ;
+                ->getForm();
 
    return $this->render('admin/listeAccount.html.twig',['form'=>$form->createView()]);
 
@@ -280,20 +293,21 @@ class AdminController extends Controller
 
       foreach ($users as $user) {
 
-      $date = $user->getLastLogin();
+
       $url= $this->generateUrl('editAccount', array('idUser' => $user->getId()));
       $userRole = $user->getRoles();
-      if ($user->isEnabled())
-      {
-         $state = "actif";
-      }else{
-         $state = "inactif";
-      }
+
+      //Condition pour déterminer l'état d'un compte
+      if ($user->isEnabled()) { $state = "actif"; }else{ $state = "inactif"; }
+
+      //Condition pour déterminer la date de dernière Connexion d'un compte
+      if ($user->getCreation() == $user->getLastLogin()) { $date = 'n/a'; }else{ $date = $user->getLastLogin(); $date= $date->format('d-m-Y H:i'); }
+
       $output['data'][] = [
           'id'               => $user->getId(),
           ''                 => '<a href ='.$url.'><span class="glyphicon glyphicon-search click"></span></a>',
           'User'             => $user->getUsername(),
-          'Dernière Connexion'  => $date->format('d-m-Y H:i'),
+          'Dernière Connexion'  => $date,
           'Rôle'             =>    $userRole[0],
           'Actif'            => '<span class="state '.$state.'"></span>',
         ];
@@ -339,22 +353,30 @@ class AdminController extends Controller
                                       'data' => $userMdp));
                       $form ->add('enabled', ChoiceType::class, array(
                               'choices'  => array('Activer' => 1,'Desactiver' => 0),
-                                    'expanded' => true,
-                                    'multiple' => false,
-                                    'data' => $userState)
+                              'expanded' => true,
+                              'multiple' => false,
+                              'data' => $userState,
+                              'label' => 'admin_create.etat',
+                              'translation_domain' => 'admin_create')
                                  );
                       $form ->add('roles', ChoiceType::class, array(
                                'choices' => array('Administrateur' => 'ROLE_ADMIN', 'Service Paie' => 'ROLE_PAIE', 'Service Juridique' => 'ROLE_Juridique'),
                                'expanded' => false,
                                'multiple' => false,
                                'mapped' => false,
-                               'data' => $userRole[0])
+                               'data' => $userRole[0],
+                               'label' => 'admin_create.role',
+                               'translation_domain' => 'admin_create')
                             );
+                      $form ->add('email', EmailType::class, array(
+                               'required'  => false,
+                               'label' => 'admin_create.email',
+                               'translation_domain' => 'admin_create'));
                       $form-> add('Valider', SubmitType::class, array(
-                            'label' => 'Valider',
-                            'translation_domain' => 'FOSUserBundle',
+                            'label' => 'global.valider',
+                            'translation_domain' => 'global',
                             'attr' => array(
-                                 'class' => 'btn btn-primary'
+                                 'class' => 'btn-black end'
                                    )
                                  )
                             );
@@ -364,7 +386,7 @@ class AdminController extends Controller
 
                            $form->handleRequest($request);
 
-                           if ($form->isValid()) {
+                           if ($form->isSubmitted()) {
                               //On enregistre les données principales
                               $task = $form->getData();
                               $em = $this->getDoctrine()->getManager();
@@ -403,21 +425,21 @@ class AdminController extends Controller
 
      }
       //On récupere le Personnel associé au compte
-      $userIdPersonnel = $user->getIdPersonnel();
-      $req= $this->getDoctrine()->getManager('referentiel');
-      $personnel = $req->getRepository('ApiBundle:Personnel')->findOneBy(array('matricule' => $userIdPersonnel));
-
-      $identitePersonnel = $personnel->getNom().' '.$personnel->getPrenom();
+      // $userIdPersonnel = $user->getIdPersonnel();
+      // $req= $this->getDoctrine()->getManager('referentiel');
+      // $personnel = $req->getRepository('ApiBundle:Personnel')->findOneBy(array('matricule' => $userIdPersonnel));
+      //
+      // $identitePersonnel = $personnel->getNom().' '.$personnel->getPrenom();
 
 
       $formFactory = $this->get('fos_user.change_password.form.factory');
 
       $form = $formFactory->createForm();
       $form-> add('Changer', SubmitType::class, array(
-            'label' => 'Changer',
-            'translation_domain' => 'FOSUserBundle',
+            'label' => 'global.valider',
+            'translation_domain' => 'global',
             'attr' => array(
-                 'class' => 'btn btn-primary'
+                 'class' => 'btn-black end'
                    )
                  )
             );
@@ -440,8 +462,7 @@ class AdminController extends Controller
         }
 
         return $this->render('admin/changePassword.html.twig', array(
-         'form' => $form->createView(),
-         'identitePersonnel' => $identitePersonnel
-      ));
+         'form' => $form->createView()
+       ));
     }
 }

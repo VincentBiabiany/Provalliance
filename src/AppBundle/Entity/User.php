@@ -31,7 +31,12 @@ class User extends BaseUser
         parent::__construct();
         // your own logic
     }
-
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="creation", type="datetime")
+     */
+    private $creation;
     /**
      * @ORM\PrePersist
      */
@@ -61,5 +66,28 @@ class User extends BaseUser
     public function getIdPersonnel()
     {
         return $this->idPersonnel;
+    }
+    /**
+     * Set creation
+     *
+     * @param \DateTime $creation
+     *
+     * @return User
+     */
+    public function setCreation($creation)
+    {
+        $this->creation = $creation;
+
+        return $this;
+    }
+
+    /**
+     * Get creation
+     *
+     * @return \DateTime
+     */
+    public function getCreation()
+    {
+        return $this->creation;
     }
 }

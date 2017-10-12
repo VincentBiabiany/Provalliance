@@ -89,6 +89,25 @@
 									"searchable": true
 							}
 					],
+					"language":
+								{
+								 "processing":     "{{ "datatable.processing"|trans({}, "datatable") }}",
+								 "search":         "{{ "datatable.search"|trans({}, "datatable") }}",
+								 "lengthMenu":     "{{ "datatable.lengthMenu"|trans({}, "datatable") }}",
+								 "info":           "{{ "datatable.info"|trans({}, "datatable") }}",
+								 "infoEmpty":      "{{ "datatable.infoEmpty"|trans({}, "datatable") }}",
+								 "infoFiltered":   "{{ "datatable.infoFiltered"|trans({}, "datatable") }}",
+								 "infoPostFix":    "",
+								 "loadingRecords": "{{ "datatable.loadingRecords"|trans({}, "datatable") }}",
+								 "zeroRecords":    "{{ "datatable.zeroRecords"|trans({}, "datatable") }}",
+								 "emptyTable":     "{{ "datatable.emptyTable"|trans({}, "datatable") }}",
+								 "paginate": {
+										 "first":      "{{ "datatable.first"|trans({}, "datatable") }}",
+										 "previous":   "{{ "datatable.previous"|trans({}, "datatable") }}",
+										 "next":       "{{ "datatable.next"|trans({}, "datatable") }}",
+										 "last":       "{{ "datatable.last"|trans({}, "datatable") }}"
+									 }
+							 },
 					"fnRowCallback": function( nRow, columns, iDisplayIndex ) {
 						 if ( columns.statut == "En cours")
 						  {
