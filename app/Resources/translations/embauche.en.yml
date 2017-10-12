@@ -1,7 +1,7 @@
 embauche.header:        Job application
 embauche.back:          Back
 embauche.attention:     Be carefull!
-embauche.msg:           Before starting to fill this form, please verify if you posses all these following documents in electronic format \:
+embauche.msg:           Before starting to fill this form, please verify if you posses all these following documents in electronic format :
 embauche.pi:            Identity Document
 embauche.diplome:       Diploma
 embauche.cartev:        Health insurance card
@@ -70,9 +70,16 @@ embauche.mardi:         Tue
 embauche.mercredi:      Wed
 embauche.jeudi:         Thu
 embauche.vendredi:      Fri
+embauche.samedi:        Sat
 
 embauche.autre:         Precise
+
+embauche.sexe:          Sexe
+embauche.sexe.m:        M
+embauche.sexe.f:        F
 
 embauche.step1:         Step 2
 embauche.step2:         Step 3
 embauche.send:          Send
+embauche.retourac:      Back to home
+embauche.poursuivre:    Continue
