@@ -3,5 +3,13 @@ admin_create.personnel: Personnel
 admin_create.envoyer: Send
 admin_create.suivant: Next
 admin_create.precedent: Previous
+admin_create.back: Back
 admin_create.titre: Choix du type de compte
 admin_create.creation: Créer un compte
+
+admin_create.nom: Username
+admin_create.etat: State
+admin_create.password1: Password
+admin_create.password2: Repeat password
+admin_create.role: Role
+admin_create.email: E-mail
