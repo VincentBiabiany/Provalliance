@@ -203,6 +203,58 @@ table.dataTable thead th, table.dataTable thead td ,table.dataTable tfoot th, ta
 	margin-top: 30px;
 
 }
+#chgPwd{
+	position: relative;
+	color: black;
+	display: block;
+	top: 20px;
+	margin-left: 15px;
+	height: 45px;
+	background-color: white;
+	padding-left: 15px;
+	line-height: 43px;
+	width: 190px;
+}
+.containerModal{
+	margin: 0;
+	background-color: #f7f7f7;
+}
+
+.containerModal #actions{
+	margin: auto;
+
+}
+ form#changePassword{
+	 margin-top: 15px;
+	 width: 450px;
+	 position: relative;
+	 margin-bottom: 10px;
+
+ }
+
+#changePassword .form-group .label{
+	width: 100% !important;
+}
+#changePassword .form-group{
+	height: 90px !important;
+}
+
+.modal-footer {
+     border-top: none;
+}
+.modal-footer .closeAlert {
+    right: 7px !important;
+	}
+.allForm .form-group{
+margin-bottom: 15px;
+height: 65px;
+}
+#fos_user_change_password_form_Changer{
+	width: 70%;
+	float: none;
+	margin: auto;
+	display: block;
+}
 #wrapperForm{
 	width: 875px;
 	margin: auto;
@@ -563,28 +615,6 @@ span.inactif{
 	background-color: red;
 }
 
-#chgPwd{
-	position: relative;
-	color: black;
-	display: block;
-	top: 20px;
-	margin-left: 15px;
-}
-.containerModal{
-	margin: 0;
-}
-
-.containerModal #actions{
-	margin: auto;
-
-}
- form#changePassword{
-	 margin-top: 15px;
-	 width: 450px;
-	 position: relative;
-	 margin-bottom: 10px;
-
- }
 
  /***** DEMANDE ******/
  #flashDemande{
@@ -625,11 +655,11 @@ span.inactif{
  }
 /***** DEMANDE ACCOMPTE FORMULARE ********/
 
-.demande_acompte .form-group,
+/*.demande_acompte .form-group,
  #createAccountService  .form-group, .createAccount .form-group {
     margin-bottom: 15px;
     height: 65px;
-}
+}*/
 .demande_acompte .form-group .slider-handle {
     background-color: #B39C8C;
 		background-image : none;
