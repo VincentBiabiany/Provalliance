@@ -3,6 +3,8 @@
 
 {% block body %}
 {% trans_default_domain "demandeacompte" %}
+<div class="header">
+</div>
 <div class="head">
 	Administration - Gestion des Utilisateurs
 </div>
@@ -15,20 +17,20 @@
 					<tr>
 						<th>id</th>
 						<th class="click"></th>
-						<th>Personnel</th>
-						<th>Dernière Connexion</th>
-						<th>Rôle</th>
-						<th>Actif</th>
+						<th>{{ "datatable.personnel"|trans({}, "datatable") }}</th>
+						<th>{{ "datatable.connexion"|trans({}, "datatable") }}</th>
+						<th>{{ "datatable.role"|trans({}, "datatable") }}</th>
+						<th>{{ "datatable.actif"|trans({}, "datatable") }}</th>
 					</tr>
 					</thead>
 					<tfoot>
 					<tr>
 						<th>id</th>
 						<th class="click"></th>
-						<th>Personnel</th>
-						<th>Dernière Connexion</th>
-						<th>Rôle</th>
-						<th>Actif</th>
+						<th>{{ "datatable.personnel"|trans({}, "datatable") }}</th>
+						<th>{{ "datatable.connexion"|trans({}, "datatable") }}</th>
+						<th>{{ "datatable.role"|trans({}, "datatable") }}</th>
+						<th>{{ "datatable.actif"|trans({}, "datatable") }}</th>
 					</tr>
 					</tfoot>
 					<tbody>
@@ -36,9 +38,10 @@
 				</table>
 				<br/>
 				<br/>
-				<div class="col-sm-12" style=" max-width:1200px;margin:auto;float:none;">
+				<div class="col-sm-12">
 						<div class="col-sm-6 block">
-								<button class="btn-black" onclick="window.location.href = '{{ path("adminHome") }}'" style="float:none;">Précédent</button>
+								<button class="btn-black precedent" onclick="window.location.href = '{{ path("adminHome") }}'">		{{ "global.back"|trans({}, "global") }}
+</button>
 						</div>
 
 				</div>
@@ -46,12 +49,7 @@
 </div>
 
 		</div>
-
-
 	</div>
-
-
-
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/jquery.dataTables.min.css') }}">
 	<script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
 	<script type="text/javascript">
@@ -82,6 +80,25 @@
 										"searchable": false
 								}
 						],
+						"language":
+							    {
+									 "processing":     "{{ "datatable.processing"|trans({}, "datatable") }}",
+									 "search":         "{{ "datatable.search"|trans({}, "datatable") }}",
+									 "lengthMenu":     "{{ "datatable.lengthMenu"|trans({}, "datatable") }}",
+									 "info":           "{{ "datatable.info"|trans({}, "datatable") }}",
+									 "infoEmpty":      "{{ "datatable.infoEmpty"|trans({}, "datatable") }}",
+									 "infoFiltered":   "{{ "datatable.infoFiltered"|trans({}, "datatable") }}",
+									 "infoPostFix":    "",
+									 "loadingRecords": "{{ "datatable.loadingRecords"|trans({}, "datatable") }}",
+									 "zeroRecords":    "{{ "datatable.zeroRecords"|trans({}, "datatable") }}",
+									 "emptyTable":     "{{ "datatable.emptyTable"|trans({}, "datatable") }}",
+									 "paginate": {
+											 "first":      "{{ "datatable.first"|trans({}, "datatable") }}",
+											 "previous":   "{{ "datatable.previous"|trans({}, "datatable") }}",
+											 "next":       "{{ "datatable.next"|trans({}, "datatable") }}",
+											 "last":       "{{ "datatable.last"|trans({}, "datatable") }}"
+										 }
+				 				 },
 						"fnRowCallback": function( nRow, columns, iDisplayIndex ) {
 
 					 }

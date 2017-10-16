@@ -63,8 +63,8 @@ embauche.cdd.nom:       Name of replaced
 embauche.cdd.date:      Until
 embauche.cdd.renouv:    Renouvellement du CDD pour le même motif
 embauche.cdd.retour:    Until physical return
+embauche.cdd.partiel:   Part time
 
-embauche.partiel:       Part time
 embauche.lundi:         Mon
 embauche.mardi:         Tue
 embauche.mercredi:      Wed

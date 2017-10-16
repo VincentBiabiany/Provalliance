@@ -33,71 +33,71 @@ class DemandeController extends Controller
 
     public function wichService($typeFilter,$column,$dir,$idsalon,$search,$start,$length){
 
-                //Requete en bdd en fonction du type de filre
-                if (($typeFilter == 'x') or ($typeFilter == 'init') or ($typeFilter == 'search')) {
-                    $repository = $this->getDoctrine()
-                                        ->getRepository('AppBundle:DemandeEntity');
+      //Requete en bdd en fonction du type de filre
+      if (($typeFilter == 'x') or ($typeFilter == 'init') or ($typeFilter == 'search')) {
+        $repository = $this->getDoctrine()
+        ->getRepository('AppBundle:Demande');
 
-                        if (in_array('ROLE_PAIE', $this->getUser()->getRoles(), true)) {
-                               $query = $repository->createQueryBuilder('p')
-                                           ->where('p.service = :serviceUser')
-                                           ->setParameter('serviceUser', 'paie')
-                                           ->orderBy('p.dateTraitement', 'DESC')
-                                           ->setFirstResult( $start )
-                                           ->setMaxResults( $length )
-                                           ->getQuery();
+        if (in_array('ROLE_PAIE', $this->getUser()->getRoles(), true)) {
+          $query = $repository->createQueryBuilder('p')
+          ->where('p.service = :serviceUser')
+          ->setParameter('serviceUser', 'paie')
+          ->orderBy('p.dateTraitement', 'DESC')
+          ->setFirstResult( $start )
+          ->setMaxResults( $length )
+          ->getQuery();
 
-                        } else if (in_array('ROLE_JURIDIQUE', $this->getUser()->getRoles(), true)){
-                                $query = $repository->createQueryBuilder('p')
-                                             ->where('p.service = :serviceUser')
-                                             ->setParameter('serviceUser', 'juridique')
-                                             ->orderBy('p.dateTraitement', 'DESC')
-                                             ->setFirstResult( $start )
-                                             ->setMaxResults( $length )
-                                             ->getQuery();
-                        } else {
+        } else if (in_array('ROLE_JURIDIQUE', $this->getUser()->getRoles(), true)){
+          $query = $repository->createQueryBuilder('p')
+          ->where('p.service = :serviceUser')
+          ->setParameter('serviceUser', 'juridique')
+          ->orderBy('p.dateTraitement', 'DESC')
+          ->setFirstResult( $start )
+          ->setMaxResults( $length )
+          ->getQuery();
+        } else {
 
-                                $query = $repository->createQueryBuilder('p')
-                                            ->where('p.idSalon = :salon')
-                                            ->setParameter('salon', $idsalon)
-                                            ->orderBy('p.dateTraitement', 'DESC')
-                                            ->setFirstResult( $start )
-                                            ->setMaxResults( $length )
-                                            ->getQuery();
-                        }
+          $query = $repository->createQueryBuilder('p')
+          ->where('p.idSalon = :salon')
+          ->setParameter('salon', $idsalon)
+          ->orderBy('p.dateTraitement', 'DESC')
+          ->setFirstResult( $start )
+          ->setMaxResults( $length )
+          ->getQuery();
+        }
 
-                                        $demandes = $query->getResult();
+        $demandes = $query->getResult();
 
-                        //Affichage via filtre "normaux"
-                    }else if($typeFilter == 'default'){
-                        if (in_array('ROLE_PAIE', $this->getUser()->getRoles(), true)) {
-                          $demandes = $this->getDoctrine()
-                                           ->getManager()->getRepository('AppBundle:DemandeEntity')
-                                           ->findBy(array("service" => "paie"),
-                                                    array($column => $dir),
-                                                          $length, $start);
+        //Affichage via filtre "normaux"
+      }else if($typeFilter == 'default'){
+        if (in_array('ROLE_PAIE', $this->getUser()->getRoles(), true)) {
+          $demandes = $this->getDoctrine()
+          ->getManager()->getRepository('AppBundle:Demande')
+          ->findBy(array("service" => "paie"),
+          array($column => $dir),
+          $length, $start);
 
-                        } else if (in_array('ROLE_JURIDIQUE', $this->getUser()->getRoles(), true)){
-                          $demandes = $this->getDoctrine()
-                                           ->getManager()->getRepository('AppBundle:DemandeEntity')
-                                           ->findBy(array("service" => "juridique"),
-                                                    array($column => $dir),
-                                                          $length, $start);
-                        } else {
-                          $demandes = $this->getDoctrine()
-                                           ->getManager()->getRepository('AppBundle:DemandeEntity')
-                                           ->findBy(array("idSalon" => $idsalon),
-                                                    array($column => $dir),
-                                                          $length, $start);
-                        }
-                    }
-                        return $demandes;
+        } else if (in_array('ROLE_JURIDIQUE', $this->getUser()->getRoles(), true)){
+          $demandes = $this->getDoctrine()
+          ->getManager()->getRepository('AppBundle:Demande')
+          ->findBy(array("service" => "juridique"),
+          array($column => $dir),
+          $length, $start);
+        } else {
+          $demandes = $this->getDoctrine()
+          ->getManager()->getRepository('AppBundle:Demande')
+          ->findBy(array("idSalon" => $idsalon),
+          array($column => $dir),
+          $length, $start);
+        }
+      }
+      return $demandes;
     }
 
 
     public function displayDemandes($typeFilter,$column,$dir,$idsalon,$search,$start,$length){
         //Requete dans la bdd en fonction de la colonne et de la direction récupérée
-     $demandes = self::wichService($typeFilter,$column,$dir,$idsalon,$search,$start,$length);
+        $demandes = self::wichService($typeFilter,$column,$dir,$idsalon,$search,$start,$length);
 
           $entitym = $this->getDoctrine()->getManager();
           $demandeRepo = $entitym->getRepository('AppBundle:DemandeEntity');
@@ -157,13 +157,9 @@ class DemandeController extends Controller
               }
               array_multisort($col, $direction, $output['data']);
               return $output;
-
          }else{
-
              return $output;
-
       }
-
    }
 
 

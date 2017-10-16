@@ -8,10 +8,12 @@
 	<div class="header">
 	</div>
 	<div class="head">
-		{{ "admin_home.header"|trans({}, "admin_home") }}
+		{{ "admin_create.titre"|trans({}, "admin_create") }}
 	</div>
 	<div class="container">
-<div id="actions" class="off">
+		<div class="row" >
+
+<div id="actions" class="menuAction">
 		{% for flash_message in app.session.flashBag.get('success') %}
 		<div class="alert alert-success success">
 			{{ flash_message }}
@@ -19,32 +21,19 @@
 		</div>
 	{% endfor %}
 	<div class="col-sm-12" >
-
-			<div class="row" >
-<h4 class="SubtitleAdmin">Quel type de compte souhaitez-vous créer ?</h4>
-	        <div class="col-sm-12" style="padding-top:40px; max-width:1200px; margin:auto;">
-	            <div class="col-sm-6 block">
-
-	                <div class="under-block" onclick="window.location.href ='{{ path("createAccountManager") }}'"><p class="carre">{{ "admin_home_create.manager"|trans({}, "admin_home") }}</p></div>
-	            </div>
-	            <div class="col-sm-6 block">
-	                <div class="under-block" onclick="window.location.href ='{{ path("createAccountService") }}'"><p class="carre">{{ "admin_home_create.service"|trans({}, "admin_home") }}</p></div>
-	            </div>
-	        </div>
-
-	        <div class="col-sm-12" style=" max-width:1200px;margin:auto;float:none;">
-	            <div class="col-sm-6 block">
-	                <button class="btn-black precedent" onclick="window.location.href = '{{ path("adminHome") }}'">{{ "admin_home_create.back"|trans({}, "admin_home") }}</button>
-	            </div>
-
-	        </div>
-	    </div>
+		<div class="col-sm-6 block">
+			<div class="under-block" onclick="window.location.href ='{{ path("createAccountManager") }}'"><p class="carre">{{ "admin_home_create.manager"|trans({}, "admin_home") }}</p></div>
+		</div>
+		<div class="col-sm-6 block ">
+			<div class="under-block" onclick="window.location.href ='{{ path("createAccountService") }}'"><p class="carre">{{ "admin_home_create.service"|trans({}, "admin_home") }}</p></div>
+		</div>
+		<div class="col-sm-6 block ">
+				<button class="btn-black precedent" onclick="window.location.href = '{{ path("adminHome") }}'">{{ "admin_home_create.back"|trans({}, "admin_home") }}</button>
+		</div>
+	</div>
 	</div>
 
 	</div>
-
-
-
 </div>
 <script language="javascript">
 $('.closeAlert').bind('click', function(){

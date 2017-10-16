@@ -9,6 +9,24 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
+ * @ORM\AttributeOverrides({
+ *      @ORM\AttributeOverride(name="email",
+ *          column=@ORM\Column(
+ *              name     = "email",
+ *              type     = "string",
+ *              length   = 255,
+ *              nullable = true,
+ *          )
+ *      ),
+ *      @ORM\AttributeOverride(name="emailCanonical",
+ *          column=@ORM\Column(
+ *              name     = "emailCanonical",
+ *              type     = "string",
+ *              length   = 255,
+ *              nullable = true
+ *          )
+ *      ),
+ * })
  */
 class User extends BaseUser
 {
@@ -31,7 +49,12 @@ class User extends BaseUser
         parent::__construct();
         // your own logic
     }
-
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="creation", type="datetime", nullable=true)
+     */
+    private $creation;
     /**
      * @ORM\PrePersist
      */
@@ -61,5 +84,28 @@ class User extends BaseUser
     public function getIdPersonnel()
     {
         return $this->idPersonnel;
+    }
+    /**
+     * Set creation
+     *
+     * @param \DateTime $creation
+     *
+     * @return User
+     */
+    public function setCreation($creation)
+    {
+        $this->creation = $creation;
+
+        return $this;
+    }
+
+    /**
+     * Get creation
+     *
+     * @return \DateTime
+     */
+    public function getCreation()
+    {
+        return $this->creation;
     }
 }
