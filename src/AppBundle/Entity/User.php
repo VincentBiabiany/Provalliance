@@ -9,6 +9,24 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
+ * @ORM\AttributeOverrides({
+ *      @ORM\AttributeOverride(name="email",
+ *          column=@ORM\Column(
+ *              name     = "email",
+ *              type     = "string",
+ *              length   = 255,
+ *              nullable = true,
+ *          )
+ *      ),
+ *      @ORM\AttributeOverride(name="emailCanonical",
+ *          column=@ORM\Column(
+ *              name     = "emailCanonical",
+ *              type     = "string",
+ *              length   = 255,
+ *              nullable = true
+ *          )
+ *      ),
+ * })
  */
 class User extends BaseUser
 {
@@ -34,7 +52,7 @@ class User extends BaseUser
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="creation", type="datetime")
+     * @ORM\Column(name="creation", type="datetime", nullable=true)
      */
     private $creation;
     /**

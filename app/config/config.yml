@@ -113,6 +113,12 @@ fos_user:
     from_email:
          address: "%mailer_user%"
          sender_name: "%mailer_user%"
+    registration:
+        form:
+            validation_groups:  [custom]
+    change_password:
+        form:
+            validation_groups:  [custom]
 
 fos_rest:
     routing_loader:
