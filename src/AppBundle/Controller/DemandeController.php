@@ -99,41 +99,48 @@ class DemandeController extends Controller
         //Requete dans la bdd en fonction de la colonne et de la direction récupérée
         $demandes = self::wichService($typeFilter,$column,$dir,$idsalon,$search,$start,$length);
 
-          $entitym = $this->getDoctrine()->getManager();
-          $demandeRepo = $entitym->getRepository('AppBundle:DemandeEntity');
-          $role= $this->getUser()->getRoles();
-          $role= $role[0];
 
-          $nb = $demandeRepo->getNb($role,$idsalon);
-          $output = array(
-               'data' => array(),
-               'recordsFiltered' => $nb[0][1],
-               'recordsTotal' => $nb[0][1]
-          );
 
-      $em = $this->getDoctrine()->getManager("referentiel");
-      foreach ($demandes as $demande ) {
-        $demandeur = $em->getRepository('ApiBundle:Personnel')
-                        ->findOneBy(array('matricule' => $demande->getUser()->getIdPersonnel()));
+          /* Compte du nombre de demande pour la pagination */
+        $entitym = $this->getDoctrine()->getManager();
+        $demandeRepo = $entitym->getRepository('AppBundle:Demande');
+        $role= $this->getUser()->getRoles();
+        $role= $role[0];
+        $nb = $demandeRepo->getNb($role,$idsalon);
+        $output = array(
+           'data' => array(),
+           'recordsFiltered' => $nb[0][1],
+           'recordsTotal' => $nb[0][1]
+        );
 
- 		if ($demande->getDemandeform()->getTypeForm() == "Demande d'acompte"){
-			$collab = $em->getRepository('ApiBundle:Personnel')
-					->findOneBy(array('matricule' => $demande->getDemandeform()->getIdPersonnel()));
-			$collab = $collab->getNom() . " " . $collab->getPrenom();
-		}else{
-			$collab = $demande->getDemandeform()->getNom() . " " . $demande->getDemandeform()->getPrenom();
-		}
-        $date = $demande->getDateTraitement();
-        if($demande->getstatut() == 0){
-            $statut="Rejeté";
+          /* Récupération des informations de chaque demande en fonction du type de demande  */
 
-        }else if ($demande->getstatut() == 1){
-            $statut="En cours";
+        $em = $this->getDoctrine()->getManager("referentiel");
+        foreach ($demandes as $demande ) {
+              $demandeur = $em->getRepository('ApiBundle:Personnel')
+                              ->findOneBy(array('matricule' => $demande->getUser()->getIdPersonnel()));
 
-        }else if ($demande->getstatut() == 2){
-            $statut="Traité";
+                    /* Nom et Prenom du personnel concerné par la demande  */
+             		if ($demande->getDemandeform()->getTypeForm() == "Demande d'acompte"){
+            			$collab = $em->getRepository('ApiBundle:Personnel')
+            					->findOneBy(array('matricule' => $demande->getDemandeform()->getIdPersonnel()));
+            			$collab = $collab->getNom() . " " . $collab->getPrenom();
+            		}else{
+            			$collab = $demande->getDemandeform()->getNom() . " " . $demande->getDemandeform()->getPrenom();
+            		}
 
-        }
+                    /* Statut de la demande  */
+                    $date = $demande->getDateTraitement();
+                    if($demande->getstatut() == 0){
+                        $statut="Rejeté";
+
+                    }else if ($demande->getstatut() == 1){
+                        $statut="En cours";
+
+                    }else if ($demande->getstatut() == 2){
+                        $statut="Traité";
+                    }
+        /* Construction des lignes du tableau */
         $output['data'][] = [
           'id'               => $demande->getId(),
           ''                 => '<span class="glyphicon glyphicon-search click"></span>',
@@ -147,11 +154,10 @@ class DemandeController extends Controller
         ];
       }
 
-
+     /* TRI sur les colonnes par ordre croissant ou décroissant*/
       if ($typeFilter == 'x'){
 
           if($dir == "asc"){ $direction = SORT_ASC;}else { $direction = SORT_DESC; }
-
               foreach ($output['data'] as $key => $row) {
               	$col[$key]  = $row[$column];
               }
@@ -195,7 +201,6 @@ class DemandeController extends Controller
       $columns = $request->get('columns');
       $column = $columns[$tri]['data'];
       $typeFilter = $columns[$tri]['name'];
-      $idsalon = $request->getSession()->get('idSalon');
 
       return new Response(json_encode(self::displayDemandes($typeFilter,$column,$dir,$idsalon,null,$start,$length)), 200, ['Content-Type' => 'application/json']);
 

@@ -53,6 +53,9 @@ body,p,a,h1,h2,h3,h4,h5 {
 	color: #333;
 	font-weight: light;
 }
+#logout a:nth-child(1){
+  margin-right: 15px;
+}
 .posLogoHome{
 
 	padding-top:4px;
@@ -96,6 +99,14 @@ img#logotop{
 	margin: auto;
 	text-align: center;
   line-height: 30px;
+}
+
+.header.admin{
+	background-color: #333 !important;
+}
+.admin #home a, .admin #logout a{
+
+	color: white;
 }
 /* FIN HEADER */
 
