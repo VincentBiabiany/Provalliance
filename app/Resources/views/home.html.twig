@@ -10,9 +10,7 @@
 Bonjour  {{ personnel.prenom  }} {{ personnel.nom|upper  }} <br/>
 </div>
 <div class="container">
-
     <div class="row">
-
         <div class="col-sm-12">
             <div id="myDropdown" class="origin"></div>
         </div>
@@ -68,7 +66,7 @@ var ddData = [
 
     $('#myDropdown').ddslick({
         data:ddData,
-        width:500,
+        width:450,
         background: '#fff',
         {% if app.session.get('idSalon') %}
             defaultSelectedIndex:  {{ app.session.get('numero') }},

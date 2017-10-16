@@ -1,5 +1,15 @@
-admin_create.nom: Salon
+admin_create.salon: Salon
 admin_create.personnel: Personnel
 admin_create.envoyer: Envoyer
 admin_create.suivant: Suivant
 admin_create.precedent: Précédent
+admin_create.back: Retour
+admin_create.titre: Choix du type de compte
+admin_create.creation: Créer un compte
+
+admin_create.nom: Nom d'utilisateur
+admin_create.etat: Étape
+admin_create.password1: Mot de passe
+admin_create.password2: Répéter le mot de passe
+admin_create.role: Rôle
+admin_create.email: E-mail

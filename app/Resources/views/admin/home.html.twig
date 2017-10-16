@@ -4,35 +4,30 @@
 {% block body %}
 {% trans_default_domain "admin_home" %}
 
-<div class="container">
 	<div class="header">
 	</div>
 	<div class="head">
 		{{ "admin_home.header"|trans({}, "admin_home") }}
 	</div>
-	{% for flash_message in app.session.flashBag.get('success') %}
-		<div class="alert alert-success success">
-			{{ flash_message }}
-      <span class="closeAlert glyphicon glyphicon-remove"></span>
+	<div class="container">
+		<div class="row">
+			{% for flash_message in app.session.flashBag.get('success') %}
+			<div class="alert alert-success success">
+				{{ flash_message }}
+				<span class="closeAlert glyphicon glyphicon-remove"></span>
+			</div>
+			{% endfor %}
+		<div id="actions" class="home menuAction">
+			<div class="col-sm-12" >
+				<div class="col-sm-6 block">
+					<div class="under-block" onclick="window.location.href ='{{ path("createType") }}'"><p class="carre">{{ "admin_home.create"|trans({}, "admin_home") }}</p></div>
+				</div>
+				<div class="col-sm-6 block">
+					<div class="under-block" onclick="window.location.href ='{{ path("listeAccount") }}'"><p class="carre">{{ "admin_home.gestion"|trans({}, "admin_home") }}</p></div>
+				</div>
+			</div>
+		 </div>
 		</div>
-	{% endfor %}
-	<div class="col-sm-12" style="padding-top: 50px;">
-
-			<div class="row" style="max-width: 875px;margin: auto;">
-
-	        <div class="col-sm-12" style="padding-top:40px; max-width:1200px; margin:auto;">
-	            <div class="col-sm-6 block">
-
-	                <div class="under-block" onclick="window.location.href ='{{ path("createType") }}'"><p class="carre">{{ "admin_home.create"|trans({}, "admin_home") }}</p></div>
-	            </div>
-	            <div class="col-sm-6 block">
-	                <div class="under-block" onclick="window.location.href ='{{ path("listeAccount") }}'"><p class="carre">{{ "admin_home.gestion"|trans({}, "admin_home") }}</p></div>
-	            </div>
-	        </div>
-
-
-	    </div>
-	</div>
 
 	</div>
 

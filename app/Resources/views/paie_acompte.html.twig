@@ -15,13 +15,13 @@
   {{ app.session.get('nomSalon') }}
 </div>
 <div class="container">
-	<div id="actions" class="formAction off">
+	<div id="actions" class="formAction">
 		<div class="alert alert-info">
 			<span class="glyphicons glyphicons-info-sign"></span>
 			{{ "demandeacompte.info"|trans({}, "demande_acompte") }}
 
 		</div>
-		{{ form_start(form, {'attr': {'class': 'demande_acompte', 'id':'formAccompte'} }) }}
+		{{ form_start(form, {'attr': {'class': 'allForm demande_acompte', 'id':'formAccompte'} }) }}
 
 		{{ form_errors(form)}}
 				<div class="form-group">

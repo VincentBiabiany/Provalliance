@@ -63,17 +63,6 @@ body,p,a,h1,h2,h3,h4,h5 {
 	font-size: 15px;
 	cursor: pointer;
 }
-@media only screen and (max-width : 765px){
-		.deco a span.libelle{
-			display: none;
-		}
-		#logout {
-    text-align: right;
-		}
-		#home {
-    text-align: left;
-		}
-}
 
 #logout a:hover{
     color: red;
@@ -85,7 +74,7 @@ img#logotop{
 }
 
 .head {
-	width: 500px;
+	width: 450px;
 	background-color: #B39C8C;
 	margin: auto;
 	display: block;
@@ -101,7 +90,7 @@ img#logotop{
 
 .nomSalon{
 	background-color: #fff;
-	width: 500px;
+	width: 450px;
 	height: 35px;
 	color: #333;
 	margin: auto;
@@ -112,7 +101,7 @@ img#logotop{
 
 .btn-black{
 	background-color: #b39b8b !important;
-	max-width: 150px;
+	/*max-width: 150px;*/
 	text-align: center !important;
 	vertical-align: middle;
 	line-height: 35px;
@@ -147,8 +136,15 @@ img#logotop{
 #actions .col-sm-12{
 	padding: 0;
 }
+/*#actions .col-sm-4{
+	padding-left: 0 !important;
+}*/
+#actions .col-sm-6{
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+}
 .menuAction{
-	width: 535px;
+	width: 450px;
 }
 .menuActionBig{
 	width: 700px;
@@ -175,6 +171,18 @@ img#logotop{
 	z-index: 10;
 
 }
+/* STYLE TABLEAU */
+thead, tfoot{
+	background-color: #333;
+}
+thead tr th, tfoot tr th{
+	color: #fff;
+	font-weight: lighter !important;
+}
+table.dataTable thead th, table.dataTable thead td ,table.dataTable tfoot th, table.dataTable tfoot td {
+    border-right: 1px solid #333 !important;
+    border-left: 1px solid #333  !important;
+}
 /*STYLE FORMULAIRES*/
 .alert{
 	clear: both;
@@ -184,7 +192,7 @@ img#logotop{
 .closeAlert{
 	font-size: 11px;
 	height: 20px;
-	color: green;
+	color: #333;
 	width: 20px;
 	position: absolute;
 	right: 0px;
@@ -194,6 +202,58 @@ img#logotop{
 .allForm{
 	margin-top: 30px;
 
+}
+#chgPwd{
+	position: relative;
+	color: black;
+	display: block;
+	top: 20px;
+	margin-left: 15px;
+	height: 45px;
+	background-color: white;
+	padding-left: 15px;
+	line-height: 43px;
+	width: 190px;
+}
+.containerModal{
+	margin: 0;
+	background-color: #f7f7f7;
+}
+
+.containerModal #actions{
+	margin: auto;
+
+}
+ form#changePassword{
+	 margin-top: 15px;
+	 width: 450px;
+	 position: relative;
+	 margin-bottom: 10px;
+
+ }
+
+#changePassword .form-group .label{
+	width: 100% !important;
+}
+#changePassword .form-group{
+	height: 90px !important;
+}
+
+.modal-footer {
+     border-top: none;
+}
+.modal-footer .closeAlert {
+    right: 7px !important;
+	}
+.allForm .form-group{
+margin-bottom: 15px;
+height: 65px;
+}
+#fos_user_change_password_form_Changer{
+	width: 70%;
+	float: none;
+	margin: auto;
+	display: block;
 }
 #wrapperForm{
 	width: 875px;
@@ -215,7 +275,7 @@ img#logotop{
 }
 
 
-.label{
+.form-group .label{
 	    background-color: #333;
 	    text-align: left !important;
 	    vertical-align: middle;
@@ -246,19 +306,12 @@ img#logotop{
     text-indent: 1px;
     text-overflow: '';
 }
-label{
-color: white;
-font-size: 15px;
-font-weight: lighter !important;
-line-height: 30px;
-}
 
 label.required{
 	color: white;
 	font-size: 15px;
 	font-weight: lighter;
 	line-height: 30px;
-
 }
 .end{
    background-color: #45bd43 !important;
@@ -351,8 +404,8 @@ label.required{
 	/***** RESPONSIVE DESIGN **********/
 @media only screen and (max-width : 765px){
 		.label {
-		    width: 100%;
-				text-align: center;
+		    width: 100% !important;
+				text-align: center !important;
 		}
 		#demande_embauche_nom,#demande_embauche_prenom, #demande_embauche_ville, #demande_embauche_email,
 		#demande_embauche_numSecu, #demande_embauche_situationFamille,#demande_embauche_telephone,
@@ -372,18 +425,66 @@ label.required{
 		}
 		form#formAccompte	, form#createAccount, form#createAccountS2,
 		form#createAccountS3, form#editAccount,form#createAccountService{
-			width: 414px !important;
+			width: 100% !important;
 
 		}
+		.createAccount .form-group {
+    height: 100px !important;
+}
+		#form_Suivant, #fos_user_registration_form_Valider, .precedent, .end {
+			float: inherit !important;
+	    width: 90%;
+	    display: block;
+	    margin: auto;
+			height: 45px;
+			margin-bottom: 10px !important;
+		}
+		#actionsButtons .precedent {
+    margin-left: auto  !important;
+		position: relative;
+}
+.AccountInfo {
+	width: 100%;
 
+}
+		#fil {
+
+		    display: none;
+		}
+	 .head{
+		 width: inherit;
+	 }
+		.carre {
+			margin-bottom: 25px;
+
+		}
+		.menuAction,.formAction {
+	    width: 90% !important;
+	}
+		.logo-prov {
+			max-width:100%;
+		}
+		.login-form {
+	   		width: 75%;
+	   		margin: auto;
+		}
+		.deco a span.libelle{
+			display: none;
+		}
+		#logout {
+		text-align: right;
+		}
+		#home {
+		text-align: left;
+		}
 }
 /***** CREATION COMPTE USER ADMIN FORMULARE ********/
 #form_Suivant, #fos_user_registration_form_Valider{
 	position: relative;
 	margin-bottom: 50px;
-	margin-top: 20px;
+	/*margin-top: 20px;*/
 	float: right;
-	clear: both;
+	/*clear: both;*/
 }
 .SubtitleAdmin{
 padding-left: 25px;
@@ -397,16 +498,15 @@ padding-left: 25px;
 	position: absolute;
 	left: 0;
 	margin-bottom: 50px;
-	margin-top: 20px;
 
 }
 
 #fil{
-position: relative;
-width: 650px;
-height: 55px;
-margin-top: 25px;
-
+	position: relative;
+	width: 650px;
+	height: 55px;
+	margin-top: 25px;
+	margin: auto;
 }
 
 #base{
@@ -476,7 +576,7 @@ margin-top: 25px;
 	width: 70%;
 	text-align: center;
 	margin: auto;
-
+  margin-bottom: 30px;
 }
  h2{
 	clear: both;
@@ -487,10 +587,14 @@ form#formAccompte	, form#createAccount, form#createAccountS2, form#createAccount
 	position: relative;
 
 }
+#CreateFormStep{
+    margin-top: 30px;
+}
+
 #CreateFormStep #form_nom{
 	width:100%;
 }
-#createAccountS3 input,#createAccountS3 select{
+#createAccountS3 select{
 		width:100%;
 }
 #ListePersonnel a{
@@ -511,28 +615,6 @@ span.inactif{
 	background-color: red;
 }
 
-#chgPwd{
-	position: relative;
-	color: black;
-	display: block;
-	top: 20px;
-	margin-left: 15px;
-}
-.containerModal{
-	margin: 0;
-}
-
-.containerModal #actions{
-	margin: auto;
-
-}
- form#changePassword{
-	 margin-top: 15px;
-	 width: 450px;
-	 position: relative;
-	 margin-bottom: 10px;
-
- }
 
  /***** DEMANDE ******/
  #flashDemande{
@@ -573,11 +655,11 @@ span.inactif{
  }
 /***** DEMANDE ACCOMPTE FORMULARE ********/
 
-.demande_acompte .form-group {
+/*.demande_acompte .form-group,
+ #createAccountService  .form-group, .createAccount .form-group {
     margin-bottom: 15px;
-    clear: both;
     height: 65px;
-}
+}*/
 .demande_acompte .form-group .slider-handle {
     background-color: #B39C8C;
 		background-image : none;
@@ -608,10 +690,10 @@ span.inactif{
 
 }
 
-.col-sm-9, .col-xs-12{
-  padding-right: 0;
+/*.col-sm-9, .col-xs-12{
+  padding: 0;
 
-}
+}*/
 /***** DEMANDE EMBAUCHE FORMULARE ********/
 
 #formEmbauche, #formEmbaucheStep2{
@@ -622,7 +704,7 @@ span.inactif{
 
 .precedent{
 	float: left;
-	margin-left: 18px;
+	/*margin-left: 18px;*/
 	}
 .precedent:hover{
 
@@ -635,7 +717,7 @@ span.inactif{
 	height: 80px;
 	background-color: #333;
 	text-align: center;
-	width: 230px;
+	width: 210px;
 	margin: auto;
 	font-size: 18px;
 	border-radius: 5px;
@@ -656,6 +738,9 @@ span.inactif{
 
 .under-block {
 	display: inline-block;
+}
+.right {
+	float: right;
 }
 
 .gestion {
@@ -702,25 +787,6 @@ span.inactif{
 	color: white;
 
 }
-@media (max-width:767px){
-
-	.carre {
-  	  	height: 80px;
-   		margin-bottom: 25px;
-	}
-	.logo-prov {
-		max-width:100%;
-	}
-	.login-form {
-   		width: 75%;
-   		margin: auto;
-	}
-}
-@media (max-width: 1024px) {
-	.carre {
-    		height: 115px;
-	}
-}
 
 /********* dropdown-menu HOME ********/
 
@@ -765,6 +831,10 @@ border:none;
 		height: 35px;
 		margin-left: 10px;
     padding: 7px  !important;
+}
+label{
+	font-weight: 100 !important;
+
 }
 label.dd-selected-text {
 	line-height: 21px !important;
