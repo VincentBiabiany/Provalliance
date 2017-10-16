@@ -34,14 +34,15 @@
             </div>
 
             <div id="logout" class="col-sm-6 col-xs-6 deco block">
+                 <a  href="{{ path('homepage') }}">
+                    <span class="glyphicon glyphicon-unchecked"></span>
+                    <span class="libelle">{{ "home.appli"|trans({}, "home") }}</span>
+                 </a>              
                  <a  href="{{ path('fos_user_security_logout') }}">
                     <span class="glyphicon glyphicon-off"></span>
                     <span class="libelle">{{ "home.deconnexion"|trans({}, "home") }}</span>
                  </a>
-                 <a  href="{{ path('homepage') }}">
-                     <span class="glyphicon glyphicon-unchecked"></span>
-                     <span class="libelle">{{ "home.appli"|trans({}, "home") }}</span>
-                 </a>
+
             </div>
         </div>
     <!-- FIN HEADER POUR PARTIE ADMIN -->

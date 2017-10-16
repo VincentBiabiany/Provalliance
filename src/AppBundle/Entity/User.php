@@ -20,7 +20,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  *      ),
  *      @ORM\AttributeOverride(name="emailCanonical",
  *          column=@ORM\Column(
- *              name     = "emailCanonical",
+ *              name     = "email_canonical",
  *              type     = "string",
  *              length   = 255,
  *              nullable = true
