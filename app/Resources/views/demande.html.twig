@@ -9,9 +9,12 @@
 	<div class="head">
 		{{ "suividemande.header"|trans({}, "suivi_demandes") }}
 	</div>
-	<div class="nomSalon">
-	  {{ app.session.get('nomSalon') }}
-	</div>
+	{% if is_granted('ROLE_ADMIN') and is_granted('ROLE_COORDINATEUR') %}
+			<div class="nomSalon">
+			  {{ app.session.get('nomSalon') }}
+			</div>
+	{% endif %}
+
 	{% for flash_message in app.session.flashBag.get('success') %}
 		<div id="flashDemande" class="alert alert-success success">
 			{{ flash_message }}

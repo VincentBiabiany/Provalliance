@@ -14,14 +14,24 @@ class HomeController extends Controller
      */
     public function indexAction(Request $request)
     {
-       $idPersonnnel = $this->getUser()->getIdPersonnel();
-       $em = $this->getDoctrine()->getManager('referentiel');
-       $personnel = $em->getRepository('ApiBundle:Personnel')->findOneBy(array('matricule' => $idPersonnnel));
-       $salons = $personnel->getSalon();
-       return $this->render('home.html.twig', [
-           'salons'=>$salons,
-           'personnel'=>$personnel
-       ]);
+
+       if ((in_array('ROLE_PAIE', $this->getUser()->getRoles(), true)) ||
+           (in_array('ROLE_JURIDIQUE', $this->getUser()->getRoles(), true)) ) {
+
+           return $this->redirectToRoute('demande');
+     } else {
+
+           $idPersonnnel = $this->getUser()->getIdPersonnel();
+           $em = $this->getDoctrine()->getManager('referentiel');
+           $personnel = $em->getRepository('ApiBundle:Personnel')->findOneBy(array('matricule' => $idPersonnnel));
+           $salons = $personnel->getSalon();
+           return $this->render('home.html.twig', [
+               'salons'=>$salons,
+               'personnel'=>$personnel
+           ]);
+
+        }
+
      }
 
     /**

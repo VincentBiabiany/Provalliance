@@ -52,7 +52,7 @@ class AdminController extends Controller
                   ->add('appelation', EntityType::class, array(
                      'class' => 'ApiBundle:Salon',
                      'choice_label' => 'appelation',
-                     'label' => 'admin_create.nom',
+                     'label' => 'admin_create.salon',
                      'placeholder' => ' Choisir un salon',
                      'multiple' => false,
                      'translation_domain' => 'admin_create'
@@ -83,8 +83,8 @@ class AdminController extends Controller
             $formS2 = $this->createFormBuilder()
             ->add('nom', ChoiceType::class, array(
                  'choices' => $listePerso,
-                 'label' => 'demandeacompte.nom',
-                 'translation_domain' => 'demande_acompte'
+                 'label' => 'admin_create.nom',
+                 'translation_domain' => 'admin_create'
               ))
             ->getForm()
           ;
@@ -253,7 +253,7 @@ class AdminController extends Controller
                   ->add('appelation', EntityType::class, array(
                      'class' => 'ApiBundle:Salon',
                      'choice_label' => 'appelation',
-                     'label' => 'admin_create.nom',
+                     'label' => 'admin_create.salon',
                      'placeholder' => ' Choisir un salon',
                      'translation_domain' => 'admin_create'
                   ))
