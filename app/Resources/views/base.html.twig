@@ -22,27 +22,61 @@
     		<script src="{{ asset('js/Helpers.js') }}"></script>
     </head>
     <body>
-      <div id="topNav" class="col-sm-12 col-xs-12">
-          <div id="home" class="col-sm-6 col-xs-6 deco block">
-            {% if not is_granted('ROLE_JURIDIQUE') %}
-              <a  href="{{ path('homepage') }}">
-               <span class="glyphicon glyphicon-home" style="padding-right:5px"></span>
-               <span class="libelle">{{ "home.accueil"|trans({}, "home") }}</span>
-              </a>
-            {% endif  %}
 
-          </div>
-             <div id="logout" class="col-sm-6 col-xs-6 deco block">
+<!-- HEADER POUR PARTIE ADMIN -->
+    {% if 'admin' in app.request.uri  %}
+        <div id="topNav" class="col-sm-12 col-xs-12 admin">
+            <div id="home" class="col-sm-6 col-xs-6 deco block">
+                <a  href="{{ path('adminHome') }}">
+                    <span class="glyphicon glyphicon-home"></span>
+                    <span class="libelle">{{ "home.accueil"|trans({}, "home") }}</span>
+                </a>
+            </div>
+
+            <div id="logout" class="col-sm-6 col-xs-6 deco block">
                  <a  href="{{ path('fos_user_security_logout') }}">
-                    <span class="glyphicon glyphicon-off" style="padding-right:5px"></span>
+                    <span class="glyphicon glyphicon-off"></span>
                     <span class="libelle">{{ "home.deconnexion"|trans({}, "home") }}</span>
                  </a>
+                 <a  href="{{ path('homepage') }}">
+                     <span class="glyphicon glyphicon-unchecked"></span>
+                     <span class="libelle">{{ "home.appli"|trans({}, "home") }}</span>
+                 </a>
+            </div>
+        </div>
+    <!-- FIN HEADER POUR PARTIE ADMIN -->
 
+    <!-- HEADER POUR PARTIE APPLICATION -->
+         {% else %}
+        <div id="topNav" class="col-sm-12 col-xs-12">
+            <div id="home" class="col-sm-6 col-xs-6 deco block">
+                <!-- Si le user est un service on n'affiche pas de lien vers la totalité de l'application -->
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MANAGER') or is_granted('ROLE_COORDINATEUR') %}
+                    <a  href="{{ path('homepage') }}">
+                        <span class="glyphicon glyphicon-home"></span>
+                        <span class="libelle">{{ "home.accueil"|trans({}, "home") }}</span>
+                    </a>
+                {% endif  %}
+
+            </div>
+            <div id="logout" class="col-sm-6 col-xs-6 deco block">
+                  <a  href="{{ path('fos_user_security_logout') }}">
+                     <span class="glyphicon glyphicon-off"></span>
+                     <span class="libelle">{{ "home.deconnexion"|trans({}, "home") }}</span>
+                  </a>
+                  {% if is_granted('ROLE_ADMIN') %}
+                      <a  href="{{ path('adminHome') }}">
+                          <span class="glyphicon glyphicon-wrench"></span>
+                          <span class="libelle">{{ "home.admin"|trans({}, "home") }}</span>
+                      </a>
+                  {% endif  %}
              </div>
-
-
       </div>
-      <div class="bg"></div>
+       <div class="bg"></div>
+      {% endif  %}
+      <!-- FIN HEADER POUR PARTIE APPLICATION -->
+
+
 		{% block fos_user_content %}{% endblock %}
 
 
