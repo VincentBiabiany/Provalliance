@@ -36,7 +36,7 @@ class DemandeController extends Controller
       //Requete en bdd en fonction du type de filre
       if (($typeFilter == 'x') or ($typeFilter == 'init') or ($typeFilter == 'search')) {
         $repository = $this->getDoctrine()
-        ->getRepository('AppBundle:Demande');
+        ->getRepository('AppBundle:DemandeEntity');
 
         if (in_array('ROLE_PAIE', $this->getUser()->getRoles(), true)) {
           $query = $repository->createQueryBuilder('p')
@@ -72,20 +72,20 @@ class DemandeController extends Controller
       }else if($typeFilter == 'default'){
         if (in_array('ROLE_PAIE', $this->getUser()->getRoles(), true)) {
           $demandes = $this->getDoctrine()
-          ->getManager()->getRepository('AppBundle:Demande')
+          ->getManager()->getRepository('AppBundle:DemandeEntity')
           ->findBy(array("service" => "paie"),
           array($column => $dir),
           $length, $start);
 
         } else if (in_array('ROLE_JURIDIQUE', $this->getUser()->getRoles(), true)){
           $demandes = $this->getDoctrine()
-          ->getManager()->getRepository('AppBundle:Demande')
+          ->getManager()->getRepository('AppBundle:DemandeEntity')
           ->findBy(array("service" => "juridique"),
           array($column => $dir),
           $length, $start);
         } else {
           $demandes = $this->getDoctrine()
-          ->getManager()->getRepository('AppBundle:Demande')
+          ->getManager()->getRepository('AppBundle:DemandeEntity')
           ->findBy(array("idSalon" => $idsalon),
           array($column => $dir),
           $length, $start);
@@ -103,7 +103,7 @@ class DemandeController extends Controller
 
           /* Compte du nombre de demande pour la pagination */
         $entitym = $this->getDoctrine()->getManager();
-        $demandeRepo = $entitym->getRepository('AppBundle:Demande');
+        $demandeRepo = $entitym->getRepository('AppBundle:DemandeEntity');
         $role= $this->getUser()->getRoles();
         $role= $role[0];
         $nb = $demandeRepo->getNb($role,$idsalon);
@@ -129,17 +129,23 @@ class DemandeController extends Controller
             			$collab = $demande->getDemandeform()->getNom() . " " . $demande->getDemandeform()->getPrenom();
             		}
 
-                    /* Statut de la demande  */
-                    $date = $demande->getDateTraitement();
-                    if($demande->getstatut() == 0){
-                        $statut="Rejeté";
+                /* Statut de la demande  */
+                $date = $demande->getDateTraitement();
+                if($demande->getstatut() == 0){
+                    $statut="Rejeté";
 
-                    }else if ($demande->getstatut() == 1){
-                        $statut="En cours";
+                }else if ($demande->getstatut() == 1){
+                    $statut="En cours";
 
-                    }else if ($demande->getstatut() == 2){
-                        $statut="Traité";
-                    }
+                }else if ($demande->getstatut() == 2){
+                    $statut="Traité";
+
+                }else if ($demande->getstatut() == 3){
+                  $statut="A signé";
+
+                }else if ($demande->getstatut() == 4){
+                    $statut="A validé";
+                }
         /* Construction des lignes du tableau */
         $output['data'][] = [
           'id'               => $demande->getId(),

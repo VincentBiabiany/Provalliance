@@ -1,0 +1,16 @@
+Problème:
+
+
+*Le type du produit n'est pas changer (='simple' au lieu de 'saltaire_event')
+Pas de soucis si on vend que de l'event ...
+
+*Revoir un peu le front sur woocommerce/global/quantity.input.php
+
+
+*J'ai lier guest-max au stock. avec une query update_meta_value ..
+
+
+*Normalement l'email marche, il n'y a pas la CB. Faut tester  quel hook est le meilleur , soir after payment soit woocommerce_thankyou, order complete.
+
+
+*Dans saltaire-event/product ->>  il y a une function qui modifie X' Instock' en seats left...
