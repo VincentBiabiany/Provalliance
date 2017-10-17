@@ -24,7 +24,9 @@ class AdminController extends Controller
     */
    public function indexAction()
    {
-        return $this->render('admin/home.html.twig');
+        return $this->render('admin/home.html.twig',
+        ['flash'=>null]);
+
    }
    /**
      * @Route("/admin/create_type", name="createType")
@@ -71,7 +73,7 @@ class AdminController extends Controller
             $idSalon = $request->get('idsalon');
             //On sauvegarde le salon en cas de retour en arrière
             $request->getSession()->set("idSalonAdmin", $idSalon);
-
+            //Retourne la liste des personnels n'ayant pas encore crée de compte
             $entitym = $this->getDoctrine()->getManager();
             $accountRepo = $entitym->getRepository('AppBundle:Account');
             $listeAccount = $accountRepo->getAccountOff($idSalon);
@@ -87,7 +89,7 @@ class AdminController extends Controller
                  'translation_domain' => 'admin_create'
               ))
             ->getForm()
-          ;
+            ;
           return $this->render('admin/createAccountStep2.html.twig',['formS2'=>$formS2->createView()]);
     }
 
@@ -116,7 +118,7 @@ class AdminController extends Controller
                'mapped' => false,
                'label' => 'admin_create.role',
                'translation_domain' => 'admin_create'
-           ) );
+           ));
       $formS3 ->add('email', EmailType::class, array(
                'required'  => false,
                'label' => 'admin_create.email',
@@ -126,8 +128,7 @@ class AdminController extends Controller
             'translation_domain' => 'global',
             'attr' => array(
                   'class' => 'btn-black end'
-                   )
-                  )
+                   ))
             );
 
             if ($request->isMethod('POST')) {
@@ -163,8 +164,10 @@ class AdminController extends Controller
                        $em->persist($newUser);
                        $em->flush();
 
-                   $this->addFlash("success", "Le compte Manager a correctement été crée !");
-                   return $this->redirect($this->generateUrl('adminHome'));
+                  //  $this->addFlash("success", "Le compte Manager a correctement été crée !");
+                  //  return $this->redirect($this->generateUrl('adminHome'));
+                   return $this->render('admin/home.html.twig',
+                           ['flash'=>'Le compte Manager a correctement été crée !']);
                       }
            }
 
@@ -232,15 +235,12 @@ class AdminController extends Controller
 
                           $em->persist($newUser);
                           $em->flush();
-
-                      $this->addFlash("success", "Le compte Service a correctement été crée !");
-                      return $this->redirect($this->generateUrl('adminHome'));
+                     //  $this->addFlash("success", "Le compte Service a correctement été crée !");
+                      return $this->render('admin/home.html.twig',['form'=>$form->createView(),
+                      'flash'=>'Le compte Service a correctement été crée']);
                          }
               }
-
-               return $this->render('admin/createAccountService.html.twig',['form'=>$form->createView()]);
-
-
+               return $this->render('admin/createAccountService.html.twig',['form'=>$form->createView(),'flash'=>null]);
       }
 
     /**
@@ -259,7 +259,7 @@ class AdminController extends Controller
                   ))
                 ->getForm();
 
-   return $this->render('admin/listeAccount.html.twig',['form'=>$form->createView()]);
+   return $this->render('admin/listeAccount.html.twig',['form'=>$form->createView(),'flash'=>null]);
 
     }
 
@@ -301,7 +301,12 @@ class AdminController extends Controller
       if ($user->isEnabled()) { $state = "actif"; }else{ $state = "inactif"; }
 
       //Condition pour déterminer la date de dernière Connexion d'un compte
-      if ($user->getCreation() == $user->getLastLogin()) { $date = 'n/a'; }else{ $date = $user->getLastLogin(); $date= $date->format('d-m-Y H:i'); }
+      if ($user->getCreation() == $user->getLastLogin()){
+         $date = 'n/a';
+       }else{
+         $date = $user->getLastLogin();
+         $date= $date->format('d-m-Y H:i');
+       }
 
       $output['data'][] = [
           'id'               => $user->getId(),
@@ -399,10 +404,9 @@ class AdminController extends Controller
                               $em->persist($task);
                               $em->flush();
 
-
-
-             	            return $this->redirect($this->generateUrl('listeAccount'));
-
+                           return $this->render('admin/listeAccount.html.twig', array(
+                           'form' => $form->createView(),
+                           'flash'=> 'Le compte a correctement modifié'));
                         }
                      }
 
@@ -434,7 +438,7 @@ class AdminController extends Controller
 
       $formFactory = $this->get('fos_user.change_password.form.factory');
 
-      $form = $formFactory->createForm();
+      $form = $formFactory->createForm(array('action' => $this->generateUrl('changePassword', array('idUser' => $idUser))));
       $form-> add('Changer', SubmitType::class, array(
             'label' => 'global.valider',
             'translation_domain' => 'global',
@@ -449,16 +453,16 @@ class AdminController extends Controller
 
       $form->handleRequest($request);
 
-         if ($form->isSubmitted() && $form->isValid()) {
+         if ($form->isSubmitted() ) {
             $task = $form->getData();
 
               $em = $this->getDoctrine()->getManager();
               $em->persist($task);
               $em->flush();
 
-            $this->addFlash("success", "Mot de passe correctement modifié");
-            return $this->redirect($this->generateUrl('listeAccount'));
-
+               return $this->render('admin/listeAccount.html.twig', array(
+               'form' => $form->createView(),
+               'flash'=> 'Mot de passe correctement modifié'));
         }
 
         return $this->render('admin/changePassword.html.twig', array(

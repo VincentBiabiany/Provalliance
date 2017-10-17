@@ -37,7 +37,7 @@
                  <a  href="{{ path('homepage') }}">
                     <span class="glyphicon glyphicon-unchecked"></span>
                     <span class="libelle">{{ "home.appli"|trans({}, "home") }}</span>
-                 </a>              
+                 </a>
                  <a  href="{{ path('fos_user_security_logout') }}">
                     <span class="glyphicon glyphicon-off"></span>
                     <span class="libelle">{{ "home.deconnexion"|trans({}, "home") }}</span>
@@ -45,6 +45,8 @@
 
             </div>
         </div>
+        <div id="bg_admin" class="bg"></div>
+
     <!-- FIN HEADER POUR PARTIE ADMIN -->
 
     <!-- HEADER POUR PARTIE APPLICATION -->
@@ -61,19 +63,20 @@
 
             </div>
             <div id="logout" class="col-sm-6 col-xs-6 deco block">
-                  <a  href="{{ path('fos_user_security_logout') }}">
-                     <span class="glyphicon glyphicon-off"></span>
-                     <span class="libelle">{{ "home.deconnexion"|trans({}, "home") }}</span>
-                  </a>
                   {% if is_granted('ROLE_ADMIN') %}
                       <a  href="{{ path('adminHome') }}">
                           <span class="glyphicon glyphicon-wrench"></span>
                           <span class="libelle">{{ "home.admin"|trans({}, "home") }}</span>
                       </a>
                   {% endif  %}
+                  <a  href="{{ path('fos_user_security_logout') }}">
+                     <span class="glyphicon glyphicon-off"></span>
+                     <span class="libelle">{{ "home.deconnexion"|trans({}, "home") }}</span>
+                  </a>
+
              </div>
       </div>
-       <div class="bg"></div>
+       <div id="bg_app" class="bg"></div>
       {% endif  %}
       <!-- FIN HEADER POUR PARTIE APPLICATION -->
 

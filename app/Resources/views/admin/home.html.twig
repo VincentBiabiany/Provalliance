@@ -11,12 +11,6 @@
 	</div>
 	<div class="container">
 		<div class="row">
-			{% for flash_message in app.session.flashBag.get('success') %}
-			<div class="alert alert-success success">
-				{{ flash_message }}
-				<span class="closeAlert glyphicon glyphicon-remove"></span>
-			</div>
-			{% endfor %}
 		<div id="actions" class="home menuAction">
 			<div class="col-sm-12" >
 				<div class="col-sm-6 block">
@@ -30,16 +24,31 @@
 		</div>
 
 	</div>
-
-
-
+	<div id="myModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+					<div class="modal-body">
+						<div class="flashConfirmation">
+							{{ flash }}
+							<span class="glyphicon glyphicon-ok-sign"></span>
+						</div>
+					</div>
+					<span class="closeAlert glyphicon glyphicon-remove"></span>
+			</div>
+		</div>
+	</div>
 </div>
 <script language="javascript">
-$('.closeAlert').bind('click', function(){
-			$(".alert").css('display','none');
-			$(".alert").remove();
 
-});
+		$('.closeAlert').bind('click', function(){
+					$(".alert").css('display','none');
+					$(".alert").remove();
+
+		});
+
+		{% if flash %}
+			 $("#myModal").modal()
+		{% endif %}
 
 </script>
 {% endblock %}
