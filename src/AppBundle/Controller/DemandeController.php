@@ -36,7 +36,7 @@ class DemandeController extends Controller
       //Requete en bdd en fonction du type de filre
       if (($typeFilter == 'x') or ($typeFilter == 'init') or ($typeFilter == 'search')) {
         $repository = $this->getDoctrine()
-        ->getRepository('AppBundle:Demande');
+        ->getRepository('AppBundle:DemandeEntity');
 
         if (in_array('ROLE_PAIE', $this->getUser()->getRoles(), true)) {
           $query = $repository->createQueryBuilder('p')
@@ -72,20 +72,20 @@ class DemandeController extends Controller
       }else if($typeFilter == 'default'){
         if (in_array('ROLE_PAIE', $this->getUser()->getRoles(), true)) {
           $demandes = $this->getDoctrine()
-          ->getManager()->getRepository('AppBundle:Demande')
+          ->getManager()->getRepository('AppBundle:DemandeEntity')
           ->findBy(array("service" => "paie"),
           array($column => $dir),
           $length, $start);
 
         } else if (in_array('ROLE_JURIDIQUE', $this->getUser()->getRoles(), true)){
           $demandes = $this->getDoctrine()
-          ->getManager()->getRepository('AppBundle:Demande')
+          ->getManager()->getRepository('AppBundle:DemandeEntity')
           ->findBy(array("service" => "juridique"),
           array($column => $dir),
           $length, $start);
         } else {
           $demandes = $this->getDoctrine()
-          ->getManager()->getRepository('AppBundle:Demande')
+          ->getManager()->getRepository('AppBundle:DemandeEntity')
           ->findBy(array("idSalon" => $idsalon),
           array($column => $dir),
           $length, $start);
@@ -132,6 +132,12 @@ class DemandeController extends Controller
 
         }else if ($demande->getstatut() == 2){
             $statut="Traité";
+
+        }else if ($demande->getstatut() == 3){
+            $statut="A sgné";
+
+        }else if ($demande->getstatut() == 4){
+            $statut="A validé";
 
         }
         $output['data'][] = [

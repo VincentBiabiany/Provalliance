@@ -18,12 +18,24 @@
 </div>
 
 <div class="container">
-	<div id="wrapperForm" class="row">
+
+<div id="wrapperForm" class="row">
+
+	{% if statut > 1 %}
+	<div id="hide"> Deplier les infos </div>
+	<div  id="formCplx" class="row" style="display:none;" >
+	{% else %}
+	<div  class="row">
+	{% endif %}
+
 		{% form_theme form 'form/acompte.html.twig' %}
-		{% block content %}
 			{{ form_start(form, {'attr': {'class': ''} }) }}
 			{{ form_end(form) }}
-		{% endblock %}
+
+	 {% if statut > 1 %}
+	 </div>
+	 {% endif %}
+	 </div>
 
 		<div id="infosDemande" class="col-sm-12">
 			<p> <b>Demandeur : </b>{{ demandeur.nom }} {{ demandeur.prenom }} </p>
@@ -40,8 +52,8 @@
 
 			{% if docService != null %}
 				<div class="form-group" style="padding-top: 50px">
-					<label class="control-label label col-sm-3 col-xs-12" for="personnel"> {{ form_label(form) }}</label>
-						<a href="{{ asset('uploads/files/' ~ docService ) }}" ><div class="col-sm-9">
+					<label class="control-label label col-sm-3 col-xs-12" for="personnel"> Doc service</label>
+						<a href="{{ asset('uploads/files/' ~ docService ) }}" ><div class="col-sm-9"> Telecharger le document
 								{{ form_widget(form, { 'attr' : {'class': 'getDocument form-control' } }) }}
 					 </div></a>
 				</div>
@@ -49,45 +61,36 @@
 
 			{% if docSalon != null %}
 				<div class="form-group" style="padding-top: 50px">
-					<label class="control-label label col-sm-3 col-xs-12" for="personnel"> {{ form_label(form2.docSalon) }} </label>
-						<a href="{{ asset('uploads/files/' ~ docSalon ) }}" ><div class="col-sm-9">
-								{{ form_widget(form2.docSalon, { 'attr' : {'class': 'getDocument form-control' } }) }}
-					 </div></a>
+					<label class="control-label label col-sm-3 col-xs-12" for="personnel"> Doc service</label>
+						<div class="col-sm-9"><a href="{{ asset('uploads/files/' ~ docSalon ) }}"> Telecharger le document
+					  </a></div>
 				</div>
 			{% endif %}
-
 
 		</div>
 
 		<!-- ................... Parti Validation ..........................-->
 
-		{% if is_granted('ROLE_PAIE') or is_granted('ROLE_JURIDIQUE') %}
 
 			<div class="" style="max-width: 100%; margin: auto;">
+
+				{% for flash_message in app.session.flashBag.get('error') %}
+				<div class="alert alert-danger danger">
+					{{ flash_message }}
+					<span class="closeAlert glyphicon glyphicon-remove"></span>
+				</div>
+				{% endfor %}
+
 				<hr id="separatorDetailDemande"/>
-				{{ form_start(form2, {'attr': {'id':'form_message','novalidate': 'novalidate'}}) }}
-				{{ form_row(form2.message) }}
-				{{ form_row(form2.reject, {'attr': {'class': 'btn-black end reject'} }) }}
-				{{ form_row(form2.accept, {'attr': {'class': 'btn-black end accept'} }) }}
+				<!-- { form_start(form2, {'attr': {'id':'form_message','novalidate': 'novalidate'}}) }} -->
+				<!-- { form_end(form2) }} -->
+				{% form_theme form2 'form/demande_complexe.html.twig' %}
+				{{ form_start(form2, {'attr': {'class': 'ccc'} }) }}
 				{{ form_end(form2) }}
+
 			</div>
 
-		{% endif  %}
 
-		{% if (is_granted('ROLE_MANAGER') or is_granted('ROLE_COORD')) and (statut == 3) %}
-
-		<div class="" style="max-width: 100%; margin: auto;">
-			<hr id="separatorDetailDemande"/>
-			{{ form_start(form2, {'attr': {'id':'form_message', 'novalidate': 'novalidate'}}) }}
-
-			{{ form_row(form2.message) }}
-			{{ form_row(form2.reject, {'attr': {'class': 'btn-black end reject'} }) }}
-			{{ form_row(form2.accept, {'attr': {'class': 'btn-black end accept'} }) }}
-
-			{{ form_end(form2) }}
-		</div>
-
-		{% endif  %}
 
 		<div class="col-sm-12" style="padding: 0;">
 			<button  onclick="window.location.href ='{{ path("demande") }}'" class="btn-black precedent">Précédent</button>
@@ -102,6 +105,8 @@ $('.closeAlert').bind('click', function(){
 	$(".alert").css('display','none');
 	$(".alert").remove();
 });
-
+$('#hide').on('click', function(){
+	$('#formCplx').toggle();
+});
 </script>
 {% endblock %}
