@@ -1,5 +1,4 @@
 <?php
-
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -10,10 +9,16 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({"demande_entity" = "DemandeEntity", "demande_simple" = "DemandeSimple", "demande_complexe" = "DemandeComplexe"})
  * @ORM\Entity(repositoryClass="AppBundle\Repository\DemandeEntityRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 
 abstract class DemandeEntity
 {
+  const statut_REJETE  = 0;
+  const statut_EN_COURS = 1;
+  const statut_TRAITE  = 2;
+  const statut_ASIGNE  = 3;
+  const statut_AVALIDE  = 4;
     /**
      * @var int
      *
@@ -68,7 +73,6 @@ abstract class DemandeEntity
      */
     private $service;
 
-
     /**
      * @var int
      *
@@ -83,7 +87,7 @@ abstract class DemandeEntity
         $this->setDateEnvoi(new \DateTime());
         $this->setstatut(self::statut_EN_COURS);
         $this->setDateTraitement(new \DateTime());
-  }
+    }
 
     /**
      * Get id

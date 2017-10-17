@@ -16,16 +16,47 @@ class DemandeComplexe extends DemandeEntity
   /**
    * @var string
    *
-   * @ORM\Column(name="doc_service", type="string", length=255)
+   * @ORM\Column(name="doc_service", type="string", length=255, nullable=true)
    */
   protected $docService;
 
   /**
    * @var string
    *
-   * @ORM\Column(name="doc_salon", type="string", length=255)
+   * @ORM\Column(name="doc_salon", type="string", length=255, nullable=true)
    */
   protected $docSalon;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="message", type="string", nullable=true)
+   */
+  private $message;
+
+    /**
+     * Set message
+     *
+     * @param string $message
+     *
+     * @return Demande
+     */
+    public function setMessage($message)
+    {
+        $this->message = $message;
+
+        return $this;
+    }
+
+    /**
+     * Get message
+     *
+     * @return string
+     */
+    public function getMessage()
+    {
+        return $this->message;
+    }
 
     /**
      * Set docService
