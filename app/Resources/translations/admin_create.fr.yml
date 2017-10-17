@@ -10,6 +10,6 @@ admin_create.creation: Créer un compte
 admin_create.nom: Nom d'utilisateur
 admin_create.etat: Étape
 admin_create.password1: Mot de passe
-admin_create.password2: Répéter le mot de passe
+admin_create.password2: Répéter mot de passe
 admin_create.role: Rôle
 admin_create.email: E-mail

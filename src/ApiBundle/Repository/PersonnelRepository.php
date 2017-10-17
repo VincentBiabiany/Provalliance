@@ -28,15 +28,25 @@ class PersonnelRepository extends EntityRepository
 
     public function getPerso($listeAccount,$idSalon){
         $personnel = new Personnel();
+        $listPerso=[];
+        if ($listeAccount == null) {
+            $listPerso['Aucun utilisateur disponible']= null ;
 
+        }else{
         foreach ($listeAccount as $key => $value) {
                 if ( self::getNb($value,$idSalon) > 0 ){
                      $p = $this->findOneBy(array('matricule' => $value));
                      $listPerso[$p->getNom().' '.$p->getPrenom()] = $value;
-                }
+            }
          }
+            if(empty($listPerso)){
+              $listPerso['Aucun utilisateur disponible']= null ;
+            }
         return $listPerso;
+
+
     }
 
+  }
 
 }
