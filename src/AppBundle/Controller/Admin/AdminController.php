@@ -77,11 +77,15 @@ class AdminController extends Controller
             $entitym = $this->getDoctrine()->getManager();
             $accountRepo = $entitym->getRepository('AppBundle:Account');
             $listeAccount = $accountRepo->getAccountOff($idSalon);
+            dump($listeAccount );
 
             $entity = $this->getDoctrine()->getManager('referentiel');
             $personnelRepo = $entity->getRepository('ApiBundle:Personnel');
             $listePerso = $personnelRepo->getPerso($listeAccount,$idSalon);
 
+            if($listePerso == null ){
+               $listePerso['Aucun utilisateur disponible']= null;  
+            }
             $formS2 = $this->createFormBuilder()
             ->add('nom', ChoiceType::class, array(
                  'choices' => $listePerso,
