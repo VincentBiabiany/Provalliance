@@ -1,5 +1,4 @@
 <?php
-
 namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -30,82 +29,19 @@ class DemandeController extends Controller
       ));
     }
 
-
-    public function wichService($typeFilter,$column,$dir,$idsalon,$search,$start,$length){
-
-      //Requete en bdd en fonction du type de filre
-      if (($typeFilter == 'x') or ($typeFilter == 'init') or ($typeFilter == 'search')) {
-        $repository = $this->getDoctrine()
-        ->getRepository('AppBundle:DemandeEntity');
-
-        if (in_array('ROLE_PAIE', $this->getUser()->getRoles(), true)) {
-          $query = $repository->createQueryBuilder('p')
-          ->where('p.service = :serviceUser')
-          ->setParameter('serviceUser', 'paie')
-          ->orderBy('p.dateTraitement', 'DESC')
-          ->setFirstResult( $start )
-          ->setMaxResults( $length )
-          ->getQuery();
-
-        } else if (in_array('ROLE_JURIDIQUE', $this->getUser()->getRoles(), true)){
-          $query = $repository->createQueryBuilder('p')
-          ->where('p.service = :serviceUser')
-          ->setParameter('serviceUser', 'juridique')
-          ->orderBy('p.dateTraitement', 'DESC')
-          ->setFirstResult( $start )
-          ->setMaxResults( $length )
-          ->getQuery();
-        } else {
-
-          $query = $repository->createQueryBuilder('p')
-          ->where('p.idSalon = :salon')
-          ->setParameter('salon', $idsalon)
-          ->orderBy('p.dateTraitement', 'DESC')
-          ->setFirstResult( $start )
-          ->setMaxResults( $length )
-          ->getQuery();
-        }
-
-        $demandes = $query->getResult();
-
-        //Affichage via filtre "normaux"
-      }else if($typeFilter == 'default'){
-        if (in_array('ROLE_PAIE', $this->getUser()->getRoles(), true)) {
-          $demandes = $this->getDoctrine()
-          ->getManager()->getRepository('AppBundle:DemandeEntity')
-          ->findBy(array("service" => "paie"),
-          array($column => $dir),
-          $length, $start);
-
-        } else if (in_array('ROLE_JURIDIQUE', $this->getUser()->getRoles(), true)){
-          $demandes = $this->getDoctrine()
-          ->getManager()->getRepository('AppBundle:DemandeEntity')
-          ->findBy(array("service" => "juridique"),
-          array($column => $dir),
-          $length, $start);
-        } else {
-          $demandes = $this->getDoctrine()
-          ->getManager()->getRepository('AppBundle:DemandeEntity')
-          ->findBy(array("idSalon" => $idsalon),
-          array($column => $dir),
-          $length, $start);
-        }
-      }
-      return $demandes;
-    }
-
-
     public function displayDemandes($typeFilter,$column,$dir,$idsalon,$search,$start,$length){
-        //Requete dans la bdd en fonction de la colonne et de la direction récupérée
-        $demandes = self::wichService($typeFilter,$column,$dir,$idsalon,$search,$start,$length);
-
-
-
-          /* Compte du nombre de demande pour la pagination */
         $entitym = $this->getDoctrine()->getManager();
         $demandeRepo = $entitym->getRepository('AppBundle:DemandeEntity');
+
+        $em = $this->getDoctrine()->getManager('referentiel');
+        $persoRepo = $em->getRepository('ApiBundle:Personnel');
+
         $role= $this->getUser()->getRoles();
         $role= $role[0];
+        //Requete dans la bdd en fonction de la colonne et de la direction récupérée
+        $demandes = $demandeRepo->wichService($role,$typeFilter,$column,$dir,$idsalon,$search,$start,$length);
+
+        /* Compte du nombre de demande pour la pagination */
         $nb = $demandeRepo->getNb($role,$idsalon);
         $output = array(
            'data' => array(),
@@ -114,67 +50,57 @@ class DemandeController extends Controller
         );
 
           /* Récupération des informations de chaque demande en fonction du type de demande  */
-
         $em = $this->getDoctrine()->getManager("referentiel");
         foreach ($demandes as $demande ) {
               $demandeur = $em->getRepository('ApiBundle:Personnel')
                               ->findOneBy(array('matricule' => $demande->getUser()->getIdPersonnel()));
 
-                    /* Nom et Prenom du personnel concerné par la demande  */
-             		if ($demande->getDemandeform()->getTypeForm() == "Demande d'acompte"){
-            			$collab = $em->getRepository('ApiBundle:Personnel')
-            					->findOneBy(array('matricule' => $demande->getDemandeform()->getIdPersonnel()));
-            			$collab = $collab->getNom() . " " . $collab->getPrenom();
-            		}else{
-            			$collab = $demande->getDemandeform()->getNom() . " " . $demande->getDemandeform()->getPrenom();
-            		}
+                /* Code Sage du salon concerné par la demande */
+                  $codeSage = $demande->getidSalon();
 
+               /* Coordinateur du salon concerné par la demande */
+                  $coordo = $em->getRepository('ApiBundle:PersonnelHasSalon')->findOneBy(
+                  array("profession" => 2,
+                        "salonSage" => $demande->getidSalon(),
+                    ))->getPersonnelMatricule();
+                    $coordo = $coordo->getNom().' '.$coordo->getPrenom();
+
+                /* Nom et Prenom du personnel concerné par la demande  */
+                if ($demande->getDemandeform()->getTypeForm() == "Demande d'acompte"){
+                     $idP = $demande->getDemandeform()->getIdPersonnel();
+                     $collab  = $persoRepo->whichPersonnel($demande,$idP);
+                     }else{
+                     $collab  = $demandeRepo->whichPersonnel($demande);
+                  }
+                  
                 /* Statut de la demande  */
-                $date = $demande->getDateTraitement();
-                if($demande->getstatut() == 0){
-                    $statut="Rejeté";
+                  $statut = $demandeRepo->whichStatut($demande);
 
-                }else if ($demande->getstatut() == 1){
-                    $statut="En cours";
+                /* Marque du salon concerné par la demande */
+                  $marque = $em->getRepository('ApiBundle:Salon')->findOneBy(
+                  array("sage" => $demande->getidSalon()))->getEnseigne()->getNom();
 
-                }else if ($demande->getstatut() == 2){
-                    $statut="Traité";
+                /* Date de la demande */
+                  $date = $demande->getDateTraitement();
 
-                }else if ($demande->getstatut() == 3){
-                  $statut="A signé";
-
-                }else if ($demande->getstatut() == 4){
-                    $statut="A validé";
-                }
         /* Construction des lignes du tableau */
         $output['data'][] = [
           'id'               => $demande->getId(),
           ''                 => '<span class="glyphicon glyphicon-search click"></span>',
-          'Salon'            => $em->getRepository('ApiBundle:Salon')->findOneBy(array("sage" => $demande->getidSalon()))->getAppelation(),
-          'Demandeur'        => $demandeur->getNom() . " " . $demandeur->getPrenom(),
-          'dateEnvoi'        => $date->format('d-m-Y H:i'),
-          'statut'           => $statut,
+          'Code Sage'        => $codeSage,
+          'Enseigne'         => $marque,
+          'Appelation'       => $em->getRepository('ApiBundle:Salon')->findOneBy(array("sage" => $demande->getidSalon()))->getAppelation(),
+          'Coordinateur'     => $coordo,
+          'Manager'          => $demandeur->getNom() . " " . $demandeur->getPrenom(),
+          'Date'             => $date->format('d-m-Y H:i'),
+          'Statut'           => $statut,
           'Type de demande'  => $demande->getDemandeform()->getTypeForm(),
           'Collaborateur'    => $collab,
-          'Marque'           => ""
         ];
       }
 
-     /* TRI sur les colonnes par ordre croissant ou décroissant*/
-      if ($typeFilter == 'x'){
-
-          if($dir == "asc"){ $direction = SORT_ASC;}else { $direction = SORT_DESC; }
-              foreach ($output['data'] as $key => $row) {
-              	$col[$key]  = $row[$column];
-              }
-              array_multisort($col, $direction, $output['data']);
-              return $output;
-         }else{
-             return $output;
-      }
+      return $demandeRepo->sortingOut($typeFilter,$dir,$output,$column);
    }
-
-
   /**
    * @Route("/paginate", name="paginate")
    */
@@ -187,8 +113,6 @@ class DemandeController extends Controller
           $length = $request->get('length');
           $start = $request->get('start');
         //$search = $request->get('search');
-
-
           $idsalon = $request->getSession()->get('idSalon');
 
     //Affichage par défault sans filtre actif
@@ -209,11 +133,6 @@ class DemandeController extends Controller
       $typeFilter = $columns[$tri]['name'];
 
       return new Response(json_encode(self::displayDemandes($typeFilter,$column,$dir,$idsalon,null,$start,$length)), 200, ['Content-Type' => 'application/json']);
-
-
       }
-}
-
-
-
+  }
 }

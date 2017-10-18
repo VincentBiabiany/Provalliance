@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Repository;
+use ApiBundle\Entity\Personnel;
 
 /**
  * DemandeEntityRepository
@@ -10,7 +11,7 @@ namespace AppBundle\Repository;
  */
 class DemandeEntityRepository extends \Doctrine\ORM\EntityRepository
 {
-
+// Fonction getNB: Retourne le nombre de demande en fonction du service
   public function getNb($role,$idsalon) {
       if ($role =='ROLE_PAIE') {
 
@@ -39,5 +40,102 @@ class DemandeEntityRepository extends \Doctrine\ORM\EntityRepository
             ->getResult();
         }
    }
+   
+   // Fonction wichService: Retourne le tableau des demandes en fonction du service
+    public function wichService($role,$typeFilter,$column,$dir,$idsalon,$search,$start,$length){
 
+     //Requete en bdd en fonction du type de filtre
+     if (($typeFilter == 'x') or ($typeFilter == 'init') or ($typeFilter == 'search')) {
+
+       if ($role =='ROLE_PAIE') {
+        return $this->createQueryBuilder('p')
+             ->where('p.service = :serviceUser')
+             ->setParameter('serviceUser', 'paie')
+             ->orderBy('p.dateTraitement', 'DESC')
+             ->setFirstResult( $start )
+             ->setMaxResults( $length )
+             ->getQuery()
+             ->getResult();
+
+       } else if ($role =='ROLE_JURIDIQUE'){
+         return $this->createQueryBuilder('p')
+             ->where('p.service = :serviceUser')
+             ->setParameter('serviceUser', 'juridique')
+             ->orderBy('p.dateTraitement', 'DESC')
+             ->setFirstResult( $start )
+             ->setMaxResults( $length )
+             ->getQuery()
+             ->getResult();
+       } else {
+         return $this->createQueryBuilder('p')
+             ->where('p.idSalon = :salon')
+             ->setParameter('salon', $idsalon)
+             ->orderBy('p.dateTraitement', 'DESC')
+             ->setFirstResult( $start )
+             ->setMaxResults( $length )
+             ->getQuery()
+             ->getResult();
+       }
+       //Affichage via filtre "normaux"
+     }else if($typeFilter == 'default'){
+       if ($role =='ROLE_PAIE') {
+         return $this->findBy(array("service" => "paie"),
+                           array($column => $dir),
+                           $length, $start);
+
+       } else if ($role =='ROLE_JURIDIQUE'){
+         return $this->findBy(array("service" => "juridique"),
+                           array($column => $dir),
+                           $length, $start);
+       } else {
+         return $this->findBy(array("idSalon" => $idsalon),
+                           array($column => $dir),
+                           $length, $start);
+       }
+     }
+   }
+
+   // Fonction wichService: Retourne le statut de chaque demande
+    public function whichStatut($demande){
+
+      /* Statut de la demande  */
+      $date = $demande->getDateTraitement();
+      if($demande->getstatut() == 0){
+          $statut="Rejeté";
+
+      }else if ($demande->getstatut() == 1){
+          $statut="En cours";
+
+      }else if ($demande->getstatut() == 2){
+          $statut="Traité";
+
+      }else if ($demande->getstatut() == 3){
+          $statut="A signé";
+
+      }else if ($demande->getstatut() == 4){
+          $statut="A validé";
+      }
+      return $statut;
+    }
+
+    // Fonction whichPersonnel: Retourne les infos du personnel pour chaque demande
+    public function whichPersonnel($demande){
+          $collab = $demande->getDemandeform()->getNom() . " " . $demande->getDemandeform()->getPrenom();
+          return $collab;
+    }
+
+    // Fonction sortingOut: Trie le tableau des demandes par ordre Croissant ou Décroissant
+    public function sortingOut($typeFilter,$dir,$output,$column){
+         /* TRI sur les colonnes par ordre croissant ou décroissant*/
+          if ($typeFilter == 'x'){
+              if($dir == "asc"){ $direction = SORT_ASC;}else { $direction = SORT_DESC; }
+                  foreach ($output['data'] as $key => $row) {
+                  	$col[$key]  = $row[$column];
+                  }
+                  array_multisort($col, $direction, $output['data']);
+                  return $output;
+             }else{
+                 return $output;
+          }
+      }
 }
