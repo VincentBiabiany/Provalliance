@@ -15,12 +15,16 @@ class AccountRepository extends EntityRepository
                   ->setParameter('etat', 0)
                   ->getQuery()
                   ->getResult();
-
-            foreach ($listes as $liste ) {
-
-                $personnel[]= $liste->getIdPersonnel();
+        $listeAccount=[];
+            if (count($listes ) == 0) {
+                $listeAccount=null;
+            }else{
+                foreach ($listes as $liste ) {
+                    $listeAccount[]= $liste->getIdPersonnel();
+                }
             }
-            return $personnel;
+             return $listeAccount;
+
     }
 
 

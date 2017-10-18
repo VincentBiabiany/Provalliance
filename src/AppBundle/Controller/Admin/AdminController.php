@@ -82,6 +82,9 @@ class AdminController extends Controller
             $personnelRepo = $entity->getRepository('ApiBundle:Personnel');
             $listePerso = $personnelRepo->getPerso($listeAccount,$idSalon);
 
+            if($listePerso == null ){
+               $listePerso['Aucun utilisateur disponible']= null;
+            }
             $formS2 = $this->createFormBuilder()
             ->add('nom', ChoiceType::class, array(
                  'choices' => $listePerso,
