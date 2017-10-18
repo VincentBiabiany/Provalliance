@@ -26,12 +26,12 @@ class PersonnelRepository extends EntityRepository
             return $nb[0][1];
       }
 
+   // Fonction whichPersonnel: Retourne la liste du personnel en fonction d'un salon pour la partie ADMIN
     public function getPerso($listeAccount,$idSalon){
         $personnel = new Personnel();
         $listPerso=[];
         if ($listeAccount == null) {
             $listPerso['Aucun utilisateur disponible']= null ;
-
         }else{
         foreach ($listeAccount as $key => $value) {
                 if ( self::getNb($value,$idSalon) > 0 ){
@@ -43,10 +43,16 @@ class PersonnelRepository extends EntityRepository
               $listPerso['Aucun utilisateur disponible']= null ;
             }
         return $listPerso;
+     }
+   }
 
+   // Fonction whichPersonnel: Retourne les infos du personnel pour chaque demande dans partie Suivi des Demandes
+   public function whichPersonnel($demande, $idP){
 
-    }
+          $collab = $this->findOneBy(array('matricule' => $idP ));
+          $collab = $collab->getNom() . " " . $collab->getPrenom();
 
-  }
+      return $collab;
+   }
 
 }

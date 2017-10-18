@@ -368,7 +368,7 @@ class AdminController extends Controller
                               'translation_domain' => 'admin_create')
                                  );
                       $form ->add('roles', ChoiceType::class, array(
-                               'choices' => array('Administrateur' => 'ROLE_ADMIN', 'Service Paie' => 'ROLE_PAIE', 'Service Juridique' => 'ROLE_Juridique'),
+                               'choices' => array('Manager'=>'ROLE_MANAGER','Coordinateur' => 'ROLE_COORD', 'Service Paie' => 'ROLE_PAIE', 'Service Juridique' => 'ROLE_Juridique'),
                                'expanded' => false,
                                'multiple' => false,
                                'mapped' => false,
