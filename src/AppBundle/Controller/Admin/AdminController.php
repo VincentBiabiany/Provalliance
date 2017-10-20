@@ -306,7 +306,7 @@ class AdminController extends Controller
          $date= $date->format('d-m-Y H:i');
        }
          if ($userRole[0] == 'ROLE_MANAGER' || $userRole[0] == 'ROLE_COORD'
-         || $userRole[0] == 'ROLE_PAIE' || $userRole[0] == 'ROLE_SERVICE'){
+         || $userRole[0] == 'ROLE_PAIE' || $userRole[0] == 'ROLE_JURIDIQUE'){
 
       $output['data'][] = [
           'id'               => $user->getId(),
