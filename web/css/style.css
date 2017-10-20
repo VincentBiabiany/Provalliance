@@ -28,7 +28,7 @@ body,p,a,h1,h2,h3,h4,h5 {
 }
 /* HEADER */
 .header{
-	z-index: 2;
+	z-index:3;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -47,7 +47,7 @@ body,p,a,h1,h2,h3,h4,h5 {
 #topNav{
 		position: fixed;
     top: 20px;
-		z-index: 3;
+		z-index: 4;
 }
 #topNav a{
 	color: #333;
@@ -214,6 +214,24 @@ table.dataTable thead th, table.dataTable thead td ,table.dataTable tfoot th, ta
 	margin-top: 30px;
 
 }
+
+.form-control-feedback {
+    top: 5px !important;
+    right: 25px !important;
+
+}
+.glyphicon-ok{
+	color:green ;
+}
+.glyphicon-remove{
+	color: red;
+}
+.help-block {
+	position: absolute;
+	left: 18px;
+	top: 44px;
+  color: red !important;
+}
 #chgPwd{
 	position: relative;
 	color: black;
@@ -247,7 +265,7 @@ table.dataTable thead th, table.dataTable thead td ,table.dataTable tfoot th, ta
 	width: 100% !important;
 }
 #changePassword .form-group{
-	height: 90px !important;
+	height: 115px !important;
 }
 
 .flashConfirmation {
