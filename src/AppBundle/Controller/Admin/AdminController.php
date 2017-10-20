@@ -106,11 +106,12 @@ class AdminController extends Controller
       $formS3 = $formFactory->createForm( array('action' => $this->generateUrl('createAccountS3')));
 
       $formS3 ->add('idPersonnel', HiddenType::class, array(
-                      'data' => $idPersonnel));
+                      'data' => $idPersonnel ));
       $formS3 ->add('enabled', ChoiceType::class, array(
               'choices'  => array('Activer' => 1,'Désactiver' => 0),
               'expanded' => true,
               'multiple' => false,
+              'attr' => array ('class' =>  'form-control'),
               'label' => 'admin_create.etat',
               'translation_domain' => 'admin_create'
                       ));
@@ -119,12 +120,13 @@ class AdminController extends Controller
                'expanded' => false,
                'multiple' => false,
                'mapped' => false,
+               'attr' => array ('class' =>  'form-control'),
                'label' => 'admin_create.role',
                'translation_domain' => 'admin_create'
            ));
       $formS3 ->add('email', EmailType::class, array(
                'required'  => false,
-               'label' => 'admin_create.email',
+                  'attr' => array ('class' =>  'form-control'),               'label' => 'admin_create.email',
                'translation_domain' => 'admin_create'));
       $formS3-> add('Valider', SubmitType::class, array(
             'label' => 'global.valider',
