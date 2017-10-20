@@ -1,43 +1,43 @@
 {% trans_default_domain "demandeacompte" %}
 
-{{ errors }}
+<script type="text/javascript" src="{{ asset('js/jquery.validate.js') }}"></script>
 
 {{ form_start(formS3, {'attr': {'id': 'createAccountS3', 'class':'allForm createAccount'} } ) }}
 {{ form_errors(formS3) }}
 							  <div class="form-group">
 										<label class="control-label label col-sm-3 col-xs-12" for="salon"> {{ form_label(formS3.username) }}</label>
-												 <div class="col-sm-9 col-xs-12">
-			 									 				{{ form_widget(formS3.username, { 'attr': {'class': 'form-control','value':'test'} }) }}
+												 <div id="username" class="col-sm-9 col-xs-12">
+			 									 				{{ form_widget(formS3.username, { 'attr': {'class': 'form-control','placeholder':'Mdupont'} }) }}
 												</div>
 							  </div>
 							  <div class="form-group">
 										<label class="control-label label col-sm-3 col-xs-12" for="salon"> {{ form_label(formS3.plainPassword.first) }}</label>
 												 <div class="col-sm-9 col-xs-12">
-			 									 				{{ form_widget(formS3.plainPassword.first, { 'attr': {'class': 'form-control','value':'azert'} }) }}
+			 									 				{{ form_widget(formS3.plainPassword.first, { 'attr': {'class': 'form-control'} }) }}
 												</div>
 							  </div>
 							  <div class="form-group">
 										<label class="control-label label col-sm-3 col-xs-12" for="salon"> {{ form_label(formS3.plainPassword.second) }}</label>
 												 <div class="col-sm-9 col-xs-12">
-			 									 				{{ form_widget(formS3.plainPassword.second, { 'attr': {'class': 'form-control','value':'azert'} }) }}
+			 									 				{{ form_widget(formS3.plainPassword.second, { 'attr': {'class': 'form-control'} }) }}
 												</div>
 							  </div>
 								<div class="form-group">
 										<label class="control-label label col-sm-3 col-xs-12" for="salon"> {{ form_label(formS3.roles) }}</label>
 												 <div class="col-sm-9 col-xs-12">
-			 									 				{{ form_widget(formS3.roles, { 'attr': {'class': 'form-control'} }) }}
+			 									 				{{ form_widget(formS3.roles) }}
 												</div>
 							  </div>
 							  <div class="form-group">
 										<label class="control-label label col-sm-3 col-xs-12" for="salon"> {{ form_label(formS3.enabled) }}</label>
 												 <div class="col-sm-9 col-xs-12">
-			 									 				{{ form_widget(formS3.enabled, { 'attr': {'class': ''} }) }}
+			 									 				{{ form_widget(formS3.enabled, { 'attr': {'class': 'form-control'} }) }}
 												</div>
 							  </div>
 								<div class="form-group">
 										<label class="control-label label col-sm-3 col-xs-12" for="salon"> {{ form_label(formS3.email) }}</label>
 												 <div class="col-sm-9 col-xs-12">
-																{{ form_widget(formS3.email, { 'attr': {'class': 'form-control'} }) }}
+																{{ form_widget(formS3.email) }}
 												</div>
 								</div>
 								<div id="actionsButtons">
@@ -45,23 +45,130 @@
 									<a id="form_Precedent" class="btn-black precedent" href="#">{{ "admin_create.precedent"|trans({}, "admin_create") }} </a>
 	 				 		  </div>
  <script type="text/javascript">
+ $( document ).ready( function () {
+	 $( "#fos_user_registration_form_username").change(function(){
+	 	inputUsername = $('#fos_user_registration_form_username').val();
 
- $("#form_Precedent").bind('click', function(){
+	 			$.ajax({
+	 			 url : "{{path('uniqueUsername')}}",
+	 			 type: 'POST',
+	 			 data : 'inputUsername=' + inputUsername,
+	 			 success: function(html) {
+	 						if(html == 1){
+	 							$( "#username").append('<em id="fos_user_registration_form_username-error" class="error help-block">Nom d\'utilisateur déjà utilisé</em>');
 
-	 ChangeEstate('labelTwo','stepTwo',3,'prev');
+	 							$( "#username .glyphicon").removeClass('glyphicon-ok');
+	 							$( "#username .glyphicon").addClass('glyphicon-remove');
+	 							$( "#fos_user_registration_form_username").attr('aria-invalid','true');
+	 							$( "#fos_user_registration_form_Valider").css('display','none');
+	 						}else{
+	 							$( "#fos_user_registration_form_username").attr('aria-invalid','false');
+	 							$( "#username .glyphicon").removeClass('glyphicon-remove');
+	 							$( "#username .glyphicon").addClass('glyphicon-ok');
+	 							$( "#fos_user_registration_form_Valider").css('display','block');
+	 						}
+	 			 }
+	 		 });
+	 });
 
-		$('#CreateFormStep').fadeOut('slow', function(){
 
-                            $.ajax({
-                             url : "{{path('createAccountS2')}}",
-                             type: 'POST',
-                             data : 'idsalon='+{{app.session.get('idSalonAdmin')}},
-                             success: function(html) {
-                                     $('#CreateFormStep').html(html);
-                                     $('#CreateFormStep').fadeIn('slow');
-                             }
+ 	$( "#createAccountS3" ).validate( {
+ 		rules: {
+ 			'fos_user_registration_form[username]': {
+ 				required: true,
+ 				minlength: 5
+ 			},
+ 			'fos_user_registration_form[plainPassword][first]': {
+ 				required: true,
+ 				minlength: 5
+ 			},
+ 			'fos_user_registration_form[plainPassword][second]': {
+ 				equalTo: "#fos_user_registration_form_plainPassword_first"
+ 			},
+ 			'fos_user_registration_form[enabled]': {
+        required: true
+ 			},
+ 			'fos_user_registration_form[email]': {
+ 				required: false,
+ 				email: true
+ 			}
+ 		},
+ 		messages: {
+ 			'fos_user_registration_form[username]': {
+ 				required: "{{ "username_required"|trans({}, "message_validation_form") }}",
+ 				minlength: "{{ "username_minlength"|trans({}, "message_validation_form") }}"
+ 			},
+ 			'fos_user_registration_form[plainPassword][first]': {
+ 				required: "{{ "firstPassword_required"|trans({}, "message_validation_form") }}",
+ 				minlength: "{{ "firstPassword_minlength"|trans({}, "message_validation_form") }}"
+ 			},
+ 			'fos_user_registration_form[plainPassword][second]': {
+ 				required: "{{ "secondPassword_required"|trans({}, "message_validation_form") }}",
+ 				minlength: "{{ "secondPassword_minlength"|trans({}, "message_validation_form") }}",
+ 				equalTo: "{{ "secondPassword_equalTo"|trans({}, "message_validation_form") }}"
+ 			},
+ 			'fos_user_registration_form[enabled]': "{{ "enabled_required"|trans({}, "message_validation_form") }}",
+ 			'fos_user_registration_form[email]': "{{ "email_valid"|trans({}, "message_validation_form") }}"
+ 		},
+ 		errorElement: "em",
+ 		errorPlacement: function ( error, element ) {
+ 			// Add the `help-block` class to the error element
+ 			error.addClass( "help-block" );
+
+ 			// Add `has-feedback` class to the parent div.form-group
+ 			// in order to add icons to inputs
+ 			element.parents( ".col-sm-5" ).addClass( "has-feedback" );
+
+ 			if ( element.prop( "type" ) === "checkbox" ) {
+ 				error.insertAfter( element.parent( "label" ) );
+ 			} else {
+ 				error.insertAfter( element );
+ 			}
+
+ 			// Add the span element, if doesn't exists, and apply the icon classes to it.
+ 			if ( !element.next( "span" )[ 0 ] ) {
+ 				$( "<span class='glyphicon glyphicon-remove form-control-feedback'></span>" ).insertAfter( element );
+ 			}
+ 		},
+ 		success: function ( label, element ) {
+ 			// Add the span element, if doesn't exists, and apply the icon classes to it.
+ 			if ( !$( element ).next( "span" )[ 0 ] ) {
+ 				$( "<span class='glyphicon glyphicon-ok form-control-feedback'></span>" ).insertAfter( $( element ) );
+ 			}
+ 		},
+ 		highlight: function ( element, errorClass, validClass ) {
+ 			$( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
+ 			$( element ).next( "span" ).addClass( "glyphicon-remove" ).removeClass( "glyphicon-ok" );
+ 		},
+ 		unhighlight: function ( element, errorClass, validClass ) {
+ 			$( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
+ 			$( element ).next( "span" ).addClass( "glyphicon-ok" ).removeClass( "glyphicon-remove" );
+ 		}
+ 	} );
+
+
+
+       $("#form_Precedent").bind('click', function(){
+
+         ChangeEstate('labelTwo','stepTwo',3,'prev');
+
+          $('#CreateFormStep').fadeOut('slow', function(){
+
+                                  $.ajax({
+                                   url : "{{path('createAccountS2')}}",
+                                   type: 'POST',
+                                   data : 'idsalon='+{{app.session.get('idSalonAdmin')}},
+                                   success: function(html) {
+                                           $('#CreateFormStep').html(html);
+                                           $('#CreateFormStep').fadeIn('slow');
+                                   }
+                                 });
                            });
-										 });
 
-});
+      });
+
+ } );
+
+
+
  </script>

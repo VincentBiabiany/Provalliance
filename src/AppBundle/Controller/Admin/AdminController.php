@@ -106,11 +106,12 @@ class AdminController extends Controller
       $formS3 = $formFactory->createForm( array('action' => $this->generateUrl('createAccountS3')));
 
       $formS3 ->add('idPersonnel', HiddenType::class, array(
-                      'data' => $idPersonnel));
+                      'data' => $idPersonnel ));
       $formS3 ->add('enabled', ChoiceType::class, array(
               'choices'  => array('Activer' => 1,'Désactiver' => 0),
               'expanded' => true,
               'multiple' => false,
+              'attr' => array ('class' =>  'form-control'),
               'label' => 'admin_create.etat',
               'translation_domain' => 'admin_create'
                       ));
@@ -119,12 +120,13 @@ class AdminController extends Controller
                'expanded' => false,
                'multiple' => false,
                'mapped' => false,
+               'attr' => array ('class' =>  'form-control'),
                'label' => 'admin_create.role',
                'translation_domain' => 'admin_create'
            ));
       $formS3 ->add('email', EmailType::class, array(
                'required'  => false,
-               'label' => 'admin_create.email',
+                  'attr' => array ('class' =>  'form-control'),               'label' => 'admin_create.email',
                'translation_domain' => 'admin_create'));
       $formS3-> add('Valider', SubmitType::class, array(
             'label' => 'global.valider',
@@ -211,7 +213,7 @@ class AdminController extends Controller
                if ($request->isMethod('POST')) {
                    $form->handleRequest($request);
 
-                   if ($form->isSubmitted()) {
+                   if ($form->isSubmitted() && $form->isValid()) {
 
                           //On enregistre les infos principales du User
                           $em = $this->getDoctrine()->getManager();
@@ -236,17 +238,40 @@ class AdminController extends Controller
                      //  $this->addFlash("success", "Le compte Service a correctement été crée !");
                       return $this->render('admin/home.html.twig',['form'=>$form->createView(),
                       'flash'=>'Le compte Service a correctement été crée']);
-                         }
-              }
+                   }else{
+                      $validator = $this->get('validator');
+                      $errors = $validator->validate($form);
+                     if (count($errors) > 0) {
+                             $errorsString = (string) $errors;
+
+                      return $this->render('admin/createAccountService.html.twig',['form'=>$form->createView(),'flash'=>$errorsString]);
+
+
+                   }
+               }
+            }
                return $this->render('admin/createAccountService.html.twig',['form'=>$form->createView(),'flash'=>null]);
       }
 
+   /**
+    * @Route("/admin/uniqueUsername", name="uniqueUsername")
+    */
+   public function uniqueUsername(Request $request){
+
+      $uniqueUsername = $request->get('inputUsername');
+      // dump($uniqueUsername);
+      $entitym = $this->getDoctrine()->getManager();
+      $demandeRepo = $entitym->getRepository('AppBundle:User');
+      $occurenceUsername = $demandeRepo->uniqueField($uniqueUsername);
+
+      return new Response(json_encode($occurenceUsername), 200, ['Content-Type' => 'application/json']);
+
+   }
     /**
      * @Route("/admin/liste", name="listeAccount")
      */
     public function listeAccountAction()
     {
-
       $form = $this->createFormBuilder()
                   ->add('appelation', EntityType::class, array(
                      'class' => 'ApiBundle:Salon',
@@ -306,7 +331,7 @@ class AdminController extends Controller
          $date= $date->format('d-m-Y H:i');
        }
          if ($userRole[0] == 'ROLE_MANAGER' || $userRole[0] == 'ROLE_COORD'
-         || $userRole[0] == 'ROLE_PAIE' || $userRole[0] == 'ROLE_SERVICE'){
+         || $userRole[0] == 'ROLE_PAIE' || $userRole[0] == 'ROLE_JURIDIQUE'){
 
       $output['data'][] = [
           'id'               => $user->getId(),

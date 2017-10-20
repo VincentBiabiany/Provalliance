@@ -20,12 +20,25 @@
 			{{ flash_message }}
 		</div>
 	{% endfor %}
-	<div class="col-sm-12" style="padding-top: 50px;">
+	<div class="col-sm-12" >
 
+		<div id="selectionMultiple">
+				<div id="nbSelect" class="col-sm-3">
+					<span class="counter"></span> éléments sélectionnés
+				</div>
+				<div id="act" class="col-sm-8">
+					<ul>
+							<li>Print</li>
+							<li>Validation</li>
+							<li>Rejet</li>
+					</ul>
+				</div>
+		</div>
 		<table id="demande" class="table table-striped table-bordered" cellspacing="0" width="100%">
 			<thead>
 			<tr>
 				<th>id</th>
+				<th>Action</th>
 				<th class="click"></th>
 				<th>{{ "suividemande.codesage"|trans({}, "suivi_demandes") }}</th>
 				<th>{{ "suividemande.enseigne"|trans({}, "suivi_demandes") }}</th>
@@ -41,6 +54,7 @@
 			<tfoot>
 			<tr>
 				<th>id</th>
+				<th> Action</th>
 				<th class="click"></th>
 				<th>{{ "suividemande.codesage"|trans({}, "suivi_demandes") }}</th>
 				<th>{{ "suividemande.enseigne"|trans({}, "suivi_demandes") }}</th>
@@ -81,6 +95,7 @@
 					"order": [[ 5, 'asc' ],[ 4, 'desc' ]],
 					"columns":[
 						  {"data": "id"},
+							{"data": "Action", "orderable":false},
 							{"data": "", "class":"details-control", "orderable":false,},
 							{"data": "Code Sage","name":"x"},
 							{"data": "Enseigne","name":"x"},
@@ -148,10 +163,28 @@
 				  });
 				}
 			);
-
-
 		});
 
+$(function() {
+		$('#nbSelect .counter').text(' ');
+
+			var generallen = $(".check:checked").length;
+			if(generallen>0){
+				$("#nbSelect .counter").text('('+generallen+')');
+			}else{
+				$("#nbSelect .counter").text(' ');
+			}
+
+		function updateCounter() {
+		    var len = $(".check:checked").length;
+			if(len>0){$("#nbSelect .counter").text('('+len+')');}else{$("#nbSelect .counter").text(' ');}
+		}
+
+		$(".check:checkbox").on("change", function() {
+			updateCounter();
+		});
+
+})
 	</script>
 
 </div>
