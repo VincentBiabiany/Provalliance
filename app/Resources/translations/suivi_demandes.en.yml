@@ -1,9 +1,11 @@
-suividemande.header:            Suivre les demandes
-suividemande.salon:            Salon
-suividemande.demandeur:        Demandeur
+suividemande.header:           Track applications
+
+suividemande.codesage:         Code Sage
+suividemande.enseigne:         Enseigne
+suividemande.appelation:       Appelation
+suividemande.coordinateur:     Coordinateur
+suividemande.manager:          Manager
 suividemande.date:             Date
 suividemande.statut:           Statut
 suividemande.typedemande:      Type de demande
 suividemande.collaborateur:    Collaborateur
-suividemande.marque:           Marque
-suividemande.back:             Previous

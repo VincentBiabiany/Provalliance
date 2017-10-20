@@ -27,26 +27,30 @@
 			<tr>
 				<th>id</th>
 				<th class="click"></th>
-				<th>{{ "suividemande.salon"|trans({}, "suivi_demandes") }}</th>
-				<th>{{ "suividemande.demandeur"|trans({}, "suivi_demandes") }}</th>
+				<th>{{ "suividemande.codesage"|trans({}, "suivi_demandes") }}</th>
+				<th>{{ "suividemande.enseigne"|trans({}, "suivi_demandes") }}</th>
+				<th>{{ "suividemande.appelation"|trans({}, "suivi_demandes") }}</th>
+				<th>{{ "suividemande.coordinateur"|trans({}, "suivi_demandes") }}</th>
+				<th>{{ "suividemande.manager"|trans({}, "suivi_demandes") }}</th>
 				<th>{{ "suividemande.date"|trans({}, "suivi_demandes") }}</th>
 				<th>{{ "suividemande.statut"|trans({}, "suivi_demandes") }}</th>
 				<th>{{ "suividemande.typedemande"|trans({}, "suivi_demandes") }}</th>
 				<th>{{ "suividemande.collaborateur"|trans({}, "suivi_demandes") }}</th>
-				<th>{{ "suividemande.marque"|trans({}, "suivi_demandes") }}</th>
 			</tr>
 			</thead>
 			<tfoot>
 			<tr>
 				<th>id</th>
 				<th class="click"></th>
-				<th>{{ "suividemande.salon"|trans({}, "suivi_demandes") }}</th>
-				<th>{{ "suividemande.demandeur"|trans({}, "suivi_demandes") }}</th>
+				<th>{{ "suividemande.codesage"|trans({}, "suivi_demandes") }}</th>
+				<th>{{ "suividemande.enseigne"|trans({}, "suivi_demandes") }}</th>
+				<th>{{ "suividemande.appelation"|trans({}, "suivi_demandes") }}</th>
+				<th>{{ "suividemande.coordinateur"|trans({}, "suivi_demandes") }}</th>
+				<th>{{ "suividemande.manager"|trans({}, "suivi_demandes") }}</th>
 				<th>{{ "suividemande.date"|trans({}, "suivi_demandes") }}</th>
 				<th>{{ "suividemande.statut"|trans({}, "suivi_demandes") }}</th>
 				<th>{{ "suividemande.typedemande"|trans({}, "suivi_demandes") }}</th>
 				<th>{{ "suividemande.collaborateur"|trans({}, "suivi_demandes") }}</th>
-				<th>{{ "suividemande.marque"|trans({}, "suivi_demandes") }}</th>
 			</tr>
 			</tfoot>
 			<tbody>
@@ -55,7 +59,7 @@
 
 
 		{% if not is_granted('ROLE_PAIE') and not is_granted('ROLE_JURIDIQUE') %}
-			<button style="float:left; margin-top: 50px;" onclick="window.location.href ='{{ path("homepage") }}'" class="btn-black precedent">{{ "suividemande.back"|trans({}, "suivi_demandes") }}</button>
+			<button onclick="window.location.href ='{{ path("homepage") }}'" class="btn-black precedent">{{ "global.back"|trans({}, "global") }}</button>
 		{% endif %}
 	</div>
 
@@ -65,6 +69,7 @@
 	<script type="text/javascript" class="init">
 		$(document).ready(function(){
 			var dt  = $('#demande').DataTable({
+				  "searching": false,
 					"processing": true,
 					"serverSide": true,
 					"ajax":{
@@ -77,13 +82,15 @@
 					"columns":[
 						  {"data": "id"},
 							{"data": "", "class":"details-control", "orderable":false,},
-							{"data": "Salon","name":"x"},
-							{"data": "Demandeur","name":"x"},
-							{"data": "dateEnvoi","name":"x"},
-							{"data": "statut","name":"default", "class":"statut"},
+							{"data": "Code Sage","name":"x"},
+							{"data": "Enseigne","name":"x"},
+							{"data": "Appelation","name":"x"},
+							{"data": "Coordinateur","name":"x"},
+							{"data": "Manager","name":"x"},
+							{"data": "Date","name":"x"},
+							{"data": "Statut","name":"default", "class":"statut"},
 							{"data": "Type de demande","name":"x"},
 							{"data": "Collaborateur","name":"x"},
-							{"data": "Marque","name":"x"},
 					],
 					"columnDefs": [
 							{
@@ -112,12 +119,12 @@
 									 }
 							 },
 					"fnRowCallback": function( nRow, columns, iDisplayIndex ) {
-						 if ( columns.statut == "En cours")
+						 if ( columns.Statut == "En cours")
 						  {
 								$(nRow).addClass("encours alert-info");
 						  }
 							else if
-							( columns.statut == "Rejeté"){
+							( columns.Statut == "Rejeté"){
 								$(nRow).addClass("rejete alert-danger");
 						  }
 						 else
