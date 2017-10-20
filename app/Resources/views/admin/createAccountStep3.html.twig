@@ -1,8 +1,9 @@
 {% trans_default_domain "demandeacompte" %}
 
+{{ errors }}
 
 {{ form_start(formS3, {'attr': {'id': 'createAccountS3', 'class':'allForm createAccount'} } ) }}
-
+{{ form_errors(formS3) }}
 							  <div class="form-group">
 										<label class="control-label label col-sm-3 col-xs-12" for="salon"> {{ form_label(formS3.username) }}</label>
 												 <div class="col-sm-9 col-xs-12">

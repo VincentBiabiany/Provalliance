@@ -28,8 +28,25 @@
 	</div>
 </div>
 	<script type="text/javascript">
+  {% if errors %}
+  $('#CreateFormStep').fadeOut('slow', function(){ //on fait disparaitre l ancien contenu
+          $.ajax({
+           url : "{{path('createAccountS3')}}",
+           type: 'POST',
+           data : 'errors=' + {{ errors }},
+           success: function(html) {
+                   $('#CreateFormStep').html(html);
+                   $('#CreateFormStep').fadeIn('slow');
+            }
+         });
+     });
 
-			$( "#CreateFormStep" ).load("/admin/createS1"); // on fait apparaitre le nouveau contenu
+  {% else %}
+        $( "#CreateFormStep" ).load("/admin/createS1"); // on fait apparaitre le nouveau contenu
+
+  {% endif %}
+
+
 
 		</script>
 

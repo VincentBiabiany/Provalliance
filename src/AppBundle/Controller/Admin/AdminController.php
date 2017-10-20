@@ -42,7 +42,7 @@ class AdminController extends Controller
     public function createAccountAction(Request $request)
     {
 
-         return $this->render('admin/createAccountManager.html.twig');
+         return $this->render('admin/createAccountManager.html.twig',['errors'=>null]);
     }
 
     /**
@@ -137,7 +137,7 @@ class AdminController extends Controller
             if ($request->isMethod('POST')) {
                 $formS3->handleRequest($request);
 
-                if ($formS3->isSubmitted()) {
+                if ($formS3->isSubmitted() ) {
                    //On met a jour le champ 'compte' de la table Account
                         $idP= $formS3["idPersonnel"]->getData();
                         $em= $this->getDoctrine()->getManager();
@@ -163,21 +163,16 @@ class AdminController extends Controller
                        $newUser->setLastLogin(new \DateTime());
                        $newUser->setCreation(new \DateTime());
 
-
                        $em->persist($newUser);
                        $em->flush();
 
-                  //  $this->addFlash("success", "Le compte Manager a correctement été crée !");
-                  //  return $this->redirect($this->generateUrl('adminHome'));
                    return $this->render('admin/home.html.twig',
                            ['flash'=>'Le compte Manager a correctement été crée !']);
-                      }
+
            }
-
             return $this->render('admin/createAccountStep3.html.twig',
-                     ['formS3'=>$formS3->createView()]);
-
-
+                     ['formS3'=>$formS3->createView(),'errors' => null]);
+      }
    }
        /**
          * @Route("/admin/create_service", name="createAccountService")
@@ -310,15 +305,18 @@ class AdminController extends Controller
          $date = $user->getLastLogin();
          $date= $date->format('d-m-Y H:i');
        }
+         if ($userRole[0] == 'ROLE_MANAGER' || $userRole[0] == 'ROLE_COORD'
+         || $userRole[0] == 'ROLE_PAIE' || $userRole[0] == 'ROLE_SERVICE'){
 
       $output['data'][] = [
           'id'               => $user->getId(),
           ''                 => '<a href ='.$url.'><span class="glyphicon glyphicon-search click"></span></a>',
           'User'             => $user->getUsername(),
           'Dernière Connexion'  => $date,
-          'Rôle'             =>    $userRole[0],
+          'Rôle'             =>   $userRole[0],
           'Actif'            => '<span class="state '.$state.'"></span>',
         ];
+           }
       }
       return new Response(json_encode($output), 200, ['Content-Type' => 'application/json']);
     }

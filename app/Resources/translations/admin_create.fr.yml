@@ -7,7 +7,7 @@ admin_create.back: Retour
 admin_create.titre: Choix du type de compte
 admin_create.creation: Créer un compte
 
-admin_create.nom: Nom d'utilisateur
+admin_create.nom: Collaborateur
 admin_create.etat: Étape
 admin_create.password1: Mot de passe
 admin_create.password2: Répéter mot de passe
