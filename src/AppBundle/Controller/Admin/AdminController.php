@@ -213,7 +213,7 @@ class AdminController extends Controller
                if ($request->isMethod('POST')) {
                    $form->handleRequest($request);
 
-                   if ($form->isSubmitted()) {
+                   if ($form->isSubmitted() && $form->isValid()) {
 
                           //On enregistre les infos principales du User
                           $em = $this->getDoctrine()->getManager();
@@ -238,17 +238,40 @@ class AdminController extends Controller
                      //  $this->addFlash("success", "Le compte Service a correctement été crée !");
                       return $this->render('admin/home.html.twig',['form'=>$form->createView(),
                       'flash'=>'Le compte Service a correctement été crée']);
-                         }
-              }
+                   }else{
+                      $validator = $this->get('validator');
+                      $errors = $validator->validate($form);
+                     if (count($errors) > 0) {
+                             $errorsString = (string) $errors;
+
+                      return $this->render('admin/createAccountService.html.twig',['form'=>$form->createView(),'flash'=>$errorsString]);
+
+
+                   }
+               }
+            }
                return $this->render('admin/createAccountService.html.twig',['form'=>$form->createView(),'flash'=>null]);
       }
 
+   /**
+    * @Route("/admin/uniqueUsername", name="uniqueUsername")
+    */
+   public function uniqueUsername(Request $request){
+
+      $uniqueUsername = $request->get('inputUsername');
+      // dump($uniqueUsername);
+      $entitym = $this->getDoctrine()->getManager();
+      $demandeRepo = $entitym->getRepository('AppBundle:User');
+      $occurenceUsername = $demandeRepo->uniqueField($uniqueUsername);
+
+      return new Response(json_encode($occurenceUsername), 200, ['Content-Type' => 'application/json']);
+
+   }
     /**
      * @Route("/admin/liste", name="listeAccount")
      */
     public function listeAccountAction()
     {
-
       $form = $this->createFormBuilder()
                   ->add('appelation', EntityType::class, array(
                      'class' => 'ApiBundle:Salon',
