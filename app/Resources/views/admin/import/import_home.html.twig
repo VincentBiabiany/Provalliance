@@ -1,0 +1,21 @@
+{% extends './base.html.twig' %}
+{% block title %}Administration{% endblock %}
+
+{% block body %}
+{% trans_default_domain "admin_home" %}
+
+	<div class="header admin">
+	</div>
+
+	<div class="head">
+		{{ "admin_home.header"|trans({}, "import_home") }}
+	</div>
+	<div class="container">
+		<div class="row">
+		<div id="actions" class="home menuAction">
+
+
+		 </div>
+		</div>
+	</div>
+{% endblock %}
