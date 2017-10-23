@@ -5,6 +5,8 @@ namespace AppBundle\Entity;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity
@@ -27,6 +29,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  *          )
  *      ),
  * })
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Admin\UserRepository")
  */
 class User extends BaseUser
 {
@@ -36,6 +39,12 @@ class User extends BaseUser
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
+    /**
+     * @var string
+     *
+     */
+    protected $username;
 
 	/**
      * @var int

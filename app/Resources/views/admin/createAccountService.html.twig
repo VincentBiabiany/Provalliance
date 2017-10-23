@@ -15,7 +15,11 @@
 				{{ form_start(form, {'attr': {'id': 'createAccountService', 'class':'allForm'} } ) }}
 				<div class="form-group">
 					<label class="control-label label col-sm-3 col-xs-12" for="username"> {{ form_label(form.username) }}</label>
+<<<<<<< HEAD
 					<div class="col-sm-9  col-xs-12">
+=======
+					<div id="username" class="col-sm-9  col-xs-12">
+>>>>>>> suivi
 						{{ form_widget(form.username, { 'attr': {'class': 'form-control'} }) }}
 					</div>
 				</div>
@@ -61,6 +65,34 @@
  <script type="text/javascript">
   $( document ).ready( function () {
 
+<<<<<<< HEAD
+=======
+$( "#fos_user_registration_form_username").change(function(){
+	inputUsername = $('#fos_user_registration_form_username').val();
+
+			$.ajax({
+			 url : "{{path('uniqueUsername')}}",
+			 type: 'POST',
+			 data : 'inputUsername=' + inputUsername,
+			 success: function(html) {
+						if(html == 1){
+							$( "#username").append('<em id="fos_user_registration_form_username-error" class="error help-block">Nom d\'utilisateur déjà utilisé</em>');
+
+							$( "#username .glyphicon").removeClass('glyphicon-ok');
+							$( "#username .glyphicon").addClass('glyphicon-remove');
+							$( "#fos_user_registration_form_username").attr('aria-invalid','true');
+							$( "#fos_user_registration_form_Valider").css('display','none');
+						}else{
+							$( "#fos_user_registration_form_username").attr('aria-invalid','false');
+							$( "#username .glyphicon").removeClass('glyphicon-remove');
+							$( "#username .glyphicon").addClass('glyphicon-ok');
+							$( "#fos_user_registration_form_Valider").css('display','block');
+						}
+			 }
+		 });
+});
+
+>>>>>>> suivi
  $( "#createAccountService" ).validate( {
 	rules: {
 		'fos_user_registration_form[username]': {

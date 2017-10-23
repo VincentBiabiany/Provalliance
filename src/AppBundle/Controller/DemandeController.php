@@ -72,7 +72,7 @@ class DemandeController extends Controller
                      }else{
                      $collab  = $demandeRepo->whichPersonnel($demande);
                   }
-                  
+
                 /* Statut de la demande  */
                   $statut = $demandeRepo->whichStatut($demande);
 
@@ -83,9 +83,11 @@ class DemandeController extends Controller
                 /* Date de la demande */
                   $date = $demande->getDateTraitement();
 
+                  $action = '<input class="" type="checkbox" name="vehicle">';
         /* Construction des lignes du tableau */
         $output['data'][] = [
           'id'               => $demande->getId(),
+          'Action'           => '<input class="check" type="checkbox" name="'.$demande->getId().'">',
           ''                 => '<span class="glyphicon glyphicon-search click"></span>',
           'Code Sage'        => $codeSage,
           'Enseigne'         => $marque,
