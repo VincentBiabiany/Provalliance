@@ -16,7 +16,13 @@ DirectoryIndex app.php
 <IfModule mod_negotiation.c>
     Options -MultiViews
 </IfModule>
-
+AddType application/octet-stream .csv
+AddType application/octet-stream .xls
+AddType application/octet-stream .doc
+AddType application/octet-stream .avi
+AddType application/octet-stream .mpg
+AddType application/octet-stream .txt
+AddType application/octet-stream .pdf
 <IfModule mod_rewrite.c>
     RewriteEngine On
 

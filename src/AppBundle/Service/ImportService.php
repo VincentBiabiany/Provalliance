@@ -5,22 +5,182 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Doctrine\ORM\EntityManager;
+use ApiBundle\Entity\Personnel;
+use ApiBundle\Entity\Salon;
+use ApiBundle\Entity\Groupe;
+use ApiBundle\Entity\Enseigne;
+use ApiBundle\Entity\Pays;
+use ApiBundle\Entity\PersonnelHasSalon;
+use ApiBundle\Entity\Profession;
 
 class ImportService
 {
   private $em;
+  private $dir;
 
-  public function __construct(EntityManager $em)
+  public function __construct(EntityManager $em, $dir)
   {
-    $this->$em = $em;
+    $this->em = $em;
+    $this->dir = $dir;
   }
 
-  public function importPersonnel()
+  public function importPersonnel($file)
   {
+    $champs = array(
+                "champs" => ["matricule"],
+                "valeur" => ["0"],
+                "nb"     => 19
+              );
+    $result = self::handleFile($file, $champs);
 
+    dump($result);
+
+    foreach ($result["result"] as $key => $personnel)
+    {
+      $entity = $this->em->getRepository('ApiBundle:Personnel')->find($personnel[0]);
+
+      if ($entity === null)
+        $entity = new Personnel();
+
+      $entity->setCivilite($personnel[1]);
+      $entity->setNom($personnel[2]);
+      $entity->setPrenom($personnel[3]);
+
+      $date = \DateTime::createFromFormat('d/m/Y H:i', $personnel[4]);
+      $entity->setDateNaissance($date);
+
+      $entity->setVilleNaissance($personnel[5]);
+      $entity->setPaysNaissance($personnel[6]);
+      $entity->setSexe($personnel[7]);
+      $entity->setNationalite($personnel[8]);
+      $entity->setNiveau($personnel[9]);
+      $entity->setEchelon($personnel[10]);
+      $entity->setAdresse1($personnel[11]);
+      $entity->setAdresse2($personnel[12]);
+      $entity->setCodepostal($personnel[13]);
+      $entity->setVille($personnel[14]);
+      $entity->setTelephone1($personnel[15]);
+      $entity->setTelephone2($personnel[16]);
+      $entity->setEmail($personnel[17]);
+      $entity->setActif($personnel[18]);
+
+      $this->em->persist($entity);
+      $this->em->flush();
+    }
   }
 
-  public function handleFile($file, $dir)
+  public function importSalon($file)
+  {
+    $champs = array(
+                    "champs" => ["Sage", "Groupe", "Enseigne", "Pays"],
+                    "valeur" => ["0", "20", "21", "22"],
+                    "nb"     => 23
+                  );
+
+    $result = self::handleFile($file, $champs);
+
+    foreach ($result["result"] as $key => $salon)
+    {
+      $entity = $this->em->getRepository('ApiBundle:Salon')->find($salon[0]);
+
+      if ($entity === null)
+        $entity = new Salon();
+
+      $entity->setAppelation($salon[1]);
+      $entity->setFormeJuridique($salon[2]);
+      $entity->setRcsVille($salon[3]);
+      $entity->setCodeNaf($salon[4]);
+      $entity->setSiren($salon[5]);
+      $entity->setCapital($salon[6]);
+      $entity->setRaisonSociale($salon[7]);
+      $entity->setAdresse1($salon[8]);
+      $entity->setAdresse2($salon[9]);
+      $entity->setCodePostal($salon[10]);
+      $entity->setVille($salon[11]);
+      $entity->setTelephone1($salon[12]);
+      $entity->setTelephone2($salon[13]);
+      $entity->setEmail($salon[14]);
+      $entity->setCodeMarlix($salon[15]);
+
+      $date =  \DateTime::createFromFormat('d/m/Y H:i', $salon[16]);
+      $entity->setDateOuverture($date);
+
+      $date =  \DateTime::createFromFormat('d/m/Y H:i', $salon[17]);
+      $entity->setDateFermetureSociale($date);
+
+      $date =  \DateTime::createFromFormat('d/m/Y H:i', $salon[18]);
+      $entity->setDateFermetureCommerciale($date);
+
+      $entity->setActif($salon[19]);
+
+      $group = $this->em->getRepository('ApiBundle:Groupe')->find($salon[20]);
+      if (!$group)
+        throw new Exception('Le groupe ligne ' . $key+2 .' n\'existe pas');
+      $entity->setGroupe($group);
+
+      $enseigne = $this->em->getRepository('ApiBundle:Enseigne')->find($salon[21]);
+      if (!$enseigne)
+        throw new Exception('L\'enseigne ligne ' . $key+2 .'n\'existe pas');
+      $entity->setEnseigne($enseigne);
+
+      $pays = $this->em->getRepository('ApiBundle:Pays')->find($salon[22]);
+      if (!$pays)
+        throw new Exception('Le pays ligne ' . $key+2 .'n\'existe pas');
+
+      $entity->setPays($pays);
+
+      $this->em->persist($entity);
+      $this->em->flush();
+    }
+  }
+
+  public function importLien($file)
+  {
+    $champs = array(
+                    "champs" => ["Profession", "Matricule", "Sage"],
+                    "valeur" => ["0", "1", "2"],
+                    "nb"     => 6
+                  );
+
+    $result = self::handleFile($file, $champs);
+
+
+    foreach ($result["result"] as $key => $lien)
+    {
+      $entity = $this->em->getRepository('ApiBundle:PersonnelHasSalon')->find($lien[0]);
+
+      if ($entity === null)
+        $entity = new PersonnelHasSalon();
+
+      $profession = $this->em->getRepository('ApiBundle:Profession')->find($lien[0]);
+      if (!$profession)
+        throw new Exception('La profession ligne ' . $key+2 .' n\'existe pas');
+      $entity->setProfession($profession);
+
+      $personnel = $this->em->getRepository('ApiBundle:Personnel')->find($lien[1]);
+      if (!$personnel)
+        throw new Exception('Le matricule ligne ' . $key+2 .' n\'existe pas');
+      $entity->setPersonnelMatricule($personnel);
+
+      $salon = $this->em->getRepository('ApiBundle:Salon')->find($lien[2]);
+      if (!$salon)
+        throw new Exception('Le salon ligne ' . $key+2 .' n\'existe pas');
+      $entity->setSalonSage($salon);
+
+      $date =  \DateTime::createFromFormat('d/m/Y H:i', $lien[3]);
+      $entity->setDateDebut($date);
+
+      $date =  \DateTime::createFromFormat('d/m/Y H:i', $lien[4]);
+      $entity->setDateFin($date);
+
+      $entity->setActif($lien[5]);
+
+      $this->em->persist($entity);
+      $this->em->flush();
+    }
+  }
+
+  public function handleFile($file, $champs)
   {
     // Control du type
     $mime = $file->getMimeType();
@@ -37,91 +197,65 @@ class ImportService
 
       // Place le fichier dans /web/upload/
       $file = $file->move(
-        $dir,
+        $this->dir,
         $fileName
       );
     }
     else
     {
       // Efface le fichier et fais remonter l'erreur
-      $fs->remove($file->getRealPath());
       throw new Exception('Type de fichier autre que CSV');
     }
 
     $csv = fopen($file->getRealPath(), "r");
     if (!$csv)
+    {
+      $fs->remove($file->getRealPath());
       throw new Exception('Fichier corrompu.');
+    }
 
-    $file2 = $file;
-    $testline = fgetcsv(fopen($file2->getRealPath(), "r"), 0, ";");
+    $array = $this->controleCsvLine($csv, $champs);
 
-    $test = utf8_encode($testline[0]);
-    if ($test == "Référence produit" || $test == "Référence produit X3")
-      throw new Exception('Nom des colonnes ligne 1');
-
-      $output_array = array();
-    if (preg_match("/[{}=]/", $test, $output_array))
-      throw new Exception('Information non conforme');
-
-
-    if (count($testline) != 15)
-        throw new Exception('Nombre de colonne attendu: 15, nombre détecté: ' . count($testline) );
-
-    $array = $this->controleCsvLine($csv);
-
-    // Ferme la lecture du fichier et le supprime
+    //Ferme la lecture du fichier et le supprime
     fclose($csv);
     $fs->remove($file->getRealPath());
+
+    // Si problème dans les champs alors une exception est levée
+    if (count($array["error"]) != 0) {
+      foreach ($array["error"] as $key => $value)
+        $message .= $array["error"][$key] . "\n";
+      throw new Exception("Erreur dans le fichier: " . $message, 1);
+    }
 
     return $array;
   }
 
-  public function controleCsvLine($csv)
+  public function controleCsvLine($csv, $chpObligatoire)
   {
     $i = 0;
     $array = array();
     $error = array();
-    $iscontinue = true;
 
-    while (($line = fgetcsv($csv, 0, ";")) != null)
+    $head = fgetcsv($csv);
+
+    while (($line = fgetcsv($csv)) != null)
     {
       // Clean chaques champs, si vide retourne null, sinon retourne en utf8
       $line = array_map(function($v){
-        return ($v == "") ? NULL : utf8_encode($v);
+        return ($v == "") ? null : utf8_encode($v);
       }, $line);
-
-      // Vérifie le format de date et correction
-      // $date =  DateTime::createFromFormat('Y-m-d', $line[2]);
-      // if ($date) {
-      //   $line[2] = $date->format('d/m/Y');
-      //   $date2 =  DateTime::createFromFormat('Y-m-d', $line[4]);
-      //   $line[4] = $date2->format('d/m/Y');
-      // }
 
       $array[$i] = $line;
 
-      // Champs obligatoire "Référence produit"
-      if($line[0] == "" || $line[0] == null)
-      $error[] =  "Champs obligatoire \"Référence produit\" absent à la ligne ".$i;
+      if (count($line) != $chpObligatoire["nb"])
+        $error[] = "Problème de nombre de champs ligne " . $i . " nombre : " . count($line) . " attendu : " . $chpObligatoire["nb"];
 
-      // Champs obligatoire "Commande n°"
-      if($line[1] == "" || $line[1] == null)
-      $error[] = "Champs obligatoire \"Commande n°\" absent à la ligne " . $i;
-
-      // Champs "N° de série"
-      if($line[8] == "" || $line[8] == null)
-      $error[] = "Champs obligatoire \"Champs N° de série\" absent à la ligne " . $i;
-
-      // Controle de la continuité des numéros de série
-      if(isset($tmp) && ($line[8] - $tmp) != 1)
-      {
-        $iscontinue = false;
-        $error[] = "Numéro de série non continu à la ligne " . $i;
+      foreach ($chpObligatoire["valeur"] as $key => $value) {
+        if ($line[$value] == null)
+          $error[] =  "Champs obligatoire '" . $chpObligatoire["champs"][$key] . "' absent à la ligne " . $i;
       }
-      $tmp = $line[8];
       ++$i;
     }
-
     return array("error" => $error, "result" => $array, "count" => $i, "line" => $line);
   }
 }

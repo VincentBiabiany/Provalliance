@@ -45,7 +45,10 @@ services:
         #arguments: ['%kernel.default_locale%']
         tags:
             - { name: kernel.event_subscriber, method: onKernelRequest }
-            
+
     AppBundle\Service\FileUploader:
         arguments:
             $targetDir: '%files_directory%'
+
+    AppBundle\Service\ImportService:
+        arguments: ['@doctrine.orm.referentiel_entity_manager', '%files_directory_import%']
