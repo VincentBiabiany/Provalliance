@@ -13,6 +13,15 @@ use Doctrine\ORM\Mapping as ORM;
 class PersonnelHasSalon
 {
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="date_debut", type="datetime", nullable=true)
@@ -36,9 +45,7 @@ class PersonnelHasSalon
     /**
      * @var \ApiBundle\Entity\Personnel
      *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\OneToOne(targetEntity="ApiBundle\Entity\Personnel")
+     * @ORM\ManyToOne(targetEntity="ApiBundle\Entity\Personnel")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="personnel_matricule", referencedColumnName="matricule")
      * })
@@ -48,9 +55,7 @@ class PersonnelHasSalon
     /**
      * @var \ApiBundle\Entity\Profession
      *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\OneToOne(targetEntity="ApiBundle\Entity\Profession")
+     * @ORM\ManyToOne(targetEntity="ApiBundle\Entity\Profession")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="profession_id", referencedColumnName="id")
      * })
@@ -60,15 +65,12 @@ class PersonnelHasSalon
     /**
      * @var \ApiBundle\Entity\Salon
      *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\OneToOne(targetEntity="ApiBundle\Entity\Salon")
+     * @ORM\ManyToOne(targetEntity="ApiBundle\Entity\Salon")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="salon_sage", referencedColumnName="sage")
      * })
      */
     private $salonSage;
-
 
 
     /**

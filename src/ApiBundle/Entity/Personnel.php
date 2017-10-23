@@ -143,7 +143,7 @@ class Personnel
      *
      * @ORM\Column(name="matricule", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $matricule;
 
@@ -151,7 +151,7 @@ class Personnel
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\ManyToMany(targetEntity="ApiBundle\Entity\Salon", inversedBy="personnel")
-     * @ORM\JoinTable(name="personnel_has_salon",
+     * @ORM\JoinTable(
      *   joinColumns={
      *     @ORM\JoinColumn(name="personnel_matricule", referencedColumnName="matricule")
      *   },

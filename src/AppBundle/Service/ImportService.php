@@ -144,12 +144,13 @@ class ImportService
 
     $result = self::handleFile($file, $champs);
 
-
+    dump($result);
     foreach ($result["result"] as $key => $lien)
     {
-      $entity = $this->em->getRepository('ApiBundle:PersonnelHasSalon')->find($lien[0]);
+      dump($lien);
+      //$entity = $this->em->getRepository('ApiBundle:PersonnelHasSalon')->find($lien[0]);
 
-      if ($entity === null)
+
         $entity = new PersonnelHasSalon();
 
       $profession = $this->em->getRepository('ApiBundle:Profession')->find($lien[0]);
