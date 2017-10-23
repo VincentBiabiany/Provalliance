@@ -116,7 +116,7 @@
 							{"data": "Manager","name":"x"},
 							{"data": "Date","name":"x"},
 							{"data": "Statut","name":"default", "class":"statut"},
-							{"data": "Type de demande","name":"x"},
+							{"data": "Type","name":"x"},
 							{"data": "Collaborateur","name":"x"},
 					],
 					"columnDefs": [
@@ -144,22 +144,7 @@
 										 "next":       "{{ "datatable.next"|trans({}, "datatable") }}",
 										 "last":       "{{ "datatable.last"|trans({}, "datatable") }}"
 									 }
-							 },
-					"fnRowCallback": function( nRow, columns, iDisplayIndex ) {
-						 if ( columns.Statut == "En cours")
-						  {
-								$(nRow).addClass("encours alert-info");
-						  }
-							else if
-							( columns.Statut == "Rejeté"){
-								$(nRow).addClass("rejete alert-danger");
-						  }
-						 else
-						 	{
-								$(nRow).addClass("traite alert-success");
-							}
-						 return nRow;
-				 }
+							 }
 			});
 
 

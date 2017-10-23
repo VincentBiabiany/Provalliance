@@ -77,7 +77,7 @@ class DemandeController extends Controller
 
                 /* Statut de la demande  */
                   $statut = $demandeRepo->whichStatut($demande);
-
+                  $classStatut= str_replace(' ', '_', $statut);
                 /* Marque du salon concerné par la demande */
                   $marque = $em->getRepository('ApiBundle:Salon')->findOneBy(
                   array("sage" => $demande->getidSalon()))->getEnseigne()->getNom();
@@ -95,8 +95,8 @@ class DemandeController extends Controller
           'Coordinateur'     => $coordo,
           'Manager'          => $demandeur->getNom() . " " . $demandeur->getPrenom(),
           'Date'             => $date->format('d-m-Y H:i'),
-          'Statut'           => $statut,
-          'Type de demande'  => $demande->getDemandeform()->getTypeForm(),
+          'Statut'           => '<span class="'.$classStatut.' statutLabel">'.$statut.'</span>',
+          'Type'  => $demande->getDemandeform()->getTypeForm(),
           'Collaborateur'    => $collab,
         ];
       }
