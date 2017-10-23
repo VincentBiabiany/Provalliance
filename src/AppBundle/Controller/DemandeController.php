@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\DemandeEntity;
 use AppBundle\Entity\DemandeAcompte;
 use AppBundle\Entity\DemandeEmbauche;
+use AppBundle\Entity\DemandeComplexe;
+use AppBundle\Entity\DemandeSimple;
 use AppBundle\Form\DemandeAcompteType;
 use AppBundle\Form\DemandeEmbaucheType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -83,11 +85,9 @@ class DemandeController extends Controller
                 /* Date de la demande */
                   $date = $demande->getDateTraitement();
 
-                  $action = '<input class="" type="checkbox" name="vehicle">';
         /* Construction des lignes du tableau */
         $output['data'][] = [
           'id'               => $demande->getId(),
-          'Action'           => '<input class="check" type="checkbox" name="'.$demande->getId().'">',
           ''                 => '<span class="glyphicon glyphicon-search click"></span>',
           'Code Sage'        => $codeSage,
           'Enseigne'         => $marque,
@@ -137,4 +137,45 @@ class DemandeController extends Controller
       return new Response(json_encode(self::displayDemandes($typeFilter,$column,$dir,$idsalon,null,$start,$length)), 200, ['Content-Type' => 'application/json']);
       }
   }
+
+  /**
+   * @Route("/typeDemande", name="typeDemande")
+   */
+  public function typeDemande(Request $request)
+  {
+    $idDemande = $request->get('id');
+
+    $entitym = $this->getDoctrine()->getManager();
+    $demande = $entitym->getRepository('AppBundle:DemandeEntity')
+                           ->findOneBy(array('id' => $idDemande));
+
+     if ($demande instanceof DemandeSimple){
+         $typedemande = 1;
+        }else{
+         $typedemande = 0;
+          }
+    return new Response(json_encode($typedemande), 200, ['Content-Type' => 'application/json']);
+
+  }
+  /**
+   * @Route("/demandeValidate", name="demandeValidate")
+   */
+  public function demandeValidate(Request $request)
+  {
+    $demandeValidates = $request->get('demandes');
+
+    $entitym = $this->getDoctrine()->getManager();
+    foreach ($demandeValidates as $demandeValidate ) {
+        $demande = $entitym->getRepository('AppBundle:DemandeEntity')
+                            ->findOneBy(array('id' => $demandeValidate));
+
+        $demande->setStatut(2);
+        $this->getDoctrine()->getManager()->flush();
+      }
+
+      return new Response($this->generateUrl('demande'));
+
+  }
+
+
 }
