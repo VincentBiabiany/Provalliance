@@ -1,13 +1,6 @@
 username_required:         Please enter a username
-<<<<<<< HEAD
-<<<<<<< HEAD
-username_minlength:        Your username must consist of at least 2 characters
-=======
 username_minlength:        Your username must consist of at least 5 characters
->>>>>>> suivi
-=======
 username_minlength:        Your username must consist of at least 5 characters
->>>>>>> 4e493ffac4516322581bbd784929f7b516f56324
 firstPassword_required:    Please provide a password
 firstPassword_minlength:   Your password must be at least 5 characters long
 secondPassword_required:   Please provide a password

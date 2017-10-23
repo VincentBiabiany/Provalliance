@@ -1,13 +1,6 @@
 username_required:        Merci d'entrer un nom d'utilisateur
-<<<<<<< HEAD
-<<<<<<< HEAD
-username_minlength:       Votre nom d'utilisateur doit comporter au moins 2 caractères
-=======
 username_minlength:       Votre nom d'utilisateur doit comporter au moins 5 caractères
->>>>>>> suivi
-=======
 username_minlength:       Votre nom d'utilisateur doit comporter au moins 5 caractères
->>>>>>> 4e493ffac4516322581bbd784929f7b516f56324
 firstPassword_required:   Veuillez saisir un mot de passe
 firstPassword_minlength:  Votre mot de passe doit comporter au moins 5 caractères
 secondPassword_required:  Veuillez confirmer votre mot de passe
