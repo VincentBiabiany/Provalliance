@@ -28,6 +28,7 @@ embauche.fam.conc:      Concubinage
 embauche.fam.celib:     Bachelor
 embauche.nbenf:         Number of child
 embauche.villen:        City of birth
+embauche.paysNaissance: Country of birth
 
 embauche.dateemb:       Date d'embauche
 embauche.ancien:        Ancien salarié

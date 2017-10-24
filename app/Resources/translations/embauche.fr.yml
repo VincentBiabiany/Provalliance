@@ -28,6 +28,7 @@ embauche.fam.conc:      Concubinage
 embauche.fam.celib:     Célibataire
 embauche.nbenf:         Nombre d'enfant(s)
 embauche.villen:        Ville naissance
+embauche.paysNaissance: Pays de naissance
 
 embauche.dateemb:       Date d'embauche
 embauche.ancien:        Ancien salarié

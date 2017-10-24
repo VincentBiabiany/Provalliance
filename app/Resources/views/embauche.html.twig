@@ -32,6 +32,12 @@
     <div class="col-sm-3 col-xs-12">
       {{ form_widget(form.dateNaissance) }}
     </div>
+
+    <label class="control-label label col-sm-3 col-xs-12" for="Nationalité">{{ "embauche.sexe"|trans({}, "embauche") }}</label>
+    <div class="col-sm-3 col-xs-12 append" style="display: inline-flex">
+      {{ form_widget(form.sexe) }}
+    </div>
+
   </div>
 
   <div class="form-group">
@@ -102,10 +108,17 @@
   </div>
 
   <div class="form-group">
+
     <label class="control-label label col-sm-3 col-xs-12" for="Nationalité">{{ "embauche.villen"|trans({}, "embauche") }}</label>
-    <div class="col-sm-8 col-xs-12" style="display: inline-flex" >
+    <div class="col-sm-3 col-xs-12" >
       {{ form_widget(form.villeNaissance) }}
     </div>
+
+    <label class="control-label label col-sm-3 col-xs-12" for="Nationalité">{{ "embauche.paysNaissance"|trans({}, "embauche") }}</label>
+    <div class="col-sm-3 col-xs-12" >
+      {{ form_widget(form.paysNaissance) }}
+    </div>
+
   </div><br/>
 
   {{ form_end(form) }}
@@ -207,5 +220,7 @@ $('.js-datepicker').datepicker({
   language: 'fr',
 });
 </script>
-
+<script language="javascript">
+		$('#topNav').css('display', 'initial');
+</script>
 {% endblock %}

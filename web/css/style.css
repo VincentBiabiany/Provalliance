@@ -379,8 +379,11 @@ label.required{
 	margin :auto;
 
 }
-#demande_embauche_codePostal, #demande_embauche_dateNaissance, #demande_embauche_dateembauche{
+#demande_embauche_codePostal {
 	width: 125px;
+}
+#demande_embauche_dateNaissance, #demande_embauche_dateembauche{
+	width: 205px;
 }
 
 #demande_embauche_nom, #demande_embauche_numSecu, #demande_embauche_situationFamille,
@@ -399,7 +402,7 @@ label.required{
 	width: 130px;
 
 }
-#demande_embauche_nationalite label.required, #demande_embauche_dejaSalarie label.required
+#demande_embauche_sexe label.required, #demande_embauche_nationalite label.required, #demande_embauche_dejaSalarie label.required
 ,#demande_embauche_postes label.required, #demande_embauche_diplomes label.required,
 #demande_embauche_salaireBase label.required, #demande_embauche_typeContrat label.required,
 #demande_embauche_CDD label.required, #fos_user_registration_form_enabled label.required{

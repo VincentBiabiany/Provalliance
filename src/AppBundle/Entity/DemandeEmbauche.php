@@ -46,6 +46,13 @@ class DemandeEmbauche extends DemandeForm
     /**
      * @var string
      *
+     * @ORM\Column(name="sexe", type="string", length=1)
+     */
+    private $sexe;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="addresse_2", type="string", length=255, nullable=true)
      */
     private $addresse2;
@@ -98,6 +105,13 @@ class DemandeEmbauche extends DemandeForm
      * @ORM\Column(name="ville_naissance", type="string", length=255)
      */
     private $villeNaissance;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pays_naissance", type="string", length=255)
+     */
+    private $paysNaissance;
 
     /**
      * @var string
@@ -1075,5 +1089,53 @@ class DemandeEmbauche extends DemandeForm
     public function getMutuelle()
     {
         return $this->mutuelle;
+    }
+
+    /**
+     * Set sexe
+     *
+     * @param string $sexe
+     *
+     * @return DemandeEmbauche
+     */
+    public function setSexe($sexe)
+    {
+        $this->sexe = $sexe;
+
+        return $this;
+    }
+
+    /**
+     * Get sexe
+     *
+     * @return string
+     */
+    public function getSexe()
+    {
+        return $this->sexe;
+    }
+
+    /**
+     * Set paysNaissance
+     *
+     * @param string $paysNaissance
+     *
+     * @return DemandeEmbauche
+     */
+    public function setPaysNaissance($paysNaissance)
+    {
+        $this->paysNaissance = $paysNaissance;
+
+        return $this;
+    }
+
+    /**
+     * Get paysNaissance
+     *
+     * @return string
+     */
+    public function getPaysNaissance()
+    {
+        return $this->paysNaissance;
     }
 }

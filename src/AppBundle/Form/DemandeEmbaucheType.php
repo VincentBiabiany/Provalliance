@@ -28,16 +28,16 @@ class DemandeEmbaucheType extends AbstractType
       $builder
       ->add('nom', null, array('attr' => ['class' => 'form-control']))
       ->add('prenom', null, array('attr' => ['class' => 'form-control']))
-      // ->add('sexe', ChoiceType::class, array(
-      //   'choices'  => array(
-      //     'embauche.sexe.m'  => 'embauche.sexe.m',
-      //     'embauche.sexe.f' => 'embauche.sexe.f',
-      //   ),
-      //   'choice_translation_domain' => 'embauche',
-      //   'translation_domain' => 'embauche',
-      //   'attr' => ['class' => 'form-control'],
-      //   'mapped' => false
-      // ))
+      ->add('sexe', ChoiceType::class, array(
+        'choices'  => array(
+          'embauche.sexe.m'  => 'embauche.sexe.m',
+          'embauche.sexe.f' => 'embauche.sexe.f',
+        ),
+        'choice_translation_domain' => 'embauche',
+        'translation_domain' => 'embauche',
+        'expanded' => true,
+        'multiple' => false,
+      ))
       ->add('addresse1', null, array('attr' => ['class' => 'form-control']))
       ->add('addresse2', null, array('attr' => ['class' => 'form-control']))
       ->add('codePostal', null, array('attr' => ['class' => 'form-control']))
@@ -50,7 +50,6 @@ class DemandeEmbaucheType extends AbstractType
         'format' => 'd/M/y',
         'years' => range(date('Y') - 100, date('Y') - 20),
         'attr' => ['class' => '']))
-        ->add('villeNaissance')
         ->add('nationalite', ChoiceType::class, array(
           'choices'  => array(
             'embauche.nat.fr'  => 'embauche.nat.fr',
@@ -61,19 +60,20 @@ class DemandeEmbaucheType extends AbstractType
           'expanded' => true,
           'multiple' => false,
         ))
-        ->add('nbEnfant', null, array('attr' => ['class' => 'form-control']))
+        ->add('nbEnfant', null, array('attr' => ['class' => 'form-control'], 'data' => 0))
         ->add('situationFamille', ChoiceType::class, array(
           'choices'  => array(
+            'embauche.fam.celib' => 'embauche.fam.celib',
             'embauche.fam.marie' => 'embauche.fam.marie',
             'embauche.fam.pacse' => 'embauche.fam.pacse',
             'embauche.fam.conc'  => 'embauche.fam.conc',
-            'embauche.fam.celib' => 'embauche.fam.celib',
           ),
           'choice_translation_domain' => 'embauche',
           'translation_domain' => 'embauche',
           'attr' => ['class' => 'form-control']
         ))
         ->add('villeNaissance', null, array('attr' => ['class' => 'form-control']))
+        ->add('paysNaissance', null, array('attr' => ['class' => 'form-control']))
         ->add('Envoyer', SubmitType::class, array(
           'label' => 'embauche.step1',
           'attr' => array('class' => 'btn-black end'),
@@ -87,14 +87,12 @@ class DemandeEmbaucheType extends AbstractType
             $form = $event->getForm();
             $data = $event->getForm()->getData();
 
-
-              $form->add('autre2', TextType::class, array(
-                'attr' => array( ),
-                'label' => 'embauche.autre',
-                'translation_domain' => 'embauche',
-                'mapped' => false
-              ));
-
+            $form->add('autre2', TextType::class, array(
+              'attr' => array( ),
+              'label' => 'embauche.autre',
+              'translation_domain' => 'embauche',
+              'mapped' => false
+            ));
 
           })
 
