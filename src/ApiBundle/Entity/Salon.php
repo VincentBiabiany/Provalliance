@@ -184,8 +184,6 @@ class Salon
      */
     private $pays;
 
-
-
     /**
      * Set appelation
      *

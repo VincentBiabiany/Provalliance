@@ -150,8 +150,8 @@ class Personnel
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="ApiBundle\Entity\Salon", inversedBy="personnel")
-     * @ORM\JoinTable(
+     * @ORM\ManyToMany(targetEntity="ApiBundle\Entity\Salon", inversedBy="salon_sage")
+     * @ORM\JoinTable(name="personnel_has_salon",
      *   joinColumns={
      *     @ORM\JoinColumn(name="personnel_matricule", referencedColumnName="matricule")
      *   },
@@ -161,6 +161,7 @@ class Personnel
      * )
      */
     private $salon;
+
     /**
      * Constructor
      */

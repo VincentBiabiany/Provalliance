@@ -45,7 +45,7 @@ class PersonnelHasSalon
     /**
      * @var \ApiBundle\Entity\Personnel
      *
-     * @ORM\ManyToOne(targetEntity="ApiBundle\Entity\Personnel")
+     * @ORM\ManyToOne(targetEntity="ApiBundle\Entity\Personnel", inversedBy="matricule")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="personnel_matricule", referencedColumnName="matricule")
      * })
@@ -65,7 +65,7 @@ class PersonnelHasSalon
     /**
      * @var \ApiBundle\Entity\Salon
      *
-     * @ORM\ManyToOne(targetEntity="ApiBundle\Entity\Salon")
+     * @ORM\ManyToOne(targetEntity="ApiBundle\Entity\Salon", inversedBy="salon")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="salon_sage", referencedColumnName="sage")
      * })

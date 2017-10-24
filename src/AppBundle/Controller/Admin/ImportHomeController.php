@@ -16,27 +16,51 @@ class ImportHomeController extends Controller
 {
    public function indexAction(Request $request, ImportService $import)
    {
+     $success = null;
      $form = $this->createFormBuilder()
-     ->add('salon', FileType::class, array('required' => false))
-     ->add('personnel', FileType::class, array('required' => false))
-     ->add('lien', FileType::class, array('required' => false))
-     ->add('send', SubmitType::class)
+     ->add('salon', FileType::class, array(
+         'required' => false,
+         'label' => 'import.salon',
+         'translation_domain' => 'import',
+      ))
+     ->add('personnel', FileType::class, array('required' => false,
+         'label' => 'import.personnel',
+         'translation_domain' => 'import'
+     ))
+     ->add('lien', FileType::class, array('required' => false,
+         'label' => 'import.lien',
+         'translation_domain' => 'import',
+      ))
+     ->add('send', SubmitType::class, [
+         'label' => 'import.import',
+         'attr' => array('class' => 'btn-black end'),
+         'translation_domain' => 'import',
+     ])
      ->getForm();
 
      $form->handleRequest($request);
      if ($form->isSubmitted() && $form->isValid()) {
        $data = $form->getData();
+       try {
+         if($data['salon'])
+          $import->importSalon($data['salon']);
 
-       if($data['salon'])
-        $import->importSalon($data['salon']);
-        
-       if($data['personnel'])
-        $import->importPersonnel($data['personnel']);
+         if($data['personnel'])
+          $import->importPersonnel($data['personnel']);
 
-       if($data['lien'])
-        $import->importLien($data['lien']);
+         if($data['lien'])
+          $import->importLien($data['lien']);
+       } catch (\Exception $e) {
+
+         return $this->render('admin/import/import_home.html.twig', [
+                                              'form'   => $form->createView(),
+                                              'erreur' => $e->getMessage(),
+                                              'success'=> null
+                                            ]);
+       }
+       $success = "Import des données réussies";
      }
 
-     return $this->render('admin/import/import_home.html.twig', ['form' => $form->createView()]);
+     return $this->render('admin/import/import_home.html.twig', ['form' => $form->createView(), 'erreur' => null, 'success'=> $success]);
    }
 }

@@ -1,0 +1,24 @@
+import.header:    Administration Import
+
+import.salon:     Import of Salon
+import.personnel: Import of Staff
+import.lien:      Import Staff/Salon
+import.import:    Import data
+
+import.erreur:    Error
+import.success:   Data imported
+import.ok:        Ok
+
+import.nocsv:     The file isn't a CSV
+import.corrupt:   The File is corrupted
+import.fileerror: Error in the file:
+import.nb:        'Problem of field number line: %line% - expected: %expd% but get: %nb%'
+import.champs:    'Mandatory fields  %champs% not present line %line%'
+
+import.groupe:    "Group line %line% doesn't exist."
+import.enseigne:  "L'enseigne line %line% doesn't exist."
+import.pays:      "Country line %line% doesn't exist."
+
+import.prof:      "Profession line %line% doesn't exist."
+omport.matr:      "Matricul line %line% doesn't exist."
+omport.salonEr:   "Salon line %line% doesn't exist."

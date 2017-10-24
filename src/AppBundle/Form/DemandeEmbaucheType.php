@@ -76,7 +76,7 @@ class DemandeEmbaucheType extends AbstractType
         ->add('villeNaissance', null, array('attr' => ['class' => 'form-control']))
         ->add('Envoyer', SubmitType::class, array(
           'label' => 'embauche.step1',
-          'attr' => array('class' =>'btn-black end'),
+          'attr' => array('class' => 'btn-black end'),
           'translation_domain' => 'embauche',
         ))
 

@@ -1,5 +1,5 @@
 {% extends './base.html.twig' %}
-{% block title %}Administration{% endblock %}
+{% block title %}Administration - Import{% endblock %}
 
 {% block body %}
 {% trans_default_domain "admin_home" %}
@@ -8,16 +8,86 @@
 	</div>
 
 	<div class="head">
-		{{ "admin_home.header"|trans({}, "admin_home") }}
+		{{ "import.header"|trans({}, "import") }}
 	</div>
-	<div class="container">
-		<div class="row">
-		<div id="actions" class="home menuAction">
 
-			{{form_start(form)}}
+	<div class="container">
+
+	 <div class="row">
+	 <div id="actions" class="home menuAction">
+
+			{{form_start(form, {'attr' : {'class' : 'allForm form-horizontal' } })}}
+				<div class="form-group">
+					<label style="width: 215px;"  class="control-label label col-sm-4 col-xs-12">{{ "import.salon" | trans({}, "import") }}</label>
+					<div style="padding-top:10px;" class="col-sm-6">
+						{{ form_widget(form.salon) }}
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label style="width: 215px;" class="control-label label col-sm-4 col-xs-12">{{ "import.personnel" | trans({}, "import") }}</label>
+			    <div style="padding-top:10px;" class="col-sm-6">
+			      {{ form_widget(form.personnel) }}
+
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label style="width: 215px;"  class="control-label label col-sm-4 col-xs-12">{{ "import.lien" | trans({}, "import") }}</label>
+			    <div style="padding-top:10px;" class="col-sm-6">
+			      {{ form_widget(form.lien) }}
+			    </div>
+	 			</div>
+
 			{{form_end(form)}}
-			
-		 </div>
+
 		</div>
 	</div>
+	</div>
+
+
+<!-- .......................... POP-UP ................................-->
+
+{% if success or erreur %}
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 style="color:black;" class="modal-title">
+					{% if erreur %} {{ "import.erreur"|trans({}, "import") }} {% endif %}
+					{% if success %} {{ "import.success"|trans({}, "import") }} {% endif %}
+				</h4>
+      </div>
+
+      <div class="modal-body">
+
+        <div id="infoEmbauche" class="" >
+          <p style="white-space: pre-wrap;color:black;"></br>{{ success }} {{ erreur }} </br></p>
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">{{ "import.ok"|trans({}, "import") }}</button>
+      </div>
+    </div>
+
+  </div>
+</div>{% endif %}
+
+<script type="text/javascript">
+
+  $('#topNav').css('display','none');
+  $('#myModal').modal('show');
+
+</script>
+<script language="javascript">
+
+		$('#topNav').css('display', 'initial');
+
+
+
+</script>
 {% endblock %}

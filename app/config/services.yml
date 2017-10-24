@@ -51,4 +51,6 @@ services:
             $targetDir: '%files_directory%'
 
     AppBundle\Service\ImportService:
-        arguments: ['@doctrine.orm.referentiel_entity_manager', '%files_directory_import%']
+        arguments: ['@doctrine.orm.referentiel_entity_manager',
+                    '@translator',
+                    '%files_directory_import%']
