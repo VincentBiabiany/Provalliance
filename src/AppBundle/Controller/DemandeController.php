@@ -26,9 +26,18 @@ class DemandeController extends Controller
      */
     public function indexAction(Request $request)
     {
-      return $this->render('demande.html.twig', array(
-        'img' => $request->getSession()->get('img')
-      ));
+
+        if ($request->get('origin')){
+            return $this->render('demande.html.twig', array(
+              'img' => $request->getSession()->get('img'),
+              'flash'=> 'Confirmation de la validation des demandes.'
+            ));
+        }else{
+              return $this->render('demande.html.twig', array(
+                'img' => $request->getSession()->get('img'),
+                'flash'=> null
+              ));
+          }
     }
 
     public function displayDemandes($typeFilter,$column,$dir,$idsalon,$search,$start,$length){
@@ -43,66 +52,75 @@ class DemandeController extends Controller
         //Requete dans la bdd en fonction de la colonne et de la direction récupérée
         $demandes = $demandeRepo->wichService($role,$typeFilter,$column,$dir,$idsalon,$search,$start,$length);
 
-        /* Compte du nombre de demande pour la pagination */
-        $nb = $demandeRepo->getNb($role,$idsalon);
-        $output = array(
-           'data' => array(),
-           'recordsFiltered' => $nb[0][1],
-           'recordsTotal' => $nb[0][1]
-        );
+        //Condition si aucune demandes n'est retournées
+        if  (empty($demandes)){
+            $output = array(
+               'data' =>0,
+               'recordsFiltered' => 0,
+               'recordsTotal' => 0
+            );
+            return $output;
+        }else{
+            /* Compte du nombre de demande pour la pagination */
+            $nb = $demandeRepo->getNb($role,$idsalon);
+            $output = array(
+               'data' => array(),
+               'recordsFiltered' => $nb[0][1],
+               'recordsTotal' => $nb[0][1]
+            );
 
-          /* Récupération des informations de chaque demande en fonction du type de demande  */
-        $em = $this->getDoctrine()->getManager("referentiel");
-        foreach ($demandes as $demande ) {
-              $demandeur = $em->getRepository('ApiBundle:Personnel')
-                              ->findOneBy(array('matricule' => $demande->getUser()->getIdPersonnel()));
+              /* Récupération des informations de chaque demande en fonction du type de demande  */
+            $em = $this->getDoctrine()->getManager("referentiel");
+            foreach ($demandes as $demande ) {
+                  $demandeur = $em->getRepository('ApiBundle:Personnel')
+                                  ->findOneBy(array('matricule' => $demande->getUser()->getIdPersonnel()));
 
-                /* Code Sage du salon concerné par la demande */
-                  $codeSage = $demande->getidSalon();
+                    /* Code Sage du salon concerné par la demande */
+                      $codeSage = $demande->getidSalon();
 
-               /* Coordinateur du salon concerné par la demande */
-                  $coordo = $em->getRepository('ApiBundle:PersonnelHasSalon')->findOneBy(
-                  array("profession" => 2,
-                        "salonSage" => $demande->getidSalon(),
-                    ))->getPersonnelMatricule();
-                    $coordo = $coordo->getNom().' '.$coordo->getPrenom();
+                   /* Coordinateur du salon concerné par la demande */
+                      $coordo = $em->getRepository('ApiBundle:PersonnelHasSalon')->findOneBy(
+                      array("profession" => 2,
+                            "salonSage" => $demande->getidSalon(),
+                        ))->getPersonnelMatricule();
+                        $coordo = $coordo->getNom().' '.$coordo->getPrenom();
 
-                /* Nom et Prenom du personnel concerné par la demande  */
-                if ($demande->getDemandeform()->getTypeForm() == "Demande d'acompte"){
-                     $idP = $demande->getDemandeform()->getIdPersonnel();
-                     $collab  = $persoRepo->whichPersonnel($demande,$idP);
-                     }else{
-                     $collab  = $demandeRepo->whichPersonnel($demande);
-                  }
+                    /* Nom et Prenom du personnel concerné par la demande  */
+                    if ($demande->getDemandeform()->getTypeForm() == "Demande d'acompte"){
+                         $idP = $demande->getDemandeform()->getIdPersonnel();
+                         $collab  = $persoRepo->whichPersonnel($demande,$idP);
+                         }else{
+                         $collab  = $demandeRepo->whichPersonnel($demande);
+                      }
 
-                /* Statut de la demande  */
-                  $statut = $demandeRepo->whichStatut($demande);
-                  $classStatut= str_replace(' ', '_', $statut);
-                /* Marque du salon concerné par la demande */
-                  $marque = $em->getRepository('ApiBundle:Salon')->findOneBy(
-                  array("sage" => $demande->getidSalon()))->getEnseigne()->getNom();
+                    /* Statut de la demande  */
+                      $statut = $demandeRepo->whichStatut($demande);
+                      $classStatut= str_replace(' ', '_', $statut);
+                    /* Marque du salon concerné par la demande */
+                      $marque = $em->getRepository('ApiBundle:Salon')->findOneBy(
+                      array("sage" => $demande->getidSalon()))->getEnseigne()->getNom();
 
-                /* Date de la demande */
-                  $date = $demande->getDateTraitement();
+                    /* Date de la demande */
+                      $date = $demande->getDateTraitement();
 
-        /* Construction des lignes du tableau */
-        $output['data'][] = [
-          'id'               => $demande->getId(),
-          ''                 => '<span class="glyphicon glyphicon-search click"></span>',
-          'Code Sage'        => $codeSage,
-          'Enseigne'         => $marque,
-          'Appelation'       => $em->getRepository('ApiBundle:Salon')->findOneBy(array("sage" => $demande->getidSalon()))->getAppelation(),
-          'Coordinateur'     => $coordo,
-          'Manager'          => $demandeur->getNom() . " " . $demandeur->getPrenom(),
-          'Date'             => $date->format('d-m-Y H:i'),
-          'Statut'           => '<span class="'.$classStatut.' statutLabel">'.$statut.'</span>',
-          'Type'  => $demande->getDemandeform()->getTypeForm(),
-          'Collaborateur'    => $collab,
-        ];
-      }
-
+            /* Construction des lignes du tableau */
+            $output['data'][] = [
+              'id'               => $demande->getId(),
+              ''                 => '<span class="glyphicon glyphicon-search click"></span>',
+              'sage'             => $codeSage,
+              'enseigne'         => $marque,
+              'appelation'       => $em->getRepository('ApiBundle:Salon')->findOneBy(array("sage" => $demande->getidSalon()))->getAppelation(),
+              'coordinateur'     => $coordo,
+              'manager'          => $demandeur->getNom() . " " . $demandeur->getPrenom(),
+              'date'             => $date->format('d-m-Y H:i'),
+              'statut'           => '<span class="'.$classStatut.' statutLabel">'.$statut.'</span>',
+              'type'             => $demande->getDemandeform()->getTypeForm(),
+              'collaborateur'    => $collab,
+            ];
+          }
       return $demandeRepo->sortingOut($typeFilter,$dir,$output,$column);
-   }
+      }
+  }
   /**
    * @Route("/paginate", name="paginate")
    */
@@ -173,7 +191,7 @@ class DemandeController extends Controller
         $this->getDoctrine()->getManager()->flush();
       }
 
-      return new Response($this->generateUrl('demande'));
+      return new Response($this->generateUrl('demande',['origin' => 'validation']));
 
   }
 
