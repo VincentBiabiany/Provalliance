@@ -126,8 +126,9 @@ class AdminController extends Controller
            ));
       $formS3 ->add('email', EmailType::class, array(
                'required'  => false,
-                  'attr' => array ('class' =>  'form-control'),               'label' => 'admin_create.email',
-               'translation_domain' => 'admin_create'));
+                  'attr' => array ('class' =>  'form-control'),
+                  'label' => 'admin_create.email',
+                  'translation_domain' => 'admin_create'));
       $formS3-> add('Valider', SubmitType::class, array(
             'label' => 'global.valider',
             'translation_domain' => 'global',

@@ -44,6 +44,7 @@
 					</ul>
 				</div>
 		</div>
+
 		<table id="demande" class="table table-striped table-bordered" cellspacing="0" width="100%">
 			<thead>
 			<tr>
@@ -86,6 +87,10 @@
 	</div>
 
 	</div>
+		{{ form_start(form, { 'attr': { 'id': 'exportMultiple', 'action':path("exportXls") } }) }}
+			  {{ form_widget(form.idDemandes) }}
+	  {{ form_end(form) }}
+
 	<div id="myModal" class="modal fade" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -186,14 +191,12 @@
 					}else{
 						oldNb = Number(sessionStorage.getItem('NbDemandeComplexe'));
 						sessionStorage.setItem('NbDemandeComplexe',oldNb+1);
-
 					}
-
 			});
-
-
-
 }
+  function injectionDemande(id){
+
+	}
 			//Sélection Multiple des demandes
 			$('#demande tbody').on( 'click', 'tr', function () {
 				// Si le tableau des demandes est vide on désactive la Sélection Multiple
@@ -214,7 +217,10 @@
 								// Si oui on désactive la validation Multiple
 								$('tr.selected').each(function(i, obj) {
 	                    var id = dt.row(this).data()['id'];
+
+											//Validation Multiple
 											 typeDemande(id);
+
 									});
 									if(Number(sessionStorage.getItem('NbDemandeComplexe')) > 0){
 										$('#validation').css('display','none');
@@ -239,7 +245,6 @@
 			 //Validation multiple des demandes simples
 			 	$('#validation').on( 'click', function () {
 					demandes = [];
-
 					$('tr.selected').each(function(i, obj) {
 								var id = dt.row(this).data()['id'];
 								 demandes[i]=id;
@@ -254,7 +259,18 @@
 
 		});
 
-
+		//Export multiple des demandes
+				$('#export').on( 'click', function () {
+					demandes = [];
+					$('tr.selected').each(function(i, obj) {
+								var id = dt.row(this).data()['id'];
+								 demandes[i]=id;
+						});
+						//Injection des id des demandes pour exportXls Multiple
+						$('input#form_idDemandes').val(demandes);
+						$('#exportMultiple').submit();
+			}
+		);
 
 });
 
