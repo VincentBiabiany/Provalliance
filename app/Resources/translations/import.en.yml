@@ -7,6 +7,7 @@ import.import:    Import data
 
 import.erreur:    Error
 import.success:   Data imported
+import.sucmsg:    Import des données réussies
 import.ok:        Ok
 
 import.nocsv:     The file isn't a CSV

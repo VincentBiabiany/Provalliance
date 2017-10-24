@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Service\ImportService;
 
 /**
- * @Route("/admin/importHome", name="importHome")
+ * @Route("/admin/import", name="importHome")
  */
 class ImportHomeController extends Controller
 {
@@ -58,7 +58,7 @@ class ImportHomeController extends Controller
                                               'success'=> null
                                             ]);
        }
-       $success = "Import des données réussies";
+       $success = $this->get('translator')->trans('import.sucmsg', [], 'import');
      }
 
      return $this->render('admin/import/import_home.html.twig', ['form' => $form->createView(), 'erreur' => null, 'success'=> $success]);

@@ -47,7 +47,7 @@ createAccountSa:
 
 
 importHome:
-    path:     /admin/import_home
+    path:     /admin/import
     defaults: {_controller: AppBundle:Admin/ImportHome:index}
 
 # createAccountS2:
