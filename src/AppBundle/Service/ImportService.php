@@ -128,17 +128,17 @@ class ImportService
 
       $group = $this->em->getRepository('ApiBundle:Groupe')->find($salon[20]);
       if (!$group)
-        throw new Exception($this->trans->trans('import.groupe', ["%line%"=> ($key+1)],'import'));
+        throw new Exception($this->trans->trans('import.groupe', ["%line%"=> ($key+2)],'import'));
       $entity->setGroupe($group);
 
       $enseigne = $this->em->getRepository('ApiBundle:Enseigne')->find($salon[21]);
       if (!$enseigne)
-        throw new Exception($this->trans->trans('import.enseigne', ["%line%"=> ($key+1)],'import'));
+        throw new Exception($this->trans->trans('import.enseigne', ["%line%"=> ($key+2)],'import'));
       $entity->setEnseigne($enseigne);
 
       $pays = $this->em->getRepository('ApiBundle:Pays')->find($salon[22]);
       if (!$pays)
-        throw new Exception($this->trans->trans('import.pays', ["%line%"=> ($key+1)],'import'));
+        throw new Exception($this->trans->trans('import.pays', ["%line%"=> ($key+2)],'import'));
 
       $entity->setPays($pays);
 
@@ -165,17 +165,17 @@ class ImportService
 
       $profession = $this->em->getRepository('ApiBundle:Profession')->find($lien[2]);
       if (!$profession)
-        throw new Exception($this->trans->trans('import.prof', ["%line%"=> ($key+1)],'import'));
+        throw new Exception($this->trans->trans('import.prof', ["%line%"=> ($key+2)],'import'));
       $entity->setProfession($profession);
 
       $personnel = $this->em->getRepository('ApiBundle:Personnel')->find($lien[1]);
       if (!$personnel)
-        throw new Exception($this->trans->trans('import.matr', ["%line%"=> ($key+1)],'import'));
+        throw new Exception($this->trans->trans('import.matr', ["%line%"=> ($key+2)], 'import'));
       $entity->setPersonnelMatricule($personnel);
 
       $salon = $this->em->getRepository('ApiBundle:Salon')->find($lien[3]);
       if (!$salon)
-        throw new Exception($this->trans->trans('import.salonEr', ["%line%"=> ($key+1)],'import'));
+        throw new Exception($this->trans->trans('import.salonEr', ["%line%"=> ($key+2)],'import'));
       $entity->setSalonSage($salon);
 
       if ($lien[4] != null)
@@ -268,7 +268,7 @@ class ImportService
 
       if (count($line) != $chpObligatoire["nb"])
         $error[] = $this->trans->trans('import.nb', [
-                      "%line%"=> ($i + 1 ),
+                      "%line%"=> ($i + 2),
                       "%nb%" => count($line),
                       "%expd%" => $chpObligatoire["nb"]
                     ],
@@ -278,7 +278,7 @@ class ImportService
       foreach ($chpObligatoire["valeur"] as $key => $value) {
         if ($line[$value] == null)
           $error[] =  $this->trans->trans('import.champs',[
-                        "%line%" => ($i + 1),
+                        "%line%" => ($i + 2),
                         "%champs%" => $chpObligatoire["champs"][$key],
                       ],
                         'import'

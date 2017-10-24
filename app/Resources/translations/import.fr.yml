@@ -21,5 +21,5 @@ import.enseigne:  "L'enseigne ligne %line% n'existe pas."
 import.pays:      "Le pays ligne %line% n'existe pas."
 
 import.prof:      "La profession ligne %line% n'existe pas."
-omport.matr:      "Le matricule ligne %line% n'existe pas."
-omport.salonEr:   "Le salon ligne %line% n'existe pas."
+import.matr:      "Le matricule ligne %line% n'existe pas."
+import.salonEr:   "Le salon ligne %line% n'existe pas."

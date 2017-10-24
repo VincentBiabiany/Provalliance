@@ -20,5 +20,5 @@ import.enseigne:  "L'enseigne line %line% doesn't exist."
 import.pays:      "Country line %line% doesn't exist."
 
 import.prof:      "Profession line %line% doesn't exist."
-omport.matr:      "Matricul line %line% doesn't exist."
-omport.salonEr:   "Salon line %line% doesn't exist."
+import.matr:      "Staff number line %line% doesn't exist."
+import.salonEr:   "Salon line %line% doesn't exist."
