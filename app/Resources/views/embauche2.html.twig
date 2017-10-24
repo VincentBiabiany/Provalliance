@@ -31,7 +31,7 @@
 
     <div class="form-group">
       <label class="control-label label col-sm-3 col-xs-12" for="date">{{ "embauche.poste"|trans({}, "embauche") }}</label>
-      <div class="col-sm-4 col-xs-12 pad-box append" style="display: inline-flex" >
+      <div class="col-sm-8 col-xs-12 pad-box append" style="display: inline-flex" >
         {{ form_widget(form.postes) }}
       </div>
     </div>
@@ -222,13 +222,14 @@ $(document).ready(function(){
   // Gère le champ "jusqu'au" du CDD
   $('#demande_embauche_CDD').change(function(){
 
-    // Montre le champ jusqu'au + required
+    // Montre le champ 'jusqu'au' + required
     if ($('input[name="demande_embauche[typeContrat]"]:checked').val() == "embauche.cdd") {
       $('input[name="demande_embauche[raison][raison]"]:checked', '#demande_embauche_CDD').next().next().show();
       $('input[name="demande_embauche[raison][raison]"]:checked', '#demande_embauche_CDD').next().next().children().children().attr('required','required')
       $('input[name="demande_embauche[raison][raison]"]:checked', '#demande_embauche_CDD').next().next().children().children().removeAttr('disabled', 'disabled')
+            $('input[name="demande_embauche[raison][raison]"]:checked', '#demande_embauche_CDD').next().next().children().children().children().removeAttr('disabled', 'disabled')
 
-      // Cache les autres champs non checked et enlève le required
+      // // Cache les autres champs non checked et enlève le required
       $('input[name="demande_embauche[raison][raison]"]:not(:checked)').next().next().hide();
       $('input[name="demande_embauche[raison][raison]"]:not(:checked)').removeAttr('required','required');
       $('input[name="demande_embauche[raison][raison]"]:not(:checked)').next().next().children().children().removeAttr('required', 'required')
@@ -236,15 +237,14 @@ $(document).ready(function(){
 
       $('input[name="demande_embauche[raison][raison]"]:not(:checked)').children().each(function() {
         $(this).removeAttr('required','required');
-
       });
     }
 
     if ($('.retourPhysique').is(':not(:checked)') && $('#demande_embauche_CDD_1').is(':checked'))
-    $('.jusquau').attr('required','required')
+      $('.jusquau').attr('required','required')
     else {
       $('.jusquau').removeAttr('required','required')
-      $('.jusquau').attr('disabled', 'disabled')
+      $('.jusquau').removeAttr('disabled', 'disabled')
     }
   });
 
@@ -262,6 +262,7 @@ $(document).ready(function(){
       {
         console.log('show');
         $('#test').show();
+        $('#test').children().removeAttr('disabled','false');
       }
     }
   });
