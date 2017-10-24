@@ -35,8 +35,6 @@ class ImportService
                 "nb"     => 19
               );
     $result = self::handleFile($file, $champs);
-
-    // dump($result);
     foreach ($result["result"] as $key => $personnel)
     {
       $entity = $this->em->getRepository('ApiBundle:Personnel')->find($personnel[0]);
@@ -158,11 +156,8 @@ class ImportService
                   );
 
     $result = self::handleFile($file, $champs);
-
-    // dump($result);
     foreach ($result["result"] as $key => $lien)
     {
-      //dump($lien);
       $entity = $this->em->getRepository('ApiBundle:PersonnelHasSalon')->find($lien[0]);
 
       if ($entity === null)
@@ -226,6 +221,7 @@ class ImportService
     else
     {
       // Efface le fichier et fais remonter l'erreur
+      $fs->remove($file->getRealPath());
       throw new Exception($this->trans->trans('import.nocsv', [],'import'));
     }
 
