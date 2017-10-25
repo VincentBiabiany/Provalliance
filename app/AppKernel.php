@@ -16,9 +16,10 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new AppBundle\AppBundle(),
-            new ApiBundle\ApiBundle(),          
+            new ApiBundle\ApiBundle(),
 			new FOS\UserBundle\FOSUserBundle(),
             new FOS\RestBundle\FOSRestBundle(),
+            new Liuggio\ExcelBundle\LiuggioExcelBundle(),
 
         ];
 

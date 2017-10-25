@@ -24,21 +24,31 @@
 
 		<div id="selectionMultiple">
 				<div id="nbSelect" class="col-sm-3">
-					<span class="counter"></span> éléments sélectionnés
+					<span class="counter"></span>	<span class="textSelect"></span>
 				</div>
+
 				<div id="act" class="col-sm-8">
 					<ul>
-							<li>Print</li>
-							<li>Validation</li>
-							<li>Rejet</li>
+							<li id="validation">
+									<i class="glyphicon glyphicon-ok"></i>
+									<span>Validation</span>
+							</li>
+							<li id="export">
+									<i class="glyphicon glyphicon-download-alt"></i>
+								  <span>Export</span>
+							</li>
+							<li id="deselect">
+								<i class="glyphicon glyphicon-trash"></i>
+									<span>Déselectionner</span>
+							</li>
 					</ul>
 				</div>
 		</div>
+
 		<table id="demande" class="table table-striped table-bordered" cellspacing="0" width="100%">
 			<thead>
 			<tr>
 				<th>id</th>
-				<th>Action</th>
 				<th class="click"></th>
 				<th>{{ "suividemande.codesage"|trans({}, "suivi_demandes") }}</th>
 				<th>{{ "suividemande.enseigne"|trans({}, "suivi_demandes") }}</th>
@@ -54,7 +64,6 @@
 			<tfoot>
 			<tr>
 				<th>id</th>
-				<th> Action</th>
 				<th class="click"></th>
 				<th>{{ "suividemande.codesage"|trans({}, "suivi_demandes") }}</th>
 				<th>{{ "suividemande.enseigne"|trans({}, "suivi_demandes") }}</th>
@@ -78,10 +87,33 @@
 	</div>
 
 	</div>
+		{{ form_start(form, { 'attr': { 'id': 'exportMultiple', 'action':path("exportXls") } }) }}
+			  {{ form_widget(form.idDemandes) }}
+	  {{ form_end(form) }}
+
+	<div id="myModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+					<div class="modal-body">
+						<div class="flashConfirmation">
+						  {{ flash }}
+							<span class="glyphicon glyphicon-ok-sign"></span>
+						</div>
+					</div>
+					<span class="closeAlert glyphicon glyphicon-remove" data-dismiss="modal"></span>
+
+			</div>
+
+		</div>
+	</div>
+
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/jquery.dataTables.min.css') }}">
 	<script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
 	<script type="text/javascript" class="init">
+	sessionStorage.setItem('NbDemandeComplexe',0);
+
 		$(document).ready(function(){
+			//Construction du tableau de la liste des demandes
 			var dt  = $('#demande').DataTable({
 				  "searching": false,
 					"processing": true,
@@ -92,20 +124,20 @@
 					} ,
 					"sAjaxDataProp": "data",
 					"pageLength": 20,
-					"order": [[ 5, 'asc' ],[ 4, 'desc' ]],
+					"lengthChange": false,
+					"order": [[ 7, 'desc' ]],
 					"columns":[
 						  {"data": "id"},
-							{"data": "Action", "orderable":false},
 							{"data": "", "class":"details-control", "orderable":false,},
-							{"data": "Code Sage","name":"x"},
-							{"data": "Enseigne","name":"x"},
-							{"data": "Appelation","name":"x"},
-							{"data": "Coordinateur","name":"x"},
-							{"data": "Manager","name":"x"},
-							{"data": "Date","name":"x"},
-							{"data": "Statut","name":"default", "class":"statut"},
-							{"data": "Type de demande","name":"x"},
-							{"data": "Collaborateur","name":"x"},
+							{"data": "sage","name":"x"},
+							{"data": "enseigne","name":"x"},
+							{"data": "appelation","name":"x"},
+							{"data": "coordinateur","name":"x"},
+							{"data": "manager","name":"x"},
+							{"data": "date","name":"x"},
+							{"data": "statut","name":"default", "class":"statut"},
+							{"data": "type","name":"x"},
+							{"data": "collaborateur","name":"x"},
 					],
 					"columnDefs": [
 							{
@@ -132,30 +164,14 @@
 										 "next":       "{{ "datatable.next"|trans({}, "datatable") }}",
 										 "last":       "{{ "datatable.last"|trans({}, "datatable") }}"
 									 }
-							 },
-					"fnRowCallback": function( nRow, columns, iDisplayIndex ) {
-						 if ( columns.Statut == "En cours")
-						  {
-								$(nRow).addClass("encours alert-info");
-						  }
-							else if
-							( columns.Statut == "Rejeté"){
-								$(nRow).addClass("rejete alert-danger");
-						  }
-						 else
-						 	{
-								$(nRow).addClass("traite alert-success");
-							}
-						 return nRow;
-				 }
+							 }
 			});
 
 
+      //Affiche le détail d'une demande
 			$('#demande tbody').on( 'click', 'tr td.details-control', function () {
 					var id = dt.row(this).data()['id'];
-					//window.location.href =
 					$.ajax({
-					  url: "test.html",
 							url: "{{ path('detail') }}",
 						  data: {"id" : id}
 						}).done(function( response ) {
@@ -163,30 +179,107 @@
 				  });
 				}
 			);
+
+   //Active ou Désactive la fonctionnalité "validation multiple" selon le type de la demande sélectionnée
+    function typeDemande(id){
+			$.ajax({
+					url: "{{ path('typeDemande') }}",
+					data: {"id" : id},
+					async: false
+				}).success(function( response ) {
+					if (response == '1'){
+					}else{
+						oldNb = Number(sessionStorage.getItem('NbDemandeComplexe'));
+						sessionStorage.setItem('NbDemandeComplexe',oldNb+1);
+					}
+			});
+}
+  function injectionDemande(id){
+
+	}
+			//Sélection Multiple des demandes
+			$('#demande tbody').on( 'click', 'tr', function () {
+				// Si le tableau des demandes est vide on désactive la Sélection Multiple
+				if ( $('.dataTables_empty').length) {
+				}else{
+
+	         $(this).toggleClass('selected');
+					 $('#nbSelect .counter').text(dt.rows('.selected').data().length+' ');
+
+					 //Si il y a au moins 1 ligne séléctionné
+					if (  $('tr.selected').length >0){
+								if (  $('tr.selected').length == 1){
+										$('#nbSelect .textSelect').text('élément sélectionné');
+								}else{
+										$('#nbSelect .textSelect').text('éléments sélectionnés');
+								}
+								//Boucle sur toute les demandes sélectionné pour savoir si l'une entre elle est une demande complexe
+								// Si oui on désactive la validation Multiple
+								$('tr.selected').each(function(i, obj) {
+	                    var id = dt.row(this).data()['id'];
+
+											//Validation Multiple
+											 typeDemande(id);
+
+									});
+									if(Number(sessionStorage.getItem('NbDemandeComplexe')) > 0){
+										$('#validation').css('display','none');
+									}else{
+										$('#validation').css('display','inline-block');
+									}
+									sessionStorage.setItem('NbDemandeComplexe',0);
+
+								$('#selectionMultiple').css('display','block');
+					//Si aucune ligne n'est séléctionné
+					}else{
+					  	$('#selectionMultiple').css('display','none');
+					}
+				}
+	 });
+			 //Déselection des demandes au préalablement sélectionnées
+			 	$('#deselect').on( 'click', function () {
+           $('tr.selected').removeClass('selected');
+					 $('#selectionMultiple').css('display','none');
+				});
+
+			 //Validation multiple des demandes simples
+			 	$('#validation').on( 'click', function () {
+					demandes = [];
+					$('tr.selected').each(function(i, obj) {
+								var id = dt.row(this).data()['id'];
+								 demandes[i]=id;
+						});
+						$.ajax({
+								url: "{{ path('demandeValidate') }}",
+							  data: {"demandes" : demandes},
+								type: 'POST'
+							}).done(function( response ) {
+						    window.location.href = response;
+					  });
+
 		});
 
-$(function() {
-		$('#nbSelect .counter').text(' ');
-
-			var generallen = $(".check:checked").length;
-			if(generallen>0){
-				$("#nbSelect .counter").text('('+generallen+')');
-			}else{
-				$("#nbSelect .counter").text(' ');
+		//Export multiple des demandes
+				$('#export').on( 'click', function () {
+					demandes = [];
+					$('tr.selected').each(function(i, obj) {
+								var id = dt.row(this).data()['id'];
+								 demandes[i]=id;
+						});
+						//Injection des id des demandes pour exportXls Multiple
+						$('input#form_idDemandes').val(demandes);
+						$('#exportMultiple').submit();
 			}
+		);
 
-		function updateCounter() {
-		    var len = $(".check:checked").length;
-			if(len>0){$("#nbSelect .counter").text('('+len+')');}else{$("#nbSelect .counter").text(' ');}
-		}
+});
 
-		$(".check:checkbox").on("change", function() {
-			updateCounter();
-		});
+{% if flash %}
+	 $("#myModal").modal()
+{% endif %}
 
-})
+
 	</script>
 
-</div>
 
 {% endblock %}

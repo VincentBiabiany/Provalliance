@@ -187,12 +187,12 @@ thead, tfoot{
 	background-color: #333;
 }
 thead tr th, tfoot tr th{
-	color: #fff;
-	font-weight: lighter !important;
+	color: #eee;
+	font-weight: 100 !important;
 }
 table.dataTable thead th, table.dataTable thead td ,table.dataTable tfoot th, table.dataTable tfoot td {
-    border-right: 1px solid #333 !important;
-    border-left: 1px solid #333  !important;
+	border-right: none;
+	border-left: none;
 }
 /*STYLE FORMULAIRES*/
 .alert{
@@ -360,17 +360,116 @@ label.required{
 	 color: #45bd43;
 	 text-decoration: none;
 }
+/******* LISTE DES DEMANDES ******/
+table.dataTable tbody td {
+    padding: 10px 10px !important;
+    border: none !important;
+    vertical-align: middle;
+}
 
+table.dataTable tbody tr.selected {
+    background-color:#22333B !important;
+}
+table.dataTable tbody tr.selected td {
+    color: white !important;
+}
+table.dataTable tbody tr.selected td.details-control {
+    border-left: solid 5px #04773B  !important;
+}
 #selectionMultiple{
 	width: 100%;
 	height: 50px;
 	background-color: white;
-
+  display: none;
+	border-left: solid 10px #22333B !important;
+	border-right: solid 10px #22333B !important;
 }
 #nbSelect{
 	float: left;
+	height: 100%;
+	font-size: 17px;
+	line-height: 45px;
+
 }
+
+#nbSelect .counter{
+	float: left;
+  height: 100%;
+
+	}
+#nbSelect .textSelect{
+    margin-left: 5px;
+	}
 #act{
+	float: right;
+	text-align: right;
+}
+#act ul{
+    margin-top: 16px;
+}
+#act ul li{
+	display: inline-block;
+	width: 130px;
+	text-align: center;
+}
+li#validation .glyphicon-ok {
+    color: black;
+}
+li#validation :hover, li#export :hover, li#deselect :hover{
+	 cursor: pointer;
+}
+li#validation :hover {
+    color: green;
+}
+#deselect :hover {
+    color: red !important;
+}
+#export :hover {
+    color: blue !important;
+}
+
+tr{
+	cursor: pointer;
+}
+tr.selected{
+	background-color: black;
+}
+
+#demande{
+	margin-top: 20px;
+}
+.statutLabel{
+	width: 70px;
+	border-radius: 5%;
+	display: block;
+	margin: auto;
+	padding: 6px;
+	color: #fff;
+	font-size: 12px;
+}
+.En_cours{
+	background-color:#2980b9;
+}
+.Rejeté{
+	background-color:#c0392b;
+}
+.Traité{
+	background-color:#27ae60;
+}
+.A_validé{
+	background-color:#d35400;
+}
+.A_signé{
+	background-color:#8e44ad;
+}
+.table-striped>tbody>tr:nth-of-type(odd) {
+    background-color: #efeeee !important;
+}
+table.dataTable thead th, table.dataTable thead td {
+    vertical-align: middle;
+}
+table.dataTable thead th, table.dataTable thead td, table.dataTable tfoot th, table.dataTable tfoot td {
+    vertical-align: middle;
 
 }
 /******* FORMULAIRE EMBAUCHE ******/
