@@ -139,16 +139,16 @@
 					"order": [[ 7, 'desc' ]],
 					"columns":[
 						  {"data": "id"},
-							{"data": "", "class":"details-control", "orderable":false,},
-							{"data": "sage","name":"x"},
-							{"data": "enseigne","name":"x"},
-							{"data": "appelation","name":"x"},
-							{"data": "coordinateur","name":"x"},
-							{"data": "manager","name":"x"},
-							{"data": "date","name":"x"},
-							{"data": "statut","name":"default", "class":"statut"},
-							{"data": "type","name":"x"},
-							{"data": "collaborateur","name":"x"},
+							{"data": "", "class":"filt details-control", "orderable":false,},
+							{"data": "sage", "class":"filt","name":"x"},
+							{"data": "enseigne","class":"filt","name":"x"},
+							{"data": "appelation","class":"filt","name":"x"},
+							{"data": "coordinateur","class":"filt","name":"x"},
+							{"data": "manager","class":"filt","name":"x"},
+							{"data": "date","class":"filt","name":"x"},
+							{"data": "statut","name":"default", "class":"filt statut"},
+							{"data": "type","class":"filt","name":"x"},
+							{"data": "collaborateur","class":"filt","name":"x"},
 					],
 					"columnDefs": [
 							{
@@ -205,9 +205,7 @@
 					}
 			});
 }
-  function injectionDemande(id){
-
-	}
+{% if is_granted('ROLE_PAIE') or is_granted('ROLE_JURIDIQUE') or is_granted('ROLE_ADMIN') %}
 			//Sélection Multiple des demandes
 			$('#demande tbody').on( 'click', 'tr', function () {
 				// Si le tableau des demandes est vide on désactive la Sélection Multiple
@@ -228,10 +226,8 @@
 								// Si oui on désactive la validation Multiple
 								$('tr.selected').each(function(i, obj) {
 	                    var id = dt.row(this).data()['id'];
-
 											//Validation Multiple
 											 typeDemande(id);
-
 									});
 									if(Number(sessionStorage.getItem('NbDemandeComplexe')) > 0){
 										$('#validation').css('display','none');
@@ -247,6 +243,9 @@
 					}
 				}
 	 });
+{% else %}
+			$('#selectionMultiple').css('display','none');
+{% endif %}
 			 //Déselection des demandes au préalablement sélectionnées
 			 	$('#deselect').on( 'click', function () {
            $('tr.selected').removeClass('selected');
@@ -268,7 +267,7 @@
 						    window.location.href = response;
 					  });
 
-		});
+			});
 
 		//Export multiple des demandes
 				$('#export').on( 'click', function () {
@@ -285,17 +284,21 @@
 
 		//Sélection de toutes les demandes
 				$('#allselect').on( 'click', function () {
-					$('tbody tr').each(function(i, obj) {
+					$('#demande tbody tr').each(function(i, obj) {
 							if ($(this).is('.selected')){}else{
 								$(this).addClass('selected');
 								 }
 						});
-
+						$('#nbSelect .counter').text(dt.rows('.selected').data().length+' ');
+						if (  $('tr.selected').length >0){
+									if (  $('tr.selected').length == 1){
+											$('#nbSelect .textSelect').text('élément sélectionné');
+									}else{
+											$('#nbSelect .textSelect').text('éléments sélectionnés');
+									}
+								}
 			}
 		);
-
-
-
 });
 
 {% if flash %}
