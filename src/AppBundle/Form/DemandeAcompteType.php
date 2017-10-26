@@ -13,8 +13,9 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 class DemandeAcompteType extends AbstractType
 {
@@ -88,11 +89,16 @@ class DemandeAcompteType extends AbstractType
                   'attr' => array('class' =>'btn-black end'),
                   'translation_domain' => 'demande_acompte'
                 ))
-          ;
+              ->addEventListener(FormEvents::POST_SUBMIT,
+                  function(FormEvent $event)
+                  {
+                    $form = $event->getForm();
+                    $data = $event->getForm()->getData();
+
+                    $data->setIdPersonnel($form['idPersonnel']->getData()->getMatricule());
+                    $event->setData($data);
+                  });
       }
-
-
-
     }
 
 	public function configureOptions(OptionsResolver $resolver)

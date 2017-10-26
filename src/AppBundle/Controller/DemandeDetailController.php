@@ -14,6 +14,7 @@ use AppBundle\Entity\DemandeEmbauche;
 use AppBundle\Form\DemandeAcompteType;
 use AppBundle\Form\DemandeComplexeType;
 use AppBundle\Form\DemandeEmbaucheType;
+use ApiBundle\Entity\Personnel;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -44,8 +45,16 @@ class DemandeDetailController extends Controller
       $salon = $em->getRepository('ApiBundle:Salon')
                   ->findOneBy(array('sage' => $demande->getidSalon()));
 
-      $demandeur = $em->getRepository('ApiBundle:Personnel')
-                      ->findOneBy(array('matricule' => $demande->getUser()->getIdPersonnel()));
+      if (in_array('ROLE_ADMIN', $this->getUser()->getRoles(), true))
+      {
+        $demandeur = new Personnel();
+        $demandeur->setNom('Admin');
+        $demandeur->setPrenom('');
+      } else {
+        $demandeur = $em->getRepository('ApiBundle:Personnel')
+                        ->findOneBy(array('matricule' => $demande->getUser()->getIdPersonnel()));
+      }
+
 
       $statut = $demande->getstatut();
       $typedemande = $demande->getDemandeform()->getTypeForm();
@@ -122,8 +131,16 @@ class DemandeDetailController extends Controller
     $salon = $em->getRepository('ApiBundle:Salon')
                 ->findOneBy(array('sage' => $demande->getidSalon()));
 
-    $demandeur = $em->getRepository('ApiBundle:Personnel')
-                    ->findOneBy(array('matricule' => $demande->getUser()->getIdPersonnel()));
+    if (in_array('ROLE_ADMIN', $this->getUser()->getRoles(), true))
+    {
+      $demandeur = new Personnel();
+      $demandeur->setNom('Admin');
+      $demandeur->setPrenom('');
+    } else {
+      $demandeur = $em->getRepository('ApiBundle:Personnel')
+                      ->findOneBy(array('matricule' => $demande->getUser()->getIdPersonnel()));
+    }
+
 
     $statut = $demande->getstatut();
     $typedemande = $demande->getDemandeform()->getTypeForm();
@@ -172,7 +189,7 @@ class DemandeDetailController extends Controller
                                         ));
     }
 
-    if($dateTraitement)
+    if ($dateTraitement)
       $dateTraitement = $dateTraitement->format('d-m-Y H:i');
 
     return $this->render('demande_detail_complexe.html.twig', array(

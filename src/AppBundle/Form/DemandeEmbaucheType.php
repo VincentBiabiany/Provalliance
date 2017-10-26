@@ -107,8 +107,8 @@ class DemandeEmbaucheType extends AbstractType
 
               if (!($data instanceof DemandeEmbauche) || !$data->getNationalite())
               return;
-
-              if ($data->getNationalite() == "embauche.nat.etr")
+  
+              if ($data->getNationalite() == "embauche.nat.etr" )
               {
                 $data->setNationalite($form->get('autre2')->getData());
                 $event->setData($data);

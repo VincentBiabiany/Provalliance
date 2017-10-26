@@ -46,7 +46,7 @@ class DemandeEmbauche extends DemandeForm
     /**
      * @var string
      *
-     * @ORM\Column(name="sexe", type="string", length=1)
+     * @ORM\Column(name="sexe", type="string", length=15)
      */
     private $sexe;
 
