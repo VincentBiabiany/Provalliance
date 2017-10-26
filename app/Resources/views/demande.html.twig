@@ -268,7 +268,7 @@
 						    window.location.href = response;
 					  });
 
-		});
+			});
 
 		//Export multiple des demandes
 				$('#export').on( 'click', function () {
@@ -285,17 +285,14 @@
 
 		//Sélection de toutes les demandes
 				$('#allselect').on( 'click', function () {
-					$('tbody tr').each(function(i, obj) {
+					$('#demande tbody tr').each(function(i, obj) {
 							if ($(this).is('.selected')){}else{
 								$(this).addClass('selected');
 								 }
 						});
-
+						$('#nbSelect .counter').text(dt.rows('.selected').data().length+' ');
 			}
 		);
-
-
-
 });
 
 {% if flash %}
