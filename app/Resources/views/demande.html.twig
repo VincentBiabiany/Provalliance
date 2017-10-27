@@ -125,6 +125,31 @@
 	sessionStorage.setItem('NbDemandeComplexe',0);
 
 		$(document).ready(function(){
+
+
+			var response = new Array();
+			var returnArray = new Array();
+			var selInitd = new Array();
+			var setFilter = {};
+
+			function getSelectedList(coln){
+
+				var data = {'selected': coln}
+				$.ajax({
+					type: 'POST',
+					url: "{{ path('filter') }}",
+					data: data,
+					async: false,
+					success: function(msg){
+						returnArray = msg;
+					}
+				})
+				return returnArray;
+			}
+
+
+
+
 			//Construction du tableau de la liste des demandes
 			var dt  = $('#demande').DataTable({
 				  "searching": false,
@@ -133,6 +158,9 @@
 					"ajax":{
 							type: 'POST',
 							url:"{{ path('paginate') }}",
+							"data" : function ( d ) {
+								d.extra = setFilter;
+							},
 					} ,
 					"sAjaxDataProp": "data",
 					"pageLength": 20,
@@ -175,7 +203,44 @@
 										 "next":       "{{ "datatable.next"|trans({}, "datatable") }}",
 										 "last":       "{{ "datatable.last"|trans({}, "datatable") }}"
 									 }
-							 }
+							 },
+							 initComplete: function (settings, json) {
+								 var api = this.api();
+
+								 api.columns().indexes().flatten().each( function ( i ) {
+									 selInitd[i] = false;
+									 var column = api.column( i );
+									 if ( i != 0 && i!= 1){
+										 var select = $('<select id=' + i + ' style="width:100%"><option value=""></option></select>')
+										 .appendTo( $(column.footer()).empty() )
+										 .on( 'change', function () {
+
+											 selected = $('#'+i).val();
+
+											 if (selected == ""){
+												 delete setFilter[i] ;
+											 } else {
+												 setFilter[i] = selected;
+											 }
+
+											 console.log(selected);
+											 console.log(setFilter);
+
+											 api.ajax.reload( null, true );
+										 })
+										 .on( 'focus', function () {
+											 //only want to perform this once per click/page refresh or else you get duplicate values
+											 if(!selInitd[i]){
+												 var selectedL = getSelectedList(i);
+												 for(d = 0; d < selectedL.length; d++) {
+													 select.append( '<option id="selected_'+ i +'" value="' + selectedL[d] + '">' + selectedL[d] + '</option>' )
+												 }
+												 selInitd[i] = true;
+											 }
+										 });
+									 }
+								 });
+							 }// FIN INITCOMPLETE
 			});
 
 

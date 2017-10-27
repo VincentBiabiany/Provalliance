@@ -135,8 +135,8 @@ class DemandeService
     }
     // Envoie au 2
     if ($envoie[0] == 2) {
-      self::sendMailToBp($personnel, $managerMail, $demande);
-
+      self::sendMailToSalon($personnel, $managerMail, $demande);
+      self::sendMailToSalon($personnel, $coordoMail, $demande);
     }
 
     // Envoie au paie

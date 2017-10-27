@@ -47,6 +47,46 @@ class DemandeController extends Controller
     }
 
 
+    /**
+    * @Route("/filter", name="filter")
+    */
+    public function filterAction(Request $request)
+    {
+      $col = array(
+                  "id",
+                  "",
+                  "sage",
+                  "enseigne",
+                  "appelation",
+                  "coordinateur",
+                  "manager",
+                  "date",
+                  "statut",
+                  "type",
+                  "collaborateur",
+                );
+
+      $nb = $request->get('selected');
+
+      $em = $this->getDoctrine()->getManager();
+
+      $query = $em->createQuery(
+        "SELECT DISTINCT p.".$col[$nb]."
+        FROM AppBundle:DemandeEntity p
+        ORDER BY p.".$col[$nb]." ASC"
+      );
+
+      $array = $query->getResult();
+
+      $rows = array();
+      foreach ($array as $key => $value) {
+        if($value[$col[$nb]])
+          $row[] = $value[$col[$nb]];
+      }
+
+      return new Response(json_encode($row), 200, ['Content-Type' => 'application/json']);
+    }
+
     public function displayDemandes($typeFilter,$column,$dir,$idsalon,$search,$start,$length){
         $entitym = $this->getDoctrine()->getManager();
         $demandeRepo = $entitym->getRepository('AppBundle:DemandeEntity');
