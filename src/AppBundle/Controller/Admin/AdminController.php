@@ -130,11 +130,11 @@ class AdminController extends Controller
                   'label' => 'admin_create.email',
                   'translation_domain' => 'admin_create'));
       $formS3-> add('Valider', SubmitType::class, array(
-            'label' => 'global.valider',
-            'translation_domain' => 'global',
-            'attr' => array(
-                  'class' => 'btn-black end'
-                   ))
+                'label' => 'global.valider',
+                'translation_domain' => 'global',
+                'attr' => array(
+                      'class' => 'btn-black end'
+                       ))
             );
 
             if ($request->isMethod('POST')) {

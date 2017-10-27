@@ -233,16 +233,16 @@ table.dataTable thead th, table.dataTable thead td ,table.dataTable tfoot th, ta
   color: red !important;
 }
 #chgPwd{
-	position: relative;
-	color: black;
+	position: absolute;
+	color: white;
 	display: block;
-	top: 20px;
 	margin-left: 15px;
 	height: 45px;
-	background-color: white;
+	background-color: #333;
 	padding-left: 15px;
 	line-height: 43px;
 	width: 190px;
+	right: 15px;
 }
 .containerModal{
 	margin: 0;
@@ -584,6 +584,18 @@ table.dataTable thead th, table.dataTable thead td, table.dataTable tfoot th, ta
 		.form-control{
 			 margin-bottom: 20px;
 		}
+		#chgPwd {
+			position: relative;
+	    color: white;
+	    display: block;
+	    height: 45px;
+	    margin-bottom: 18px;
+	    background-color: #333;
+	    padding-left: 15px;
+	    line-height: 43px;
+	    width: 100%;
+	    text-align: center;
+}
 		form#formAccompte	, form#createAccount, form#createAccountS2,
 		form#createAccountS3, form#editAccount,form#createAccountService{
 			width: 100% !important;
