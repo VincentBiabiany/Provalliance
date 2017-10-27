@@ -206,7 +206,7 @@ class DemandeService
 
     if ($to) {
       foreach ($to as $key => $userTo) {
-        if ($user->getEmail() && filter_var($user->getEmail(), FILTER_VALIDATE_EMAIL) ) {
+        if ($userTo->getEmail() && filter_var($userTo->getEmail(), FILTER_VALIDATE_EMAIL) ) {
           $message = (new \Swift_Message('Nouvelle '. $demande))
                       //->setFrom($emetteur)
                       ->setFrom("haidress.connection@gmail.com")
@@ -221,7 +221,7 @@ class DemandeService
                         ),
                         'text/html'
                       );
-          $this->mailer->send($message);
+           $this->mailer->send($message);
           }
       }
     }
