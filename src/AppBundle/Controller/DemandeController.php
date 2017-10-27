@@ -214,17 +214,9 @@ class DemandeController extends Controller
       $em = $this->getDoctrine()->getManager('referentiel');
       $persoRepo = $em->getRepository('ApiBundle:Personnel');
       $demandeRepo = $entitym->getRepository('AppBundle:DemandeEntity');
-            // ask the service for a Excel5
-          $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject();
 
-          $phpExcelObject->getProperties()->setCreator("liuggio")
-              ->setLastModifiedBy("Giulio De Donato")
-              ->setTitle("Office 2005 XLSX Test Document")
-              ->setSubject("Office 2005 XLSX Test Document")
-              ->setDescription("Test document for Office 2005 XLSX, generated using PHP classes.")
-              ->setKeywords("office 2005 openxml php")
-              ->setCategory("Test result file");
-
+      // Appel du service pour Excel5
+      $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject();
       $i = 0;
       foreach ($demandeExports as $demandeExport ) {
             //Infos de La demande
@@ -232,6 +224,23 @@ class DemandeController extends Controller
                               ->findOneBy(array('id' => $demandeExport));
 
             $statut = $demande->getStatut();
+            switch ($statut) {
+                    case 0:
+                        $statut= 'Rejeté';
+                        break;
+                    case 1:
+                        $statut= 'En cours';
+                        break;
+                    case 2:
+                        $statut= 'Traité';
+                        break;
+                    case 3:
+                        $statut= 'A signé';
+                        break;
+                    case 4:
+                        $statut= 'A validé';
+                        break;
+            }
             $date =  $demande->getDateTraitement();
             $userId =  $demande->getUser();
             $codeSage =  $demande->getIdSalon();
@@ -271,35 +280,33 @@ class DemandeController extends Controller
     $phpExcelObject->setActiveSheetIndex($i)
         ->setCellValue('A1', 'Code SAGE salon')->setCellValue('A2', 'Enseigne commerciale')->setCellValue('A3', 'Appelation du salon')
         ->setCellValue('A4', 'Forme juridique')->setCellValue('A5', 'RCS ville')->setCellValue('A6', 'Code NAF')->setCellValue('A7', 'SIREN')
-        ->setCellValue('A8', 'Capital')->setCellValue('A9', 'Raison sociale')->setCellValue('A10', 'adresse 1')->setCellValue('A11', 'adresse 2')
-        ->setCellValue('A12', 'code postal')->setCellValue('A13', 'Ville')->setCellValue('A14', 'Pays')->setCellValue('A15', 'Téléphone 1')
-        ->setCellValue('A16', 'Téléphone 2')->setCellValue('A17', 'email')->setCellValue('A18', 'Code MARLIX salon')->setCellValue('A19', 'Date ouverture')
+        ->setCellValue('A8', 'Capital')->setCellValue('A9', 'Raison sociale')->setCellValue('A10', 'Adresse 1')->setCellValue('A11', 'Adresse 2')
+        ->setCellValue('A12', 'Code postal')->setCellValue('A13', 'Ville')->setCellValue('A14', 'Pays')->setCellValue('A15', 'Téléphone 1')
+        ->setCellValue('A16', 'Téléphone 2')->setCellValue('A17', 'Email')->setCellValue('A18', 'Code MARLIX salon')->setCellValue('A19', 'Date ouverture')
         ->setCellValue('A20', 'Coordinateur')->setCellValue('A21', 'Manager')->setCellValue('A22', 'Responsable régional')
         ->setCellValue('A23', 'N°matricule')->setCellValue('A24', 'Civilité')->setCellValue('A25', 'Nom')
         ->setCellValue('A26', 'Prénom')->setCellValue('A27', 'Date naissance')->setCellValue('A28', 'Ville naissance')
         ->setCellValue('A29', 'Pays naissance')->setCellValue('A30', 'Sexe')->setCellValue('A31', 'Nationalité')->setCellValue('A32', 'Date entrée')
         ->setCellValue('A33', 'Date sortie')->setCellValue('A34', 'Niveau')->setCellValue('A35', 'Echelon')->setCellValue('A36', 'Emploi')
-        ->setCellValue('A37', 'adresse 1')->setCellValue('A38', 'adresse 2')->setCellValue('A39', 'code postal')->setCellValue('A40', 'Ville')
-        ->setCellValue('A41', 'Pays')->setCellValue('A42', 'Téléphone 1')->setCellValue('A43', 'Téléphone 2')->setCellValue('A44', 'email')
-        ->setCellValue('A45', 'date')->setCellValue('A46', 'statut demande')->setCellValue('A47', 'type demande')
+        ->setCellValue('A37', 'Adresse 1')->setCellValue('A38', 'Adresse 2')->setCellValue('A39', 'Code postal')->setCellValue('A40', 'Ville')
+        ->setCellValue('A41', 'Pays')->setCellValue('A42', 'Téléphone 1')->setCellValue('A43', 'Téléphone 2')->setCellValue('A44', 'Email')
+        ->setCellValue('A45', 'Date')->setCellValue('A46', 'Statut demande')->setCellValue('A47', 'Type demande')
         ->setCellValue('B1', $codeSage)->setCellValue('B2', $enseigne)->setCellValue('B3', $salon->getAppelation())
         ->setCellValue('B4', $salon->getFormeJuridique())->setCellValue('B5', $salon->getRcsVille())->setCellValue('B6', $salon->getCodeNaf())->setCellValue('B7', $salon->getSiren())
         ->setCellValue('B8', $salon->getCapital())->setCellValue('B9', $salon->getRaisonSociale())->setCellValue('B10', $salon->getAdresse1())->setCellValue('B11', $salon->getAdresse2())
-        ->setCellValue('B12', $salon->getCodePostal())->setCellValue('B13', $salon->getVille())->setCellValue('B14', 'Pays')->setCellValue('B15',  $salon->getTelephone1())
-        ->setCellValue('B16', $salon->getTelephone2())->setCellValue('B17', $salon->getEmail())->setCellValue('B18', $salon->getCodeMarlix())->setCellValue('B19',  $salon->getDateOuverture())
+        ->setCellValue('B12', $salon->getCodePostal())->setCellValue('B13', $salon->getVille())->setCellValue('B14', 'Pays')->setCellValue('B15', strval($salon->getTelephone1()))
+        ->setCellValue('B16', strval($salon->getTelephone2()))->setCellValue('B17', $salon->getEmail())->setCellValue('B18', $salon->getCodeMarlix())->setCellValue('B19',  $salon->getDateOuverture()->format('d-m-Y'))
         ->setCellValue('B20', $coordo->getPersonnelMatricule()->getNom().' '.$coordo->getPersonnelMatricule()->getPrenom())->setCellValue('B21','manager')->setCellValue('B22', 'Responsable régional')
-        ->setCellValue('B23', 'N°matricule')->setCellValue('B24', 'Civilité')->setCellValue('B25', $demandeur->getNom())
-        ->setCellValue('B26', $demandeur->getPrenom())->setCellValue('B27', $demandeur->getDateNaissance())->setCellValue('B28', $demandeur->getVilleNaissance())
-        ->setCellValue('B29', $demandeur->getVilleNaissance())->setCellValue('B30', $demandeur->getSexe())->setCellValue('B31', $demandeur->getNationalite())->setCellValue('B32', 'Date entrée')
-        ->setCellValue('B33', 'Date sortie')->setCellValue('B34', $demandeur->getNiveau())->setCellValue('B35',  $demandeur->getEchelon())->setCellValue('B36', $coordo->getProfession()->getNom())
-        ->setCellValue('B37', $demandeur->getAdresse1())->setCellValue('B38', $demandeur->getAdresse2())->setCellValue('B39', $demandeur->getCodepostal())->setCellValue('B40',$demandeur->getVille())
-        ->setCellValue('B41', 'Pays')->setCellValue('B42', $demandeur->getTelephone1())->setCellValue('B43', $demandeur->getTelephone2())->setCellValue('B44', $demandeur->getEmail())
-        ->setCellValue('B45', $date)->setCellValue('B46', $statut)->setCellValue('B47', $type);
+        ->setCellValue('B23', $demandeur->getMatricule())->setCellValue('B24', 'Civilité')->setCellValue('B25', $demandeur->getNom())->setCellValue('B26', $demandeur->getPrenom())->setCellValue('B27', $demandeur->getDateNaissance()->format('d-m-Y'))
+        ->setCellValue('B28', $demandeur->getVilleNaissance())->setCellValue('B29', $demandeur->getVilleNaissance())->setCellValue('B30', $demandeur->getSexe())->setCellValue('B31', $demandeur->getNationalite())
+        ->setCellValue('B32', $coordo->getDateDebut()->format('d-m-Y'))->setCellValue('B33', $coordo->getDateFin()->format('d-m-Y'))->setCellValue('B34', $demandeur->getNiveau())->setCellValue('B35',  $demandeur->getEchelon())
+        ->setCellValue('B36', $coordo->getProfession()->getNom())->setCellValue('B37', $demandeur->getAdresse1())->setCellValue('B38', $demandeur->getAdresse2())->setCellValue('B39', $demandeur->getCodepostal())
+        ->setCellValue('B40', $demandeur->getVille())->setCellValue('B41', 'Pays')->setCellValue('B42', $demandeur->getTelephone1())->setCellValue('B43', $demandeur->getTelephone2())->setCellValue('B44', $demandeur->getEmail())
+        ->setCellValue('B45', $date->format('d-m-Y'))->setCellValue('B46', $statut)->setCellValue('B47', $type);
 
     $phpExcelObject->getActiveSheet()->setTitle($demandeur->getNom().'-'.$date->format('d-m-Y'));
     // Set active sheet index to the first sheet, so Excel opens this as the first sheet
     $phpExcelObject->setActiveSheetIndex(0);
-
      $i++;
 
   }

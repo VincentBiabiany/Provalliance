@@ -9,6 +9,9 @@
   <div class="head" >
     {{ "embauche.header"|trans({}, "embauche") }}
   </div>
+  <div class="nomSalon">
+    {{ app.session.get('nomSalon') }}
+  </div>
   <div class="container">
 
   <div id="wrapperForm" class="row">

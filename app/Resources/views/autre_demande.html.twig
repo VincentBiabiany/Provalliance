@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% form_theme form 'form/error.html.twig' %}
-{% block title %}Autre demande{% endblock %}
+{% block title %}{% endblock %}
 
 {% block body %}
 {% trans_default_domain "autre_demande" %}
@@ -9,6 +9,9 @@
 </div>
 <div class="head">
 {{ "autredemande.titre"|trans({}, "autre_demande") }}
+</div>
+<div class="nomSalon">
+  {{ app.session.get('nomSalon') }}
 </div>
 <div class="container">
 	<div id="actions" class="formAction">
