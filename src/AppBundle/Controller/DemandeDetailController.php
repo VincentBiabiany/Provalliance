@@ -55,7 +55,6 @@ class DemandeDetailController extends Controller
                         ->findOneBy(array('matricule' => $demande->getUser()->getIdPersonnel()));
       }
 
-
       $statut = $demande->getstatut();
       $typedemande = $demande->getDemandeform()->getTypeForm();
       $date = $demande->getDateEnvoi();

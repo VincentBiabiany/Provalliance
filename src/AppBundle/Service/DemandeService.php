@@ -7,6 +7,7 @@ use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Templating\EngineInterface;
+use Symfony\Component\Routing\Router;
 use Doctrine\ORM\EntityManager;
 use ApiBundle\Entity\Personnel;
 use ApiBundle\Entity\Salon;
@@ -29,11 +30,13 @@ class DemandeService
   private $templating;
   private $session;
   private $fileUploader;
+  private $router;
 
   public function __construct(EntityManager $em, EntityManager $em2,
                               \Swift_Mailer $mailer, TokenStorage $token,
                               EngineInterface $templating, Session $session,
-                              FileUploader $fileUploader)
+                              FileUploader $fileUploader,
+                              Router $router)
   {
     $this->em           = $em;
     $this->em2          = $em2;
@@ -42,6 +45,7 @@ class DemandeService
     $this->templating   = $templating;
     $this->session      = $session;
     $this->fileUploader = $fileUploader;
+    $this->router       = $router;
   }
 
   public function createDemande($demande, $idSalon)
@@ -56,8 +60,8 @@ class DemandeService
   }
   /*         M   C   les 2
   * array -> 0,  1 , 2
-  *          Paie  RH  Adm
-  *       -> 1,    2,  4,
+  *          Paie  RH  Adm  rh+paie  paie + adm          tous
+  *       -> 1,    2,  4,    3          5          6      7
   *
   */
 
@@ -117,8 +121,8 @@ class DemandeService
 
 
     $paie = $qb->getQuery()->getResult();
-    // Vérifie à qui envoyer l'email au niveau salon
 
+    // Vérifie à qui envoyer l'email au niveau salon
     // Envoie au manager
     if ($envoie[0] == 0) {
       self::sendMailToSalon($personnel, $managerMail, $demande);
@@ -155,6 +159,11 @@ class DemandeService
       self::sendMailToBo($personnel, $paie, $demande);
       self::sendMailToBo($personnel, $admin, $demande);
     }
+    // Envoie RH et admn
+    if ($envoie[1] == 6) {
+      self::sendMailToBo($personnel, $juridique, $demande);
+      self::sendMailToBo($personnel, $admin, $demande);
+    }
     // Enoie au 3
     if ($envoie[1] == 7) {
       self::sendMailToBo($personnel, $paie, $demande);
@@ -169,27 +178,26 @@ class DemandeService
     $emetteur = $user->getEmail();
     $name = $user->getUsername();
 
-    if ($to) {
-      foreach ($to as $user) {
-         $message = (new \Swift_Message('Nouvelle '. $demande))
-                       ->setFrom($emetteur)
-                       ->setTo($user->getEmail())
-                       ->setBody(
-                         $this->templating->render(
-                           'emails/mail_salon.html.twig',
-                           array('personnel' => $personnel->getPrenom().' '.$personnel->getNom(),
-                               'user' => $name,
-                               'demande' => $demande,
-                               'url' => '')
-                         ),
-                         'text/html'
-                       );
-         $this->mailer->send($message);
-       }
-     }
+    if ($to && filter_var($to, FILTER_VALIDATE_EMAIL)) {
+        $message = (new \Swift_Message('Nouvelle '. $demande))
+                    //->setFrom($emetteur)
+                    ->setFrom("haidress.connection@gmail.com")
+                    ->setTo($user->getEmail())
+                    ->setBody(
+                      $this->templating->render(
+                        'emails/mail_salon.html.twig',
+                        array('personnel' => $personnel->getPrenom().' '.$personnel->getNom(),
+                        'user' => $name,
+                        'demande' => $demande,
+                        'url' => $this->url)
+                      ),
+                      'text/html'
+                    );
+        $this->mailer->send($message);
+    }
   }
 
-  public function sendMailToBo($personnel, $to, $demande, $template)
+  public function sendMailToBo($personnel, $to, $demande)
   {
     $user = $this->token->getUser();
     $emetteur = $user->getEmail();
@@ -200,21 +208,31 @@ class DemandeService
     } else {
       $name = $user->getUsername();
     }
-
-    $message = (new \Swift_Message('Nouvelle '. $demande))
-                  ->setFrom($emetteur)
-                  ->setTo($to)
-                  ->setBody(
-                    $this->templating->render(
-                      'emails/mail_bo.html.twig',
-                      array('personnel' => $personnel->getPrenom().' '.$personnel->getNom(),
+    if ($to) {
+      foreach ($to as $key => $user) {
+        if ($user->getEmail() && filter_var($user->getEmail(), FILTER_VALIDATE_EMAIL) ) {
+          $message = (new \Swift_Message('Nouvelle '. $demande))
+                      //->setFrom($emetteur)
+                      ->setFrom("haidress.connection@gmail.com")
+                      ->setTo($user->getEmail())
+                      ->setBody(
+                        $this->templating->render(
+                          'emails/mail_bo.html.twig',
+                          array('personnel' => $personnel->getPrenom().' '.$personnel->getNom(),
                           'user'    => $name,
-                          'demande' => $demande->getTypeForm(),
-                          'url'     => $demande->getId())
-                    ),
-                    'text/html'
-                  );
-    $this->mailer->send($message);
+                          'demande' => $demande,
+                          'url'     => $this->url)
+                        ),
+                        'text/html'
+                      );
+          $this->mailer->send($message);
+          }
+      }
+    }
+  }
+  public function generateAbsUrl($demande)
+  {
+    $this->url = $this->router->generate('demande_detail', ['id' => $demande->getId()], 1);
   }
 
   public function createDemandeAcompte($demande, $idSalon)
@@ -236,7 +254,10 @@ class DemandeService
 
     $this->session->getFlashBag()->add("success", "La demande d'acompte pour ".$personnel->getPrenom()." ".$personnel->getNom()." a correctement été envoyée ! Un mail vous sera envoyé une fois votre demande traitée.");
 
-    self::sendMail($idSalon, $personnel, [[1], [5]],  $demandeSimple);
+    // Generation de l'url
+    self::generateAbsUrl($demande);
+
+    self::sendMail($idSalon, $personnel, [1, 5],  $demande->getTypeForm());
   }
 
   public function createDemandeEmbauche($demande, $idSalon)
@@ -270,32 +291,43 @@ class DemandeService
     // $destinataire = $em->getRepository('AppBundle:User')->findOneBy(array('idPersonnel' => $personnel->getId()));
     // $destinataire = $destinataire->getEmail();
 
-    $user = $this->token->getUser();
-    $emetteur = $user->getEmail();
+    // $user = $this->token->getUser();
+    // $emetteur = $user->getEmail();
 
-    if (in_array('ROLE_ADMIN', $user->getRoles(), true))
-    {
-      $name = 'ADMIN';
-    } else {
-      $name = $user->getUsername();
-    }
-    $message = (new \Swift_Message('Nouvelle demande d\'embauche '))
-       ->setFrom('send@example.com')
-       ->setTo('recipient@example.com')
-       ->setBody(
-           $this->templating->render(
-               'emails/demande_acompte.html.twig',
-               array('personnel' => $demande->getPrenom(). ' '.$demande->getNom(),
-                      'user' => $name,
-                      'demande' => 'd\'embauche'
-                    )
-           ),
-           'text/html'
-       );
-    $this->mailer->send($message);
+    // if (in_array('ROLE_ADMIN', $user->getRoles(), true))
+    // {
+    //   $name = 'ADMIN';
+    // } else {
+    //   $name = $user->getUsername();
+    // }
+    // $message = (new \Swift_Message('Nouvelle demande d\'embauche '))
+    //    ->setFrom('send@example.com')
+    //    ->setTo('recipient@example.com')
+    //    ->setBody(
+    //        $this->templating->render(
+    //            'emails/demande_acompte.html.twig',
+    //            array('personnel' => $demande->getPrenom(). ' '.$demande->getNom(),
+    //                   'user' => $name,
+    //                   'demande' => 'd\'embauche'
+    //                 )
+    //        ),
+    //        'text/html'
+    //    );
+    // $this->mailer->send($message);
+
 
     $this->em2->persist($demandeComplexe);
     $this->em2->flush();
+
+    // Generation de l'url
+    self::generateAbsUrl($demande);
+
+    if ($demande->getTypeContrat() == "embauche.cdd")
+      self::sendMail($idSalon, $personnel, [2, 7],  $demande->getTypeForm());
+    else
+      self::sendMail($idSalon, $personnel, [2, 5],  $demande->getTypeForm());
+
+
 
     $this->session->getFlashBag()->add("success", "La demande d'embauche pour ".$demande->getPrenom()." ".$demande->getNom()."a correctement été envoyé ! Un mail vous sera envoyé une fois votre demande traité.");
 
