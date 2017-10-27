@@ -78,23 +78,25 @@ class DemandeService
 
     $coord = $this->em->getRepository('ApiBundle:PersonnelHasSalon')
                        ->findOneBy(array('salonSage' => $idSalon, 'profession' => 2));
+
     $coord != null ?  $coord = $coord->getPersonnelMatricule()->getMatricule() : $coord = null;
 
     $manager = $this->em->getRepository('ApiBundle:PersonnelHasSalon')
                         ->findOneBy(array('salonSage' => $idSalon, 'profession' => 1));
     $manager != null ?   $manager = $manager->getPersonnelMatricule()->getMatricule() : null;
 
-    if ($manager)
+    if ($manager) {
       $managerMail =  $this->em2->getRepository('AppBundle:User')
-                          ->findOneBy(array('idPersonnel' => $manager))
-                          ->getEmail();
-    else
+                          ->findOneBy(array('idPersonnel' => $manager));
+      $managerMail != null ?  $managerMail = $managerMail->getEmail() : $managerMail = null;
+    } else
       $managerMail = null;
 
-    if ($coord)
+    if ($coord) {
       $coordoMail = $this->em2->getRepository('AppBundle:User')
-                          ->findOneBy(array('idPersonnel' => $coord))->getEmail();
-    else
+                          ->findOneBy(array('idPersonnel' => $coord));
+      $coordoMail != null ?  $coordoMail = $coordoMail->getEmail() : $coordoMail = null;
+    } else
       $coordoMail = null;
 
     $qb =  $this->em2->createQueryBuilder();
@@ -202,37 +204,31 @@ class DemandeService
     $user = $this->token->getUser();
     $emetteur = $user->getEmail();
 
-    if (in_array('ROLE_ADMIN', $user->getRoles(), true))
-    {
-      $name = 'ADMIN';
-    } else {
-      $name = $user->getUsername();
-    }
     if ($to) {
-      foreach ($to as $key => $user) {
-        if ($user->getEmail() && filter_var($user->getEmail(), FILTER_VALIDATE_EMAIL) ) {
+      foreach ($to as $key => $userTo) {
+        if ($userTo->getEmail() && filter_var($userTo->getEmail(), FILTER_VALIDATE_EMAIL) ) {
           $message = (new \Swift_Message('Nouvelle '. $demande))
                       //->setFrom($emetteur)
                       ->setFrom("haidress.connection@gmail.com")
-                      ->setTo($user->getEmail())
+                      ->setTo($userTo->getEmail())
                       ->setBody(
                         $this->templating->render(
                           'emails/mail_bo.html.twig',
                           array('personnel' => $personnel->getPrenom().' '.$personnel->getNom(),
-                          'user'    => $name,
+                          'user'    => $userTo->getUsername(),
                           'demande' => $demande,
                           'url'     => $this->url)
                         ),
                         'text/html'
                       );
-          $this->mailer->send($message);
+           $this->mailer->send($message);
           }
       }
     }
   }
   public function generateAbsUrl($demande)
   {
-    $this->url = $this->router->generate('demande_detail', ['id' => $demande->getId()], 1);
+    $this->url = $this->router->generate('demande_detail', ['id' => $demande->getId()], 0);
   }
 
   public function createDemandeAcompte($demande, $idSalon)
@@ -255,7 +251,7 @@ class DemandeService
     $this->session->getFlashBag()->add("success", "La demande d'acompte pour ".$personnel->getPrenom()." ".$personnel->getNom()." a correctement été envoyée ! Un mail vous sera envoyé une fois votre demande traitée.");
 
     // Generation de l'url
-    self::generateAbsUrl($demande);
+    self::generateAbsUrl($demandeSimple);
 
     self::sendMail($idSalon, $personnel, [1, 5],  $demande->getTypeForm());
   }
@@ -320,7 +316,7 @@ class DemandeService
     $this->em2->flush();
 
     // Generation de l'url
-    self::generateAbsUrl($demande);
+    self::generateAbsUrl($demandeComplexe);
 
     if ($demande->getTypeContrat() == "embauche.cdd")
       self::sendMail($idSalon, $personnel, [2, 7],  $demande->getTypeForm());
