@@ -20,15 +20,9 @@ class AutreDemandeController extends Controller
     $img = $request->getSession()->get('img');
     $idSalon = $request->getSession()->get('idSalon');
 
-<<<<<<< HEAD
-    $AutreDemande = new AutreDemande();
-    $form = $this->createForm(AutreDemandeType::class, $AutreDemande);
-    $form->handleRequest($request);
-=======
       $AutreDemande = new AutreDemande();
       $form = $this->createForm(AutreDemandeType::class, $AutreDemande,$idSalon);
       $form->handleRequest($request);
->>>>>>> CleanSuivi
 
     $img = $request->getSession()->get('img');
     if ($form->isSubmitted() && $form->isValid()) {
