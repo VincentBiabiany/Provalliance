@@ -28,21 +28,16 @@ class AutreDemandeType extends AbstractType
       $idSalon = $options["idSalon"];
       $idPersonnel = $options["idPersonnel"];
 
-      if ($idSalon == null){
+      $entity = $this->getDoctrine()->getManager('referentiel');
+      $personnelRepo = $entity->getRepository('ApiBundle:Personnel');
+      $listePerso = $personnelRepo->getPerso($listeAccount,$idSalon);
+
         $builder
-         ->add('idPersonnel', EntityType::class, array(
-              // query choices from this entity
-              'class' => 'ApiBundle:Personnel',
-              // use the User.username property as the visible option string
-              'choice_label' => function ($personnel) {
-                    return $personnel->getNom() ." ". $personnel->getPrenom();
-                  },
-              'query_builder' => function (EntityRepository $er) use ($idPersonnel) {
-                  return $er->createQueryBuilder('p');
-                },
-              'label' => 'autredemande.nom',
-              'translation_domain' => 'autre_demande'
-            ))
+            ->add('idPersonnel', ChoiceType::class, array(
+                    'choices' => $listePerso,
+                    'label' => 'autredemande.nom',
+                    'translation_domain' => 'autre_demande'
+                 ))
           ->add('service', ChoiceType::class, array(
                    'choices' => array('Service Paie' => 'paie', 'Service Juridique' => 'Juridique',
                    'Service Informatique' => 'Informatique'),
@@ -69,7 +64,6 @@ class AutreDemandeType extends AbstractType
                     ))
               ;
 
-      } else {
     //    $builder
     //             ->add('montant', IntegerType::class, array(
     //                  'label' => 'autredemande.montant',
@@ -100,11 +94,7 @@ class AutreDemandeType extends AbstractType
     //               'translation_domain' => 'autre_demande'
     //             ))
     //       ;
-      }
-
-
-
-    }
+     }
 
 	public function configureOptions(OptionsResolver $resolver)
 	{

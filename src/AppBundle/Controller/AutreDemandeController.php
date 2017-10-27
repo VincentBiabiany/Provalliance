@@ -21,7 +21,7 @@ class AutreDemandeController extends Controller
       $idSalon = $request->getSession()->get('idSalon');
 
       $AutreDemande = new AutreDemande();
-      $form = $this->createForm(AutreDemandeType::class, $AutreDemande);
+      $form = $this->createForm(AutreDemandeType::class, $AutreDemande,$idSalon);
       $form->handleRequest($request);
 
       $img = $request->getSession()->get('img');
