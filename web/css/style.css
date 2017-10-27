@@ -220,6 +220,9 @@ table.dataTable thead th, table.dataTable thead td ,table.dataTable tfoot th, ta
     right: 25px !important;
 
 }
+.form-control[disabled], fieldset[disabled] .form-control {
+    cursor: initial;
+}
 .glyphicon-ok{
 	color:green ;
 }
