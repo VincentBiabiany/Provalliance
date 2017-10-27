@@ -78,23 +78,25 @@ class DemandeService
 
     $coord = $this->em->getRepository('ApiBundle:PersonnelHasSalon')
                        ->findOneBy(array('salonSage' => $idSalon, 'profession' => 2));
+
     $coord != null ?  $coord = $coord->getPersonnelMatricule()->getMatricule() : $coord = null;
 
     $manager = $this->em->getRepository('ApiBundle:PersonnelHasSalon')
                         ->findOneBy(array('salonSage' => $idSalon, 'profession' => 1));
     $manager != null ?   $manager = $manager->getPersonnelMatricule()->getMatricule() : null;
 
-    if ($manager)
+    if ($manager) {
       $managerMail =  $this->em2->getRepository('AppBundle:User')
-                          ->findOneBy(array('idPersonnel' => $manager))
-                          ->getEmail();
-    else
+                          ->findOneBy(array('idPersonnel' => $manager));
+      $managerMail != null ?  $managerMail = $managerMail->getEmail() : $managerMail = null;
+    } else
       $managerMail = null;
 
-    if ($coord)
+    if ($coord) {
       $coordoMail = $this->em2->getRepository('AppBundle:User')
-                          ->findOneBy(array('idPersonnel' => $coord))->getEmail();
-    else
+                          ->findOneBy(array('idPersonnel' => $coord));
+      $coordoMail != null ?  $coordoMail = $coordoMail->getEmail() : $coordoMail = null;
+    } else
       $coordoMail = null;
 
     $qb =  $this->em2->createQueryBuilder();
