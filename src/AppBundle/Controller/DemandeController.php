@@ -52,39 +52,43 @@ class DemandeController extends Controller
     */
     public function filterAction(Request $request)
     {
-      $col = array(
-                  "id",
-                  "",
-                  "sage",
-                  "enseigne",
-                  "appelation",
-                  "coordinateur",
-                  "manager",
-                  "date",
-                  "statut",
-                  "type",
-                  "collaborateur",
-                );
+      if (in_array('ROLE_MANAGER', $this->getUser()->getRoles(), true)
+      ||in_array('ROLE_COORD', $this->getUser()->getRoles(), true)) {
 
-      $nb = $request->get('selected');
+        $col = array(
+          "id",
+          "",
+          "sage",
+          "enseigne",
+          "appelation",
+          "coordinateur",
+          "manager",
+          "dateTraitement",
+          "statut",
+          "type",
+          "collaborateur",
+        );
 
-      $em = $this->getDoctrine()->getManager();
+        $nb = $request->get('selected');
 
-      $query = $em->createQuery(
-        "SELECT DISTINCT p.".$col[$nb]."
-        FROM AppBundle:DemandeEntity p
-        ORDER BY p.".$col[$nb]." ASC"
-      );
+        $em = $this->getDoctrine()->getManager();
 
-      $array = $query->getResult();
+        $query = $em->createQuery(
+          "SELECT DISTINCT p.".$col[$nb]."
+          FROM AppBundle:DemandeEntity p
+          ORDER BY p.".$col[$nb]." ASC"
+        );
 
-      $rows = array();
-      foreach ($array as $key => $value) {
-        if($value[$col[$nb]])
+        $array = $query->getResult();
+
+        $rows = array();
+        foreach ($array as $key => $value) {
+          if($value[$col[$nb]])
           $row[] = $value[$col[$nb]];
-      }
+        }
 
-      return new Response(json_encode($row), 200, ['Content-Type' => 'application/json']);
+        return new Response(json_encode($row), 200, ['Content-Type' => 'application/json']);
+      }
     }
 
     public function displayDemandes($typeFilter,$column,$dir,$idsalon,$search,$start,$length){

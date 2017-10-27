@@ -27,11 +27,16 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface {
           return $role->getRole();
         }, $roles);
 
+        //ie(dump($request, $token));
         $redir = $request->getSession()->get('_security.main.target_path');
 
         // S'il s'agit d'un admin ou d'un super admin on le redirige vers le backoffice
         if (in_array('ROLE_PAIE', $rolesTab, true) || in_array('ROLE_JURIDIQUE', $rolesTab, true))
-            $redirection = new RedirectResponse($redir);
+        {
+          if ($redir == $this->router->generate("homepage",[],0))
+            $redir = $this->router->generate("demande",[],0);
+          $redirection = new RedirectResponse($redir);
+        }
         else
             $redirection = new RedirectResponse($redir);
 
