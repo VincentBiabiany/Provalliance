@@ -204,24 +204,18 @@ class DemandeService
     $user = $this->token->getUser();
     $emetteur = $user->getEmail();
 
-    if (in_array('ROLE_ADMIN', $user->getRoles(), true))
-    {
-      $name = 'ADMIN';
-    } else {
-      $name = $user->getUsername();
-    }
     if ($to) {
-      foreach ($to as $key => $user) {
+      foreach ($to as $key => $userTo) {
         if ($user->getEmail() && filter_var($user->getEmail(), FILTER_VALIDATE_EMAIL) ) {
           $message = (new \Swift_Message('Nouvelle '. $demande))
                       //->setFrom($emetteur)
                       ->setFrom("haidress.connection@gmail.com")
-                      ->setTo($user->getEmail())
+                      ->setTo($userTo->getEmail())
                       ->setBody(
                         $this->templating->render(
                           'emails/mail_bo.html.twig',
                           array('personnel' => $personnel->getPrenom().' '.$personnel->getNom(),
-                          'user'    => $name,
+                          'user'    => $userTo->getUsername(),
                           'demande' => $demande,
                           'url'     => $this->url)
                         ),
@@ -234,7 +228,7 @@ class DemandeService
   }
   public function generateAbsUrl($demande)
   {
-    $this->url = $this->router->generate('demande_detail', ['id' => $demande->getId()], 1);
+    $this->url = $this->router->generate('demande_detail', ['id' => $demande->getId()], 0);
   }
 
   public function createDemandeAcompte($demande, $idSalon)
