@@ -15,12 +15,7 @@ Bonjour  {{ personnel.prenom  }} {{ personnel.nom|upper  }} <br/>
             <div id="myDropdown" class="origin"></div>
         </div>
 
-	{% for flash_message in app.session.flashBag.get('success') %}
-		<div class="alert alert-success success">
-			{{ flash_message }}
-      <span class="closeAlert glyphicon glyphicon-remove"></span>
-		</div>
-	{% endfor %}
+
    <div id="actions" class="home off menuAction">
      <div class="blockAction"></div>
       <div class="col-sm-12">
@@ -46,6 +41,19 @@ Bonjour  {{ personnel.prenom  }} {{ personnel.nom|upper  }} <br/>
 
    </div>
 </div>
+</div>
+<div id="myModal" class="modal fade" role="dialog">
+   <div class="modal-dialog">
+      <div class="modal-content">
+            <div class="modal-body">
+               <div class="flashConfirmation">
+                        {{ flash }}
+                  <span class="glyphicon glyphicon-ok-sign"></span>
+               </div>
+            </div>
+            <span class="closeAlert glyphicon glyphicon-remove" data-dismiss="modal"></span>
+      </div>
+   </div>
 </div>
 <script src="{{ asset('js/jquery.ddslick.min.js') }}"></script>
 <script language="javascript">
@@ -95,8 +103,16 @@ var ddData = [
           $(".alert").remove();
 
     });
-$('.header').addClass('posLogoHome');
+   $('.header').addClass('posLogoHome');
+
+   {% if flash %}
+       $("#myModal").modal()
+   {% endif %}
+
+
     </script>
+
+
 
 
 {% endblock %}

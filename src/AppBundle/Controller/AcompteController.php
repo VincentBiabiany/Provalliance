@@ -88,7 +88,10 @@ class AcompteController extends Controller
         $demandeService->createDemande($form->getData(), $idSalon);
 
         //$this->addFlash("success", "La demande d'acompte pour ".$personnel->getPrenom()." ".$personnel->getNom()." a correctement été envoyée ! Un mail vous sera envoyé une fois votre demande traitée.");
-        return $this->redirectToRoute('homepage');
+        return $this->redirect($this->generateUrl('homepage',
+        array('flash' => "La demande d'acompte a correctement été envoyée !
+         Un mail vous sera envoyé une fois votre demande traitée.")));
+
       }
     }
 

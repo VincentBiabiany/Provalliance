@@ -91,8 +91,7 @@ class AdminController extends Controller
                  'label' => 'admin_create.nom',
                  'translation_domain' => 'admin_create'
               ))
-            ->getForm()
-            ;
+            ->getForm();
           return $this->render('admin/createAccountStep2.html.twig',['formS2'=>$formS2->createView()]);
     }
 
