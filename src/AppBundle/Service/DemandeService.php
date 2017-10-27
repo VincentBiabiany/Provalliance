@@ -251,7 +251,7 @@ class DemandeService
     $this->session->getFlashBag()->add("success", "La demande d'acompte pour ".$personnel->getPrenom()." ".$personnel->getNom()." a correctement été envoyée ! Un mail vous sera envoyé une fois votre demande traitée.");
 
     // Generation de l'url
-    self::generateAbsUrl($demande);
+    self::generateAbsUrl($demandeSimple);
 
     self::sendMail($idSalon, $personnel, [1, 5],  $demande->getTypeForm());
   }
@@ -316,7 +316,7 @@ class DemandeService
     $this->em2->flush();
 
     // Generation de l'url
-    self::generateAbsUrl($demande);
+    self::generateAbsUrl($demandeComplexe);
 
     if ($demande->getTypeContrat() == "embauche.cdd")
       self::sendMail($idSalon, $personnel, [2, 7],  $demande->getTypeForm());
