@@ -25,7 +25,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 class DemandeDetailController extends Controller
 {
     /**
-    * @Route("/demande/{id}", name="demande_detail", requirements={"id": "\d+"}, schemes={"https"})
+    * @Route("/demande/{id}", name="demande_detail", requirements={"id": "\d+"})
     */
     public function detailIdAction(Request $request, $id)
     {
