@@ -88,9 +88,15 @@ class DemandeController extends Controller
                    /* Coordinateur du salon concerné par la demande */
                       $coordo = $em->getRepository('ApiBundle:PersonnelHasSalon')->findOneBy(
                       array("profession" => 2,
-                            "salonSage" => $demande->getidSalon(),
-                        ))->getPersonnelMatricule();
-                        $coordo = $coordo->getNom().' '.$coordo->getPrenom();
+                            "salonSage" => $codeSage,
+                        ));
+                        if (empty($coordo)){
+                            $coordo = 'n/a';
+                        }else{
+                            $coordo = $coordo->getPersonnelMatricule();
+                            $coordo = $coordo->getNom().' '.$coordo->getPrenom();
+                        }
+
 
                     /* Nom et Prenom du personnel concerné par la demande  */
                     if ($demande->getDemandeform()->getTypeForm() == "Demande d'acompte"){
@@ -252,11 +258,21 @@ class DemandeController extends Controller
             $appelation = $salon->getAppelation();
             $enseigne = $salon->getEnseigne()->getNom();
 
-            /* Coordinateur du salon concerné par la demande */
             $coordo = $em->getRepository('ApiBundle:PersonnelHasSalon')->findOneBy(
             array("profession" => 2,
-                  "salonSage" => $demande->getidSalon(),
-             ));
+                  "salonSage" => $codeSage,
+              ));
+              if (empty($coordo)){
+                  $coordoName = 'n/a';
+                  $coordoDateDeb = 'n/a';
+                  $coordoDateFin = 'n/a';
+                  $coordoProfession = 'n/a';
+              }else{
+                  $coordoName = $coordo->getPersonnelMatricule()->getNom().' '.$coordo->getPersonnelMatricule()->getPrenom();
+                  $coordoDateDeb = $coordo->getDateDebut()->format('d-m-Y');
+                  $coordoDateFin = $coordo->getDateFin()->format('d-m-Y');
+                  $coordoProfession = $coordo->getProfession()->getNom();
+              }
 
              //Infos du Demandeur
              $demandeur = $em->getRepository('ApiBundle:Personnel')
@@ -296,11 +312,19 @@ class DemandeController extends Controller
         ->setCellValue('B8', $salon->getCapital())->setCellValue('B9', $salon->getRaisonSociale())->setCellValue('B10', $salon->getAdresse1())->setCellValue('B11', $salon->getAdresse2())
         ->setCellValue('B12', $salon->getCodePostal())->setCellValue('B13', $salon->getVille())->setCellValue('B14', 'Pays')->setCellValue('B15', strval($salon->getTelephone1()))
         ->setCellValue('B16', strval($salon->getTelephone2()))->setCellValue('B17', $salon->getEmail())->setCellValue('B18', $salon->getCodeMarlix())->setCellValue('B19',  $salon->getDateOuverture()->format('d-m-Y'))
+<<<<<<< HEAD
         ->setCellValue('B20', $coordo->getPersonnelMatricule()->getNom().' '.$coordo->getPersonnelMatricule()->getPrenom())->setCellValue('B21','manager')->setCellValue('B22', 'Responsable régional')
         ->setCellValue('B23', $demandeur->getMatricule())->setCellValue('B24', 'Civilité')->setCellValue('B25', $demandeur->getNom())->setCellValue('B26', $demandeur->getPrenom())->setCellValue('B27', $demandeur->getDateNaissance()->format('d-m-Y'))
         ->setCellValue('B28', $demandeur->getVilleNaissance())->setCellValue('B29', $demandeur->getVilleNaissance())->setCellValue('B30', $demandeur->getSexe())->setCellValue('B31', $demandeur->getNationalite())
         ->setCellValue('B32', $coordo->getDateDebut()->format('d-m-Y'))->setCellValue('B33', $coordo->getDateFin()->format('d-m-Y'))->setCellValue('B34', $demandeur->getNiveau())->setCellValue('B35',  $demandeur->getEchelon())
         ->setCellValue('B36', $coordo->getProfession()->getNom())->setCellValue('B37', $demandeur->getAdresse1())->setCellValue('B38', $demandeur->getAdresse2())->setCellValue('B39', $demandeur->getCodepostal())
+=======
+        ->setCellValue('B20', $coordoName)->setCellValue('B21','manager')->setCellValue('B22', 'Responsable régional')
+        ->setCellValue('B23', $demandeur->getMatricule())->setCellValue('B24', 'Civilité')->setCellValue('B25', $demandeur->getNom())->setCellValue('B26', $demandeur->getPrenom())->setCellValue('B27', $demandeur->getDateNaissance()->format('d-m-Y'))
+        ->setCellValue('B28', $demandeur->getVilleNaissance())->setCellValue('B29', $demandeur->getVilleNaissance())->setCellValue('B30', $demandeur->getSexe())->setCellValue('B31', $demandeur->getNationalite())
+        ->setCellValue('B32', $coordoDateDeb)->setCellValue('B33', $coordoDateFin)->setCellValue('B34', $demandeur->getNiveau())->setCellValue('B35',  $demandeur->getEchelon())
+        ->setCellValue('B36', $coordoProfession)->setCellValue('B37', $demandeur->getAdresse1())->setCellValue('B38', $demandeur->getAdresse2())->setCellValue('B39', $demandeur->getCodepostal())
+>>>>>>> CleanSuivi
         ->setCellValue('B40', $demandeur->getVille())->setCellValue('B41', 'Pays')->setCellValue('B42', $demandeur->getTelephone1())->setCellValue('B43', $demandeur->getTelephone2())->setCellValue('B44', $demandeur->getEmail())
         ->setCellValue('B45', $date->format('d-m-Y'))->setCellValue('B46', $statut)->setCellValue('B47', $type);
 
