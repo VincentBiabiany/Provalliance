@@ -249,13 +249,15 @@
 			 //Validation multiple des demandes simples
 			 	$('#validation').on( 'click', function () {
 					demandes = [];
+					nbValidates = 0;
 					$('tr.selected').each(function(i, obj) {
 								var id = dt.row(this).data()['id'];
 								 demandes[i]=id;
+								 nbValidates = nbValidates +1;
 						});
 						$.ajax({
 								url: "{{ path('demandeValidate') }}",
-							  data: {"demandes" : demandes},
+							  data: {"demandes" : demandes,'nbValidates':nbValidates},
 								type: 'POST'
 							}).done(function( response ) {
 						    window.location.href = response;

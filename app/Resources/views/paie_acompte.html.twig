@@ -4,6 +4,8 @@
 
 {% block body %}
 {% trans_default_domain "demande_acompte" %}
+<script type="text/javascript" src="{{ asset('js/jquery.validate.js') }}"></script>
+
 <div class="header">
 	<img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
 </div>
@@ -16,14 +18,8 @@
 </div>
 <div class="container">
 	<div id="actions" class="formAction">
-		<div class="alert alert-info">
-			<span class="glyphicons glyphicons-info-sign"></span>
-			{{ "demandeacompte.info"|trans({}, "demande_acompte") }}
-
-		</div>
 		{{ form_start(form, {'attr': {'class': 'allForm demande_acompte', 'id':'formAccompte'} }) }}
 
-		{{ form_errors(form)}}
 				<div class="form-group">
 					<label class="control-label label col-sm-4 col-xs-12" for="personnel"> {{ form_label(form.idPersonnel) }}</label>
 					<div class="col-sm-9  col-xs-12">
@@ -46,6 +42,83 @@
 	</div>
 
 </div>
+<!-- .......................... POP-UP ................................-->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
 
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 style="color:black;" class="modal-title">{{ "embauche.attention"|trans({}, "embauche") }}</h4>
+      </div>
+
+      <div class="modal-body">
+				{{ "demandeacompte.info"|trans({}, "demande_acompte") }}
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">{{ "global.poursuivre"|trans({}, "global") }}</button>
+        <button type="button" style="float:left;" class="btn btn-default"  onclick="window.location.href = '{{ path("homepage") }}'">{{ "global.retourac"|trans({}, "global") }}</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script type="text/javascript">
+  	$('#myModal').modal('show');
+
+		$( "#formAccompte" ).validate( {
+	 	rules: {
+	 		'demande_acompte[montant]': {
+	 			required: true,
+	 			min: 150,
+				max: 2000
+	 		}
+	 	},
+	 	messages: {
+	 		'demande_acompte[montant]': {
+	 			required: "{{ "acompte_montant_required"|trans({}, "message_validation_form") }}",
+	 			min: "{{ "acompte_montant_minlength"|trans({}, "message_validation_form") }}",
+	 			max: "{{ "acompte_montant_maxlength"|trans({}, "message_validation_form") }}"
+	 		}
+	 	},
+	 	errorElement: "em",
+	 	errorPlacement: function ( error, element ) {
+	 		// Add the `help-block` class to the error element
+	 		error.addClass( "help-block" );
+
+	 		// Add `has-feedback` class to the parent div.form-group
+	 		// in order to add icons to inputs
+	 		element.parents( ".col-sm-5" ).addClass( "has-feedback" );
+
+	 		if ( element.prop( "type" ) === "checkbox" ) {
+	 			error.insertAfter( element.parent( "label" ) );
+	 		} else {
+	 			error.insertAfter( element );
+	 		}
+
+	 		// Add the span element, if doesn't exists, and apply the icon classes to it.
+	 		if ( !element.next( "span" )[ 0 ] ) {
+	 			$( "<span class='glyphicon glyphicon-remove form-control-feedback'></span>" ).insertAfter( element );
+	 		}
+	 	},
+	 	success: function ( label, element ) {
+	 		// Add the span element, if doesn't exists, and apply the icon classes to it.
+	 		if ( !$( element ).next( "span" )[ 0 ] ) {
+	 			$( "<span class='glyphicon glyphicon-ok form-control-feedback'></span>" ).insertAfter( $( element ) );
+	 		}
+	 	},
+	 	highlight: function ( element, errorClass, validClass ) {
+	 		$( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
+	 		$( element ).next( "span" ).addClass( "glyphicon-remove" ).removeClass( "glyphicon-ok" );
+	 	},
+	 	unhighlight: function ( element, errorClass, validClass ) {
+	 		$( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
+	 		$( element ).next( "span" ).addClass( "glyphicon-ok" ).removeClass( "glyphicon-remove" );
+	 	}
+	 } );
+
+</script>
 
 {% endblock %}

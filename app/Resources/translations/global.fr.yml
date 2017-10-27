@@ -1,5 +1,7 @@
-global.back:       Retour
-global.next:       Suivant
-global.submit:     Envoyer
-global.cancel:     Annuler
-global.valider:    Valider
+global.back:          Retour
+global.next:          Suivant
+global.submit:        Envoyer
+global.cancel:        Annuler
+global.valider:       Valider
+global.poursuivre:    Poursuivre
+global.retourac:      Retour à l'accueil

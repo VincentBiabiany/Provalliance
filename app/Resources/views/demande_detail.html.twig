@@ -4,17 +4,14 @@
 {% block body %}
 
 <div class="header">
-	{% if is_granted('ROLE_ADMIN') %}
-
-	<img style="display: block !important;margin: auto !important;" id="logotop" src="{{ asset("img/") ~ salon.enseigne.logo }}">
-	<hr/>
-	<span id="nomSalon">{{ app.session.get('nomSalon') }}</span>
-	{% endif  %}
-
+	<img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
 </div>
 
 <div class="head">
 	{{ typedemande }}
+</div>
+<div class="nomSalon">
+	{{ app.session.get('nomSalon') }}
 </div>
 <div class="container">
 	<div id="wrapperForm" class="row">
@@ -49,8 +46,6 @@
 
 			{% endfor %}
 			{{ form_row(form2.message) }}
-
-			<br/>
 			{{ form_row(form2.reject, {'attr': {'class': 'btn-black end reject'} }) }}
 			{{ form_row(form2.accept, {'attr': {'class': 'btn-black end accept'} }) }}
 			{{ form_end(form2) }}

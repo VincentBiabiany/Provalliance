@@ -32,9 +32,15 @@ class DemandeController extends Controller
                      ->add('idDemandes', HiddenType::class)
                      ->getForm();
         if ($request->get('origin')){
+            if($request->get('nb') == '1'){
+                $flash= $request->get('nb').' demande validée';
+            }else{
+                $flash= $request->get('nb').' demandes validées';
+            }
+
             return $this->render('demande.html.twig', array(
               'img' => $request->getSession()->get('img'),
-              'flash'=> 'Confirmation de la validation des demandes.',
+              'flash'=> $flash,
               'form' => $form->createView()
             ));
         }else{
@@ -194,7 +200,7 @@ class DemandeController extends Controller
   public function demandeValidate(Request $request)
   {
     $demandeValidates = $request->get('demandes');
-
+    $nbValidates = $request->get('nbValidates');
     $entitym = $this->getDoctrine()->getManager();
     foreach ($demandeValidates as $demandeValidate ) {
         $demande = $entitym->getRepository('AppBundle:DemandeEntity')
@@ -204,7 +210,7 @@ class DemandeController extends Controller
         $this->getDoctrine()->getManager()->flush();
       }
 
-      return new Response($this->generateUrl('demande',['origin' => 'validation']));
+      return new Response($this->generateUrl('demande',['origin' => 'validation','nb'=>$nbValidates]));
 
   }
 
