@@ -54,3 +54,10 @@ services:
         arguments: ['@doctrine.orm.referentiel_entity_manager',
                     '@translator',
                     '%files_directory_import%']
+
+    AppBundle\Service\DemandeService:
+        arguments: ['@doctrine.orm.referentiel_entity_manager',
+                    '@doctrine.orm.default_entity_manager',
+                    '@mailer',
+                    '@security.token_storage',
+                    '@templating']
