@@ -1,17 +1,9 @@
 login.username: Nom d'utilisateur
-
 login.password: Mot de passe
-
-login.lost:     J'ai oublié mon mot de passe
-
+login.lost:     Je n'arrive pas à me connecter
 login.contact:  Contact support
-
 login.msg:     Pour récupérer votre mot de passe, veuillez contacter votre support utilisateur
-
 login.phone:   'Tél: 01 40 23 12 19'
-
 login.email:   'support@hairdress.com'
-
 login.close:    Fermer
-
 login.dev:      Site développé par

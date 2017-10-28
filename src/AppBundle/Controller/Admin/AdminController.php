@@ -91,8 +91,7 @@ class AdminController extends Controller
                  'label' => 'admin_create.nom',
                  'translation_domain' => 'admin_create'
               ))
-            ->getForm()
-            ;
+            ->getForm();
           return $this->render('admin/createAccountStep2.html.twig',['formS2'=>$formS2->createView()]);
     }
 
@@ -314,6 +313,8 @@ class AdminController extends Controller
            'recordsFiltered' => count($users),
            'recordsTotal' => count($users)
       );
+      $entitym = $this->getDoctrine()->getManager();
+      $userRepo = $entitym->getRepository('AppBundle:User');
 
       foreach ($users as $user) {
 
@@ -334,13 +335,16 @@ class AdminController extends Controller
          if ($userRole[0] == 'ROLE_MANAGER' || $userRole[0] == 'ROLE_COORD'
          || $userRole[0] == 'ROLE_PAIE' || $userRole[0] == 'ROLE_JURIDIQUE'){
 
+
+            $labelRole = $userRepo->getlabelRole($userRole[0]);
+
       $output['data'][] = [
-          'id'               => $user->getId(),
-          ''                 => '<a href ='.$url.'><span class="glyphicon glyphicon-search click"></span></a>',
-          'User'             => $user->getUsername(),
+          'id'                  => $user->getId(),
+          ''                    => '<a href ='.$url.'><span class="glyphicon glyphicon-search click"></span></a>',
+          'User'                => $user->getUsername(),
           'Dernière Connexion'  => $date,
-          'Rôle'             =>   $userRole[0],
-          'Actif'            => '<span class="state '.$state.'"></span>',
+          'Rôle'                =>  $labelRole,
+          'Actif'               => '<span class="state '.$state.'"></span>',
         ];
            }
       }

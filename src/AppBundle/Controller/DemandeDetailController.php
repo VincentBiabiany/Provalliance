@@ -120,6 +120,7 @@ class DemandeDetailController extends Controller
       'salon'           => $salon,
       'form'            => $form->createView(),
       'form2'           => $form2->createView(),
+      'img'             => $request->getSession()->get('img'),
     ));
   }
 
@@ -201,7 +202,9 @@ class DemandeDetailController extends Controller
       'form'            => $form->createView(),
       'form2'           => $form2->createView(),
       'docSalon'        => $docSalon,
-      'docService'      => $docService
+      'docService'      => $docService,
+      'img'             => $request->getSession()->get('img'),
+
     ));
   }
 

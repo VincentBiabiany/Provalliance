@@ -15,6 +15,13 @@ class HomeController extends Controller
   */
   public function indexAction(Request $request)
   {
+        if( $request->get('flash')){
+          $flash = $request->get('flash');
+        }else{
+          $flash = null;
+        }
+
+
      if (in_array('ROLE_ADMIN', $this->getUser()->getRoles(), true)) {
 
        $em        = $this->getDoctrine()->getManager('referentiel');
@@ -32,7 +39,8 @@ class HomeController extends Controller
 
     return $this->render('home.html.twig', [
       'salons'=>$salons,
-      'personnel'=>$personnel
+      'personnel'=>$personnel,
+      'flash' =>$flash
     ]);
 
   }

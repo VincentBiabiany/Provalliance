@@ -55,4 +55,25 @@ class PersonnelRepository extends EntityRepository
       return $collab;
    }
 
+   // Fonction getListPerso: Retourne la liste du personnel avec la possibilité de n'effectuer aucune sélection
+   //en premier lieu
+
+   public function getListPerso($idSalon){
+      $listPerso['Aucune sélection'] = null;
+      $listPerso[null] = null;
+      // $p = $this->findOneBy(array('matricule' => $value));
+      // $listPerso[$p->getNom().' '.$p->getPrenom()] = $value;
+
+      $listes= $this->createQueryBuilder('d')
+          ->join('d.salon', 'm')
+          ->andwhere('m.sage = :idSalon')
+          ->setParameter('idSalon',$idSalon)
+          ->getQuery()
+          ->getResult();
+
+    foreach ($listes as $liste) {
+                 $listPerso[$liste->getNom().' '.$liste->getPrenom()] = $liste->getMatricule();
+              }
+   return $listPerso;
+ }
 }
