@@ -26,15 +26,16 @@ class PersonnelRepository extends EntityRepository
             return $nb[0][1];
       }
 
+
    // Fonction whichPersonnel: Retourne la liste du personnel en fonction d'un salon pour la partie ADMIN
     public function getPerso($listeAccount,$idSalon){
-        $personnel = new Personnel();
+      $repository = $this->getEntityManager()->getRepository('ApiBundle:PersonnelHasSalon');
         $listPerso=[];
         if ($listeAccount == null) {
             $listPerso['Aucun utilisateur disponible']= null ;
         }else{
         foreach ($listeAccount as $key => $value) {
-                if ( self::getNb($value,$idSalon) > 0 ){
+                if ( (self::getNb($value,$idSalon) > 0) && ($repository->ifCoiffeur($value) )){
                      $p = $this->findOneBy(array('matricule' => $value));
                      $listPerso[$p->getNom().' '.$p->getPrenom()] = $value;
             }
