@@ -285,6 +285,11 @@ class DemandeController extends Controller
             $coordo = $coordo->getNom().' '.$coordo->getPrenom();
           }
 
+          if (empty($demandeur)){
+            $demandeur = 'n/a';
+          } else {
+            $demandeur = $demandeur->getNom().' '.$demandeur->getPrenom();
+          }
 
           /* Nom et Prenom du personnel concerné par la demande  */
           if ($demande->getDemandeform()->getTypeForm() == "Demande d'acompte") {
@@ -312,7 +317,7 @@ class DemandeController extends Controller
               'enseigne'         => $marque,
               'appelation'       => $em->getRepository('ApiBundle:Salon')->findOneBy(array("sage" => $demande->getidSalon()))->getAppelation(),
               'coordinateur'     => $coordo,
-              'manager'          => $demandeur->getNom() . " " . $demandeur->getPrenom(),
+              'manager'          => $demandeur,
               'date'             => $date->format('d-m-Y H:i'),
               'statut'           => '<span class="'.$classStatut.' statutLabel">'.$statut.'</span>',
               'type'             => $demande->getDemandeform()->getTypeForm(),
