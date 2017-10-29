@@ -26,6 +26,11 @@ body,p,a,h1,h2,h3,h4,h5 {
 	src: url('../fonts/Brown-Light.otf');
 	font-weight: regular;
 }
+/* MODAL */
+#myModal {
+    align-items: center;
+    justify-content: center;
+}
 /* HEADER */
 .header{
 	z-index:3;

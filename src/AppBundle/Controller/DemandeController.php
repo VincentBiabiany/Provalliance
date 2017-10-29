@@ -31,7 +31,24 @@ class DemandeController extends Controller
         $form = $this->createFormBuilder()
                      ->add('idDemandes', HiddenType::class)
                      ->getForm();
-        if ($request->get('origin')){
+
+              return $this->render('demande.html.twig', array(
+                'img' => $request->getSession()->get('img'),
+                'flash'=> null,
+                'form' => $form->createView()
+              ));
+
+    }
+    /**
+     * @Route("/demande/{origin}/{nb}", name="demandeShow")
+     */
+    public function showAction(Request $request)
+    {
+
+        $form = $this->createFormBuilder()
+                     ->add('idDemandes', HiddenType::class)
+                     ->getForm();
+
             if($request->get('nb') == '1'){
                 $flash= $request->get('nb').' demande validée';
             }else{
@@ -43,16 +60,8 @@ class DemandeController extends Controller
               'flash'=> $flash,
               'form' => $form->createView()
             ));
-        }else{
-              return $this->render('demande.html.twig', array(
-                'img' => $request->getSession()->get('img'),
-                'flash'=> null,
-                'form' => $form->createView()
-              ));
-          }
+
     }
-
-
     /**
     * @Route("/filter", name="filter")
     */
@@ -254,7 +263,7 @@ class DemandeController extends Controller
         $this->getDoctrine()->getManager()->flush();
       }
 
-      return new Response($this->generateUrl('demande',['origin' => 'validation','nb'=>$nbValidates]));
+      return new Response($this->generateUrl('demandeShow',['origin' => 'validation','nb'=>$nbValidates]));
 
   }
 
