@@ -70,7 +70,8 @@ class DemandeController extends Controller
       $isService = true;
       // Filtre des demandes pour manager/coordo
       if (in_array('ROLE_MANAGER', $this->getUser()->getRoles(), true)
-       || in_array('ROLE_COORD', $this->getUser()->getRoles(), true)) {
+       || in_array('ROLE_COORD', $this->getUser()->getRoles(), true)
+       || in_array('ROLE_ADMIN', $this->getUser()->getRoles(), true)) {
          $isService = false;
          $idSalon = $request->getSession()->get('idSalon');
       }
