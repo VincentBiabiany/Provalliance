@@ -150,14 +150,14 @@ class Salon
      *
      * @ORM\Column(name="sage", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $sage;
 
     /**
      * @var \ApiBundle\Entity\Enseigne
      *
-     * @ORM\ManyToOne(targetEntity="ApiBundle\Entity\Enseigne")
+     * @ORM\ManyToOne(targetEntity="ApiBundle\Entity\Enseigne", inversedBy="salons")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="enseigne_id", referencedColumnName="id")
      * })

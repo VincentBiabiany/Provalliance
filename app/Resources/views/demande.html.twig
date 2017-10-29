@@ -73,8 +73,9 @@
 				<th>{{ "suividemande.collaborateur"|trans({}, "suivi_demandes") }}</th>
 			</tr>
 			</thead>
+			<thead id="header-filtre"></thead>
 			<tfoot>
-			<tr>
+			<tr id="filtre">
 				<th>id</th>
 				<th class="click"></th>
 				<th>{{ "suividemande.codesage"|trans({}, "suivi_demandes") }}</th>
@@ -211,7 +212,7 @@
 									 selInitd[i] = false;
 									 var column = api.column( i );
 									 if ( i != 0 && i!= 1){
-										 var select = $('<select id=' + i + ' style="width:100%"><option value=""></option></select>')
+										 var select = $('<select id=' + i + ' style="width:100%; color:black;"><option value=""></option></select>')
 										 .appendTo( $(column.footer()).empty() )
 										 .on( 'change', function () {
 
@@ -243,6 +244,7 @@
 							 }// FIN INITCOMPLETE
 			});
 
+			$('#filtre').appendTo($('#header-filtre'));
 
       //Affiche le détail d'une demande
 			$('#demande tbody').on( 'click', 'tr td.details-control', function () {

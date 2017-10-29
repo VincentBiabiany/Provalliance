@@ -2,9 +2,7 @@
 
 namespace AppBundle\Repository;
 use ApiBundle\Entity\Personnel;
-use ApiBundle\Entity\DemandeEntity;
-use ApiBundle\Entity\DemandeSimple;
-use ApiBundle\Entity\DemandeComplexe;
+use ApiBundle\Entity\Salon;
 
 /**
  * DemandeEntityRepository
@@ -14,7 +12,173 @@ use ApiBundle\Entity\DemandeComplexe;
  */
 class DemandeEntityRepository extends \Doctrine\ORM\EntityRepository
 {
-// Fonction getNB: Retourne le nombre de demande en fonction du service
+
+
+  public function filterDemande($filter, $em)
+  {
+    $col = array(
+      "id",
+      "",
+      "sage",
+      "enseigne",
+      "appelation",
+      "coordinateur",
+      "manager",
+      "dateTraitement",
+      "statut",
+      "type",
+      "collaborateur",
+    );
+    // Récupération des filtres
+    foreach ($filter as $key => $value) {
+      $colFilter[] = $col[$key];
+    }
+
+    $query = $this->createQueryBuilder('d')
+                  ->select('d');
+
+    if (in_array("sage", $colFilter))
+      $query = $query->andWhere('d.idSalon =' . $filter[2]);
+
+
+    if (in_array("enseigne", $colFilter) && in_array("appelation", $colFilter))
+    {
+      $salons = $em->createQueryBuilder('u')
+                   ->select('u.sage as id')
+                   ->from('ApiBundle:Salon', 'u')
+                   ->leftjoin('u.enseigne', 'e')
+                   ->where('e.nom = :nom')
+                   ->setParameter('nom', $filter[3])->getQuery()->getResult();
+      foreach ($salons as $key => $value) {
+        $salonsId[] = $value['id'];
+      }
+
+      $salons = $em->createQueryBuilder('u')
+                   ->select('u.sage as id')
+                   ->from('ApiBundle:Salon', 'u')
+                   ->where('u.appelation = :appelation')
+                   ->setParameter('appelation', $filter[4])->getQuery()->getResult();
+       foreach ($salons as $key => $value) {
+             $salonsId2[] = $value['id'];
+       }
+       $result = array_intersect($salonsId, $salonsId2);
+
+       $query = $query->andWhere('d.idSalon IN (:id)')->setParameter('id', $result);
+
+    } else {
+      if (in_array("enseigne", $colFilter))
+      {
+        $salons = $em->createQueryBuilder('u')
+                     ->select('u.sage as id')
+                     ->from('ApiBundle:Salon', 'u')
+                     ->leftjoin('u.enseigne', 'e')
+                     ->where('e.nom = :nom')
+                     ->setParameter('nom', $filter[3])->getQuery()->getResult();
+        foreach ($salons as $key => $value) {
+          $salonsId[] = $value['id'];
+        }
+        $query = $query->andWhere('d.idSalon IN (:id)')->setParameter('id', $salonsId);
+      }
+
+      if (in_array("appelation", $colFilter))
+      {
+        $salons = $em->createQueryBuilder('u')
+                     ->select('u.sage as id')
+                     ->from('ApiBundle:Salon', 'u')
+                     ->where('u.appelation = :appelation')
+                     ->setParameter('appelation', $filter[4])->getQuery()->getResult();
+         foreach ($salons as $key => $value) {
+               $salonsId[] = $value['id'];
+         }
+        $query = $query->andWhere('d.idSalon IN (:id)')->setParameter('id', $salonsId);
+      }
+    }
+
+    if (in_array("coordinateur", $colFilter))
+    {
+      // 1 Retrouver id Personnel à partir du prenom + nom
+      $idPerso = $em->createQueryBuilder('u')
+                   ->select('s.sage as id')
+                   ->from('ApiBundle:Personnel', 'u')
+                   ->where("CONCAT(u.prenom, ' ', u.nom) = :name")
+                   ->leftjoin('u.salon', 's')
+                   ->setParameter('name', $filter[5])->getQuery()->getResult();
+     foreach ($idPerso as $key => $value) {
+        $ids[] = $value['id'];
+     }
+     $query = $query->andWhere('d.idSalon IN (:id)')->setParameter('id', $ids);
+    }
+
+    if (in_array("manager", $colFilter))
+    {
+      $idPerso = $em->createQueryBuilder('u')
+                   ->select('u.matricule as id')
+                   ->from('ApiBundle:Personnel', 'u')
+                   ->andWhere("CONCAT(u.prenom, ' ', u.nom) = :name")
+                   ->setParameter('name', $filter[6])->getQuery()->getResult();
+
+     foreach ($idPerso as $key => $value) {
+        $idP[] = $value['id'];
+     }
+
+     $query = $query->leftjoin('d.user', 'e')
+                    ->andwhere('e.idPersonnel = :id')
+                    ->setParameter('id', $idP);
+    }
+
+    if (in_array("collaborateur", $colFilter))
+    {
+      $demandesSalon = $this->findAll();
+      foreach ($demandesSalon as $key => $demande) {
+        if ($demande->getDemandeform()->getTypeForm() == "Demande d'embauche") {
+          if ($this->whichPersonnel($demande) == $filter[10])
+            $demandeId[] = $demandeId[] =  $demande->getId();
+        } else {
+          $idP = $demande->getDemandeform()->getIdPersonnel();
+            if ($em->getRepository('ApiBundle:Personnel')->whichPersonnel($demande,$idP) == $filter[10])
+              $demandeId[] =  $demande->getId();
+        }
+      }
+      $query = $query->andWhere('d.id IN (:id)')->setParameter('id', $demandeId);
+    }
+
+    if (in_array("type", $colFilter))
+    {
+      $query = $query
+                    ->leftjoin('d.demandeform', 'e')
+                    ->andWhere('e.typeForm = :type')
+                    ->setParameter('type', $filter[9]);
+    }
+
+    if (in_array("statut", $colFilter))
+    {
+      if ($filter[8] == "Rejeté")
+        $statut = 0;
+      else if ($filter[8] == "En cours")
+        $statut = 1;
+      else if ($filter[8] == "Traité")
+        $statut = 2;
+      else if ($filter[8] == "A signé")
+        $statut = 3;
+      else
+        $statut = 4;
+      $query = $query->andWhere('d.statut =' . $statut);
+    }
+
+    if (in_array("dateTraitement", $colFilter)){
+      $date = new \DateTime();
+      $date = $date->createFromFormat('d-m-Y H:i:s', $filter[7]);
+
+      dump($date, $filter[7]);
+      $query = $query->andWhere("d.dateTraitement = :time")->setParameter("time", $date);
+    }
+
+    return  $query->getQuery()->getResult();
+  }
+
+
+
+  // Fonction getNB: Retourne le nombre de demande en fonction du service
   public function getNb($role,$idsalon) {
       if ($role =='ROLE_PAIE') {
 
@@ -123,14 +287,12 @@ class DemandeEntityRepository extends \Doctrine\ORM\EntityRepository
             $statut="A validé";
         }
 
-
-
       return $statut;
     }
 
     // Fonction whichPersonnel: Retourne les infos du personnel pour chaque demande
     public function whichPersonnel($demande){
-          $collab = $demande->getDemandeform()->getNom() . " " . $demande->getDemandeform()->getPrenom();
+          $collab = $demande->getDemandeform()->getPrenom() . " " . $demande->getDemandeform()->getNom();
           return $collab;
     }
 

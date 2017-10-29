@@ -80,13 +80,6 @@ class DemandeController extends Controller
         if ($col[$nb] == "sage"  || $col[$nb] == "appelation") {
 
           $em = $this->getDoctrine()->getManager('referentiel');
-
-          // $query = $em->createQuery(
-          //   "SELECT DISTINCT p.".$col[$nb]."
-          //   FROM ApiBundle:Salon p
-          //   WHERE p.sage = :salon
-          //   ORDER BY p.".$col[$nb]." ASC"
-          // )->setParameter('salon', $request->getSession()->get('idSalon'));
           $query = $em->createQueryBuilder('u')
                       ->select('u.'.$col[$nb])
                       ->distinct()
@@ -98,7 +91,7 @@ class DemandeController extends Controller
 
         } else if ($col[$nb] == "enseigne") {
 
-          $em = $this->getDoctrine()->getManager('referentiel');//->getRepository('ApiBundle:Salon');
+          $em = $this->getDoctrine()->getManager('referentiel');
           $query = $em->createQueryBuilder('u')
                       ->select('e.nom as enseigne')
                       ->distinct()
@@ -194,12 +187,6 @@ class DemandeController extends Controller
           if (!$isService)
             $query = $query->where('u.idSalon = :salon')->setParameter('salon', $idSalon);
           $query =  $query->getQuery();
-        //   $query = $em->createQuery(
-        //              "SELECT DISTINCT p.".$col[$nb]."
-        //               FROM AppBundle:DemandeEntity p
-        //               WHERE p.idSalon = :salon
-        //               ORDER BY p.".$col[$nb]." ASC"
-        //             )->setParameter('salon', $idSalon);
         }
 
         if (isset($query))
@@ -212,7 +199,7 @@ class DemandeController extends Controller
           foreach ($array as $key => $value) {
 
             if ($col[$nb] == "dateTraitement") {
-              $row[] = $value[$col[$nb]]->format('d-m-Y H:i');
+              $row[] = $value[$col[$nb]]->format('d-m-Y H:i:s');
 
             } else if ($col[$nb] == "statut"){
               $row[] = $this->getDoctrine()->getManager()->getRepository("AppBundle:DemandeEntity")
@@ -225,80 +212,83 @@ class DemandeController extends Controller
 
           }
         }
-
         return new Response(json_encode($row), 200, ['Content-Type' => 'application/json']);
-
     }
 
     public function displayDemandes($typeFilter,$column,$dir,$idsalon,$search,$start,$length){
-        $entitym = $this->getDoctrine()->getManager();
-        $demandeRepo = $entitym->getRepository('AppBundle:DemandeEntity');
+      $entitym = $this->getDoctrine()->getManager();
+      $demandeRepo = $entitym->getRepository('AppBundle:DemandeEntity');
 
-        $em = $this->getDoctrine()->getManager('referentiel');
-        $persoRepo = $em->getRepository('ApiBundle:Personnel');
+      $em = $this->getDoctrine()->getManager('referentiel');
+      $persoRepo = $em->getRepository('ApiBundle:Personnel');
 
-        $role= $this->getUser()->getRoles();
-        $role= $role[0];
-        //Requete dans la bdd en fonction de la colonne et de la direction récupérée
+      $role= $this->getUser()->getRoles();
+      $role= $role[0];
+
+      if (is_array($typeFilter))
+        $demandes = $demandeRepo->filterDemande($typeFilter, $this->getDoctrine()->getManager('referentiel'));
+      else
+      //Requete dans la bdd en fonction de la colonne et de la direction récupérée
         $demandes = $demandeRepo->wichService($role,$typeFilter,$column,$dir,$idsalon,$search,$start,$length);
 
-        //Condition si aucune demandes n'est retournées
-        if  (empty($demandes)){
-            $output = array(
-               'data' =>0,
-               'recordsFiltered' => 0,
-               'recordsTotal' => 0
-            );
-            return $output;
+      //Condition si aucune demandes n'est retournées
+      if  (empty($demandes)){
+        $output = array(
+          'data' =>0,
+          'recordsFiltered' => 0,
+          'recordsTotal' => 0
+        );
+        return $output;
 
-        } else {
-            /* Compte du nombre de demande pour la pagination */
-            $nb = $demandeRepo->getNb($role,$idsalon);
-            $output = array(
-               'data' => array(),
-               'recordsFiltered' => $nb[0][1],
-               'recordsTotal' => $nb[0][1]
-            );
+      } else {
+        /* Compte du nombre de demande pour la pagination */
+        $nb = $demandeRepo->getNb($role,$idsalon);
+        $output = array(
+          'data' => array(),
+          'recordsFiltered' => $nb[0][1],
+          'recordsTotal' => $nb[0][1]
+        );
 
-              /* Récupération des informations de chaque demande en fonction du type de demande  */
-            $em = $this->getDoctrine()->getManager("referentiel");
-            foreach ($demandes as $demande ) {
-                  $demandeur = $em->getRepository('ApiBundle:Personnel')
-                                  ->findOneBy(array('matricule' => $demande->getUser()->getIdPersonnel()));
+        /* Récupération des informations de chaque demande en fonction du type de demande  */
+        $em = $this->getDoctrine()->getManager("referentiel");
+        foreach ($demandes as $demande ) {
+          $demandeur = $em->getRepository('ApiBundle:Personnel')
+          ->findOneBy(array('matricule' => $demande->getUser()->getIdPersonnel()));
 
-                    /* Code Sage du salon concerné par la demande */
-                      $codeSage = $demande->getidSalon();
+          /* Code Sage du salon concerné par la demande */
+          $codeSage = $demande->getidSalon();
 
-                   /* Coordinateur du salon concerné par la demande */
-                      $coordo = $em->getRepository('ApiBundle:PersonnelHasSalon')->findOneBy(
-                      array("profession" => 2,
-                            "salonSage" => $codeSage,
-                        ));
-                        if (empty($coordo)){
-                            $coordo = 'n/a';
-                        }else{
-                            $coordo = $coordo->getPersonnelMatricule();
-                            $coordo = $coordo->getNom().' '.$coordo->getPrenom();
-                        }
+          /* Coordinateur du salon concerné par la demande */
+          $coordo = $em->getRepository('ApiBundle:PersonnelHasSalon')->findOneBy(
+            array("profession" => 2,
+            "salonSage" => $codeSage,
+          ));
+
+          if (empty($coordo)){
+            $coordo = 'n/a';
+          } else {
+            $coordo = $coordo->getPersonnelMatricule();
+            $coordo = $coordo->getNom().' '.$coordo->getPrenom();
+          }
 
 
-                    /* Nom et Prenom du personnel concerné par la demande  */
-                    if ($demande->getDemandeform()->getTypeForm() == "Demande d'acompte"){
-                         $idP = $demande->getDemandeform()->getIdPersonnel();
-                         $collab  = $persoRepo->whichPersonnel($demande,$idP);
-                         }else{
-                         $collab  = $demandeRepo->whichPersonnel($demande);
-                      }
+          /* Nom et Prenom du personnel concerné par la demande  */
+          if ($demande->getDemandeform()->getTypeForm() == "Demande d'acompte") {
+            $idP = $demande->getDemandeform()->getIdPersonnel();
+            $collab  = $persoRepo->whichPersonnel($demande,$idP);
+          } else {
+            $collab  = $demandeRepo->whichPersonnel($demande);
+          }
 
-                    /* Statut de la demande  */
-                      $statut = $demandeRepo->whichStatut($demande);
-                      $classStatut= str_replace(' ', '_', $statut);
-                    /* Marque du salon concerné par la demande */
-                      $marque = $em->getRepository('ApiBundle:Salon')->findOneBy(
-                      array("sage" => $demande->getidSalon()))->getEnseigne()->getNom();
+          /* Statut de la demande  */
+          $statut = $demandeRepo->whichStatut($demande);
+          $classStatut= str_replace(' ', '_', $statut);
+          /* Marque du salon concerné par la demande */
+          $marque = $em->getRepository('ApiBundle:Salon')->findOneBy(
+            array("sage" => $demande->getidSalon()))->getEnseigne()->getNom();
 
-                    /* Date de la demande */
-                      $date = $demande->getDateTraitement();
+            /* Date de la demande */
+            $date = $demande->getDateTraitement();
 
             /* Construction des lignes du tableau */
             $output['data'][] = [
@@ -315,32 +305,39 @@ class DemandeController extends Controller
               'collaborateur'    => $collab,
             ];
           }
-      return $demandeRepo->sortingOut($typeFilter,$dir,$output,$column);
+          return $demandeRepo->sortingOut($typeFilter,$dir,$output,$column);
+        }
       }
-  }
   /**
    * @Route("/paginate", name="paginate")
    */
   public function paginateAction(Request $request)
   {
     if(!$request->isMethod('post'))
-      return $this->render('demande.html.twig', array(
-        'img' => $request->getSession()->get('img')
-      ));
-          $length = $request->get('length');
-          $start = $request->get('start');
-        //$search = $request->get('search');
-          $idsalon = $request->getSession()->get('idSalon');
+    return $this->render('demande.html.twig', array(
+      'img' => $request->getSession()->get('img')
+    ));
+
+    $length = $request->get('length');
+    $start = $request->get('start');
+    //$search = $request->get('search');
+    $idsalon = $request->getSession()->get('idSalon');
+
+    // Filtrage des valeurs
+    if ($request->get('extra'))
+    {
+      $typeFilter = $request->get('extra');
+      return new Response(json_encode(self::displayDemandes($typeFilter,null,null,$idsalon,null,$start,$length)), 200, ['Content-Type' => 'application/json']);
+    }
+
 
     //Affichage par défault sans filtre actif
     if ( !$request->get('order')){
+      $typeFilter = 'init';
+      return new Response(json_encode(self::displayDemandes($typeFilter,null,null,$idsalon,null,$start,$length)), 200, ['Content-Type' => 'application/json']);
 
-            $typeFilter = 'init';
-
-     return new Response(json_encode(self::displayDemandes($typeFilter,null,null,$idsalon,null,$start,$length)), 200, ['Content-Type' => 'application/json']);
-
-    //Affichage lors d'un tri
-    }else if ($request->get('order')){
+      //Affichage lors d'un tri
+    } else if ($request->get('order')) {
       //On récupère la colonne filtrée et la direction du tri
       $order = $request->get('order');
       $tri = $order[0]['column'];
@@ -350,7 +347,7 @@ class DemandeController extends Controller
       $typeFilter = $columns[$tri]['name'];
 
       return new Response(json_encode(self::displayDemandes($typeFilter,$column,$dir,$idsalon,null,$start,$length)), 200, ['Content-Type' => 'application/json']);
-      }
+    }
   }
 
   /**

@@ -42,7 +42,10 @@ class Enseigne
      */
     private $id;
 
-
+    /**
+     * @ORM\OneToMany(targetEntity="Salon", mappedBy="enseigne")
+     */
+    private $salons;
 
     /**
      * Set nom
