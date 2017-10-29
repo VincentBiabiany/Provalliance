@@ -18,7 +18,7 @@ public function ifCoiffeur($idPerso){
    $p= $this->findOneBy(array('personnelMatricule' => $idPerso, 'profession' => 3));
 
 if (empty($p)){
-   return false;}else{ return true;}
+   return true;}else{ return false;}
 
    }
 }

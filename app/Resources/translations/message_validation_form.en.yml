@@ -5,7 +5,7 @@ firstPassword_required:    Please provide a password
 firstPassword_minlength:   Your password must be at least 5 characters long
 secondPassword_required:   Please provide a password
 secondPassword_minlength:  Your password must be at least 5 characters long
-secondPassword_equalTo:    Please enter the same password as above
+secondPassword_equalTo:    Please enter the same password
 email_valid:               L'e-mail saisit n'est pas valide
 enabled_required:          Champs requis
 

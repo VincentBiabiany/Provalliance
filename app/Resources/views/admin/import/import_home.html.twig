@@ -19,27 +19,42 @@
 			{{form_start(form, {'attr' : {'class' : 'allForm form-horizontal' } })}}
 				<div class="form-group">
 					<label style="width: 215px;"  class="control-label label col-sm-4 col-xs-12">{{ "import.salon" | trans({}, "import") }}</label>
-					<div style="padding-top:10px;" class="col-sm-6">
-						{{ form_widget(form.salon) }}
+					<div class="col-sm-6">
+						<label for="form_salon" class="label-file">
+							<i class="glyphicon glyphicon-download-alt"></i>
+							<span>Choisir un fichier</span>
+						</label>
+						{{ form_widget(form.salon, { 'attr': {'class': 'input-file'} }) }}
 					</div>
 				</div>
 
 				<div class="form-group">
 					<label style="width: 215px;" class="control-label label col-sm-4 col-xs-12">{{ "import.personnel" | trans({}, "import") }}</label>
-			    <div style="padding-top:10px;" class="col-sm-6">
-			      {{ form_widget(form.personnel) }}
+			    <div class="col-sm-6">
+						<label for="form_personnel" class="label-file">
+							<i class="glyphicon glyphicon-download-alt"></i>
+							<span>Choisir un fichier</span>
+						</label>
+			      {{ form_widget(form.personnel, { 'attr': {'class': 'input-file'} }) }}
 
 					</div>
 				</div>
 
 				<div class="form-group">
 					<label style="width: 215px;"  class="control-label label col-sm-4 col-xs-12">{{ "import.lien" | trans({}, "import") }}</label>
-			    <div style="padding-top:10px;" class="col-sm-6">
-			      {{ form_widget(form.lien) }}
+			    <div class="col-sm-6">
+						<label for="form_lien" class="label-file">
+							<i class="glyphicon glyphicon-download-alt"></i>
+							<span>Choisir un fichier</span>
+						</label>
+			      {{ form_widget(form.lien, { 'attr': {'class': 'input-file'} }) }}
 			    </div>
 	 			</div>
 
-			{{form_end(form)}}
+				<div id="actionsButtons">
+					{{form_end(form)}}
+					<a id="form_Precedent" class="btn-black precedent" href="{{ path('adminHome') }}">{{ "admin_create.precedent"|trans({}, "admin_create") }} </a>
+				</div>
 
 		</div>
 	</div>

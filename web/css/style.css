@@ -228,6 +228,24 @@ table.dataTable thead th, table.dataTable thead td ,table.dataTable tfoot th, ta
 .form-control[disabled], fieldset[disabled] .form-control {
     cursor: initial;
 }
+.label-file {
+	cursor: pointer;
+	    color: #333;
+	    height: 40px;
+	    width: 200px;
+	    text-align: center;
+	    margin-left: 15px;
+	    font-weight: bold;
+	    background: white;
+	    padding: 0.9rem 1.25rem;
+}
+.label-file:hover {
+    color: #b39b8b;
+}
+
+.input-file {
+    display: none !important;
+}
 .glyphicon-ok{
 	color:green ;
 }
@@ -235,6 +253,12 @@ table.dataTable thead th, table.dataTable thead td ,table.dataTable tfoot th, ta
 	color: red;
 }
 .help-block {
+	position: relative;
+	color: red !important;
+	display: block;
+}
+#fos_user_registration_form_enabled .help-block{
+
 	position: absolute;
 	left: 18px;
 	top: 44px;
@@ -330,8 +354,9 @@ height: 65px;
 	    color: white;
 	    width: 175px;
 	    font-weight: 100 !important;
-      padding: .3em 1.12em .3em;
-}
+			padding-top: 5px;
+	    padding-left: 6px;
+		}
 .error_list{
 
 }

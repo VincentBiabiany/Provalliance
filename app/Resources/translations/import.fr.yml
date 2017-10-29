@@ -3,7 +3,7 @@ import.header:    Administration Import
 import.salon:     Import des salons
 import.personnel: Import du personnel
 import.lien:      Import Personnel/Salon
-import.import:    Importer les données
+import.import:    Valider
 
 import.erreur:    Erreur
 import.success:   Données importées
