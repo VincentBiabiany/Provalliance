@@ -176,7 +176,6 @@ class DemandeController extends Controller
             foreach ($collab as $key => $value) {
               $array[] = ["collaborateur" => $value];
             }
-            //dump($array);
 
         } else {
           $query = $em->createQueryBuilder('u')
