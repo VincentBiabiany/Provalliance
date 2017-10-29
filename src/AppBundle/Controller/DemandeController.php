@@ -52,9 +52,13 @@ class DemandeController extends Controller
     */
     public function filterAction(Request $request)
     {
+      $isService = true;
       // Filtre des demandes pour manager/coordo
       if (in_array('ROLE_MANAGER', $this->getUser()->getRoles(), true)
        || in_array('ROLE_COORD', $this->getUser()->getRoles(), true)) {
+         $isService = false;
+         $idSalon = $request->getSession()->get('idSalon');
+      }
 
         $col = array(
           "id",
@@ -76,12 +80,21 @@ class DemandeController extends Controller
         if ($col[$nb] == "sage"  || $col[$nb] == "appelation") {
 
           $em = $this->getDoctrine()->getManager('referentiel');
-          $query = $em->createQuery(
-            "SELECT DISTINCT p.".$col[$nb]."
-            FROM ApiBundle:Salon p
-            WHERE p.sage = :salon
-            ORDER BY p.".$col[$nb]." ASC"
-          )->setParameter('salon', $request->getSession()->get('idSalon'));
+
+          // $query = $em->createQuery(
+          //   "SELECT DISTINCT p.".$col[$nb]."
+          //   FROM ApiBundle:Salon p
+          //   WHERE p.sage = :salon
+          //   ORDER BY p.".$col[$nb]." ASC"
+          // )->setParameter('salon', $request->getSession()->get('idSalon'));
+          $query = $em->createQueryBuilder('u')
+                      ->select('u.'.$col[$nb])
+                      ->distinct()
+                      ->from('ApiBundle:Salon', 'u')
+                      ->orderBy("u." . $col[$nb], "ASC");
+          if (!$isService)
+            $query = $query->where('u.sage = :salon')->setParameter('salon', $idSalon);
+          $query =  $query->getQuery();
 
         } else if ($col[$nb] == "enseigne") {
 
@@ -90,25 +103,24 @@ class DemandeController extends Controller
                       ->select('e.nom as enseigne')
                       ->distinct()
                       ->from('ApiBundle:Salon', 'u')
-                      ->leftjoin('u.enseigne', 'e')
-                      ->where('u.sage = :salon')
-                      ->setParameter('salon', $request->getSession()->get('idSalon'))
-                      ->getQuery();
+                      ->leftjoin('u.enseigne', 'e');
+          if (!$isService)
+            $query = $query->where('u.sage = :salon')->setParameter('salon', $idSalon);
+          $query =  $query->getQuery();
 
-        }  else if ($col[$nb] == "coordinateur" || $col[$nb] == "manager") {
+        }  else if ($col[$nb] == "coordinateur" ) {
 
           $em = $this->getDoctrine()->getManager('referentiel');
-          $col[$nb] == "coordinateur" ? $prof = 2 : $prof = 1;
 
           $query = $em->createQueryBuilder('u')
                       ->select("CONCAT(e.prenom , ' ' , e.nom) as ".$col[$nb])
                       ->distinct()
                       ->from('ApiBundle:PersonnelHasSalon', 'u')
                       ->leftjoin('u.personnelMatricule', 'e')
-                      ->where('u.salonSage = :salon')
-                      ->andWhere('u.profession = '.$prof)
-                      ->setParameter('salon', $request->getSession()->get('idSalon'))
-                      ->getQuery();
+                      ->where('u.profession = 2');
+          if (!$isService)
+            $query = $query->andWhere('u.salonSage = :salon')->setParameter('salon', $idSalon);
+          $query =  $query->getQuery();
 
         }  else if ($col[$nb] == "demandeur") {
 
@@ -116,10 +128,10 @@ class DemandeController extends Controller
                       ->select("e.idPersonnel")
                       ->distinct()
                       ->from('AppBundle:DemandeEntity', 'u')
-                      ->leftjoin('u.user', 'e')
-                      ->where('u.idSalon = :salon')
-                      ->setParameter('salon', $request->getSession()->get('idSalon'))
-                      ->getQuery()->getResult();
+                      ->leftjoin('u.user', 'e');
+          if (!$isService)
+            $query1 = $query1->where('u.idSalon = :salon')->setParameter('salon', $idSalon);
+          $query1 =  $query1->getQuery()->getResult();
 
           foreach ($query1 as $key => $value) {
             $array[] = $value['idPersonnel'];
@@ -133,16 +145,17 @@ class DemandeController extends Controller
                       ->where('p.matricule IN (:id)')
                       ->setParameter('id',  $array)
                       ->getQuery();
+
         } else if ($col[$nb] == "type") {
 
             $query = $em->createQueryBuilder('u')
                         ->select("e.typeForm as ".$col[$nb])
                         ->distinct()
                         ->from('AppBundle:DemandeEntity', 'u')
-                        ->leftjoin('u.demandeform', 'e')
-                        ->where('u.idSalon = :salon')
-                        ->setParameter('salon', $request->getSession()->get('idSalon'))
-                        ->getQuery();
+                        ->leftjoin('u.demandeform', 'e');
+            if (!$isService)
+              $query = $query->where('u.idSalon = :salon')->setParameter('salon', $idSalon);
+            $query =  $query->getQuery();
 
           } else if ($col[$nb] == "collaborateur") {
 
@@ -150,90 +163,71 @@ class DemandeController extends Controller
             $demandeRepo = $em->getRepository('AppBundle:DemandeEntity');
 
             // Récup des demande du Salon
-            $demandesSalon = $demandeRepo->findBy(array("$idSalon" => $request->getSession()->get('idSalon')));
+            if (!$isService)
+             $demandesSalon = $demandeRepo->findBy(array("idSalon" => $idSalon));
+            else
+             $demandesSalon = $demandeRepo->findAll();
 
             // Récup par demande du collab
             foreach ($demandesSalon as $key => $demande) {
 
               if ($demande->getDemandeform()->getTypeForm() == "Demande d'embauche") {
-                $arrayCollab[] = $demandeRepo->whichPersonnel($demande);
+                $collab[] = $demandeRepo->whichPersonnel($demande);
               } else {
                 $idP = $demande->getDemandeform()->getIdPersonnel();
-                $arrayCollab[] = $persoRepo->whichPersonnel($demande,$idP);
+                $collab[] =  $persoRepo->whichPersonnel($demande,$idP);
               }
-
             }
-            dump($arrayCollab);
 
-              // $query1 = $em->createQueryBuilder('u')
-              //             ->select("e.id as ".$col[$nb])
-              //             ->distinct()
-              //             ->from('AppBundle:DemandeEntity', 'u')
-              //             ->leftjoin('u.demandeform', 'e')
-              //             ->where('u.idSalon = :salon')
-              //             ->setParameter('salon', $request->getSession()->get('idSalon'))
-              //             ->getQuery()->getResult();
-              // foreach ($query1 as $key => $value) {
-              //   $array[] = $value['collaborateur'];
-              // }
-              //
-              // // idDemande Récupéré
-              // dump($array);
-              //
-              // foreach ($array as $key => $value) {
-              //   $query = $em->createQueryBuilder('u')
-              //               ->select("u.typeForm")
-              //               ->from('AppBundle:DemandeForm', 'u')
-              //               ->where('u.id = '.$value)
-              //               ->getQuery()->getResult();
-              //
-              //   if ($query[0] == "Demande d'embauche") {
-              //     $array[] = $em->createQueryBuilder('u')
-              //                 ->select("CONCAT(u.prenom , ' ' , u.nom) as ".$col[$nb])
-              //                 ->from('AppBundle:DemandeEmbauche', 'u')
-              //                 ->where('u.id = '.$value)
-              //                 ->getQuery()->getResult();
-              //   } else {
-              //     $arrayid[] = $em->createQueryBuilder('u')
-              //                 ->select("u.personnelId")
-              //                 ->from('AppBundle:DemandeForm', 'u')
-              //                 ->where('u.id = '.$value)
-              //                 ->getQuery()->getResult();
-              //
-              //       foreach ($arrayid as $key => $value) {
-              //           $em = $this->getDoctrine()->getManager('referentiel');
-              //           $array[] = $em->createQueryBuilder('u')
-              //                       ->select("CONCAT(u.prenom , ' ' , u.nom) as ".$col[$nb])
-              //                       ->from('ApiBundle:Personnel', 'u')
-              //                       ->where('u.id = '.$value)
-              //                       ->getQuery()->getResult();
-              //       }
-              //   }
-              // }
+            $collab = array_unique($collab);
+            foreach ($collab as $key => $value) {
+              $array[] = ["collaborateur" => $value];
+            }
+            //dump($array);
 
         } else {
-
-          $query = $em->createQuery(
-                     "SELECT DISTINCT p.".$col[$nb]."
-                      FROM AppBundle:DemandeEntity p
-                      WHERE p.idSalon = :salon
-                      ORDER BY p.".$col[$nb]." ASC"
-                    )->setParameter('salon', $request->getSession()->get('idSalon'));
+          $query = $em->createQueryBuilder('u')
+                      ->select('u.'.$col[$nb])
+                      ->distinct()
+                      ->from('AppBundle:DemandeEntity', 'u')
+                      ->orderBy("u." . $col[$nb], "ASC");
+          if (!$isService)
+            $query = $query->where('u.idSalon = :salon')->setParameter('salon', $idSalon);
+          $query =  $query->getQuery();
+        //   $query = $em->createQuery(
+        //              "SELECT DISTINCT p.".$col[$nb]."
+        //               FROM AppBundle:DemandeEntity p
+        //               WHERE p.idSalon = :salon
+        //               ORDER BY p.".$col[$nb]." ASC"
+        //             )->setParameter('salon', $idSalon);
         }
 
-        $array = $query->getArrayResult();
-        dump($array);
+        if (isset($query))
+          $array = $query->getArrayResult();
+
+        //dump($array);
         $row = array();
 
         if ($array){
           foreach ($array as $key => $value) {
-            if($value[$col[$nb]])
-              $row[] = $value[$col[$nb]];
+
+            if ($col[$nb] == "dateTraitement") {
+              $row[] = $value[$col[$nb]]->format('d-m-Y H:i');
+
+            } else if ($col[$nb] == "statut"){
+              $row[] = $this->getDoctrine()->getManager()->getRepository("AppBundle:DemandeEntity")
+              ->whichStatut($value[$col[$nb]]);
+
+            } else {
+              if ($value[$col[$nb]] != null)
+                $row[] = $value[$col[$nb]];
+            }
+
           }
         }
 
         return new Response(json_encode($row), 200, ['Content-Type' => 'application/json']);
-      }
+
     }
 
     public function displayDemandes($typeFilter,$column,$dir,$idsalon,$search,$start,$length){

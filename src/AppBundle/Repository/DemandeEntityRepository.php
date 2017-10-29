@@ -2,6 +2,9 @@
 
 namespace AppBundle\Repository;
 use ApiBundle\Entity\Personnel;
+use ApiBundle\Entity\DemandeEntity;
+use ApiBundle\Entity\DemandeSimple;
+use ApiBundle\Entity\DemandeComplexe;
 
 /**
  * DemandeEntityRepository
@@ -40,7 +43,7 @@ class DemandeEntityRepository extends \Doctrine\ORM\EntityRepository
             ->getResult();
         }
    }
-   
+
    // Fonction wichService: Retourne le tableau des demandes en fonction du service
     public function wichService($role,$typeFilter,$column,$dir,$idsalon,$search,$start,$length){
 
@@ -99,22 +102,29 @@ class DemandeEntityRepository extends \Doctrine\ORM\EntityRepository
     public function whichStatut($demande){
 
       /* Statut de la demande  */
-      $date = $demande->getDateTraitement();
-      if($demande->getstatut() == 0){
-          $statut="Rejeté";
+      if (is_object ($demande))
+       $stat = $demande->getstatut();
+      else
+       $stat = $demande;
 
-      }else if ($demande->getstatut() == 1){
-          $statut="En cours";
+        if ($stat == 0) {
+            $statut="Rejeté";
 
-      }else if ($demande->getstatut() == 2){
-          $statut="Traité";
+        } else if ($stat == 1) {
+            $statut="En cours";
 
-      }else if ($demande->getstatut() == 3){
-          $statut="A signé";
+        } else if ($stat == 2) {
+            $statut="Traité";
 
-      }else if ($demande->getstatut() == 4){
-          $statut="A validé";
-      }
+        } else if ($stat == 3) {
+            $statut="A signé";
+
+        } else if ($stat == 4) {
+            $statut="A validé";
+        }
+
+
+
       return $statut;
     }
 
