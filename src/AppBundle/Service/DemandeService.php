@@ -68,11 +68,6 @@ class DemandeService
   public function sendMail($idSalon, $personnel, $envoie, $demande)
   {
     // Notification par Mail
-    if ($this->token->)
-    {
-
-    }
-
     $salon =  $this->em->getRepository('ApiBundle:Salon')
                        ->findOneBy(array('sage' => $idSalon));
 
@@ -188,7 +183,7 @@ class DemandeService
                       $this->templating->render(
                         'emails/mail_salon.html.twig',
                         array(
-                        'user' => $personnel->getPrenom().' '.$personnel->getNom(),
+                        'user' => $personnel,
                         'demande' => $demande,
                         'url' => $this->url)
                       ),
@@ -252,6 +247,7 @@ class DemandeService
     // Generation de l'url
     self::generateAbsUrl($demandeSimple);
 
+    $personnel = $personnel->getPrenom().' '.$personnel->getNom();
     self::sendMail($idSalon, $personnel, [1, 5],  $demande->getTypeForm());
   }
 
@@ -310,6 +306,7 @@ class DemandeService
     //    );
     // $this->mailer->send($message);
 
+    $personnel = $demande->getPrenom(). ' '.$demande->getNom();
 
     $this->em2->persist($demandeComplexe);
     $this->em2->flush();
@@ -324,7 +321,7 @@ class DemandeService
 
 
 
-    $this->session->getFlashBag()->add("success", "La demande d'embauche pour ".$demande->getPrenom()." ".$demande->getNom()."a correctement été envoyé ! Un mail vous sera envoyé une fois votre demande traité.");
+    $this->session->getFlashBag()->add("success", "La demande d'embauche pour ".$personnel." a correctement été envoyé ! Un mail vous sera envoyé une fois votre demande traité.");
 
   }
 

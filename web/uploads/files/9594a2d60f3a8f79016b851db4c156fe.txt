@@ -1,0 +1,14 @@
+##########  MYSQL: ############
+
+login: 	jacobspi_multi
+mdp: 	_vxtB~+0+*rU
+
+
+DB NAME: jacobspi_multisite
+
+
+url : picklehospitality.com
+
+
+Wordpress User    : ztfijj
+		  password: Vfy%3sD76ctZ5EEBJN5A$@Rk
