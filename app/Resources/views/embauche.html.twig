@@ -122,9 +122,15 @@
       {{ form_widget(form.paysNaissance) }}
     </div>
 
-  </div><br/>
+  </div>
 
-  {{ form_end(form) }}
+
+    <div id="actionsButtons">
+      {{ form_end(form) }}
+            <a href="{{ path('home_juridique_rh') }}" class="btn-black precedent">
+                {{ "global.back"|trans({}, "global") }}
+            </a>
+    </div>
 
 </div>
 
@@ -169,11 +175,6 @@
   $('#topNav').css('display','none');
   $('#myModal').modal('show');
 
-</script>
-
-
-<script>
-$('#demande_embauche_Envoyer').parent().append('<button  onclick="history.back()" class="btn-black precedent">{{ "embauche.back"|trans({}, "embauche") }}</button>');
 </script>
 
 <script>
