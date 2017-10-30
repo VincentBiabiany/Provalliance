@@ -58,9 +58,9 @@ class DemandeEmbauche extends DemandeForm
     private $addresse2;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="code_postal", type="integer")
+     * @ORM\Column(name="code_postal", type="string", length=255)
      */
     private $codePostal;
 
@@ -86,9 +86,9 @@ class DemandeEmbauche extends DemandeForm
     private $email;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="num_secu", type="integer")
+     * @ORM\Column(name="num_secu", type="string", , length=255))
      */
     private $numSecu;
 
@@ -246,7 +246,6 @@ class DemandeEmbauche extends DemandeForm
      */
     private $tempsPartiel;
 
-
     /**
      * @var string
      *
@@ -264,7 +263,7 @@ class DemandeEmbauche extends DemandeForm
     /**
      * @var string
      *
-     * @ORM\Column(name="diplome_file2", type="string", length=255)
+     * @ORM\Column(name="diplome_file2", type="string", length=255, nullable=true)
      */
     protected $diplomeFile2;
 

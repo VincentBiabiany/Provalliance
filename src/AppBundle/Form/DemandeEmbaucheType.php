@@ -44,7 +44,8 @@ class DemandeEmbaucheType extends AbstractType
       ->add('ville', null, array('attr' => ['class' => 'form-control']))
       ->add('telephone', null, array('attr' => ['class' => 'form-control']))
       ->add('email', EmailType::class, array('attr' => ['class' => 'form-control']))
-      ->add('numSecu', null, array('attr' => ['class' => 'form-control']))
+      ->add('numSecu', TextType::class, array('attr' => ['class' => 'form-control','data-mask' => '2 99 12 99 999 999 99',
+            'placeholder' => '_  _ _  _ _  _ _  _ _ _  _ _ _  _ _']))
       ->add('dateNaissance', DateType::class, array(
         'widget' => 'choice',
         'format' => 'd/M/y',
@@ -320,7 +321,7 @@ class DemandeEmbaucheType extends AbstractType
 
                     if (isset($extra['raison']['retour']))
                     {
-                      $data->setCddRetour($form->get('date')->getData());
+                      $data->setCddRetour($extra['raison']['retour']);
                       $data->setCddDate(null);
                     }
 
@@ -366,164 +367,104 @@ class DemandeEmbaucheType extends AbstractType
                   ->add('email', EmailType::class, array('attr' => ['class' => 'form-control', 'readonly' => true]))
                   ->add('numSecu', null, array('attr' => ['class' => 'form-control', 'readonly' => true]))
                   ->add('dateNaissance', DateType::class, array(
+                                                  'widget' => 'single_text',
+                                                  'html5' => false,
+                                                  'format' => 'd/M/y',
+                                                  'attr' => ['class' => 'js-datepicker form-control', 'readonly' => true]))
+                  ->add('villeNaissance', TextType::class, array('attr' => ['class' => 'form-control', 'readonly' => true]))
+                  ->add('paysNaissance', TextType::class, array('attr' => ['class' => 'form-control', 'readonly' => true]))
+                  ->add('nationalite', ChoiceType::class, array(
+                    'choices'  => array(
+                      'embauche.nat.fr'  => 'embauche.nat.fr',
+                      'embauche.nat.etr' => 'embauche.nat.etr',
+                    ),
+                    'attr' => array('readonly' => true,
+                    'disabled' => true,
+                    'class' =>'onlyread form-control'),
+                    'translation_domain' => 'embauche',
+                    'choice_translation_domain' => 'embauche',
+                  ))
+                  ->add('sexe', ChoiceType::class, array(
+                    'choices'  => array(
+                      'embauche.sexe.m'  => 'embauche.sexe.m',
+                      'embauche.sexe.f' => 'embauche.sexe.f',
+                    ),
+                    'attr' => array('readonly' => true,
+                    'disabled' => true,
+                    'class' =>'onlyread form-control'),
+                    'translation_domain' => 'embauche',
+                    'choice_translation_domain' => 'embauche',
+                  ))
+                  ->add('nbEnfant', null, array('attr' => ['class' => 'form-control', 'readonly' => true]))
+                  ->add('situationFamille', ChoiceType::class, array(
+                    'choices'  => array(
+                      'embauche.fam.marie' => 'embauche.fam.marie',
+                      'embauche.fam.pacse' => 'embauche.fam.pacse',
+                      'embauche.fam.conc'  => 'embauche.fam.conc',
+                      'embauche.fam.celib' => 'embauche.fam.celib',
+                    ),
+                    'attr' => array('readonly' => true,
+                    'disabled' => true,
+                    'class' =>'onlyread form-control'),
+                    'choice_translation_domain' => 'embauche',
+                  ))
+                  ->add('villeNaissance', null, array('attr' => ['class' => 'form-control', 'readonly' => true]))
+                  ->add('dateembauche', DateType::class, array(
                     'widget' => 'single_text',
                     'html5' => false,
-                    'format' => 'd-M-y',
-                    'attr' => ['class' => 'js-datepicker form-control', 'readonly' => true]))
-                    ->add('villeNaissance', TextType::class, array('attr' => ['class' => 'form-control', 'readonly' => true]))
-                    ->add('nationalite', ChoiceType::class, array(
-                      'choices'  => array(
-                        'embauche.nat.fr'  => 'embauche.nat.fr',
-                        'embauche.nat.etr' => 'embauche.nat.etr',
-                      ),
-                      'attr' => array('readonly' => true,
-                      'disabled' => true,
-                      'class' =>'onlyread form-control'),
-                      'translation_domain' => 'embauche',
-                      'choice_translation_domain' => 'embauche',
-                    ))
-                    ->add('nbEnfant', null, array('attr' => ['class' => 'form-control', 'readonly' => true]))
-                    ->add('situationFamille', ChoiceType::class, array(
-                      'choices'  => array(
-                        'embauche.fam.marie' => 'embauche.fam.marie',
-                        'embauche.fam.pacse' => 'embauche.fam.pacse',
-                        'embauche.fam.conc'  => 'embauche.fam.conc',
-                        'embauche.fam.celib' => 'embauche.fam.celib',
-                      ),
-                      'attr' => array('readonly' => true,
-                      'disabled' => true,
-                      'class' =>'onlyread form-control'),
-                      'choice_translation_domain' => 'embauche',
-                    ))
-                    ->add('villeNaissance', null, array('attr' => ['class' => 'form-control']))
-                    ->add('dateembauche', DateType::class, array(
-                      'widget' => 'single_text',
-                      'html5' => false,
-                      'format' => 'd-M-y',
-                      'attr' => ['class' => 'js-datepicker form-control', 'readonly' => true]
-                    ))
-                    ->add('dejaSalarie', ChoiceType::class, array(
-                      'choices' => array(
-                        'embauche.ancien.oui' => 'true',
-                        'embauche.ancien.no' => 'false'
-                      ),
-                      'choice_translation_domain' => 'embauche',
-                      'translation_domain' => 'embauche',
-                      'multiple' => false,
-                      'attr' => array('readonly' => true,
-                      'disabled' => true,
-                      'class' =>'onlyread form-control'),
+                    'format' => 'd/M/y',
+                    'attr' => ['class' => 'js-datepicker form-control', 'readonly' => true]
+                  ))
+                  ->add('dejaSalarie', ChoiceType::class, array(
+                    'choices' => array(
+                      'embauche.ancien.oui' => 'true',
+                      'embauche.ancien.no' => 'false'
+                    ),
+                    'choice_translation_domain' => 'embauche',
+                    'translation_domain' => 'embauche',
+                    'multiple' => false,
+                    'attr' => array('readonly' => true,
+                    'disabled' => true,
+                    'class' =>'onlyread form-control'),
+                  ));
+                  if ($demande->getDejaSalarie() == 'embauche.ancien.no')
+                  {
+                    $form->add("salarieLieu", TextType::class, array(
+                      'attr' => array('readonly' => true)
                     ));
-                    if ($demande->getDejaSalarie() == 'embauche.ancien.no')
-                    {
-                      $form->add("salarieLieu", TextType::class, array(
-                        'attr' => array('readonly' => true)
-                      ));
-                    }
+                  }
 
-                    if ($demande->getPostes() == "embauche.poste.coif"
-                    || $demande->getPostes() == "embauche.poste.tech")
-                    {
-                      $form->add('postes', TextType::class, array('attr'=>['readonly' => true]));
-                    }
-                    else
-                    {
-                      $form->add('postes', ChoiceType::class, array(
-                        'choices' => array(
-                          'embauche.poste.coif' => 'embauche.poste.coif',
-                          'embauche.poste.tech' => 'embauche.poste.tech',
-                          'embauche.autre'      => 'embauche.autre'
-                        ),
-                        'attr' => array('readonly' => true,
-                        'disabled' => true,
-                        'class' =>'onlyread form-control'),
-                        'choice_translation_domain' => 'embauche',
-                        'translation_domain' => 'embauche',
-                      ));
-                    }
+                  if ($demande->getPostes() == "embauche.poste.coif"
+                  || $demande->getPostes() == "embauche.poste.tech")
+                  {
+                    $form->add('postes', ChoiceType::class, array(
+                      'choices' => array(
+                        'embauche.poste.coif' => 'embauche.poste.coif',
+                        'embauche.poste.tech' => 'embauche.poste.tech',
+                        'embauche.autre'      => 'embauche.autre'
+                      ),
+                      'attr' => array('readonly' => true,
+                      'disabled' => true,
+                      'class' =>'onlyread form-control'),
+                      'choice_translation_domain' => 'embauche',
+                      'translation_domain' => 'embauche',
+                    ));
+                  }
+                  else
+                    $form->add('postes', TextType::class, array('attr'=>['readonly' => true]));
 
-                    if ($demande->getDiplomes() == "embauche.autre")
-                    {
-                      $form->add('postes', TextType::class, array('attr'=>['readonly' => true]));
-                    }
-                    else
-                    {
-                      $form
-                      ->add('diplomes', ChoiceType::class,array(
-                        'choices' => array(
-                          'embauche.diplome.CAP' => 'embauche.diplome.CAP',
-                          'embauche.diplome.BEP' => 'embauche.diplome.BEP',
-                          'embauche.autre'=> 'embauche.autre'
-                        ),
-                        'attr' => array('readonly' => true,
-                        'disabled' => true,
-                        'class' =>'onlyread form-control'),
-                        'choice_translation_domain' => 'embauche',
-                        'translation_domain' => 'embauche',
-                      ));
-                    }
-                    if($demande->getAutre() != null || $demande->getAutre() != "")
-                    {
-                      $form->add('autre', TextType::class, array(
-                        'required'   => false,
-                        'label' => 'embauche.autre',
-                        'translation_domain' => 'embauche',
-                        'attr' => ['class' => 'form-control']
-                      ));
-                    }
-                    else
-                    {
-                      $form
-                      ->add('niveau', ChoiceType::class, array(
-                        'choices' => array(
-                          'I' => 'I',
-                          'II' => 'II',
-                          'III'=> 'III',
-                          'IV' => 'IV',
-                          'V' => 'V'
-                        ),
-                        'choice_translation_domain' => 'embauche',
-                        'translation_domain' => 'embauche',
-                        'attr' => array('readonly' => true,
-                        'disabled' => true,
-                        'class' =>'onlyread form-control'),
-                      ))
-                      ->add('echelon', ChoiceType::class, array(
-                        'choices' => array(
-                          '1' => '1',
-                          '2' => '2',
-                          '3'=> '3'
-                        ),
-                        'choice_translation_domain' => 'embauche',
-                        'translation_domain' => 'embauche',
-                        'attr' => array('readonly' => true,
-                        'disabled' => true,
-                        'class' =>'onlyread form-control'),
-                      ));
-
-                    }
-                    if ($demande->getSalaireBase() == 'embauche.autre')
-                    {
-                      $form->add('salaireBase', ChoiceType::class, array(
-                        'choices' => array(
-                          'embauche.salaire.con' =>'embauche.salaire.con',
-                          'embauche.autre' => 'embauche.autre'
-                        ),
-                        'attr' => array('readonly' => true,
-                        'disabled' => true,
-                        'class' =>'onlyread form-control'),
-                        'choice_translation_domain' => 'embauche',
-                        'translation_domain' => 'embauche',
-                      ));
-                    }
-
+                  if ($demande->getDiplomes() == "embauche.autre")
+                  {
+                    $form->add('postes', TextType::class, array('attr'=>['readonly' => true]));
+                  }
+                  else
+                  {
                     $form
-                    ->add('typeContrat', ChoiceType::class,array(
+                    ->add('diplomes', ChoiceType::class,array(
                       'choices' => array(
-                        'embauche.cdi'  => 'embauche.cdi',
-                        'embauche.appr' => 'embauche.appr',
-                        'embauche.pro' => 'embauche.pro',
-                        'embauche.cdd'  => 'embauche.cdd'
+                        'embauche.diplome.CAP' => 'embauche.diplome.CAP',
+                        'embauche.diplome.BEP' => 'embauche.diplome.BEP',
+                        'embauche.autre'=> 'embauche.autre'
                       ),
                       'attr' => array('readonly' => true,
                       'disabled' => true,
@@ -531,29 +472,124 @@ class DemandeEmbaucheType extends AbstractType
                       'choice_translation_domain' => 'embauche',
                       'translation_domain' => 'embauche',
                     ));
-                    if ($demande->getTypeContrat() == 'embauche.cdd')
-                    {
-                      $form
-                      ->add('cddRaison', null, array('attr' => array('readonly' => true)))
-                      ->add('remplacementNature', null, array('attr' => array('readonly' => true)))
-                      ->add('cddDate',DateType::class, array(
+                  }
+                  if($demande->getAutre() != null || $demande->getAutre() != "")
+                  {
+                    $form->add('autre', TextType::class, array(
+                      'required'   => false,
+                      'label' => 'embauche.autre',
+                      'translation_domain' => 'embauche',
+                      'attr' => ['class' => 'form-control', 'readonly' => true]
+                    ));
+                  }
+                  else
+                  {
+                    $form
+                    ->add('niveau', ChoiceType::class, array(
+                      'choices' => array(
+                        'I'  => 'I',
+                        'II' => 'II',
+                        'III'=> 'III',
+                        'IV' => 'IV',
+                        'V'  => 'V'
+                      ),
+                      'choice_translation_domain' => 'embauche',
+                      'translation_domain' => 'embauche',
+                      'attr' => array('readonly' => true,
+                      'disabled' => true,
+                      'class' =>'onlyread form-control'),
+                    ))
+                    ->add('echelon', ChoiceType::class, array(
+                      'choices' => array(
+                        '1' => '1',
+                        '2' => '2',
+                        '3' => '3'
+                      ),
+                      'choice_translation_domain' => 'embauche',
+                      'translation_domain' => 'embauche',
+                      'attr' => array('readonly' => true,
+                      'disabled' => true,
+                      'class' =>'onlyread form-control'),
+                    ));
+
+                  }
+                  if ($demande->getSalaireBase() == 'embauche.autre')
+                  {
+                    $form->add('salaireBase', ChoiceType::class, array(
+                      'choices' => array(
+                        'embauche.salaire.con' =>'embauche.salaire.con',
+                        'embauche.autre' => 'embauche.autre'
+                      ),
+                      'attr' => array('readonly' => true,
+                      'disabled' => true,
+                      'class' =>'onlyread form-control'),
+                      'choice_translation_domain' => 'embauche',
+                      'translation_domain' => 'embauche',
+                    ));
+                  }
+
+                  $form
+                  ->add('typeContrat', ChoiceType::class,array(
+                    'choices' => array(
+                      'embauche.cdi'  => 'embauche.cdi',
+                      'embauche.appr' => 'embauche.appr',
+                      'embauche.pro' => 'embauche.pro',
+                      'embauche.cdd'  => 'embauche.cdd'
+                    ),
+                    'attr' => array('readonly' => true,
+                    'disabled' => true,
+                    'class' =>'onlyread form-control'),
+                    'choice_translation_domain' => 'embauche',
+                    'translation_domain' => 'embauche',
+                  ));
+                  if ($demande->getTypeContrat() == 'embauche.cdd')
+                  {
+                    $form
+                    ->add('cddRaison', ChoiceType::class, array(
+                      'choices' => array(
+                        'embauche.cdd.rempla'  => 'embauche.cdd.rempla'
+                      ),
+                      'required'   => false,
+                      'label' => 'embauche.cdd.retour',
+                      'choice_translation_domain' => 'embauche',
+                      'translation_domain' => 'embauche',
+                      'attr' => ['readonly' => true]
+                    ))
+
+                    ->add('remplacementNature', null, array('attr' => array('readonly' => true)));
+
+                    if($demande->getCddDate() != null)
+                      $form->add('cddDate',DateType::class, array(
                         'widget' => 'single_text',
                         'html5' => false,
-                        'format' => 'd-M-y',
-                        'attr' => ['class' => 'js-datepicker form-control', 'readonly' => true]))
-                        ->add('remplacementNom', null, array('attr' => array('readonly' => true)))
-                        ->add('tempsPartiel', null,array('attr' => array('readonly' => true)));
-                      }
+                        'format' => 'd/M/y',
+                        'attr' => ['class' => 'js-datepicker form-control', 'readonly' => true]));
+                      else
+                          $form->add('cddRetour', ChoiceType::class,array(
+                            'choices' => array(
+                              'embauche.cdd.retour'  => 'embauche.cdi',
+                            ),
+                            'required'   => false,
+                            'label' => 'embauche.cdd.retour',
+                            'choice_translation_domain' => 'embauche',
+                            'translation_domain' => 'embauche',
+                            'attr' => ['class' => 'form-control', 'readonly' => true]
+                          ));
+
                       $form
-                      ->add('carteId', TextType::class, array('attr' => ['class' => 'getDocument', 'readonly' => true]))
-                      ->add('carteVitale', TextType::class, array('attr' => ['class' => 'getDocument', 'readonly' => true]))
-                      ->add('diplomeFile', TextType::class, array('attr' => ['class' => 'getDocument', 'readonly' => true]))
-                      ->add('rib', TextType::class, array('attr' => ['class' => 'getDocument', 'readonly' => true]))
-                      ->add('mutuelle', TextType::class, array('attr' => ['class' => 'getDocument', 'readonly' => true]));
+                      ->add('remplacementNom', null, array('attr' => array('readonly' => true)))
+                      ->add('tempsPartiel', null,array('attr' => array('readonly' => true)));
                     }
-                  );
-                  break;
-                }
+                    $form
+                    ->add('carteId', TextType::class, array('attr' => ['class' => 'getDocument', 'readonly' => true]))
+                    ->add('carteVitale', TextType::class, array('attr' => ['class' => 'getDocument', 'readonly' => true]))
+                    ->add('diplomeFile', TextType::class, array('attr' => ['class' => 'getDocument', 'readonly' => true]))
+                    ->add('rib', TextType::class, array('attr' => ['class' => 'getDocument', 'readonly' => true]))
+                    ->add('mutuelle', TextType::class, array('attr' => ['class' => 'getDocument', 'readonly' => true]));
+                  }
+                );
+                break;
+              }
 
     }
 

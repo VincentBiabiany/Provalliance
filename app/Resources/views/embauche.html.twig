@@ -219,12 +219,48 @@ $situ.change(function() {
 <link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker.min.css') }}"/>
 
 <script>
+
+// UPPERCASE sur
+
+function uppercaseField($champs){
+  $("#demande_embauche_" + $champs).bind('keyup', function (e) {
+      if (e.which >= 97 && e.which <= 122) {
+          var newKey = e.which - 32;
+          // I have tried setting those
+          e.keyCode = newKey;
+          e.charCode = newKey;
+      }
+      $("#demande_embauche_"+$champs).val(($("#demande_embauche_"+$champs).val()).toUpperCase());
+  });
+  $("#demande_embauche_" + $champs).focusout(function () {
+    $("#demande_embauche_"+$champs).val (function () {
+        return this.value.toUpperCase();
+    })
+  });
+}
+     //$("#demande_embauche_numSecu").inputmask();
+
+uppercaseField("prenom");
+uppercaseField("ville");
+uppercaseField("villeNaissance");
+uppercaseField("paysNaissance");
+
 $('.js-datepicker').datepicker({
   format: 'dd-mm-yyyy',
   language: 'fr',
 });
 </script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.12/jquery.mask.js"></script>
 <script language="javascript">
 		$('#topNav').css('display', 'initial');
+
+    $(document).ready(function(){
+  //$("#example1").inputmask("99-9999999");
+//  $("#example2").inputmask();
+
+  //  $("#demande_embauche_numSecu").inputmask({"mask": "2 99 12 99 999 999 99"}); //specifying options
+});
 </script>
 {% endblock %}
