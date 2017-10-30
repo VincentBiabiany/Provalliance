@@ -367,11 +367,11 @@ $(document).ready(function(){
 <link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker.min.css') }}"/>
 
 <script>
-    $(document).ready(function() {
-        $('.js-datepicker').datepicker({
-            format: 'dd-mm-yyyy',
-          });
-    });
+  // Remplace les champs date en calendrier
+  $(document).ready(function() {
+    $('.jusquau').replaceWith( $('#demande_embauche_date') );
+  });
+
 </script>
 <script language="javascript">
 		$('#topNav').css('display', 'initial');
