@@ -251,6 +251,7 @@ table.dataTable thead th, table.dataTable thead td ,table.dataTable tfoot th, ta
 	padding: 0.9rem 1.25rem;
 	position: absolute;
 	right: 0;
+	max-width: inherit;
 }
 .label-file:hover {
     color: #b39b8b;
