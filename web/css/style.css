@@ -227,6 +227,7 @@ table.dataTable thead th, table.dataTable thead td ,table.dataTable tfoot th, ta
 }
 .form-control[disabled], fieldset[disabled] .form-control {
     cursor: initial;
+		    -webkit-appearance: none;
 }
 /*.label-file {
 	cursor: pointer;
