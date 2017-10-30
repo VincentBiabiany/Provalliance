@@ -236,20 +236,15 @@ function uppercaseField($champs){
     $("#demande_embauche_"+$champs).val (function () {
         return this.value.toUpperCase();
     })
-  });    
+  });
 }
-     //$("#demande_embauche_numSecu").inputmask();
 
 uppercaseField("nom");
 uppercaseField("ville");
 uppercaseField("villeNaissance");
 uppercaseField("paysNaissance");
-
-$('.js-datepicker').datepicker({
-  format: 'dd-mm-yyyy',
-  language: 'fr',
-});
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.12/jquery.mask.js" ></script>
 <script language="javascript">
 		$('#topNav').css('display', 'initial');
 </script>
