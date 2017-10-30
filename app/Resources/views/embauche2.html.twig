@@ -369,20 +369,10 @@ $(document).ready(function(){
 <link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker.min.css') }}"/>
 
 <script>
-    $(document).ready(function() {
-      $('.jusquau').replaceWith( $('#demande_embauche_date') );
-
-
-      // Champs Sécurité sociale
-
-      //$(selector).inputmask("99-9999999");  //static mask
-      
-    //  $("#demande_embauche_numSecu").inputmask({"mask": "2 111"}); //specifying options
-      //$(selector).inputmask("9-a{1,3}9{1,3}"); //mask with dynamic syntax
-
-
-
-    });
+  // Remplace les champs date en calendrier
+  $(document).ready(function() {
+    $('.jusquau').replaceWith( $('#demande_embauche_date') );
+  });
 
 </script>
 <script language="javascript">
