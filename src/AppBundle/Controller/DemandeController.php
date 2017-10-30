@@ -475,17 +475,60 @@ class DemandeController extends Controller
                   $coordoProfession = $coordo->getProfession()->getNom();
               }
 
-             //Infos du Demandeur
-             $demandeur = $em->getRepository('ApiBundle:Personnel')
-                             ->findOneBy(array('matricule' => $demande->getUser()->getIdPersonnel()));
-             $demandeur->getNom() . " " . $demandeur->getPrenom();
+             //Infos du Collab
 
-             /* Nom et Prenom du personnel concerné par la demande  */
-             if ($demande->getDemandeform()->getTypeForm() == "Demande d'acompte"){
-                  $idP = $demande->getDemandeform()->getIdPersonnel();
-                  $collab  = $persoRepo->whichPersonnel($demande,$idP);
+             if ($demande->getDemandeform()->getTypeForm() == "Demande d'embauche"){
+                //  $collab  = $demandeRepo->whichPersonnel($demande);
+                $id = $demande->getDemandeform()->getId();
+                $demandeEmbauche = $entitym->getRepository('AppBundle:DemandeEmbauche')
+                                  ->findOneBy(array('id' => $id));
+
+                $collaborateurMatricule      = '';
+                $collaborateurNom            = $demandeEmbauche->getNom();
+                $collaborateurPrenom         = '';
+                $collaborateurDateNaissance  = $demandeEmbauche->getDateNaissance()->format('d-m-Y');
+                $collaborateurVilleNaissance = $demandeEmbauche->getVilleNaissance();
+                $collaborateurPaysNaissance  = $demandeEmbauche->getPaysNaissance();
+                $collaborateurDateNaissance  = $demandeEmbauche->getDateNaissance()->format('d-m-Y');
+                $collaborateurSexe           = $demandeEmbauche->getSexe();
+                $collaborateurNationalite    = $demandeEmbauche->getNationalite();
+                $collaborateurNiveau         = $demandeEmbauche->getNiveau();
+                $collaborateurEchelon        = $demandeEmbauche->getEchelon();
+                $collaborateurAdresse1       = $demandeEmbauche->getAddresse1();
+                $collaborateurAdresse2       = $demandeEmbauche->getAddresse2();
+                $collaborateurCodepostal     = $demandeEmbauche->getCodepostal();
+                $collaborateurVille          = $demandeEmbauche->getVille();
+                $collaborateurTelephone1     = $demandeEmbauche->getTelephone();
+                $collaborateurTelephone2     = '';
+                $collaborateurEmail          = $demandeEmbauche->getEmail();
+
                   }else{
-                  $collab  = $demandeRepo->whichPersonnel($demande);
+                 $id = $demande->getDemandeform()->getId();
+                 $demandeAcompte = $entitym->getRepository('AppBundle:DemandeAcompte')
+                                      ->findOneBy(array('id' => $id));
+
+                $idP = $demandeAcompte->getidPersonnel();
+                $collaborateur = $em->getRepository('ApiBundle:Personnel')
+                                     ->findOneBy(array('matricule' => $idP));
+
+                $collaborateurMatricule      = $collaborateur->getMatricule();
+                $collaborateurNom            = $collaborateur->getNom();
+                $collaborateurPrenom         = $collaborateur->getPrenom();
+                $collaborateurDateNaissance  = $collaborateur->getDateNaissance()->format('d-m-Y');
+                $collaborateurVilleNaissance = $collaborateur->getVilleNaissance();
+                $collaborateurPaysNaissance  = $collaborateur->getPaysNaissance();
+                $collaborateurDateNaissance  = $collaborateur->getDateNaissance()->format('d-m-Y');
+                $collaborateurSexe           = $collaborateur->getSexe();
+                $collaborateurNationalite    = $collaborateur->getNationalite();
+                $collaborateurNiveau         = $collaborateur->getNiveau();
+                $collaborateurEchelon        = $collaborateur->getEchelon();
+                $collaborateurAdresse1       = $collaborateur->getAdresse1();
+                $collaborateurAdresse2       = $collaborateur->getAdresse2();
+                $collaborateurCodepostal     = $collaborateur->getCodepostal();
+                $collaborateurVille          = $collaborateur->getVille();
+                $collaborateurTelephone1     = $collaborateur->getTelephone1();
+                $collaborateurTelephone2     = $collaborateur->getTelephone2();
+                $collaborateurEmail          = $collaborateur->getEmail();
                 }
 
              /* Type de la demande  */
@@ -514,14 +557,14 @@ class DemandeController extends Controller
         ->setCellValue('B12', $salon->getCodePostal())->setCellValue('B13', $salon->getVille())->setCellValue('B14', 'Pays')->setCellValue('B15', strval($salon->getTelephone1()))
         ->setCellValue('B16', strval($salon->getTelephone2()))->setCellValue('B17', $salon->getEmail())->setCellValue('B18', $salon->getCodeMarlix())->setCellValue('B19',  $salon->getDateOuverture()->format('d-m-Y'))
         ->setCellValue('B20', $coordoName)->setCellValue('B21','manager')->setCellValue('B22', 'Responsable régional')
-        ->setCellValue('B23', $demandeur->getMatricule())->setCellValue('B24', 'Civilité')->setCellValue('B25', $demandeur->getNom())->setCellValue('B26', $demandeur->getPrenom())->setCellValue('B27', $demandeur->getDateNaissance()->format('d-m-Y'))
-        ->setCellValue('B28', $demandeur->getVilleNaissance())->setCellValue('B29', $demandeur->getVilleNaissance())->setCellValue('B30', $demandeur->getSexe())->setCellValue('B31', $demandeur->getNationalite())
-        ->setCellValue('B32', $coordoDateDeb)->setCellValue('B33', $coordoDateFin)->setCellValue('B34', $demandeur->getNiveau())->setCellValue('B35',  $demandeur->getEchelon())
-        ->setCellValue('B36', $coordoProfession)->setCellValue('B37', $demandeur->getAdresse1())->setCellValue('B38', $demandeur->getAdresse2())->setCellValue('B39', $demandeur->getCodepostal())
-        ->setCellValue('B40', $demandeur->getVille())->setCellValue('B41', 'Pays')->setCellValue('B42', $demandeur->getTelephone1())->setCellValue('B43', $demandeur->getTelephone2())->setCellValue('B44', $demandeur->getEmail())
+        ->setCellValue('B23', $collaborateurMatricule)->setCellValue('B24', 'Civilité')->setCellValue('B25', $collaborateurNom)->setCellValue('B26', $collaborateurPrenom)->setCellValue('B27',$collaborateurDateNaissance)
+        ->setCellValue('B28', $collaborateurVilleNaissance)->setCellValue('B29', $collaborateurPaysNaissance)->setCellValue('B30', $collaborateurSexe)->setCellValue('B31', $collaborateurNationalite)
+        ->setCellValue('B32', $coordoDateDeb)->setCellValue('B33', $coordoDateFin)->setCellValue('B34', $collaborateurNiveau)->setCellValue('B35',  $collaborateurEchelon)
+        ->setCellValue('B36', $coordoProfession)->setCellValue('B37', $collaborateurAdresse1)->setCellValue('B38', $collaborateurAdresse2)->setCellValue('B39', $collaborateurCodepostal)
+        ->setCellValue('B40', $collaborateurVille)->setCellValue('B41', 'Pays')->setCellValue('B42', $collaborateurTelephone1)->setCellValue('B43', $collaborateurTelephone2)->setCellValue('B44', $collaborateurEmail)
         ->setCellValue('B45', $date->format('d-m-Y'))->setCellValue('B46', $statut)->setCellValue('B47', $type);
 
-    $phpExcelObject->getActiveSheet()->setTitle($demandeur->getNom().'-'.$date->format('d-m-Y'));
+    $phpExcelObject->getActiveSheet()->setTitle($collaborateurNom.'-'.$date->format('d-m-Y'));
     // Set active sheet index to the first sheet, so Excel opens this as the first sheet
     $phpExcelObject->setActiveSheetIndex(0);
      $i++;

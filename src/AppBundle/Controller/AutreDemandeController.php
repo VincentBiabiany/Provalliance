@@ -47,7 +47,10 @@ class AutreDemandeController extends Controller
              'translation_domain' => 'autre_demande',
            ))
            ->add('pieceJointes', FileType::class, array(
-               'required'  => false))
+             'required'  => false,
+             'label' => 'autredemande.pieceJointe',
+             'translation_domain' => 'autre_demande',
+           ))
 
          ->add('commentaire', TextareaType::class, array(
                        'label' => 'autredemande.commentaire',
