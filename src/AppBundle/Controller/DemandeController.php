@@ -237,13 +237,13 @@ class DemandeController extends Controller
       $em = $this->getDoctrine()->getManager('referentiel');
       $persoRepo = $em->getRepository('ApiBundle:Personnel');
 
-      $role= $this->getUser()->getRoles();
-      $role= $role[0];
+      $role = $this->getUser()->getRoles();
+      $role = $role[0];
 
       if (is_array($typeFilter))
-        $demandes = $demandeRepo->filterDemande($typeFilter, $this->getDoctrine()->getManager('referentiel'));
+        $demandes = $demandeRepo->filterDemande($typeFilter, $em, $role, $idsalon, $column, $dir, $start, $length);
       else
-      //Requete dans la bdd en fonction de la colonne et de la direction récupérée
+        //Requete dans la bdd en fonction de la colonne et de la direction récupérée
         $demandes = $demandeRepo->wichService($role,$typeFilter,$column,$dir,$idsalon,$search,$start,$length);
 
       //Condition si aucune demandes n'est retournées

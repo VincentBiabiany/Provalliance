@@ -12,10 +12,15 @@ use ApiBundle\Entity\Salon;
  */
 class DemandeEntityRepository extends \Doctrine\ORM\EntityRepository
 {
-
-
-  public function filterDemande($filter, $em)
+  public function filterDemande($filter, $em, $role, $idSalon, $column, $dir, $start, $length)
   {
+    $isService = true;
+
+    // Filtre des demandes pour manager/coordo et admin
+    if ($role == 'ROLE_MANAGER' || $role == 'ROLE_COORD' || $role == 'ROLE_ADMIN') {
+       $isService = false;
+    }
+
     $col = array(
       "id",
       "",
@@ -37,8 +42,11 @@ class DemandeEntityRepository extends \Doctrine\ORM\EntityRepository
     $query = $this->createQueryBuilder('d')
                   ->select('d');
 
-    if (in_array("sage", $colFilter))
-      $query = $query->andWhere('d.idSalon =' . $filter[2]);
+    if (in_array("sage", $colFilter) || $isService == false)
+    {
+      in_array("sage", $colFilter) ? $salon = $filter[2] : $salon = $idSalon;
+      $query = $query->where('d.idSalon = :salon')->setParameter('salon', $salon);
+    }
 
 
     if (in_array("enseigne", $colFilter) && in_array("appelation", $colFilter))
@@ -47,8 +55,9 @@ class DemandeEntityRepository extends \Doctrine\ORM\EntityRepository
                    ->select('u.sage as id')
                    ->from('ApiBundle:Salon', 'u')
                    ->leftjoin('u.enseigne', 'e')
-                   ->where('e.nom = :nom')
+                   ->andWhere('e.nom = :nom')
                    ->setParameter('nom', $filter[3])->getQuery()->getResult();
+
       foreach ($salons as $key => $value) {
         $salonsId[] = $value['id'];
       }
@@ -56,13 +65,13 @@ class DemandeEntityRepository extends \Doctrine\ORM\EntityRepository
       $salons = $em->createQueryBuilder('u')
                    ->select('u.sage as id')
                    ->from('ApiBundle:Salon', 'u')
-                   ->where('u.appelation = :appelation')
+                   ->andWhere('u.appelation = :appelation')
                    ->setParameter('appelation', $filter[4])->getQuery()->getResult();
        foreach ($salons as $key => $value) {
              $salonsId2[] = $value['id'];
        }
-       $result = array_intersect($salonsId, $salonsId2);
 
+       $result = array_intersect($salonsId, $salonsId2);
        $query = $query->andWhere('d.idSalon IN (:id)')->setParameter('id', $result);
 
     } else {
@@ -72,12 +81,14 @@ class DemandeEntityRepository extends \Doctrine\ORM\EntityRepository
                      ->select('u.sage as id')
                      ->from('ApiBundle:Salon', 'u')
                      ->leftjoin('u.enseigne', 'e')
-                     ->where('e.nom = :nom')
-                     ->setParameter('nom', $filter[3])->getQuery()->getResult();
+                     ->andWhere('e.nom = :nom')
+                     ->setParameter('nom', $filter[3]);
+
         foreach ($salons as $key => $value) {
           $salonsId[] = $value['id'];
         }
-        $query = $query->andWhere('d.idSalon IN (:id)')->setParameter('id', $salonsId);
+        if (isset($salonsId))
+          $query = $query->andWhere('d.idSalon IN (:id)')->setParameter('id', $salonsId);
       }
 
       if (in_array("appelation", $colFilter))
@@ -86,11 +97,13 @@ class DemandeEntityRepository extends \Doctrine\ORM\EntityRepository
                      ->select('u.sage as id')
                      ->from('ApiBundle:Salon', 'u')
                      ->where('u.appelation = :appelation')
-                     ->setParameter('appelation', $filter[4])->getQuery()->getResult();
+                     ->setParameter('appelation', $filter[4]);
+
          foreach ($salons as $key => $value) {
                $salonsId[] = $value['id'];
          }
-        $query = $query->andWhere('d.idSalon IN (:id)')->setParameter('id', $salonsId);
+         if (isset($salonsId))
+          $query = $query->andWhere('d.idSalon IN (:id)')->setParameter('id', $salonsId);
       }
     }
 
@@ -117,14 +130,14 @@ class DemandeEntityRepository extends \Doctrine\ORM\EntityRepository
                    ->andWhere("CONCAT(u.prenom, ' ', u.nom) = :name")
                    ->setParameter('name', $filter[6])->getQuery()->getResult();
 
-     foreach ($idPerso as $key => $value) {
-        $idP[] = $value['id'];
-     }
+       foreach ($idPerso as $key => $value) {
+          $idP[] = $value['id'];
+       }
 
-     $query = $query->leftjoin('d.user', 'e')
-                    ->andwhere('e.idPersonnel = :id')
-                    ->setParameter('id', $idP);
-    }
+       $query = $query->leftjoin('d.user', 'e')
+                      ->andwhere('e.idPersonnel = :id')
+                      ->setParameter('id', $idP);
+      }
 
     if (in_array("collaborateur", $colFilter))
     {
@@ -162,152 +175,152 @@ class DemandeEntityRepository extends \Doctrine\ORM\EntityRepository
         $statut = 3;
       else
         $statut = 4;
-      $query = $query->andWhere('d.statut =' . $statut);
+      $query = $query->andWhere('d.statut = :stat')->setParameter('stat', $statut);
     }
 
     if (in_array("dateTraitement", $colFilter)){
       $date = new \DateTime();
       $date = $date->createFromFormat('d-m-Y H:i:s', $filter[7]);
 
-      dump($date, $filter[7]);
+      //dump($date, $filter[7]);
       $query = $query->andWhere("d.dateTraitement = :time")->setParameter("time", $date);
     }
-
-    return  $query->getQuery()->getResult();
+    //dump($column, $dir);
+    // return  $query->orderBy('d.'.$column, $dir)->setFirstResult( $start )->setMaxResults( $length )->getQuery()->getResult();
+    return $query->getQuery()->getResult();
   }
-
-
 
   // Fonction getNB: Retourne le nombre de demande en fonction du service
   public function getNb($role,$idsalon) {
       if ($role =='ROLE_PAIE') {
 
         return $this->createQueryBuilder('d')
-            ->select('COUNT(d)')
-            ->where('d.service = :serviceUser')
-            ->setParameter('serviceUser', 'paie')
-            ->getQuery()
-            ->getResult();
+        ->select('COUNT(d)')
+        ->where('d.service = :serviceUser')
+        ->setParameter('serviceUser', 'paie')
+        ->getQuery()
+        ->getResult();
 
 
-      }elseif ($role =='ROLE_JURIDIQUE') {
+      } elseif ($role =='ROLE_JURIDIQUE') {
         return $this->createQueryBuilder('d')
-            ->select('COUNT(d)')
-            ->where('d.service = :serviceUser')
-            ->setParameter('serviceUser', 'juridique')
-            ->getQuery()
-            ->getResult();
+        ->select('COUNT(d)')
+        ->where('d.service = :serviceUser')
+        ->setParameter('serviceUser', 'juridique')
+        ->getQuery()
+        ->getResult();
 
-      }else {
+      } else {
         return $this->createQueryBuilder('d')
-            ->select('COUNT(d)')
-            ->where('d.idSalon = :salon')
-            ->setParameter('salon', $idsalon)
-            ->getQuery()
-            ->getResult();
-        }
-   }
+        ->select('COUNT(d)')
+        ->where('d.idSalon = :salon')
+        ->setParameter('salon', $idsalon)
+        ->getQuery()
+        ->getResult();
+      }
 
-   // Fonction wichService: Retourne le tableau des demandes en fonction du service
-    public function wichService($role,$typeFilter,$column,$dir,$idsalon,$search,$start,$length){
+  }
+
+  // Fonction wichService: Retourne le tableau des demandes en fonction du service
+  public function wichService($role,$typeFilter,$column,$dir,$idsalon,$search,$start,$length) {
 
      //Requete en bdd en fonction du type de filtre
      if (($typeFilter == 'x') or ($typeFilter == 'init') or ($typeFilter == 'search')) {
 
        if ($role =='ROLE_PAIE') {
-        return $this->createQueryBuilder('p')
-             ->where('p.service = :serviceUser')
-             ->setParameter('serviceUser', 'paie')
-             ->orderBy('p.dateTraitement', 'DESC')
-             ->setFirstResult( $start )
-             ->setMaxResults( $length )
-             ->getQuery()
-             ->getResult();
+         return $this->createQueryBuilder('p')
+         ->where('p.service = :serviceUser')
+         ->setParameter('serviceUser', 'paie')
+         ->orderBy('p.dateTraitement', 'DESC')
+         ->setFirstResult( $start )
+         ->setMaxResults( $length )
+         ->getQuery()
+         ->getResult();
 
        } else if ($role =='ROLE_JURIDIQUE'){
          return $this->createQueryBuilder('p')
-             ->where('p.service = :serviceUser')
-             ->setParameter('serviceUser', 'juridique')
-             ->orderBy('p.dateTraitement', 'DESC')
-             ->setFirstResult( $start )
-             ->setMaxResults( $length )
-             ->getQuery()
-             ->getResult();
+         ->where('p.service = :serviceUser')
+         ->setParameter('serviceUser', 'juridique')
+         ->orderBy('p.dateTraitement', 'DESC')
+         ->setFirstResult( $start )
+         ->setMaxResults( $length )
+         ->getQuery()
+         ->getResult();
        } else {
          return $this->createQueryBuilder('p')
-             ->where('p.idSalon = :salon')
-             ->setParameter('salon', $idsalon)
-             ->orderBy('p.dateTraitement', 'DESC')
-             ->setFirstResult( $start )
-             ->setMaxResults( $length )
-             ->getQuery()
-             ->getResult();
+         ->where('p.idSalon = :salon')
+         ->setParameter('salon', $idsalon)
+         ->orderBy('p.dateTraitement', 'DESC')
+         ->setFirstResult( $start )
+         ->setMaxResults( $length )
+         ->getQuery()
+         ->getResult();
        }
        //Affichage via filtre "normaux"
      }else if($typeFilter == 'default'){
        if ($role =='ROLE_PAIE') {
          return $this->findBy(array("service" => "paie"),
-                           array($column => $dir),
-                           $length, $start);
+         array($column => $dir),
+         $length, $start);
 
        } else if ($role =='ROLE_JURIDIQUE'){
          return $this->findBy(array("service" => "juridique"),
-                           array($column => $dir),
-                           $length, $start);
+         array($column => $dir),
+         $length, $start);
        } else {
          return $this->findBy(array("idSalon" => $idsalon),
-                           array($column => $dir),
-                           $length, $start);
+         array($column => $dir),
+         $length, $start);
        }
      }
-   }
+  }
 
    // Fonction wichService: Retourne le statut de chaque demande
-    public function whichStatut($demande){
+   public function whichStatut($demande){
 
-      /* Statut de la demande  */
-      if (is_object ($demande))
-       $stat = $demande->getstatut();
-      else
-       $stat = $demande;
+     /* Statut de la demande  */
+     if (is_object ($demande))
+     $stat = $demande->getstatut();
+     else
+     $stat = $demande;
 
-        if ($stat == 0) {
-            $statut="Rejeté";
+     if ($stat == 0) {
+       $statut="Rejeté";
 
-        } else if ($stat == 1) {
-            $statut="En cours";
+     } else if ($stat == 1) {
+       $statut="En cours";
 
-        } else if ($stat == 2) {
-            $statut="Traité";
+     } else if ($stat == 2) {
+       $statut="Traité";
 
-        } else if ($stat == 3) {
-            $statut="A signé";
+     } else if ($stat == 3) {
+       $statut="A signé";
 
-        } else if ($stat == 4) {
-            $statut="A validé";
-        }
+     } else if ($stat == 4) {
+       $statut="A validé";
+     }
 
-      return $statut;
-    }
+     return $statut;
+   }
 
-    // Fonction whichPersonnel: Retourne les infos du personnel pour chaque demande
-    public function whichPersonnel($demande){
-          $collab = $demande->getDemandeform()->getPrenom() . " " . $demande->getDemandeform()->getNom();
-          return $collab;
-    }
+   // Fonction whichPersonnel: Retourne les infos du personnel pour chaque demande
+   public function whichPersonnel($demande){
+     $collab = $demande->getDemandeform()->getPrenom() . " " . $demande->getDemandeform()->getNom();
+     return $collab;
+   }
 
-    // Fonction sortingOut: Trie le tableau des demandes par ordre Croissant ou Décroissant
-    public function sortingOut($typeFilter,$dir,$output,$column){
-         /* TRI sur les colonnes par ordre croissant ou décroissant*/
-          if ($typeFilter == 'x'){
-              if($dir == "asc"){ $direction = SORT_ASC;}else { $direction = SORT_DESC; }
-                  foreach ($output['data'] as $key => $row) {
-                  	$col[$key]  = $row[$column];
-                  }
-                  array_multisort($col, $direction, $output['data']);
-                  return $output;
-             }else{
-                 return $output;
-          }
-      }
+   // Fonction sortingOut: Trie le tableau des demandes par ordre Croissant ou Décroissant
+   public function sortingOut($typeFilter,$dir,$output,$column){
+     /* TRI sur les colonnes par ordre croissant ou décroissant*/
+     if ($typeFilter == 'x'){
+       if($dir == "asc"){ $direction = SORT_ASC;}else { $direction = SORT_DESC; }
+       foreach ($output['data'] as $key => $row) {
+         $col[$key]  = $row[$column];
+       }
+       array_multisort($col, $direction, $output['data']);
+       return $output;
+     }else{
+       return $output;
+     }
+   }
 }
