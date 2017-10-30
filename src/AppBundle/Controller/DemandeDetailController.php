@@ -45,14 +45,13 @@ class DemandeDetailController extends Controller
       $salon = $em->getRepository('ApiBundle:Salon')
                   ->findOneBy(array('sage' => $demande->getidSalon()));
 
-      if (in_array('ROLE_ADMIN', $this->getUser()->getRoles(), true))
+      $demandeur = $em->getRepository('ApiBundle:Personnel')
+                      ->findOneBy(array('matricule' => $demande->getUser()->getIdPersonnel()));
+      if (in_array('ROLE_ADMIN', $this->getUser()->getRoles(), true) || $demandeur == null)
       {
         $demandeur = new Personnel();
         $demandeur->setNom('Admin');
         $demandeur->setPrenom('');
-      } else {
-        $demandeur = $em->getRepository('ApiBundle:Personnel')
-                        ->findOneBy(array('matricule' => $demande->getUser()->getIdPersonnel()));
       }
 
       $statut = $demande->getstatut();
@@ -130,17 +129,14 @@ class DemandeDetailController extends Controller
 
     $salon = $em->getRepository('ApiBundle:Salon')
                 ->findOneBy(array('sage' => $demande->getidSalon()));
-
-    if (in_array('ROLE_ADMIN', $this->getUser()->getRoles(), true))
+    $demandeur = $em->getRepository('ApiBundle:Personnel')
+                    ->findOneBy(array('matricule' => $demande->getUser()->getIdPersonnel()));
+    if (in_array('ROLE_ADMIN', $this->getUser()->getRoles(), true) || $demandeur == null)
     {
       $demandeur = new Personnel();
       $demandeur->setNom('Admin');
       $demandeur->setPrenom('');
-    } else {
-      $demandeur = $em->getRepository('ApiBundle:Personnel')
-                      ->findOneBy(array('matricule' => $demande->getUser()->getIdPersonnel()));
     }
-
 
     $statut = $demande->getstatut();
     $typedemande = $demande->getDemandeform()->getTypeForm();
