@@ -8,8 +8,8 @@ embauche.cartev:        Health insurance card
 embauche.rib:           RIB bank
 embauche.adhesion:      Health care mutual
 
-embauche.nom:           First name
-embauche.prenom:        Last name
+embauche.nom:           Last name
+embauche.prenom:        First name
 embauche.daten:         Birthday
 embauche.adr1:          Address 1
 embauche.adr2:          Address 2
