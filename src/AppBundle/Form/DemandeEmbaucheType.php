@@ -123,7 +123,7 @@ class DemandeEmbaucheType extends AbstractType
             ->add('dateembauche', DateType::class, array(
               'widget' => 'choice',
               'format' => 'd/M/y',
-              'years' => range(date('Y') - 80, date('Y')),
+              'years' => range(date('Y') - 80, date('Y') + 2),
               'attr' => ['class' => '']))
             ->add('dejaSalarie', ChoiceType::class,array(
               'choices' => array(
@@ -215,8 +215,9 @@ class DemandeEmbaucheType extends AbstractType
             ->add('date', DateType::class, array(
               'widget' => 'choice',
               'format' => 'd/M/y',
-              'years' => range(date('Y') - 100, date('Y') - 20),
+              'years' => range(date('Y') - 5, date('Y') + 10),
               'attr' => [],
+              'label' => ' ',
               'mapped' => false)
                )
 

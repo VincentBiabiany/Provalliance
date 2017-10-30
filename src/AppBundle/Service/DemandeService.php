@@ -173,6 +173,7 @@ class DemandeService
   {
     $user = $this->token->getUser();
     $emetteur = $user->getEmail();
+    $manager = $this->em->getRepository('ApiBundle:Personnel')->findOneBy(['matricule' => $user->getIdPersonnel()]);
 
     if ($to && filter_var($to, FILTER_VALIDATE_EMAIL)) {
         $message = (new \Swift_Message('Nouvelle '. $demande))
@@ -183,9 +184,10 @@ class DemandeService
                       $this->templating->render(
                         'emails/mail_salon.html.twig',
                         array(
-                        'user' => $personnel,
-                        'demande' => $demande,
-                        'url' => $this->url)
+                        'user'      => $manager->getPrenom() . ' ' . $manager->getNom(),
+                        'personnel' => $personnel,
+                        'demande'   => $demande,
+                        'url'       => $this->url)
                       ),
                       'text/html'
                     );
