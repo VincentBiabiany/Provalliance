@@ -88,7 +88,7 @@ class DemandeEmbauche extends DemandeForm
     /**
      * @var string
      *
-     * @ORM\Column(name="num_secu", type="string", , length=255))
+     * @ORM\Column(name="num_secu", type="string", length=255))
      */
     private $numSecu;
 
