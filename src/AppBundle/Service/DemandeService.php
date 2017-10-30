@@ -188,7 +188,7 @@ class DemandeService
                       $this->templating->render(
                         'emails/mail_salon.html.twig',
                         array(
-                        'user' => $personnel->getPrenom().' '.$personnel->getNom(),,
+                        'user' => $personnel->getPrenom().' '.$personnel->getNom(),
                         'demande' => $demande,
                         'url' => $this->url)
                       ),
