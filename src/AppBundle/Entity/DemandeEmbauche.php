@@ -95,7 +95,7 @@ class DemandeEmbauche extends DemandeForm
     /**
      * @var string
      *
-     * @ORM\Column(name="date_naissance", type="datetime", length=255)
+     * @ORM\Column(name="date_naissance", type="date", length=255)
      */
     private $dateNaissance;
 
@@ -137,7 +137,7 @@ class DemandeEmbauche extends DemandeForm
     /**
      * @var string
      *
-     * @ORM\Column(name="date_embauche", type="datetime", length=255)
+     * @ORM\Column(name="date_embauche", type="date", length=255)
      */
     private $dateEmbauche;
 
@@ -221,9 +221,16 @@ class DemandeEmbauche extends DemandeForm
     /**
      * @var string
      *
-     * @ORM\Column(name="cdd_date", type="datetime", length=255,  nullable=true)
+     * @ORM\Column(name="cdd_date", type="date", length=255,  nullable=true)
      */
     private $cddDate;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cdd_retour", type="string", length=255,  nullable=true)
+     */
+    private $cddretour;
 
     /**
      * @var string
@@ -253,6 +260,13 @@ class DemandeEmbauche extends DemandeForm
      * @ORM\Column(name="diplome_file", type="string", length=255)
      */
     protected $diplomeFile;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="diplome_file2", type="string", length=255)
+     */
+    protected $diplomeFile2;
 
     /**
      * @var string
@@ -1137,5 +1151,53 @@ class DemandeEmbauche extends DemandeForm
     public function getPaysNaissance()
     {
         return $this->paysNaissance;
+    }
+
+    /**
+     * Set cddretour
+     *
+     * @param string $cddretour
+     *
+     * @return DemandeEmbauche
+     */
+    public function setCddretour($cddretour)
+    {
+        $this->cddretour = $cddretour;
+
+        return $this;
+    }
+
+    /**
+     * Get cddretour
+     *
+     * @return string
+     */
+    public function getCddretour()
+    {
+        return $this->cddretour;
+    }
+
+    /**
+     * Set diplomeFile2
+     *
+     * @param string $diplomeFile2
+     *
+     * @return DemandeEmbauche
+     */
+    public function setDiplomeFile2($diplomeFile2)
+    {
+        $this->diplomeFile2 = $diplomeFile2;
+
+        return $this;
+    }
+
+    /**
+     * Get diplomeFile2
+     *
+     * @return string
+     */
+    public function getDiplomeFile2()
+    {
+        return $this->diplomeFile2;
     }
 }

@@ -87,7 +87,7 @@
             <label for="demande_embauche_CDD_0" class="required">{{ "embauche.cdd.surcroit"|trans({}, "embauche") }}</label>
             <div style="display:none;">
               <div class="col-xs-12">
-                <label class="control-label label">{{ "embauche.cdd.date"|trans({}, "embauche") }}</label><input type="text" id="demande_embauche[raison][jusquau]" name="demande_embauche[raison][jusquau]" class="js-datepicker form-control">
+                <label class="control-label label">{{ "embauche.cdd.date"|trans({}, "embauche") }}</label><input type="text" id="demande_embauche[raison][jusquau]" name="demande_embauche[raison][jusquau]" class="jusquau js-datepicker form-control">
               </div>
             </div>
           </div>
@@ -120,7 +120,7 @@
             <div style="display:none;">
               <div class="col-xs-12">
                 <label class="control-label label">{{ "embauche.cdd.date"|trans({}, "embauche") }}</label>
-                <input type="text" id="demande_embauche[raison][jusquau]" name="demande_embauche[raison][jusquau]" class="js-datepicker form-control">
+                <input type="text" id="demande_embauche[raison][jusquau]" name="demande_embauche[raison][jusquau]" class="jusquau js-datepicker form-control">
               </div>
             </div>
           </div>
@@ -358,6 +358,8 @@ $(document).ready(function(){
   });
 
 
+// Remplacement des dates du CDD
+
 
 });
 </script>
@@ -368,9 +370,7 @@ $(document).ready(function(){
 
 <script>
     $(document).ready(function() {
-        $('.js-datepicker').datepicker({
-            format: 'dd-mm-yyyy',
-          });
+      $('.jusquau').replaceWith( $('#demande_embauche_date') )
     });
 </script>
 <script language="javascript">
