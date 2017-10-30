@@ -48,7 +48,6 @@ class EmbaucheController extends Controller
       $form->handleRequest($request);
 
       if ($form->isSubmitted() && $form->isValid()) {
-        dump($form->getData());
         $session->set('demande', $form->getData());
        return $this->redirectToRoute('rh_embauche3');
       }
