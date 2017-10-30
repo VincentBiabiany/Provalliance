@@ -27,7 +27,7 @@ class DemandeDetailController extends Controller
     /**
     * @Route("/demande/{id}", name="demande_detail", requirements={"id": "\d+"})
     */
-    public function detailIdAction(Request $request, $id)
+    public function detailIdAction(Request $request, $id, FileUploader $fileuploader)
     {
       $demande = $this->getDoctrine()
       ->getManager()
@@ -36,7 +36,7 @@ class DemandeDetailController extends Controller
 
       if ($demande instanceof DemandeSimple)
         return self::detailSimple($demande, $request, $id);
-      return self::detailComplexe($demande, $request, $id);
+      return self::detailComplexe($demande, $request, $id, $fileuploader);
     }
 
     public function detailSimple($demande, $request, $id)
@@ -123,7 +123,7 @@ class DemandeDetailController extends Controller
     ));
   }
 
-  public function detailComplexe($demande, $request, $id)
+  public function detailComplexe($demande, $request, $id, $fileuploader)
   {
     $em = $this->getDoctrine()->getManager("referentiel");
 
@@ -171,7 +171,7 @@ class DemandeDetailController extends Controller
         return $this->redirectToRoute("demande");
       }
 
-      self::traitement($form2, $demande, $id);
+      self::traitement($form2, $demande, $id, $fileuploader);
       return $this->redirectToRoute("demande");
     }
 
@@ -204,9 +204,9 @@ class DemandeDetailController extends Controller
     ));
   }
 
-  public function traitement($form2, $demande, $id)
+  public function traitement($form2, $demande, $id, $fileUploader)
   {
-    $fileUploader = $this->get(FileUploader::class);
+  //  $fileUploader = $this->get(FileUploader::class);
 
     if ($demande->getStatut() == DemandeEntity::statut_AVALIDE)
     {
