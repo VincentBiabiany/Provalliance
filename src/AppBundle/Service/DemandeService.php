@@ -68,11 +68,6 @@ class DemandeService
   public function sendMail($idSalon, $personnel, $envoie, $demande)
   {
     // Notification par Mail
-    // $destinataire = $this->em2->getRepository('AppBundle:User')
-    //                           ->findOneBy(array('idPersonnel' => $personnel->getMatricule()));
-    //
-    // $destinataire = $destinataire->getEmail();
-
     $salon =  $this->em->getRepository('ApiBundle:Salon')
                        ->findOneBy(array('sage' => $idSalon));
 
@@ -141,36 +136,36 @@ class DemandeService
 
     // Envoie au paie
     if ($envoie[1] == 1) {
-      self::sendMailToBo($personnel, $paie, $demande);
+      self::sendMailToBo($paie, $demande);
     }
     // Envoie au RH
     if ($envoie[1] == 2) {
-      self::sendMailToBo($personnel, $juridique, $demande);
+      self::sendMailToBo($juridique, $demande);
     }
     // Envoie admin
     if ($envoie[1] == 4) {
-      self::sendMailToBo($personnel, $admin, $demande);
+      self::sendMailToBo($$admin, $demande);
     }
     // Envoie Paie et RH
     if ($envoie[1] == 3) {
-      self::sendMailToBo($personnel, $paie, $demande);
-      self::sendMailToBo($personnel, $juridique, $demande);
+      self::sendMailToBo($paie, $demande);
+      self::sendMailToBo($juridique, $demande);
     }
     // Envoie Paie et admn
     if ($envoie[1] == 5) {
-      self::sendMailToBo($personnel, $paie, $demande);
-      self::sendMailToBo($personnel, $admin, $demande);
+      self::sendMailToBo($paie, $demande);
+      self::sendMailToBo($admin, $demande);
     }
     // Envoie RH et admn
     if ($envoie[1] == 6) {
-      self::sendMailToBo($personnel, $juridique, $demande);
-      self::sendMailToBo($personnel, $admin, $demande);
+      self::sendMailToBo($juridique, $demande);
+      self::sendMailToBo($admin, $demande);
     }
     // Enoie au 3
     if ($envoie[1] == 7) {
-      self::sendMailToBo($personnel, $paie, $demande);
-      self::sendMailToBo($personnel, $admin, $demande);
-      self::sendMailToBo($personnel, $juridique, $demande);
+      self::sendMailToBo($paie, $demande);
+      self::sendMailToBo($admin, $demande);
+      self::sendMailToBo($juridique, $demande);
     }
   }
 
@@ -178,7 +173,6 @@ class DemandeService
   {
     $user = $this->token->getUser();
     $emetteur = $user->getEmail();
-    $name = $user->getUsername();
 
     if ($to && filter_var($to, FILTER_VALIDATE_EMAIL)) {
         $message = (new \Swift_Message('Nouvelle '. $demande))
@@ -188,8 +182,8 @@ class DemandeService
                     ->setBody(
                       $this->templating->render(
                         'emails/mail_salon.html.twig',
-                        array('personnel' => $personnel->getPrenom().' '.$personnel->getNom(),
-                        'user' => $name,
+                        array(
+                        'user' => $personnel,
                         'demande' => $demande,
                         'url' => $this->url)
                       ),
@@ -199,7 +193,7 @@ class DemandeService
     }
   }
 
-  public function sendMailToBo($personnel, $to, $demande)
+  public function sendMailToBo($to, $demande)
   {
     $user = $this->token->getUser();
     $emetteur = $user->getEmail();
@@ -214,7 +208,7 @@ class DemandeService
                       ->setBody(
                         $this->templating->render(
                           'emails/mail_bo.html.twig',
-                          array('personnel' => $personnel->getPrenom().' '.$personnel->getNom(),
+                          array(
                           'user'    => $userTo->getUsername(),
                           'demande' => $demande,
                           'url'     => $this->url)
@@ -253,6 +247,7 @@ class DemandeService
     // Generation de l'url
     self::generateAbsUrl($demandeSimple);
 
+    $personnel = $personnel->getPrenom().' '.$personnel->getNom();
     self::sendMail($idSalon, $personnel, [1, 5],  $demande->getTypeForm());
   }
 
@@ -311,6 +306,7 @@ class DemandeService
     //    );
     // $this->mailer->send($message);
 
+    $personnel = $demande->getPrenom(). ' '.$demande->getNom();
 
     $this->em2->persist($demandeComplexe);
     $this->em2->flush();
@@ -325,7 +321,7 @@ class DemandeService
 
 
 
-    $this->session->getFlashBag()->add("success", "La demande d'embauche pour ".$demande->getPrenom()." ".$demande->getNom()."a correctement été envoyé ! Un mail vous sera envoyé une fois votre demande traité.");
+    $this->session->getFlashBag()->add("success", "La demande d'embauche pour ".$personnel." a correctement été envoyé ! Un mail vous sera envoyé une fois votre demande traité.");
 
   }
 
