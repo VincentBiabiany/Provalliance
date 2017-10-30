@@ -5,7 +5,7 @@ firstPassword_required:    Veuillez saisir un mot de passe
 firstPassword_minlength:   Votre mot de passe doit comporter au moins 5 caractères
 secondPassword_required:   Veuillez confirmer votre mot de passe
 secondPassword_minlength:  Votre mot de passe doit comporter au moins 5 caractères
-secondPassword_equalTo:    Veuillez entrer le même mot de passe que ci-dessus
+secondPassword_equalTo:    Veuillez entrer le même mot de passe
 email_valid:               L'e-mail saisit n'est pas valide
 enabled_required:          Champs requis
 

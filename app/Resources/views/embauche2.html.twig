@@ -14,19 +14,19 @@
   </div>
   <div class="container">
 
-  <div id="wrapperForm" class="row">
+  <div id="wrapperFormEmbauche2" class="row">
 
     {{ form_start(form, { 'attr' : { 'id':'demandeEmbauche2','class': 'allForm form-horizontal' } }) }}
     <div class="form-group">
       <label class="control-label label col-sm-3 col-xs-12"  for="embauche">{{ "embauche.dateemb"|trans({}, "embauche") }}</label>
-      <div class="col-sm-3">
+      <div class="col-sm-3 col-xs-12">
         {{ form_widget(form.dateembauche) }}
       </div>
     </div>
 
     <div class="form-group">
       <label class="control-label label col-sm-3 col-xs-12" for="groupe">{{ "embauche.ancien"|trans({}, "embauche") }}</label>
-      <div class="col-sm-3 col-xs-12 pad-box append" style="display: inline-flex" >
+      <div class="col-sm-3  col-xs-12 pad-box append" style="display: inline-flex" >
         {{ form_widget(form.dejaSalarie) }}
       </div>
     </div>
@@ -162,17 +162,17 @@
       </div>
     </div>
 
+
+  <div id="actionsButtons">
+    {{ form_end(form) }}
+          <a href="{{ path('rh_embauche') }}" class="btn-black precedent">
+              {{ "global.back"|trans({}, "global") }}
+          </a>
   </div>
-
-
-  {{ form_end(form) }}
-
-</div>
 </div>
 
-<script>
-$('#demande_embauche_Envoyer').parent().append('<button  onclick="history.back()" class="btn-black precedent">{{ "embauche.back"|trans({}, "embauche") }}</button>');
-</script>
+</div>
+
 
 <script>
 $(document).ready(function(){

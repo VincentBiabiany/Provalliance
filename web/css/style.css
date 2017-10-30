@@ -228,6 +228,37 @@ table.dataTable thead th, table.dataTable thead td ,table.dataTable tfoot th, ta
 .form-control[disabled], fieldset[disabled] .form-control {
     cursor: initial;
 }
+/*.label-file {
+	cursor: pointer;
+	    color: #333;
+	    height: 40px;
+	    width: 200px;
+	    text-align: center;
+	    margin-left: 15px;
+	    font-weight: bold;
+	    background: white;
+	    padding: 0.9rem 1.25rem;
+}*/
+.label-file {
+	cursor: pointer;
+	color: #333;
+	height: 40px;
+	width: 200px;
+	text-align: center;
+	margin-left: 15px;
+	font-weight: bold;
+	background: white;
+	padding: 0.9rem 1.25rem;
+	position: absolute;
+	right: 0;
+}
+.label-file:hover {
+    color: #b39b8b;
+}
+
+.input-file {
+    display: none !important;
+}
 .glyphicon-ok{
 	color:green ;
 }
@@ -235,6 +266,12 @@ table.dataTable thead th, table.dataTable thead td ,table.dataTable tfoot th, ta
 	color: red;
 }
 .help-block {
+	position: relative;
+	color: red !important;
+	display: block;
+}
+#fos_user_registration_form_enabled .help-block{
+
 	position: absolute;
 	left: 18px;
 	top: 44px;
@@ -259,8 +296,20 @@ table.dataTable thead th, table.dataTable thead td ,table.dataTable tfoot th, ta
 
 .containerModal #actions{
 	margin: auto;
-
 }
+#demande_embauche_dateNaissance select, #demande_embauche_dateembauche select{
+	height: 35px;
+	text-align: center;
+	padding-left: 5px;
+	margin-left: 5px;
+	margin-right: 5px;
+	border-bottom: 1px solid #333;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	border-radius: 4px;
+}
+
  form#changePassword{
 	 margin-top: 15px;
 	 width: 450px;
@@ -308,6 +357,11 @@ height: 65px;
 	margin: auto;
   margin-bottom: 50px;
 }
+#wrapperFormEmbauche2{
+	width: 920px;
+	margin: auto;
+  margin-bottom: 50px;
+}
 #formContent{
     max-width: 700px;
     margin: auto;
@@ -330,8 +384,9 @@ height: 65px;
 	    color: white;
 	    width: 175px;
 	    font-weight: 100 !important;
-      padding: .3em 1.12em .3em;
-}
+			padding-top: 5px;
+	    padding-left: 6px;
+		}
 .error_list{
 
 }
@@ -361,6 +416,10 @@ label.required{
 }
 .end{
    background-color: #45bd43 !important;
+}
+#form1 .end {
+    position: absolute;
+    right: 100px;
 }
 .end:hover{
    background-color: #fff !important;
@@ -530,11 +589,11 @@ table.dataTable thead th, table.dataTable thead td, table.dataTable tfoot th, ta
 }
 
 #demandeEmbauche2 .form-group{
-
 	height: auto;
-
-
 }
+#demandeEmbauche2 div.col-sm-3,#demandeEmbauche2 div.col-sm-8, #demandeEmbauche2 div.col-sm-4{
+    margin-left: 15px;
+	}
 
 #demandeEmbauche3 label{
 	width: 215px;
@@ -578,15 +637,20 @@ table.dataTable thead th, table.dataTable thead td, table.dataTable tfoot th, ta
 		#demande_embauche_nom,#demande_embauche_prenom, #demande_embauche_ville, #demande_embauche_email,
 		#demande_embauche_numSecu, #demande_embauche_situationFamille,#demande_embauche_telephone,
 		#demande_embauche_villeNaissance, #demande_embauche_addresse1, #demande_embauche_addresse2,
-		#demande_embauche_nbEnfant, #demande_embauche_nationalite, #demande_embauche_nationalite_1,
+		#demande_embauche_nbEnfant, #demande_embauche_nationalite,
 		#demande_embauche_codePostal, #demande_embauche_dateNaissance{
 			width: 100%;
 
 		}
-		#wrapperForm {
-		    width: 414px;
+		#demande_embauche_dateNaissance {
+    height: 60px;
+}
+		#wrapperForm,#wrapperFormEmbauche2,	.formActionUpload{
+		    /*width: 414px;*/
+		    width: auto !important;
 		    margin: auto;
 		}
+
 
 		.form-control{
 			 margin-bottom: 20px;
@@ -603,6 +667,12 @@ table.dataTable thead th, table.dataTable thead td, table.dataTable tfoot th, ta
 	    width: 100%;
 	    text-align: center;
 }
+.label-file {
+	width: 90% !important;
+	position: relative;
+	right: inherit;
+}
+
 		form#formAccompte	, form#createAccount, form#createAccountS2,
 		form#createAccountS3, form#editAccount,form#createAccountService{
 			width: 100% !important;
@@ -616,6 +686,10 @@ table.dataTable thead th, table.dataTable thead td, table.dataTable tfoot th, ta
 }
 .embaucheForm .form-group{
 		height: auto !important;
+}
+#form1 .end {
+   position: relative;
+   right: inherit;
 }
 		#form_Suivant, #fos_user_registration_form_Valider, .precedent, .end {
 			float: inherit !important;
@@ -681,6 +755,10 @@ padding-left: 25px;
 }
 .formAction{
 	width: 700px;
+
+}
+.formActionUpload{
+	width: 520px;
 
 }
 #form_Precedent{
@@ -867,7 +945,7 @@ span.inactif{
 	display: block;
 	margin-top: 20px;
 	width: auto;
-
+  position: relative;
 }
 #actionsButtons .precedent{
   margin-left: 0;
