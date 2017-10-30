@@ -67,12 +67,11 @@ class CreateAccountController extends Controller
            $request->getSession()->set("idSalonAdmin", $idSalon);
            //Retourne la liste des personnels n'ayant pas encore crée de compte
            $entitym = $this->getDoctrine()->getManager();
-           $accountRepo = $entitym->getRepository('AppBundle:Account');
-           $listeAccount = $accountRepo->getAccountOff($idSalon);
-
-           $entity = $this->getDoctrine()->getManager('referentiel');
-           $personnelRepo = $entity->getRepository('ApiBundle:Personnel');
-           $listePerso = $personnelRepo->getPerso($listeAccount,$idSalon);
+                    $accountRepo = $entitym->getRepository('AppBundle:Account');
+                    $listeAccount = $accountRepo->getAccountOff($idSalon);
+                    $entity = $this->getDoctrine()->getManager('referentiel');
+                    $personnelRepo = $entity->getRepository('ApiBundle:Personnel');
+                    $listePerso = $personnelRepo->getPerso($listeAccount,$idSalon);
 
            if($listePerso == null ){
               $listePerso['Aucun utilisateur disponible']= null;

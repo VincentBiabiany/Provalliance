@@ -77,4 +77,29 @@ class PersonnelRepository extends EntityRepository
               }
    return $listPerso;
  }
+
+ // Fonction getListCollab: Retourne la liste du personnel n'ayant pas encore de compte utilisateur
+ // ADMIN
+ public function getListCollab($idSalon){
+
+     $collabs = $this->createQueryBuilder('d')
+         ->join('d.salon', 'm')
+         ->andwhere('m.sage = :idSalon')
+         ->setParameter('idSalon',$idSalon)
+         ->getQuery()
+         ->getResult();
+
+     $listeAccount=[];
+     foreach ($collabs as $collab) {
+
+              $matricule = $collab->getMatricule();
+               $p = $repository->findOneBy(array('matricule' => $matricule));
+
+               if(!empty($p)){
+                 $listeAccount[]= $matricule;
+               }
+
+            }
+      return $listeAccount;
+  }
 }

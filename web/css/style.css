@@ -251,6 +251,7 @@ table.dataTable thead th, table.dataTable thead td ,table.dataTable tfoot th, ta
 	padding: 0.9rem 1.25rem;
 	position: absolute;
 	right: 0;
+	max-width: inherit;
 }
 .label-file:hover {
     color: #b39b8b;
@@ -374,7 +375,12 @@ height: 65px;
 	display: block;
 	height: auto;
 }
-
+form.demandeDetail{
+	margin-top: 20px !important;
+}
+form.demandeDetail .form-group{
+	height: 45px !important;
+}
 .form-group .label{
 	    background-color: #333;
 	    text-align: left !important;

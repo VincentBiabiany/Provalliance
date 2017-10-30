@@ -16,26 +16,26 @@
 	 <div class="row">
 	 <div id="actions" class="home menuAction">
 
-			{{form_start(form, {'attr' : {'class' : 'allForm form-horizontal' } })}}
+			{{form_start(form, {'attr' : {'id':'importHome','class' : 'allForm form-horizontal' } })}}
 				<div class="form-group">
 					<label style="width: 215px;"  class="control-label label col-sm-4 col-xs-12">{{ "import.salon" | trans({}, "import") }}</label>
 					<div class="col-sm-6">
+						{{ form_widget(form.salon, { 'attr': {'class': 'input-file'} }) }}
 						<label for="form_salon" class="label-file">
 							<i class="glyphicon glyphicon-download-alt"></i>
 							<span>Choisir un fichier</span>
 						</label>
-						{{ form_widget(form.salon, { 'attr': {'class': 'input-file'} }) }}
 					</div>
 				</div>
 
 				<div class="form-group">
 					<label style="width: 215px;" class="control-label label col-sm-4 col-xs-12">{{ "import.personnel" | trans({}, "import") }}</label>
 			    <div class="col-sm-6">
+						{{ form_widget(form.personnel, { 'attr': {'class': 'input-file'} }) }}
 						<label for="form_personnel" class="label-file">
 							<i class="glyphicon glyphicon-download-alt"></i>
 							<span>Choisir un fichier</span>
 						</label>
-			      {{ form_widget(form.personnel, { 'attr': {'class': 'input-file'} }) }}
 
 					</div>
 				</div>
@@ -43,11 +43,11 @@
 				<div class="form-group">
 					<label style="width: 215px;"  class="control-label label col-sm-4 col-xs-12">{{ "import.lien" | trans({}, "import") }}</label>
 			    <div class="col-sm-6">
+						{{ form_widget(form.lien, { 'attr': {'class': 'input-file'} }) }}
 						<label for="form_lien" class="label-file">
 							<i class="glyphicon glyphicon-download-alt"></i>
 							<span>Choisir un fichier</span>
 						</label>
-			      {{ form_widget(form.lien, { 'attr': {'class': 'input-file'} }) }}
 			    </div>
 	 			</div>
 
@@ -92,6 +92,7 @@
   </div>
 </div>{% endif %}
 
+<script src="{{ asset('js/custom-file-input.js') }}"></script>
 <script type="text/javascript">
 
   $('#topNav').css('display','none');
