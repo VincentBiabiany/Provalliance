@@ -11,14 +11,16 @@
 		{{ "suividemande.header"|trans({}, "suivi_demandes") }}
 	</div>
 	<div class="nomSalon">
-	  {{ app.session.get('nomSalon') }}
+{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_COORDINATEUR') %}
+			{{ app.session.get('nomSalon') }}
+{% elseif is_granted('ROLE_JURIDIQUE') %}
+				Service Juridique
+{% elseif is_granted('ROLE_PAIE') %}
+				Service Paie
+
+{% endif %}
 	</div>
 	<div class="container">
-	{% if is_granted('ROLE_ADMIN') and is_granted('ROLE_COORDINATEUR') %}
-			<div class="nomSalon">
-			  {{ app.session.get('nomSalon') }}
-			</div>
-	{% endif %}
 
 	<div class="col-sm-12" >
 		<div id="selectionMultiple">

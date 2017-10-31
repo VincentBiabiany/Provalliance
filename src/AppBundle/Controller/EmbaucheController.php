@@ -124,8 +124,10 @@ class EmbaucheController extends Controller
         // $em->flush();
         // $this->addFlash("success", "La demande d'embauche pour ".$demandeEmbauche->getPrenom()." ".$demandeEmbauche->getNom()."a correctement été envoyé ! Un mail vous sera envoyé une fois votre demande traité.");
 
-        return $this->redirectToRoute('homepage');
-      }
+        return $this->redirect($this->generateUrl('homepage',
+      array('flash' => "La demande d'acompte a correctement été envoyée !
+      Un mail vous sera envoyé une fois votre demande traitée.")));
+        }
 
       return $this->render('embauche3.html.twig', array(
         'img'   => $request->getSession()->get('img'),

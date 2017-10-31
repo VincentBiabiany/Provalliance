@@ -30,6 +30,12 @@ class HomeController extends Controller
        $personnel->setNom('Admin');
        $personnel->setPrenom('');
 
+       //Si un service tente d'accéder a la home on le redirige vers le suivi des demandes
+     } elseif(in_array('ROLE_PAIE', $this->getUser()->getRoles(), true) ||
+     (in_array('ROLE_JURIDIQUE', $this->getUser()->getRoles(), true))) {
+
+       return $this->redirect($this->generateUrl('demande'));
+
      } else {
        $idPersonnnel = $this->getUser()->getIdPersonnel();
        $em = $this->getDoctrine()->getManager('referentiel');

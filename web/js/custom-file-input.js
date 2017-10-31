@@ -8,7 +8,7 @@ Array.prototype.forEach.call( inputs, function( input )
 		var fileName = '';
 			fileName = e.target.value.split( '\\' ).pop();
 		if( fileName ){
-            if (fileName.length > 28){
+            if (fileName.length > 20){
               fileName = jQuery.trim(fileName).substring(0, 20).split(" ").slice(0, -1).join(" ") + "...";
               label.querySelector( 'span' ).innerHTML = fileName;
             }else{

@@ -10,5 +10,5 @@ email_valid:               L'e-mail saisit n'est pas valide
 enabled_required:          Champs requis
 
 acompte_montant_required:  Merci de saisir un montant
-acompte_montant_minlength: Montant minimum de 150 euros
-acompte_montant_maxlength: Montant maximum de 2000 euros
+acompte_montant_minlength: Montant minimum de 1 euro
+acompte_montant_maxlength: Montant maximum de 10 000 euros

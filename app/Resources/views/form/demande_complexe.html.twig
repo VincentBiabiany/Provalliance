@@ -14,7 +14,11 @@
   <label class="control-label label col-sm-3 col-xs-12" for="personnel"> {{ form_label(form) }}</label>
 
   <div class="col-sm-9">
-    {{ form_widget(form, { 'attr' : {'class': '' } }) }}
+    {{ form_widget(form, { 'attr' : {'class': 'input-file'} }) }}
+    <label for="demande_complexe_docSalon" class="label-file">
+      <i class="glyphicon glyphicon-download-alt"></i>
+      <span>Choisir un fichier</span>
+    </label>
   </div>
 
 </div>
@@ -24,7 +28,11 @@
 <div class="form-group" style="padding-top: 50px">
   <label class="control-label label col-sm-3 col-xs-12" for="personnel"> {{ form_label(form) }}</label>
       <div class="col-sm-9">
-          {{ form_widget(form, { 'attr' : {'class': '' } }) }}
+          {{ form_widget(form, { 'attr' : {'class': 'input-file'} }) }}
+          <label for="demande_complexe_docService" class="label-file">
+            <i class="glyphicon glyphicon-download-alt"></i>
+            <span>Choisir un fichier</span>
+          </label>
       </div>
 </div>
 {% endblock %}

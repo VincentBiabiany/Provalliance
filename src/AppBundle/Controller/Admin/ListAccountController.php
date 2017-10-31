@@ -83,7 +83,7 @@ class ListAccountController extends Controller
        $date = 'n/a';
       }else{
        $date = $user->getLastLogin();
-       $date= $date->format('d-m-Y H:i');
+       $date= $date->format('d-m-Y');
       }
        if ($userRole[0] == 'ROLE_MANAGER' || $userRole[0] == 'ROLE_COORD'
        || $userRole[0] == 'ROLE_PAIE' || $userRole[0] == 'ROLE_JURIDIQUE'){

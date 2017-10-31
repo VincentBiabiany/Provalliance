@@ -48,6 +48,7 @@ class AutreDemandeController extends Controller
            ))
            ->add('pieceJointes', FileType::class, array(
              'required'  => false,
+             'attr' => array('class' => 'input-file'),  
              'label' => 'autredemande.pieceJointe',
              'translation_domain' => 'autre_demande',
            ))
