@@ -554,7 +554,7 @@ class DemandeEmbaucheType extends AbstractType
                       'label' => 'embauche.cdd.retour',
                       'choice_translation_domain' => 'embauche',
                       'translation_domain' => 'embauche',
-                      'attr' => ['readonly' => true]
+                      'attr' => ['readonly' => true,'disabled' => true]
                     ))
 
                     ->add('remplacementNature', null, array('attr' => array('readonly' => true)));
