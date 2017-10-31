@@ -76,6 +76,12 @@ class DemandeController extends Controller
          $idSalon = $request->getSession()->get('idSalon');
       }
 
+      if (in_array('ROLE_PAIE', $this->getUser()->getRoles(), true))
+        $service = 'paie';
+      else
+        $service ='juridique';
+
+
         $col = array(
           "id",
           "",
@@ -181,7 +187,7 @@ class DemandeController extends Controller
             if (!$isService)
              $demandesSalon = $demandeRepo->findBy(array("idSalon" => $idSalon));
             else
-             $demandesSalon = $demandeRepo->findAll();
+             $demandesSalon = $demandeRepo->findBy(array("service" => $service));
 
             // Récup par demande du collab
             foreach ($demandesSalon as $key => $demande) {

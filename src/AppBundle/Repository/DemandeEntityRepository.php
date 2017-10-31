@@ -42,10 +42,18 @@ class DemandeEntityRepository extends \Doctrine\ORM\EntityRepository
     $query = $this->createQueryBuilder('d')
                   ->select('d');
 
+    if ($role == 'ROLE_PAIE') {
+      $query = $query->andWhere('d.service = :service')->setParameter('service', 'paie');
+    }
+
+    if ($role == 'ROLE_JURIDIQUE') {
+      $query = $query->andWwhere('d.service = :service')->setParameter('service', 'juridique');
+    }
+
     if (in_array("sage", $colFilter) || $isService == false)
     {
       in_array("sage", $colFilter) ? $salon = $filter[2] : $salon = $idSalon;
-      $query = $query->where('d.idSalon = :salon')->setParameter('salon', $salon);
+      $query = $query->andWhere('d.idSalon = :salon')->setParameter('salon', $salon);
     }
 
 
@@ -158,8 +166,8 @@ class DemandeEntityRepository extends \Doctrine\ORM\EntityRepository
     if (in_array("type", $colFilter))
     {
       $query = $query
-                    ->leftjoin('d.demandeform', 'e')
-                    ->andWhere('e.typeForm = :type')
+                    ->leftjoin('d.demandeform', 't')
+                    ->andWhere('t.typeForm = :type')
                     ->setParameter('type', $filter[9]);
     }
 
