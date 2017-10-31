@@ -164,6 +164,12 @@ class DemandeController extends Controller
                         ->leftjoin('u.demandeform', 'e');
             if (!$isService)
               $query = $query->where('u.idSalon = :salon')->setParameter('salon', $idSalon);
+            else {
+              if (in_array('ROLE_PAIE', $this->getUser()->getRoles(), true))
+                $query = $query->where('u.service = :service')->setParameter('service', 'paie');
+              else
+                $query = $query->where('u.service = :service')->setParameter('service', 'juridique');
+            }
             $query =  $query->getQuery();
 
           } else if ($col[$nb] == "collaborateur") {
