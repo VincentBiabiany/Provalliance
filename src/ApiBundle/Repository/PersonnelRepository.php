@@ -22,7 +22,7 @@ class PersonnelRepository extends EntityRepository
           ->join('p.salon', 'm')
           ->where('m.sage = :idSalon')
           ->setParameter('idSalon', $idSalon)
-          ->Andwhere('p.actif = 1');
+          ->Andwhere('m.actif = 1');
   }
 
     public function getNb($idPerso,$idSalon) {
