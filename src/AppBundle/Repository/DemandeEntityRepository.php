@@ -301,10 +301,10 @@ class DemandeEntityRepository extends \Doctrine\ORM\EntityRepository
        $statut="Traité";
 
      } else if ($stat == 3) {
-       $statut="A signé";
+       $statut="A signer";
 
      } else if ($stat == 4) {
-       $statut="A validé";
+       $statut="A valider";
      }
 
      return $statut;
