@@ -43,6 +43,8 @@ class HomeController extends Controller
       $idPersonnnel = $this->getUser()->getIdPersonnel();
       $em = $this->getDoctrine()->getManager('referentiel');
       $personnel = $em->getRepository('ApiBundle:Personnel')->findOneBy(array('matricule' => $idPersonnnel));
+
+      $salons    = $em->getRepository('ApiBundle:Salon')->findAllActiveSalon();
       $salons = $personnel->getSalon();
     }
 

@@ -24,7 +24,7 @@ use AppBundle\Entity\DemandeAcompte;
 class DemandeService
 {
   private $em;
-  private $em2;
+  private $emWebapp;
   private $mailer;
   private $token;
   private $templating;
@@ -32,14 +32,14 @@ class DemandeService
   private $fileUploader;
   private $router;
 
-  public function __construct(EntityManager $em, EntityManager $em2,
+  public function __construct(EntityManager $em, EntityManager $emWebapp,
                               \Swift_Mailer $mailer, TokenStorage $token,
                               EngineInterface $templating, Session $session,
                               FileUploader $fileUploader,
                               Router $router)
   {
     $this->em           = $em;
-    $this->em2          = $em2;
+    $this->emWebapp     = $emWebapp;
     $this->mailer       = $mailer;
     $this->token        = $token->getToken();
     $this->templating   = $templating;
@@ -81,20 +81,20 @@ class DemandeService
     $manager != null ?   $manager = $manager->getPersonnelMatricule()->getMatricule() : null;
 
     if ($manager) {
-      $managerMail =  $this->em2->getRepository('AppBundle:User')
+      $managerMail =  $this->emWebapp->getRepository('AppBundle:User')
                           ->findOneBy(array('idPersonnel' => $manager));
       $managerMail != null ?  $managerMail = $managerMail->getEmail() : $managerMail = null;
     } else
       $managerMail = null;
 
     if ($coord) {
-      $coordoMail = $this->em2->getRepository('AppBundle:User')
+      $coordoMail = $this->emWebapp->getRepository('AppBundle:User')
                           ->findOneBy(array('idPersonnel' => $coord));
       $coordoMail != null ?  $coordoMail = $coordoMail->getEmail() : $coordoMail = null;
     } else
       $coordoMail = null;
 
-    $qb =  $this->em2->createQueryBuilder();
+    $qb =  $this->emWebapp->createQueryBuilder();
                   $qb->select('u')
                       ->from("AppBundle:User", 'u')
                       ->where($qb->expr()->like('u.roles', $qb->expr()->literal("%ROLE_ADMIN%")));
@@ -102,7 +102,7 @@ class DemandeService
 
     $admin = $qb->getQuery()->getResult();
 
-    $qb =  $this->em2->createQueryBuilder();
+    $qb =  $this->emWebapp->createQueryBuilder();
                   $qb->select('u')
                       ->from("AppBundle:User", 'u')
                       ->where($qb->expr()->like('u.roles', $qb->expr()->literal("%ROLE_JURIDIQUE%")));
@@ -111,7 +111,7 @@ class DemandeService
     $juridique = $qb->getQuery()->getResult();
 
 
-    $qb =  $this->em2->createQueryBuilder();
+    $qb =  $this->emWebapp->createQueryBuilder();
                   $qb->select('u')
                       ->from("AppBundle:User", 'u')
                       ->where($qb->expr()->like('u.roles', $qb->expr()->literal("%ROLE_PAIE%")));
@@ -246,8 +246,8 @@ class DemandeService
     $demandeSimple->setIdSalon($idSalon);
     $demandeSimple->setDemandeform($demande);
 
-    $this->em2->persist($demandeSimple);
-    $this->em2->flush();
+    $this->emWebapp->persist($demandeSimple);
+    $this->emWebapp->flush();
 
     $this->session->getFlashBag()->add("success", "La demande d'acompte pour ".$personnel->getPrenom()." ".$personnel->getNom()." a correctement été envoyée ! Un mail vous sera envoyé une fois votre demande traitée.");
 
@@ -315,8 +315,8 @@ class DemandeService
 
     $personnel = $demande->getPrenom(). ' '.$demande->getNom();
 
-    $this->em2->persist($demandeComplexe);
-    $this->em2->flush();
+    $this->emWebapp->persist($demandeComplexe);
+    $this->emWebapp->flush();
 
     // Generation de l'url
     self::generateAbsUrl($demandeComplexe);
