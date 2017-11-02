@@ -539,10 +539,10 @@ tr.selected{
 .Traité{
 	background-color:#27ae60;
 }
-.A_validé{
+.A_valider{
 	background-color:#d35400;
 }
-.A_signé{
+.A_signer{
 	background-color:#8e44ad;
 }
 .table-striped>tbody>tr:nth-of-type(odd) {
