@@ -194,7 +194,7 @@ class Salon
     {
         $now = (new \DateTime())->format('Y-m-d');
 
-        if ($this->dateFermetureSociale->format('Y-m-d') >= $now)
+        if ($this->dateFermetureSociale->format('Y-m-d') <= $now)
           $this->actif = 0;
         else
           $this->actif = 1;
