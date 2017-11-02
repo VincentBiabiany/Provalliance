@@ -311,7 +311,7 @@ class DemandeEntityRepository extends \Doctrine\ORM\EntityRepository
      return $statut;
    }
 
-   // Fonction whichPersonnel: Retourne les infos du personnel pour chaque demande
+   // Fonction whichPersonnel: Retourne nom et prenom du collaborateur pour chaque demande
    public function whichPersonnel($demande){
      $collab = $demande->getDemandeform()->getPrenom() . " " . $demande->getDemandeform()->getNom();
      return $collab;
@@ -330,5 +330,22 @@ class DemandeEntityRepository extends \Doctrine\ORM\EntityRepository
      }else{
        return $output;
      }
+   }
+   //Fonction InfosDemande: Retourne un array avec toutes les données d'une demande
+   //Paramètre : id Demande
+   public function infosDemande($idDemande){
+     $demandes=[];
+     //Infos de La demande
+     $requete = $this->findOneBy(array('id' => $idDemande));
+
+     $demandes['statut'] = $requete->getStatut();
+     //  $demandeStatut = self::labelStatut($statut);
+     $demandes['dateTraitement'] =  $requete->getDateTraitement();
+     $demandes['userID'] =  $requete->getUser();
+     $demandes['codeSage'] =  $requete->getIdSalon();
+     $demandes['service'] =  $requete->getService();
+
+     return $demandes;
+
    }
 }
