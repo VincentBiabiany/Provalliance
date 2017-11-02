@@ -12,6 +12,19 @@ use ApiBundle\Entity\Personnel;
  */
 class PersonnelRepository extends EntityRepository
 {
+
+  public function findActivePersonnelBySalon($idSalon) {
+
+    $this->getEntityManager()->getRepository('ApiBundle:PersonnelHasSalon')->findActivePersonnel();
+
+
+    return $this->createQueryBuilder('p')
+          ->join('p.salon', 'm')
+          ->where('m.sage = :idSalon')
+          ->setParameter('idSalon', $idSalon)
+          ->Andwhere('p.actif = 1');
+  }
+
     public function getNb($idPerso,$idSalon) {
           $nb = $this->createQueryBuilder('d')
               ->select('COUNT(d)')
