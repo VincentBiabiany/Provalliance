@@ -20,4 +20,10 @@ class SalonRepository extends EntityRepository
     return $this->createQueryBuilder('s')->where('s.actif = 1')->getQuery()->getResult();
   }
 
+  public function findSalonForAdmin() {
+    $salon = $this->findAll();
+    $this->getEntityManager()->flush();
+
+    return $this->createQueryBuilder('s')->where('s.actif = 1');
+  }
 }

@@ -47,7 +47,7 @@ class CreateAccountController extends Controller
                     'class' => 'ApiBundle:Salon',
                     'choice_label' => 'appelation',
                     'query_builder' => function(EntityRepository $er) {
-                        return $er->findAllActiveSalon();
+                        return $er->findSalonForAdmin();
                      },
                     'label' => 'admin_create.salon',
                     'placeholder' => 'Choisir un salon',
