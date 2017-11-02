@@ -48,14 +48,14 @@ abstract class DemandeEntity
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_envoie", type="datetime", nullable=true)
+     * @ORM\Column(name="date_envoie", type="date", nullable=true)
      */
     private $dateEnvoi;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_traitement", type="datetime", nullable=true)
+     * @ORM\Column(name="date_traitement", type="date", nullable=true)
      */
     private $dateTraitement;
 

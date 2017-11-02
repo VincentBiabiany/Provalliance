@@ -15,33 +15,36 @@ class HomeController extends Controller
   */
   public function indexAction(Request $request)
   {
-        if( $request->get('flash')){
-          $flash = $request->get('flash');
-        }else{
-          $flash = null;
-        }
+    if ($request->get('flash')) {
+      $flash = $request->get('flash');
+    } else {
+      $flash = null;
+    }
+
+    if (in_array('ROLE_ADMIN', $this->getUser()->getRoles(), true)) {
+
+      $em        = $this->getDoctrine()->getManager('referentiel');
+      $salons    = $em->getRepository('ApiBundle:Salon')->findAllActiveSalon();
+
+      $personnel = new Personnel();
+      $personnel->setNom('Admin');
+      $personnel->setPrenom('');
 
 
-     if (in_array('ROLE_ADMIN', $this->getUser()->getRoles(), true)) {
+      dump($salons);
 
-       $em        = $this->getDoctrine()->getManager('referentiel');
-       $salons    = $em->getRepository('ApiBundle:Salon')->findAll();
-       $personnel = new Personnel();
-       $personnel->setNom('Admin');
-       $personnel->setPrenom('');
-
-       //Si un service tente d'accéder a la home on le redirige vers le suivi des demandes
-     } elseif(in_array('ROLE_PAIE', $this->getUser()->getRoles(), true) ||
+      //Si un service tente d'accéder a la home on le redirige vers le suivi des demandes
+    } else if (in_array('ROLE_PAIE', $this->getUser()->getRoles(), true) ||
      (in_array('ROLE_JURIDIQUE', $this->getUser()->getRoles(), true))) {
 
-       return $this->redirect($this->generateUrl('demande'));
+      return $this->redirect($this->generateUrl('demande'));
 
-     } else {
-       $idPersonnnel = $this->getUser()->getIdPersonnel();
-       $em = $this->getDoctrine()->getManager('referentiel');
-       $personnel = $em->getRepository('ApiBundle:Personnel')->findOneBy(array('matricule' => $idPersonnnel));
-       $salons = $personnel->getSalon();
-     }
+    } else {
+      $idPersonnnel = $this->getUser()->getIdPersonnel();
+      $em = $this->getDoctrine()->getManager('referentiel');
+      $personnel = $em->getRepository('ApiBundle:Personnel')->findOneBy(array('matricule' => $idPersonnnel));
+      $salons = $personnel->getSalon();
+    }
 
     return $this->render('home.html.twig', [
       'salons'=>$salons,

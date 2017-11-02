@@ -86,16 +86,16 @@ class DemandeEmbauche extends DemandeForm
     private $email;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="num_secu", type="integer")
+     * @ORM\Column(name="num_secu", type="string", length=255)
      */
     private $numSecu;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="date_naissance", type="datetime", length=255)
+     * @ORM\Column(name="date_naissance", type="date", length=255)
      */
     private $dateNaissance;
 
@@ -137,7 +137,7 @@ class DemandeEmbauche extends DemandeForm
     /**
      * @var string
      *
-     * @ORM\Column(name="date_embauche", type="datetime", length=255)
+     * @ORM\Column(name="date_embauche", type="date", length=255)
      */
     private $dateEmbauche;
 

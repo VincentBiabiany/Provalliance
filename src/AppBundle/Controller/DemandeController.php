@@ -44,7 +44,6 @@ class DemandeController extends Controller
      */
     public function showAction(Request $request)
     {
-
         $form = $this->createFormBuilder()
                      ->add('idDemandes', HiddenType::class)
                      ->getForm();
@@ -60,7 +59,6 @@ class DemandeController extends Controller
               'flash'=> $flash,
               'form' => $form->createView()
             ));
-
     }
     /**
     * @Route("/filter", name="filter")
@@ -226,7 +224,7 @@ class DemandeController extends Controller
           foreach ($array as $key => $value) {
 
             if ($col[$nb] == "dateTraitement") {
-              $row[] = $value[$col[$nb]]->format('d-m-Y H:i:s');
+              $row[] = $value[$col[$nb]]->format('d-m-Y');
 
             } else if ($col[$nb] == "statut"){
               $row[] = $this->getDoctrine()->getManager()->getRepository("AppBundle:DemandeEntity")
@@ -331,7 +329,7 @@ class DemandeController extends Controller
               'appelation'       => $em->getRepository('ApiBundle:Salon')->findOneBy(array("sage" => $demande->getidSalon()))->getAppelation(),
               'coordinateur'     => $coordo,
               'manager'          => $demandeur,
-              'date'             => $date->format('d-m-Y H:i'),
+              'date'             => $date->format('d-m-Y'),
               'statut'           => '<span class="'.$classStatut.' statutLabel">'.$statut.'</span>',
               'type'             => $demande->getDemandeform()->getTypeForm(),
               'collaborateur'    => $collab,
@@ -454,10 +452,10 @@ class DemandeController extends Controller
                         $statut= 'Traité';
                         break;
                     case 3:
-                        $statut= 'A signé';
+                        $statut= 'A signer';
                         break;
                     case 4:
-                        $statut= 'A validé';
+                        $statut= 'A valider';
                         break;
             }
             $date =  $demande->getDateTraitement();

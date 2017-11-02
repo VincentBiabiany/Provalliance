@@ -179,7 +179,7 @@ class DemandeEntityRepository extends \Doctrine\ORM\EntityRepository
         $statut = 1;
       else if ($filter[8] == "Traité")
         $statut = 2;
-      else if ($filter[8] == "A signé")
+      else if ($filter[8] == "A signer")
         $statut = 3;
       else
         $statut = 4;
@@ -188,10 +188,9 @@ class DemandeEntityRepository extends \Doctrine\ORM\EntityRepository
 
     if (in_array("dateTraitement", $colFilter)){
       $date = new \DateTime();
-      $date = $date->createFromFormat('d-m-Y H:i:s', $filter[7]);
+      $date = $date->createFromFormat('d-m-Y', $filter[7]);
 
-      //dump($date, $filter[7]);
-      $query = $query->andWhere("d.dateTraitement = :time")->setParameter("time", $date);
+      $query = $query->andWhere("d.dateTraitement = :time")->setParameter("time", $date->format('Y-m-d'));
     }
     //dump($column, $dir);
     // return  $query->orderBy('d.'.$column, $dir)->setFirstResult( $start )->setMaxResults( $length )->getQuery()->getResult();
