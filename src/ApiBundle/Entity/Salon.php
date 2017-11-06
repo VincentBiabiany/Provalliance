@@ -9,6 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="salon", indexes={@ORM\Index(name="fk_salon_groupe1_idx", columns={"groupe_id"}), @ORM\Index(name="fk_salon_enseigne1_idx", columns={"enseigne_id"}), @ORM\Index(name="fk_salon_pays1_idx", columns={"pays_id"})})
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="ApiBundle\Repository\SalonRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Salon
 {
@@ -120,21 +122,21 @@ class Salon
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_ouverture", type="datetime", nullable=true)
+     * @ORM\Column(name="date_ouverture", type="date", nullable=true)
      */
     private $dateOuverture;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_fermeture_sociale", type="datetime", nullable=true)
+     * @ORM\Column(name="date_fermeture_sociale", type="date", nullable=true)
      */
     private $dateFermetureSociale;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_fermeture_commerciale", type="datetime", nullable=true)
+     * @ORM\Column(name="date_fermeture_commerciale", type="date", nullable=true)
      */
     private $dateFermetureCommerciale;
 
@@ -183,6 +185,20 @@ class Salon
      * })
      */
     private $pays;
+
+
+    /**
+     * @ORM\PostLoad
+     */
+    public function onPostLoad()
+    {
+        $now = (new \DateTime())->format('Y-m-d');
+
+        if ($this->dateFermetureSociale->format('Y-m-d') <= $now)
+          $this->actif = 0;
+        else
+          $this->actif = 1;
+    }
 
     /**
      * Set appelation

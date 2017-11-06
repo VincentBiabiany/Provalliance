@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="personnel_has_salon", indexes={@ORM\Index(name="fk_personnel_has_salon_profession1_idx", columns={"profession_id"}), @ORM\Index(name="fk_personnel_has_salon_personnel1_idx", columns={"personnel_matricule"}), @ORM\Index(name="fk_personnel_has_salon_salon1_idx", columns={"salon_sage"})})
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="ApiBundle\Repository\PersonnelHasSalonRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class PersonnelHasSalon
 {
@@ -25,14 +26,14 @@ class PersonnelHasSalon
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_debut", type="datetime", nullable=true)
+     * @ORM\Column(name="date_debut", type="date", nullable=true)
      */
     private $dateDebut;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_fin", type="datetime", nullable=true)
+     * @ORM\Column(name="date_fin", type="date", nullable=true)
      */
     private $dateFin;
 
@@ -74,6 +75,22 @@ class PersonnelHasSalon
     private $salonSage;
 
 
+    /**
+     * @ORM\PostLoad
+     */
+     public function onPostLoad()
+     {
+       //Compare la date d'aujourd'hui et la date de fin.
+       // Si date de fin égale au sup alors on désactive le PersonnelHasSalon
+
+       $now = (new \DateTime())->format('Y-m-d');
+
+       if ($this->dateFin->format('Y-m-d') <= $now)
+       $this->actif = 0;
+       else
+       $this->actif = 1;
+     }
+     
     /**
      * Set dateDebut
      *

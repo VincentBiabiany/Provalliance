@@ -12,7 +12,12 @@ import.ok:        Ok
 
 import.nocsv:     The file isn't a CSV
 import.corrupt:   The File is corrupted
-import.fileerror: Error in the file:
+import.fileerror: 'Error in the file:'
+import.nbchamps:  >
+                  Error in header: expected:
+
+                  %champs%
+
 import.nb:        'Problem of field number line: %line% - expected: %expd% but get: %nb%'
 import.champs:    'Mandatory fields  %champs% not present line %line%'
 

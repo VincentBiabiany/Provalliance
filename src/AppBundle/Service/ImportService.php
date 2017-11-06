@@ -30,9 +30,10 @@ class ImportService
   public function importPersonnel($file)
   {
     $champs = array(
-                "champs" => ["matricule"],
-                "valeur" => ["0"],
-                "nb"     => 19
+                "champs"   => ["matricule"],
+                "valeur"   => ["0"],
+                "colonnes" => ["matricule","civilite","nom","prenom","date_naissance","ville_naissance","pays_naissance","sexe","nationalite","niveau","echelon","adresse1","adresse2","codepostal","ville","telephone1","telephone2","email","actif"],
+                "nb"       => 19
               );
     $result = self::handleFile($file, $champs);
     foreach ($result["result"] as $key => $personnel)
@@ -45,14 +46,7 @@ class ImportService
       $entity->setCivilite($personnel[1]);
       $entity->setNom($personnel[2]);
       $entity->setPrenom($personnel[3]);
-
-      if ($personnel[4] != null)
-        $date = \DateTime::createFromFormat('d/m/Y H:i', $personnel[4]);
-      else
-        $date = \DateTime::createFromFormat('d/m/Y H:i', '01/01/1970 00:00');
-
-      $entity->setDateNaissance($date);
-
+      $entity->setDateNaissance(self::returnDate($personnel[4]));
       $entity->setVilleNaissance($personnel[5]);
       $entity->setPaysNaissance($personnel[6]);
       $entity->setSexe($personnel[7]);
@@ -76,9 +70,10 @@ class ImportService
   public function importSalon($file)
   {
     $champs = array(
-                    "champs" => ["Sage", "Groupe", "Enseigne", "Pays"],
-                    "valeur" => ["0", "20", "21", "22"],
-                    "nb"     => 23
+                    "champs"   => ["Sage", "Groupe", "Enseigne", "Pays"],
+                    "valeur"   => ["0", "20", "21", "22"],
+                    "colonnes" => ["sage","appelation", "forme_juridique","rcs_ville","code_naf","siren","capital","raison_sociale","adresse1","adresse2","code_postal","ville","telephone1","telephone2","email","code_marlix","date_ouverture","date_fermeture_sociale","date_fermeture_commerciale","actif","groupe_id","enseigne_id","pays_id"],
+                    "nb"       => 23
                   );
 
     $result = self::handleFile($file, $champs);
@@ -105,40 +100,25 @@ class ImportService
       $entity->setTelephone2($salon[13]);
       $entity->setEmail($salon[14]);
       $entity->setCodeMarlix($salon[15]);
-
-      if ($salon[16] != null)
-        $date =  \DateTime::createFromFormat('d/m/Y H:i', $salon[16]);
-      else
-        $date = \DateTime::createFromFormat('d/m/Y H:i', '01/01/1970 00:00');
-      $entity->setDateOuverture($date);
-
-      if ($salon[17] != null)
-        $date =  \DateTime::createFromFormat('d/m/Y H:i', $salon[17]);
-      else
-        $date = \DateTime::createFromFormat('d/m/Y H:i', '01/01/1970 00:00');
-      $entity->setDateFermetureSociale($date);
-
-      if ($salon[18] != null)
-        $date =  \DateTime::createFromFormat('d/m/Y H:i', $salon[18]);
-      else
-        $date = \DateTime::createFromFormat('d/m/Y H:i', '01/01/1970 00:00');
-      $entity->setDateFermetureCommerciale($date);
+      $entity->setDateOuverture(self::returnDate($salon[16]));
+      $entity->setDateFermetureSociale(self::returnDate($salon[17]));
+      $entity->setDateFermetureCommerciale(self::returnDate($salon[18]));
 
       $entity->setActif($salon[19]);
 
       $group = $this->em->getRepository('ApiBundle:Groupe')->find($salon[20]);
       if (!$group)
-        throw new Exception($this->trans->trans('import.groupe', ["%line%"=> ($key+2)],'import'));
+        throw new Exception($this->trans->trans('import.groupe', ["%line%"=> ($key+2)], 'import'));
       $entity->setGroupe($group);
 
       $enseigne = $this->em->getRepository('ApiBundle:Enseigne')->find($salon[21]);
       if (!$enseigne)
-        throw new Exception($this->trans->trans('import.enseigne', ["%line%"=> ($key+2)],'import'));
+        throw new Exception($this->trans->trans('import.enseigne', ["%line%"=> ($key+2)], 'import'));
       $entity->setEnseigne($enseigne);
 
       $pays = $this->em->getRepository('ApiBundle:Pays')->find($salon[22]);
       if (!$pays)
-        throw new Exception($this->trans->trans('import.pays', ["%line%"=> ($key+2)],'import'));
+        throw new Exception($this->trans->trans('import.pays', ["%line%"=> ($key+2)], 'import'));
 
       $entity->setPays($pays);
 
@@ -147,12 +127,27 @@ class ImportService
     }
   }
 
+  public function returnDate($date)
+  {
+    $datet = $date;
+    if ($date != null){
+      $date =  \DateTime::createFromFormat('d/m/Y', $date);
+      if (!$date)
+        $date =  \DateTime::createFromFormat('Y-m-d', $datet);
+    }
+    else
+      $date = \DateTime::createFromFormat('d/m/Y', '01/01/1970');
+
+    return $date;
+  }
+
   public function importLien($file)
   {
     $champs = array(
-                    "champs" => ["Profession", "Matricule", "Sage"],
-                    "valeur" => ["2", "1", "3"],
-                    "nb"     => 7
+                    "champs"   => ["Profession", "Matricule", "Sage"],
+                    "valeur"   => ["2", "1", "3"],
+                    "colonnes" => ["id","personnel_matricule","profession_id","salon_sage","date_debut","date_fin","actif"],
+                    "nb"       => 7
                   );
 
     $result = self::handleFile($file, $champs);
@@ -178,18 +173,8 @@ class ImportService
         throw new Exception($this->trans->trans('import.salonEr', ["%line%"=> ($key+2)],'import'));
       $entity->setSalonSage($salon);
 
-      if ($lien[4] != null)
-        $date =  new \DateTime($lien[4]);
-      else
-        $date =  \DateTime::createFromFormat('d/m/Y H:i', '01/01/1970 00:00');
-      $entity->setDateDebut($date);
-
-      if ($lien[5] != null)
-        $date =  new \DateTime($lien[5]);
-      else
-        $date = \DateTime::createFromFormat('d/m/Y H:i', '01/01/1970 00:00');
-      $entity->setDateFin($date);
-
+      $entity->setDateDebut(self::returnDate($lien[4]));
+      $entity->setDateFin(self::returnDate($lien[5]));
       $entity->setActif($lien[6]);
 
       $this->em->persist($entity);
@@ -231,6 +216,14 @@ class ImportService
       $fs->remove($file->getRealPath());
       throw new Exception($this->trans->trans('import.corrupt', [],'import'));
     }
+    // Test des noms de colonnes
+    $head = fgetcsv($csv, 4096, ';', '"');
+    if (!($head == $champs["colonnes"]))
+    {
+      fclose($csv);
+      $fs->remove($file->getRealPath());
+      throw new Exception($this->trans->trans('import.nbchamps', ["%champs%"=>implode("\r",$champs["colonnes"]) ],'import'));
+    }
 
     $array = $this->controleCsvLine($csv, $champs);
 
@@ -245,7 +238,6 @@ class ImportService
         $message .= $array["error"][$key] . "\n";
       throw new Exception($this->trans->trans('import.fileerror', [],'import') ."\n\n" . $message, 1);
     }
-
     return $array;
   }
 
@@ -255,9 +247,8 @@ class ImportService
     $array = array();
     $error = array();
 
-    $head = fgetcsv($csv);
 
-    while (($line = fgetcsv($csv)) != null)
+    while (($line = fgetcsv($csv, 4096, ';', '"')) != null)
     {
       // Clean chaques champs, si vide retourne null, sinon retourne en utf8
       $line = array_map(function($v){

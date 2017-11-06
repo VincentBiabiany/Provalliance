@@ -36,7 +36,7 @@ class Personnel
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_naissance", type="datetime", nullable=true)
+     * @ORM\Column(name="date_naissance", type="date", nullable=true)
      */
     private $dateNaissance;
 

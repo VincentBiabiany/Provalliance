@@ -3,7 +3,7 @@
 namespace ApiBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 use ApiBundle\Entity\PersonnelHasSalon;
-
+use ApiBundle\Entity\Personnel;
 /**
  * PersonnelHasSalonRepository
  *
@@ -12,13 +12,27 @@ use ApiBundle\Entity\PersonnelHasSalon;
  */
 class PersonnelHasSalonRepository extends EntityRepository
 {
+  public function ifCoiffeur($idPerso){
+    $p= $this->findOneBy(array('personnelMatricule' => $idPerso, 'profession' => 3));
 
+    if (empty($p)){
+      return true;}else{ return false;}
+    }
 
-public function ifCoiffeur($idPerso){
-   $p= $this->findOneBy(array('personnelMatricule' => $idPerso, 'profession' => 3));
+  public function findActivePersonnel()
+  {
+    // Permet de checker la date de fin par rapport à la date d'aujourd'hui
+    // Voir onPostLoad de l'entity PersonnelHasSalon
 
-if (empty($p)){
-   return true;}else{ return false;}
+    $pers = $this->findAll();
+    $this->getEntityManager()->flush();
 
-   }
+     $active = $this->createQueryBuilder('ps')
+                      ->select('p.matricule')
+                      ->leftjoin('ps.personnelMatricule', 'p')
+                      ->where('ps.actif = 1')->getQuery()->getResult();
+
+    return $active;
+  }
+
 }

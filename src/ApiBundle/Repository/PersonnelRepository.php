@@ -12,7 +12,29 @@ use ApiBundle\Entity\Personnel;
  */
 class PersonnelRepository extends EntityRepository
 {
-    public function getNb($idPerso,$idSalon) {
+  public function findActivePersonnelBySalon($idSalon) {
+
+    // Met à jour les PersonnelHasSalon par rapport au date de fin
+    $repo = $this->getEntityManager()->getRepository('ApiBundle:PersonnelHasSalon');
+
+    // Retourne les id des personnels du salon qui sont actifs
+    $activeP = $repo->findActivePersonnel($idSalon);
+
+    $arrayActive = array();
+    foreach ($activeP as $key => $value) {
+      $arrayActive = $value['matricule'];
+    }
+
+    return $this->createQueryBuilder('p')
+          ->join('p.salon', 's')
+          ->where('s.sage = :idSalon')
+          ->andWhere('p.actif = 1')
+          ->andWhere('p.matricule IN (:matricule)')
+          ->setParameter('matricule', $arrayActive)
+          ->setParameter('idSalon', $idSalon);
+  }
+
+    public function getNb($idPerso, $idSalon) {
           $nb = $this->createQueryBuilder('d')
               ->select('COUNT(d)')
               ->join('d.salon', 'm')
