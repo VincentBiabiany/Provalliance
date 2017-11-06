@@ -21,29 +21,18 @@ class PersonnelHasSalonRepository extends EntityRepository
 
   public function findActivePersonnel()
   {
-    // Permet de checker la date de fin par rapport a la date d'aujourd'HaruAnnotation
-    // Voir onPostLoad de l'entity PErsonnelHasSalon
+    // Permet de checker la date de fin par rapport à la date d'aujourd'hui
+    // Voir onPostLoad de l'entity PersonnelHasSalon
+
     $pers = $this->findAll();
     $this->getEntityManager()->flush();
 
-    // Désactive le Personnel associé
-    $inactive = $this->createQueryBuilder('ps')
-                     ->where('ps.actif = 0')->getQuery()->getResult();
+     $active = $this->createQueryBuilder('ps')
+                      ->select('p.matricule')
+                      ->leftjoin('ps.personnelMatricule', 'p')
+                      ->where('ps.actif = 1')->getQuery()->getResult();
 
-    foreach ($inactive as $key => $value) {
-      $value->getPersonnelMatricule()->setActif(0);
-    }
-
-    // Active le Personnel associé
-    $actifs = $this->createQueryBuilder('ps')
-                     ->where('ps.actif = 1')->getQuery()->getResult();
-
-    foreach ($actifs as $key => $perso) {
-      $perso->getPersonnelMatricule()->setActif(1);
-    }
-    $this->getEntityManager()->flush();
-
-    return $pers;
+    return $active;
   }
 
 }

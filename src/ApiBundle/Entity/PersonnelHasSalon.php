@@ -78,18 +78,19 @@ class PersonnelHasSalon
     /**
      * @ORM\PostLoad
      */
-    public function onPostLoad()
-    {
-        $now = (new \DateTime())->format('Y-m-d');
+     public function onPostLoad()
+     {
+       //Compare la date d'aujourd'hui et la date de fin.
+       // Si date de fin égale au sup alors on désactive le PersonnelHasSalon
 
-        if ($this->dateFin->format('Y-m-d') <= $now)
-          $this->actif = 0;
-        else
-          $this->actif = 1;
-    }
+       $now = (new \DateTime())->format('Y-m-d');
 
-
-
+       if ($this->dateFin->format('Y-m-d') <= $now)
+       $this->actif = 0;
+       else
+       $this->actif = 1;
+     }
+     
     /**
      * Set dateDebut
      *
