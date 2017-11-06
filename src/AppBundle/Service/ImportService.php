@@ -221,7 +221,6 @@ class ImportService
     if (!($head == $champs["colonnes"]))
     {
       fclose($csv);
-      //die(dump($head, $champs));
       $fs->remove($file->getRealPath());
       throw new Exception($this->trans->trans('import.nbchamps', ["%champs%"=>implode("\r",$champs["colonnes"]) ],'import'));
     }
