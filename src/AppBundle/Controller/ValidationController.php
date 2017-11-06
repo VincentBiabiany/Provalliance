@@ -8,20 +8,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\DemandeEntity;
-use AppBundle\Entity\DemandeAcompte;
-use AppBundle\Entity\DemandeEmbauche;
-use AppBundle\Entity\DemandeComplexe;
-use AppBundle\Entity\DemandeSimple;
-use AppBundle\Form\DemandeAcompteType;
-use AppBundle\Form\DemandeEmbaucheType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 
-class ValidationMultipleController extends Controller
+class ValidationController extends Controller
 {
   /**
    * @Route("/demandeValidate", name="demandeValidate")

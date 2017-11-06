@@ -14,6 +14,9 @@ use ApiBundle\Entity\Pays;
 use ApiBundle\Entity\PersonnelHasSalon;
 use ApiBundle\Entity\Profession;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Symfony\Bridge\Doctrine\PropertyInfo\DoctrineExtractor;
+use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
+use Symfony\Component\PropertyInfo\PropertyInfoExtractor;
 
 class ExportService
 {
@@ -65,11 +68,10 @@ class ExportService
                                         ->findOneBy(array('id' => $collabByDemande['demandeId']));
                $collaborateur = $persoRepo->infosCollab($demandeItSelf->getidPersonnel());
            }
-
     $phpExcelObject->createSheet();
-    // $phpExcelObject->setActiveSheetIndex(0)
+    // Colonnes Génériques
       if ($i ==1){
-  $phpExcelObject->setActiveSheetIndex(0) ->setCellValue('A'.$i, 'Code SAGE salon')->setCellValue('B'.$i, 'Enseigne commerciale')->setCellValue('C'.$i, 'Appelation du salon')
+     $phpExcelObject->setActiveSheetIndex(0) ->setCellValue('A'.$i, 'Code SAGE salon')->setCellValue('B'.$i, 'Enseigne commerciale')->setCellValue('C'.$i, 'Appelation du salon')
       ->setCellValue('D'.$i, 'Forme juridique')->setCellValue('E'.$i, 'RCS ville')->setCellValue('F'.$i, 'Code NAF')->setCellValue('G'.$i, 'SIREN')
       ->setCellValue('H'.$i, 'Capital')->setCellValue('I'.$i, 'Raison sociale')->setCellValue('J'.$i, 'Adresse 1')->setCellValue('K'.$i, 'Adresse 2')
       ->setCellValue('L'.$i, 'Code postal')->setCellValue('M'.$i, 'Ville')->setCellValue('N'.$i, 'Pays')->setCellValue('O'.$i, 'Téléphone 1')
@@ -82,8 +84,21 @@ class ExportService
       ->setCellValue('AK'.$i, 'Adresse 1')->setCellValue('AL'.$i, 'Adresse 2')->setCellValue('AM'.$i, 'Code postal')->setCellValue('AN'.$i, 'Ville')
       ->setCellValue('AO'.$i, 'Pays')->setCellValue('AP'.$i, 'Téléphone 1')->setCellValue('AQ'.$i, 'Téléphone 2')->setCellValue('AR'.$i, 'Email')
       ->setCellValue('AS'.$i, 'Date')->setCellValue('AT'.$i, 'Statut demande')->setCellValue('AU'.$i, 'Type demande');
+
+          //Colonnes spécifique à chaque demande
+         if ($collabByDemande['nameDemande'] != 'DemandeEmbauche'){
+             $nbCol= self::nbCol($collabByDemande['nameDemande']);
+            //  $ColDemandes= self::whichCol($collabByDemande['demandeId']);
+             $tabExcelCol= array(1 =>'AV','AY','AZ','BA','BB','BC','BD','BE','BF','BG','BH','BI','BK','BL','BM','BN'
+                            ,'BO','BP','BQ','BR','BS','BT','BU','BV','BW','BX','BY','BZ','CA','CB','CC','CD');
+
+            //  for ($k = 1; $k <= $nbCol; $k++) {
+            //     $phpExcelObject->setActiveSheetIndex(0)->setCellValue($tabExcelCol[$k].$i, $ColDemandes[$k]);
+            //  }
+
+         }
       }
-    $phpExcelObject->setActiveSheetIndex(0)  ->setCellValue('A'.$j, $demandes['codeSage'])->setCellValue('B'.$j, $salon['enseigne'])->setCellValue('C'.$j, $salon['appelation'])
+     $phpExcelObject->setActiveSheetIndex(0)->setCellValue('A'.$j, $demandes['codeSage'])->setCellValue('B'.$j, $salon['enseigne'])->setCellValue('C'.$j, $salon['appelation'])
       ->setCellValue('D'.$j, $salon['formeJuridique'])->setCellValue('E'.$j, $salon['rcsVille'])->setCellValue('F'.$j, $salon['codeNaf'])->setCellValue('G'.$j, $salon['siren'])
       ->setCellValue('H'.$j, $salon['capital'])->setCellValue('I'.$j, $salon['raisonSociale'])->setCellValue('J'.$j, $salon['adresse1'])->setCellValue('K'.$j, $salon['adresse2'])
       ->setCellValue('L'.$j, $salon['codePostal'])->setCellValue('M'.$j, $salon['ville'])->setCellValue('N'.$j, 'Pays')->setCellValue('O'.$j,$salon['telephone1'])
@@ -117,6 +132,18 @@ class ExportService
     $response->headers->set('Content-Disposition', $dispositionHeader);
     return $response;
 
+  }
+
+  public function nbCol($nameEntity){
+    $reflectionExtractor = new ReflectionExtractor();
+    $listExtractors = array($reflectionExtractor);
+    $propertyInfo = new PropertyInfoExtractor(
+        // List extractors
+        array(
+            $listExtractors
+        ));
+      $properties = $propertyInfo->getProperties(DemandeAcompte::class);
+      dump($properties);
   }
 
   public function labelStatut($statut){

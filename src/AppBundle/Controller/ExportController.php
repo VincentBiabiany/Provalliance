@@ -11,7 +11,7 @@ use AppBundle\Service\ExportService;
 
 
 
-class ExportMultipleController extends Controller
+class ExportController extends Controller
 {
   /**
    * @Route("/exportXls", name="exportXls")
