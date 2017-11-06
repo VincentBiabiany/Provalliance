@@ -13,6 +13,12 @@ import.ok:        Ok
 import.nocsv:     "Le fichier n'est pas un CSV"
 import.corrupt:   Le fichier est corrompu
 import.fileerror: 'Erreur dans le fichier:'
+import.nbchamps:  Erreurdans l'en-tête
+import.nbchamps:  >
+                  Erreurdans l'en-tête : attendu:
+
+                  %champs%
+                  
 import.nb:        "Probleme de nombre de champs ligne: %line% - attendu: %expd% alors qu'il y en a: %nb%"
 import.champs:    "Champs obligatoire %champs% non présent ligne: %line%"
 

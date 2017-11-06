@@ -12,7 +12,6 @@ use ApiBundle\Entity\Personnel;
  */
 class PersonnelRepository extends EntityRepository
 {
-
   public function findActivePersonnelBySalon($idSalon) {
 
     // Met à jour les PersonnelHasSalon par rapport au date de fin

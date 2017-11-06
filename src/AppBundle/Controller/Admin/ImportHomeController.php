@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Controller\Admin;
 
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -20,14 +21,19 @@ class ImportHomeController extends Controller
      $form = $this->createFormBuilder()
      ->add('salon', FileType::class, array(
          'required' => false,
+         'attr' => ['accept' => '.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel'],
          'label' => 'import.salon',
          'translation_domain' => 'import',
       ))
-     ->add('personnel', FileType::class, array('required' => false,
+     ->add('personnel', FileType::class, array(
+         'required' => false,
+         'attr' => ['accept' => '.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel'],
          'label' => 'import.personnel',
          'translation_domain' => 'import'
      ))
-     ->add('lien', FileType::class, array('required' => false,
+     ->add('lien', FileType::class, array(
+         'required' => false,
+         'attr' => ['accept' => '.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel'],
          'label' => 'import.lien',
          'translation_domain' => 'import',
       ))
