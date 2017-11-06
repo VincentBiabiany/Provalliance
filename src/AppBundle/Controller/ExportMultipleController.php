@@ -24,7 +24,6 @@ class ExportMultipleController extends Controller
       // On récupère le service
       return $exportService->createExcel($demandeExports);
 
-
   }
 
 }

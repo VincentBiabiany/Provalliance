@@ -12,27 +12,30 @@ use ApiBundle\Entity\Salon;
  */
 class SalonRepository extends EntityRepository
 {
+    // Fonction infosSalon : Retourne les infos d'un salon
+    // Paramètre : idsalon
+    // Return array
     public function infosSalon($idSalon) {
           $salon=[];
           $requete = $this->findOneBy(array('sage' => $idSalon));
 
               $salon['appelation'] = $requete->getAppelation();
               $salon['enseigne'] =  $requete->getEnseigne()->getNom();
-              $salon['formeJuridique'] =  $salon->getFormeJuridique();
-              $salon['rcsVille'] =  $salon->getRcsVille();
-              $salon['codeNaf'] =  $salon->getCodeNaf();
-              $salon['siren'] =  $salon->getSiren();
-              $salon['capital'] =  $salon->getCapital();
-              $salon['raisonSociale'] =  $salon->getRaisonSociale();
-              $salon['adresse1'] =  $salon->getAdresse1();
-              $salon['adresse2'] =  $salon->getAdresse2();
-              $salon['codePostal'] =  $salon->getCodePostal();
-              $salon['ville'] =  $salon->getVille();
-              $salon['telephone1'] =  $salon->getTelephone1();
-              $salon['telephone2'] =  $salon->getTelephone2();
-              $salon['email'] =  $salon->getEmail();
-              $salon['codeMarlix'] =  $salon->getCodeMarlix();
-              $salon['dateOuverture'] =  $salon->getDateOuverture();
+              $salon['formeJuridique'] =  $requete->getFormeJuridique();
+              $salon['rcsVille'] =  $requete->getRcsVille();
+              $salon['codeNaf'] =  $requete->getCodeNaf();
+              $salon['siren'] =  $requete->getSiren();
+              $salon['capital'] =  $requete->getCapital();
+              $salon['raisonSociale'] =  $requete->getRaisonSociale();
+              $salon['adresse1'] =  $requete->getAdresse1();
+              $salon['adresse2'] =  $requete->getAdresse2();
+              $salon['codePostal'] =  $requete->getCodePostal();
+              $salon['ville'] =  $requete->getVille();
+              $salon['telephone1'] =  $requete->getTelephone1();
+              $salon['telephone2'] =  $requete->getTelephone2();
+              $salon['email'] =  $requete->getEmail();
+              $salon['codeMarlix'] =  $requete->getCodeMarlix();
+              $salon['dateOuverture'] =  $requete->getDateOuverture();
 
               return $salon;
       }
