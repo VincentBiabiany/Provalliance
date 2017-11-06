@@ -21,6 +21,10 @@ body,p,a,h1,h2,h3,h4,h5 {
 	font-family: 'Brown';
 
 }
+.modal-open {
+     overflow: inherit !important;
+		 padding:0 !important;
+}
 @font-face {
 	font-family: 'Brown';
 	src: url('../fonts/Brown-Light.otf');

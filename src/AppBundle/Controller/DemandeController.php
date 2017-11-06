@@ -402,7 +402,4 @@ class DemandeController extends Controller
 
   }
 
-
-
-
 }

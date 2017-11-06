@@ -13,17 +13,21 @@ use ApiBundle\Entity\Enseigne;
 use ApiBundle\Entity\Pays;
 use ApiBundle\Entity\PersonnelHasSalon;
 use ApiBundle\Entity\Profession;
+use AppBundle\Entity\DemandeAcompte;
+use AppBundle\Entity\DemandeEmbauche;
+use AppBundle\Entity\DemandeEntity;
+
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Bridge\Doctrine\PropertyInfo\DoctrineExtractor;
 use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
 use Symfony\Component\PropertyInfo\PropertyInfoExtractor;
+use Symfony\Component\PropertyInfo\PropertyInfo;
 
 class ExportService
 {
   private $em;
   private $em2;
   private $phpexcel;
-
 
   public function __construct(EntityManager $em, EntityManager $em2, \Liuggio\ExcelBundle\Factory $phpexcel)
   {
@@ -64,9 +68,9 @@ class ExportService
 
             //Cas ou la demande concerne un collaborateur existant
            }else{
-             $demandeItSelf = $this->em2->getRepository('AppBundle:'.$collabByDemande['nameDemande'])
+              $demandeItSelf = $this->em2->getRepository('AppBundle:'.$collabByDemande['nameDemande'])
                                         ->findOneBy(array('id' => $collabByDemande['demandeId']));
-               $collaborateur = $persoRepo->infosCollab($demandeItSelf->getidPersonnel());
+              $collaborateur = $persoRepo->infosCollab($demandeItSelf->getidPersonnel());
            }
     $phpExcelObject->createSheet();
     // Colonnes Génériques
@@ -86,17 +90,19 @@ class ExportService
       ->setCellValue('AS'.$i, 'Date')->setCellValue('AT'.$i, 'Statut demande')->setCellValue('AU'.$i, 'Type demande');
 
           //Colonnes spécifique à chaque demande
-         if ($collabByDemande['nameDemande'] != 'DemandeEmbauche'){
-             $nbCol= self::nbCol($collabByDemande['nameDemande']);
-            //  $ColDemandes= self::whichCol($collabByDemande['demandeId']);
-             $tabExcelCol= array(1 =>'AV','AY','AZ','BA','BB','BC','BD','BE','BF','BG','BH','BI','BK','BL','BM','BN'
-                            ,'BO','BP','BQ','BR','BS','BT','BU','BV','BW','BX','BY','BZ','CA','CB','CC','CD');
+              $ColDemandes= self::whichCol($collabByDemande['nameDemande']);
+              $tabExcelCol= array('AV','AW','AX','AY','AZ','BA','BB','BC','BD','BE','BF','BG','BH','BI','BK','BL','BM','BN'
+                            ,'BO','BP','BQ','BR','BS','BT','BU','BV','BW','BX','BY','BZ','CA','CB','CC','CD','CE','CF','CG',
+                            'CH','CI','CJ','CK','CL','CM','CN','CO','CP','CQ','CR','CS','CT','CU','CV','CW','CX','CY','CZ',
+                            'DA','DB','DC','DD');
 
-            //  for ($k = 1; $k <= $nbCol; $k++) {
-            //     $phpExcelObject->setActiveSheetIndex(0)->setCellValue($tabExcelCol[$k].$i, $ColDemandes[$k]);
-            //  }
+             for ($k = 0; $k < $ColDemandes['nb']; $k++) {
+                $phpExcelObject->setActiveSheetIndex(0)->setCellValue($tabExcelCol[$k].$i, $ColDemandes['col'][$k]);
 
-         }
+                  //Valeurs spécifiques à chaque propriété pour une demande
+                  $valueCol= self::whichVal($collabByDemande['nameDemande'],$collabByDemande['demandeId'],$ColDemandes['col'][$k] );
+                  $phpExcelObject->setActiveSheetIndex(0)->setCellValue($tabExcelCol[$k].$j, $valueCol);
+             }
       }
      $phpExcelObject->setActiveSheetIndex(0)->setCellValue('A'.$j, $demandes['codeSage'])->setCellValue('B'.$j, $salon['enseigne'])->setCellValue('C'.$j, $salon['appelation'])
       ->setCellValue('D'.$j, $salon['formeJuridique'])->setCellValue('E'.$j, $salon['rcsVille'])->setCellValue('F'.$j, $salon['codeNaf'])->setCellValue('G'.$j, $salon['siren'])
@@ -110,6 +116,7 @@ class ExportService
       ->setCellValue('AJ'.$j, $coordo['profession'])->setCellValue('AK'.$j, $collaborateur['adresse1'])->setCellValue('AL'.$j, $collaborateur['adresse2'])->setCellValue('AM'.$j, $collaborateur["codePostal"])
       ->setCellValue('AN'.$j, $collaborateur['ville'])->setCellValue('AO'.$j, 'Pays')->setCellValue('AP'.$j, $collaborateur['telephone1'])->setCellValue('AQ'.$j, $collaborateur['telephone2'])->setCellValue('AR'.$j, $collaborateur['email'])
       ->setCellValue('AS'.$j, $demandes['dateTraitement']->format('d-m-Y'))->setCellValue('AT'.$j, self::labelStatut($demandes['statut']))->setCellValue('AU'.$j, $collabByDemande['typeForm']);
+
 
     $phpExcelObject->getActiveSheet()->setTitle($collaborateur['nom'].'-'.$demandes['dateTraitement']->format('d-m-Y'));
     // Set active sheet index to the first sheet, so Excel opens this as the first sheet
@@ -134,17 +141,42 @@ class ExportService
 
   }
 
-  public function nbCol($nameEntity){
-    $reflectionExtractor = new ReflectionExtractor();
-    $listExtractors = array($reflectionExtractor);
-    $propertyInfo = new PropertyInfoExtractor(
-        // List extractors
-        array(
-            $listExtractors
-        ));
-      $properties = $propertyInfo->getProperties(DemandeAcompte::class);
-      dump($properties);
+  //Fonction whichCol: Retourne les noms des différentes propriétés d'une entity et leur nombre
+  //Paramètre : Entity Name
+  //Return array
+  public function whichCol($nameEntity){
+      $reflectionExtractor = new ReflectionExtractor();
+      $listExtractors = $reflectionExtractor;
+      $propertyInfo = new PropertyInfoExtractor(array( $listExtractors ));
+      $ColDemandes = [];
+
+      $properties = $propertyInfo->getProperties('AppBundle\Entity\\'.$nameEntity);
+      $properties = array_diff($properties,['discr','typeForm','id','nameDemande']);
+
+      $ColDemandes['col']= $properties;
+      $ColDemandes['nb']= count($properties);
+
+      return $ColDemandes;
+
   }
+
+  //Fonction whichVal: Retourne les noms des différentes propriétés d'une entity et leur nombre
+  //Paramètre : Entity Name, Id Demande , Property Name
+  //Return string
+  public function whichVal($nameEntity,$idDemande,$nameProperty){
+    $tableName = $this->em2->getClassMetadata('AppBundle:'.$nameEntity)->getTableName();
+    $qb = $this->em2->createQueryBuilder()
+                    ->add('select', 'u')
+                    ->add('from', 'AppBundle:'.$nameEntity.' u')
+                    ->add('where', 'u.id = :idDemande')
+                    ->setParameter('idDemande', $idDemande)
+                    ->getQuery()
+                    ->getArrayResult();
+
+                      return $result = $qb[0][$nameProperty];
+
+}
+
 
   public function labelStatut($statut){
 
