@@ -28,10 +28,9 @@ class PersonnelHasSalonRepository extends EntityRepository
     $this->getEntityManager()->flush();
 
      $active = $this->createQueryBuilder('ps')
-                      ->select('p.matricule')
-                      ->leftjoin('ps.personnelMatricule', 'p')
-                      ->where('ps.actif = 1')->getQuery()->getResult();
-
+                    ->select('p.matricule')
+                    ->leftjoin('ps.personnelMatricule', 'p')
+                    ->where('ps.actif = 1')->getQuery()->getResult();
     return $active;
   }
 

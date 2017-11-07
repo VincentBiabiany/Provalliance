@@ -72,9 +72,9 @@ class DemandeEmbauche extends DemandeForm
     private $ville;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="telephone", type="integer")
+     * @ORM\Column(name="telephone", type="string", length=25)
      */
     private $telephone;
 
@@ -165,7 +165,7 @@ class DemandeEmbauche extends DemandeForm
     /**
      * @var array
      *
-     * @ORM\Column(name="diplomes", type="array")
+     * @ORM\Column(name="diplomes", type="json_array")
      */
     private $diplomes;
 

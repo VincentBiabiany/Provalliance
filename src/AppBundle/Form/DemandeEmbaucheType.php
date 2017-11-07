@@ -42,9 +42,9 @@ class DemandeEmbaucheType extends AbstractType
       ->add('addresse2', null, array('attr' => ['class' => 'form-control']))
       ->add('codePostal', null, array('attr' => ['class' => 'form-control']))
       ->add('ville', null, array('attr' => ['class' => 'form-control']))
-      ->add('telephone', null, array('attr' => ['class' => 'form-control']))
+      ->add('telephone', TextType::class, array('attr' => ['class' => 'form-control']))
       ->add('email', EmailType::class, array('attr' => ['class' => 'form-control']))
-      ->add('numSecu', TextType::class, array('attr' => ['class' => 'form-control','data-mask' => '2 99 12 99 999 999 99',
+      ->add('numSecu', TextType::class, array('attr' => ['class' => 'form-control',
             'placeholder' => '_  _ _  _ _  _ _  _ _ _  _ _ _  _ _']))
       ->add('dateNaissance', DateType::class, array(
         'widget' => 'choice',
@@ -155,7 +155,7 @@ class DemandeEmbaucheType extends AbstractType
               'choice_translation_domain' => 'embauche',
               'translation_domain' => 'embauche',
               'expanded' => true,
-              'multiple' => false,
+              'multiple' => true,
             ))
             ->add('niveau', ChoiceType::class, array(
               'choices' => array(
@@ -218,8 +218,8 @@ class DemandeEmbaucheType extends AbstractType
               'years' => range(date('Y') - 5, date('Y') + 10),
               'attr' => [],
               'label' => ' ',
-              'mapped' => false)
-               )
+              'mapped' => false
+            ))
 
             // Foncionne avec l'ajax. Si champs autre coché alors
             // le champ correspondant est ajouté et renvoyé
@@ -287,8 +287,12 @@ class DemandeEmbaucheType extends AbstractType
                   if ($data->getPostes() == 'embauche.autre')
                     $data->setPostes($extra['autre_poste']);
 
-                  if ($data->getDiplomes() == 'embauche.autre')
-                    $data->setDiplomes($extra['autre_diplome']);
+                  // if ($data->getDiplomes() == 'embauche.autre') {
+                  if (isset($extra['autre_diplome'])) {
+                    $array = $data->getDiplomes();
+                    $array[] = $extra['autre_diplome'];
+                    $data->setDiplomes(json_encode($array));
+                   }
 
                   if ($data->getSalaireBase() == 'embauche.autre')
                     $data->setSalaireBase($extra['autre_salaire']);
@@ -306,7 +310,6 @@ class DemandeEmbaucheType extends AbstractType
                   // Recupère les champs extras:
                   // raison, jusqu'au, nature, nom
 
-                  //dump($data);
                   if($data->getTypeContrat() == 'embauche.cdd')
                   {
                     $data->setCddRaison($extra['raison']['raison']);
@@ -325,7 +328,6 @@ class DemandeEmbaucheType extends AbstractType
                       $data->setCddRetour($extra['raison']['retour']);
                       $data->setCddDate(null);
                     }
-
                   }
 
                   //die(dump($data));
@@ -454,26 +456,31 @@ class DemandeEmbaucheType extends AbstractType
                   else
                     $form->add('postes', TextType::class, array('attr'=>['readonly' => true]));
 
-                  if ($demande->getDiplomes() == "embauche.autre")
-                  {
-                    $form->add('postes', TextType::class, array('attr'=>['readonly' => true]));
-                  }
-                  else
-                  {
-                    $form
-                    ->add('diplomes', ChoiceType::class,array(
-                      'choices' => array(
-                        'embauche.diplome.CAP' => 'embauche.diplome.CAP',
-                        'embauche.diplome.BEP' => 'embauche.diplome.BEP',
-                        'embauche.autre'=> 'embauche.autre'
-                      ),
+                  // if ($demande->getDiplomes() == "embauche.autre")
+                  // {
+                  //   $form->add('postes', TextType::class, array('attr'=>['readonly' => true]));
+                  // }
+                  // else
+                  // {
+                    $form->add('diplomes', null, array(
                       'attr' => array('readonly' => true,
                       'disabled' => true,
                       'class' =>'onlyread form-control'),
-                      'choice_translation_domain' => 'embauche',
                       'translation_domain' => 'embauche',
                     ));
-                  }
+                    // ->add('diplomes', ChoiceType::class,array(
+                    //   'choices' => array(
+                    //     'embauche.diplome.CAP' => 'embauche.diplome.CAP',
+                    //     'embauche.diplome.BEP' => 'embauche.diplome.BEP',
+                    //     'embauche.autre'=> 'embauche.autre'
+                    //   ),
+                    //   'attr' => array('readonly' => true,
+                    //   'disabled' => true,
+                    //   'class' =>'onlyread form-control'),
+                    //   'choice_translation_domain' => 'embauche',
+                    //   'translation_domain' => 'embauche',
+                    // ));
+                  // }
                   if($demande->getAutre() != null || $demande->getAutre() != "")
                   {
                     $form->add('autre', TextType::class, array(
@@ -488,11 +495,11 @@ class DemandeEmbaucheType extends AbstractType
                     $form
                     ->add('niveau', ChoiceType::class, array(
                       'choices' => array(
-                        'I'  => 'I',
-                        'II' => 'II',
-                        'III'=> 'III',
-                        'IV' => 'IV',
-                        'V'  => 'V'
+                        'I'   => 'I',
+                        'II'  => 'II',
+                        'III' => 'III',
+                        'IV'  => 'IV',
+                        'V'   => 'V'
                       ),
                       'choice_translation_domain' => 'embauche',
                       'translation_domain' => 'embauche',
@@ -559,14 +566,14 @@ class DemandeEmbaucheType extends AbstractType
 
                     ->add('remplacementNature', null, array('attr' => array('readonly' => true)));
 
-                    if($demande->getCddDate() != null)
+                    if ($demande->getCddDate() != null)
                       $form->add('cddDate',DateType::class, array(
                         'widget' => 'single_text',
                         'html5' => false,
                         'format' => 'd/M/y',
                         'attr' => ['class' => 'js-datepicker form-control', 'readonly' => true]));
                       else
-                          $form->add('cddRetour', ChoiceType::class,array(
+                          $form->add('cddRetour', ChoiceType::class, array(
                             'choices' => array(
                               'embauche.cdd.retour'  => 'embauche.cdi',
                             ),
@@ -578,15 +585,16 @@ class DemandeEmbaucheType extends AbstractType
                           ));
 
                       $form
-                      ->add('remplacementNom', null, array('attr' => array('readonly' => true)))
-                      ->add('tempsPartiel', null,array('attr' => array('readonly' => true)));
+                          ->add('remplacementNom', null, array('attr' => array('readonly' => true)));
                     }
+
                     $form
-                    ->add('carteId', TextType::class, array('attr' => ['class' => 'getDocument', 'readonly' => true]))
-                    ->add('carteVitale', TextType::class, array('attr' => ['class' => 'getDocument', 'readonly' => true]))
-                    ->add('diplomeFile', TextType::class, array('attr' => ['class' => 'getDocument', 'readonly' => true]))
-                    ->add('rib', TextType::class, array('attr' => ['class' => 'getDocument', 'readonly' => true]))
-                    ->add('mutuelle', TextType::class, array('attr' => ['class' => 'getDocument', 'readonly' => true]));
+                        ->add('tempsPartiel', null, array('attr' => array('readonly' => true)))
+                        ->add('carteId', TextType::class, array('attr' => ['class' => 'getDocument', 'readonly' => true]))
+                        ->add('carteVitale', TextType::class, array('attr' => ['class' => 'getDocument', 'readonly' => true]))
+                        ->add('diplomeFile', TextType::class, array('attr' => ['class' => 'getDocument', 'readonly' => true]))
+                        ->add('rib', TextType::class, array('attr' => ['class' => 'getDocument', 'readonly' => true]))
+                        ->add('mutuelle', TextType::class, array('attr' => ['class' => 'getDocument', 'readonly' => true]));
                   }
                 );
                 break;

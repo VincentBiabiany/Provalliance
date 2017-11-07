@@ -173,8 +173,11 @@
 <script type="text/javascript">
 
   $('#topNav').css('display','none');
-  $('#myModal').modal('show');
-  $("#myModal").css('display','flex');
+
+  {% if isSubmitted == false %}
+    $('#myModal').modal('show');
+    $("#myModal").css('display','flex');
+  {% endif %}
 
 </script>
 
@@ -233,6 +236,7 @@ function uppercaseField($champs){
       }
       $("#demande_embauche_"+$champs).val(($("#demande_embauche_"+$champs).val()).toUpperCase());
   });
+
   $("#demande_embauche_" + $champs).focusout(function () {
     $("#demande_embauche_"+$champs).val (function () {
         return this.value.toUpperCase();
@@ -244,9 +248,13 @@ uppercaseField("nom");
 uppercaseField("ville");
 uppercaseField("villeNaissance");
 uppercaseField("paysNaissance");
+
+
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.12/jquery.mask.js" ></script>
 <script language="javascript">
 		$('#topNav').css('display', 'initial');
+    $('#demande_embauche_numSecu').mask('2 99 12 99 999 999 99', {'translation': {9: {pattern: /[0-9]/}, 2:{pattern: /[0-2]/}, 1: {pattern: /[0-1]/}}});
+    $('#demande_embauche_telephone').mask('99 99 99 99 99', {'translation': {9: {pattern: /[0-9]/}}});
 </script>
 {% endblock %}

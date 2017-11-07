@@ -133,32 +133,38 @@
     <!-- Temps partiel -->
     <div id="tempsPartiel" class="form-group row" >
       <label class="control-label label col-sm-3 col-xs-12" for="prenom">{{ "embauche.cdd.partiel"|trans({}, "embauche") }}</label>
+
       <div id="listeJours" class="col-sm-9 col-xs-12 pad-box">
         <label class="control-label label col-sm-12 col-xs-12"  for="nom"></label>
         <div class="jour">
           <label for="demande_embauche_heure" class="label">{{ "embauche.lundi"|trans({}, "embauche") }}</label>
-          <input type="number" name="demande_embauche[heure][lundi]"    min="0" max="8" id="demande_embauche[heure][lundi]" class="form-control">
+          <input type="number" name="demande_embauche[heure][lundi]" min="0" max="8" id="demande_embauche[heure][lundi]" class="form-control tempsHeure">
         </div>
         <div class="jour">
           <label for="demande_embauche_heure" class="label">{{ "embauche.mardi"|trans({}, "embauche") }}</label>
-          <input type="number" name="demande_embauche[heure][mardi]"    min="0" max="8" id="demande_embauche[heure][mardi]" class="form-control">
+          <input type="number" name="demande_embauche[heure][mardi]" min="0" max="8" id="demande_embauche[heure][mardi]" class="form-control tempsHeure">
         </div>
         <div class="jour">
           <label for="demande_embauche_heure" class="label">{{ "embauche.mercredi"|trans({}, "embauche") }}</label>
-          <input type="number" name="demande_embauche[heure][mercredi]" min="0" max="8" id="demande_embauche[heure][mercredi]" class="form-control">
+          <input type="number" name="demande_embauche[heure][mercredi]" min="0" max="8" id="demande_embauche[heure][mercredi]" class="form-control tempsHeure">
         </div>
         <div class="jour">
           <label for="demande_embauche_heure" class="label">{{ "embauche.jeudi"|trans({}, "embauche") }}</label>
-          <input type="number" name="demande_embauche[heure][jeudi]"    min="0" max="8" id="demande_embauche[heure][jeudi]" class="form-control">
+          <input type="number" name="demande_embauche[heure][jeudi]" min="0" max="8" id="demande_embauche[heure][jeudi]" class="form-control tempsHeure">
         </div>
         <div class="jour">
           <label for="demande_embauche_heure" class="label">{{ "embauche.vendredi"|trans({}, "embauche") }}</label>
-          <input type="number" name="demande_embauche[heure][vendredi]" min="0" max="8" id="demande_embauche[heure][vendredi]" class="form-control">
+          <input type="number" name="demande_embauche[heure][vendredi]" min="0" max="8" id="demande_embauche[heure][vendredi]" class="form-control tempsHeure">
         </div>
         <div class="jour">
           <label for="demande_embauche_heure" class="label">{{ "embauche.samedi"|trans({}, "embauche") }}</label>
-          <input type="number" name="demande_embauche[heure][samedi]" min="0" max="8" id="demande_embauche[heure][samedi]" class="form-control">
+          <input type="number" name="demande_embauche[heure][samedi]"  min="0" max="8" step="1" id="demande_embauche[heure][samedi]" class="form-control tempsHeure">
         </div>
+      </div>
+
+      <div>
+        <label for="demande_embauche_heure" class="label">TOTAL</label>
+        <input type="number" name="demande_embauche[heure][totale]"  readonly id="demande_embauche[heure][totale]" class="total form-control">
       </div>
     </div>
 
@@ -175,7 +181,30 @@
 
 
 <script>
+
 $(document).ready(function(){
+  var $tempsTotal = 0;
+  // Contrôle sur les heures
+  $('.tempsHeure').blur(function(){
+    if (parseInt($(this).val()) > 8 )
+      $(this).val(8)
+    if (parseInt($(this).val()) < 0)
+      $(this).val(1)
+
+    $tempsTotal = 0
+    $('.tempsHeure').each(function( index ) {
+     var $value = parseInt($(this).val());
+
+      if (isNaN($value))
+        $value = 0;
+      $tempsTotal += $value;
+    });
+
+    console.log('Value = ' + $tempsTotal);
+    $('.total').val($tempsTotal);
+  });
+
+
 
   // Controle du champs CDD
   // Si coché alors on déploit le détail
@@ -279,7 +308,8 @@ $(document).ready(function(){
 
   // Gère les champs "autre"
 
-  $addListener = function($form, $name, $champ, $nb, idInt){
+  $addListener = function($form, $name, $champ, $nb, idInt) {
+
     var addFieldAjax = function() {
       var isChecked = $('#demande_embauche_' + $champ + '_' + $nb).prop('checked');
       if ( (isChecked && $('#at' + idInt).length == 0)  ){
@@ -297,7 +327,6 @@ $(document).ready(function(){
             //console.log(html);
             // Replace current position field ...
             var label = $(html).find('label[for="demande_embauche_autre_'+$name+'"]').text();
-            console.log(label);
             var input = $(html).find('#demande_embauche_autre_' + $name);
             var elem = '<div id="at' + idInt +'"><label for="demande_embauche_autre_' + $name + '" class="control-label label col-sm-3 col-xs-12 required">' + label + '</label><div id="autre' + idInt +'" class="other col-sm-3"></div></div>';
 
@@ -306,7 +335,9 @@ $(document).ready(function(){
           }
         }); // Fin ajax
       } else {
-        $('#at' + idInt).remove();
+        console.log('remove')
+        if(!isChecked)
+          $('#at' + idInt).remove();
       }
     }
 

@@ -231,7 +231,7 @@ class DemandeDetailController extends Controller
 
       if ($form2->has('docSalon') && $form2["docSalon"]->getData() != null)
       {
-        $fileName = $fileUploader->upload($form2["docSalon"]->getData(),  0, 'embauche', 'Contrat2');
+        $fileName = $fileUploader->upload($form2["docSalon"]->getData(), 0, 'embauche', 'Contrat2');
         $demande->setDocSalon($fileName);
       }
     }
