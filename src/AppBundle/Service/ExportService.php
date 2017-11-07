@@ -89,7 +89,7 @@ class ExportService
       ->setCellValue('AO'.$i, 'Pays')->setCellValue('AP'.$i, 'Téléphone 1')->setCellValue('AQ'.$i, 'Téléphone 2')->setCellValue('AR'.$i, 'Email')
       ->setCellValue('AS'.$i, 'Date')->setCellValue('AT'.$i, 'Statut demande')->setCellValue('AU'.$i, 'Type demande');
 
-          //Colonnes spécifique à chaque demande
+          //Colonnes spécifiques à chaque demande
               $ColDemandes= self::whichCol($collabByDemande['nameDemande']);
               $tabExcelCol= array('AV','AW','AX','AY','AZ','BA','BB','BC','BD','BE','BF','BG','BH','BI','BK','BL','BM','BN'
                             ,'BO','BP','BQ','BR','BS','BT','BU','BV','BW','BX','BY','BZ','CA','CB','CC','CD','CE','CF','CG',
