@@ -101,17 +101,17 @@ class DemandeDetailController extends Controller
           $demandeacompte = new DemandeAcompte();
           $demandeacompte = $demande->getDemandeform();
           $form = $this->createForm(DemandeAcompteType::class,
-          $demandeacompte,
-          array("idSalon" => null,
-          "idPersonnel" => $demande->getDemandeform()->getIdPersonnel()
-        ));
+                                      $demandeacompte,
+                                      array("idSalon" => null,
+                                      "idPersonnel" => $demande->getDemandeform()->getIdPersonnel()
+                                    ));
       }
 
     if($dateTraitement)
-      $dateTraitement = $dateTraitement->format('d-m-Y H:i');
+      $dateTraitement = $dateTraitement->format('d/m/Y');
     return $this->render('demande_detail.html.twig', array(
       'demandeur'       => $demandeur,
-      'date'            => $date->format('d-m-Y H:i'),
+      'date'            => $date->format('d/m/Y'),
       'dateTraitement'  => $dateTraitement,
       'statut'          => $statut,
       'message'         => $message,
@@ -186,11 +186,11 @@ class DemandeDetailController extends Controller
     }
 
     if ($dateTraitement)
-      $dateTraitement = $dateTraitement->format('d-m-Y H:i');
+      $dateTraitement = $dateTraitement->format('d/m/Y');
 
     return $this->render('demande_detail_complexe.html.twig', array(
       'demandeur'       => $demandeur,
-      'date'            => $date->format('d-m-Y H:i'),
+      'date'            => $date->format('d/m/Y'),
       'dateTraitement'  => $dateTraitement,
       'statut'          => $statut,
       'typedemande'     => $typedemande,
@@ -200,7 +200,6 @@ class DemandeDetailController extends Controller
       'docSalon'        => $docSalon,
       'docService'      => $docService,
       'img'             => $request->getSession()->get('img'),
-
     ));
   }
 
@@ -232,7 +231,7 @@ class DemandeDetailController extends Controller
 
       if ($form2->has('docSalon') && $form2["docSalon"]->getData() != null)
       {
-        $fileName = $fileUploader->upload($form2["docSalon"]->getData());
+        $fileName = $fileUploader->upload($form2["docSalon"]->getData(),  0, 'embauche', 'Contrat2');
         $demande->setDocSalon($fileName);
       }
     }
@@ -247,14 +246,13 @@ class DemandeDetailController extends Controller
 
       if ($form2["docService"]->getData() != null)
       {
-        $fileName = $fileUploader->upload($form2["docService"]->getData());
+        $fileName = $fileUploader->upload($form2["docService"]->getData(), 0, 'embauche', 'Contrat1');
         $demande->setDocService($fileName);
       }
     }
 
     $this->getDoctrine()->getManager()->flush();
     $this->addFlash("success", "Demande correctement traitée");
-
   }
 
   /**
