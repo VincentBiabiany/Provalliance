@@ -347,42 +347,12 @@ class DemandeEntityRepository extends \Doctrine\ORM\EntityRepository
      $demandes['userID'] =  $requete->getUser();
      $demandes['codeSage'] =  $requete->getIdSalon();
      $demandes['service'] =  $requete->getService();
+     $demandes['nameDemande'] = $requete->getDemandeform()->getNameDemande();
+     $demandes['demandeId'] = $requete->getDemandeform()->getId();
+     $demandes['typeForm'] = $requete->getDemandeform()->getTypeForm();
 
      return $demandes;
 
    }
 
-   //Fonction collabByDemande: Retourne le nom de la demande et l'id du collab concerné pour une demande
-   //Paramètre : id Demande
-   //Return array
-   public function collabByDemande($idDemande){
-      $collabByDemande = [];
-      $demande = $this->findOneBy(array('id' => $idDemande));
-      $collabByDemande['nameDemande'] = $demande->getDemandeform()->getNameDemande();
-      $collabByDemande['demandeId'] = $demande->getDemandeform()->getId();
-      $collabByDemande['typeForm'] = $demande->getDemandeform()->getTypeForm();
-
-    //  if ($demande->getDemandeform()->getTypeForm() == "Demande d'embauche"){
-    //     //  $collab  = $demandeRepo->whichPersonnel($demande);
-    //       $id = $demande->getDemandeform()->getId();
-    //       // $repoEmbauche = $this->getEntityManager()->getRepository('AppBundle:DemandeEmbauche');
-    //       // $collaborateur = $repoEmbauche->infosDemandeEmbauche($id);
-    //
-    //       return ;
-    //
-    //       }else{
-    //       $id = $demande->getDemandeform()->getId();
-    //       $nomDemande = $demande->getDemandeform()->getNameDemande();
-    //       $demandeAcompte = $this->getEntityManager()->getRepository('AppBundle:'.$nomDemande)
-    //                           ->findOneBy(array('id' => $id));
-     //
-    //       $idP = $demandeAcompte->getidPersonnel();
-    //       $repoPerso = $this->getEntityManager('referentiel')->getRepository('ApiBundle:Personnel');
-     //
-    //       $collaborateur = $repoPerso->getInfoCollab('ApiBundle:Personnel')
-    //                          ->findOneBy(array('matricule' => $idP));
-     //
-    //     }
-        return $collabByDemande;
-   }
 }

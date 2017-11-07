@@ -329,7 +329,7 @@ class DemandeController extends Controller
               'appelation'       => $em->getRepository('ApiBundle:Salon')->findOneBy(array("sage" => $demande->getidSalon()))->getAppelation(),
               'coordinateur'     => $coordo,
               'manager'          => $demandeur,
-              'date'             => $date->format('d-m-Y'),
+              'date'             => $date->format('d-m-y'),
               'statut'           => '<span class="'.$classStatut.' statutLabel">'.$statut.'</span>',
               'type'             => $demande->getDemandeform()->getTypeForm(),
               'collaborateur'    => $collab,

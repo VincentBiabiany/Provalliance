@@ -541,7 +541,7 @@ tr.selected{
 	background-color:#c0392b;
 }
 .Traité{
-	background-color:#27ae60;
+	background-color:#16a085;
 }
 .A_valider{
 	background-color:#d35400;
@@ -559,6 +559,8 @@ table.dataTable thead th, table.dataTable thead td, table.dataTable tfoot th, ta
     vertical-align: middle;
 
 }
+
+
 /******* FORMULAIRE EMBAUCHE ******/
 #infoEmbauche{
 	max-width: 875px;

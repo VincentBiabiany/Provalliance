@@ -129,7 +129,28 @@ class PersonnelRepository extends EntityRepository
   {
         $collaborateur=[];
         $requete = $this->findOneBy(array('matricule' => $idpersonnel ));
+        if ($requete == null){
 
+        $collaborateur['matricule']      = '0000';
+        $collaborateur['nom']            = 'Admin';
+        $collaborateur['prenom']         = '';
+        $collaborateur['dateNaissance']  = 'n/a';
+        $collaborateur['villeNaissance'] = 'n/a';
+        $collaborateur['paysNaissance']  = 'n/a';
+        $collaborateur['dateNaissance']  = 'n/a';
+        $collaborateur['sexe']           = 'n/a';
+        $collaborateur['nationalite']    = 'n/a';
+        $collaborateur['niveau']         = 'n/a';
+        $collaborateur['echelon']        = 'n/a';
+        $collaborateur['adresse1']       = 'n/a';
+        $collaborateur['adresse2']       = 'n/a';
+        $collaborateur['codePostal']     = 'n/a';
+        $collaborateur['ville']          = 'n/a';
+        $collaborateur['telephone1']     = 'n/a';
+        $collaborateur['telephone2']     = 'n/a';
+        $collaborateur['email']          = 'n/a';
+
+        }else{
         $collaborateur['matricule']      = $requete->getMatricule();
         $collaborateur['nom']            = $requete->getNom();
         $collaborateur['prenom']         = $requete->getPrenom();
@@ -148,7 +169,7 @@ class PersonnelRepository extends EntityRepository
         $collaborateur['telephone1']     = $requete->getTelephone1();
         $collaborateur['telephone2']     = $requete->getTelephone2();
         $collaborateur['email']          = $requete->getEmail();
-
+        }
         return $collaborateur;
    }
 }

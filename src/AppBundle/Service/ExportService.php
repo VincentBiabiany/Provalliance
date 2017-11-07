@@ -60,16 +60,16 @@ class ExportService
            $coordo = $PersoHasSalonRepo->infosCoordinateur($demandes['codeSage']);
 
            //Infos du Collab
-           $collabByDemande = $demandeRepo->collabByDemande($demandeExport);
+                       //  $collabByDemande = $demandeRepo->collabByDemande($demandeExport);
            //Cas ou la demande concerne un nouveau collaborateur ( Demande d'embauche, demande d'essai ..ect)
-           if ($collabByDemande['nameDemande'] == 'DemandeEmbauche'){
-               $demandeSelfRepo = $this->em2->getRepository('AppBundle:'.$collabByDemande['nameDemande']);
-               $collaborateur = $demandeSelfRepo->infosDemandeSelf($collabByDemande['demandeId']);
+           if ($demandes['nameDemande'] == 'DemandeEmbauche'){
+               $demandeSelfRepo = $this->em2->getRepository('AppBundle:'.$demandes['nameDemande']);
+               $collaborateur = $demandeSelfRepo->infosDemandeSelf($demandes['demandeId']);
 
             //Cas ou la demande concerne un collaborateur existant
            }else{
-              $demandeItSelf = $this->em2->getRepository('AppBundle:'.$collabByDemande['nameDemande'])
-                                        ->findOneBy(array('id' => $collabByDemande['demandeId']));
+              $demandeItSelf = $this->em2->getRepository('AppBundle:'.$demandes['nameDemande'])
+                                        ->findOneBy(array('id' => $demandes['demandeId']));
               $collaborateur = $persoRepo->infosCollab($demandeItSelf->getidPersonnel());
            }
     $phpExcelObject->createSheet();
@@ -90,7 +90,7 @@ class ExportService
       ->setCellValue('AS'.$i, 'Date')->setCellValue('AT'.$i, 'Statut demande')->setCellValue('AU'.$i, 'Type demande');
 
           //Colonnes spécifiques à chaque demande
-              $ColDemandes= self::whichCol($collabByDemande['nameDemande']);
+              $ColDemandes= self::whichCol($demandes['nameDemande']);
               $tabExcelCol= array('AV','AW','AX','AY','AZ','BA','BB','BC','BD','BE','BF','BG','BH','BI','BK','BL','BM','BN'
                             ,'BO','BP','BQ','BR','BS','BT','BU','BV','BW','BX','BY','BZ','CA','CB','CC','CD','CE','CF','CG',
                             'CH','CI','CJ','CK','CL','CM','CN','CO','CP','CQ','CR','CS','CT','CU','CV','CW','CX','CY','CZ',
@@ -100,7 +100,7 @@ class ExportService
                 $phpExcelObject->setActiveSheetIndex(0)->setCellValue($tabExcelCol[$k].$i, $ColDemandes['col'][$k]);
 
                   //Valeurs spécifiques à chaque propriété pour une demande
-                  $valueCol= self::whichVal($collabByDemande['nameDemande'],$collabByDemande['demandeId'],$ColDemandes['col'][$k] );
+                  $valueCol= self::whichVal($demandes['nameDemande'],$demandes['demandeId'],$ColDemandes['col'][$k] );
                   $phpExcelObject->setActiveSheetIndex(0)->setCellValue($tabExcelCol[$k].$j, $valueCol);
              }
       }
@@ -115,7 +115,7 @@ class ExportService
       ->setCellValue('AF'.$j, $coordo['dateDeb'])->setCellValue('AG'.$j, $coordo['dateFin'])->setCellValue('AH'.$j, $collaborateur['niveau'])->setCellValue('AI'.$j,  $collaborateur['echelon'])
       ->setCellValue('AJ'.$j, $coordo['profession'])->setCellValue('AK'.$j, $collaborateur['adresse1'])->setCellValue('AL'.$j, $collaborateur['adresse2'])->setCellValue('AM'.$j, $collaborateur["codePostal"])
       ->setCellValue('AN'.$j, $collaborateur['ville'])->setCellValue('AO'.$j, 'Pays')->setCellValue('AP'.$j, $collaborateur['telephone1'])->setCellValue('AQ'.$j, $collaborateur['telephone2'])->setCellValue('AR'.$j, $collaborateur['email'])
-      ->setCellValue('AS'.$j, $demandes['dateTraitement']->format('d-m-Y'))->setCellValue('AT'.$j, self::labelStatut($demandes['statut']))->setCellValue('AU'.$j, $collabByDemande['typeForm']);
+      ->setCellValue('AS'.$j, $demandes['dateTraitement']->format('d-m-Y'))->setCellValue('AT'.$j, self::labelStatut($demandes['statut']))->setCellValue('AU'.$j, $demandes['typeForm']);
 
 
     $phpExcelObject->getActiveSheet()->setTitle($collaborateur['nom'].'-'.$demandes['dateTraitement']->format('d-m-Y'));
@@ -164,7 +164,6 @@ class ExportService
   //Paramètre : Entity Name, Id Demande , Property Name
   //Return string
   public function whichVal($nameEntity,$idDemande,$nameProperty){
-    $tableName = $this->em2->getClassMetadata('AppBundle:'.$nameEntity)->getTableName();
     $qb = $this->em2->createQueryBuilder()
                     ->add('select', 'u')
                     ->add('from', 'AppBundle:'.$nameEntity.' u')

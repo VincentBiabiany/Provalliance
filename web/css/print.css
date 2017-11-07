@@ -1,0 +1,37 @@
+.property{
+
+
+}
+*{ color: #000;
+font-size: 9px;}
+
+#propertiesDemandePrint{
+    background-color: #f0f0f0 !important;
+    -webkit-print-color-adjust: exact;
+    padding: 25px;
+    margin-bottom: 20px;
+    color: black;
+    border: solid 1px #d5d7d9;
+}
+
+#infosDemandePrint{
+    background-color: #f0f0f0 !important;
+    -webkit-print-color-adjust: exact;
+    padding: 25px;
+    margin-bottom: 20px;
+    color: black;
+    border: solid 1px #d5d7d9;
+}
+
+p{
+    margin-bottom:2px;
+}
+
+.page{
+    height: 1050px;
+    width: 100%;
+}
+
+h1{
+    font-size: 14px;
+}

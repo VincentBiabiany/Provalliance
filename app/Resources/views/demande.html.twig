@@ -2,7 +2,12 @@
 {% block title %}Suivi des demandes{% endblock %}
 
 {% block body %}
-
+<style>
+#forPrint{
+	position: absolute;
+  left: -800px;
+}
+</style>
 
 	<div class="header">
 		<img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
@@ -38,6 +43,10 @@
 							<li id="export">
 									<i class="glyphicon glyphicon-download-alt"></i>
 								  <span>Export</span>
+							</li>
+							<li id="impression">
+									<i class="glyphicon glyphicon-print"></i>
+								  <span>Impression</span>
 							</li>
 							<li id="allselect">
 									<i class="glyphicon glyphicon-th-list"></i>
@@ -94,7 +103,7 @@
 			<button onclick="window.location.href ='{{ path("homepage") }}'" class="btn-black precedent">{{ "global.back"|trans({}, "global") }}</button>
 		{% endif %}
 	</div>
-
+   <div id='forPrint'></div>
 	</div>
 		{{ form_start(form, { 'attr': { 'id': 'exportMultiple', 'action':path("exportXls") } }) }}
 			  {{ form_widget(form.idDemandes) }}
@@ -118,6 +127,7 @@
 
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/jquery.dataTables.min.css') }}">
 	<script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+	<script src="{{ asset('js/printThis.js') }}"></script>
 	<script type="text/javascript" class="init">
 	sessionStorage.setItem('NbDemandeComplexe',0);
 
@@ -143,9 +153,6 @@
 				})
 				return returnArray;
 			}
-
-
-
 
 			//Construction du tableau de la liste des demandes
 			var dt  = $('#demande').DataTable({
@@ -373,8 +380,62 @@
 							$("#myModal").modal();
 					 	 $("#myModal").css('display','flex');
 						}
-
 			});
+
+
+
+			//Impression multiple des demandes
+					$('#impression').on( 'click', function () {
+						demandes = [];
+						types =[];
+						i=0;
+						$('tr.selected').each(function(i, obj) {
+									 demandes[i]= dt.row(this).data()['id'];
+									 types[i] =  dt.row(this).data()['type'];
+
+							});
+
+							//On vérifie que les demandes soient du même type
+							if (sameDemande(types)){
+								var url1 = 'http://'+$(location).attr('host')+"{{ asset('css/print.css') }}";
+
+											$.ajax({
+													url: "{{ path('printMultiple') }}",
+													async: false,
+												  data: {"id" : demandes}
+												}).done(function( response ) {
+											    	$("#forPrint").html("");
+											    	$("#forPrint").append(response);
+														$("#forPrint").printThis({
+															debug: false,               // show the iframe for debugging
+													    importCSS: false,            // import page CSS
+													    importStyle: false,         // import style tags
+													    printContainer: false,       // grab outer container as well as the contents of the selector
+													    loadCSS: url1,  // path to additional css file - use an array [] for multiple
+													    pageTitle: "",              // add title to print page
+													    removeInline: false,        // remove all inline styles from print elements
+													    printDelay: 333,            // variable print delay; depending on complexity a higher value may be necessary
+													    header: null,               // prefix to html
+													    footer: null,               // postfix to html
+													    base: false ,               // preserve the BASE tag, or accept a string for the URL
+													    formValues: true,           // preserve input/form values
+													    canvas: false,              // copy canvas elements (experimental)
+													    removeScripts: false,       // remove script tags from print content
+													    copyTagClasses: false       // copy classes from the html & body tag
+														});
+										  });
+
+
+							}else{
+								$(".flashConfirmation").html('');
+								$(".flashConfirmation").css('color','red');
+								$(".flashConfirmation").append('Export impossible !<br/> Les demandes sélectionnées ne sont pas du même types.');
+								$("#myModal").modal();
+						 	 $("#myModal").css('display','flex');
+							}
+
+					});
+
 
 		//Sélection de toutes les demandes
 				$('#allselect').on( 'click', function () {
