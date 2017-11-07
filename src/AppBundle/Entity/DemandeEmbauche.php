@@ -275,6 +275,9 @@ class DemandeEmbauche extends DemandeForm
      */
     protected $mutuelle;
 
+    protected $nameDemande ='DemandeEmbauche';
+
+
     /**
      * Set nom
      *
@@ -1137,5 +1140,15 @@ class DemandeEmbauche extends DemandeForm
     public function getPaysNaissance()
     {
         return $this->paysNaissance;
+    }
+
+    /**
+     * Get nameDemande
+     *
+     * @return integer
+     */
+    public function getNameDemande()
+    {
+        return $this->nameDemande;
     }
 }

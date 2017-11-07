@@ -124,4 +124,31 @@ class PersonnelRepository extends EntityRepository
             }
       return $listeAccount;
   }
+
+  public function InfosCollab($idpersonnel)
+  {
+        $collaborateur=[];
+        $requete = $this->findOneBy(array('matricule' => $idpersonnel ));
+
+        $collaborateur['matricule']      = $requete->getMatricule();
+        $collaborateur['nom']            = $requete->getNom();
+        $collaborateur['prenom']         = $requete->getPrenom();
+        $collaborateur['dateNaissance']  = $requete->getDateNaissance()->format('d-m-Y');
+        $collaborateur['villeNaissance'] = $requete->getVilleNaissance();
+        $collaborateur['paysNaissance']  = $requete->getPaysNaissance();
+        $collaborateur['dateNaissance']  = $requete->getDateNaissance()->format('d-m-Y');
+        $collaborateur['sexe']           = $requete->getSexe();
+        $collaborateur['nationalite']    = $requete->getNationalite();
+        $collaborateur['niveau']         = $requete->getNiveau();
+        $collaborateur['echelon']        = $requete->getEchelon();
+        $collaborateur['adresse1']       = $requete->getAdresse1();
+        $collaborateur['adresse2']       = $requete->getAdresse2();
+        $collaborateur['codePostal']     = $requete->getCodepostal();
+        $collaborateur['ville']          = $requete->getVille();
+        $collaborateur['telephone1']     = $requete->getTelephone1();
+        $collaborateur['telephone2']     = $requete->getTelephone2();
+        $collaborateur['email']          = $requete->getEmail();
+
+        return $collaborateur;
+   }
 }

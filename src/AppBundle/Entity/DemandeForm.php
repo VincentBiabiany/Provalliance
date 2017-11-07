@@ -62,4 +62,28 @@ abstract class DemandeForm
     {
         return $this->typeForm;
     }
+    /**
+     * Set discr
+     *
+     * @param string $discr
+     *
+     * @return DemandeForm
+     */
+    public function setDiscr($discr)
+    {
+        $this->discr = $discr;
+
+        return $this;
+    }
+
+    /**
+     * Get discr
+     *
+     * @return string
+     */
+    public function getDiscr()
+    {
+        return $this->discr;
+    }
+
 }

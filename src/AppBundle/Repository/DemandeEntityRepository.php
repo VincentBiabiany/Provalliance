@@ -310,13 +310,15 @@ class DemandeEntityRepository extends \Doctrine\ORM\EntityRepository
      return $statut;
    }
 
-   // Fonction whichPersonnel: Retourne les infos du personnel pour chaque demande
+   // Fonction whichPersonnel: Retourne nom et prenom du collaborateur pour chaque demande
    public function whichPersonnel($demande){
      $collab = $demande->getDemandeform()->getPrenom() . " " . $demande->getDemandeform()->getNom();
      return $collab;
    }
 
    // Fonction sortingOut: Trie le tableau des demandes par ordre Croissant ou Décroissant
+   // Paramètres :
+   // Return :
    public function sortingOut($typeFilter,$dir,$output,$column){
      /* TRI sur les colonnes par ordre croissant ou décroissant*/
      if ($typeFilter == 'x'){
@@ -329,5 +331,58 @@ class DemandeEntityRepository extends \Doctrine\ORM\EntityRepository
      }else{
        return $output;
      }
+   }
+
+   //Fonction InfosDemande: Retourne un array avec toutes les données d'une demande
+   //Paramètre : id Demande
+   //Return array
+   public function infosDemande($idDemande){
+     $demandes=[];
+     //Infos de La demande
+     $requete = $this->findOneBy(array('id' => $idDemande));
+
+     $demandes['statut'] = $requete->getStatut();
+     //  $demandeStatut = self::labelStatut($statut);
+     $demandes['dateTraitement'] =  $requete->getDateTraitement();
+     $demandes['userID'] =  $requete->getUser();
+     $demandes['codeSage'] =  $requete->getIdSalon();
+     $demandes['service'] =  $requete->getService();
+
+     return $demandes;
+
+   }
+
+   //Fonction collabByDemande: Retourne le nom de la demande et l'id du collab concerné pour une demande
+   //Paramètre : id Demande
+   //Return array
+   public function collabByDemande($idDemande){
+      $collabByDemande = [];
+      $demande = $this->findOneBy(array('id' => $idDemande));
+      $collabByDemande['nameDemande'] = $demande->getDemandeform()->getNameDemande();
+      $collabByDemande['demandeId'] = $demande->getDemandeform()->getId();
+      $collabByDemande['typeForm'] = $demande->getDemandeform()->getTypeForm();
+
+    //  if ($demande->getDemandeform()->getTypeForm() == "Demande d'embauche"){
+    //     //  $collab  = $demandeRepo->whichPersonnel($demande);
+    //       $id = $demande->getDemandeform()->getId();
+    //       // $repoEmbauche = $this->getEntityManager()->getRepository('AppBundle:DemandeEmbauche');
+    //       // $collaborateur = $repoEmbauche->infosDemandeEmbauche($id);
+    //
+    //       return ;
+    //
+    //       }else{
+    //       $id = $demande->getDemandeform()->getId();
+    //       $nomDemande = $demande->getDemandeform()->getNameDemande();
+    //       $demandeAcompte = $this->getEntityManager()->getRepository('AppBundle:'.$nomDemande)
+    //                           ->findOneBy(array('id' => $id));
+     //
+    //       $idP = $demandeAcompte->getidPersonnel();
+    //       $repoPerso = $this->getEntityManager('referentiel')->getRepository('ApiBundle:Personnel');
+     //
+    //       $collaborateur = $repoPerso->getInfoCollab('ApiBundle:Personnel')
+    //                          ->findOneBy(array('matricule' => $idP));
+     //
+    //     }
+        return $collabByDemande;
    }
 }

@@ -62,3 +62,8 @@ services:
                     '@mailer',
                     '@security.token_storage',
                     '@templating']
+
+    AppBundle\Service\ExportService:
+        arguments: ['@doctrine.orm.referentiel_entity_manager',
+                    '@doctrine.orm.default_entity_manager',
+                    '@phpexcel']

@@ -28,6 +28,9 @@ class DemandeAcompte extends DemandeForm
      */
     private $idPersonnel;
 
+    protected $nameDemande ='DemandeAcompte';
+
+
 
     /**
      * Set montant
@@ -75,5 +78,14 @@ class DemandeAcompte extends DemandeForm
     public function getIdPersonnel()
     {
         return $this->idPersonnel;
+    }
+    /**
+     * Get nameDemande
+     *
+     * @return integer
+     */
+    public function getNameDemande()
+    {
+        return $this->nameDemande;
     }
 }

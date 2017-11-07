@@ -13,6 +13,7 @@ use ApiBundle\Entity\Salon;
  */
 class SalonRepository extends EntityRepository
 {
+
   public function findAllActiveSalon() {
     $salon = $this->findAll();
     $this->getEntityManager()->flush();
@@ -26,4 +27,34 @@ class SalonRepository extends EntityRepository
 
     return $this->createQueryBuilder('s')->where('s.actif = 1');
   }
+
+    // Fonction infosSalon : Retourne les infos d'un salon
+    // Paramètre : idsalon
+    // Return array
+    public function infosSalon($idSalon) {
+          $salon=[];
+          $requete = $this->findOneBy(array('sage' => $idSalon));
+
+              $salon['appelation'] = $requete->getAppelation();
+              $salon['enseigne'] =  $requete->getEnseigne()->getNom();
+              $salon['formeJuridique'] =  $requete->getFormeJuridique();
+              $salon['rcsVille'] =  $requete->getRcsVille();
+              $salon['codeNaf'] =  $requete->getCodeNaf();
+              $salon['siren'] =  $requete->getSiren();
+              $salon['capital'] =  $requete->getCapital();
+              $salon['raisonSociale'] =  $requete->getRaisonSociale();
+              $salon['adresse1'] =  $requete->getAdresse1();
+              $salon['adresse2'] =  $requete->getAdresse2();
+              $salon['codePostal'] =  $requete->getCodePostal();
+              $salon['ville'] =  $requete->getVille();
+              $salon['telephone1'] =  $requete->getTelephone1();
+              $salon['telephone2'] =  $requete->getTelephone2();
+              $salon['email'] =  $requete->getEmail();
+              $salon['codeMarlix'] =  $requete->getCodeMarlix();
+              $salon['dateOuverture'] =  $requete->getDateOuverture();
+
+              return $salon;
+      }
+
+
 }

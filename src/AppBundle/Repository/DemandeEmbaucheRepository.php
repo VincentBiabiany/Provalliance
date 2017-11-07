@@ -10,4 +10,32 @@ namespace AppBundle\Repository;
  */
 class DemandeEmbaucheRepository extends \Doctrine\ORM\EntityRepository
 {
+  //Fonction infosDemandeSelf: Retourne un array avec toutes les données d'une demande d'embauche
+  //Paramètre : id Demande
+  //Return array
+  public function infosDemandeSelf($idDemandeEmbauche){
+    $collaborateur=[];
+    $requete = $this->findOneBy(array('id' => $idDemandeEmbauche));
+
+    $collaborateur['matricule']      = '0000';
+    $collaborateur['nom']            = $requete->getNom();
+    $collaborateur['prenom']         = $requete->getPrenom();
+    $collaborateur['dateNaissance']  = $requete->getDateNaissance()->format('d-m-Y');
+    $collaborateur['villeNaissance'] = $requete->getVilleNaissance();
+    $collaborateur['paysNaissance']  = $requete->getPaysNaissance();
+    $collaborateur['dateNaissance']  = $requete->getDateNaissance()->format('d-m-Y');
+    $collaborateur['sexe']           = $requete->getSexe();
+    $collaborateur['nationalite']    = $requete->getNationalite();
+    $collaborateur['niveau']         = $requete->getNiveau();
+    $collaborateur['echelon']        = $requete->getEchelon();
+    $collaborateur['adresse1']       = $requete->getAddresse1();
+    $collaborateur['adresse2']       = $requete->getAddresse2();
+    $collaborateur['codePostal']     = $requete->getCodepostal();
+    $collaborateur['ville' ]         = $requete->getVille();
+    $collaborateur['telephone1']     = $requete->getTelephone();
+    $collaborateur['telephone2']     = '';
+    $collaborateur['email']          = $requete->getEmail();
+
+    return $collaborateur;
+   }
 }
