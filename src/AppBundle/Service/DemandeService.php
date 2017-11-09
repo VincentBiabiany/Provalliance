@@ -276,8 +276,14 @@ class DemandeService
     $fileName = $this->fileUploader->upload($demande->getRib(), 0, 'embauche', 'RIB');
     $demande->setRib($fileName);
 
-    $fileName = $this->fileUploader->upload($demande->getDiplomeFile(), 0, 'embauche', 'Contrat1');
+    $fileName = $this->fileUploader->upload($demande->getDiplomeFile(), 0, 'embauche', 'DPLM1');
     $demande->setDiplomeFile($fileName);
+
+    if ($demande->getDiplomeFile2() != null || $demande->getDiplomeFile2() != '')
+    {
+      $fileName = $this->fileUploader->upload($demande->getDiplomeFile2(), 0, 'embauche', 'DPLM2');
+      $demande->setDiplomeFile($fileName);
+    }
 
     $fileName = $this->fileUploader->upload($demande->getMutuelle(), 0, 'embauche', 'AM');
     $demande->setMutuelle($fileName);

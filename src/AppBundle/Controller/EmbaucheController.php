@@ -4,7 +4,7 @@ namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\BrowserKit\Response;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -67,6 +67,17 @@ class EmbaucheController extends Controller
         )
       );
     }
+
+    /**
+     * @Route("/clearSession", name="clearSession")
+     */
+     public function indexClearSession(Request $request)
+     {
+       $session = $request->getSession();
+       $session->remove('demande');
+
+       return new Response(json_encode("ok"), 200, ['Content-Type' => 'application/json']);
+     }
 
     /**
      * @Route("/embauche3", name="rh_embauche3")

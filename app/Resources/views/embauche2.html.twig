@@ -163,7 +163,7 @@
       </div>
 
       <div>
-        <label for="demande_embauche_heure" class="label">TOTAL</label>
+        <label for="demande_embauche_heure" class="label">{{ "embauche.total"|trans({}, "embauche") }}</label>
         <input type="number" name="demande_embauche[heure][totale]"  readonly id="demande_embauche[heure][totale]" class="total form-control">
       </div>
     </div>
@@ -402,6 +402,20 @@ $(document).ready(function(){
   $(document).ready(function() {
     $('.jusquau').replaceWith( $('#demande_embauche_date') );
   });
+
+  // Si clique sur déconnexion ou admin ou home alors
+  // on clear la session
+  $('.libelle').click(function(){
+    clearSession();
+  });
+
+  function clearSession()
+  {
+    $.ajax({
+      url : "{{path('clearSession')}}",
+      type: 'GET'
+    });
+  }
 
 </script>
 <script language="javascript">

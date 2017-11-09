@@ -86,35 +86,57 @@ class DemandeEmbaucheType extends AbstractType
           function(FormEvent $event)
           {
             $form = $event->getForm();
-            $data = $event->getForm()->getData();
+            $data = $event->getData();
 
-            $form->add('autre2', TextType::class, array(
-              'attr' => array( ),
-              'label' => 'embauche.autre',
-              'translation_domain' => 'embauche',
-              'mapped' => false
-            ));
+            // if ($data->getNationalite() != "embauche.nat.etr")
+            //   $data->setNationalite("embauche.nat.etr");
 
-          })
+              $form->add('autre2', TextType::class, array(
+                'attr' => array( ),
+                'label' => 'embauche.autre',
+                'translation_domain' => 'embauche',
+                'mapped' => false
+              ));
+            
+
+          });
+
+          // ->addEventListener(
+          //   FormEvents::PRE_SET_DATA,
+          //   function(FormEvent $event)
+          //   {
+          //     $form = $event->getForm();
+          //     $data = $event->getData();
+          //
+          //     // if ($data->getNationalite() != "embauche.nat.etr")
+          //     //   $data->setNationalite("embauche.nat.etr");
+          //
+          //     // $form->add('autre2', TextType::class, array(
+          //     //   'attr' => array( ),
+          //     //   'label' => 'embauche.autre',
+          //     //   'translation_domain' => 'embauche',
+          //     //   'mapped' => false
+          //     // ));
+          //   });
 
           // Quand le formulaire est posté
           // si nationalite - autre coché et remplie
           // alors on met la variable dans nationalité
-          ->addEventListener(
-            FormEvents::POST_SUBMIT,
-            function (FormEvent $event) {
-              $form = $event->getForm();
-              $data = $event->getData();
-
-              if (!($data instanceof DemandeEmbauche) || !$data->getNationalite())
-              return;
-
-              if ($data->getNationalite() == "embauche.nat.etr" )
-              {
-                $data->setNationalite($form->get('autre2')->getData());
-                $event->setData($data);
-              }
-            });
+          // ->addEventListener(
+          //   FormEvents::SUBMIT,
+          //   function (FormEvent $event) {
+          //     $form = $event->getForm();
+          //     $data = $event->getData();
+          //
+          //     if (!($data instanceof DemandeEmbauche) || !$data->getNationalite())
+          //       return;
+          //
+          //     if ($data->getNationalite() == "embauche.nat.etr" )
+          //     {
+          //      $data->setNationalite($form->get('autre2')->getData());
+          //      $event->setData($data);
+          //     }
+          //   });
             break;
 
             // Etape 2
@@ -330,7 +352,6 @@ class DemandeEmbaucheType extends AbstractType
                     }
                   }
 
-                  //die(dump($data));
                   // Récupération des temps partiels
                   if (isset($extra['heure']))
                     $data->setTempsPartiel(json_encode($extra['heure']));

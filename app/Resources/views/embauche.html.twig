@@ -126,12 +126,11 @@
 
 
     <div id="actionsButtons">
-      {{ form_end(form) }}
-            <a href="{{ path('home_juridique_rh') }}" class="btn-black precedent">
-                {{ "global.back"|trans({}, "global") }}
-            </a>
+        {{ form_end(form) }}
+      <a onclick='clearSession();' href="{{ path('home_juridique_rh') }}" class="btn-black precedent">
+          {{ "global.back"|trans({}, "global") }}
+      </a>
     </div>
-
 </div>
 
 <!-- .......................... POP-UP ................................-->
@@ -172,6 +171,18 @@
 
 <script type="text/javascript">
 
+  $('.libelle').click(function(){
+    clearSession();
+  });
+
+  function clearSession()
+  {
+    $.ajax({
+      url : "{{path('clearSession')}}",
+      type: 'GET'
+    });
+  }
+
   $('#topNav').css('display','none');
 
   {% if isSubmitted == false %}
@@ -191,7 +202,7 @@ $situ.change(function() {
     count++
     var $form = $(this).closest('form');
     var data = {}
-    data["demande_embauche"] = "test" //$('#form1').serializeObject();
+    data["demande_embauche"] = "test"
     console.log(data);
     // Submit data via AJAX to the form's action path.
     console.log($form);
@@ -216,6 +227,66 @@ $situ.change(function() {
     count = 0;
   }
 });
+
+
+// $addListener = function($form, $name, $champ, $nb, idInt) {
+//
+//   var addFieldAjax = function() {
+//     var isChecked = $('#demande_embauche_' + $champ + '_' + $nb).prop('checked');
+//     if ( (isChecked && $('#at' + idInt).length == 0)  ){
+//       var $form2 = $(this).closest('form');
+//       // Simulate form data, but only include the selected sport value.
+//       var data = {};
+//       data["demande_embauche[" + $name + "]" ] = $name;
+//       console.log(data);
+//       // Submit data via AJAX to the form's action path.
+//       $.ajax({
+//         url : "{{path('rh_embauche2')}}",
+//         type: $form2.attr('method'),
+//         data : data,
+//         success: function(html) {
+//           //console.log(html);
+//           // Replace current position field ...
+//           var label = $(html).find('label[for="demande_embauche_autre_'+$name+'"]').text();
+//           var input = $(html).find('#demande_embauche_autre_' + $name);
+//           var elem = '<div id="at' + idInt +'"><label for="demande_embauche_autre_' + $name + '" class="control-label label col-sm-3 col-xs-12 required">' + label + '</label><div id="autre' + idInt +'" class="other col-sm-3"></div></div>';
+//
+//           $form.parent().parent().append(elem);
+//           input.appendTo('#autre' + idInt);
+//         }
+//       }); // Fin ajax
+//     } else {
+//       console.log('remove')
+//       if(!isChecked)
+//         $('#at' + idInt).remove();
+//     }
+//   }
+//
+//   if($('#demande_embauche_' + $champ + '_' + $nb).prop('checked')){
+//     var data = {};
+//     data["demande_embauche[" + $name + "]" ] = $name;
+//     console.log(data);
+//     $.ajax({
+//       url : "{{absolute_url(path('rh_embauche'))}}",
+//       type: "POST",
+//       data : data,
+//       success: function(html) {
+//         //console.log(html);
+//         // Replace current position field ...
+//         var label = $(html).find('label[for="demande_embauche_autre_' + $name + '"]').text();
+//         console.log(label);
+//         var input = $(html).find('#demande_embauche_autre_' + $name);
+//         var elem = '<div id="at' + idInt +'"><label for="demande_embauche_autre_' + $name + '" class="control-label label col-sm-3 col-xs-12 required">' + label + '</label><div id="autre' + idInt +'" class="other col-sm-3"></div></div>';
+//
+//         $form.parent().parent().append(elem);
+//         input.appendTo('#autre' + idInt);
+//       }
+//     }); // Fin ajax
+//   }
+//   $form.change(addFieldAjax); // Fin change()
+// }
+// var $situ =  $('#demande_embauche_nationalite');
+// $addListener($situ, "lieu", "nationalite", 1, 1);
 </script>
 
 <script src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script>

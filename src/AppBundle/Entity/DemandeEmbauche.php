@@ -58,9 +58,9 @@ class DemandeEmbauche extends DemandeForm
     private $addresse2;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="code_postal", type="integer")
+     * @ORM\Column(name="code_postal", type="string", length=20)
      */
     private $codePostal;
 
@@ -253,6 +253,13 @@ class DemandeEmbauche extends DemandeForm
      * @ORM\Column(name="diplome_file", type="string", length=255)
      */
     protected $diplomeFile;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="diplome_file2", type="string", length=255, nullable=true)
+     */
+    protected $diplomeFile2;
 
     /**
      * @var string
@@ -1017,6 +1024,30 @@ class DemandeEmbauche extends DemandeForm
     public function getDiplomeFile()
     {
         return $this->diplomeFile;
+    }
+
+    /**
+     * Set diplomeFile2
+     *
+     * @param string $diplomeFile2
+     *
+     * @return DemandeEmbauche
+     */
+    public function setDiplomeFile2($diplomeFile2)
+    {
+        $this->diplomeFile2 = $diplomeFile2;
+
+        return $this;
+    }
+
+    /**
+     * Get diplomeFile2
+     *
+     * @return string
+     */
+    public function getDiplomeFile2()
+    {
+        return $this->diplomeFile2;
     }
 
     /**
