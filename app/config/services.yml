@@ -71,3 +71,8 @@ services:
     AppBundle\Service\ImpressionService:
         arguments: ['@doctrine.orm.referentiel_entity_manager',
                     '@doctrine.orm.default_entity_manager']
+
+    AppBundle\Filter\TwigFilter:
+        arguments: ['@templating']
+        tags:
+            - { name: assetic.filter.twig, alias: twig }

@@ -126,7 +126,12 @@
 	</div>
 
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/jquery.dataTables.min.css') }}">
-	<script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+	{% javascripts
+	   '@AppBundle/Resources/public/js/demande.js.twig' %}
+	    <script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+
+		<script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
 	<script src="{{ asset('js/printThis.js') }}"></script>
 	<script type="text/javascript" class="init">
 	sessionStorage.setItem('NbDemandeComplexe',0);
@@ -155,7 +160,7 @@
 			}
 
 			//Construction du tableau de la liste des demandes
-			var dt  = $('#demande').DataTable({
+			 dt  = $('#demande').DataTable({
 				  "searching": false,
 					"processing": true,
 					"serverSide": true,
@@ -249,7 +254,7 @@
 
 			$('#filtre').appendTo($('#header-filtre'));
 
-      //Affiche le détail d'une demande
+			//Affiche le détail d'une demande
 			$('#demande tbody').on( 'click', 'tr td.details-control', function () {
 					var id = dt.row(this).data()['id'];
 					$.ajax({
@@ -261,33 +266,7 @@
 				}
 			);
 
-   //Active ou Désactive la fonctionnalité "VALIDATION MULTIPLE" selon le type de la demande sélectionnée
-    function typeDemande(id){
-			$.ajax({
-					url: "{{ path('typeDemande') }}",
-					data: {"id" : id},
-					async: false
-				}).success(function( response ) {
-					if (response == '1'){
-					}else{
-						oldNb = Number(sessionStorage.getItem('NbDemandeComplexe'));
-						sessionStorage.setItem('NbDemandeComplexe',oldNb+1);
-					}
-			});
-}
 
-//Active ou Désactive la fonctionnalité EXPORT MULTIPLE" si les demandes sélectionnées ne sont pas du même type
-    function sameDemande(types){
-			 result = true;
-			for(i=0;i < types.length-1; i++){
-					if(types[i] == types[i+1]){
-						result = true;
-					}else{
-						result = false;
-					}
-		  }
-			return result;
-    }
 
 {% if is_granted('ROLE_PAIE') or is_granted('ROLE_JURIDIQUE') or is_granted('ROLE_ADMIN') %}
 			//Sélection Multiple des demandes
@@ -332,56 +311,6 @@
 {% else %}
 			$('#selectionMultiple').css('display','none');
 {% endif %}
-			 //Déselection des demandes au préalablement sélectionnées
-			 	$('#deselect').on( 'click', function () {
-           $('tr.selected').removeClass('selected');
-					 $('#selectionMultiple div').css('display','none');
-				});
-
-			 //Validation multiple des demandes simples
-			 	$('#validation').on( 'click', function () {
-					demandes = [];
-					nbValidates = 0;
-					$('tr.selected').each(function(i, obj) {
-								var id = dt.row(this).data()['id'];
-								 demandes[i]=id;
-								 nbValidates = nbValidates +1;
-						});
-						$.ajax({
-								url: "{{ path('demandeValidate') }}",
-							  data: {"demandes" : demandes,'nbValidates':nbValidates},
-								type: 'POST'
-							}).done(function( response ) {
-						    window.location.href = response;
-					  });
-
-			});
-
-		//Export multiple des demandes
-				$('#export').on( 'click', function () {
-					demandes = [];
-					types =[];
-					i=0;
-					$('tr.selected').each(function(i, obj) {
-								 demandes[i]= dt.row(this).data()['id'];
-								 types[i] =  dt.row(this).data()['type'];
-
-						});
-
-						//On vérifie que les demandes soient du même type
-						if (sameDemande(types)){
-								//Injection des id des demandes pour exportXls Multiple
-								$('input#form_idDemandes').val(demandes);
-								$('#exportMultiple').submit();
-						}else{
-							$(".flashConfirmation").html('');
-							$(".flashConfirmation").css('color','red');
-							$(".flashConfirmation").append('Export impossible !<br/> Les demandes sélectionnées ne sont pas du même types.');
-							$("#myModal").modal();
-					 	 $("#myModal").css('display','flex');
-						}
-			});
-
 
 
 			//Impression multiple des demandes
@@ -429,31 +358,45 @@
 							}else{
 								$(".flashConfirmation").html('');
 								$(".flashConfirmation").css('color','red');
-								$(".flashConfirmation").append('Export impossible !<br/> Les demandes sélectionnées ne sont pas du même types.');
+								$(".flashConfirmation").append('Impression impossible !<br/> Les demandes sélectionnées ne sont pas du même types.');
 								$("#myModal").modal();
 						 	 $("#myModal").css('display','flex');
 							}
 
 					});
 
+					// Trigger Validation Multiple
+			 	 // Description : Validation multiple des demandes simples
+			 		$('#validation').on( 'click', function () {
+			 			demandes = [];
+			 			nbValidates = 0;
+			 			$('tr.selected').each(function(i, obj) {
+			 						var id = dt.row(this).data()['id'];
+			 						 demandes[i]=id;
+			 						 nbValidates = nbValidates +1;
+			 				});
+			 				$.ajax({
+			 						url: "{{ path('demandeValidate') }}",
+			 						data: {"demandes" : demandes,'nbValidates':nbValidates},
+			 						type: 'POST'
+			 					}).done(function( response ) {
+			 						window.location.href = response;
+			 				});
 
-		//Sélection de toutes les demandes
-				$('#allselect').on( 'click', function () {
-					$('#demande tbody tr').each(function(i, obj) {
-							if ($(this).is('.selected')){}else{
-								$(this).addClass('selected');
-								 }
-						});
-						$('#nbSelect .counter').text(dt.rows('.selected').data().length+' ');
-						if (  $('tr.selected').length >0){
-									if (  $('tr.selected').length == 1){
-											$('#nbSelect .textSelect').text('élément sélectionné');
-									}else{
-											$('#nbSelect .textSelect').text('éléments sélectionnés');
-									}
-								}
-			}
-		);
+			 	});
+
+			 	//Affiche le détail d'une demande
+			 	$('#demande tbody').on( 'click', 'tr td.details-control', function () {
+			 			var id = dt.row(this).data()['id'];
+			 			$.ajax({
+			 					url: '{{ path("detail") }}',
+			 					data: {"id" : id}
+			 				}).done(function( response ) {
+			 					window.location.href = response;
+			 			});
+			 		}
+			 	);
+
 });
 
 {% if flash %}

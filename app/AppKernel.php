@@ -20,6 +20,7 @@ class AppKernel extends Kernel
 			new FOS\UserBundle\FOSUserBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             new Liuggio\ExcelBundle\LiuggioExcelBundle(),
+            new Symfony\Bundle\AsseticBundle\AsseticBundle(),
 
         ];
 
