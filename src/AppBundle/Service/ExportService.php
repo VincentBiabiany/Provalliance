@@ -70,7 +70,7 @@ class ExportService
            }else{
               $demandeItSelf = $this->em2->getRepository('AppBundle:'.$demandes['nameDemande'])
                                         ->findOneBy(array('id' => $demandes['demandeId']));
-              $collaborateur = $persoRepo->infosCollab($demandeItSelf->getidPersonnel());
+              $collaborateur = $persoRepo->infosCollab($demandeItSelf->getMatricule());
            }
     $phpExcelObject->createSheet();
     // Colonnes Génériques

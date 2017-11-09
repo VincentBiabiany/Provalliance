@@ -32,7 +32,7 @@ class PersonnelHasSalonRepository extends EntityRepository
                       ->leftjoin('ps.personnelMatricule', 'p')
                       ->where('ps.actif = 1')->getQuery()->getResult();
 
-
+      return $active;
    }
 
    // Fonction infosCoordinateur : Retourne un coordinateur pour un salon donné

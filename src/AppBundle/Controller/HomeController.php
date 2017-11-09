@@ -37,7 +37,7 @@ class HomeController extends Controller
       return $this->redirect($this->generateUrl('demande'));
 
     } else {
-      $idPersonnnel = $this->getUser()->getIdPersonnel();
+      $idPersonnnel = $this->getUser()->getMatricule();
       $em = $this->getDoctrine()->getManager('referentiel');
       $personnel = $em->getRepository('ApiBundle:Personnel')->findOneBy(array('matricule' => $idPersonnnel));
 

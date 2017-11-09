@@ -22,7 +22,7 @@ class DemandeAcompteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
       $idSalon = $options["idSalon"];
-      $idPersonnel = $options["idPersonnel"];
+      $matricule = $options["matricule"];
       //Construit le formulaire d'accompte pour le résumé de la demande
       if ($idSalon == null){
         $builder
@@ -36,7 +36,7 @@ class DemandeAcompteType extends AbstractType
                   'translation_domain' => 'demande_acompte',
                 ))
 
-              ->add('idPersonnel', EntityType::class, array(
+              ->add('matricule', EntityType::class, array(
                   'attr' => array(
                     'readonly' => true,
                     'disabled' => true,
@@ -49,10 +49,10 @@ class DemandeAcompteType extends AbstractType
                         return $personnel->getNom() ." ". $personnel->getPrenom();
                       },
 
-                  'query_builder' => function (EntityRepository $er) use ($idPersonnel) {
+                  'query_builder' => function (EntityRepository $er) use ($matricule) {
                       return $er->createQueryBuilder('p')
-                                ->where('p.matricule = :idPersonnel')
-                                ->setParameter('idPersonnel', $idPersonnel);
+                                ->where('p.matricule = :matricule')
+                                ->setParameter('matricule', $matricule);
                     },
                   'label' => 'demandeacompte.nom',
                   'translation_domain' => 'demande_acompte'
@@ -66,7 +66,7 @@ class DemandeAcompteType extends AbstractType
                      'translation_domain' => 'demande_acompte',
                      'attr' => array('min' => '0')
                 ))
-              ->add('idPersonnel', EntityType::class, array(
+              ->add('matricule', EntityType::class, array(
                   // query choices from this entity
                   'class' => 'ApiBundle:Personnel',
                   // use the User.username property as the visible option string
@@ -92,7 +92,7 @@ class DemandeAcompteType extends AbstractType
                     $form = $event->getForm();
                     $data = $event->getForm()->getData();
 
-                    $data->setIdPersonnel($form['idPersonnel']->getData()->getMatricule());
+                    $data->setMatricule($form['matricule']->getData()->getMatricule());
                     $event->setData($data);
                   });
       }
@@ -103,7 +103,7 @@ class DemandeAcompteType extends AbstractType
 		$resolver->setDefaults(array(
 			'data_class' => DemandeAcompte::class,
       'idSalon' => null,
-      'idPersonnel' => null
+      'matricule' => null
 		));
 	}
 }

@@ -49,9 +49,9 @@ class User extends BaseUser
 	/**
      * @var int
      *
-     * @ORM\Column(name="personnel_id", type="integer", nullable=true)
+     * @ORM\Column(name="matricule", type="integer", nullable=true)
      */
-    private $idPersonnel;
+    private $matricule;
 
     public function __construct()
     {
@@ -71,29 +71,30 @@ class User extends BaseUser
         $this->setLastLogin(new \DateTime());
 
  }
-    /**
-     * Set idPersonnel
-     *
-     * @param integer idPersonnel
-     *
-     * @return User
-     */
-    public function setIdPersonnel($idPersonnel)
-    {
-        $this->idPersonnel = $idPersonnel;
+     /**
+      * Set matricule
+      *
+      * @param integer $matricule
+      *
+      * @return DemandeAcompte
+      */
+     public function setMatricule($matricule)
+     {
+         $this->matricule = $matricule;
 
-        return $this;
-    }
+         return $this;
+     }
 
-    /**
-     * Get idPersonnel
-     *
-     * @return integer
-     */
-    public function getIdPersonnel()
-    {
-        return $this->idPersonnel;
-    }
+     /**
+      * Get matricule
+      *
+      * @return integer
+      */
+     public function getMatricule()
+     {
+         return $this->matricule;
+     }
+
     /**
      * Set creation
      *

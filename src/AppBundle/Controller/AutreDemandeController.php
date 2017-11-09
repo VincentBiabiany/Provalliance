@@ -30,7 +30,7 @@ class AutreDemandeController extends Controller
       $listePerso = $personnelRepo->getListPerso($idSalon);
 
       $form = $this->createFormBuilder()
-      ->add('idPersonnel', ChoiceType::class, array(
+      ->add('matricule', ChoiceType::class, array(
             'choices' => $listePerso,
             'label' => 'admin_create.nom',
             'translation_domain' => 'admin_create'
@@ -48,7 +48,7 @@ class AutreDemandeController extends Controller
            ))
            ->add('pieceJointes', FileType::class, array(
              'required'  => false,
-             'attr' => array('class' => 'input-file'),  
+             'attr' => array('class' => 'input-file'),
              'label' => 'autredemande.pieceJointe',
              'translation_domain' => 'autre_demande',
            ))

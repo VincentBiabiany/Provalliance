@@ -82,14 +82,14 @@ class DemandeService
 
     if ($manager) {
       $managerMail =  $this->emWebapp->getRepository('AppBundle:User')
-                          ->findOneBy(array('idPersonnel' => $manager));
+                          ->findOneBy(array('matricule' => $manager));
       $managerMail != null ?  $managerMail = $managerMail->getEmail() : $managerMail = null;
     } else
       $managerMail = null;
 
     if ($coord) {
       $coordoMail = $this->emWebapp->getRepository('AppBundle:User')
-                          ->findOneBy(array('idPersonnel' => $coord));
+                          ->findOneBy(array('matricule' => $coord));
       $coordoMail != null ?  $coordoMail = $coordoMail->getEmail() : $coordoMail = null;
     } else
       $coordoMail = null;
@@ -173,7 +173,7 @@ class DemandeService
   {
     $user = $this->token->getUser();
     $emetteur = $user->getEmail();
-    $manager = $this->em->getRepository('ApiBundle:Personnel')->findOneBy(['matricule' => $user->getIdPersonnel()]);
+    $manager = $this->em->getRepository('ApiBundle:Personnel')->findOneBy(['matricule' => $user->getMatricule()]);
 
     if ($manager == null)
       $manager = "Admin";
@@ -235,7 +235,7 @@ class DemandeService
   public function createDemandeAcompte($demande, $idSalon)
   {
     $personnel =  $this->em->getRepository('ApiBundle:Personnel')
-                           ->findOneBy(array('matricule' => $demande->getIdPersonnel()));
+                           ->findOneBy(array('matricule' => $demande->getMatricule()));
 
     $demandeSimple = new DemandeSimple();
 

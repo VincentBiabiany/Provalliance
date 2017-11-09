@@ -24,9 +24,9 @@ class DemandeAcompte extends DemandeForm
     /**
      * @var int
      *
-     * @ORM\Column(name="personnel_id", type="integer")
+     * @ORM\Column(name="matricule", type="integer")
      */
-    private $idPersonnel;
+    private $matricule;
 
     protected $nameDemande ='DemandeAcompte';
 
@@ -57,27 +57,27 @@ class DemandeAcompte extends DemandeForm
     }
 
     /**
-     * Set idPersonnel
+     * Set matricule
      *
-     * @param integer $idPersonnel
+     * @param integer $matricule
      *
      * @return DemandeAcompte
      */
-    public function setIdPersonnel($idPersonnel)
+    public function setMatricule($matricule)
     {
-        $this->idPersonnel = $idPersonnel;
+        $this->matricule = $matricule;
 
         return $this;
     }
 
     /**
-     * Get idPersonnel
+     * Get matricule
      *
      * @return integer
      */
-    public function getIdPersonnel()
+    public function getMatricule()
     {
-        return $this->idPersonnel;
+        return $this->matricule;
     }
     /**
      * Get nameDemande

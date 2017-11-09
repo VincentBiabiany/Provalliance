@@ -26,12 +26,12 @@
      ChangeEstate('stepThree','labelThree',2,'next');
 
       			$('#CreateFormStep').fadeOut('slow', function(){ //on fait disparaitre l ancien contenu
-													var idPersonnel = $('#form_nom').val();
+													var matricule = $('#form_nom').val();
 
 																				 $.ajax({
 																	 				url : "{{path('createAccountS3')}}",
 																	 				type: 'POST',
-																	 				data : 'idpersonnel=' + idPersonnel,
+																	 				data : 'matricule=' + matricule,
 																	 				success: function(html) {
 																					      	$('#CreateFormStep').html(html);
 										 															$('#CreateFormStep').fadeIn('slow');

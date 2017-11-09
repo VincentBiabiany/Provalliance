@@ -143,7 +143,7 @@ class DemandeEntityRepository extends \Doctrine\ORM\EntityRepository
        }
 
        $query = $query->leftjoin('d.user', 'e')
-                      ->andwhere('e.idPersonnel = :id')
+                      ->andwhere('e.matricule = :id')
                       ->setParameter('id', $idP);
       }
 
@@ -155,7 +155,7 @@ class DemandeEntityRepository extends \Doctrine\ORM\EntityRepository
           if ($this->whichPersonnel($demande) == $filter[10])
             $demandeId[] = $demandeId[] =  $demande->getId();
         } else {
-          $idP = $demande->getDemandeform()->getIdPersonnel();
+          $idP = $demande->getDemandeform()->getMatricule();
             if ($em->getRepository('ApiBundle:Personnel')->whichPersonnel($demande,$idP) == $filter[10])
               $demandeId[] =  $demande->getId();
         }

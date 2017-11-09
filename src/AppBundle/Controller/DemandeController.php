@@ -138,7 +138,7 @@ class DemandeController extends Controller
         }  else if ($col[$nb] == "demandeur") {
 
           $query1 = $em->createQueryBuilder('u')
-                      ->select("e.idPersonnel")
+                      ->select("e.matricule")
                       ->distinct()
                       ->from('AppBundle:DemandeEntity', 'u')
                       ->leftjoin('u.user', 'e');
@@ -147,7 +147,7 @@ class DemandeController extends Controller
           $query1 =  $query1->getQuery()->getResult();
 
           foreach ($query1 as $key => $value) {
-            $array[] = $value['idPersonnel'];
+            $array[] = $value['matricule'];
           }
 
           $em = $this->getDoctrine()->getManager('referentiel');
@@ -193,7 +193,7 @@ class DemandeController extends Controller
               if ($demande->getDemandeform()->getTypeForm() == "Demande d'embauche") {
                 $collab[] = $demandeRepo->whichPersonnel($demande);
               } else {
-                $idP = $demande->getDemandeform()->getIdPersonnel();
+                $idP = $demande->getDemandeform()->getMatricule();
                 $collab[] =  $persoRepo->whichPersonnel($demande,$idP);
               }
             }
@@ -278,7 +278,7 @@ class DemandeController extends Controller
         $em = $this->getDoctrine()->getManager("referentiel");
         foreach ($demandes as $demande ) {
           $demandeur = $em->getRepository('ApiBundle:Personnel')
-          ->findOneBy(array('matricule' => $demande->getUser()->getIdPersonnel()));
+          ->findOneBy(array('matricule' => $demande->getUser()->getMatricule()));
 
           /* Code Sage du salon concerné par la demande */
           $codeSage = $demande->getidSalon();
@@ -304,7 +304,7 @@ class DemandeController extends Controller
 
           /* Nom et Prenom du personnel concerné par la demande  */
           if ($demande->getDemandeform()->getTypeForm() == "Demande d'acompte") {
-            $idP = $demande->getDemandeform()->getIdPersonnel();
+            $idP = $demande->getDemandeform()->getMatricule();
             $collab  = $persoRepo->whichPersonnel($demande,$idP);
           } else {
             $collab  = $demandeRepo->whichPersonnel($demande);

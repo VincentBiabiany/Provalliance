@@ -47,12 +47,17 @@ class ImpressionService
       $response .= '<div class="page">';
 
       $infoDemande = $demandeRepo->infosDemande($idDemande);
+      $infosCollab = $persoRepo->InfosCollab($infoDemande['userID']);
+
       $nameEntity = $infoDemande['nameDemande'];
       $idDemandeItSelf = $infoDemande['demandeId'];
+
       $properties = $propertyInfo->getProperties('AppBundle\Entity\\'.$nameEntity);
       $properties = array_diff($properties,['discr','typeForm','id','nameDemande']);
+      $response .= '<h1>'.$infoDemande['typeForm'].' | '.$infoDemande['dateTraitement']->format('d-m-y').'
+       | Matricule : '.$infosCollab['matricule'].'</h1>';
 
-      $response .= '<div id="propertiesDemandePrint"><h1> Récapitulatif de la demande </h1>';
+      $response .= '<div id="propertiesDemandePrint"><h2> Récapitulatif de la demande </h2>';
           // Boucle pour propriétés de la demande
           for ($k = 0; $k < count($properties); $k++) {
 
@@ -66,7 +71,7 @@ class ImpressionService
                             ->getArrayResult();
                             $response .= '<p><b>'.$property.'</b> : ';
                             if ( is_object ($qb[0][$property])){
-                              $prop = $qb[0][$property]->format('d-m-Y');
+                              $prop = $qb[0][$property]->format('d-m-y');
 
                             } else{
                               $prop = $qb[0][$property];
@@ -75,15 +80,14 @@ class ImpressionService
           }
           $response .= '</div>';
 
-            $response .= "<div id='infosDemandePrint'><h1> Statut de la demande </h1>";
+            $response .= "<div id='infosDemandePrint'><h2> Statut de la demande </h2>";
             // Info de la demande
-            $infosDemande = $demandeRepo->infosDemande($idDemande);
-            $infosSalon = $salonRepo->infosSalon($infosDemande['codeSage']);
-            $infosCollab = $persoRepo->InfosCollab($infosDemande['userID']);
-            $statutDemande = $demandeRepo->whichStatut($infosDemande['statut']);
+            // $infosDemande = $demandeRepo->infosDemande($idDemande);
+            $infosSalon = $salonRepo->infosSalon($infoDemande['codeSage']);
+            $statutDemande = $demandeRepo->whichStatut($infoDemande['statut']);
 
             $response .= '<p><b>Demandeur</b> : '.$infosCollab['nom'].' '.$infosCollab['prenom'].'</p>';
-            $response .= '<p><b>Date d\'envoi</b> : '.$infosDemande['dateTraitement']->format('d-m-Y').'</p>';
+            $response .= '<p><b>Date d\'envoi</b> : '.$infoDemande['dateTraitement']->format('d-m-Y').'</p>';
             $response .= '<p><b>Statut</b> : '.$statutDemande.'</p>';
             $response .= '<p><b>Salon</b> : '.$infosSalon['appelation'].'</p>';
             $response .= '<p><b>Adresse</b> : '.$infosSalon['adresse1'].' '.$infosSalon['codePostal'].' '.$infosSalon['ville'].'</p>';

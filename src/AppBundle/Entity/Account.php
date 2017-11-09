@@ -20,7 +20,7 @@ class Account
      *
      * @ORM\Column(name="personnel_matricule", type="integer")
      */
-    private $idPersonnel;
+    private $matricule;
 
     /**
      * @var int
@@ -63,27 +63,27 @@ class Account
     }
 
     /**
-     * Set idPersonnel
+     * Set matricule
      *
-     * @param integer $idPersonnel
+     * @param integer $matricule
      *
-     * @return Account
+     * @return DemandeAcompte
      */
-    public function setIdPersonnel($idPersonnel)
+    public function setMatricule($matricule)
     {
-        $this->idPersonnel = $idPersonnel;
+        $this->matricule = $matricule;
 
         return $this;
     }
 
     /**
-     * Get idPersonnel
+     * Get matricule
      *
      * @return integer
      */
-    public function getIdPersonnel()
+    public function getMatricule()
     {
-        return $this->idPersonnel;
+        return $this->matricule;
     }
 
     /**

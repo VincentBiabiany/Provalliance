@@ -38,12 +38,12 @@ class EditAccountController extends Controller
                      $userMdp = $user->getPassword();
 
                      //On récupere le Personnel associé au compte
-                     $userIdPersonnel = $user->getIdPersonnel();
+                     $userIdPersonnel = $user->getMatricule();
                      $req= $this->getDoctrine()->getManager('referentiel');
                      $personnel = $req->getRepository('ApiBundle:Personnel')->findOneBy(array('matricule' => $userIdPersonnel));
 
                      //On recupere les infos du personnel dans le cas des comptes liés (manager)
-                     if($user->getIdPersonnel() != 0){
+                     if($user->getMatricule() != 0){
 
                        $identitePersonnel = $personnel->getNom().' '.$personnel->getPrenom();
 

@@ -95,11 +95,11 @@ class CreateAccountController extends Controller
   public function createAccountStep3Action(Request $request)
   {
      $formFactory = $this->container->get('fos_user.registration.form.factory');
-     $idPersonnel = $request->get('idpersonnel');
+     $matricule = $request->get('matricule');
      $formS3 = $formFactory->createForm( array('action' => $this->generateUrl('createAccountS3')));
 
-     $formS3 ->add('idPersonnel', HiddenType::class, array(
-                     'data' => $idPersonnel ));
+     $formS3 ->add('matricule', HiddenType::class, array(
+                     'data' => $matricule ));
      $formS3 ->add('enabled', ChoiceType::class, array(
              'choices'  => array('Activer' => 1,'Désactiver' => 0),
              'expanded' => true,
@@ -135,9 +135,9 @@ class CreateAccountController extends Controller
 
                if ($formS3->isSubmitted() ) {
                   //On met a jour le champ 'compte' de la table Account
-                       $idP= $formS3["idPersonnel"]->getData();
+                       $idP= $formS3["matricule"]->getData();
                        $em= $this->getDoctrine()->getManager();
-                       $personnel = $em->getRepository('AppBundle:Account')->findOneBy(array('idPersonnel' => $idP));
+                       $personnel = $em->getRepository('AppBundle:Account')->findOneBy(array('matricule' => $idP));
 
                        $personnel->setEtat(1);
                        $em->flush();

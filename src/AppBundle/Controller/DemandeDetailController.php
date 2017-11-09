@@ -46,7 +46,7 @@ class DemandeDetailController extends Controller
                   ->findOneBy(array('sage' => $demande->getidSalon()));
 
       $demandeur = $em->getRepository('ApiBundle:Personnel')
-                      ->findOneBy(array('matricule' => $demande->getUser()->getIdPersonnel()));
+                      ->findOneBy(array('matricule' => $demande->getUser()->getMatricule()));
       if (in_array('ROLE_ADMIN', $this->getUser()->getRoles(), true) || $demandeur == null)
       {
         $demandeur = new Personnel();
@@ -103,7 +103,7 @@ class DemandeDetailController extends Controller
           $form = $this->createForm(DemandeAcompteType::class,
           $demandeacompte,
           array("idSalon" => null,
-          "idPersonnel" => $demande->getDemandeform()->getIdPersonnel()
+          "matricule" => $demande->getDemandeform()->getMatricule()
         ));
       }
 
@@ -130,7 +130,7 @@ class DemandeDetailController extends Controller
     $salon = $em->getRepository('ApiBundle:Salon')
                 ->findOneBy(array('sage' => $demande->getidSalon()));
     $demandeur = $em->getRepository('ApiBundle:Personnel')
-                    ->findOneBy(array('matricule' => $demande->getUser()->getIdPersonnel()));
+                    ->findOneBy(array('matricule' => $demande->getUser()->getMatricule()));
     if (in_array('ROLE_ADMIN', $this->getUser()->getRoles(), true) || $demandeur == null)
     {
       $demandeur = new Personnel();

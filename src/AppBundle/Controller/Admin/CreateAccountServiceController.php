@@ -27,7 +27,7 @@ public function createAccountServiceAction(Request $request)
 {
   $formFactory = $this->container->get('fos_user.registration.form.factory');
   $form = $formFactory->createForm( array('action' => $this->generateUrl('createAccountService')));
-  $form ->add('idPersonnel', HiddenType::class, array(
+  $form ->add('matricule', HiddenType::class, array(
                   'data' => 0));
   $form ->add('enabled', ChoiceType::class, array(
            'choices'  => array('Activer' => 1,'Desactiver' => 0),
