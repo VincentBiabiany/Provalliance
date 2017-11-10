@@ -245,10 +245,15 @@ class DemandeService
     $demandeSimple = new DemandeSimple();
 
     $demande->setTypeForm("Autre demande");
-
+    $fileName = $this->fileUploader->upload($demande->getPieceJointes());
+    $demande->setPieceJointes($fileName);
+    
     $demandeSimple->setService($demande->getService());
     $demandeSimple->setUser($this->token->getUser());
     $demandeSimple->setIdSalon($idSalon);
+
+
+
     $demandeSimple->setDemandeform($demande);
 
     $this->emWebapp->persist($demandeSimple);

@@ -50,7 +50,6 @@ class AutreDemandeType extends AbstractType
                 ->add('commentaire', TextareaType::class, array(
                                   'label' => 'autredemande.commentaire',
                                   'translation_domain' => 'autre_demande',
-                                  'data' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
                                   'attr' => array('rows' => '5')
                       ))
                 ->add('Envoyer', SubmitType::class, array(

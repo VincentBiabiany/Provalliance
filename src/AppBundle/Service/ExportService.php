@@ -95,8 +95,9 @@ class ExportService
                             'CH','CI','CJ','CK','CL','CM','CN','CO','CP','CQ','CR','CS','CT','CU','CV','CW','CX','CY','CZ',
                             'DA','DB','DC','DD');
               for ($k = 0; $k < $ColDemandes['nb']; $k++) {
+               if(isset($ColDemandes['col'][$k])){
                  $phpExcelObject->setActiveSheetIndex(0)->setCellValue($tabExcelCol[$k].$i, $ColDemandes['col'][$k]);
-
+                 }
               }
       }
      $phpExcelObject->setActiveSheetIndex(0)->setCellValue('A'.$j, $demandes['codeSage'])->setCellValue('B'.$j, $salon['enseigne'])->setCellValue('C'.$j, $salon['appelation'])
@@ -114,9 +115,12 @@ class ExportService
 
       for ($k = 0; $k < $ColDemandes['nb']; $k++) {
       //Valeurs spécifiques à chaque propriété pour une demande
-      $valueCol= self::whichVal($demandes['nameDemande'],$demandes['demandeId'],$ColDemandes['col'][$k] );
-      $phpExcelObject->setActiveSheetIndex(0)->setCellValue($tabExcelCol[$k].$j, $valueCol);
-        }
+      if(isset($ColDemandes['col'][$k])){
+
+          $valueCol= self::whichVal($demandes['nameDemande'],$demandes['demandeId'],$ColDemandes['col'][$k] );
+          $phpExcelObject->setActiveSheetIndex(0)->setCellValue($tabExcelCol[$k].$j, $valueCol);
+       }
+    }
 
     $phpExcelObject->getActiveSheet()->setTitle($collaborateur['nom'].'-'.$demandes['dateTraitement']->format('d-m-Y'));
     // Set active sheet index to the first sheet, so Excel opens this as the first sheet
@@ -151,7 +155,7 @@ class ExportService
       $ColDemandes = [];
 
       $properties = $propertyInfo->getProperties('AppBundle\Entity\\'.$nameEntity);
-      $properties = array_diff($properties,['discr','typeForm','id','nameDemande']);
+      $properties = array_diff($properties,['discr','typeForm','id','nameDemande','service']);
 
       $ColDemandes['col']= $properties;
       $ColDemandes['nb']= count($properties);
@@ -172,7 +176,7 @@ class ExportService
                     ->getQuery()
                     ->getArrayResult();
 
-                      return $result = $qb[0][$nameProperty];
+                        return $result = $qb[0][$nameProperty];
 
 }
 
