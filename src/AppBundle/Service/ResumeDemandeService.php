@@ -53,8 +53,8 @@ class ResumeDemandeService
 
       $properties = $propertyInfo->getProperties('AppBundle\Entity\\'.$nameEntity);
       $properties = array_diff($properties,['discr','typeForm','id','nameDemande']);
-      $response .= '<h1>'.$infoDemande['typeForm'].' | '.$infoDemande['dateTraitement']->format('d-m-y').'
-       | Matricule : '.$infosCollab['matricule'].'</h1>';
+      $response .= '<h1>'.$infoDemande['typeForm'].'  |  '.$infoDemande['dateTraitement']->format('d-m-y').'
+        |  Réf. : '.$idDemandeItSelf.'</h1>';
 
       $response .= "<div id='propertiesDemandePrint'  class='contentBlock'><h2> Récapitulatif de la demande </h2>";
           // Boucle pour propriétés de la demande
