@@ -18,7 +18,7 @@ use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
 use Symfony\Component\PropertyInfo\PropertyInfoExtractor;
 use Symfony\Component\PropertyInfo\PropertyInfo;
 
-class ImpressionService
+class ResumeDemandeService
 {
   private $em;
   private $em2;
@@ -29,7 +29,7 @@ class ImpressionService
     $this->em2          = $em2;
   }
 
-  public function printGenerate($idDemandes)
+  public function generateResume($idDemandes)
   {
     //Extrator Properties
     $reflectionExtractor = new ReflectionExtractor();
@@ -45,7 +45,6 @@ class ImpressionService
     //1 demande par page
     foreach ($idDemandes as $idDemande ) {
       $response .= '<div class="page">';
-
       $infoDemande = $demandeRepo->infosDemande($idDemande);
       $infosCollab = $persoRepo->InfosCollab($infoDemande['userID']);
 
@@ -57,11 +56,12 @@ class ImpressionService
       $response .= '<h1>'.$infoDemande['typeForm'].' | '.$infoDemande['dateTraitement']->format('d-m-y').'
        | Matricule : '.$infosCollab['matricule'].'</h1>';
 
-      $response .= '<div id="propertiesDemandePrint"><h2> Récapitulatif de la demande </h2>';
+      $response .= "<div id='propertiesDemandePrint'  class='contentBlock'><h2> Récapitulatif de la demande </h2>";
           // Boucle pour propriétés de la demande
           for ($k = 0; $k < count($properties); $k++) {
 
             $property = $properties[$k];
+
             $qb = $this->em2->createQueryBuilder()
                             ->add('select', 'u')
                             ->add('from', 'AppBundle:'.$nameEntity.' u')
@@ -69,18 +69,24 @@ class ImpressionService
                             ->setParameter('idDemande', $idDemandeItSelf)
                             ->getQuery()
                             ->getArrayResult();
-                            $response .= '<p><b>'.$property.'</b> : ';
+                            //Si la propriété est une date on la formate
                             if ( is_object ($qb[0][$property])){
                               $prop = $qb[0][$property]->format('d-m-y');
 
                             } else{
                               $prop = $qb[0][$property];
                             }
-                            $response .= $prop.'</p>';
+
+                            //On affiche pas les fichiers liés à la demande
+                            if( self::ifFile($prop) == true ){
+                              $response .= '<p><b>'.ucfirst($property).'</b> : ';
+                              $response .= $prop.'</p>';
+                            }
+
           }
           $response .= '</div>';
 
-            $response .= "<div id='infosDemandePrint'><h2> Statut de la demande </h2>";
+            $response .= "<div id='infosDemandePrint' class='contentBlock'><h2> Statut de la demande </h2>";
             // Info de la demande
             // $infosDemande = $demandeRepo->infosDemande($idDemande);
             $infosSalon = $salonRepo->infosSalon($infoDemande['codeSage']);
@@ -98,4 +104,20 @@ class ImpressionService
    return $response;
 
  }
+
+   public function ifFile($property){
+      $tabFiles= ['png','jpg','pdf','jpeg','bmp','doc','docx'];
+      $occ=0;
+      foreach ($tabFiles as $tabFile ) {
+                 if(strpos($property, $tabFile) !== false){
+                    $occ++;
+                 }
+      }
+
+      if ( $occ > 0){
+        return false;
+      }else{
+        return true;
+      }
+  }
 }

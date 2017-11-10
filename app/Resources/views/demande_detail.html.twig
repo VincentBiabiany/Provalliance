@@ -15,23 +15,7 @@
 </div>
 <div class="container">
 	<div id="wrapperForm" class="row">
-		{% form_theme form 'form/acompte.html.twig' %}
-		{% block content %}
-		{{ form_start(form, {'attr': {'class': 'demandeDetail'} }) }}
-		{{ form_end(form) }}
-		{% endblock %}
 
-		<div id="infosDemande" class="col-sm-12">
-			<p> <b>Demandeur : </b>{{ demandeur.nom }} {{ demandeur.prenom }} </p>
-			<p> <p> <b>Date d'envoi :</b>  {{ date }} </p> <b>Statut:</b>  {{ statut }} {% if dateTraitement is not null %} le {{ dateTraitement }} {% endif %}</p>
-			<p> <b>Salon :</b> {{ salon.appelation }} </p>
-			<p> <b>Adresse :</b>  {{ salon.adresse1 }} {{ salon.codepostal }} {{ salon.ville }}  </p>
-			{% if is_granted('ROLE_PAIE') or is_granted('ROLE_JURIDIQUE') %}
-			<p> <b>Siren :</b>  {{ salon.siren }}</p>
-			<p> <b>Rcs :</b>  {{ salon.rcsVille }}</p>
-			{% endif  %}
-
-		</div>
 
 		{% if is_granted('ROLE_PAIE') or is_granted('ROLE_JURIDIQUE') %}
 		<div class="" style="max-width: 100%; margin: auto;">
@@ -60,11 +44,23 @@
 </div>
 
 <script language="javascript">
-$('.closeAlert').bind('click', function(){
-	$(".alert").css('display','none');
-	$(".alert").remove();
+		$('.closeAlert').bind('click', function(){
+			$(".alert").css('display','none');
+			$(".alert").remove();
 
-});
+		});
 
+		// document ready
+		jQuery(document).ready(function($){
+
+			$.ajax({
+					url: "{{ path('generateResume') }}",
+					async: false,
+					data: {"id" : "{{ idDemande }}"}
+				}).done(function( response ) {
+						$('#wrapperForm').prepend(response);
+
+			});
+		});
 </script>
 {% endblock %}

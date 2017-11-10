@@ -14,22 +14,7 @@
 			return result;
     }
 
-		 // Function typeDemande
-		 // Paramètres : id Demande
-     // Description : Active ou Désactive la fonctionnalité "VALIDATION MULTIPLE" selon le type de la demande sélectionnée
-      function typeDemande(id){
-       $.ajax({
-           url: "{{ path('typeDemande') }}",
-           data: {"id" : id},
-           async: false
-         }).success(function( response ) {
-           if (response == '1'){
-           }else{
-             oldNb = Number(sessionStorage.getItem('NbDemandeComplexe'));
-             sessionStorage.setItem('NbDemandeComplexe',oldNb+1);
-           }
-       });
-    }
+
 
 		// Trigger Export
 		// Description : Export multiple des demandes
@@ -83,5 +68,3 @@
 					$('tr.selected').removeClass('selected');
 					$('#selectionMultiple div').css('display','none');
 			 });
-
-		

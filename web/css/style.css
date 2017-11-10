@@ -233,17 +233,7 @@ table.dataTable thead th, table.dataTable thead td ,table.dataTable tfoot th, ta
     cursor: initial;
 		    -webkit-appearance: none;
 }
-/*.label-file {
-	cursor: pointer;
-	    color: #333;
-	    height: 40px;
-	    width: 200px;
-	    text-align: center;
-	    margin-left: 15px;
-	    font-weight: bold;
-	    background: white;
-	    padding: 0.9rem 1.25rem;
-}*/
+
 .label-file {
 	cursor: pointer;
 	color: #333;
@@ -441,6 +431,52 @@ label.required{
 	 color: #45bd43;
 	 text-decoration: none;
 }
+
+/******* RESUME DES DEMANDES *******/
+
+#wrapperForm #propertiesDemandePrint{
+
+}
+
+#wrapperForm #infosDemandePrint{
+
+}
+#wrapperForm .contentBlock{
+	background-color: #f0f0f0 !important;
+	-webkit-print-color-adjust: exact;
+	padding: 25px;
+	margin-bottom: 20px;
+	color: black;
+	border: solid 1px #d5d7d9;
+	padding-top: 0px;
+
+}
+#wrapperForm p{
+  margin-bottom:2px;
+}
+
+#wrapperForm .page{
+	height: auto;
+  width: 100%;
+}
+
+#wrapperForm .page h1{
+	font-size: 16px;
+	text-align: center;
+	width: 100%;
+	margin-bottom: 15px;
+	background: #333;
+	color: white;
+	padding: 13px;
+}
+#wrapperForm .page div h2{
+	font-size: 17px;
+	border: solid 1px #333;
+	width: 250px;
+	padding: 5px;
+	font-weight: bold;
+}
+
 /******* LISTE DES DEMANDES ******/
 table.dataTable tbody td {
     padding: 10px 10px !important;

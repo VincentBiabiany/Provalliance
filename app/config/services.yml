@@ -68,7 +68,7 @@ services:
                     '@doctrine.orm.default_entity_manager',
                     '@phpexcel']
 
-    AppBundle\Service\ImpressionService:
+    AppBundle\Service\ResumeDemandeService:
         arguments: ['@doctrine.orm.referentiel_entity_manager',
                     '@doctrine.orm.default_entity_manager']
 

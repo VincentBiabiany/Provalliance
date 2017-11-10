@@ -5,7 +5,7 @@
 <style>
 #forPrint{
 	position: absolute;
-  left: -800px;
+  left: -8000px;
 }
 </style>
 
@@ -396,6 +396,24 @@
 			 			});
 			 		}
 			 	);
+
+				// Function typeDemande
+	 		 // Paramètres : id Demande
+	      // Description : Active ou Désactive la fonctionnalité "VALIDATION MULTIPLE" selon le type de la demande sélectionnée
+	       function typeDemande(id){
+	        $.ajax({
+	            url: "{{ path('typeDemande') }}",
+	            data: {"id" : id},
+	            async: false
+	          }).success(function( response ) {
+	            if (response == '1'){
+	            }else{
+	              oldNb = Number(sessionStorage.getItem('NbDemandeComplexe'));
+	              sessionStorage.setItem('NbDemandeComplexe',oldNb+1);
+	            }
+	        });
+	     }
+
 
 });
 

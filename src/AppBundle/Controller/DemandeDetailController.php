@@ -21,13 +21,14 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use AppBundle\Service\FileUploader;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use AppBundle\Service\ResumeDemandeService;
 
 class DemandeDetailController extends Controller
 {
     /**
     * @Route("/demande/{id}", name="demande_detail", requirements={"id": "\d+"})
     */
-    public function detailIdAction(Request $request, $id, FileUploader $fileuploader)
+    public function detailIdAction(Request $request, $id, FileUploader $fileuploader, ResumeDemandeService $ResumeDemandeService)
     {
       $demande = $this->getDoctrine()
       ->getManager()
@@ -35,11 +36,11 @@ class DemandeDetailController extends Controller
       ->findOneBy(array("id" => $id));
 
       if ($demande instanceof DemandeSimple)
-        return self::detailSimple($demande, $request, $id);
+        return self::detailSimple($demande, $request, $id, $ResumeDemandeService);
       return self::detailComplexe($demande, $request, $id, $fileuploader);
     }
 
-    public function detailSimple($demande, $request, $id)
+    public function detailSimple($demande, $request, $id, $ResumeDemandeService)
     {
       $em = $this->getDoctrine()->getManager("referentiel");
       $salon = $em->getRepository('ApiBundle:Salon')
@@ -96,32 +97,45 @@ class DemandeDetailController extends Controller
           return $this->redirectToRoute("demande");
         }
 
-        if ($demande->getDemandeform()->getTypeForm() == "Demande d'acompte")
-        {
-          $demandeacompte = new DemandeAcompte();
-          $demandeacompte = $demande->getDemandeform();
-          $form = $this->createForm(DemandeAcompteType::class,
-          $demandeacompte,
-          array("idSalon" => null,
-          "matricule" => $demande->getDemandeform()->getMatricule()
-        ));
-      }
+    //     if ($demande->getDemandeform()->getTypeForm() == "Demande d'acompte")
+    //     {
+    //       $demandeacompte = new DemandeAcompte();
+    //       $demandeacompte = $demande->getDemandeform();
+    //       $form = $this->createForm(DemandeAcompteType::class,
+    //       $demandeacompte,
+    //       array("idSalon" => null,
+    //       "matricule" => $demande->getDemandeform()->getMatricule()
+    //     ));
+    //   }
+
+
 
     if($dateTraitement)
       $dateTraitement = $dateTraitement->format('d-m-Y H:i');
     return $this->render('demande_detail.html.twig', array(
-      'demandeur'       => $demandeur,
+      'idDemande'       => $request->get('id'),
       'date'            => $date->format('d-m-Y H:i'),
       'dateTraitement'  => $dateTraitement,
       'statut'          => $statut,
       'message'         => $message,
       'typedemande'     => $typedemande,
       'salon'           => $salon,
-      'form'            => $form->createView(),
       'form2'           => $form2->createView(),
       'img'             => $request->getSession()->get('img'),
     ));
   }
+  /**
+   * @Route("/generateResume", name="generateResume")
+   */
+  public function generateResume(Request $request, ResumeDemandeService $ResumeDemandeService)
+  {
+    // On récupère le service
+    $idDemande[0] = $request->get('id');
+    $response = $ResumeDemandeService->generateResume($idDemande);
+    return new Response(json_encode($response), 200, ['Content-Type' => 'application/json']);
+
+  }
+
 
   public function detailComplexe($demande, $request, $id, $fileuploader)
   {
