@@ -16,9 +16,18 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\DependencyInjection\ChildDefinition;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class DemandeEmbaucheType extends AbstractType
 {
+  private $session;
+
+
+  public function __construct(Session $session)
+  {
+    $this->session = $session;
+  }
+
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
     switch ($options['step']) {
@@ -97,7 +106,7 @@ class DemandeEmbaucheType extends AbstractType
                 'translation_domain' => 'embauche',
                 'mapped' => false
               ));
-            
+
 
           });
 
@@ -146,7 +155,8 @@ class DemandeEmbaucheType extends AbstractType
               'widget' => 'choice',
               'format' => 'd/M/y',
               'years' => range(date('Y') - 80, date('Y') + 2),
-              'attr' => ['class' => '']))
+              'attr' => ['class' => '']
+            ))
             ->add('dejaSalarie', ChoiceType::class,array(
               'choices' => array(
                 'embauche.ancien.oui' => 'true',
@@ -207,16 +217,7 @@ class DemandeEmbaucheType extends AbstractType
               'translation_domain' => 'embauche',
               'attr' => ['class' => 'form-control']
             ))
-            ->add('salaireBase', ChoiceType::class, array(
-              'choices' => array(
-                'embauche.salaire.con' =>'embauche.salaire.con',
-                'embauche.autre' => 'embauche.autre'
-              ),
-              'choice_translation_domain' => 'embauche',
-              'translation_domain' => 'embauche',
-              'expanded' => true,
-              'multiple' => false,
-            ))
+            ->add('salaireBase', null, array('attr' => ['class' => 'form-control']))
             ->add('typeContrat', ChoiceType::class,array(
               'choices' => array(
                 'embauche.cdi'  => 'embauche.cdi',
@@ -229,8 +230,30 @@ class DemandeEmbaucheType extends AbstractType
               'expanded' => true,
               'multiple' => false,
             ))
+            ->add('remplacementNom', null, array('attr' => ['class' => 'form-control']))
+            ->add('remplacementNature', null, array('attr' => ['class' => 'form-control']))
+            ->add('precisionDate', ChoiceType::class,array(
+              'choices' => array(
+                'embauche.precision.p' => 'embauche.precision.p',
+                'embauche.precision.i' => 'embauche.precision.i'
+              ),
+              'expanded' => true,
+              'choice_translation_domain' => 'embauche',
+              'translation_domain' => 'embauche',
+              'multiple' => false,
+            ))
+            ->add('isTempsPartiel', ChoiceType::class,array(
+              'choices' => array(
+                'embauche.ancien.oui' => 'true',
+                'embauche.ancien.no' => 'false'
+              ),
+              'expanded' => true,
+              'choice_translation_domain' => 'embauche',
+              'translation_domain' => 'embauche',
+              'multiple' => false,
+            ))
             ->add('Envoyer', SubmitType::class, array(
-              'label' => 'embauche.step1',
+              'label' => 'embauche.step2',
               'attr' => array('class' =>'btn-black end'),
               'translation_domain' => 'embauche',
             ))
@@ -242,56 +265,93 @@ class DemandeEmbaucheType extends AbstractType
               'label' => ' ',
               'mapped' => false
             ))
+            ->add('tempsPartiel', ChoiceType::class)
 
             // Foncionne avec l'ajax. Si champs autre coché alors
             // le champ correspondant est ajouté et renvoyé
+            //
+            // ->addEventListener(
+            //   FormEvents::POST_SET_DATA,
+            //   function(FormEvent $event)
+            //   {
+            //     $form = $event->getForm();
+            //     $data = $event->getData();
+            //
+            //     $demande = $this->session->get('demande');
+            //     $test = unserialize(serialize($demande->getPostes()));
+            //
+            //     $this->session->set('poste', $test);
+            //
+            //     dump($this->session);
+            //     $value = '';
+            //
+            //     if ($demande->getPostes() != "embauche.poste.coif" || $demande->getPostes() != "embauche.poste.tech")
+            //     {
+            //       $data->setPostes('embauche.autre');
+            //     }
+            //
+            //   })
             ->addEventListener(
               FormEvents::PRE_SUBMIT,
               function(FormEvent $event)
               {
                 $form = $event->getForm();
                 $data = $event->getData();
-                if (isset($data["lieu"]))
+
+                $demande = $this->session->get('demande');
+                $value = '';
+
+                dump($demande);
+                if (isset($data['lieu']))
                 {
-                  $form->add('autre_lieu', TextType::class, array(
-                    'attr' => array('class' => 'form-control'),
-                    'mapped' => false,
-                    'label' => 'embauche.lieu',
-                    'translation_domain' => 'embauche'
-                  ));
+                  if ($demande)
+                    $value = $demande->getSalarieLieu();
+
+                    $form->add('autre_lieu', TextType::class, array(
+                      'attr' => array('class' => 'form-control'),
+                      'mapped' => false,
+                      'label' => 'embauche.lieu',
+                      'translation_domain' => 'embauche',
+                      'empty_data' => $value
+                    ));
+
                 }
+
                 else if (isset($data["diplome"]) && $data["diplome"] == "diplome")
                 {
+                  $test = $this->session->get('diplome');
+
                   $form->add('autre_diplome', TextType::class, array(
                     'attr' => array('class' => 'form-control'),
                     'mapped' => false,
                     'label' => 'embauche.autre',
-                    'translation_domain' => 'embauche'
+                    'translation_domain' => 'embauche',
+                    'empty_data' => $test
                   ));
                 }
+
                 else if (isset($data["poste"]) && $data["poste"] == "poste")
                 {
+
+                  $test = $this->session->get('poste');
+                  // $value = $test->getPostes();
+                  dump($test);
+
                   $form->add('autre_poste', TextType::class, array(
                     'attr' => array('class' => 'form-control'),
                     'mapped' => false,
                     'label' => 'embauche.autre',
-                    'translation_domain' => 'embauche'
+                    'translation_domain' => 'embauche',
+                    'empty_data' => $test
                   ));
                 }
-                else if (isset($data["salaire"]) && $data["salaire"] == "salaire")
-                {
-                  $form->add('autre_salaire', TextType::class, array(
-                    'attr' => array('class' => 'form-control'),
-                    'mapped' => false,
-                    'label' => 'embauche.autre',
-                    'translation_domain' => 'embauche'
-                  ));
-                }
+
+                $event->setData($data);
               })
 
               // Gestion des champs extras après envoie de l'étape 2
               ->addEventListener(
-                FormEvents::POST_SUBMIT,
+                FormEvents::SUBMIT,
                 function (FormEvent $event) {
                   $form = $event->getForm();
                   $data = $event->getData();
@@ -306,18 +366,16 @@ class DemandeEmbaucheType extends AbstractType
                   if ($data->getDejaSalarie() == true && isset($extra['autre_lieu']))
                     $data->setSalarieLieu($extra['autre_lieu']);
 
-                  if ($data->getPostes() == 'embauche.autre')
-                    $data->setPostes($extra['autre_poste']);
+                  // if ($data->getPostes() == 'embauche.autre')
+                  //   $data->setPostes($extra['autre_poste']);
+
 
                   // if ($data->getDiplomes() == 'embauche.autre') {
-                  if (isset($extra['autre_diplome'])) {
-                    $array = $data->getDiplomes();
-                    $array[] = $extra['autre_diplome'];
-                    $data->setDiplomes(json_encode($array));
-                   }
-
-                  if ($data->getSalaireBase() == 'embauche.autre')
-                    $data->setSalaireBase($extra['autre_salaire']);
+                  // if (isset($extra['autre_diplome'])) {
+                  //   $array = $data->getDiplomes();
+                  //   $array[] = $extra['autre_diplome'];
+                  //   $data->setDiplomes(json_encode($array));
+                  //  }
 
                   // Si le champ "autre" de la classification ( c.à.d niveau et échelon) non null
                   // alors rendre null ces champs
@@ -328,6 +386,15 @@ class DemandeEmbaucheType extends AbstractType
                     $data->setNiveau(null);
                   }
 
+                  if (isset($extra['autre_poste'])){
+                    $test = $extra['autre_poste'];
+                    $this->session->set('poste', $test);
+                  }
+
+                  if (isset($extra['autre_diplome'])){
+                    $test = $extra['autre_diplome'];
+                    $this->session->set('diplome', $test);
+                  }
                   // Traitement si contrat = ChildDefinition
                   // Recupère les champs extras:
                   // raison, jusqu'au, nature, nom
@@ -353,8 +420,8 @@ class DemandeEmbaucheType extends AbstractType
                   }
 
                   // Récupération des temps partiels
-                  if (isset($extra['heure']))
-                    $data->setTempsPartiel(json_encode($extra['heure']));
+                  if (isset($extra['tempsPartiel']))
+                    $data->setTempsPartiel($extra['tempsPartiel']);
 
                   $event->setData($data);
                   // dump($event->getData());
@@ -366,6 +433,7 @@ class DemandeEmbaucheType extends AbstractType
                 ->add('carteId', FileType::class)
                 ->add('carteVitale', FileType::class)
                 ->add('diplomeFile', FileType::class)
+                ->add('diplomeFile2', FileType::class)
                 ->add('rib', FileType::class)
                 ->add('mutuelle', FileType::class)
                 ->add('Envoyer', SubmitType::class, array(
@@ -542,20 +610,12 @@ class DemandeEmbaucheType extends AbstractType
                     ));
 
                   }
-                  if ($demande->getSalaireBase() == 'embauche.autre')
-                  {
-                    $form->add('salaireBase', ChoiceType::class, array(
-                      'choices' => array(
-                        'embauche.salaire.con' =>'embauche.salaire.con',
-                        'embauche.autre' => 'embauche.autre'
-                      ),
+                    $form->add('salaireBase', NumberType::class,array(
                       'attr' => array('readonly' => true,
                       'disabled' => true,
                       'class' =>'onlyread form-control'),
-                      'choice_translation_domain' => 'embauche',
                       'translation_domain' => 'embauche',
                     ));
-                  }
 
                   $form
                   ->add('typeContrat', ChoiceType::class,array(
@@ -594,16 +654,16 @@ class DemandeEmbaucheType extends AbstractType
                         'format' => 'd/M/y',
                         'attr' => ['class' => 'js-datepicker form-control', 'readonly' => true]));
                       else
-                          $form->add('cddRetour', ChoiceType::class, array(
-                            'choices' => array(
-                              'embauche.cdd.retour'  => 'embauche.cdi',
-                            ),
-                            'required'   => false,
-                            'label' => 'embauche.cdd.retour',
-                            'choice_translation_domain' => 'embauche',
-                            'translation_domain' => 'embauche',
-                            'attr' => ['class' => 'form-control', 'readonly' => true]
-                          ));
+                        $form->add('cddRetour', ChoiceType::class, array(
+                          'choices' => array(
+                            'embauche.cdd.retour'  => 'embauche.cdi',
+                          ),
+                          'required'   => false,
+                          'label' => 'embauche.cdd.retour',
+                          'choice_translation_domain' => 'embauche',
+                          'translation_domain' => 'embauche',
+                          'attr' => ['class' => 'form-control', 'readonly' => true]
+                        ));
 
                       $form
                           ->add('remplacementNom', null, array('attr' => array('readonly' => true)));

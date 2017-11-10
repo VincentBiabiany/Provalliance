@@ -50,6 +50,8 @@ embauche.echelon:       Echelon
 embauche.salaire:       Salaire base
 embauche.salaire.con:   Salaire Conventionnel
 embauche.contrat:       Type de contrat
+embauche.precision.p:   Date précise
+embauche.precision.i:   Date imprécise
 embauche.partiel:       Temps partiel
 
 embauche.cdi:           CDI

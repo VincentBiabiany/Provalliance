@@ -46,6 +46,7 @@ class EmbaucheController extends Controller
         )
       );
     }
+
     /**
      * @Route("/embauche2", name="rh_embauche2")
      */
@@ -57,7 +58,8 @@ class EmbaucheController extends Controller
       $form->handleRequest($request);
 
       if ($form->isSubmitted() && $form->isValid()) {
-        $session->set('demande', $form->getData());
+       $session->set('demande', $form->getData());
+
        return $this->redirectToRoute('rh_embauche3');
       }
 
@@ -75,7 +77,9 @@ class EmbaucheController extends Controller
      {
        $session = $request->getSession();
        $session->remove('demande');
-
+       $session->remove('poste');
+       $session->remove('diplome');
+       
        return new Response(json_encode("ok"), 200, ['Content-Type' => 'application/json']);
      }
 

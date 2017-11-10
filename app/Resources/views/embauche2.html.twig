@@ -69,6 +69,7 @@
       </div>
     </div>
 
+
     <div class="form-group row" >
       <label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "embauche.contrat"|trans({}, "embauche") }}</label>
       <div class="col-sm-8 col-xs-12 pad-box" >
@@ -98,8 +99,8 @@
             <div style="display:none;">
               <div class="col-xs-12">
 
-                <label class="control-label label">{{ "embauche.cdd.nature"|trans({}, "embauche") }}</label><input type="text" id="demande_embauche[raison][absence]" name="demande_embauche[raison][absence]"  class="form-control">
-                <label class="control-label label">{{ "embauche.cdd.nom"|trans({}, "embauche") }}</label><input type="text" id="demande_embauche[raison][nom]" name="demande_embauche[raison][nom]"  class="form-control">
+                <label class="control-label label">{{ "embauche.cdd.nature"|trans({}, "embauche") }}</label>{{ form_widget(form.remplacementNature) }}<!--<input type="text" id="demande_embauche[raison][absence]" name="demande_embauche[raison][absence]"  class="form-control">-->
+                <label class="control-label label">{{ "embauche.cdd.nom"|trans({}, "embauche") }}</label>   {{ form_widget(form.remplacementNom) }}<!--<input type="text" id="demande_embauche[raison][nom]" name="demande_embauche[raison][nom]"  class="form-control">-->
 
                 <div id="test" >
                   <label class="control-label label">{{ "embauche.cdd.date"|trans({}, "embauche") }}</label>
@@ -107,8 +108,16 @@
                 </div>
 
                 <div>
-                  <input type="checkbox" class="retourPhysique" id="demande_embauche[raison][retour]" name="demande_embauche[raison][retour]" value="embauche.cdd.retour">
-                  <label for="demande_embauche[raison][retour]" style="color:black;">{{ "embauche.cdd.retour"|trans({}, "embauche") }}</label>
+                <!--  <input type="checkbox" class="retourPhysique" id="demande_embauche[raison][retour]" name="demande_embauche[raison][retour]" value="embauche.cdd.retour">
+                  <label for="demande_embauche[raison][retour]" style="color:black;">{{ "embauche.cdd.retour"|trans({}, "embauche") }}</label> -->
+
+                  <div class="form-group">
+
+                    <div class="col-sm-12 col-xs-12 pad-box append" style="display: inline-flex" >
+                      {{ form_widget(form.precisionDate) }}
+                    </div>
+
+                  </div>
                 </div>
               </div>
             </div>
@@ -129,51 +138,56 @@
       </div>
     </div> <!-- FIN CDD -->
 
+    <div class="form-group row" >
+      <label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "embauche.cdd.partiel"|trans({}, "embauche") }}</label>
+      <div class="col-sm-8 col-xs-12 pad-box" >
+        {{ form_widget(form.isTempsPartiel) }}
+      </div>
+    </div>
 
     <!-- Temps partiel -->
-    <div id="tempsPartiel" class="form-group row" >
+    <div id="tempsPartiel" class="form-group row" style="display:none;">
       <label class="control-label label col-sm-3 col-xs-12" for="prenom">{{ "embauche.cdd.partiel"|trans({}, "embauche") }}</label>
 
       <div id="listeJours" class="col-sm-9 col-xs-12 pad-box">
         <label class="control-label label col-sm-12 col-xs-12"  for="nom"></label>
         <div class="jour">
-          <label for="demande_embauche_heure" class="label">{{ "embauche.lundi"|trans({}, "embauche") }}</label>
-          <input type="number" name="demande_embauche[heure][lundi]" min="0" max="8" id="demande_embauche[heure][lundi]" class="form-control tempsHeure">
+          <label for="demande_embauche_tempsPartiel" class="label">{{ "embauche.lundi"|trans({}, "embauche") }}</label>
+          <input type="number" name="demande_embauche[tempsPartiel][lundi]" min="0" max="8" id="demande_embauche[tempsPartiel][lundi]" class="form-control tempsHeure">
         </div>
         <div class="jour">
-          <label for="demande_embauche_heure" class="label">{{ "embauche.mardi"|trans({}, "embauche") }}</label>
-          <input type="number" name="demande_embauche[heure][mardi]" min="0" max="8" id="demande_embauche[heure][mardi]" class="form-control tempsHeure">
+          <label for="demande_embauche_tempsPartiel" class="label">{{ "embauche.mardi"|trans({}, "embauche") }}</label>
+          <input type="number" name="demande_embauche[tempsPartiel][mardi]" min="0" max="8" id="demande_embauche[tempsPartiel][mardi]" class="form-control tempsHeure">
         </div>
         <div class="jour">
-          <label for="demande_embauche_heure" class="label">{{ "embauche.mercredi"|trans({}, "embauche") }}</label>
-          <input type="number" name="demande_embauche[heure][mercredi]" min="0" max="8" id="demande_embauche[heure][mercredi]" class="form-control tempsHeure">
+          <label for="demande_embauche_tempsPartiel" class="label">{{ "embauche.mercredi"|trans({}, "embauche") }}</label>
+          <input type="number" name="demande_embauche[tempsPartiel][mercredi]" min="0" max="8" id="demande_embauche[tempsPartiel][mercredi]" class="form-control tempsHeure">
         </div>
         <div class="jour">
-          <label for="demande_embauche_heure" class="label">{{ "embauche.jeudi"|trans({}, "embauche") }}</label>
-          <input type="number" name="demande_embauche[heure][jeudi]" min="0" max="8" id="demande_embauche[heure][jeudi]" class="form-control tempsHeure">
+          <label for="demande_embauche_tempsPartiel" class="label">{{ "embauche.jeudi"|trans({}, "embauche") }}</label>
+          <input type="number" name="demande_embauche[tempsPartiel][jeudi]" min="0" max="8" id="demande_embauche[tempsPartiel][jeudi]" class="form-control tempsHeure">
         </div>
         <div class="jour">
-          <label for="demande_embauche_heure" class="label">{{ "embauche.vendredi"|trans({}, "embauche") }}</label>
-          <input type="number" name="demande_embauche[heure][vendredi]" min="0" max="8" id="demande_embauche[heure][vendredi]" class="form-control tempsHeure">
+          <label for="demande_embauche_tempsPartiel" class="label">{{ "embauche.vendredi"|trans({}, "embauche") }}</label>
+          <input type="number" name="demande_embauche[tempsPartiel][vendredi]" min="0" max="8" id="demande_embauche[tempsPartiel][vendredi]" class="form-control tempsHeure">
         </div>
         <div class="jour">
-          <label for="demande_embauche_heure" class="label">{{ "embauche.samedi"|trans({}, "embauche") }}</label>
-          <input type="number" name="demande_embauche[heure][samedi]"  min="0" max="8" step="1" id="demande_embauche[heure][samedi]" class="form-control tempsHeure">
+          <label for="demande_embauche_tempsPartiel" class="label">{{ "embauche.samedi"|trans({}, "embauche") }}</label>
+          <input type="number" name="demande_embauche[tempsPartiel][samedi]"  min="0" max="8" step="1" id="demande_embauche[tempsPartiel][samedi]" class="form-control tempsHeure">
+        </div>
+          <div class="jour">
+            <label for="ddemande_embauche_tempsPartiel" class="label">{{ "embauche.total"|trans({}, "embauche") }}</label>
+            <input type="number" name="demande_embauche[tempsPartiel][totale]"  readonly id="demande_embauche[tempsPartiel][totale]" class="total form-control">
         </div>
       </div>
 
-      <div>
-        <label for="demande_embauche_heure" class="label">{{ "embauche.total"|trans({}, "embauche") }}</label>
-        <input type="number" name="demande_embauche[heure][totale]"  readonly id="demande_embauche[heure][totale]" class="total form-control">
-      </div>
     </div>
-
 
   <div id="actionsButtons">
     {{ form_end(form) }}
-          <a href="{{ path('rh_embauche') }}" class="btn-black precedent">
-              {{ "global.back"|trans({}, "global") }}
-          </a>
+    <a href="{{ path('rh_embauche') }}" class="btn-black precedent">
+        {{ "global.back"|trans({}, "global") }}
+    </a>
   </div>
 </div>
 
@@ -186,9 +200,9 @@ $(document).ready(function(){
   var $tempsTotal = 0;
   // Contrôle sur les heures
   $('.tempsHeure').blur(function(){
-    if (parseInt($(this).val()) > 8 )
-      $(this).val(8)
-    if (parseInt($(this).val()) < 0)
+    if (parseInt($(this).val()) > 9 )
+      $(this).val(9)
+    if (parseInt($(this).val()) < 1)
       $(this).val(1)
 
     $tempsTotal = 0
@@ -202,6 +216,16 @@ $(document).ready(function(){
 
     console.log('Value = ' + $tempsTotal);
     $('.total').val($tempsTotal);
+  });
+  // Controle champs Temps Partiel
+  $('#demande_embauche_isTempsPartiel').change(function(){
+
+    if ($('#demande_embauche_isTempsPartiel_0').prop('checked')){
+      console.log('temps partiel');
+      $('#tempsPartiel').toggle()
+    } else {
+      $('#tempsPartiel').toggle()
+    }
   });
 
 
@@ -259,7 +283,7 @@ $(document).ready(function(){
       $('input[name="demande_embauche[raison][raison]"]:checked', '#demande_embauche_CDD').next().next().show();
       $('input[name="demande_embauche[raison][raison]"]:checked', '#demande_embauche_CDD').next().next().children().children().attr('required','required')
       $('input[name="demande_embauche[raison][raison]"]:checked', '#demande_embauche_CDD').next().next().children().children().removeAttr('disabled', 'disabled')
-            $('input[name="demande_embauche[raison][raison]"]:checked', '#demande_embauche_CDD').next().next().children().children().children().removeAttr('disabled', 'disabled')
+      $('input[name="demande_embauche[raison][raison]"]:checked', '#demande_embauche_CDD').next().next().children().children().children().removeAttr('disabled', 'disabled')
 
       // // Cache les autres champs non checked et enlève le required
       $('input[name="demande_embauche[raison][raison]"]:not(:checked)').next().next().hide();
@@ -272,12 +296,12 @@ $(document).ready(function(){
       });
     }
 
-    if ($('.retourPhysique').is(':not(:checked)') && $('#demande_embauche_CDD_1').is(':checked'))
-      $('.jusquau').attr('required','required')
-    else {
-      $('.jusquau').removeAttr('required','required')
-      $('.jusquau').removeAttr('disabled', 'disabled')
-    }
+    // if ($('.retourPhysique').is(':not(:checked)') && $('#demande_embauche_CDD_1').is(':checked'))
+    //   $('.jusquau').attr('required','required')
+    // else {
+    //   $('.jusquau').removeAttr('required','required')
+    //   $('.jusquau').removeAttr('disabled', 'disabled')
+    // }
   });
 
   // Cas spécifique
@@ -303,7 +327,7 @@ $(document).ready(function(){
   var $situ2 = $('#demande_embauche_postes');
   var $situ3 = $('#demande_embauche_diplomes');
   var $situ4 = $('#demande_embauche_classification');
-  var $situ5 = $('#demande_embauche_salaireBase');
+  //var $situ5 = $('#demande_embauche_salaireBase');
 
 
   // Gère les champs "autre"
@@ -312,12 +336,15 @@ $(document).ready(function(){
 
     var addFieldAjax = function() {
       var isChecked = $('#demande_embauche_' + $champ + '_' + $nb).prop('checked');
+
       if ( (isChecked && $('#at' + idInt).length == 0)  ){
         var $form2 = $(this).closest('form');
         // Simulate form data, but only include the selected sport value.
         var data = {};
         data["demande_embauche[" + $name + "]" ] = $name;
         console.log(data);
+
+
         // Submit data via AJAX to the form's action path.
         $.ajax({
           url : "{{path('rh_embauche2')}}",
@@ -340,7 +367,7 @@ $(document).ready(function(){
           $('#at' + idInt).remove();
       }
     }
-
+//
     if($('#demande_embauche_' + $champ + '_' + $nb).prop('checked')){
       var data = {};
       data["demande_embauche[" + $name + "]" ] = $name;
@@ -365,11 +392,68 @@ $(document).ready(function(){
     $form.change(addFieldAjax); // Fin change()
   }
 
+// Gère les champs "autre"
+ // $addListener = function($form, $name, $champ, $nb, idInt){
+ //   var test = $("#demandeEmbauche2").serialize();
+ //   var addFieldAjax = function() {
+ //    //
+ //    // var form_data = new FormData($("#demandeEmbauche2").serialize());
+ //
+ //     var isChecked = $('#demande_embauche_' + $champ + '_' + $nb).prop('checked');
+ //     if ( (isChecked && $('#at' + idInt).length == 0)  ){
+ //       var $form2 = $(this).closest('form');
+ //       // Simulate form data, but only include the selected sport value.
+ //       var data = {};
+ //       data["demande_embauche[" + $name + "]" ] = $name;
+ //
+ //
+ //       // Submit data via AJAX to the form's action path.
+ //       $.ajax({
+ //         url : "{{path('rh_embauche2')}}",
+ //         type: $form2.attr('method'),
+ //         data : data,
+ //         success: function(html) {
+ //           //console.log(html);
+ //           // Replace current position field ...
+ //           var label = $(html).find('label[for="demande_embauche_autre_'+$name+'"]').text();
+ //           console.log(label);
+ //           var input = $(html).find('#demande_embauche_autre_' + $name);
+ //           var elem = '<div id="at' + idInt +'"><label for="demande_embauche_autre_' + $name + '" class="control-label label col-sm-3 col-xs-12 required">' + label + '</label><div id="autre' + idInt +'" class="other col-sm-3"></div></div>';
+ //           $form.parent().parent().append(elem);
+ //           input.appendTo('#autre' + idInt);
+ //         }
+ //       }); // Fin ajax
+ //     } else {
+ //       $('#at' + idInt).remove();
+ //     }
+ //   }
+ //   if($('#demande_embauche_' + $champ + '_' + $nb).prop('checked')){
+ //     var data = {};
+ //     data["demande_embauche[" + $name + "]" ] = $name;
+ //     console.log(data);
+ //     $.ajax({
+ //       url : "{{absolute_url(path('rh_embauche2'))}}",
+ //       type: "POST",
+ //       data : test,
+ //       success: function(html) {
+ //         //console.log(html);
+ //         // Replace current position field ...
+ //         var label = $(html).find('label[for="demande_embauche_autre_' + $name + '"]').text();
+ //         console.log(label);
+ //         var input = $(html).find('#demande_embauche_autre_' + $name);
+ //         var elem = '<div id="at' + idInt +'"><label for="demande_embauche_autre_' + $name + '" class="control-label label col-sm-3 col-xs-12 required">' + label + '</label><div id="autre' + idInt +'" class="other col-sm-3"></div></div>';
+ //         $form.parent().parent().append(elem);
+ //         input.appendTo('#autre' + idInt);
+ //       }
+ //     }); // Fin ajax
+ //   }
+ //   $form.change(addFieldAjax); // Fin change()
+ // }
   $addListener($situ, "lieu", "dejaSalarie", 0, 1);
   $addListener($situ2, "poste", "postes", 2, 2);
   $addListener($situ3, "diplome", "diplomes", 2, 3);
   $addListener($situ4, "classification", "classification", 2 , 4);
-  $addListener($situ5, "salaire", "salaireBase", 1, 5);
+  //$addListener($situ5, "salaire", "salaireBase", 1, 5);
 
 
 
@@ -387,8 +471,6 @@ $(document).ready(function(){
       console.log('enabled')
     }
   });
-
-
 
 });
 </script>

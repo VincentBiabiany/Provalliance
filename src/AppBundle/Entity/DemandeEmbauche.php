@@ -64,6 +64,7 @@ class DemandeEmbauche extends DemandeForm
      */
     private $codePostal;
 
+
     /**
      * @var string
      *
@@ -165,7 +166,7 @@ class DemandeEmbauche extends DemandeForm
     /**
      * @var array
      *
-     * @ORM\Column(name="diplomes", type="json_array")
+     * @ORM\Column(name="diplomes", type="array")
      */
     private $diplomes;
 
@@ -191,9 +192,9 @@ class DemandeEmbauche extends DemandeForm
     private $autre;
 
     /**
-     * @var string
+     * @var int
      *
-     * @ORM\Column(name="salaire_base", type="string", length=255,  nullable=true)
+     * @ORM\Column(name="salaire_base", type="integer")
      */
     private $salaireBase;
 
@@ -221,9 +222,16 @@ class DemandeEmbauche extends DemandeForm
     /**
      * @var string
      *
-     * @ORM\Column(name="cdd_date", type="datetime", length=255,  nullable=true)
+     * @ORM\Column(name="cdd_date", type="date", length=255,  nullable=true)
      */
     private $cddDate;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="precision_date", type="string", length=255, nullable=true)
+     */
+    private $precisionDate;
 
     /**
      * @var string
@@ -235,10 +243,16 @@ class DemandeEmbauche extends DemandeForm
     /**
      * @var array
      *
-     * @ORM\Column(name="temps_partiel", type="json_array",  nullable=true)
+     * @ORM\Column(name="is_temps_partiel", type="string", length=255)
+     */
+    private $isTempsPartiel;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="temps_partiel", type="array",  nullable=true)
      */
     private $tempsPartiel;
-
 
     /**
      * @var string
@@ -664,6 +678,54 @@ class DemandeEmbauche extends DemandeForm
     public function getDejaSalarie()
     {
         return $this->dejaSalarie;
+    }
+
+    /**
+     * Set precisionDate
+     *
+     * @param string $precisionDate
+     *
+     * @return DemandeEmbauche
+     */
+    public function setprecisionDate($precisionDate)
+    {
+        $this->precisionDate = $precisionDate;
+
+        return $this;
+    }
+
+    /**
+     * Get precisionDate
+     *
+     * @return string
+     */
+    public function getprecisionDate()
+    {
+        return $this->precisionDate;
+    }
+
+    /**
+     * Set $isTempsPartiel
+     *
+     * @param string $isTempsPartiel
+     *
+     * @return DemandeEmbauche
+     */
+    public function setisTempsPartiel($isTempsPartiel)
+    {
+        $this->isTempsPartiel = $isTempsPartiel;
+
+        return $this;
+    }
+
+    /**
+     * Get $isTempsPartiel
+     *
+     * @return string
+     */
+    public function getisTempsPartiel()
+    {
+        return $this->isTempsPartiel;
     }
 
     /**
