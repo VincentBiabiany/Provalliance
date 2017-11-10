@@ -276,6 +276,7 @@ class DemandeEmbauche extends DemandeForm
     protected $mutuelle;
 
     protected $nameDemande ='DemandeEmbauche';
+    protected $subject ='inconnu';
 
 
     /**
@@ -1150,5 +1151,15 @@ class DemandeEmbauche extends DemandeForm
     public function getNameDemande()
     {
         return $this->nameDemande;
+    }
+
+    /**
+     * Get subject
+     *
+     * @return integer
+     */
+    public function getSubject()
+    {
+        return $this->subject;
     }
 }

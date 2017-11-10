@@ -27,9 +27,9 @@ class AutreDemande extends DemandeForm
     /**
      * @var int
      *
-     * @ORM\Column(name="personnel_id", type="integer", nullable=true)
+     * @ORM\Column(name="matricule", type="integer", nullable=true)
      */
-    private $idPersonnel;
+    private $matricule;
 
     /**
      * @var string
@@ -45,60 +45,39 @@ class AutreDemande extends DemandeForm
      */
     private $commentaire;
 
+
     /**
      * @var array
      *
      * @ORM\Column(name="piece_jointes", type="array", nullable=true)
      */
     private $pieceJointes;
-
+    protected $nameDemande ='AutreDemande';
+    protected $subject ='connu';
+    private $service;
 
     /**
-     * Set collaborateur
+     * Set matricule
      *
-     * @param string $collaborateur
+     * @param integer $matricule
      *
      * @return AutreDemande
      */
-    public function setCollaborateur($collaborateur)
+    public function setMatricule($matricule)
     {
-        $this->collaborateur = $collaborateur;
+        $this->matricule = $matricule;
 
         return $this;
     }
 
     /**
-     * Get collaborateur
-     *
-     * @return string
-     */
-    public function getCollaborateur()
-    {
-        return $this->collaborateur;
-    }
-
-    /**
-     * Set idPersonnel
-     *
-     * @param integer $idPersonnel
-     *
-     * @return AutreDemande
-     */
-    public function setIdPersonnel($idPersonnel)
-    {
-        $this->idPersonnel = $idPersonnel;
-
-        return $this;
-    }
-
-    /**
-     * Get idPersonnel
+     * Get matricule
      *
      * @return integer
      */
-    public function getIdPersonnel()
+    public function getMatricule()
     {
-        return $this->idPersonnel;
+        return $this->matricule;
     }
 
     /**
@@ -150,6 +129,30 @@ class AutreDemande extends DemandeForm
     }
 
     /**
+     * Set service
+     *
+     * @param string $service
+     *
+     * @return AutreDemande
+     */
+    public function setService($service)
+    {
+        $this->service = $service;
+
+        return $this;
+    }
+
+    /**
+     * Get service
+     *
+     * @return string
+     */
+    public function getService()
+    {
+        return $this->service;
+    }
+
+    /**
      * Set pieceJointes
      *
      * @param array $pieceJointes
@@ -171,5 +174,25 @@ class AutreDemande extends DemandeForm
     public function getPieceJointes()
     {
         return $this->pieceJointes;
+    }
+
+    /**
+     * Get nameDemande
+     *
+     * @return integer
+     */
+    public function getNameDemande()
+    {
+        return $this->nameDemande;
+    }
+
+    /**
+     * Get subject
+     *
+     * @return integer
+     */
+    public function getSubject()
+    {
+        return $this->subject;
     }
 }

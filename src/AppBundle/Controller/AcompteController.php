@@ -46,48 +46,8 @@ class AcompteController extends Controller
                           );
       } else {
 
-        // $demande = new DemandeSimple();
-        // $acompte = $form->getData();
-        // $em = $this->getDoctrine()->getManager();
-        //
-        // $montant = $form["montant"]->getData();
-        // $personnel = $form["idPersonnel"]->getData();
-        //
-        // $acompte->setTypeForm("Demande d'acompte");
-        // $acompte->setMontant($montant)->setIdPersonnel($personnel->getMatricule());
-        //
-        // $demande->setService('paie');
-        // $demande->setUser($this->getUser());
-        // $demande->setIdSalon($idSalon);
-        // $demande->setDemandeform($acompte);
-        //
-        // $em->persist($demande);
-        // $em->flush();
-        //
-        // // Notification par Mail
-        // $destinataire = $em->getRepository('AppBundle:User')->findOneBy(array('idPersonnel' => $personnel->getMatricule()));
-        // // $destinataire = $destinataire->getEmail();
-        //
-        // $user = $this->getUser();
-        // $emetteur = $user->getEmail();
-        //
-        // $message = (new \Swift_Message('Nouvelle demande d\'Acompte '))
-        // ->setFrom('send@example.com')
-        // ->setTo('recipient@example.com')
-        // ->setBody(
-        //   $this->renderView(
-        //     'emails/demande_acompte.html.twig',
-        //     array('personnel' => $personnel->getPrenom().' '.$personnel->getNom(),
-        //     'user' => $user->getUsername(),
-        //     'demande' => 'd\'acompte')
-        //   ),
-        //   'text/html'
-        // );
-        // $mailer->send($message);
-
         $demandeService->createDemande($form->getData(), $idSalon);
 
-        //$this->addFlash("success", "La demande d'acompte pour ".$personnel->getPrenom()." ".$personnel->getNom()." a correctement été envoyée ! Un mail vous sera envoyé une fois votre demande traitée.");
         return $this->redirect($this->generateUrl('homepage',
         array('flash' => "La demande d'acompte a correctement été envoyée !
          Un mail vous sera envoyé une fois votre demande traitée.")));

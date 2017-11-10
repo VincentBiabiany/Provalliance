@@ -20,7 +20,7 @@ class AccountRepository extends EntityRepository
                 $listeAccount=null;
             }else{
                 foreach ($listes as $liste ) {
-                    $listeAccount[]= $liste->getIdPersonnel();
+                    $listeAccount[]= $liste->getMatricule();
                 }
             }
              return $listeAccount;

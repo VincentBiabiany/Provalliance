@@ -12,3 +12,6 @@ enabled_required:          Champs requis
 acompte_montant_required:  Merci de saisir un montant
 acompte_montant_minlength: Montant minimum de 1 euro
 acompte_montant_maxlength: Montant maximum de 10 000 euros
+
+autre_demande_objet_required:       Please provide a theme
+autre_demande_commentaire_required: Vous devez saisir un commentaire

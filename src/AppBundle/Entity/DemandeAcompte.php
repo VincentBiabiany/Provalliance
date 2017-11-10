@@ -29,6 +29,7 @@ class DemandeAcompte extends DemandeForm
     private $matricule;
 
     protected $nameDemande ='DemandeAcompte';
+    protected $subject ='connu';
 
 
 
@@ -87,5 +88,15 @@ class DemandeAcompte extends DemandeForm
     public function getNameDemande()
     {
         return $this->nameDemande;
+    }
+
+    /**
+     * Get subject
+     *
+     * @return integer
+     */
+    public function getSubject()
+    {
+        return $this->subject;
     }
 }

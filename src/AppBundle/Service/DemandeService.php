@@ -20,6 +20,7 @@ use AppBundle\Entity\DemandeSimple;
 use AppBundle\Entity\DemandeComplexe;
 use AppBundle\Entity\DemandeEmbauche;
 use AppBundle\Entity\DemandeAcompte;
+use AppBundle\Entity\AutreDemande;
 
 class DemandeService
 {
@@ -52,6 +53,10 @@ class DemandeService
   {
     if ($demande instanceof DemandeAcompte) {
       self::createDemandeAcompte($demande, $idSalon);
+    }
+
+    if ($demande instanceof AutreDemande) {
+      self::createAutreDemande($demande, $idSalon);
     }
 
     if ($demande instanceof DemandeEmbauche) {
@@ -232,6 +237,37 @@ class DemandeService
     $this->url = $this->router->generate('demande_detail', ['id' => $demande->getId()], 0);
   }
 
+  public function createAutreDemande($demande, $idSalon){
+
+    $personnel =  $this->em->getRepository('ApiBundle:Personnel')
+                           ->findOneBy(array('matricule' => $demande->getMatricule()));
+
+    $demandeSimple = new DemandeSimple();
+
+    $demande->setTypeForm("Autre demande");
+
+    $demandeSimple->setService($demande->getService());
+    $demandeSimple->setUser($this->token->getUser());
+    $demandeSimple->setIdSalon($idSalon);
+    $demandeSimple->setDemandeform($demande);
+
+    $this->emWebapp->persist($demandeSimple);
+    $this->emWebapp->flush();
+
+    // Generation de l'url
+    self::generateAbsUrl($demandeSimple);
+
+    if (  $personnel == null){
+      $personnel ='n/a';
+
+    }else{
+      $personnel = $personnel->getPrenom().' '.$personnel->getNom();
+      self::sendMail($idSalon, $personnel, [1, 5],  $demande->getTypeForm());
+    }
+
+
+  }
+
   public function createDemandeAcompte($demande, $idSalon)
   {
     $personnel =  $this->em->getRepository('ApiBundle:Personnel')
@@ -248,8 +284,6 @@ class DemandeService
 
     $this->emWebapp->persist($demandeSimple);
     $this->emWebapp->flush();
-
-    $this->session->getFlashBag()->add("success", "La demande d'acompte pour ".$personnel->getPrenom()." ".$personnel->getNom()." a correctement été envoyée ! Un mail vous sera envoyé une fois votre demande traitée.");
 
     // Generation de l'url
     self::generateAbsUrl($demandeSimple);

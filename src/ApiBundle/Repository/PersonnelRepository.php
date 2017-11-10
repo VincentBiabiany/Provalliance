@@ -73,20 +73,22 @@ class PersonnelRepository extends EntityRepository
    public function whichPersonnel($demande, $idP){
 
           $collab = $this->findOneBy(array('matricule' => $idP ));
-          $collab = $collab->getNom() . " " . $collab->getPrenom();
+          if ($collab == null){
+            $collab ='n/a';
+
+          }else{
+            $collab = $collab->getNom() . " " . $collab->getPrenom();
+
+          }
 
       return $collab;
    }
 
    // Fonction getListPerso: Retourne la liste du personnel avec la possibilité de n'effectuer aucune sélection
-   //en premier lieu
+   // en premier lieu
 
    public function getListPerso($idSalon){
-      $listPerso['Aucune sélection'] = null;
-      $listPerso[null] = null;
-      // $p = $this->findOneBy(array('matricule' => $value));
-      // $listPerso[$p->getNom().' '.$p->getPrenom()] = $value;
-
+      $listPerso['Aucune sélection'] = 99999;
       $listes= $this->createQueryBuilder('d')
           ->join('d.salon', 'm')
           ->andwhere('m.sage = :idSalon')

@@ -3,7 +3,8 @@
 namespace AppBundle\Repository;
 use ApiBundle\Entity\Personnel;
 use ApiBundle\Entity\Salon;
-
+use AppBundle\Entity\DemandeSimple;
+use AppBundle\Entity\DemandeComplexe;
 /**
  * DemandeEntityRepository
  *

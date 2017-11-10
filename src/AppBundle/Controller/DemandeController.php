@@ -303,7 +303,7 @@ class DemandeController extends Controller
           }
 
           /* Nom et Prenom du personnel concerné par la demande  */
-          if ($demande->getDemandeform()->getTypeForm() == "Demande d'acompte") {
+          if ($demande->getDemandeform()->getSubject() == "connu") {
             $idP = $demande->getDemandeform()->getMatricule();
             $collab  = $persoRepo->whichPersonnel($demande,$idP);
           } else {

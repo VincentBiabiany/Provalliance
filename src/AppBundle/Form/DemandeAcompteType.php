@@ -23,42 +23,6 @@ class DemandeAcompteType extends AbstractType
     {
       $idSalon = $options["idSalon"];
       $matricule = $options["matricule"];
-      //Construit le formulaire d'accompte pour le résumé de la demande
-      if ($idSalon == null){
-        $builder
-              ->add('montant', NumberType::class, array(
-                  'attr' => array(
-                    'readonly' => true,
-                    'disabled' => true,
-                    'class' =>'onlyread'
-                  ),
-                  'label' => 'demandeacompte.montant',
-                  'translation_domain' => 'demande_acompte',
-                ))
-
-              ->add('matricule', EntityType::class, array(
-                  'attr' => array(
-                    'readonly' => true,
-                    'disabled' => true,
-                    'class' =>'onlyread form-control'
-                  ),
-                  // query choices from this entity
-                  'class' => 'ApiBundle:Personnel',
-                  // use the User.username property as the visible option string
-                  'choice_label' => function ($personnel) {
-                        return $personnel->getNom() ." ". $personnel->getPrenom();
-                      },
-
-                  'query_builder' => function (EntityRepository $er) use ($matricule) {
-                      return $er->createQueryBuilder('p')
-                                ->where('p.matricule = :matricule')
-                                ->setParameter('matricule', $matricule);
-                    },
-                  'label' => 'demandeacompte.nom',
-                  'translation_domain' => 'demande_acompte'
-                ))
-          ;
-      } else {
 
        $builder
                 ->add('montant', IntegerType::class, array(
@@ -85,7 +49,7 @@ class DemandeAcompteType extends AbstractType
                   'label' => 'demandeacompte.envoyer',
                   'attr' => array('class' =>'btn-black end'),
                   'translation_domain' => 'demande_acompte'
-                ))
+              ))
               ->addEventListener(FormEvents::POST_SUBMIT,
                   function(FormEvent $event)
                   {
@@ -95,7 +59,7 @@ class DemandeAcompteType extends AbstractType
                     $data->setMatricule($form['matricule']->getData()->getMatricule());
                     $event->setData($data);
                   });
-      }
+
     }
 
 	public function configureOptions(OptionsResolver $resolver)

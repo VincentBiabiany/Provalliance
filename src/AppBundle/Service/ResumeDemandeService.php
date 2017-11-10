@@ -11,6 +11,7 @@ use ApiBundle\Entity\PersonnelHasSalon;
 use ApiBundle\Entity\Profession;
 use AppBundle\Entity\DemandeAcompte;
 use AppBundle\Entity\DemandeEmbauche;
+use AppBundle\Entity\AutreDemande;
 use AppBundle\Entity\DemandeEntity;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Bridge\Doctrine\PropertyInfo\DoctrineExtractor;
@@ -52,14 +53,15 @@ class ResumeDemandeService
       $idDemandeItSelf = $infoDemande['demandeId'];
 
       $properties = $propertyInfo->getProperties('AppBundle\Entity\\'.$nameEntity);
-      $properties = array_diff($properties,['discr','typeForm','id','nameDemande']);
+      $properties = array_diff($properties,['discr','typeForm','id','nameDemande','subject','service']);
       $response .= '<h1>'.$infoDemande['typeForm'].'  |  '.$infoDemande['dateTraitement']->format('d-m-y').'
         |  Réf. : '.$idDemandeItSelf.'</h1>';
 
       $response .= "<div id='propertiesDemandePrint'  class='contentBlock'><h2> Récapitulatif de la demande </h2>";
           // Boucle pour propriétés de la demande
+          dump($properties);
           for ($k = 0; $k < count($properties); $k++) {
-
+            if (isset($properties[$k])){
             $property = $properties[$k];
 
             $qb = $this->em2->createQueryBuilder()
@@ -82,7 +84,7 @@ class ResumeDemandeService
                               $response .= '<p><b>'.ucfirst($property).'</b> : ';
                               $response .= $prop.'</p>';
                             }
-
+                }
           }
           $response .= '</div>';
 
