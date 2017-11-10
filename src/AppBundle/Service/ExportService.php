@@ -49,7 +49,6 @@ class ExportService
 
     foreach ($demandeExports as $demandeExport ) {
       $j = $i + 1;
-
            //Infos de La demande
            $demandes = $demandeRepo->infosDemande($demandeExport);
 
@@ -95,14 +94,10 @@ class ExportService
                             ,'BO','BP','BQ','BR','BS','BT','BU','BV','BW','BX','BY','BZ','CA','CB','CC','CD','CE','CF','CG',
                             'CH','CI','CJ','CK','CL','CM','CN','CO','CP','CQ','CR','CS','CT','CU','CV','CW','CX','CY','CZ',
                             'DA','DB','DC','DD');
+              for ($k = 0; $k < $ColDemandes['nb']; $k++) {
+                 $phpExcelObject->setActiveSheetIndex(0)->setCellValue($tabExcelCol[$k].$i, $ColDemandes['col'][$k]);
 
-             for ($k = 0; $k < $ColDemandes['nb']; $k++) {
-                $phpExcelObject->setActiveSheetIndex(0)->setCellValue($tabExcelCol[$k].$i, $ColDemandes['col'][$k]);
-
-                  //Valeurs spécifiques à chaque propriété pour une demande
-                  $valueCol= self::whichVal($demandes['nameDemande'],$demandes['demandeId'],$ColDemandes['col'][$k] );
-                  $phpExcelObject->setActiveSheetIndex(0)->setCellValue($tabExcelCol[$k].$j, $valueCol);
-             }
+              }
       }
      $phpExcelObject->setActiveSheetIndex(0)->setCellValue('A'.$j, $demandes['codeSage'])->setCellValue('B'.$j, $salon['enseigne'])->setCellValue('C'.$j, $salon['appelation'])
       ->setCellValue('D'.$j, $salon['formeJuridique'])->setCellValue('E'.$j, $salon['rcsVille'])->setCellValue('F'.$j, $salon['codeNaf'])->setCellValue('G'.$j, $salon['siren'])
@@ -117,6 +112,11 @@ class ExportService
       ->setCellValue('AN'.$j, $collaborateur['ville'])->setCellValue('AO'.$j, 'Pays')->setCellValue('AP'.$j, $collaborateur['telephone1'])->setCellValue('AQ'.$j, $collaborateur['telephone2'])->setCellValue('AR'.$j, $collaborateur['email'])
       ->setCellValue('AS'.$j, $demandes['dateTraitement']->format('d-m-Y'))->setCellValue('AT'.$j, self::labelStatut($demandes['statut']))->setCellValue('AU'.$j, $demandes['typeForm']);
 
+      for ($k = 0; $k < $ColDemandes['nb']; $k++) {
+      //Valeurs spécifiques à chaque propriété pour une demande
+      $valueCol= self::whichVal($demandes['nameDemande'],$demandes['demandeId'],$ColDemandes['col'][$k] );
+      $phpExcelObject->setActiveSheetIndex(0)->setCellValue($tabExcelCol[$k].$j, $valueCol);
+        }
 
     $phpExcelObject->getActiveSheet()->setTitle($collaborateur['nom'].'-'.$demandes['dateTraitement']->format('d-m-Y'));
     // Set active sheet index to the first sheet, so Excel opens this as the first sheet
