@@ -420,12 +420,12 @@ form.demandeDetail .form-group{
     text-overflow: '';
 }
 
-label.required{
+/*label.required{
 	color: white;
 	font-size: 15px;
 	font-weight: lighter;
 	line-height: 30px;
-}
+}*/
 .end{
    background-color: #45bd43 !important;
 }

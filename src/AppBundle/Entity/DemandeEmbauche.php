@@ -296,6 +296,10 @@ class DemandeEmbauche extends DemandeForm
      */
     protected $mutuelle;
 
+    public function __construct()
+    {
+      $this->tempsPartiel = ['lundi'=>0, 'mardi'=>0,'mercredi'=>0, 'jeudi'=>0,'vendredi'=>0,'samedi'=>0,'total'=>0];
+    }
     /**
      * Set nom
      *

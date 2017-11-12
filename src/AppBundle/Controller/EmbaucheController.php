@@ -53,7 +53,9 @@ class EmbaucheController extends Controller
     public function index2Action(Request $request)
     {
       $session = $request->getSession();
-      $form = $this->createForm(DemandeEmbaucheType::class, $session->get('demande'), array('step' => '2'));
+      $demande = $session->get('demande');
+      //$demande->setTempsPartiel();
+      $form = $this->createForm(DemandeEmbaucheType::class, $demande, array('step' => '2'));
 
       $form->handleRequest($request);
 
@@ -73,14 +75,19 @@ class EmbaucheController extends Controller
     /**
      * @Route("/clearSession", name="clearSession")
      */
-     public function indexClearSession(Request $request)
-     {
+     public function indexClearSession(Request $request) {
+       self::clearSession($request);
+       return new Response(json_encode("ok"), 200, ['Content-Type' => 'application/json']);
+     }
+
+     public function clearSession($request) {
+
        $session = $request->getSession();
        $session->remove('demande');
+       $session->remove('nat');
        $session->remove('poste');
        $session->remove('diplome');
-       
-       return new Response(json_encode("ok"), 200, ['Content-Type' => 'application/json']);
+       $session->remove('date');
      }
 
     /**
@@ -94,8 +101,7 @@ class EmbaucheController extends Controller
       $form->handleRequest($request);
       if ($form->isSubmitted() && $form->isValid()) {
         $demandeService->createDemande($form->getData(), $request->getSession()->get('idSalon'));
-
-        $session->remove('demande');
+        self::clearSession($request);
         return $this->redirect($this->generateUrl('homepage',
                 array('flash' => "La demande d'acompte a correctement été envoyée !
                 Un mail vous sera envoyé une fois votre demande traitée.")));
