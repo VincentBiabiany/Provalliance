@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}{{ "home_juridique_rh.header"|trans({}, "home_juridique_rh") }}{% endblock %}
+{% block title %}{{ "home_juridique_rh.header"|trans({}, "translator") }}{% endblock %}
 
 {% block body %}
 
@@ -7,7 +7,7 @@
   <img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
 </div>
 <div class="head" >
-  {{ "home_juridique_rh.header"|trans({}, "home_juridique_rh") }}
+  {{ "home_juridique_rh.header"|trans({}, "translator") }}
 
 </div>
 <div class="nomSalon">
@@ -20,41 +20,41 @@
       <div class="col-sm-12">
         <div class="col-sm-12">
           <div onclick="window.location.href = '{{ path('rh_embauche') }}'" class="col-sm-4 block">
-            <div class="under-block"><p class="carre">{{ "home_juridique_rh.embauche"|trans({}, "home_juridique_rh") }}</p></div>
+            <div class="under-block"><p class="carre">{{ "home_juridique_rh.embauche"|trans({}, "translator") }}</p></div>
           </div>
           <div class="col-sm-4 block">
-            <div class="under-block"><p class="carre">{{ "home_juridique_rh.rupture"|trans({}, "home_juridique_rh") }}</p></div>
+            <div class="under-block"><p class="carre">{{ "home_juridique_rh.rupture"|trans({}, "translator") }}</p></div>
           </div>
           <div class="col-sm-4 block">
-            <div class="under-block"><p class="carre">{{ "home_juridique_rh.conge"|trans({}, "home_juridique_rh") }}</p></div>
+            <div class="under-block"><p class="carre">{{ "home_juridique_rh.conge"|trans({}, "translator") }}</p></div>
           </div>
         </div>
 
         <div class="col-sm-12">
           <div class="col-sm-4 block">
-            <div class="under-block"><p class="carre">{{ "home_juridique_rh.essai"|trans({}, "home_juridique_rh") }}</p></div>
+            <div class="under-block"><p class="carre">{{ "home_juridique_rh.essai"|trans({}, "translator") }}</p></div>
           </div>
           <div class="col-sm-4 block">
-            <div class="under-block"><p class="carre">{{ "home_juridique_rh.absence"|trans({}, "home_juridique_rh") }}</p></div>
+            <div class="under-block"><p class="carre">{{ "home_juridique_rh.absence"|trans({}, "translator") }}</p></div>
           </div>
           <div class="col-sm-4 block">
-            <div class="under-block"><p class="carre">{{ "home_juridique_rh.promesse"|trans({}, "home_juridique_rh") }}</p></div>
+            <div class="under-block"><p class="carre">{{ "home_juridique_rh.promesse"|trans({}, "translator") }}</p></div>
           </div>
         </div>
 
         <div class="col-sm-12">
           <div class="col-sm-4 block">
-            <div class="under-block"><p class="carre">{{ "home_juridique_rh.avenant"|trans({}, "home_juridique_rh") }}</p></div>
+            <div class="under-block"><p class="carre">{{ "home_juridique_rh.avenant"|trans({}, "translator") }}</p></div>
           </div>
           <div class="col-sm-4 block">
-            <div class="under-block"><p class="carre">{{ "home_juridique_rh.demission"|trans({}, "home_juridique_rh") }}</p></div>
+            <div class="under-block"><p class="carre">{{ "home_juridique_rh.demission"|trans({}, "translator") }}</p></div>
           </div>
           <div class="col-sm-4 block">
-            <div class="under-block"><p class="carre">{{ "home_juridique_rh.mission"|trans({}, "home_juridique_rh") }}</p></div>
+            <div class="under-block"><p class="carre">{{ "home_juridique_rh.mission"|trans({}, "translator") }}</p></div>
           </div>
         </div>
 
-        <button class="btn-black precedent" onclick="window.location.href = '{{ path("homepage") }}'" style="float:none;">Précédent</button>
+        <button class="btn-black precedent" onclick="window.location.href = '{{ path("homepage") }}'" style="float:none;">{{ "global.back"|trans({}, "translator") }}</button>
       </div>
     </div>
   </div>

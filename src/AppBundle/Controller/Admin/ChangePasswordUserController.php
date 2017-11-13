@@ -42,7 +42,7 @@ class ChangePasswordUserController extends Controller
         $form = $formFactory->createForm(array('action' => $this->generateUrl('changePassword', array('idUser' => $idUser))));
         $form-> add('Changer', SubmitType::class, array(
               'label' => 'global.valider',
-              'translation_domain' => 'global',
+              'translation_domain' => 'translator',
               'attr' => array(
                    'class' => 'btn-black end'
                      ))

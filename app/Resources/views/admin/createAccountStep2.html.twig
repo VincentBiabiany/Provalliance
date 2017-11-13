@@ -1,5 +1,5 @@
 
-{% trans_default_domain "demandeacompte" %}
+{% trans_default_domain "translator" %}
 
 {{ form_start(formS2, {'attr': {'id': 'createAccountS2', 'class':'allForm createAccount'} }) }}
 							  <div class="form-group">
@@ -11,10 +11,10 @@
 						<div id="actionsButtons">
  								{{ form_end(formS2) }}
 								<a id="form_Suivant" class="btn-black end" href="#">
-										{{ "global.next"|trans({}, "global") }}
+										{{ "global.next"|trans({}, "translator") }}
 								</a>
  								<a id="form_Precedent" class="btn-black precedent" href="#">
-										{{ "global.back"|trans({}, "global") }}
+										{{ "global.back"|trans({}, "translator") }}
  								</a>
 						</div>
 

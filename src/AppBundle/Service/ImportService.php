@@ -108,17 +108,17 @@ class ImportService
 
       $group = $this->em->getRepository('ApiBundle:Groupe')->find($salon[20]);
       if (!$group)
-        throw new Exception($this->trans->trans('import.groupe', ["%line%"=> ($key+2)], 'import'));
+        throw new Exception($this->trans->trans('import.groupe', ["%line%"=> ($key+2)], 'translator'));
       $entity->setGroupe($group);
 
       $enseigne = $this->em->getRepository('ApiBundle:Enseigne')->find($salon[21]);
       if (!$enseigne)
-        throw new Exception($this->trans->trans('import.enseigne', ["%line%"=> ($key+2)], 'import'));
+        throw new Exception($this->trans->trans('import.enseigne', ["%line%"=> ($key+2)], 'translator'));
       $entity->setEnseigne($enseigne);
 
       $pays = $this->em->getRepository('ApiBundle:Pays')->find($salon[22]);
       if (!$pays)
-        throw new Exception($this->trans->trans('import.pays', ["%line%"=> ($key+2)], 'import'));
+        throw new Exception($this->trans->trans('import.pays', ["%line%"=> ($key+2)], 'translator'));
 
       $entity->setPays($pays);
 
@@ -160,17 +160,17 @@ class ImportService
 
       $profession = $this->em->getRepository('ApiBundle:Profession')->find($lien[2]);
       if (!$profession)
-        throw new Exception($this->trans->trans('import.prof', ["%line%"=> ($key+2)],'import'));
+        throw new Exception($this->trans->trans('import.prof', ["%line%"=> ($key+2)],'translator'));
       $entity->setProfession($profession);
 
       $personnel = $this->em->getRepository('ApiBundle:Personnel')->find($lien[1]);
       if (!$personnel)
-        throw new Exception($this->trans->trans('import.matr', ["%line%"=> ($key+2)], 'import'));
+        throw new Exception($this->trans->trans('import.matr', ["%line%"=> ($key+2)], 'translator'));
       $entity->setPersonnelMatricule($personnel);
 
       $salon = $this->em->getRepository('ApiBundle:Salon')->find($lien[3]);
       if (!$salon)
-        throw new Exception($this->trans->trans('import.salonEr', ["%line%"=> ($key+2)],'import'));
+        throw new Exception($this->trans->trans('import.salonEr', ["%line%"=> ($key+2)],'translator'));
       $entity->setSalonSage($salon);
 
       $entity->setDateDebut(self::returnDate($lien[4]));
@@ -207,14 +207,14 @@ class ImportService
     {
       // Efface le fichier et fais remonter l'erreur
       $fs->remove($file->getRealPath());
-      throw new Exception($this->trans->trans('import.nocsv', [],'import'));
+      throw new Exception($this->trans->trans('import.nocsv', [],'translator'));
     }
 
     $csv = fopen($file->getRealPath(), "r");
     if (!$csv)
     {
       $fs->remove($file->getRealPath());
-      throw new Exception($this->trans->trans('import.corrupt', [],'import'));
+      throw new Exception($this->trans->trans('import.corrupt', [],'translator'));
     }
     // Test des noms de colonnes
     ini_set('auto_detect_line_endings', true);
@@ -224,7 +224,7 @@ class ImportService
     {
       fclose($csv);
       $fs->remove($file->getRealPath());
-      throw new Exception($this->trans->trans('import.nbchamps', ["%champs%"=>implode("\r",$champs["colonnes"]) ],'import'));
+      throw new Exception($this->trans->trans('import.nbchamps', ["%champs%"=>implode("\r",$champs["colonnes"]) ],'translator'));
     }
 
     $array = $this->controleCsvLine($csv, $champs);
@@ -238,7 +238,7 @@ class ImportService
       $message = "";
       foreach ($array["error"] as $key => $value)
         $message .= $array["error"][$key] . "\n";
-      throw new Exception($this->trans->trans('import.fileerror', [],'import') ."\n\n" . $message, 1);
+      throw new Exception($this->trans->trans('import.fileerror', [],'translator') ."\n\n" . $message, 1);
     }
     return $array;
   }
@@ -265,7 +265,7 @@ class ImportService
                       "%nb%" => count($line),
                       "%expd%" => $chpObligatoire["nb"]
                     ],
-                      'import'
+                      'translator'
               );
 
       foreach ($chpObligatoire["valeur"] as $key => $value) {
@@ -274,7 +274,7 @@ class ImportService
                         "%line%" => ($i + 2),
                         "%champs%" => $chpObligatoire["champs"][$key],
                       ],
-                        'import'
+                        'translator'
                     );
       }
       ++$i;

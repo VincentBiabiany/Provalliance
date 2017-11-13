@@ -23,24 +23,24 @@ class ImportHomeController extends Controller
          'required' => false,
          'attr' => ['accept' => '.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel'],
          'label' => 'import.salon',
-         'translation_domain' => 'import',
+         'translation_domain' => 'translator',
       ))
      ->add('personnel', FileType::class, array(
          'required' => false,
          'attr' => ['accept' => '.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel'],
          'label' => 'import.personnel',
-         'translation_domain' => 'import'
+         'translation_domain' => 'translator'
      ))
      ->add('lien', FileType::class, array(
          'required' => false,
          'attr' => ['accept' => '.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel'],
          'label' => 'import.lien',
-         'translation_domain' => 'import',
+         'translation_domain' => 'translator',
       ))
      ->add('send', SubmitType::class, [
          'label' => 'import.import',
          'attr' => array('class' => 'btn-black end'),
-         'translation_domain' => 'import',
+         'translation_domain' => 'translator',
      ])
      ->getForm();
 
@@ -64,7 +64,7 @@ class ImportHomeController extends Controller
                                               'success'=> null
                                             ]);
        }
-       $success = $this->get('translator')->trans('import.sucmsg', [], 'import');
+       $success = $this->get('translator')->trans('import.sucmsg', [], 'translator');
      }
 
      return $this->render('admin/import/import_home.html.twig', ['form' => $form->createView(), 'erreur' => null, 'success'=> $success]);

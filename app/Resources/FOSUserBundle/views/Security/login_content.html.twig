@@ -17,22 +17,22 @@
 			<input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
 		  {% endif %}
 		  <div class="form-group block">
-			<label class="control-label label lab-log col-sm-4 col-xs-12" for="nom">{{ "login.username"|trans({}, "login") }}</label>
+			<label class="control-label label lab-log col-sm-4 col-xs-12" for="nom">{{ "login.username"|trans({}, "translator") }}</label>
 			 <div class="col-xs-8">
 				<input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control" required="required" />
 			</div>
 		  </div>
 		  <div class="form-group">
-			<label class="control-label label lab-log col-sm-4 col-xs-12" for="pwd">{{ "login.password"|trans({}, "login") }}</label>
+			<label class="control-label label lab-log col-sm-4 col-xs-12" for="pwd">{{ "login.password"|trans({}, "translator") }}</label>
 			<div class="col-xs-8">
 				<input type="password" id="password" name="_password" class="form-control" required="required" />
 			</div>
 		  </div>
-		  <button type="submit" id="_submit" name="_submit" class="btn-black">Connexion</button>
-			<a style="cursor:pointer;float:left;" data-toggle="modal" data-target="#myModal"><p style="color:black;">{{ "login.lost"|trans({}, "login") }}</p></a>
+		  <button type="submit" id="_submit" name="_submit" class="btn-black">{{ "login.connexion"|trans({}, "translator") }}</button>
+			<a style="cursor:pointer;float:left;" data-toggle="modal" data-target="#myModal"><p style="color:black;">{{ "login.lost"|trans({}, "translator") }}</p></a>
 		</div>
 		</form>
-		<div id="Nova" > {{ "login.dev"|trans({}, "login") }} <a href="http://www.nova-technology.fr/">NOVA Technology</a> </div>
+		<div id="Nova" > {{ "login.dev"|trans({}, "translator") }} <a href="http://www.nova-technology.fr/">NOVA Technology</a> </div>
 	</div>
 
 	<div id="myModal" class="modal fade" role="dialog">
@@ -40,17 +40,17 @@
 		<div class="modal-content">
 		  <div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">&times;</button>
-			<h4 style="color:black;" class="modal-title">{{ "login.contact"|trans({}, "login") }}</h4>
+			<h4 style="color:black;" class="modal-title">{{ "login.contact"|trans({}, "translator") }}</h4>
 		  </div>
 		  <div class="modal-body">
 			<p style="color:black;">
-				{{ "login.msg"|trans({}, "login") }} <br>
-                {{ "login.phone"|trans({}, "login") }}<br>
-				<a style="color:black;" href="mailto:{{ "login.email"|trans({}, "login") }}">email : {{ "login.email"|trans({}, "login") }}</a>
+				{{ "login.msg"|trans({}, "translator") }} <br>
+                {{ "login.phone"|trans({}, "translator") }}<br>
+				<a style="color:black;" href="mailto:{{ "login.email"|trans({}, "translator") }}">email : {{ "login.email"|trans({}, "translator") }}</a>
 			</p>
 		  </div>
 		  <div class="modal-footer">
-			<button type="button" class="btn btn-default" data-dismiss="modal">{{ "login.close"|trans({}, "login") }}</button>
+			<button type="button" class="btn btn-default" data-dismiss="modal">{{ "login.close"|trans({}, "translator") }}</button>
 		  </div>
 		</div>
 

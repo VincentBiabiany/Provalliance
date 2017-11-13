@@ -248,7 +248,7 @@ table.dataTable thead th, table.dataTable thead td ,table.dataTable tfoot th, ta
 	right: 0;
 	max-width: inherit;
 }
-#form_message .label-file,#formAutreDemande .label-file{
+#form_message .label-file,#formAutreDemande .label-file,#DemandeRib .label-file{
 	position: relative;
 	right: inherit;
 }

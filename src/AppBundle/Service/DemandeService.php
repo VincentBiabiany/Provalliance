@@ -310,7 +310,7 @@ class DemandeService
     // Generation de l'url
     self::generateAbsUrl($demandeComplexe);
 
-    if ($demande->getTypeContrat() == "embauche.cdd")
+    if ($demande->getTypeContrat() == "demande_embauche.cdd")
       self::sendMail($idSalon, $personnel, [2, 7],  $demande->getTypeForm());
     else
       self::sendMail($idSalon, $personnel, [2, 5],  $demande->getTypeForm());

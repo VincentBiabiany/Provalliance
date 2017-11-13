@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}Résumé de la demande{% endblock %}
+{% block title %}{% endblock %}
 
 {% block body %}
 
@@ -38,7 +38,7 @@
 		</div>
 		{% endif  %}
 		<div class="col-sm-12" style="padding: 0;">
-			<button  onclick="window.location.href ='{{ path("demande") }}'" class="btn-black precedent">Précédent</button>
+			<button  onclick="window.location.href ='{{ path("demande") }}'" class="btn-black precedent">{{ "global.back"|trans({}, "translator") }}</button>
 		</div>
 	</div>
 </div>

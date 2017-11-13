@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}Welcome{% endblock %}
+{% block title %}{% endblock %}
 
 {% block body %}
 
@@ -7,7 +7,7 @@
     <img style="display: block !important;margin: auto !important;" id="logotop" src="">
 </div>
 <div class="head" >
-Bonjour  {{ personnel.prenom  }} {{ personnel.nom|upper  }} <br/>
+{{ "home.bonjour"|trans({}, "translator") }}  {{ personnel.prenom  }} {{ personnel.nom|upper  }} <br/>
 </div>
 <div class="container">
     <div class="row">
@@ -20,20 +20,20 @@ Bonjour  {{ personnel.prenom  }} {{ personnel.nom|upper  }} <br/>
      <div class="blockAction"></div>
       <div class="col-sm-12">
           <div class="col-sm-6 block">
-              <div onclick="window.location.href = '{{ path("home_juridique_rh") }}'"  class="under-block"><p class="carre">{{ "home.juridique_rh"|trans({}, "home") }}</p></div>
+              <div onclick="window.location.href = '{{ path("home_juridique_rh") }}'"  class="under-block"><p class="carre">{{ "home.juridique_rh"|trans({}, "translator") }}</p></div>
           </div>
           <div class="col-sm-6 block">
-              <div onclick="window.location.href = '{{ path("home_paie") }}'" class="under-block"><p class="carre">{{ "home.paie"|trans({}, "home") }}</p></div>
+              <div onclick="window.location.href = '{{ path("home_paie") }}'" class="under-block"><p class="carre">{{ "home.paie"|trans({}, "translator") }}</p></div>
           </div>
       </div>
 
       <div class="col-sm-12">
 
           <div class="col-sm-6 block">
-              <div onclick="window.location.href = '{{ path("demande") }}'" class="under-block"><p class="carre">{{ "home.demand"|trans({}, "home") }}</p></div>
+              <div onclick="window.location.href = '{{ path("demande") }}'" class="under-block"><p class="carre">{{ "home.demand"|trans({}, "translator") }}</p></div>
           </div>
           <div class="col-sm-6 block">
-              <div onclick="window.location.href = '{{ path("autre_demande") }}'" class="under-block"><p class="carre">{{ "home.autre_demand"|trans({}, "home") }}</p></div>
+              <div onclick="window.location.href = '{{ path("autre_demande") }}'" class="under-block"><p class="carre">{{ "home.autre_demand"|trans({}, "translator") }}</p></div>
           </div>
       </div>
 
@@ -79,7 +79,7 @@ var ddData = [
         {% if app.session.get('idSalon') %}
             defaultSelectedIndex:  {{ app.session.get('numero') }},
         {% else %}
-        selectText: "Veuillez choisir un salon",
+        selectText: '{{ "home.choice"|trans({}, "translator") }}',
         {% endif %}
 
         onSelected: function(selectedData){

@@ -2,12 +2,12 @@
 {% block title %}Welcome{% endblock %}
 
 {% block body %}
-{% trans_default_domain "embauche" %}
+{% trans_default_domain "translator" %}
 <div class="header">
   <img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
 </div>
 <div class="head" >
-  {{ "embauche.header"|trans({}, "embauche") }}
+  {{ "demande_embauche.header"|trans({}, "translator") }}
 </div>
 <div class="nomSalon">
   {{ app.session.get('nomSalon') }}
@@ -19,24 +19,24 @@
 
   <div class="form-group">
 
-    <label class="control-label label col-sm-3 col-xs-12">{{ "embauche.nom"|trans({}, "embauche") }}</label>
+    <label class="control-label label col-sm-3 col-xs-12">{{ "demande_embauche.nom"|trans({}, "translator") }}</label>
     <div class="col-sm-3 col-xs-12">
       {{ form_widget(form.nom) }}
     </div>
 
-    <label class="control-label label col-sm-3 col-xs-12" >{{ "embauche.prenom"|trans({}, "embauche") }}</label>
+    <label class="control-label label col-sm-3 col-xs-12" >{{ "demande_embauche.prenom"|trans({}, "translator") }}</label>
     <div class="col-sm-3 col-xs-12">
       {{ form_widget(form.prenom) }}
     </div>
   </div>
 
   <div class="form-group">
-    <label class="control-label label col-sm-3 col-xs-12" for="demande_embauche_dateNaissance">{{ "embauche.daten"|trans({}, "embauche") }}</label>
+    <label class="control-label label col-sm-3 col-xs-12" for="demande_embauche_dateNaissance">{{ "demande_embauche.daten"|trans({}, "translator") }}</label>
     <div class="col-sm-3 col-xs-12">
       {{ form_widget(form.dateNaissance) }}
     </div>
 
-    <label class="control-label label col-sm-3 col-xs-12" for="Nationalité">{{ "embauche.sexe"|trans({}, "embauche") }}</label>
+    <label class="control-label label col-sm-3 col-xs-12" for="Nationalité">{{ "demande_embauche.sexe"|trans({}, "translator") }}</label>
     <div class="col-sm-3 col-xs-12 append" style="display: inline-flex">
       {{ form_widget(form.sexe) }}
     </div>
@@ -44,34 +44,34 @@
   </div>
 
   <div class="form-group">
-    <label class="control-label label col-sm-3 col-xs-12" for="adr">{{ "embauche.adr1"|trans({}, "embauche") }}</label>
+    <label class="control-label label col-sm-3 col-xs-12" for="adr">{{ "demande_embauche.adr1"|trans({}, "translator") }}</label>
     <div class="col-sm-9 col-xs-12">
       {{ form_widget(form.addresse1) }}
     </div>
   </div>
 
   <div class="form-group">
-    <label class="control-label label col-sm-3 col-xs-12" for="adr">{{ "embauche.adr2"|trans({}, "embauche") }}</label>
+    <label class="control-label label col-sm-3 col-xs-12" for="adr">{{ "demande_embauche.adr2"|trans({}, "translator") }}</label>
     <div class="col-sm-9 col-xs-12">
       {{ form_widget(form.addresse2) }}
     </div>
   </div>
 
   <div class="form-group" >
-    <label class="control-label label col-sm-3 col-xs-12">{{ "embauche.cp"|trans({}, "embauche") }}</label>
+    <label class="control-label label col-sm-3 col-xs-12">{{ "demande_embauche.cp"|trans({}, "translator") }}</label>
     <div class="col-sm-3 col-xs-12">
       {{ form_widget(form.codePostal)}}
 
     </div>
 
-    <label class="control-label label col-sm-3 col-xs-12">{{ "embauche.ville"|trans({}, "embauche") }}</label>
+    <label class="control-label label col-sm-3 col-xs-12">{{ "demande_embauche.ville"|trans({}, "translator") }}</label>
     <div class="col-sm-3 col-xs-12">
       {{ form_widget(form.ville) }}
     </div>
   </div>
 
   <div class="form-group" >
-    <label class="control-label label col-sm-3 col-xs-12" for="tel">{{ "embauche.tel"|trans({}, "embauche") }}</label>
+    <label class="control-label label col-sm-3 col-xs-12" for="tel">{{ "demande_embauche.tel"|trans({}, "translator") }}</label>
     <div class="col-sm-9 col-xs-12">
       {{ form_widget(form.telephone) }}
     </div>
@@ -79,19 +79,19 @@
   </div>
 
   <div class="form-group">
-    <label class="control-label label col-sm-3 col-xs-12" for="Nationalité">{{ "embauche.nat"|trans({}, "embauche") }}</label>
+    <label class="control-label label col-sm-3 col-xs-12" for="Nationalité">{{ "demande_embauche.nat"|trans({}, "translator") }}</label>
     <div class="col-sm-3 col-xs-12 append" style="display: inline-flex">
       {{ form_widget(form.nationalite) }}
     </div>
   </div>
 
   <div class="form-group">
-    <label class="control-label label col-sm-3 col-xs-12">{{ "embauche.ss"|trans({}, "embauche") }}</label>
+    <label class="control-label label col-sm-3 col-xs-12">{{ "demande_embauche.ss"|trans({}, "translator") }}</label>
     <div class="col-sm-3 col-xs-12">
       {{ form_widget(form.numSecu) }}
     </div>
 
-    <label class="control-label label col-sm-3 col-xs-12">{{ "embauche.email"|trans({}, "embauche") }}</label>
+    <label class="control-label label col-sm-3 col-xs-12">{{ "demande_embauche.email"|trans({}, "translator") }}</label>
     <div class="col-sm-3 col-xs-12">
       {{ form_widget(form.email) }}
     </div>
@@ -99,12 +99,12 @@
 
   <div class="form-group">
 
-    <label class="control-label label col-sm-3 col-xs-12"  for="fam">{{ "embauche.fam"|trans({}, "embauche") }}</label>
+    <label class="control-label label col-sm-3 col-xs-12"  for="fam">{{ "demande_embauche.fam"|trans({}, "translator") }}</label>
     <div class="col-sm-3 col-xs-12">
       {{ form_widget(form.situationFamille) }}
     </div>
 
-    <label class="control-label label col-sm-3 col-xs-12" for="enf">{{ "embauche.nbenf"|trans({}, "embauche") }}</label>
+    <label class="control-label label col-sm-3 col-xs-12" for="enf">{{ "demande_embauche.nbenf"|trans({}, "translator") }}</label>
     <div class="col-sm-3 col-xs-12">
       {{ form_widget(form.nbEnfant) }}
     </div>
@@ -112,12 +112,12 @@
 
   <div class="form-group">
 
-    <label class="control-label label col-sm-3 col-xs-12" for="Nationalité">{{ "embauche.villen"|trans({}, "embauche") }}</label>
+    <label class="control-label label col-sm-3 col-xs-12" for="Nationalité">{{ "demande_embauche.villen"|trans({}, "translator") }}</label>
     <div class="col-sm-3 col-xs-12" >
       {{ form_widget(form.villeNaissance) }}
     </div>
 
-    <label class="control-label label col-sm-3 col-xs-12" for="Nationalité">{{ "embauche.paysNaissance"|trans({}, "embauche") }}</label>
+    <label class="control-label label col-sm-3 col-xs-12" for="Nationalité">{{ "demande_embauche.paysNaissance"|trans({}, "translator") }}</label>
     <div class="col-sm-3 col-xs-12" >
       {{ form_widget(form.paysNaissance) }}
     </div>
@@ -128,7 +128,7 @@
     <div id="actionsButtons">
         {{ form_end(form) }}
       <a onclick='clearSession();' href="{{ path('home_juridique_rh') }}" class="btn-black precedent">
-          {{ "global.back"|trans({}, "global") }}
+          {{ "global.back"|trans({}, "translator") }}
       </a>
     </div>
 </div>
@@ -140,28 +140,28 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 style="color:black;" class="modal-title">{{ "embauche.attention"|trans({}, "embauche") }}</h4>
+        <h4 style="color:black;" class="modal-title">{{ "demande_embauche.attention"|trans({}, "translator") }}</h4>
       </div>
 
       <div class="modal-body">
 
         <div id="infoEmbauche" class="" >
-          <p style="color:black;">{{ "embauche.msg"|trans({}, "embauche") }}  </br></p>
+          <p style="color:black;">{{ "demande_embauche.msg"|trans({}, "translator") }}  </br></p>
 
           <ul>
-            <li>{{ "embauche.pi"|trans({}, "embauche") }}</li>
-            <li>{{ "embauche.diplome"|trans({}, "embauche") }}</li>
-            <li>{{ "embauche.cartev"|trans({}, "embauche") }}</li>
-            <li>{{ "embauche.rib"|trans({}, "embauche") }}</li>
-            <li>{{ "embauche.adhesion"|trans({}, "embauche") }}</li>
+            <li>{{ "demande_embauche.pi"|trans({}, "translator") }}</li>
+            <li>{{ "demande_embauche.diplome"|trans({}, "translator") }}</li>
+            <li>{{ "demande_embauche.cartev"|trans({}, "translator") }}</li>
+            <li>{{ "demande_embauche.rib"|trans({}, "translator") }}</li>
+            <li>{{ "demande_embauche.adhesion"|trans({}, "translator") }}</li>
           </ul>
         </div>
 
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">{{ "embauche.poursuivre"|trans({}, "embauche") }}</button>
-        <button type="button" style="float:left;" class="btn btn-default out"  onclick="window.location.href = '{{ path("homepage") }}'">{{ "embauche.retourac"|trans({}, "embauche") }}</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">{{ "global.poursuivre"|trans({}, "translator") }}</button>
+        <button type="button" style="float:left;" class="btn btn-default out"  onclick="window.location.href = '{{ path("homepage") }}'">{{ "global.retourac"|trans({}, "translator") }}</button>
       </div>
     </div>
 

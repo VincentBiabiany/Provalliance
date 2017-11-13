@@ -2,28 +2,28 @@
 {% block title %}Administration{% endblock %}
 
 {% block body %}
-{% trans_default_domain "admin_home" %}
+{% trans_default_domain "translator" %}
 
 	<div class="header admin">
 	</div>
 	<div class="head">
-		{{ "admin_home.header"|trans({}, "admin_home") }}
+		{{ "admin.home.header"|trans({}, "translator") }}
 	</div>
 	<div class="container">
 		<div class="row">
 		<div id="actions" class="home menuAction">
 			<div class="col-sm-12" >
 				<div class="col-sm-6 block">
-					<div class="under-block" onclick="window.location.href ='{{ path("createType") }}'"><p class="carre">{{ "admin_home.create"|trans({}, "admin_home") }}</p></div>
+					<div class="under-block" onclick="window.location.href ='{{ path("createType") }}'"><p class="carre">{{ "admin.home.create"|trans({}, "translator") }}</p></div>
 				</div>
 				<div class="col-sm-6 block">
-					<div class="under-block" onclick="window.location.href ='{{ path("listeAccount") }}'"><p class="carre">{{ "admin_home.gestion"|trans({}, "admin_home") }}</p></div>
+					<div class="under-block" onclick="window.location.href ='{{ path("listeAccount") }}'"><p class="carre">{{ "admin.home.gestion"|trans({}, "translator") }}</p></div>
 				</div>
 			</div>
 
 			<div class="col-sm-12" >
 				<div class="col-sm-6 block">
-					<div class="under-block" onclick="window.location.href ='{{ path("importHome") }}'"><p class="carre">{{ "admin_home.import"|trans({}, "admin_home") }}</p></div>
+					<div class="under-block" onclick="window.location.href ='{{ path("importHome") }}'"><p class="carre">{{ "admin.home.import"|trans({}, "translator") }}</p></div>
 				</div>
 				<div class="col-sm-6 block">
 					<div class="under-block"><p class="carre"></p></div>

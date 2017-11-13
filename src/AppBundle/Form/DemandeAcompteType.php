@@ -26,8 +26,8 @@ class DemandeAcompteType extends AbstractType
 
        $builder
                 ->add('montant', IntegerType::class, array(
-                     'label' => 'demandeacompte.montant',
-                     'translation_domain' => 'demande_acompte',
+                     'label' => 'demande_acompte.montant',
+                     'translation_domain' => 'translator',
                      'attr' => array('min' => '0')
                 ))
               ->add('matricule', EntityType::class, array(
@@ -42,13 +42,13 @@ class DemandeAcompteType extends AbstractType
                   'query_builder' => function (EntityRepository $er) use ($idSalon) {
                       return $er->findActivePersonnelBySalon($idSalon);
                     },
-                  'label' => 'demandeacompte.nom',
-                  'translation_domain' => 'demande_acompte'
+                  'label' => 'demande_acompte.nom',
+                  'translation_domain' => 'translator'
                 ))
               ->add('Envoyer', SubmitType::class, array(
-                  'label' => 'demandeacompte.envoyer',
+                  'label' => 'global.valider',
                   'attr' => array('class' =>'btn-black end'),
-                  'translation_domain' => 'demande_acompte'
+                  'translation_domain' => 'translator'
               ))
               ->addEventListener(FormEvents::POST_SUBMIT,
                   function(FormEvent $event)
