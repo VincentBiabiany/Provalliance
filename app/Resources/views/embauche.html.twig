@@ -167,9 +167,53 @@
 
   </div>
 </div>
-
-
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.js"></script>
 <script type="text/javascript">
+
+$(document).ready(function () {
+  jQuery.validator.addMethod("validateDate", function(value, element) {
+    console.log(element);
+    return (element.value != "bob"); //(date.getFullYear() == y && date.getMonth() + 1 == m && date.getDate() == d);
+  }, "Date incorrect");
+
+
+  $('#form1').validate({
+      rules : {
+          demande_embauche_prenom: {  required : false, validateDate: true }
+      }
+  });
+
+});
+
+  // function validateDate(){
+  //
+  //     var m = parseInt($('#demande_embauche_dateNaissance_month').val(), 10);
+  //     var d = parseInt($('#demande_embauche_dateNaissance_day').val(), 10);
+  //     var y = parseInt($('#demande_embauche_dateNaissance_year').val(), 10);
+  //     var date = new Date(y, m - 1, d);
+  //
+  //     console.log(date.getFullYear() == y && date.getMonth() + 1 == m && date.getDate() == d);
+  //
+  //     return (date.getFullYear() == y && date.getMonth() + 1 == m && date.getDate() == d);
+  // }
+
+
+  // $('#demande_embauche_dateNaissance').focusout(function(){
+  //   console.log($('#demande_embauche_dateNaissance_day').val())
+  //   console.log($('#demande_embauche_dateNaissance_month').val())
+  //   console.log($('#demande_embauche_dateNaissance_year').val())
+  //   var m = parseInt($('#demande_embauche_dateNaissance_month').val(), 10);
+  //   var d = parseInt($('#demande_embauche_dateNaissance_day').val(), 10);
+  //   var y = parseInt($('#demande_embauche_dateNaissance_year').val(), 10);
+  //   var date = new Date(y, m - 1, d);
+  //
+  //   console.log(date.getFullYear() == y && date.getMonth() + 1 == m && date.getDate() == d);
+  //
+  //   test = (date.getFullYear() == y && date.getMonth() + 1 == m && date.getDate() == d);
+  //   if(!test)
+  //     $('#demande_embauche_dateNaissance').addClass('invalid');
+  // })
 
   $('.out').click(function(){
     clearSession();

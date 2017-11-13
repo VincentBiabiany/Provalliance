@@ -455,7 +455,6 @@ class DemandeEmbaucheType extends AbstractType
               //     $data->setCddDate(null);
               //   }
               // }
-
         });
       break;
     case '4':
