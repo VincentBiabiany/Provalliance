@@ -113,6 +113,7 @@ class DemandeDetailController extends Controller
     if($dateTraitement)
       $dateTraitement = $dateTraitement->format('d/m/Y');
     return $this->render('demande_detail.html.twig', array(
+      'idDemande'       => $request->get('id'),
       'demandeur'       => $demandeur,
       'date'            => $date->format('d/m/Y'),
       'dateTraitement'  => $dateTraitement,

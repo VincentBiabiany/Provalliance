@@ -209,10 +209,7 @@ jQuery.validator.addMethod("validateDate", function(value, element) {
 
 $("#demandeEmbauche2").validate({
 rules: {
-  'demande_embauche[dateNaissance][month]' : {
-    validateDate: true,
-  },
-  'demande_embauche[demande_embauche[dateembauche][month]' : {
+  'demande_embauche[dateembauche][month]' : {
     validateDate: true,
   },
   'demande_embauche[date][month]' : {
