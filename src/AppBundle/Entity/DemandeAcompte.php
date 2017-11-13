@@ -29,7 +29,9 @@ class DemandeAcompte extends DemandeForm
     private $matricule;
 
     protected $nameDemande ='DemandeAcompte';
+    protected $typeForm ='Demande acompte';
     protected $subject ='connu';
+    protected $service ='paie';
 
 
 
@@ -89,6 +91,26 @@ class DemandeAcompte extends DemandeForm
     {
         return $this->nameDemande;
     }
+
+    /**
+     * Get typeForm
+     *
+     * @return integer
+     */
+    public function getTypeForm()
+    {
+        return $this->typeForm;
+    }
+    /**
+     * Get service
+     *
+     * @return integer
+     */
+    public function getService()
+    {
+        return $this->service;
+    }
+
 
     /**
      * Get subject

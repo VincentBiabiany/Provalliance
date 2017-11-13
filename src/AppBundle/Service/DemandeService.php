@@ -51,12 +51,9 @@ class DemandeService
 
   public function createDemande($demande, $idSalon)
   {
-    if ($demande instanceof DemandeAcompte) {
-      self::createDemandeAcompte($demande, $idSalon);
-    }
 
-    if ($demande instanceof AutreDemande) {
-      self::createAutreDemande($demande, $idSalon);
+    if ($demande instanceof AutreDemande || $demande instanceof DemandeAcompte) {
+      self::createDemandeSimple($demande, $idSalon);
     }
 
     if ($demande instanceof DemandeEmbauche) {
@@ -237,22 +234,18 @@ class DemandeService
     $this->url = $this->router->generate('demande_detail', ['id' => $demande->getId()], 0);
   }
 
-  public function createAutreDemande($demande, $idSalon){
+  public function createDemandeSimple($demande, $idSalon){
 
     $personnel =  $this->em->getRepository('ApiBundle:Personnel')
                            ->findOneBy(array('matricule' => $demande->getMatricule()));
 
     $demandeSimple = new DemandeSimple();
 
-    $demande->setTypeForm("Autre demande");
-    $fileName = $this->fileUploader->upload($demande->getPieceJointes());
-    $demande->setPieceJointes($fileName);
-    
+    $demande->setTypeForm( $demande->getTypeForm());
+
     $demandeSimple->setService($demande->getService());
     $demandeSimple->setUser($this->token->getUser());
     $demandeSimple->setIdSalon($idSalon);
-
-
 
     $demandeSimple->setDemandeform($demande);
 
@@ -271,30 +264,6 @@ class DemandeService
     }
 
 
-  }
-
-  public function createDemandeAcompte($demande, $idSalon)
-  {
-    $personnel =  $this->em->getRepository('ApiBundle:Personnel')
-                           ->findOneBy(array('matricule' => $demande->getMatricule()));
-
-    $demandeSimple = new DemandeSimple();
-
-    $demande->setTypeForm("Demande d'acompte");
-
-    $demandeSimple->setService('paie');
-    $demandeSimple->setUser($this->token->getUser());
-    $demandeSimple->setIdSalon($idSalon);
-    $demandeSimple->setDemandeform($demande);
-
-    $this->emWebapp->persist($demandeSimple);
-    $this->emWebapp->flush();
-
-    // Generation de l'url
-    self::generateAbsUrl($demandeSimple);
-
-    $personnel = $personnel->getPrenom().' '.$personnel->getNom();
-    self::sendMail($idSalon, $personnel, [1, 5],  $demande->getTypeForm());
   }
 
   public function createDemandeEmbauche($demande, $idSalon)

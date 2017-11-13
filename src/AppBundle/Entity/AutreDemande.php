@@ -53,6 +53,7 @@ class AutreDemande extends DemandeForm
      */
     private $pieceJointes;
     protected $nameDemande ='AutreDemande';
+    protected $typeForm ='Autre demande';
     protected $subject ='connu';
     private $service;
 
@@ -184,6 +185,15 @@ class AutreDemande extends DemandeForm
     public function getNameDemande()
     {
         return $this->nameDemande;
+    }
+    /**
+     * Get typeForm
+     *
+     * @return integer
+     */
+    public function getTypeForm()
+    {
+        return $this->typeForm;
     }
 
     /**

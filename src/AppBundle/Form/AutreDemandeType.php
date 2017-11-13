@@ -18,9 +18,17 @@ use Symfony\Component\Validator\Constraints\File;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use AppBundle\Service\FileUploader;
+
 
 class AutreDemandeType extends AbstractType
 {
+    private $fileUploader;
+
+    public function __construct(FileUploader $fileUploader)
+    {
+      $this->fileUploader = $fileUploader;
+    }
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
       $idSalon = $options["idSalon"];
@@ -62,9 +70,15 @@ class AutreDemandeType extends AbstractType
                   {
                     $form = $event->getForm();
                     $data = $event->getForm()->getData();
-
                     $data->setMatricule($form['matricule']->getData());
                     $event->setData($data);
+
+                    if ($data->getPieceJointes() != null ){
+                    $fileName = $this->fileUploader->upload($data->getPieceJointes());
+                    $data->setPieceJointes($fileName);
+                    
+                    }
+
                   });
 
     }
