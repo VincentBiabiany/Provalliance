@@ -21,6 +21,7 @@ use AppBundle\Entity\DemandeComplexe;
 use AppBundle\Entity\DemandeEmbauche;
 use AppBundle\Entity\DemandeAcompte;
 use AppBundle\Entity\AutreDemande;
+use AppBundle\Entity\DemandeRib;
 
 class DemandeService
 {
@@ -52,7 +53,8 @@ class DemandeService
   public function createDemande($demande, $idSalon)
   {
 
-    if ($demande instanceof AutreDemande || $demande instanceof DemandeAcompte) {
+    if ($demande instanceof AutreDemande || $demande instanceof DemandeAcompte
+    || $demande instanceof DemandeRib) {
       self::createDemandeSimple($demande, $idSalon);
     }
 
@@ -144,6 +146,7 @@ class DemandeService
     if ($envoie[1] == 2) {
       self::sendMailToBo($juridique, $demande);
     }
+
     // Envoie admin
     if ($envoie[1] == 4) {
       self::sendMailToBo($$admin, $demande);

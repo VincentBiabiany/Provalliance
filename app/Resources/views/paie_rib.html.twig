@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'form/error.html.twig' %}
+{% block title %}{% endblock %}
+
+{% block body %}
+{% trans_default_domain "demande_rib" %}
+
+<div class="header">
+	<img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
+</div>
+<div class="head">
+{{ "demanderib.titre"|trans({}, "demande_rib") }}
+</div>
+<div class="nomSalon">
+  {{ app.session.get('nomSalon') }}
+</div>
+<div class="container">
+	<div id="actions" class="formAction">
+
+		{{ form_start(form, {'attr': {'class': 'allForm form-horizontal demande_rib', 'id':'DemandeRib'} }) }}
+
+		    {{ form_errors(form)}}
+				<div class="form-group">
+					<label class="control-label label col-sm-4 col-xs-12" for="personnel"> {{ form_label(form.matricule) }}</label>
+					<div class="col-sm-9  col-xs-12">
+						{{ form_widget(form.matricule, { 'attr': {'class': 'form-control'} }) }}
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label label col-sm-4 col-xs-12" for="rib">{{ form_label(form.rib) }}</label>
+					<div class="col-sm-9  col-xs-12">
+						{{ form_widget(form.rib, { 'attr': {'class': 'input-file'} }) }}
+						<label for="demande_rib_rib" class="label-file">
+							<i class="glyphicon glyphicon-download-alt"></i>
+							<span>Choisir un fichier</span>
+						</label>
+					</div>
+				</div>
+			<div id="actionsButtons">
+				{{ form_end(form) }}
+						<a href="{{ path('homepage') }}" class="btn-black precedent">
+								{{ "demanderib.back"|trans({}, "demande_rib") }}
+						</a>
+		  </div>
+		</div>
+	</div>
+	<script src="{{ asset('js/custom-file-input.js') }}"></script>
+
+{% endblock %}
