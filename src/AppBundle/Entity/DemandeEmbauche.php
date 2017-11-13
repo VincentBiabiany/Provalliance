@@ -58,11 +58,12 @@ class DemandeEmbauche extends DemandeForm
     private $addresse2;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="code_postal", type="integer")
+     * @ORM\Column(name="code_postal", type="string", length=20)
      */
     private $codePostal;
+
 
     /**
      * @var string
@@ -72,9 +73,9 @@ class DemandeEmbauche extends DemandeForm
     private $ville;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="telephone", type="integer")
+     * @ORM\Column(name="telephone", type="string", length=25)
      */
     private $telephone;
 
@@ -191,9 +192,9 @@ class DemandeEmbauche extends DemandeForm
     private $autre;
 
     /**
-     * @var string
+     * @var int
      *
-     * @ORM\Column(name="salaire_base", type="string", length=255,  nullable=true)
+     * @ORM\Column(name="salaire_base", type="integer")
      */
     private $salaireBase;
 
@@ -221,9 +222,16 @@ class DemandeEmbauche extends DemandeForm
     /**
      * @var string
      *
-     * @ORM\Column(name="cdd_date", type="datetime", length=255,  nullable=true)
+     * @ORM\Column(name="cdd_date", type="date", length=255,  nullable=true)
      */
     private $cddDate;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="precision_date", type="string", length=255, nullable=true)
+     */
+    private $precisionDate;
 
     /**
      * @var string
@@ -235,10 +243,16 @@ class DemandeEmbauche extends DemandeForm
     /**
      * @var array
      *
-     * @ORM\Column(name="temps_partiel", type="json_array",  nullable=true)
+     * @ORM\Column(name="is_temps_partiel", type="string", length=255)
+     */
+    private $isTempsPartiel;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="temps_partiel", type="array",  nullable=true)
      */
     private $tempsPartiel;
-
 
     /**
      * @var string
@@ -253,6 +267,13 @@ class DemandeEmbauche extends DemandeForm
      * @ORM\Column(name="diplome_file", type="string", length=255)
      */
     protected $diplomeFile;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="diplome_file2", type="string", length=255, nullable=true)
+     */
+    protected $diplomeFile2;
 
     /**
      * @var string
@@ -275,9 +296,15 @@ class DemandeEmbauche extends DemandeForm
      */
     protected $mutuelle;
 
+
     protected $nameDemande ='DemandeEmbauche';
     protected $subject ='inconnu';
 
+
+    public function __construct()
+    {
+      $this->tempsPartiel = ['lundi'=>0, 'mardi'=>0,'mercredi'=>0, 'jeudi'=>0,'vendredi'=>0,'samedi'=>0,'total'=>0];
+    }
 
     /**
      * Set nom
@@ -664,6 +691,54 @@ class DemandeEmbauche extends DemandeForm
     }
 
     /**
+     * Set precisionDate
+     *
+     * @param string $precisionDate
+     *
+     * @return DemandeEmbauche
+     */
+    public function setprecisionDate($precisionDate)
+    {
+        $this->precisionDate = $precisionDate;
+
+        return $this;
+    }
+
+    /**
+     * Get precisionDate
+     *
+     * @return string
+     */
+    public function getprecisionDate()
+    {
+        return $this->precisionDate;
+    }
+
+    /**
+     * Set $isTempsPartiel
+     *
+     * @param string $isTempsPartiel
+     *
+     * @return DemandeEmbauche
+     */
+    public function setisTempsPartiel($isTempsPartiel)
+    {
+        $this->isTempsPartiel = $isTempsPartiel;
+
+        return $this;
+    }
+
+    /**
+     * Get $isTempsPartiel
+     *
+     * @return string
+     */
+    public function getisTempsPartiel()
+    {
+        return $this->isTempsPartiel;
+    }
+
+    /**
      * Set salarieLieu
      *
      * @param string $salarieLieu
@@ -1021,6 +1096,30 @@ class DemandeEmbauche extends DemandeForm
     public function getDiplomeFile()
     {
         return $this->diplomeFile;
+    }
+
+    /**
+     * Set diplomeFile2
+     *
+     * @param string $diplomeFile2
+     *
+     * @return DemandeEmbauche
+     */
+    public function setDiplomeFile2($diplomeFile2)
+    {
+        $this->diplomeFile2 = $diplomeFile2;
+
+        return $this;
+    }
+
+    /**
+     * Get diplomeFile2
+     *
+     * @return string
+     */
+    public function getDiplomeFile2()
+    {
+        return $this->diplomeFile2;
     }
 
     /**

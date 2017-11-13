@@ -11,7 +11,7 @@
 
 		<!-- Optional theme -->
 		<link rel="stylesheet" href="{{ asset('css/bootstrap-theme.min.css') }}" >
-        <link rel="stylesheet" href="{{ asset('css/bootstrap-slider.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-slider.min.css') }}">
 
 		<script type="text/javascript" src="{{ asset('js/jquery-1.11.0.min.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('js/jquery-migrate-1.2.1.min.js') }}"></script>
@@ -34,11 +34,11 @@
             </div>
 
             <div id="logout" class="col-sm-6 col-xs-6 deco block">
-                 <a  href="{{ path('homepage') }}">
+                 <a class="out" href="{{ path('homepage') }}">
                     <span class="glyphicon glyphicon-unchecked"></span>
                     <span class="libelle">{{ "home.appli"|trans({}, "home") }}</span>
                  </a>
-                 <a  href="{{ path('fos_user_security_logout') }}">
+                 <a class="out" href="{{ path('fos_user_security_logout') }}">
                     <span class="glyphicon glyphicon-off"></span>
                     <span class="libelle">{{ "home.deconnexion"|trans({}, "home") }}</span>
                  </a>
@@ -55,7 +55,7 @@
             <div id="home" class="col-sm-6 col-xs-6 deco block">
                 <!-- Si le user est un service on n'affiche pas de lien vers la totalité de l'application -->
                 {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MANAGER') or is_granted('ROLE_COORDINATEUR') %}
-                    <a  href="{{ path('homepage') }}">
+                    <a class="out" href="{{ path('homepage') }}">
                         <span class="glyphicon glyphicon-home"></span>
                         <span class="libelle">{{ "home.accueil"|trans({}, "home") }}</span>
                     </a>
@@ -64,12 +64,12 @@
             </div>
             <div id="logout" class="col-sm-6 col-xs-6 deco block">
                   {% if is_granted('ROLE_ADMIN') %}
-                      <a  href="{{ path('adminHome') }}">
+                      <a class="out" href="{{ path('adminHome') }}">
                           <span class="glyphicon glyphicon-wrench"></span>
                           <span class="libelle">{{ "home.admin"|trans({}, "home") }}</span>
                       </a>
                   {% endif  %}
-                  <a  href="{{ path('fos_user_security_logout') }}">
+                  <a class="out" href="{{ path('fos_user_security_logout') }}">
                      <span class="glyphicon glyphicon-off"></span>
                      <span class="libelle">{{ "home.deconnexion"|trans({}, "home") }}</span>
                   </a>

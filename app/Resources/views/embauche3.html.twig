@@ -24,18 +24,29 @@
 
             <label for="demande_embauche_diplomeFile" class="label-file">
               <i class="glyphicon glyphicon-download-alt"></i>
-              <span>Choisir un fichier</span>
+              <span>{{ "embauche.choix"|trans({}, "embauche") }}</span>
             </label>
     		  </div>
     	</div>
-    	<div class="form-group" >
+      <div class="form-group" >
+          <label class="control-label label col-sm-4 col-xs-12" >{{ "embauche.diplome2"|trans({}, "embauche") }}</label>
+          <div class="col-sm-4 col-sm-offset-3 col-xs-12">
+            {{ form_widget(form.diplomeFile2, { 'attr': {'class': 'input-file'} }) }}
+
+            <label for="demande_embauche_diplomeFile2" class="label-file">
+              <i class="glyphicon glyphicon-download-alt"></i>
+              <span>{{ "embauche.choix"|trans({}, "embauche") }}</span>
+            </label>
+          </div>
+      </div>
+    	<div class="form-group">
           <label class="control-label label col-sm-4 col-xs-12">{{ "embauche.cartev"|trans({}, "embauche") }}</label>
       		<div class="col-sm-4 col-sm-offset-3 col-xs-12">
             {{ form_widget(form.carteVitale, { 'attr': {'class': 'input-file'} }) }}
 
             <label for="demande_embauche_carteVitale" class="label-file">
               <i class="glyphicon glyphicon-download-alt"></i>
-              <span>Choisir un fichier</span>
+              <span>{{ "embauche.choix"|trans({}, "embauche") }}</span>
             </label>
       	  </div>
     	</div>
@@ -46,7 +57,7 @@
 
             <label for="demande_embauche_rib" class="label-file">
               <i class="glyphicon glyphicon-download-alt"></i>
-              <span>Choisir un fichier</span>
+              <span>{{ "embauche.choix"|trans({}, "embauche") }}</span>
             </label>
     	    </div>
     	</div>
@@ -57,7 +68,7 @@
 
             <label for="demande_embauche_mutuelle" class="label-file">
               <i class="glyphicon glyphicon-download-alt"></i>
-              <span>Choisir un fichier</span>
+              <span>{{ "embauche.choix"|trans({}, "embauche") }}</span>
             </label>
     		  </div>
     	</div>
@@ -68,7 +79,7 @@
 
             <label for="demande_embauche_carteId" class="label-file">
               <i class="glyphicon glyphicon-download-alt"></i>
-              <span>Choisir un fichier</span>
+              <span>{{ "embauche.choix"|trans({}, "embauche") }}</span>
             </label>
     		  </div>
 		  </div>
@@ -87,6 +98,18 @@
 
 <script language="javascript">
 
-		$('#topNav').css('display', 'initial');
+  $('.libelle').click(function(){
+    clearSession();
+  });
+
+  function clearSession()
+  {
+    $.ajax({
+      url : "{{path('clearSession')}}",
+      type: 'GET'
+    });
+  }
+
+	$('#topNav').css('display', 'initial');
 </script>
 {% endblock %}

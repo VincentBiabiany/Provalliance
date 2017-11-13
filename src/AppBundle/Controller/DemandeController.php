@@ -75,7 +75,7 @@ class DemandeController extends Controller
       }
 
       if (in_array('ROLE_PAIE', $this->getUser()->getRoles(), true))
-        $service = 'paie';
+        $service = ['paie', 'juridique'];
       else
         $service ='juridique';
 
@@ -169,9 +169,7 @@ class DemandeController extends Controller
             if (!$isService)
               $query = $query->where('u.idSalon = :salon')->setParameter('salon', $idSalon);
             else {
-              if (in_array('ROLE_PAIE', $this->getUser()->getRoles(), true))
-                $query = $query->where('u.service = :service')->setParameter('service', 'paie');
-              else
+              if (in_array('ROLE_JURIDIQUE', $this->getUser()->getRoles(), true))
                 $query = $query->where('u.service = :service')->setParameter('service', 'juridique');
             }
             $query =  $query->getQuery();
@@ -224,7 +222,7 @@ class DemandeController extends Controller
           foreach ($array as $key => $value) {
 
             if ($col[$nb] == "dateTraitement") {
-              $row[] = $value[$col[$nb]]->format('d-m-Y');
+              $row[] = $value[$col[$nb]]->format('d/m/Y');
 
             } else if ($col[$nb] == "statut"){
               $row[] = $this->getDoctrine()->getManager()->getRepository("AppBundle:DemandeEntity")
@@ -329,7 +327,7 @@ class DemandeController extends Controller
               'appelation'       => $em->getRepository('ApiBundle:Salon')->findOneBy(array("sage" => $demande->getidSalon()))->getAppelation(),
               'coordinateur'     => $coordo,
               'manager'          => $demandeur,
-              'date'             => $date->format('d-m-y'),
+              'date'             => $date->format('d/m/Y'),
               'statut'           => '<span class="'.$classStatut.' statutLabel">'.$statut.'</span>',
               'type'             => $demande->getDemandeform()->getTypeForm(),
               'collaborateur'    => $collab,

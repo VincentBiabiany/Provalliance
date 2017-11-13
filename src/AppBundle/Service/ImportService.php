@@ -72,7 +72,7 @@ class ImportService
     $champs = array(
                     "champs"   => ["Sage", "Groupe", "Enseigne", "Pays"],
                     "valeur"   => ["0", "20", "21", "22"],
-                    "colonnes" => ["sage","appelation", "forme_juridique","rcs_ville","code_naf","siren","capital","raison_sociale","adresse1","adresse2","code_postal","ville","telephone1","telephone2","email","code_marlix","date_ouverture","date_fermeture_sociale","date_fermeture_commerciale","actif","groupe_id","enseigne_id","pays_id"],
+                    "colonnes" => ["sage","appelation","forme_juridique","rcs_ville","code_naf","siren","capital","raison_sociale","adresse1","adresse2","code_postal","ville","telephone1","telephone2","email","code_marlix","date_ouverture","date_fermeture_sociale","date_fermeture_commerciale","actif","groupe_id","enseigne_id","pays_id"],
                     "nb"       => 23
                   );
 
@@ -217,7 +217,9 @@ class ImportService
       throw new Exception($this->trans->trans('import.corrupt', [],'import'));
     }
     // Test des noms de colonnes
-    $head = fgetcsv($csv, 4096, ';', '"');
+    ini_set('auto_detect_line_endings', true);
+    $head = fgetcsv($csv, 2000000, ';', '"');
+    dump($head);
     if (!($head == $champs["colonnes"]))
     {
       fclose($csv);

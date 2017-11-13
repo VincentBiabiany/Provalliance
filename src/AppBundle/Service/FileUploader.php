@@ -12,9 +12,10 @@ class FileUploader
       $this->targetDir = $targetDir;
     }
 
-    public function upload(UploadedFile $file)
+    public function upload(UploadedFile $file, $matricule = 0, $typeDemande, $id)
     {
-      $fileName = md5(uniqid()).'.'.$file->guessExtension();
+      $today = date("m-d-y");
+      $fileName = $matricule.'_'.$id.'_'.$typeDemande.'_'.$today.'.'.$file->getClientOriginalExtension();
       $file->move($this->getTargetDir(), $fileName);
       return $fileName;
     }

@@ -4,6 +4,7 @@ embauche.attention:     Be carefull!
 embauche.msg:           Before starting to fill this form, please verify if you posses all these following documents in electronic format :
 embauche.pi:            Identity Document
 embauche.diplome:       Diploma
+embauche.diplome2:      Diploma 2
 embauche.cartev:        Health insurance card
 embauche.rib:           RIB bank
 embauche.adhesion:      Health care mutual
@@ -40,7 +41,7 @@ embauche.poste.coif:    Hairdresser
 embauche.poste.tech:    Technician
 
 embauche.diplome.CAP:   CAP
-embauche.diplome.BEP:   BEP
+embauche.diplome.BEP:   BP
 
 embauche.class:         Classification
 embauche.niveau:        Niveau
@@ -49,8 +50,9 @@ embauche.echelon:       Echelon
 embauche.salaire:       Base salary
 embauche.salaire.con:   Salaire Conventionnel
 embauche.contrat:       Type de contrat
+embauche.precision.p:   Date précise
+embauche.precision.i:   Date imprécise
 embauche.partiel:       Part time
-
 
 embauche.cdi:           CDI
 embauche.appr:          Contrat d'apprentissage
@@ -72,6 +74,7 @@ embauche.mercredi:      Wed
 embauche.jeudi:         Thu
 embauche.vendredi:      Fri
 embauche.samedi:        Sat
+embauche.total:         Total
 
 embauche.autre:         Precise
 
@@ -84,3 +87,5 @@ embauche.step2:         Step 3
 embauche.send:          Send
 embauche.retourac:      Back to home
 embauche.poursuivre:    Continue
+
+embauche.choix:         Choose a file

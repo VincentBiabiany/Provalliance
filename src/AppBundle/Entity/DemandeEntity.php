@@ -27,6 +27,7 @@ abstract class DemandeEntity
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
     /**
      * @var \AppBundle\Entity\DemandeForm
      *

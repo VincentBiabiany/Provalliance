@@ -126,12 +126,11 @@
 
 
     <div id="actionsButtons">
-      {{ form_end(form) }}
-            <a href="{{ path('home_juridique_rh') }}" class="btn-black precedent">
-                {{ "global.back"|trans({}, "global") }}
-            </a>
+        {{ form_end(form) }}
+      <a onclick='clearSession();' href="{{ path('home_juridique_rh') }}" class="btn-black precedent">
+          {{ "global.back"|trans({}, "global") }}
+      </a>
     </div>
-
 </div>
 
 <!-- .......................... POP-UP ................................-->
@@ -162,57 +161,121 @@
 
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">{{ "embauche.poursuivre"|trans({}, "embauche") }}</button>
-        <button type="button" style="float:left;" class="btn btn-default"  onclick="window.location.href = '{{ path("homepage") }}'">{{ "embauche.retourac"|trans({}, "embauche") }}</button>
+        <button type="button" style="float:left;" class="btn btn-default out"  onclick="window.location.href = '{{ path("homepage") }}'">{{ "embauche.retourac"|trans({}, "embauche") }}</button>
       </div>
     </div>
 
   </div>
 </div>
-
-
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.js"></script>
 <script type="text/javascript">
 
+$(document).ready(function () {
+  jQuery.validator.addMethod("validateDate", function(value, element) {
+    console.log(element);
+    return (element.value != "bob"); //(date.getFullYear() == y && date.getMonth() + 1 == m && date.getDate() == d);
+  }, "Date incorrect");
+
+
+  $('#form1').validate({
+      rules : {
+          demande_embauche_prenom: {  required : false, validateDate: true }
+      }
+  });
+
+});
+
+  // function validateDate(){
+  //
+  //     var m = parseInt($('#demande_embauche_dateNaissance_month').val(), 10);
+  //     var d = parseInt($('#demande_embauche_dateNaissance_day').val(), 10);
+  //     var y = parseInt($('#demande_embauche_dateNaissance_year').val(), 10);
+  //     var date = new Date(y, m - 1, d);
+  //
+  //     console.log(date.getFullYear() == y && date.getMonth() + 1 == m && date.getDate() == d);
+  //
+  //     return (date.getFullYear() == y && date.getMonth() + 1 == m && date.getDate() == d);
+  // }
+
+
+  // $('#demande_embauche_dateNaissance').focusout(function(){
+  //   console.log($('#demande_embauche_dateNaissance_day').val())
+  //   console.log($('#demande_embauche_dateNaissance_month').val())
+  //   console.log($('#demande_embauche_dateNaissance_year').val())
+  //   var m = parseInt($('#demande_embauche_dateNaissance_month').val(), 10);
+  //   var d = parseInt($('#demande_embauche_dateNaissance_day').val(), 10);
+  //   var y = parseInt($('#demande_embauche_dateNaissance_year').val(), 10);
+  //   var date = new Date(y, m - 1, d);
+  //
+  //   console.log(date.getFullYear() == y && date.getMonth() + 1 == m && date.getDate() == d);
+  //
+  //   test = (date.getFullYear() == y && date.getMonth() + 1 == m && date.getDate() == d);
+  //   if(!test)
+  //     $('#demande_embauche_dateNaissance').addClass('invalid');
+  // })
+
+  $('.out').click(function(){
+    clearSession();
+  });
+
+  function clearSession()
+  {
+    $.ajax({
+      url : "{{path('clearSession')}}",
+      type: 'GET'
+    });
+  }
+
   $('#topNav').css('display','none');
-  $('#myModal').modal('show');
-  $("#myModal").css('display','flex');
+
+  {% if isSubmitted == false %}
+    $('#myModal').modal('show');
+    $("#myModal").css('display','flex');
+  {% endif %}
 
 </script>
 
 <script>
-var count = 0;
-var $situ = $('#demande_embauche_nationalite');
-// When sport gets selected ...
-$situ.change(function() {
-  var isChecked = $('#demande_embauche_nationalite_1').prop('checked');
-  if (isChecked && count == 0) {
-    count++
-    var $form = $(this).closest('form');
-    var data = {}
-    data["demande_embauche"] = "test" //$('#form1').serializeObject();
-    console.log(data);
-    // Submit data via AJAX to the form's action path.
-    console.log($form);
-    $.ajax({
-      url : "{{path('rh_embauche')}}",
-      type: $form.attr('method'),
-      data : data,
-      success: function(html) {
-        //console.log(html);
-        // Replace current position field ...
-        var label = $(html).find('label[for="demande_embauche_autre2"]').text();
-        console.log(label);
-        var input = $(html).find('#demande_embauche_autre2').addClass('form-control');
-        var elem = '<div id="at"><label for="demande_embauche_autre2" class="control-label label col-sm-3 col-xs-12 required">' + label + '</label><div id="autre" class="col-sm-3 col-xs-12"></div></div>';
-        $('#demande_embauche_nationalite').parent().parent().append(elem);
-        console.log($(html).find('#demande_embauche_autre2'))
-        input.appendTo('#autre');
-      }
-    });
-  } else if ( count != 0) {
-    $('#at').remove();
-    count = 0;
+
+$addListener = function($form, $name, $champ, $nb, idInt) {
+
+  var addFieldAjax = function() {
+    var isChecked = $('#demande_embauche_' + $champ + '_' + $nb).prop('checked');
+
+    if ( (isChecked && $('#at' + idInt).length == 0)  ){
+      var $form2 = $(this).closest('form');
+      // Simulate form data, but only include the selected sport value.
+      var data = {};
+      data["demande_embauche[" + $name + "]" ] = $name;
+      console.log(data);
+
+
+      // Submit data via AJAX to the form's action path.
+      $.ajax({
+        url : "{{path('rh_embauche')}}",
+        type: $form2.attr('method'),
+        data : data,
+        success: function(html) {
+          //console.log(html);
+          // Replace current position field ...
+          var label = $(html).find('label[for="demande_embauche_autre_'+$name+'"]').text();
+          var input = $(html).find('#demande_embauche_autre_' + $name);
+          var elem = '<div id="at' + idInt +'"><label for="demande_embauche_autre_' + $name + '" class="control-label label col-sm-3 col-xs-12 required">' + label + '</label><div id="autre' + idInt +'" class="other col-sm-3"></div></div>';
+
+          $form.parent().parent().append(elem);
+          input.appendTo('#autre' + idInt);
+        }
+      }); // Fin ajax
+    } else {
+      if(!isChecked)
+        $('#at' + idInt).remove();
+    }
   }
-});
+  $form.change(addFieldAjax).change(); // Fin change()
+}
+var $situ =  $('#demande_embauche_nationalite');
+$addListener($situ, "nationalite", "nationalite", 1, 1);
 </script>
 
 <script src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script>
@@ -233,8 +296,9 @@ function uppercaseField($champs){
       }
       $("#demande_embauche_"+$champs).val(($("#demande_embauche_"+$champs).val()).toUpperCase());
   });
+
   $("#demande_embauche_" + $champs).focusout(function () {
-    $("#demande_embauche_"+$champs).val (function () {
+    $("#demande_embauche_" + $champs).val (function () {
         return this.value.toUpperCase();
     })
   });
@@ -244,9 +308,13 @@ uppercaseField("nom");
 uppercaseField("ville");
 uppercaseField("villeNaissance");
 uppercaseField("paysNaissance");
+
+
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.12/jquery.mask.js" ></script>
 <script language="javascript">
 		$('#topNav').css('display', 'initial');
+    $('#demande_embauche_numSecu').mask('2 99 12 99 999 999 99', {'translation': {9: {pattern: /[0-9]/}, 2:{pattern: /[0-2]/}, 1: {pattern: /[0-1]/}}});
+    $('#demande_embauche_telephone').mask('99 99 99 99 99', {'translation': {9: {pattern: /[0-9]/}}});
 </script>
 {% endblock %}

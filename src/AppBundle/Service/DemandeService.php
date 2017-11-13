@@ -278,51 +278,29 @@ class DemandeService
 
     //$demandeEmbauche = $form->getData();
 
-    $fileName = $this->fileUploader->upload($demande->getCarteId());
+    $fileName = $this->fileUploader->upload($demande->getCarteId(), 0, 'embauche', 'ID');
     $demande->setCarteId($fileName);
 
-    $fileName = $this->fileUploader->upload($demande->getCarteVitale());
+    $fileName = $this->fileUploader->upload($demande->getCarteVitale(), 0, 'embauche', 'ACV');
     $demande->setCarteVitale($fileName);
 
-    $fileName = $this->fileUploader->upload($demande->getRib());
+    $fileName = $this->fileUploader->upload($demande->getRib(), 0, 'embauche', 'RIB');
     $demande->setRib($fileName);
 
-    $fileName = $this->fileUploader->upload($demande->getDiplomeFile());
+    $fileName = $this->fileUploader->upload($demande->getDiplomeFile(), 0, 'embauche', 'DPLM1');
     $demande->setDiplomeFile($fileName);
 
-    $fileName = $this->fileUploader->upload($demande->getMutuelle());
+    if ($demande->getDiplomeFile2() != null || $demande->getDiplomeFile2() != '')
+    {
+      $fileName = $this->fileUploader->upload($demande->getDiplomeFile2(), 0, 'embauche', 'DPLM2');
+      $demande->setDiplomeFile($fileName);
+    }
+
+    $fileName = $this->fileUploader->upload($demande->getMutuelle(), 0, 'embauche', 'AM');
     $demande->setMutuelle($fileName);
 
     $demande->setTypeForm("Demande d'embauche");
     $demandeComplexe->setDemandeform($demande);
-
-    // Notification par Mail
-    // $destinataire = $em->getRepository('AppBundle:User')->findOneBy(array('idPersonnel' => $personnel->getId()));
-    // $destinataire = $destinataire->getEmail();
-
-    // $user = $this->token->getUser();
-    // $emetteur = $user->getEmail();
-
-    // if (in_array('ROLE_ADMIN', $user->getRoles(), true))
-    // {
-    //   $name = 'ADMIN';
-    // } else {
-    //   $name = $user->getUsername();
-    // }
-    // $message = (new \Swift_Message('Nouvelle demande d\'embauche '))
-    //    ->setFrom('send@example.com')
-    //    ->setTo('recipient@example.com')
-    //    ->setBody(
-    //        $this->templating->render(
-    //            'emails/demande_acompte.html.twig',
-    //            array('personnel' => $demande->getPrenom(). ' '.$demande->getNom(),
-    //                   'user' => $name,
-    //                   'demande' => 'd\'embauche'
-    //                 )
-    //        ),
-    //        'text/html'
-    //    );
-    // $this->mailer->send($message);
 
     $personnel = $demande->getPrenom(). ' '.$demande->getNom();
 
@@ -337,10 +315,7 @@ class DemandeService
     else
       self::sendMail($idSalon, $personnel, [2, 5],  $demande->getTypeForm());
 
-
-
     $this->session->getFlashBag()->add("success", "La demande d'embauche pour ".$personnel." a correctement été envoyé ! Un mail vous sera envoyé une fois votre demande traité.");
-
   }
 
 }

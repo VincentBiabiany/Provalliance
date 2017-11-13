@@ -189,7 +189,7 @@ class DemandeEntityRepository extends \Doctrine\ORM\EntityRepository
 
     if (in_array("dateTraitement", $colFilter)){
       $date = new \DateTime();
-      $date = $date->createFromFormat('d-m-Y', $filter[7]);
+      $date = $date->createFromFormat('d/m/Y', $filter[7]);
 
       $query = $query->andWhere("d.dateTraitement = :time")->setParameter("time", $date->format('Y-m-d'));
     }
@@ -204,8 +204,8 @@ class DemandeEntityRepository extends \Doctrine\ORM\EntityRepository
 
         return $this->createQueryBuilder('d')
         ->select('COUNT(d)')
-        ->where('d.service = :serviceUser')
-        ->setParameter('serviceUser', 'paie')
+        ->where('d.service IN (:serviceUser)')
+        ->setParameter('serviceUser', ['paie', 'juridique'])
         ->getQuery()
         ->getResult();
 
@@ -237,8 +237,8 @@ class DemandeEntityRepository extends \Doctrine\ORM\EntityRepository
 
        if ($role =='ROLE_PAIE') {
          return $this->createQueryBuilder('p')
-         ->where('p.service = :serviceUser')
-         ->setParameter('serviceUser', 'paie')
+         ->where('p.service IN (:serviceUser)')
+         ->setParameter('serviceUser', ['paie', 'juridique'])
          ->orderBy('p.dateTraitement', 'DESC')
          ->setFirstResult( $start )
          ->setMaxResults( $length )
@@ -254,6 +254,7 @@ class DemandeEntityRepository extends \Doctrine\ORM\EntityRepository
          ->setMaxResults( $length )
          ->getQuery()
          ->getResult();
+
        } else {
          return $this->createQueryBuilder('p')
          ->where('p.idSalon = :salon')
@@ -265,9 +266,9 @@ class DemandeEntityRepository extends \Doctrine\ORM\EntityRepository
          ->getResult();
        }
        //Affichage via filtre "normaux"
-     }else if($typeFilter == 'default'){
+     } else if($typeFilter == 'default') {
        if ($role =='ROLE_PAIE') {
-         return $this->findBy(array("service" => "paie"),
+         return $this->findAll(
          array($column => $dir),
          $length, $start);
 
