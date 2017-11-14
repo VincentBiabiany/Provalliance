@@ -297,9 +297,8 @@ table.dataTable thead th, table.dataTable thead td ,table.dataTable tfoot th, ta
 .containerModal #actions{
 	margin: auto;
 }
-#demande_embauche_dateNaissance select, #demande_embauche_dateembauche select,
-#demande_embauche_date select, #demande_lettre_mission_dateFin select,
-#demande_lettre_mission_dateDebut select{
+
+.styleDate select {
 	height: 35px;
 	text-align: center;
 	padding-left: 5px;
@@ -337,6 +336,9 @@ table.dataTable thead th, table.dataTable thead td ,table.dataTable tfoot th, ta
     font-size: 25px;
     margin: auto;
     margin-top: 10px;
+		}
+.flashConfirmation .glyphicon:hover {
+		cursor: pointer;
 		}
 .modal-footer {
      border-top: none;
@@ -631,7 +633,9 @@ table.dataTable thead th, table.dataTable thead td, table.dataTable tfoot th, ta
 #demande_embauche_sexe label.required, #demande_embauche_nationalite label.required, #demande_embauche_dejaSalarie label.required
 ,#demande_embauche_postes label.required, #demande_embauche_diplomes label.required,
 #demande_embauche_salaireBase label.required, #demande_embauche_typeContrat label.required,
-#demande_embauche_CDD label.required, #fos_user_registration_form_enabled label.required, #demande_embauche_isTempsPartiel label.required{
+#demande_embauche_CDD label.required, #fos_user_registration_form_enabled label.required,
+#demande_embauche_isTempsPartiel label.required, #demande_embauche_diplomes label.required,
+#demande_rupture_periode_essai_moyen label.required{
   color: black;
   margin-left: 2px;
 	margin-right: 10px;

@@ -35,8 +35,7 @@ class LettreMissionController extends Controller
       return $this->redirect($this->generateUrl('homepage',
         array('flash' => "La demande d'acompte a correctement été envoyée !
          Un mail vous sera envoyé une fois votre demande traitée.")));
-
-      }
+  
     }
 
     return $this->render('demande_lettre_mission.html.twig', array(

@@ -178,6 +178,7 @@ class DemandeEmbaucheType extends AbstractType
             'translation_domain' => 'translator',
             'expanded' => true,
             'multiple' => true,
+            'required' => true,
           ))
           ->add('niveau', ChoiceType::class, array(
             'choices' => array(

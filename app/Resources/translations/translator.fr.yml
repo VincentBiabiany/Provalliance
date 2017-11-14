@@ -25,7 +25,7 @@ home:
     demand:            Suivre les demandes
     ca:                Suivi journalier du CA
     volume:            Suivi journalier du volume
-    deconnexion:       Déconnexion
+    deconnection:      Déconnection
     accueil:           Accueil
     gestion:           Gestion
     autre_demand:      Autre demande
@@ -51,7 +51,7 @@ home_juridique_rh:
     avenant:      Avenant
     demission:    Démission
     mission:      Lettre de mission
-    header:       Nouvelle demande RH
+    header:       Nouvelle demande Juridique / RH
     back:         Retour
 
 demande_acompte:
@@ -81,6 +81,16 @@ autre_demande:
     requis:      Champs requis
     commentaire: Commentaire
     pieceJointe: Pièce jointe
+    choice:      Choisir un fichier
+
+demande_rupture_periode_essai:
+    titre:       Rupture de Période d'essai
+    collab:      Collaborateur
+    contrat:     Contrat
+    moyen:       Moyen
+    lrar:        LRAR
+    rmp:         Remise en main propre
+    date:        Date
     choice:      Choisir un fichier
 
 import:

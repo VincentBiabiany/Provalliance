@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  *                        "demande_acompte" = "DemandeAcompte",
  *                        "demande_rib" = "DemandeRib",
  *                        "autre_demande" = "AutreDemande",
+ *                        "demande_rupture_periode_essai" = "DemandeRupturePeriodeEssai",
  *                        "lettre_mission" = "DemandeLettreMission"  })
  */
 

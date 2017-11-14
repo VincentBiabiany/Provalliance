@@ -2,7 +2,7 @@
 
 namespace AppBundle\Form;
 
-use AppBundle\Entity\DemandeRib;
+use AppBundle\Entity\DemandeRupturePeriodeEssai;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Type;
@@ -14,20 +14,22 @@ use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Validator\Constraints\File;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use AppBundle\Service\FileUploader;
 
-class DemandeRibType extends AbstractType
+class DemandeRupturePeriodeEssaiType extends AbstractType
 {
     private $fileUploader;
 
     public function __construct(FileUploader $fileUploader)
-  {
+    {
     $this->fileUploader = $fileUploader;
-  }
+    }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -47,14 +49,30 @@ class DemandeRibType extends AbstractType
                   'query_builder' => function (EntityRepository $er) use ($idSalon) {
                       return $er->findActivePersonnelBySalon($idSalon);
                     },
-                  'label' => 'demande_rib.collaborateur',
+                  'label' => 'demande_rupture_periode_essai.collab',
                   'translation_domain' => 'translator'
                 ))
-                ->add('rib', FileType::class, array(
-                  'label' => 'demande_rib.rib',
+                ->add('moyen', ChoiceType::class, array(
+                  'choices'  => array(
+                    'demande_rupture_periode_essai.rmp'  => 'demande_rupture_periode_essai.rmp',
+                    'demande_rupture_periode_essai.lrar' => 'demande_rupture_periode_essai.lrar',
+                  ),
+                  'choice_translation_domain' => 'translator',
+                  'translation_domain' => 'translator',
+                  'expanded' => true,
+                  'multiple' => false,
+                  'required' => true,
+                ))
+                ->add('date', DateType::class, array(
+                  'widget' => 'choice',
+                  'format' => 'd/M/y',
+                  'years' => range(date('Y') - 100, date('Y') - 20),
+                  'attr' => ['class' => '']))
+                ->add('contrat', FileType::class, array(
+                  'label' => 'demande_rupture_periode_essai.contrat',
                   'translation_domain' => 'translator',
                     ))
-              ->add('Envoyer', SubmitType::class, array(
+                ->add('Envoyer', SubmitType::class, array(
                   'label' => 'global.submit',
                   'attr' => array('class' =>'btn-black end'),
                   'translation_domain' => 'translator'
@@ -68,9 +86,9 @@ class DemandeRibType extends AbstractType
                     $data->setMatricule($form['matricule']->getData()->getMatricule());
                     $event->setData($data);
 
-                    if ($data->getRib() != null ){
-                    $fileName = $this->fileUploader->upload($data->getRib(),0,'demande_rib', 'rib');
-                    $data->setRib($fileName);
+                    if ($data->getContrat() != null ){
+                    $fileName = $this->fileUploader->upload($data->getContrat(),0,'rupture_periode_essai', 'contrat');
+                    $data->setContrat($fileName);
 
                     }
                   });
@@ -80,7 +98,7 @@ class DemandeRibType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver)
 	{
 		$resolver->setDefaults(array(
-			'data_class' => DemandeRib::class,
+		   	'data_class' => DemandeRupturePeriodeEssai::class,
           'idSalon' => null,
           'matricule' => null
 		));
