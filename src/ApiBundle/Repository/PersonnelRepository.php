@@ -50,23 +50,35 @@ class PersonnelRepository extends EntityRepository
 
 
    // Fonction whichPersonnel: Retourne la liste du personnel en fonction d'un salon pour la partie ADMIN
-    public function getPerso($listeAccount,$idSalon){
-      $repository = $this->getEntityManager()->getRepository('ApiBundle:PersonnelHasSalon');
+    public function getPerso($idSalon){
+        $repository = $this->getEntityManager()->getRepository('ApiBundle:PersonnelHasSalon');
         $listPerso=[];
-        if ($listeAccount == null) {
-            $listPerso['Aucun utilisateur disponible']= null ;
-        }else{
+        // if ($listeAccount == null) {
+        //     $listPerso['Aucun utilisateur disponible']= null ;
+        // }else{
+
+        //liste des personnels non coiffeur par Salon
+       $listeAccount= $repository->listPersoBySalon($idSalon) ;
+       if ($listeAccount == null){
+
+          $listPerso = null;
+       }else{
         foreach ($listeAccount as $key => $value) {
-                if ( (self::getNb($value,$idSalon) > 0) && ($repository->ifCoiffeur($value) )){
-                     $p = $this->findOneBy(array('matricule' => $value));
-                     $listPerso[$p->getNom().' '.$p->getPrenom()] = $value;
+                    $matricule = $listeAccount[$key]->getPersonnelMatricule()->getMatricule();
+
+                     $p = $this->findOneBy(array('matricule' => $matricule));
+                     $listPerso[$p->getNom().' '.$p->getPrenom()] = $matricule;
             }
-         }
-            if(empty($listPerso)){
-              $listPerso['Aucun utilisateur disponible']= null ;
-            }
+            // dump($listPerso);
+            //
+            // lk();
+        }
+         // }
+            // if(empty($listPerso)){
+            //   $listPerso['Aucun utilisateur disponible']= null ;
+            // }
         return $listPerso;
-     }
+
    }
 
    // Fonction whichPersonnel: Retourne les infos du personnel pour chaque demande dans partie Suivi des Demandes

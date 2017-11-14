@@ -22,6 +22,7 @@ use AppBundle\Entity\DemandeEmbauche;
 use AppBundle\Entity\DemandeAcompte;
 use AppBundle\Entity\AutreDemande;
 use AppBundle\Entity\DemandeRib;
+use AppBundle\Entity\DemandeRupturePeriodeEssai;
 
 class DemandeService
 {
@@ -54,7 +55,7 @@ class DemandeService
   {
 
     if ($demande instanceof AutreDemande || $demande instanceof DemandeAcompte
-    || $demande instanceof DemandeRib) {
+    || $demande instanceof DemandeRib || $demande instanceof DemandeRupturePeriodeEssai ) {
       self::createDemandeSimple($demande, $idSalon);
     }
 

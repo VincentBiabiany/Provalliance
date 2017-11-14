@@ -19,6 +19,22 @@ class PersonnelHasSalonRepository extends EntityRepository
       return true;}else{ return false;}
     }
 
+// Function listPersoBySalon
+// Paramètre : idSalon
+// Description : retourne les liste du personnel pour un salon donné ( ormis les coiffeurs)
+  public function listPersoBySalon($idSalon)
+  {
+    $p = $this->createQueryBuilder('d')
+        ->select('d')
+        ->where('d.salonSage = :idSalon')
+        ->andwhere('d.profession != :idCoiffeur')
+        ->setParameter('idCoiffeur',3)
+        ->setParameter('idSalon',$idSalon)
+        ->getQuery()
+        ->getResult();
+
+      return $p;
+  }
   public function findActivePersonnel()
   {
     // Permet de checker la date de fin par rapport à la date d'aujourd'hui

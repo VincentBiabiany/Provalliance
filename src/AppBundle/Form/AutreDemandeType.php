@@ -74,7 +74,7 @@ class AutreDemandeType extends AbstractType
                     $event->setData($data);
 
                     if ($data->getPieceJointes() != null ){
-                    $fileName = $this->fileUploader->upload($data->getPieceJointes());
+                    $fileName = $this->fileUploader->upload($data->getPieceJointes(),0,'autre_demande', 'pieceJointe');
                     $data->setPieceJointes($fileName);
 
                     }

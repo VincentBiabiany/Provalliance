@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'form/error.html.twig' %}
+{% block title %}{% endblock %}
+
+{% block body %}
+{% trans_default_domain "translator" %}
+
+<div class="header">
+	<img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
+</div>
+<div class="head">
+{{ "demande_rupture_periode_essai.titre"|trans({}, "translator") }}
+</div>
+<div class="nomSalon">
+  {{ app.session.get('nomSalon') }}
+</div>
+<div class="container">
+	<div id="actions" class="formAction">
+
+		{{ form_start(form, {'attr': {'class': 'allForm form-horizontal rupture_periode_essai', 'id':'RupturePeriodeEssai'} }) }}
+
+		    {{ form_errors(form)}}
+				<div class="form-group">
+					<label class="control-label label col-sm-4 col-xs-12" for="personnel"> {{ form_label(form.matricule) }}</label>
+					<div class="col-sm-9  col-xs-12">
+						{{ form_widget(form.matricule, { 'attr': {'class': 'form-control'} }) }}
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label label col-sm-4 col-xs-12" for="moyen">{{ form_label(form.moyen) }}</label>
+					<div class="col-sm-9  col-xs-12">
+						{{ form_widget(form.moyen, { 'attr': {'class': 'form-control'} }) }}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label label col-sm-4 col-xs-12" for="date">{{ form_label(form.date) }}</label>
+					<div class="col-sm-9  col-xs-12">
+						{{ form_widget(form.date, { 'attr': {'class':'styleDate'} }) }}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label label col-sm-4 col-xs-12" for="contrat">{{ form_label(form.contrat) }}</label>
+					<div class="col-sm-9  col-xs-12">
+						{{ form_widget(form.contrat, { 'attr': {'class': 'input-file'} }) }}
+						<label for="demande_rupture_periode_essai_contrat" class="label-file">
+							<i class="glyphicon glyphicon-download-alt"></i>
+							<span>{{ "demande_rupture_periode_essai.choice"|trans({}, "translator") }}</span>
+						</label>
+					</div>
+				</div>
+			<div id="actionsButtons">
+				{{ form_end(form) }}
+						<a href="{{ path('homepage') }}" class="btn-black precedent">
+								{{ "global.back"|trans({}, "translator") }}
+						</a>
+		  </div>
+		</div>
+	</div>
+	<script src="{{ asset('js/custom-file-input.js') }}"></script>
+	<script type="text/javascript">
+
+
+	</script>
+{% endblock %}
