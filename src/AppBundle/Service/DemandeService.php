@@ -57,7 +57,7 @@ class DemandeService
 
     if ($demande instanceof AutreDemande || $demande instanceof DemandeAcompte
     || $demande instanceof DemandeRib || $demande instanceof DemandeRupturePeriodeEssai
-    || $demande instanceof DemandeRLettreMission) {
+    || $demande instanceof DemandeLettreMission) {
       self::createDemandeSimple($demande, $idSalon);
     }
 

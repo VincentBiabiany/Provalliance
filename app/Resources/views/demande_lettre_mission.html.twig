@@ -118,7 +118,7 @@
 						<div class="jour">
 							<label class="control-label label">{{ "lettre_mission.dateDebut"|trans({}, "translator") }}</label>
 						</div>
-						{{ form_widget(form.dateDebut) }}
+						{{ form_widget(form.dateDebut, { 'attr': {'class':'styleDate'} }) }}
 
 					 </div>
 
@@ -126,7 +126,7 @@
 						 <div class="jour">
 							<label class="control-label label">{{ "lettre_mission.dateFin"|trans({}, "translator") }}</label>
 						 </div>
-						 {{ form_widget(form.dateFin) }}
+						 {{ form_widget(form.dateFin, { 'attr': {'class':'styleDate'} }) }}
 					</div>
 				</div>
 

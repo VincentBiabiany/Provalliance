@@ -13,6 +13,11 @@ use AppBundle\Entity\DemandeForm;
  */
 class DemandeLettreMission extends DemandeForm
 {
+    protected $nameDemande ='DemandeLettreMission';
+    protected $typeForm ='Demande de lettre de mission';
+    protected $subject ='connu';
+    protected $service ='juridique';
+
     /**
      * @var int
      *
@@ -25,14 +30,14 @@ class DemandeLettreMission extends DemandeForm
     /**
      * @var int
      *
-     * @ORM\Column(name="matricule", type="integer")
+     * @ORM\Column(name="matricule", type="integer", nullable=false)
      */
     private $matricule;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="sage", type="integer", nullable=false)
+     * @ORM\Column(name="sage", type="integer", nullable=true)
      */
     private $sage;
 
@@ -212,5 +217,43 @@ class DemandeLettreMission extends DemandeForm
     public function getTempsPartiel()
     {
         return $this->tempsPartiel;
+    }
+    /**
+     * Get nameDemande
+     *
+     * @return integer
+     */
+    public function getNameDemande()
+    {
+        return $this->nameDemande;
+    }
+
+    /**
+     * Get typeForm
+     *
+     * @return integer
+     */
+    public function getTypeForm()
+    {
+        return $this->typeForm;
+    }
+    /**
+     * Get service
+     *
+     * @return integer
+     */
+    public function getService()
+    {
+        return $this->service;
+    }
+
+    /**
+     * Get subject
+     *
+     * @return integer
+     */
+    public function getSubject()
+    {
+        return $this->subject;
     }
 }

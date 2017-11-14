@@ -36,7 +36,8 @@ class DemandeLettreMissionType extends AbstractType
                       return $er->findActivePersonnelBySalon($idSalon);
                     },
                   'label' => 'lettre_mission.nom',
-                  'translation_domain' => 'translator'
+                  'translation_domain' => 'translator',
+                  'attr' => ['required' => 'required']
               ))
             ->add('sage', EntityType::class, array(
                   // query choices from this entity
@@ -87,7 +88,21 @@ class DemandeLettreMissionType extends AbstractType
               'label' => 'lettre_mission.envoyer',
               'attr' => array('class' =>'btn-black end'),
               'translation_domain' => 'translator',
-            ));
+            ))
+            ->addEventListener(FormEvents::POST_SUBMIT,
+                function(FormEvent $event)
+                {
+                  $form = $event->getForm();
+                  $data = $event->getForm()->getData();
+
+                  if ($data->getRaison() == "lettre_mission.depla")
+                    $data->setSage($form['sage']->getData()->getSage());
+                  else
+                    $data->setSage(null);
+
+                  $data->setMatricule($form['matricule']->getData()->getMatricule());
+                  $event->setData($data);
+              });
   }
 
   public function configureOptions(OptionsResolver $resolver)

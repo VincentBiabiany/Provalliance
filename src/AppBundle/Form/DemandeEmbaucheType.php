@@ -124,7 +124,6 @@ class DemandeEmbaucheType extends AbstractType
                 $data = $event->getData();
                 $extra = $form->getExtraData();
 
-                dump($extra, $data);
                 if (!($data instanceof DemandeEmbauche))
                   return;
 
@@ -324,7 +323,7 @@ class DemandeEmbaucheType extends AbstractType
                   'empty_data' => $test
                 ));
               }
-              dump($data,  $form, $form->get('date')->getData());
+
               $event->setData($data);
             })
 
@@ -376,7 +375,6 @@ class DemandeEmbaucheType extends AbstractType
             // Recupère les champs extras:
             // raison, jusqu'au, nature, nom
 
-            //dump($data, $extra, $form, $form->get('date')->getData() );
 
             if($data->getTypeContrat() == 'embauche.cdd')
             {

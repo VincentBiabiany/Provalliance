@@ -29,13 +29,12 @@ class LettreMissionController extends Controller
     $img = $request->getSession()->get('img');
     if ($form->isSubmitted() && $form->isValid()) {
 
-
       $demandeService->createDemande($form->getData(), $idSalon);
 
       return $this->redirect($this->generateUrl('homepage',
         array('flash' => "La demande d'acompte a correctement été envoyée !
          Un mail vous sera envoyé une fois votre demande traitée.")));
-  
+
     }
 
     return $this->render('demande_lettre_mission.html.twig', array(

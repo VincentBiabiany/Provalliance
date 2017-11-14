@@ -43,7 +43,8 @@ class DemandeAcompteType extends AbstractType
                       return $er->findActivePersonnelBySalon($idSalon);
                     },
                   'label' => 'demande_acompte.nom',
-                  'translation_domain' => 'translator'
+                  'translation_domain' => 'translator',
+                  'attr' => ['required' => 'required']
                 ))
               ->add('Envoyer', SubmitType::class, array(
                   'label' => 'global.valider',
