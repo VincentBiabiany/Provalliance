@@ -11,7 +11,7 @@ use AppBundle\Entity\DemandeForm;
  * @ORM\Table(name="demande_lettre_mission")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\DemandeEmbaucheRepository")
  */
-class DemandeEmbauche extends DemandeForm
+class DemandeLettreMission extends DemandeForm
 {
     /**
      * @var int
@@ -70,5 +70,147 @@ class DemandeEmbauche extends DemandeForm
       $this->tempsPartiel = ['lundi'=>0, 'mardi'=>0,'mercredi'=>0, 'jeudi'=>0,'vendredi'=>0,'samedi'=>0,'total'=>0];
     }
 
+    /**
+     * Set matricule
+     *
+     * @param integer $matricule
+     *
+     * @return DemandeLettreMission
+     */
+    public function setMatricule($matricule)
+    {
+        $this->matricule = $matricule;
 
+        return $this;
+    }
+
+    /**
+     * Get matricule
+     *
+     * @return integer
+     */
+    public function getMatricule()
+    {
+        return $this->matricule;
+    }
+
+    /**
+     * Set sage
+     *
+     * @param integer $sage
+     *
+     * @return DemandeLettreMission
+     */
+    public function setSage($sage)
+    {
+        $this->sage = $sage;
+
+        return $this;
+    }
+
+    /**
+     * Get sage
+     *
+     * @return integer
+     */
+    public function getSage()
+    {
+        return $this->sage;
+    }
+
+    /**
+     * Set dateDebut
+     *
+     * @param \DateTime $dateDebut
+     *
+     * @return DemandeLettreMission
+     */
+    public function setDateDebut($dateDebut)
+    {
+        $this->dateDebut = $dateDebut;
+
+        return $this;
+    }
+
+    /**
+     * Get dateDebut
+     *
+     * @return \DateTime
+     */
+    public function getDateDebut()
+    {
+        return $this->dateDebut;
+    }
+
+    /**
+     * Set dateFin
+     *
+     * @param \DateTime $dateFin
+     *
+     * @return DemandeLettreMission
+     */
+    public function setDateFin($dateFin)
+    {
+        $this->dateFin = $dateFin;
+
+        return $this;
+    }
+
+    /**
+     * Get dateFin
+     *
+     * @return \DateTime
+     */
+    public function getDateFin()
+    {
+        return $this->dateFin;
+    }
+
+    /**
+     * Set raison
+     *
+     * @param string $raison
+     *
+     * @return DemandeLettreMission
+     */
+    public function setRaison($raison)
+    {
+        $this->raison = $raison;
+
+        return $this;
+    }
+
+    /**
+     * Get raison
+     *
+     * @return string
+     */
+    public function getRaison()
+    {
+        return $this->raison;
+    }
+
+    /**
+     * Set tempsPartiel
+     *
+     * @param array $tempsPartiel
+     *
+     * @return DemandeLettreMission
+     */
+    public function setTempsPartiel($tempsPartiel)
+    {
+        $this->tempsPartiel = $tempsPartiel;
+
+        return $this;
+    }
+
+    /**
+     * Get tempsPartiel
+     *
+     * @return array
+     */
+    public function getTempsPartiel()
+    {
+        return $this->tempsPartiel;
+    }
 }
