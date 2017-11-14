@@ -35,8 +35,8 @@ class DemandeLettreMissionType extends AbstractType
                   'query_builder' => function (EntityRepository $er) use ($idSalon) {
                       return $er->findActivePersonnelBySalon($idSalon);
                     },
-                  'label' => 'demandeacompte.nom',
-                  'translation_domain' => 'demande_acompte'
+                  'label' => 'lettre_mission.nom',
+                  'translation_domain' => 'translator'
               ))
             ->add('sage', EntityType::class, array(
                   // query choices from this entity
@@ -49,40 +49,44 @@ class DemandeLettreMissionType extends AbstractType
                   'query_builder' => function (EntityRepository $er) {
                       return $er->findAllActiveSalon(true);
                     },
-                  'label' => 'demandeacompte.nom',
-                  'translation_domain' => 'demande_acompte'
+                  'label' => 'lettre_mission.salon',
+                  'translation_domain' => 'translator'
               ))
             ->add('dateDebut', DateType::class, array(
               'widget' => 'choice',
               'format' => 'd/M/y',
               'years' => range(date('Y') - 5, date('Y') + 10),
-              'attr' => ['class' => 'until'],
-              'label' => ' '
+              'attr' => ['class' => ''],
+              'label' => ''
             ))
             ->add('dateFin', DateType::class, array(
               'widget' => 'choice',
               'format' => 'd/M/y',
               'years' => range(date('Y') - 5, date('Y') + 10),
-              'attr' => ['class' => 'until'],
-              'label' => ' ',
+              'attr' => ['class' => ''],
+              'label' => '',
             ))
             ->add('raison', ChoiceType::class, array(
               'choices' => array(
-                'embauche.cdd.surcroit'  => 'embauche.cdd.surcroit',
-                'embauche.cdd.rempla' => 'embauche.cdd.rempla',
-                'embauche.cdd.renouv' => 'embauche.cdd.renouv',
+                'lettre_mission.35h'   => 'lettre_mission.35h',
+                'lettre_mission.xh'    => 'lettre_mission.xh',
+                'lettre_mission.depla' => 'lettre_mission.depla',
               ),
-              'choice_translation_domain' => 'embauche',
-              'translation_domain' => 'embauche',
+              'choice_translation_domain' => 'translator',
+              'translation_domain' => 'translator',
               'expanded' => true,
               'multiple' => false,
             ))
-            ->add('tempsPartiel', CollectionType::class,[
-                  'entry_type' => NumberType::class,'translation_domain' => 'embauche'])
+            ->add('tempsPartiel', CollectionType::class,
+                [
+                  'entry_type' => NumberType::class,
+                  'translation_domain' => 'translator'
+                ]
+            )
             ->add('Envoyer', SubmitType::class, array(
-              'label' => 'embauche.send',
+              'label' => 'lettre_mission.envoyer',
               'attr' => array('class' =>'btn-black end'),
-              'translation_domain' => 'embauche',
+              'translation_domain' => 'translator',
             ));
   }
 

@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 {% form_theme form 'form/error.html.twig' %}
-{% block title %}Demande de lettre mission{% endblock %}
+{% block title %}{{ "lettre_mission.titre"|trans({}, "translator") }}{% endblock %}
 
 {% block body %}
-{% trans_default_domain "demande_acompte" %}
+
 <script type="text/javascript" src="{{ asset('js/jquery.validate.js') }}"></script>
 
 <div class="header">
@@ -11,14 +11,18 @@
 </div>
 
 <div class="head">
-	{{ "demandeacompte.titre"|trans({}, "demande_acompte") }}
+	{{ "lettre_mission.titre"|trans({}, "translator") }}
 </div>
 <div class="nomSalon">
   {{ app.session.get('nomSalon') }}
 </div>
+
 <div class="container">
 	<div id="actions" class="formAction">
-		{{ form_start(form, {'attr': {'class': 'allForm demande_acompte', 'id':'formAccompte'} }) }}
+		{{ form_start(form, {'attr': {'class': 'allForm', 'id':'formLettreMission'} }) }}
+
+
+ 		<!-- Champs Collaborateur -->
 
 				<div class="form-group">
 					<label class="control-label label col-sm-4 col-xs-12" for="personnel"> {{ form_label(form.matricule) }}</label>
@@ -28,17 +32,303 @@
 				</div>
 
 
-		<div id="actionsButtons">
+				<!-- Champs raison -->
+				<div class="form-group row" style="">
+					<label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "lettre_mission.raison"|trans({}, "translator") }}</label>
+
+					<div class="col-sm-8 pad-box" style="display: inline-flex">
+						{% block _demande_lettre_mission_tempsPartiel_row %}
+
+						<div id="demande_lettre_mission_raison">
+							{% for key,child in form.raison %}
+
+							<div class="col-sm-12">
+
+								{% if key == 0 %}
+
+										{{ form_widget(child, {'attr' : {'class' : ''} }) }}
+										{{ form_label(child, child.vars.value) }}
+
+								{% elseif key == 1 %}
+
+										{{ form_widget(child, {'attr' : {'class' : ''} }) }}
+										{{ form_label(child, child.vars.value) }}
+
+								{% else %}
+
+									{{ form_widget(child, {'attr' : {'class' : ''} }) }}
+									{{ form_label(child, child.vars.value) }}
+
+							 {% endif %}
+								</div>
+							{% endfor %}
+
+						</div>
+					</div>
+				</div> <!-- FIN champs raison -->
+				{% endblock %}
+
+
+				<!-- Temps partiel -->
+				<div style="display:none;" id="champsPartiel">
+					<div class="col-xs-12">
+
+						{% block _demande_embauche_tempsPartiel_row %}
+						<div id="tempsPartiel" class="form-group row" style="">
+							<label class="control-label label col-sm-3 col-xs-12" for="prenom">{{ "demande_embauche.cdd.partiel"|trans({}, "translator") }}</label>
+
+							<div id="listeJours" class="col-sm-9 col-xs-12 pad-box">
+								<label class="control-label label col-sm-12 col-xs-12"  for="nom"></label>
+
+									{% for key,child in form.tempsPartiel %}
+
+									 <div class="jour">
+											{% if  key == "total"  %}
+												{{ form_label(child, 'demande_embauche.' ~ key, {'label_attr' : {'class' : 'label'}}) }}
+												{{ form_widget(child, {'attr' : {'class' : 'form-control total', 'readonly':'readonly'} }) }}
+											{% else %}
+												{{ form_label(child, 'demande_embauche.' ~ key, {'label_attr' : {'class' : 'label'}}) }}
+												{{ form_widget(child, {'attr' : {'class' : 'form-control tempsHeure' } }) }}
+											{% endif %}
+										</div>
+
+									{% endfor %}
+							</div>
+						</div>
+						{% endblock %}
+					</div>
+				</div>
+
+				<!-- Champs salon -->
+				<div class="form-group" id="salon">
+					<label class="control-label label col-sm-4 col-xs-12" for="salon"> {{ form_label(form.sage) }}</label>
+					<div class="col-sm-9  col-xs-12">
+						{{ form_widget(form.sage, { 'attr': {'class': 'form-control'} }) }}
+					</div>
+				</div>
+
+				<!-- Champs date -->
+				<div class="form-group row">
+					<label class="control-label label col-sm-3 col-xs-12">{{ "lettre_mission.date"|trans({}, "translator") }}</label>
+				</div>
+
+				<div class="col-sm-12">
+					<div class="col-sm-6">
+
+						<div class="jour">
+							<label class="control-label label">{{ "lettre_mission.dateDebut"|trans({}, "translator") }}</label>
+						</div>
+						{{ form_widget(form.dateDebut) }}
+
+					 </div>
+
+					 <div class="col-sm-6">
+						 <div class="jour">
+							<label class="control-label label">{{ "lettre_mission.dateFin"|trans({}, "translator") }}</label>
+						 </div>
+						 {{ form_widget(form.dateFin) }}
+					</div>
+				</div>
+
+
+		<div id="">
 			{{ form_end(form) }}
-						<a href="{{ path('home_paie') }}" class="btn-black precedent">
-								{{ "demandeacompte.back"|trans({}, "demande_acompte") }}
-						</a>
+			<a href="{{ path('home_juridique_rh') }}" class="btn-black precedent">
+					{{ "global.back"|trans({}, "translator") }}
+			</a>
 		</div>
 	</div>
 
 </div>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.js"></script>
+
 
 <script type="text/javascript">
+$(document).ready(function(){
+
+  var $tempsTotal = 0;
+  // Contrôle sur les heures
+  $(".tempsHeure").prop("type", "number");
+  $('.tempsHeure').blur(function(){
+    if (parseInt($(this).val()) > 9 )
+      $(this).val(9)
+    if (parseInt($(this).val()) < 1)
+      $(this).val(1)
+
+    $tempsTotal = 0
+    $('.tempsHeure').each(function( index ) {
+     var $value = parseInt($(this).val());
+
+      if (isNaN($value))
+        $value = 0;
+      $tempsTotal += $value;
+    });
+
+    console.log('Value = ' + $tempsTotal);
+    $('.total').val($tempsTotal);
+  });
+  // Controle champs Temps Partiel
+  $('#demande_embauche_isTempsPartiel').change(function(){
+    if ($('#demande_embauche_isTempsPartiel_0').prop('checked')){
+      $('#tempsPartiel').show();
+      $('#tempsPartiel').find('*').each(function (){
+        $(this).attr('required', 'required')
+      });
+    } else {
+      $('#tempsPartiel').hide();
+      $('#tempsPartiel').find('*').each(function () {
+        $(this).removeAttr('required', 'required')
+      });
+    }
+  }).change();
+
+	// Controle du champs raison
+	// Si coché alors on déploit le détail
+	$('#demande_lettre_mission_raison').change(function(){
+		if ($('#demande_lettre_mission_raison_1').is(':checked'))
+		{
+			$('#champsPartiel').show();
+			$('#listeJours').find('*').each(function() {
+				$(this).attr('required', 'required');
+			});
+		}
+		else
+		{
+			$('#champsPartiel').hide();
+			$('#listeJours').find('*').each(function() {
+				$(this).removeAttr('required', 'required');
+			});
+		}
+
+		if ($('#demande_lettre_mission_raison_2').is(':checked'))
+		{
+			$('#salon').show();
+			$('#demande_lettre_mission_sage').attr('required', 'required');
+		}
+		else
+		{
+			$('#salon').hide();
+			$('#demande_lettre_mission_sage').removeAttr('required', 'required');
+		}
+
+	}).change();
+
+
+	// Validation du formulaire
+
+	jQuery.validator.addMethod("greaterThan",
+	function(value, element, params) {
+
+		dateFin = getDateFromParent(element);
+		dateDebut = getDateFromParent(params)
+
+	  return  dateFin > dateDebut;
+
+
+	},'Must be greater than {0}.');
+
+	jQuery.validator.addMethod("validateDate", function(value, element) {
+	  var dates = getArrayDateFromParent(element);
+
+		var m = parseInt( dates[1], 10);
+	  var d = parseInt( dates[0], 10);
+	  var y = parseInt( dates[2], 10);
+
+		var date = new Date(y, m - 1, d);
+
+	  return (date.getFullYear() == y && date.getMonth() + 1 == m && date.getDate() == d);
+	}, "Date incorrect");
+
+
+	function getArrayDateFromParent(element){
+		dates = new Array();
+	  $(element).parent().find('select').each(function(){
+	     dates.push($(this).val());
+	  });
+		return dates;
+	}
+
+	function getDateFromParent(element){
+		dates = new Array();
+	  $(element).parent().find('select').each(function(){
+	     dates.push($(this).val());
+	  });
+		var m = parseInt( dates[1], 10);
+	  var d = parseInt( dates[0], 10);
+	  var y = parseInt( dates[2], 10);
+
+		var date = new Date(y, m - 1, d);
+
+		return date;
+	}
+
+	$("#formLettreMission").validate({
+	rules: {
+	  'demande_lettre_mission[dateDebut][month]' : {
+	    validateDate: true,
+	  },
+	  'demande_lettre_mission[dateFin][month]' : {
+	    validateDate: true,
+			greaterThan: '#demande_lettre_mission_dateDebut_year'
+	  },
+	},
+	messages: {
+	  'fos_user_registration_form[username]': {
+	    validateDate: "Date incorrect"
+	  },
+	errorElement: "em",
+	errorPlacement: function ( error, element ) {
+	  //Add the `help-block` class to the error element
+	  error.addClass( "help-block" );
+
+	  // Add `has-feedback` class to the parent div.form-group
+	  // in order to add icons to inputs
+	  element.parents( ".col-sm-5" ).addClass( "has-feedback" );
+
+	  if ( element.prop( "type" ) === "checkbox") {
+	    error.insertAfter(element.parent( "label" ));
+	  } else if (element.prop( "type" ) === "select") {
+	    error.insertAfter( element.parent() );
+	  } else {
+	    error.insertAfter( element );
+	  }
+
+	  // Add the span element, if doesn't exists, and apply the icon classes to it.
+	  if ( !element.next( "span" )[ 0 ] ) {
+	    $( "<span class='glyphicon glyphicon-remove form-control-feedback'></span>" ).insertAfter( element );
+	  }
+
+	},
+	success: function ( label, element ) {
+	  // Add the span element, if doesn't exists, and apply the icon classes to it.
+	  if ( !$( element ).next( "span" )[ 0 ] ) {
+	    $( "<span class='glyphicon glyphicon-ok form-control-feedback'></span>" ).insertAfter( $( element ) );
+	  }
+	},
+	highlight: function ( element, errorClass, validClass ) {
+	  $( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
+	  $( element ).next( "span" ).addClass( "glyphicon-remove" ).removeClass( "glyphicon-ok" );
+	},
+	unhighlight: function ( element, errorClass, validClass ) {
+	  $( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
+	  $( element ).next( "span" ).addClass( "glyphicon-ok" ).removeClass( "glyphicon-remove" );
+	}
+	}
+});
+
+
+$('#demande_lettre_mission_dateDebut').focusout(function(){
+    $('#demande_lettre_mission_dateDebut_month').valid();
+		$('#demande_lettre_mission_dateFin_month').valid();
+})
+$('#demande_lettre_mission_dateFin').focusout(function(){
+    $('#demande_lettre_mission_dateFin_month').valid();
+})
+});
 </script>
+
+
+
 
 {% endblock %}

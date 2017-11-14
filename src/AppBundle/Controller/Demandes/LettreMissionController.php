@@ -29,25 +29,10 @@ class LettreMissionController extends Controller
     $img = $request->getSession()->get('img');
     if ($form->isSubmitted() && $form->isValid()) {
 
-      $validator = $this->get('validator');
-      $errors = $validator->validate($form);
 
-      // Contrôle des erreurs
-      if (count($errors) > 0) {
+      $demandeService->createDemande($form->getData(), $idSalon);
 
-        $errorsString = (string) $errors;
-        return $this->render('paie_acompte.html.twig',
-                            array(
-                              'img' => $img,
-                              'form' => $form->createView(),
-                              'errors' => $errorsString
-                            )
-                          );
-      } else {
-
-        $demandeService->createDemande($form->getData(), $idSalon);
-
-        return $this->redirect($this->generateUrl('homepage',
+      return $this->redirect($this->generateUrl('homepage',
         array('flash' => "La demande d'acompte a correctement été envoyée !
          Un mail vous sera envoyé une fois votre demande traitée.")));
 

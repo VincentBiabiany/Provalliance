@@ -148,7 +148,7 @@ demande_embauche:
     fam.conc:      Concubinage
     fam.celib:     Célibataire
     nbenf:         Nombre d'enfant(s)
-    villen:        Ville naissance
+    villen:        Ville de naissance
     paysNaissance: Pays de naissance
 
     dateemb:       Date d'embauche
@@ -295,6 +295,20 @@ admin:
 
     changement_mdp:
         header:      Modification du mot de passe
+
+
+lettre_mission:
+    titre:         Lettre de mission
+    nom:           Collaborateur
+    envoyer:       Envoyer
+    35h:           Passage à 35h/semaine
+    xh:            Passage à
+    depla:         Déplacement vers le salon
+    raison:        Raison
+    salon:         Salon
+    date:          Date
+    dateDebut:     Du
+    dateFin:       Jusqu'au
 
 message_validation:
     username_required:                  Merci d'entrer un nom d'utilisateur

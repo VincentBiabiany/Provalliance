@@ -32,7 +32,7 @@ class DemandeLettreMission extends DemandeForm
     /**
      * @var int
      *
-     * @ORM\Column(name="sage", type="integer")
+     * @ORM\Column(name="sage", type="integer", nullable=false)
      */
     private $sage;
 
@@ -53,14 +53,14 @@ class DemandeLettreMission extends DemandeForm
     /**
      * @var string
      *
-     * @ORM\Column(name="raison", type="string", length=255,  nullable=true)
+     * @ORM\Column(name="raison", type="string", length=255, nullable=true)
      */
     private $raison;
 
     /**
      * @var array
      *
-     * @ORM\Column(name="temps_partiel", type="array",  nullable=true)
+     * @ORM\Column(name="temps_partiel", type="array", nullable=false)
      */
     private $tempsPartiel;
 

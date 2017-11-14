@@ -144,7 +144,7 @@
     {% endblock %}
 
     <div class="form-group row" >
-      <label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "demande_embauche.cdd.partiel"|trans({}, "translator") }}</label>
+      <label class="control-label label col-sm-3 col-xs-12"  for="">{{ "demande_embauche.cdd.partiel"|trans({}, "translator") }}</label>
       <div class="col-sm-8 col-xs-12 pad-box" >
         {{ form_widget(form.isTempsPartiel) }}
       </div>
@@ -156,8 +156,6 @@
       <label class="control-label label col-sm-3 col-xs-12" for="prenom">{{ "demande_embauche.cdd.partiel"|trans({}, "translator") }}</label>
 
       <div id="listeJours" class="col-sm-9 col-xs-12 pad-box">
-        <label class="control-label label col-sm-12 col-xs-12"  for="nom"></label>
-
           {% for key,child in form.tempsPartiel %}
 
            <div class="jour">
@@ -171,11 +169,10 @@
             </div>
 
           {% endfor %}
-
       </div>
 
     </div>
-{% endblock %}
+    {% endblock %}
 
   <div id="actionsButtons">
     {{ form_end(form) }}
@@ -262,6 +259,17 @@ unhighlight: function ( element, errorClass, validClass ) {
 }
 });
 
+
+$('#demande_embauche_dateembauche').focusout(function(){
+    $('#demande_embauche_dateembauche_month').valid();
+})
+// $('#demande_embauche_date').focusout(function(){
+//     $('#demande_embauche_date_month').each(function(){
+//       console.log('test')
+//         $(this).valid();
+//     })
+// })
+
 $(document).ready(function(){
   var $tempsTotal = 0;
   // Contrôle sur les heures
@@ -347,7 +355,6 @@ $(document).ready(function(){
         // if ($(this).is('input'))
         //   $(this).val("");
     });
-
   }).change();
 
 

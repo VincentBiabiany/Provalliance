@@ -265,7 +265,9 @@ $( "#form1" ).validate( {
   //     return (date.getFullYear() == y && date.getMonth() + 1 == m && date.getDate() == d);
   // }
 
-
+  $('#demande_embauche_dateNaissance').focusout(function(){
+      $('#demande_embauche_dateNaissance_month').valid();
+  })
   // $('#demande_embauche_dateNaissance').focusout(function(){
   //   console.log($('#demande_embauche_dateNaissance_day').val())
   //   console.log($('#demande_embauche_dateNaissance_month').val())
