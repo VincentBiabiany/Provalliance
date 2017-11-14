@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'form/error.html.twig' %}
+{% block title %}Demande de lettre mission{% endblock %}
+
+{% block body %}
+{% trans_default_domain "demande_acompte" %}
+<script type="text/javascript" src="{{ asset('js/jquery.validate.js') }}"></script>
+
+<div class="header">
+	<img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
+</div>
+
+<div class="head">
+	{{ "demandeacompte.titre"|trans({}, "demande_acompte") }}
+</div>
+<div class="nomSalon">
+  {{ app.session.get('nomSalon') }}
+</div>
+<div class="container">
+	<div id="actions" class="formAction">
+		{{ form_start(form, {'attr': {'class': 'allForm demande_acompte', 'id':'formAccompte'} }) }}
+
+				<div class="form-group">
+					<label class="control-label label col-sm-4 col-xs-12" for="personnel"> {{ form_label(form.matricule) }}</label>
+					<div class="col-sm-9  col-xs-12">
+						{{ form_widget(form.matricule, { 'attr': {'class': 'form-control'} }) }}
+					</div>
+				</div>
+
+
+		<div id="actionsButtons">
+			{{ form_end(form) }}
+						<a href="{{ path('home_paie') }}" class="btn-black precedent">
+								{{ "demandeacompte.back"|trans({}, "demande_acompte") }}
+						</a>
+		</div>
+	</div>
+
+</div>
+
+<script type="text/javascript">
+</script>
+
+{% endblock %}

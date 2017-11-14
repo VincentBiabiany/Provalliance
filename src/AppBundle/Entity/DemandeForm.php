@@ -7,7 +7,12 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"demande_form" = "DemandeForm","demande_embauche" = "DemandeEmbauche", "demande_acompte" = "DemandeAcompte", "demande_rib" = "DemandeRib", "autre_demande" = "AutreDemande"})
+ * @ORM\DiscriminatorMap({"demande_form" = "DemandeForm",
+ *                        "demande_embauche" = "DemandeEmbauche",
+ *                        "demande_acompte" = "DemandeAcompte",
+ *                        "demande_rib" = "DemandeRib",
+ *                        "autre_demande" = "AutreDemande",
+ *                        "lettre_mission" = "DemandeLettreMission"  })
  */
 
 abstract class DemandeForm

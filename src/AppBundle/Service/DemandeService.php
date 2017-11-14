@@ -293,7 +293,7 @@ class DemandeService
     if ($demande->getDiplomeFile2() != null || $demande->getDiplomeFile2() != '')
     {
       $fileName = $this->fileUploader->upload($demande->getDiplomeFile2(), 0, 'embauche', 'DPLM2');
-      $demande->setDiplomeFile($fileName);
+      $demande->setDiplomeFile2($fileName);
     }
 
     $fileName = $this->fileUploader->upload($demande->getMutuelle(), 0, 'embauche', 'AM');

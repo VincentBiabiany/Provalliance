@@ -14,12 +14,16 @@ use ApiBundle\Entity\Salon;
 class SalonRepository extends EntityRepository
 {
 
-  public function findAllActiveSalon() {
+  public function findAllActiveSalon($isQuery = false) {
     $salon = $this->findAll();
     $this->getEntityManager()->flush();
 
-    return $this->createQueryBuilder('s')->where('s.actif = 1')->getQuery()->getResult();
+    if ($isQuery)
+      return $this->createQueryBuilder('s')->where('s.actif = 1');
+    else
+      return $this->createQueryBuilder('s')->where('s.actif = 1')->getQuery()->getResult();
   }
+
 
   public function findSalonForAdmin() {
     $salon = $this->findAll();
