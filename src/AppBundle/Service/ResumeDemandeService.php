@@ -59,7 +59,6 @@ class ResumeDemandeService
 
       $response .= "<div id='propertiesDemandePrint'  class='contentBlock'><h2> Récapitulatif de la demande </h2>";
           // Boucle pour propriétés de la demande
-          dump($properties);
           for ($k = 0; $k < count($properties); $k++) {
             if (isset($properties[$k])){
             $property = $properties[$k];
