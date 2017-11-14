@@ -25,42 +25,11 @@ class Account
     /**
      * @var int
      *
-     * @ORM\Column(name="etat", type="integer")
-     */
-    private $etat;
-
-    /**
-     * @var int
-     *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
-    /**
-     * Set etat
-     *
-     * @param integer $etat
-     *
-     * @return Account
-     */
-    public function setEtat($etat)
-    {
-        $this->etat = $etat;
-
-        return $this;
-    }
-
-    /**
-     * Get montant
-     *
-     * @return integer
-     */
-    public function getEtat()
-    {
-        return $this->etat;
-    }
 
     /**
      * Set matricule

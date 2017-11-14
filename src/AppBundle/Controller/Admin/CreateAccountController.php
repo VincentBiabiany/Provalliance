@@ -4,6 +4,7 @@ namespace AppBundle\Controller\Admin;
 use AppBundle\Entity\User;
 use ApiBundle\Entity\Salon;
 use ApiBundle\Entity\Personnel;
+use AppBundle\Entity\Account;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -64,17 +65,28 @@ class CreateAccountController extends Controller
     */
    public function createAccountStep2Action(Request $request)
    {
-           $personnel = new Personnel();
-           $idSalon = $request->get('idsalon');
-           //On sauvegarde le salon en cas de retour en arrière
-           $request->getSession()->set("idSalonAdmin", $idSalon);
-           //Retourne la liste des personnels n'ayant pas encore crée de compte
-           $entitym = $this->getDoctrine()->getManager();
-                    $accountRepo = $entitym->getRepository('AppBundle:Account');
-                    $listeAccount = $accountRepo->getAccountOff($idSalon);
-                    $entity = $this->getDoctrine()->getManager('referentiel');
-                    $personnelRepo = $entity->getRepository('ApiBundle:Personnel');
-                    $listePerso = $personnelRepo->getPerso($listeAccount,$idSalon);
+            $personnel = new Personnel();
+            $idSalon = $request->get('idsalon');
+            //On sauvegarde le salon en cas de retour en arrière
+            $request->getSession()->set("idSalonAdmin", $idSalon);
+
+            //Retourne la liste des personnels par salon
+            $entitym = $this->getDoctrine()->getManager();
+            $accountRepo = $entitym->getRepository('AppBundle:Account');
+            $entity = $this->getDoctrine()->getManager('referentiel');
+            $personnelRepo = $entity->getRepository('ApiBundle:Personnel');
+            $listePerso = $personnelRepo->getPerso($idSalon);
+
+            //Filtre des conmptes déjà crées
+
+            foreach ($listePerso as $key => $value) {
+              // dump($listePerso);
+             // $matricule =  $listePerso[$key]->getPersonnelMatricule()->getMatricule();
+
+                if( $accountRepo->ifInAccount($value)){
+                  unset($listePerso[$key]);
+                }
+            }
 
            if($listePerso == null ){
               $listePerso['Aucun utilisateur disponible']= null;
@@ -135,12 +147,16 @@ class CreateAccountController extends Controller
 
                if ($formS3->isSubmitted() ) {
                   //On met a jour le champ 'compte' de la table Account
-                       $idP= $formS3["matricule"]->getData();
-                       $em= $this->getDoctrine()->getManager();
-                       $personnel = $em->getRepository('AppBundle:Account')->findOneBy(array('matricule' => $idP));
+                        $idP= $formS3["matricule"]->getData();
+                        $em= $this->getDoctrine()->getManager();
+                        $personnel = $em->getRepository('AppBundle:Account')->findOneBy(array('matricule' => $idP));
+                        $em = $this->getDoctrine()->getManager();
 
-                       $personnel->setEtat(1);
-                       $em->flush();
+                        $account = new Account();
+                        $account->setmatricule($idP);
+                        $em->persist($account);
+
+                        $em->flush();
 
                       //On enregistre les infos principales du User
                       $em = $this->getDoctrine()->getManager();

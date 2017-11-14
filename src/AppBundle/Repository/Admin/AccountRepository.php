@@ -6,26 +6,15 @@ use ApiBundle\Entity\Personnel;
 
 class AccountRepository extends EntityRepository
 {
-  //Fonction getAccountOFF : Récupere tout le personnel n'ayant pas encore de compte utilisateur
+  //Fonction getAccountOFF : Vérifie la précense d'un personnel dans la table account
 
-  public function getAccountOff($idsalon) {
-        $qb = $this->createQueryBuilder('p');
-        $listes = $qb->select('p')
-                  ->where("p.etat = :etat")
-                  ->setParameter('etat', 0)
-                  ->getQuery()
-                  ->getResult();
-        $listeAccount=[];
-            if (count($listes ) == 0) {
-                $listeAccount=null;
+  public function ifInAccount($matricule) {
+
+            $occ = $this->findOneBy(array('matricule' => $matricule));
+            if ($occ == null){
+              return false;
             }else{
-                foreach ($listes as $liste ) {
-                    $listeAccount[]= $liste->getMatricule();
-                }
+              return true;
             }
-             return $listeAccount;
-
     }
-
-
 }
