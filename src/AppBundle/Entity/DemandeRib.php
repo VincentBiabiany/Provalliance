@@ -40,6 +40,7 @@ class DemandeRib extends DemandeForm
     protected $typeForm ='Demande rib';
     protected $subject ='connu';
     protected $service ='paie';
+    
     /**
      * Set rib
      *
