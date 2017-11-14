@@ -1,6 +1,7 @@
 
 						<div id="NotSelect" class="alert alert-danger hide">
-								Vous devez sélectionner un salon
+							{{ "admin.manager.erreurSalon"|trans({}, "translator") }}
+
 								<span class="closeAlert glyphicon glyphicon-remove"></span>
 					 </div>
 					 {{ form_start(form, {'attr': {'id': 'createAccount', 'class':'allForm createAccount'} }) }}
@@ -14,10 +15,10 @@
 						 <div id="actionsButtons">
 				 			{{ form_end(form) }}
 							<a id="form_Suivant" class="btn-black end" href="#">
-									{{ "global.next"|trans({}, "global") }}
+									{{ "global.next"|trans({}, "translator") }}
 							</a>
 							<a href="{{ path('createType') }}" class="btn-black precedent">
-									{{ "global.back"|trans({}, "global") }}
+									{{ "global.back"|trans({}, "translator") }}
 							</a>
 
 

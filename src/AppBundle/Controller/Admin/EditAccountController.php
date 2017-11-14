@@ -61,8 +61,8 @@ class EditAccountController extends Controller
                              'expanded' => true,
                              'multiple' => false,
                              'data' => $userState,
-                             'label' => 'admin_create.etat',
-                             'translation_domain' => 'admin_create')
+                             'label' => 'admin.edit.etat',
+                             'translation_domain' => 'translator')
                                 );
                      $form ->add('roles', ChoiceType::class, array(
                               'choices' => array('Manager'=>'ROLE_MANAGER','Coordinateur' => 'ROLE_COORD', 'Service Paie' => 'ROLE_PAIE', 'Service Juridique' => 'ROLE_Juridique'),
@@ -70,16 +70,16 @@ class EditAccountController extends Controller
                               'multiple' => false,
                               'mapped' => false,
                               'data' => $userRole[0],
-                              'label' => 'admin_create.role',
-                              'translation_domain' => 'admin_create')
+                              'label' => 'admin.edit.role',
+                              'translation_domain' => 'translator')
                            );
                      $form ->add('email', EmailType::class, array(
                               'required'  => false,
-                              'label' => 'admin_create.email',
-                              'translation_domain' => 'admin_create'));
+                              'label' => 'admin.edit.email',
+                              'translation_domain' => 'translator'));
                      $form-> add('Valider', SubmitType::class, array(
                            'label' => 'global.valider',
-                           'translation_domain' => 'global',
+                           'translation_domain' => 'translator',
                            'attr' => array(
                                 'class' => 'btn-black end'
                                   )

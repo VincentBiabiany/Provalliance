@@ -2,12 +2,11 @@
 {% block title %}Welcome{% endblock %}
 
 {% block body %}
-{% trans_default_domain "demandeacompte" %}
+{% trans_default_domain "translator" %}
 <div class="header admin">
 </div>
 <div class="head">
-	Administration - Gestion des Utilisateurs
-</div>
+{{ "admin.liste.titre"|trans({}, "translator") }}</div>
 
 <div class="container">
   <div id="actions">
@@ -17,20 +16,20 @@
 					<tr>
 						<th>id</th>
 						<th class="click"></th>
-						<th>{{ "datatable.personnel"|trans({}, "datatable") }}</th>
-						<th>{{ "datatable.connexion"|trans({}, "datatable") }}</th>
-						<th>{{ "datatable.role"|trans({}, "datatable") }}</th>
-						<th>{{ "datatable.actif"|trans({}, "datatable") }}</th>
+						<th>{{ "datatable.personnel"|trans({}, "translator") }}</th>
+						<th>{{ "datatable.connexion"|trans({}, "translator") }}</th>
+						<th>{{ "datatable.role"|trans({}, "translator") }}</th>
+						<th>{{ "datatable.actif"|trans({}, "translator") }}</th>
 					</tr>
 					</thead>
 					<tfoot>
 					<tr>
 						<th>id</th>
 						<th class="click"></th>
-						<th>{{ "datatable.personnel"|trans({}, "datatable") }}</th>
-						<th>{{ "datatable.connexion"|trans({}, "datatable") }}</th>
-						<th>{{ "datatable.role"|trans({}, "datatable") }}</th>
-						<th>{{ "datatable.actif"|trans({}, "datatable") }}</th>
+						<th>{{ "datatable.personnel"|trans({}, "translator") }}</th>
+						<th>{{ "datatable.connexion"|trans({}, "translator") }}</th>
+						<th>{{ "datatable.role"|trans({}, "translator") }}</th>
+						<th>{{ "datatable.actif"|trans({}, "translator") }}</th>
 					</tr>
 					</tfoot>
 					<tbody>
@@ -39,7 +38,7 @@
 
 				<div class="col-sm-12">
 						<div class="col-sm-6 block">
-								<button class="btn-black precedent" onclick="window.location.href = '{{ path("adminHome") }}'">		{{ "global.back"|trans({}, "global") }}
+								<button class="btn-black precedent" onclick="window.location.href = '{{ path("adminHome") }}'">		{{ "global.back"|trans({}, "translator") }}
 </button>
 						</div>
 
@@ -99,21 +98,21 @@
 						],
 						"language":
 							    {
-									 "processing":     "{{ "datatable.processing"|trans({}, "datatable") }}",
-									 "search":         "{{ "datatable.search"|trans({}, "datatable") }}",
-									 "lengthMenu":     "{{ "datatable.lengthMenu"|trans({}, "datatable") }}",
-									 "info":           "{{ "datatable.info"|trans({}, "datatable") }}",
-									 "infoEmpty":      "{{ "datatable.infoEmpty"|trans({}, "datatable") }}",
-									 "infoFiltered":   "{{ "datatable.infoFiltered"|trans({}, "datatable") }}",
+									 "processing":     "{{ "datatable.processing"|trans({}, "translator") }}",
+									 "search":         "{{ "datatable.search"|trans({}, "translator") }}",
+									 "lengthMenu":     "{{ "datatable.lengthMenu"|trans({}, "translator") }}",
+									 "info":           "{{ "datatable.info"|trans({}, "translator") }}",
+									 "infoEmpty":      "{{ "datatable.infoEmpty"|trans({}, "translator") }}",
+									 "infoFiltered":   "{{ "datatable.infoFiltered"|trans({}, "translator") }}",
 									 "infoPostFix":    "",
-									 "loadingRecords": "{{ "datatable.loadingRecords"|trans({}, "datatable") }}",
-									 "zeroRecords":    "{{ "datatable.zeroRecords"|trans({}, "datatable") }}",
-									 "emptyTable":     "{{ "datatable.emptyTable"|trans({}, "datatable") }}",
+									 "loadingRecords": "{{ "datatable.loadingRecords"|trans({}, "translator") }}",
+									 "zeroRecords":    "{{ "datatable.zeroRecords"|trans({}, "translator") }}",
+									 "emptyTable":     "{{ "datatable.emptyTable"|trans({}, "translator") }}",
 									 "paginate": {
-											 "first":      "{{ "datatable.first"|trans({}, "datatable") }}",
-											 "previous":   "{{ "datatable.previous"|trans({}, "datatable") }}",
-											 "next":       "{{ "datatable.next"|trans({}, "datatable") }}",
-											 "last":       "{{ "datatable.last"|trans({}, "datatable") }}"
+											 "first":      "{{ "datatable.first"|trans({}, "translator") }}",
+											 "previous":   "{{ "datatable.previous"|trans({}, "translator") }}",
+											 "next":       "{{ "datatable.next"|trans({}, "translator") }}",
+											 "last":       "{{ "datatable.last"|trans({}, "translator") }}"
 										 }
 				 				 },
 						"fnRowCallback": function( nRow, columns, iDisplayIndex ) {

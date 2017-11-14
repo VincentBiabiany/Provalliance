@@ -49,10 +49,10 @@ class CreateAccountController extends Controller
                     'query_builder' => function(EntityRepository $er) {
                         return $er->findSalonForAdmin();
                      },
-                    'label' => 'admin_create.salon',
+                    'label' => 'admin.manager.salon',
                     'placeholder' => 'Choisir un salon',
                     'multiple' => false,
-                    'translation_domain' => 'admin_create'
+                    'translation_domain' => 'translator'
                  ))
                ->getForm()
           ;
@@ -82,8 +82,8 @@ class CreateAccountController extends Controller
            $formS2 = $this->createFormBuilder()
            ->add('nom', ChoiceType::class, array(
                 'choices' => $listePerso,
-                'label' => 'admin_create.nom',
-                'translation_domain' => 'admin_create'
+                'label' => 'admin.manager.collab',
+                'translation_domain' => 'translator'
              ))
            ->getForm();
          return $this->render('admin/createAccountStep2.html.twig',['formS2'=>$formS2->createView()]);
@@ -105,8 +105,8 @@ class CreateAccountController extends Controller
              'expanded' => true,
              'multiple' => false,
              'attr' => array ('class' =>  'form-control'),
-             'label' => 'admin_create.etat',
-             'translation_domain' => 'admin_create'
+             'label' => 'admin.manager.etat',
+             'translation_domain' => 'translator'
                      ));
      $formS3 ->add('roles', ChoiceType::class, array(
               'choices' => array('Manager' => 'ROLE_MANAGER', 'Coordinateur' => 'ROLE_COORD'),
@@ -114,17 +114,17 @@ class CreateAccountController extends Controller
               'multiple' => false,
               'mapped' => false,
               'attr' => array ('class' =>  'form-control'),
-              'label' => 'admin_create.role',
-              'translation_domain' => 'admin_create'
+              'label' => 'admin.manager.role',
+              'translation_domain' => 'translator'
           ));
      $formS3 ->add('email', EmailType::class, array(
               'required'  => false,
                  'attr' => array ('class' =>  'form-control'),
-                 'label' => 'admin_create.email',
-                 'translation_domain' => 'admin_create'));
+                 'label' => 'admin.manager.email',
+                 'translation_domain' => 'translator'));
      $formS3-> add('Valider', SubmitType::class, array(
                'label' => 'global.valider',
-               'translation_domain' => 'global',
+               'translation_domain' => 'translator',
                'attr' => array(
                      'class' => 'btn-black end'
                       ))

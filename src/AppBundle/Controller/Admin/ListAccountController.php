@@ -29,9 +29,9 @@ class ListAccountController extends Controller
                  ->add('appelation', EntityType::class, array(
                     'class' => 'ApiBundle:Salon',
                     'choice_label' => 'appelation',
-                    'label' => 'admin_create.salon',
+                    'label' => 'admin.create.salon',
                     'placeholder' => ' Choisir un salon',
-                    'translation_domain' => 'admin_create'
+                    'translation_domain' => 'translator'
                  ))
               ->getForm();
 

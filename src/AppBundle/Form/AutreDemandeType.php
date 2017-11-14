@@ -37,8 +37,8 @@ class AutreDemandeType extends AbstractType
        $builder
                 ->add('matricule', ChoiceType::class, array(
                       'choices' => $listePerso,
-                      'label' => 'admin_create.nom',
-                      'translation_domain' => 'admin_create'
+                      'label' => 'autre_demande.collab',
+                      'translation_domain' => 'translator'
                      ))
                 ->add('service', ChoiceType::class, array(
                           'choices' => array('Service Paie' => 'paie', 'Service Juridique' => 'juridique',
@@ -47,23 +47,23 @@ class AutreDemandeType extends AbstractType
                           'multiple' => false
                         ))
                 ->add('objet', TextType::class, array(
-                      'label' => 'autredemande.objet',
-                      'translation_domain' => 'autre_demande',
+                      'label' => 'autre_demande.objet',
+                      'translation_domain' => 'translator',
                     ))
                 ->add('pieceJointes', FileType::class, array(
                   'required'  => false,
-                  'label' => 'autredemande.pieceJointe',
-                  'translation_domain' => 'autre_demande',
+                  'label' => 'autre_demande.pieceJointe',
+                  'translation_domain' => 'translator',
                     ))
                 ->add('commentaire', TextareaType::class, array(
-                                  'label' => 'autredemande.commentaire',
-                                  'translation_domain' => 'autre_demande',
+                                  'label' => 'autre_demande.commentaire',
+                                  'translation_domain' => 'translator',
                                   'attr' => array('rows' => '5')
                       ))
                 ->add('Envoyer', SubmitType::class, array(
-                  'label' => 'autredemande.envoyer',
+                  'label' => 'global.valider',
                   'attr' => array('class' =>'btn-black end'),
-                  'translation_domain' => 'autre_demande'
+                  'translation_domain' => 'translator'
                 ))
               ->addEventListener(FormEvents::POST_SUBMIT,
                   function(FormEvent $event)
@@ -76,7 +76,7 @@ class AutreDemandeType extends AbstractType
                     if ($data->getPieceJointes() != null ){
                     $fileName = $this->fileUploader->upload($data->getPieceJointes());
                     $data->setPieceJointes($fileName);
-                    
+
                     }
 
                   });

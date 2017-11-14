@@ -47,17 +47,17 @@ class DemandeRibType extends AbstractType
                   'query_builder' => function (EntityRepository $er) use ($idSalon) {
                       return $er->findActivePersonnelBySalon($idSalon);
                     },
-                  'label' => 'demanderib.collaborateur',
-                  'translation_domain' => 'demande_rib'
+                  'label' => 'demande_rib.collaborateur',
+                  'translation_domain' => 'translator'
                 ))
                 ->add('rib', FileType::class, array(
-                  'label' => 'autredemande.rib',
-                  'translation_domain' => 'demande_rib',
+                  'label' => 'demande_rib.rib',
+                  'translation_domain' => 'translator',
                     ))
               ->add('Envoyer', SubmitType::class, array(
-                  'label' => 'demanderib.envoyer',
+                  'label' => 'global.submit',
                   'attr' => array('class' =>'btn-black end'),
-                  'translation_domain' => 'demande_rib'
+                  'translation_domain' => 'translator'
               ))
               ->addEventListener(FormEvents::POST_SUBMIT,
                   function(FormEvent $event)
@@ -67,7 +67,7 @@ class DemandeRibType extends AbstractType
 
                     $data->setMatricule($form['matricule']->getData()->getMatricule());
                     $event->setData($data);
-                    
+
                     if ($data->getRib() != null ){
                     $fileName = $this->fileUploader->upload($data->getRib());
                     $data->setRib($fileName);

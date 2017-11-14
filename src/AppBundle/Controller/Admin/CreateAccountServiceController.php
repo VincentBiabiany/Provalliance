@@ -33,23 +33,23 @@ public function createAccountServiceAction(Request $request)
            'choices'  => array('Activer' => 1,'Desactiver' => 0),
            'expanded' => true,
            'multiple' => false,
-           'label' => 'admin_create.etat',
-           'translation_domain' => 'admin_create'));
+           'label' => 'admin.service.etat',
+           'translation_domain' => "translator"));
   $form ->add('roles', ChoiceType::class, array(
            'choices' => array('Service Paie' => 'ROLE_PAIE', 'Service Juridique / RH ' => 'ROLE_Juridique'),
            'expanded' => false,
            'multiple' => false,
            'mapped' => false,
-           'label' => 'admin_create.role',
-           'translation_domain' => 'admin_create'
+           'label' => 'admin.service.role',
+           'translation_domain' => "translator"
        ) );
   $form ->add('email', EmailType::class, array(
            'required'  => false,
-           'label' => 'admin_create.email',
-           'translation_domain' => 'admin_create'));
+           'label' => 'admin.service.email',
+           'translation_domain' => "translator"));
   $form-> add('Valider', SubmitType::class, array(
         'label' => 'global.valider',
-        'translation_domain' => 'global',
+        'translation_domain' => 'translator',
         'attr' => array(
               'class' => 'btn-black end'))
         );

@@ -29,18 +29,18 @@
             <div id="home" class="col-sm-6 col-xs-6 deco block">
                 <a  href="{{ path('adminHome') }}">
                     <span class="glyphicon glyphicon-home"></span>
-                    <span class="libelle">{{ "home.accueil"|trans({}, "home") }}</span>
+                    <span class="libelle">{{ "home.accueil"|trans({}, "translator") }}</span>
                 </a>
             </div>
 
             <div id="logout" class="col-sm-6 col-xs-6 deco block">
                  <a class="out" href="{{ path('homepage') }}">
                     <span class="glyphicon glyphicon-unchecked"></span>
-                    <span class="libelle">{{ "home.appli"|trans({}, "home") }}</span>
+                    <span class="libelle">{{ "home.appli"|trans({}, "translator") }}</span>
                  </a>
                  <a class="out" href="{{ path('fos_user_security_logout') }}">
                     <span class="glyphicon glyphicon-off"></span>
-                    <span class="libelle">{{ "home.deconnexion"|trans({}, "home") }}</span>
+                    <span class="libelle">{{ "home.deconnexion"|trans({}, "translator") }}</span>
                  </a>
 
             </div>
@@ -57,7 +57,7 @@
                 {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MANAGER') or is_granted('ROLE_COORDINATEUR') %}
                     <a class="out" href="{{ path('homepage') }}">
                         <span class="glyphicon glyphicon-home"></span>
-                        <span class="libelle">{{ "home.accueil"|trans({}, "home") }}</span>
+                        <span class="libelle">{{ "home.accueil"|trans({}, "translator") }}</span>
                     </a>
                 {% endif  %}
 
@@ -66,12 +66,12 @@
                   {% if is_granted('ROLE_ADMIN') %}
                       <a class="out" href="{{ path('adminHome') }}">
                           <span class="glyphicon glyphicon-wrench"></span>
-                          <span class="libelle">{{ "home.admin"|trans({}, "home") }}</span>
+                          <span class="libelle">{{ "home.admin"|trans({}, "translator") }}</span>
                       </a>
                   {% endif  %}
                   <a class="out" href="{{ path('fos_user_security_logout') }}">
                      <span class="glyphicon glyphicon-off"></span>
-                     <span class="libelle">{{ "home.deconnexion"|trans({}, "home") }}</span>
+                     <span class="libelle">{{ "home.deconnexion"|trans({}, "translator") }}</span>
                   </a>
 
              </div>

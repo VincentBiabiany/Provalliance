@@ -1,4 +1,4 @@
-{% trans_default_domain "demandeacompte" %}
+{% trans_default_domain "translator" %}
 
 <script type="text/javascript" src="{{ asset('js/jquery.validate.js') }}"></script>
 
@@ -42,8 +42,9 @@
 								</div>
 								<div id="actionsButtons">
 									{{ form_end(formS3) }}
-									<a id="form_Precedent" class="btn-black precedent" href="#">{{ "admin_create.precedent"|trans({}, "admin_create") }} </a>
+									<a id="form_Precedent" class="btn-black precedent" href="#">{{ "global.next"|trans({}, "translator") }} </a>
 	 				 		  </div>
+
  <script type="text/javascript">
  $( document ).ready( function () {
 
@@ -96,20 +97,20 @@
  		},
  		messages: {
  			'fos_user_registration_form[username]': {
- 				required: "{{ "username_required"|trans({}, "message_validation_form") }}",
- 				minlength: "{{ "username_minlength"|trans({}, "message_validation_form") }}"
+ 				required: "{{ "message_validation.username_required"|trans({}, "translator") }}",
+ 				minlength: "{{ "message_validation.username_minlength"|trans({}, "translator") }}"
  			},
  			'fos_user_registration_form[plainPassword][first]': {
- 				required: "{{ "firstPassword_required"|trans({}, "message_validation_form") }}",
- 				minlength: "{{ "firstPassword_minlength"|trans({}, "message_validation_form") }}"
+ 				required: "{{ "message_validation.firstPassword_required"|trans({}, "translator") }}",
+ 				minlength: "{{ "message_validation.firstPassword_minlength"|trans({}, "translator") }}"
  			},
  			'fos_user_registration_form[plainPassword][second]': {
- 				required: "{{ "secondPassword_required"|trans({}, "message_validation_form") }}",
- 				minlength: "{{ "secondPassword_minlength"|trans({}, "message_validation_form") }}",
- 				equalTo: "{{ "secondPassword_equalTo"|trans({}, "message_validation_form") }}"
+ 				required: "{{ "message_validation.secondPassword_required"|trans({}, "translator") }}",
+ 				minlength: "{{ "message_validation.secondPassword_minlength"|trans({}, "translator") }}",
+ 				equalTo: "{{ "message_validation.secondPassword_equalTo"|trans({}, "translator") }}"
  			},
- 			'fos_user_registration_form[enabled]': "{{ "enabled_required"|trans({}, "message_validation_form") }}",
- 			'fos_user_registration_form[email]': "{{ "email_valid"|trans({}, "message_validation_form") }}"
+ 			'fos_user_registration_form[enabled]': "{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+ 			'fos_user_registration_form[email]': "{{ "message_validation.email_valid"|trans({}, "translator") }}"
  		},
  		errorElement: "em",
  		errorPlacement: function ( error, element ) {

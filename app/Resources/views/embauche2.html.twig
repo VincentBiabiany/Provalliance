@@ -7,7 +7,7 @@
     <img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
   </div>
   <div class="head" >
-    {{ "embauche.header"|trans({}, "embauche") }}
+    {{ "demande_embauche.header"|trans({}, "translator") }}
   </div>
   <div class="nomSalon">
     {{ app.session.get('nomSalon') }}
@@ -18,65 +18,65 @@
 
     {{ form_start(form, { 'attr' : { 'id':'demandeEmbauche2','class': 'allForm form-horizontal' } }) }}
     <div class="form-group">
-      <label class="control-label label col-sm-3 col-xs-12"  for="embauche">{{ "embauche.dateemb"|trans({}, "embauche") }}</label>
+      <label class="control-label label col-sm-3 col-xs-12"  for="embauche">{{ "demande_embauche.dateemb"|trans({}, "translator") }}</label>
       <div class="col-sm-3 col-xs-12">
         {{ form_widget(form.dateembauche) }}
       </div>
     </div>
 
     <div class="form-group">
-      <label class="control-label label col-sm-3 col-xs-12" for="groupe">{{ "embauche.ancien"|trans({}, "embauche") }}</label>
+      <label class="control-label label col-sm-3 col-xs-12" for="groupe">{{ "demande_embauche.ancien"|trans({}, "translator") }}</label>
       <div class="col-sm-4  col-xs-12 pad-box append" style="display: inline-flex" >
         {{ form_widget(form.dejaSalarie) }}
       </div>
     </div>
 
     <div class="form-group">
-      <label class="control-label label col-sm-3 col-xs-12" for="date">{{ "embauche.poste"|trans({}, "embauche") }}</label>
+      <label class="control-label label col-sm-3 col-xs-12" for="date">{{ "demande_embauche.poste"|trans({}, "translator") }}</label>
       <div class="col-sm-4 col-xs-12 pad-box append" style="display: inline-flex" >
         {{ form_widget(form.postes) }}
       </div>
     </div>
 
     <div class="form-group">
-      <label class="control-label label col-sm-3 col-xs-12" for="date">{{ "embauche.diplome"|trans({}, "embauche") }}</label>
+      <label class="control-label label col-sm-3 col-xs-12" for="date">{{ "demande_embauche.diplome"|trans({}, "translator") }}</label>
       <div class="col-sm-4 col-xs-12 pad-box" style="display: inline-flex" >
         {{ form_widget(form.diplomes) }}
       </div>
     </div>
 
     <div id="Classification" class="form-group" >
-      <label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "embauche.class"|trans({}, "embauche") }}</label>
+      <label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "demande_embauche.class"|trans({}, "translator") }}</label>
       <div class="col-sm-3 col-xs-12" >
-        <label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "embauche.niveau"|trans({}, "embauche") }}</label>
+        <label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "demande_embauche.niveau"|trans({}, "translator") }}</label>
         {{ form_widget(form.niveau) }}
       </div>
       <div class="col-sm-3 col-xs-12" >
-        <label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "embauche.echelon"|trans({}, "embauche") }}</label>
+        <label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "demande_embauche.echelon"|trans({}, "translator") }}</label>
         {{ form_widget(form.echelon) }}
       </div>
       <div class="col-sm-3 col-xs-12" >
-        <label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "embauche.autre"|trans({}, "embauche") }}</label>
+        <label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "demande_embauche.autre"|trans({}, "translator") }}</label>
         {{ form_widget(form.autre) }}
       </div>
     </div>
 
     <div class="form-group row" >
-      <label class="control-label label col-sm-3 col-xs-12" for="prenom">{{ "embauche.salaire"|trans({}, "embauche") }}</label>
+      <label class="control-label label col-sm-3 col-xs-12" for="prenom">{{ "demande_embauche.salaire"|trans({}, "translator") }}</label>
       <div class="col-sm-4 col-xs-12 pad-box">
         {{ form_widget(form.salaireBase) }}
       </div>
     </div>
 
     <div class="form-group row" >
-      <label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "embauche.contrat"|trans({}, "embauche") }}</label>
+      <label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "demande_embauche.contrat"|trans({}, "translator") }}</label>
       <div class="col-sm-8 col-xs-12 pad-box" >
         {{ form_widget(form.typeContrat) }}
       </div>
     </div>
 
     <div class="form-group row" style="display:none" id="block-cdd">
-      <label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "embauche.cdd"|trans({}, "embauche") }}</label>
+      <label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "demande_embauche.cdd"|trans({}, "translator") }}</label>
 
       <div class="col-sm-8 pad-box" style="display: inline-flex">
         {% block _demande_embauche_cddRaison_row %}
@@ -92,7 +92,7 @@
                 {{ form_label(child, child.vars.value) }}
                 <div style="display:none;">
                   <div class="col-xs-12">
-                    <label class="control-label label">{{ "embauche.cdd.date"|trans({}, "embauche") }}</label>
+                    <label class="control-label label">{{ "demande_embauche.cdd.date"|trans({}, "translator") }}</label>
                     <input type="text" id="demande_embauche[raison][jusquau]" name="demande_embauche[raison][jusquau]" class="jusquau js-datepicker form-control">
                   </div>
                 </div>
@@ -104,11 +104,11 @@
                 <div style="display:none;">
                   <div class="col-xs-12">
 
-                    <label class="control-label label">{{ "embauche.cdd.nature"|trans({}, "embauche") }}</label>{{ form_widget(form.remplacementNature) }}
-                    <label class="control-label label">{{ "embauche.cdd.nom"|trans({}, "embauche") }}</label>   {{ form_widget(form.remplacementNom) }}
+                    <label class="control-label label">{{ "demande_embauche.cdd.nature"|trans({}, "translator") }}</label>{{ form_widget(form.remplacementNature) }}
+                    <label class="control-label label">{{ "demande_embauche.cdd.nom"|trans({}, "translator") }}</label>   {{ form_widget(form.remplacementNom) }}
 
                     <div id="test" >
-                      <label class="control-label label">{{ "embauche.cdd.date"|trans({}, "embauche") }}</label>
+                      <label class="control-label label">{{ "demande_embauche.cdd.date"|trans({}, "translator") }}</label>
                       <input type="text" id="demande_embauche[raison][jusquau]" class="jusquau js-datepicker form-control" name="demande_embauche[raison][jusquau]">
                     </div>
 
@@ -129,7 +129,7 @@
               {{ form_label(child, child.vars.value) }}
               <div style="display:none;">
                 <div class="col-xs-12">
-                  <label class="control-label label">{{ "embauche.cdd.date"|trans({}, "embauche") }}</label>
+                  <label class="control-label label">{{ "demande_embauche.cdd.date"|trans({}, "translator") }}</label>
                   <input type="text" id="demande_embauche[raison][jusquau]" name="demande_embauche[raison][jusquau]" class="jusquau js-datepicker form-control">
                 </div>
               </div>
@@ -144,7 +144,7 @@
     {% endblock %}
 
     <div class="form-group row" >
-      <label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "embauche.cdd.partiel"|trans({}, "embauche") }}</label>
+      <label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "demande_embauche.cdd.partiel"|trans({}, "translator") }}</label>
       <div class="col-sm-8 col-xs-12 pad-box" >
         {{ form_widget(form.isTempsPartiel) }}
       </div>
@@ -153,7 +153,7 @@
     <!-- Temps partiel -->
     {% block _demande_embauche_tempsPartiel_row %}
     <div id="tempsPartiel" class="form-group row" style="display:none;">
-      <label class="control-label label col-sm-3 col-xs-12" for="prenom">{{ "embauche.cdd.partiel"|trans({}, "embauche") }}</label>
+      <label class="control-label label col-sm-3 col-xs-12" for="prenom">{{ "demande_embauche.cdd.partiel"|trans({}, "translator") }}</label>
 
       <div id="listeJours" class="col-sm-9 col-xs-12 pad-box">
         <label class="control-label label col-sm-12 col-xs-12"  for="nom"></label>
@@ -162,10 +162,10 @@
 
            <div class="jour">
               {% if  key == "total"  %}
-                {{ form_label(child, 'embauche.' ~ key, {'label_attr' : {'class' : 'label'}}) }}
+                {{ form_label(child, 'demande_embauche.' ~ key, {'label_attr' : {'class' : 'label'}}) }}
                 {{ form_widget(child, {'attr' : {'class' : 'form-control total', 'readonly':'readonly'} }) }}
               {% else %}
-                {{ form_label(child, 'embauche.' ~ key, {'label_attr' : {'class' : 'label'}}) }}
+                {{ form_label(child, 'demande_embauche.' ~ key, {'label_attr' : {'class' : 'label'}}) }}
                 {{ form_widget(child, {'attr' : {'class' : 'form-control tempsHeure' } }) }}
               {% endif %}
             </div>
@@ -180,7 +180,7 @@
   <div id="actionsButtons">
     {{ form_end(form) }}
     <a href="{{ path('rh_embauche') }}" class="btn-black precedent">
-        {{ "global.back"|trans({}, "global") }}
+        {{ "global.back"|trans({}, "translator") }}
     </a>
   </div>
 </div>
@@ -303,7 +303,7 @@ $(document).ready(function(){
   // Controle du champs CDD
   // Si coché alors on déploit le détail
   $('#demande_embauche_typeContrat').change(function(){
-    if ($('input[name="demande_embauche[typeContrat]"]:checked').val() == "embauche.cdd")
+    if ($('input[name="demande_embauche[typeContrat]"]:checked').val() == "demande_embauche.cdd")
     {
       $('#block-cdd').show();
       $('input[name="demande_embauche[cddRaison]"]').attr('required', 'required');

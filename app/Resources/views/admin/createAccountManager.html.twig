@@ -2,11 +2,11 @@
 {% block title %}Welcome{% endblock %}
 
 {% block body %}
-{% trans_default_domain "demandeacompte" %}
+{% trans_default_domain "translator" %}
 <div class="header admin">
 </div>
 <div class="head">
-{{ "admin_create.creation"|trans({}, "admin_create") }}</div>
+{{ "admin.manager.titre"|trans({}, "translator") }}</div>
 
 <div class="container">
   <div id="actions" class="formAction">
@@ -15,9 +15,9 @@
 					 <span id="stepOne" class="step active"></span>
  						 	<span id="stepTwo" class="step"></span>
  						 	<span id="stepThree" class="step"></span>
- 							<label id="labelOne" class="labelFil active">Choix du salon</label>
- 							<label id="labelTwo" class="labelFil">Choix du collaborateur</label>
- 							<label id="labelThree" class="labelFil">Création du compte</label>
+ 							<label id="labelOne" class="labelFil active">{{ "admin.manager.labelOne"|trans({}, "translator") }}</label>
+ 							<label id="labelTwo" class="labelFil">{{ "admin.manager.labelTwo"|trans({}, "translator") }}</label>
+ 							<label id="labelThree" class="labelFil">{{ "admin.manager.labelThree"|trans({}, "translator") }}</label>
 				 </<span>
 			 </div>
 					<div id="CreateFormStep">

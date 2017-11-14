@@ -3,14 +3,14 @@
 {% block title %}{% endblock %}
 
 {% block body %}
-{% trans_default_domain "autre_demande" %}
+{% trans_default_domain "translator" %}
 <script type="text/javascript" src="{{ asset('js/jquery.validate.js') }}"></script>
 
 <div class="header">
 	<img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
 </div>
 <div class="head">
-{{ "autredemande.titre"|trans({}, "autre_demande") }}
+{{ "autre_demande.titre"|trans({}, "translator") }}
 </div>
 <div class="nomSalon">
   {{ app.session.get('nomSalon') }}
@@ -45,7 +45,7 @@
 						{{ form_widget(form.pieceJointes, { 'attr': {'class': 'input-file'} }) }}
 						<label for="autre_demande_pieceJointes" class="label-file">
 							<i class="glyphicon glyphicon-download-alt"></i>
-							<span>Choisir un fichier</span>
+							<span>	{{ "autre_demande.choice"|trans({}, "translator") }}</span>
 						</label>
 					</div>
 				</div>
@@ -58,7 +58,7 @@
 			<div id="actionsButtons">
 				{{ form_end(form) }}
 						<a href="{{ path('homepage') }}" class="btn-black precedent">
-								{{ "autredemande.back"|trans({}, "autre_demande") }}
+								{{ "global.back"|trans({}, "translator") }}
 						</a>
 		  </div>
 		</div>
@@ -77,8 +77,8 @@
 			 }
 		 },
 		 messages: {
-			 'autre_demande[objet]': "{{ "autre_demande_objet_required"|trans({}, "message_validation_form") }}",
-			 'autre_demande[commentaire]': "{{ "autre_demande_commentaire_required"|trans({}, "message_validation_form") }}"
+			 'autre_demande[objet]': "{{ "message_validation.autre_demande_objet_required"|trans({}, "translator") }}",
+			 'autre_demande[commentaire]': "{{ "message_validation.autre_demande_commentaire_required"|trans({}, "translator") }}"
 		 },
 		 errorElement: "em",
 		 errorPlacement: function ( error, element ) {

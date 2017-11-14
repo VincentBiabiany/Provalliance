@@ -13,16 +13,15 @@
 		<img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
 	</div>
 	<div class="head">
-		{{ "suividemande.header"|trans({}, "suivi_demandes") }}
+		{{ "suivi_demandes.header"|trans({}, "translator") }}
 	</div>
 	<div class="nomSalon">
 {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_COORDINATEUR') %}
 			{{ app.session.get('nomSalon') }}
 {% elseif is_granted('ROLE_JURIDIQUE') %}
-				Service Juridique
+{{ "suivi_demandes.serviceJuridique"|trans({}, "translator") }}
 {% elseif is_granted('ROLE_PAIE') %}
-				Service Paie
-
+{{ "suivi_demandes.servicePaie"|trans({}, "translator") }}
 {% endif %}
 	</div>
 	<div class="container">
@@ -38,23 +37,23 @@
 					<ul>
 							<li id="validation">
 									<i class="glyphicon glyphicon-ok"></i>
-									<span>Validation</span>
+									<span>{{ "suivi_demandes.validation"|trans({}, "translator") }}</span>
 							</li>
 							<li id="export">
 									<i class="glyphicon glyphicon-download-alt"></i>
-								  <span>Export</span>
+								  <span>{{ "suivi_demandes.export"|trans({}, "translator") }}</span>
 							</li>
 							<li id="impression">
 									<i class="glyphicon glyphicon-print"></i>
-								  <span>Impression</span>
+								  <span>{{ "suivi_demandes.impression"|trans({}, "translator") }}</span>
 							</li>
 							<li id="allselect">
 									<i class="glyphicon glyphicon-th-list"></i>
-									<span>Tout sélectionner</span>
+									<span>{{ "suivi_demandes.selectAll"|trans({}, "translator") }}</span>
 							</li>
 							<li id="deselect">
 								  <i class="glyphicon glyphicon-remove"></i>
-									<span>Déselectionner</span>
+									<span>{{ "suivi_demandes.deselect"|trans({}, "translator") }}</span>
 							</li>
 
 					</ul>
@@ -67,15 +66,15 @@
 			<tr>
 				<th>id</th>
 				<th class="click"></th>
-				<th>{{ "suividemande.codesage"|trans({}, "suivi_demandes") }}</th>
-				<th>{{ "suividemande.enseigne"|trans({}, "suivi_demandes") }}</th>
-				<th>{{ "suividemande.appelation"|trans({}, "suivi_demandes") }}</th>
-				<th>{{ "suividemande.coordinateur"|trans({}, "suivi_demandes") }}</th>
-				<th>{{ "suividemande.manager"|trans({}, "suivi_demandes") }}</th>
-				<th>{{ "suividemande.date"|trans({}, "suivi_demandes") }}</th>
-				<th>{{ "suividemande.statut"|trans({}, "suivi_demandes") }}</th>
-				<th>{{ "suividemande.typedemande"|trans({}, "suivi_demandes") }}</th>
-				<th>{{ "suividemande.collaborateur"|trans({}, "suivi_demandes") }}</th>
+				<th>{{ "suivi_demandes.codesage"|trans({}, "translator") }}</th>
+				<th>{{ "suivi_demandes.enseigne"|trans({}, "translator") }}</th>
+				<th>{{ "suivi_demandes.appelation"|trans({}, "translator") }}</th>
+				<th>{{ "suivi_demandes.coordinateur"|trans({}, "translator") }}</th>
+				<th>{{ "suivi_demandes.manager"|trans({}, "translator") }}</th>
+				<th>{{ "suivi_demandes.date"|trans({}, "translator") }}</th>
+				<th>{{ "suivi_demandes.statut"|trans({}, "translator") }}</th>
+				<th>{{ "suivi_demandes.typedemande"|trans({}, "translator") }}</th>
+				<th>{{ "suivi_demandes.collaborateur"|trans({}, "translator") }}</th>
 			</tr>
 			</thead>
 			<thead id="header-filtre"></thead>
@@ -83,15 +82,15 @@
 			<tr id="filtre">
 				<th>id</th>
 				<th class="click"></th>
-				<th>{{ "suividemande.codesage"|trans({}, "suivi_demandes") }}</th>
-				<th>{{ "suividemande.enseigne"|trans({}, "suivi_demandes") }}</th>
-				<th>{{ "suividemande.appelation"|trans({}, "suivi_demandes") }}</th>
-				<th>{{ "suividemande.coordinateur"|trans({}, "suivi_demandes") }}</th>
-				<th>{{ "suividemande.manager"|trans({}, "suivi_demandes") }}</th>
-				<th>{{ "suividemande.date"|trans({}, "suivi_demandes") }}</th>
-				<th>{{ "suividemande.statut"|trans({}, "suivi_demandes") }}</th>
-				<th>{{ "suividemande.typedemande"|trans({}, "suivi_demandes") }}</th>
-				<th>{{ "suividemande.collaborateur"|trans({}, "suivi_demandes") }}</th>
+				<th>{{ "suivi_demandes.codesage"|trans({}, "translator") }}</th>
+				<th>{{ "suivi_demandes.enseigne"|trans({}, "translator") }}</th>
+				<th>{{ "suivi_demandes.appelation"|trans({}, "translator") }}</th>
+				<th>{{ "suivi_demandes.coordinateur"|trans({}, "translator") }}</th>
+				<th>{{ "suivi_demandes.manager"|trans({}, "translator") }}</th>
+				<th>{{ "suivi_demandes.date"|trans({}, "translator") }}</th>
+				<th>{{ "suivi_demandes.statut"|trans({}, "translator") }}</th>
+				<th>{{ "suivi_demandes.typedemande"|trans({}, "translator") }}</th>
+				<th>{{ "suivi_demandes.collaborateur"|trans({}, "translator") }}</th>
 			</tr>
 			</tfoot>
 			<tbody>
@@ -196,21 +195,21 @@
 					],
 					"language":
 								{
-								 "processing":     "{{ "datatable.processing"|trans({}, "datatable") }}",
-								 "search":         "{{ "datatable.search"|trans({}, "datatable") }}",
-								 "lengthMenu":     "{{ "datatable.lengthMenu"|trans({}, "datatable") }}",
-								 "info":           "{{ "datatable.info"|trans({}, "datatable") }}",
-								 "infoEmpty":      "{{ "datatable.infoEmpty"|trans({}, "datatable") }}",
-								 "infoFiltered":   "{{ "datatable.infoFiltered"|trans({}, "datatable") }}",
+								 "processing":     "{{ "datatable.processing"|trans({}, "translator") }}",
+								 "search":         "{{ "datatable.search"|trans({}, "translator") }}",
+								 "lengthMenu":     "{{ "datatable.lengthMenu"|trans({}, "translator") }}",
+								 "info":           "{{ "datatable.info"|trans({}, "translator") }}",
+								 "infoEmpty":      "{{ "datatable.infoEmpty"|trans({}, "translator") }}",
+								 "infoFiltered":   "{{ "datatable.infoFiltered"|trans({}, "translator") }}",
 								 "infoPostFix":    "",
-								 "loadingRecords": "{{ "datatable.loadingRecords"|trans({}, "datatable") }}",
-								 "zeroRecords":    "{{ "datatable.zeroRecords"|trans({}, "datatable") }}",
-								 "emptyTable":     "{{ "datatable.emptyTable"|trans({}, "datatable") }}",
+								 "loadingRecords": "{{ "datatable.loadingRecords"|trans({}, "translator") }}",
+								 "zeroRecords":    "{{ "datatable.zeroRecords"|trans({}, "translator") }}",
+								 "emptyTable":     "{{ "datatable.emptyTable"|trans({}, "translator") }}",
 								 "paginate": {
-										 "first":      "{{ "datatable.first"|trans({}, "datatable") }}",
-										 "previous":   "{{ "datatable.previous"|trans({}, "datatable") }}",
-										 "next":       "{{ "datatable.next"|trans({}, "datatable") }}",
-										 "last":       "{{ "datatable.last"|trans({}, "datatable") }}"
+										 "first":      "{{ "datatable.first"|trans({}, "translator") }}",
+										 "previous":   "{{ "datatable.previous"|trans({}, "translator") }}",
+										 "next":       "{{ "datatable.next"|trans({}, "translator") }}",
+										 "last":       "{{ "datatable.last"|trans({}, "translator") }}"
 									 }
 							 },
 							 initComplete: function (settings, json) {

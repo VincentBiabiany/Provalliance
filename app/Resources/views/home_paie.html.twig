@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}{{ "home_paie.header"|trans({}, "home_paie") }}{% endblock %}
+{% block title %}{{ "home_paie.header"|trans({}, "translator") }}{% endblock %}
 
 {% block body %}
 
@@ -7,7 +7,7 @@
     <img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
 </div>
 <div class="head" >
-    {{ "home_paie.header"|trans({}, "home_paie") }}
+    {{ "home_paie.header"|trans({}, "translator") }}
 
 </div>
 <div class="nomSalon">
@@ -19,23 +19,23 @@
 
             <div class="col-sm-12">
                 <div class="col-sm-6 block">
-                    <div class="under-block" onclick="window.location.href ='{{ path("paie_acompte") }}'"><p class="carre">{{ "home_paie.acompte"|trans({}, "home_paie") }}</p></div>
+                    <div class="under-block" onclick="window.location.href ='{{ path("paie_acompte") }}'"><p class="carre">{{ "home_paie.acompte"|trans({}, "translator") }}</p></div>
                 </div>
                 <div class="col-sm-6 block">
-                    <div class="under-block" onclick="window.location.href ='{{ path("paie_rib") }}'"><p class="carre">{{ "home_paie.rib"|trans({}, "home_paie") }}</p></div>
+                    <div class="under-block" onclick="window.location.href ='{{ path("paie_rib") }}'"><p class="carre">{{ "home_paie.rib"|trans({}, "translator") }}</p></div>
                 </div>
             </div>
 
             <div class="col-sm-12">
                 <div class="col-sm-6 block">
-                    <div class="under-block"><p class="carre">{{ "home_paie.attestation"|trans({}, "home_paie") }}</p></div>
+                    <div class="under-block"><p class="carre">{{ "home_paie.attestation"|trans({}, "translator") }}</p></div>
                 </div>
                 <div class="col-sm-6 block">
-                    <div class="under-block"><p class="carre">{{ "home_paie.solde"|trans({}, "home_paie") }}</p></div>
+                    <div class="under-block"><p class="carre">{{ "home_paie.solde"|trans({}, "translator") }}</p></div>
                 </div>
             </div>
 
-            <button class="btn-black precedent" onclick="window.location.href = '{{ path("homepage") }}'" >{{ "home_paie.back"|trans({}, "home_paie") }}</button>
+            <button class="btn-black precedent" onclick="window.location.href = '{{ path("homepage") }}'" >{{ "global.back"|trans({}, "translator") }}</button>
 
         </div>
     </div>
