@@ -1,0 +1,284 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'form/error.html.twig' %}
+{% block title %}{{ "rupture_cdd.titre"|trans({}, "translator") }}{% endblock %}
+
+{% block body %}
+
+<script type="text/javascript" src="{{ asset('js/jquery.validate.js') }}"></script>
+
+<div class="header">
+	<img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
+</div>
+
+<div class="head">
+	{{ "rupture_cdd.titre"|trans({}, "translator") }}
+</div>
+<div class="nomSalon">
+  {{ app.session.get('nomSalon') }}
+</div>
+
+<div class="container">
+	<div id="actions" class="formAction">
+		{{ form_start(form, {'attr': {'class': 'allForm', 'id':'formRupture'} }) }}
+
+
+	 <!-- Champs Collaborateur -->
+		<div class="form-group">
+			<label class="control-label label col-sm-4 col-xs-12" for="personnel"> {{ form_label(form.matricule) }}</label>
+			<div class="col-sm-9  col-xs-12">
+				{{ form_widget(form.matricule, { 'attr': {'class': 'form-control'} }) }}
+			</div>
+		</div>
+
+
+		<!-- Champs raison -->
+		<div class="form-group row" style="height: 100%;">
+			<label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "lettre_mission.raison"|trans({}, "translator") }}</label>
+
+			<div class="col-sm-12" style="display: inline-flex">
+				{% block _demande_rupture_cdd_raison_row %}
+
+				<div id="demande_rupture_cdd_raison">
+					{% for key,child in form.raison %}
+
+					<div class="col-sm-12">
+
+						{% if key == 0 %}
+
+								{{ form_widget(child, {'attr' : {'class' : ''} }) }}
+								{{ form_label(child, child.vars.value) }}
+
+                <div id="retour">
+
+                </div>
+						{% elseif key == 1 %}
+
+								{{ form_widget(child, {'attr' : {'class' : ''} }) }}
+								{{ form_label(child, child.vars.value) }}
+
+                <div id="depart">
+
+                </div>
+						{% else %}
+
+							{{ form_widget(child, {'attr' : {'class' : ''} }) }}
+							{{ form_label(child, child.vars.value) }}
+
+              <div id="anticipe" style="display:none;">
+                <div class="col-xs-12">
+
+                  {% for key2,child2 in form.ruptureAncticipe %}
+    							<div class="col-sm-12" id="block{{key2}}">
+
+                    {{ form_widget(child2, {'attr' : {'class' : ''} }) }}
+                    {{ form_label(child2, child2.vars.value) }}
+                  </div>
+                {% endfor %}
+
+                </div>
+              </div>
+					 {% endif %}
+						</div>
+					{% endfor %}
+
+				</div>
+			</div>
+		</div> <!-- FIN champs raison -->
+		{% endblock %}
+
+
+		<!-- Temps partiel -->
+
+
+		<!-- Champs salon -->
+
+
+		<!-- Champs date -->
+
+
+    <div id="block" class="col-xs-12" style="display:none">
+
+      <div class="col-sm-12" id="fin">
+        <label class="control-label label fin">{{ "rupture_cdd.datefin"|trans({}, "translator") }}</label>
+        {{ form_widget(form.dateFin, { 'attr': {'class':'styleDate'} }) }}
+      </div>
+
+      <div class="col-sm-12" id="blockNom">
+        <label style="display:none" class="control-label label retourLabel">{{ "rupture_cdd.nom"|trans({}, "translator") }}</label>
+        <label style="display:none" class="control-label label departLabel">{{ "rupture_cdd.nom2"|trans({}, "translator") }}</label>
+        {{ form_widget(form.nomCollab, {'attr' : {'class' : ''} }) }}
+      </div>
+
+       <div class="col-sm-12" id="blockDepart">
+         <label style="display:none" class="control-label label retourLabel">{{ "rupture_cdd.dateretour"|trans({}, "translator") }}</label>
+         <label style="display:none" class="control-label label departLabel">{{ "rupture_cdd.datedepart"|trans({}, "translator") }}</label>
+         {{ form_widget(form.dateDepart, { 'attr': {'class':'styleDate'} }) }}
+       </div>
+
+			 <div class="col-sm-12" id="blockFile" style="display:none">
+
+				 {{ form_widget(form.lettre, { 'attr': {'class': 'input-file'} }) }}
+
+				 <label for="demande_rupture_cdd_lettre" class="label-file">
+					 <i class="glyphicon glyphicon-download-alt"></i>
+					 <span>{{ "rupture_cdd.joindre"|trans({}, "translator") }}</</span>
+				 </label>
+
+			 </div>
+
+    </div>
+
+
+
+
+		<div id="">
+			{{ form_end(form) }}
+			<a href="{{ path('home_juridique_rh') }}" class="btn-black precedent">
+					{{ "global.back"|trans({}, "translator") }}
+			</a>
+		</div>
+	</div>
+
+</div>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.js"></script>
+<script type="text/javascript" src="{{ asset('js/global/global-method.js') }}"></script>
+<script src="{{ asset('js/custom-file-input.js') }}"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	// Controle champs Temps Partiel
+
+
+	// Controle du champs raison
+	// Si coché alors on déploit le détail
+	$('#demande_rupture_cdd_raison').children('div').change(function(event){
+ 			console.log('trigger 1')
+    if ($('#demande_rupture_cdd_raison_0').is(':checked')) {
+      $('#retour').show();
+      $('#block').show().appendTo( $('#retour') );
+      $('.retourLabel').show();
+			$('#blockNom').show();
+			$('#blockDepart').show();
+    } else {
+      $('#retour').hide();
+      $('.retourLabel').hide();
+    }
+
+		if ($('#demande_rupture_cdd_raison_1').is(':checked')) {
+			$('#depart').show();
+      $('#block').show().appendTo( $('#depart') );
+      $('.departLabel').show();
+			$('#blockNom').show();
+			$('#blockDepart').show();
+		} else {
+			$('#depart').hide();
+      $('.departLabel').hide();
+		}
+
+		if ($('#demande_rupture_cdd_raison_2').is(':checked')) {
+			$('#anticipe').show();
+			$('#anticipe').trigger('change');
+			$('#demande_lettre_mission_sage').attr('required', 'required');
+
+		} else {
+			$('#anticipe').hide();
+			$('#demande_lettre_mission_sage').removeAttr('required', 'required');
+		}
+		event.preventDefault();
+		event.stopPropagation();
+	})
+
+	$('#anticipe').change(function(event){
+		console.log('trigger 2')
+    if ($('#demande_rupture_cdd_ruptureAncticipe_0').is(':checked')) {
+      $('#block').show().appendTo( $('#block0') );
+			$('#blockNom').hide();
+			$('#blockDepart').hide();
+			$('#blockFile').hide();
+			$('.fin').hide();
+
+    } else if ($('#demande_rupture_cdd_ruptureAncticipe_1').is(':checked')) {
+			$('#block').show().appendTo( $('#block1') );
+			$('#blockNom').hide();
+			$('#blockDepart').hide();
+			$('#blockFile').hide();
+			$('.fin').hide();
+
+		} else if ($('#demande_rupture_cdd_ruptureAncticipe_2').is(':checked')) {
+			$('#block').show().appendTo( $('#block2') );
+			$('#blockNom').hide();
+			$('#blockDepart').hide();
+			$('#blockFile').show();
+			$('.fin').hide();
+
+		} else {
+			$('#block').hide()
+			$('#blockNom').show();
+			$('#blockDepart').show();
+			$('#blockFile').show();
+			$('.fin').show();
+		}
+		event.preventDefault();
+		event.stopPropagation();
+	})
+
+
+	// Validation du formulaire
+	$("#formRupture").validate({
+		rules: {
+		  '#demande_rupture_cdd_dateDebut_month' : {
+		    validateDate: true,
+		  },
+		  '#demande_rupture_cdd_dateFin_month' : {
+		    validateDate: true,
+		  }
+	 },
+	 messages: {
+
+	 },
+	 errorElement: "em",
+	 errorPlacement: function ( error, element ) {
+	 	// Add the `help-block` class to the error element
+	 	error.addClass( "help-block" );
+
+	 	// Add `has-feedback` class to the parent div.form-group
+	 	// in order to add icons to inputs
+	 	element.parents( ".col-sm-5" ).addClass( "has-feedback" );
+
+
+
+	 	if ( element.prop( "type" ) === "checkbox" ) {
+	 		error.insertAfter( element.parent( "label" ) );
+	 	} else if( element.prop( "type" ) === "select-one" || element.prop( "type" ) === "radio") {
+	 		error.appendTo( element.parent().parent());
+	 	} else {
+	 		error.insertAfter( element );
+	 	}
+
+	 	// Add the span element, if doesn't exists, and apply the icon classes to it.
+	 	if ( !element.next( "span" )[ 0 ] ) {
+	 		$( "<span class='glyphicon glyphicon-remove form-control-feedback'></span>" ).insertAfter( element );
+	 	}
+	 },
+	 success: function ( label, element ) {
+	 	// Add the span element, if doesn't exists, and apply the icon classes to it.
+	 	if ( !$( element ).next( "span" )[ 0 ] ) {
+	 		$( "<span class='glyphicon glyphicon-ok form-control-feedback'></span>" ).insertAfter( $( element ) );
+	 	}
+	 },
+	 highlight: function ( element, errorClass, validClass ) {
+	 	$( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
+	 	$( element ).next( "span" ).addClass( "glyphicon-remove" ).removeClass( "glyphicon-ok" );
+	 },
+	 unhighlight: function ( element, errorClass, validClass ) {
+	 	$( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
+	 	$( element ).next( "span" ).addClass( "glyphicon-ok" ).removeClass( "glyphicon-remove" );
+	 }
+	});
+
+/* controle le changement des dates */
+controlChangeDate('#demande_lettre_mission_dateDebut', '#demande_lettre_mission_dateFin');
+});
+</script>
+{% endblock %}
