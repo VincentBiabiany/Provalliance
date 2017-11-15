@@ -183,58 +183,60 @@ $(document).ready(function(){
 
 	// Validation du formulaire
 	$("#formLettreMission").validate({
-	rules: {
-	  'demande_lettre_mission[dateDebut][month]' : {
-	    validateDate: true,
-	  },
-	  'demande_lettre_mission[dateFin][month]' : {
-	    validateDate: true,
-			greaterThan: '#demande_lettre_mission_dateDebut_year'
-	  },
-	},
-	messages: {
-	  'fos_user_registration_form[username]': {
-	    validateDate: "Date incorrect"
-	  },
-	errorElement: "em",
-	errorPlacement: function ( error, element ) {
-	  //Add the `help-block` class to the error element
-	  error.addClass( "help-block" );
+		rules: {
+		  'demande_lettre_mission[dateDebut][month]' : {
+		    validateDate: true,
+		  },
+		  'demande_lettre_mission[dateFin][month]' : {
+		    validateDate: true,
+				greaterThan: '#demande_lettre_mission_dateDebut_year'
+		  },
+			'demande_lettre_mission[matricule]' : {
+			 required: true,
+		 },
+	 },
+	 messages: {
 
-	  // Add `has-feedback` class to the parent div.form-group
-	  // in order to add icons to inputs
-	  element.parents( ".col-sm-5" ).addClass( "has-feedback" );
+	 },
+	 errorElement: "em",
+	 errorPlacement: function ( error, element ) {
+	 	// Add the `help-block` class to the error element
+	 	error.addClass( "help-block" );
 
-	  if ( element.prop( "type" ) === "checkbox") {
-	    error.insertAfter(element.parent( "label" ));
-	  } else if (element.prop( "type" ) === "select") {
-	    error.insertAfter( element.parent() );
-	  } else {
-	    error.insertAfter( element );
-	  }
+	 	// Add `has-feedback` class to the parent div.form-group
+	 	// in order to add icons to inputs
+	 	element.parents( ".col-sm-5" ).addClass( "has-feedback" );
 
-	  // Add the span element, if doesn't exists, and apply the icon classes to it.
-	  if ( !element.next( "span" )[ 0 ] ) {
-	    $( "<span class='glyphicon glyphicon-remove form-control-feedback'></span>" ).insertAfter( element );
-	  }
 
-	},
-	success: function ( label, element ) {
-	  // Add the span element, if doesn't exists, and apply the icon classes to it.
-	  if ( !$( element ).next( "span" )[ 0 ] ) {
-	    $( "<span class='glyphicon glyphicon-ok form-control-feedback'></span>" ).insertAfter( $( element ) );
-	  }
-	},
-	highlight: function ( element, errorClass, validClass ) {
-	  $( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
-	  $( element ).next( "span" ).addClass( "glyphicon-remove" ).removeClass( "glyphicon-ok" );
-	},
-	unhighlight: function ( element, errorClass, validClass ) {
-	  $( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
-	  $( element ).next( "span" ).addClass( "glyphicon-ok" ).removeClass( "glyphicon-remove" );
-	}
-	}
-});
+
+	 	if ( element.prop( "type" ) === "checkbox" ) {
+	 		error.insertAfter( element.parent( "label" ) );
+	 	} else if( element.prop( "type" ) === "select-one" || element.prop( "type" ) === "radio") {
+	 		error.appendTo( element.parent().parent());
+	 	} else {
+	 		error.insertAfter( element );
+	 	}
+
+	 	// Add the span element, if doesn't exists, and apply the icon classes to it.
+	 	if ( !element.next( "span" )[ 0 ] ) {
+	 		$( "<span class='glyphicon glyphicon-remove form-control-feedback'></span>" ).insertAfter( element );
+	 	}
+	 },
+	 success: function ( label, element ) {
+	 	// Add the span element, if doesn't exists, and apply the icon classes to it.
+	 	if ( !$( element ).next( "span" )[ 0 ] ) {
+	 		$( "<span class='glyphicon glyphicon-ok form-control-feedback'></span>" ).insertAfter( $( element ) );
+	 	}
+	 },
+	 highlight: function ( element, errorClass, validClass ) {
+	 	$( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
+	 	$( element ).next( "span" ).addClass( "glyphicon-remove" ).removeClass( "glyphicon-ok" );
+	 },
+	 unhighlight: function ( element, errorClass, validClass ) {
+	 	$( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
+	 	$( element ).next( "span" ).addClass( "glyphicon-ok" ).removeClass( "glyphicon-remove" );
+	 }
+	});
 
 /* controle le changement des dates */
 controlChangeDate('#demande_lettre_mission_dateDebut', '#demande_lettre_mission_dateFin');
