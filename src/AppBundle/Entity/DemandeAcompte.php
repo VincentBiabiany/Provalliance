@@ -15,9 +15,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 class DemandeAcompte extends DemandeForm
 {
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="montant", type="integer")
+     * @ORM\Column(name="montant", type="string")
      */
     private $montant;
 

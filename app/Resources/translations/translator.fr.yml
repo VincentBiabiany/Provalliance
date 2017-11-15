@@ -6,6 +6,8 @@ global:
     valider:       Valider
     poursuivre:    Poursuivre
     retourac:      Retour à l'accueil
+    accepter:      Accepter
+    rejeter:       Rejeter
 
 login:
     username:  Nom d'utilisateur
@@ -13,7 +15,7 @@ login:
     connexion: Connexion
     lost:      Je n'arrive pas à me connecter
     contact:   Contact support
-    msg:       Pour récupérer votre mot de passe, veuillez contacter votre support utilisateur
+    msg:       Pour tout problème de connexion, merci d’envoyer un mail à l’adresse suivante :
     phone:     'Tél: 01 40 23 12 19'
     email:     'support@hairdress.com'
     close:     Fermer
@@ -21,7 +23,7 @@ login:
 
 home:
     paie:              Nouvelle demande PAIE
-    juridique_rh:      Nouvelle demande JURIDIQUE/RH
+    juridique_rh:      Nouvelle demande Juridique/RH
     demand:            Suivre les demandes
     ca:                Suivi journalier du CA
     volume:            Suivi journalier du volume
@@ -39,10 +41,10 @@ home_paie:
     rib:          RIB salarié
     attestation:  Demande d'attestation de salaire
     solde:        Solde de tout compte
-    header:       Nouvelle demande paie
+    header:       Nouvelle demande PAIE
 
 home_juridique_rh:
-    embauche:     Demande d'embauche
+    embauche:     Demande embauche
     rupture:      Rupture CDD
     conge:        Congé parental
     essai:         Rupture période d'essai
@@ -58,9 +60,17 @@ demande_acompte:
     titre:    Demande d'acompte
     nom:      Collaborateur
     envoyer:  Envoyer
-    montant:  Montant
+    montant:  Montant (€)
     back:     Retour
-    info:     Pour que la demande d’acompte soit validée ce mois-ci veuillez envoyer votre demande entre le 14 et le 17 du mois
+
+    popupInfo:
+        titre:      Information
+        message:     Votre demande sera traitée entre le 15 et le 17 du mois.
+
+    popupValidation:
+        message:    Votre demande d’acompte a été envoyée.
+
+
 
 demande_rib:
     titre:              Demande de rib
@@ -71,6 +81,9 @@ demande_rib:
     back:               Retour
     info:               'Pour rappel:  Fax 01 44 43 94 55 - 01 44 43 94 56'
     choice:             Choisir un fichier
+
+    popupValidation:
+        message:    Votre demande de rib a été envoyée.
 
 autre_demande:
     titre:       Autre demande
@@ -83,6 +96,9 @@ autre_demande:
     pieceJointe: Pièce jointe
     choice:      Choisir un fichier
 
+    popupValidation:
+        message:    Votre demande a été envoyée.
+
 demande_rupture_periode_essai:
     titre:       Rupture de Période d'essai
     collab:      Collaborateur
@@ -92,6 +108,24 @@ demande_rupture_periode_essai:
     rmp:         Remise en main propre
     date:        Date
     choice:      Choisir un fichier
+
+    popupValidation:
+        message:    Votre demande de rupture de période d'essai a été envoyée.
+
+demande_demission:
+      titre:       Démission
+      collab:      Collaborateur
+      dem:         DEM signée
+      moyen:       Moyen
+      desactiver:  Désactiver la Clause de Non Concurrence
+      payer:       Payer la Clause de Non Concurrence 12 mois
+      choice:      Choisir un fichier
+
+      popupValidation:
+         message:   Votre demande de démission a été envoyée.
+
+
+
 
 import:
     header:    Administration Import
@@ -221,24 +255,27 @@ demande_embauche:
 
     choix:         Choisir un fichier
 
+    popupValidation:
+        message:    Votre demande d’embauche a été envoyée.
+
 suivi_demandes:
-    header:           Suivre les demandes
-    codesage:         Code Sage
-    enseigne:         Enseigne
-    appelation:       Appelation
-    coordinateur:     Coordinateur
-    manager:          Manager
-    date:             Date
-    statut:           Statut
-    typedemande:      Type
-    collaborateur:    Collaborateur
-    validation:       Validation
-    export:    Export
-    impression:    Impression
-    selectAll:    Impression
-    deselect:    Déselectionner
+    header:              Suivre les demandes
+    codesage:            Code Sage
+    enseigne:            Enseigne
+    appelation:          Appelation
+    coordinateur:        Coordinateur
+    manager:             Manager
+    date:                Date
+    statut:              Statut
+    typedemande:         Type
+    collaborateur:       Collaborateur
+    validation:          Validation
+    export:              Export
+    impression:          Impression
+    selectAll:           Tout sélectionner
+    deselect:            Déselectionner
     serviceJuridique:    Service Juridique
-    servicePaie:    Service Paie
+    servicePaie:         Service Paie
 
 
 

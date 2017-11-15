@@ -103,8 +103,7 @@ class EmbaucheController extends Controller
         $demandeService->createDemande($form->getData(), $request->getSession()->get('idSalon'));
         self::clearSession($request);
         return $this->redirect($this->generateUrl('homepage',
-                array('flash' => "La demande d'acompte a correctement été envoyée !
-                Un mail vous sera envoyé une fois votre demande traitée.")));
+                array('flash' => "demande_embauche.popupValidation.message")));
         }
 
       return $this->render('embauche3.html.twig', array(

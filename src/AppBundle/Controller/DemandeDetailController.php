@@ -68,8 +68,14 @@ class DemandeDetailController extends Controller
                       'label_attr' => ['class' => 'control-label label col-sm-3 col-xs-12'],
                       'label' => 'Motif',
                       'data' => $message))
-                    ->add('accept', SubmitType::class)
-                    ->add('reject', SubmitType::class)
+                    ->add('accept', SubmitType::class, array(
+                      'label' => 'global.accepter',
+                      'translation_domain' => 'translator'
+                     ))
+                    ->add('reject', SubmitType::class, array(
+                      'label' => 'global.rejeter',
+                      'translation_domain' => 'translator'
+                     ))
                     ->getForm();
 
         $form2->handleRequest($request);
@@ -170,10 +176,9 @@ class DemandeDetailController extends Controller
     {
       if ( $form2->has('reject') && $form2->get('reject')->isClicked())
       {
-        dump('reject');
         if ($form2->has('message') && $form2["message"]->getData() == null)
         {
-          $this->addFlash("error", "Il est obligatoire de saisir un motif pour votre rejet de demande d'acompte");
+          $this->addFlash("error", "Il est obligatoire de saisir un motif pour votre rejet");
           return $this->redirect($this->generateUrl('demande_detail', array('id' => $id)));
         }
 

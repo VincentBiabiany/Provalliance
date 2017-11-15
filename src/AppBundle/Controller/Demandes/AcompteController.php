@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\Demandes;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -49,13 +49,12 @@ class AcompteController extends Controller
         $demandeService->createDemande($form->getData(), $idSalon);
 
         return $this->redirect($this->generateUrl('homepage',
-        array('flash' => "La demande d'acompte a correctement été envoyée !
-         Un mail vous sera envoyé une fois votre demande traitée.")));
+        array('flash' => "demande_acompte.popupValidation.message")));
 
       }
     }
 
-    return $this->render('paie_acompte.html.twig', array(
+    return $this->render('demandes/paie/acompte.html.twig', array(
                                                   'img' => $img,
                                                   'form' => $form->createView(),
                                                   'errors' => null

@@ -1,5 +1,5 @@
 <?php
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\Demandes;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,11 +37,11 @@ class RupturePeriodeEssaiController extends Controller
       $demandeService->createDemande($form->getData(), $idSalon);
 
       return $this->redirect($this->generateUrl('homepage',
-      array('flash' => "Demande correctement envoyée !")));
+      array('flash' => "demande_rupture_periode_essai.popupValidation.message")));
       }
 
 
-    return $this->render('rh_rupture_periode_essai.html.twig', array(
+    return $this->render('demandes/juridique_rh/rupture_periode_essai.html.twig', array(
       'img' => $img,
       'form' => $form->createView(),
       'errors' => null
