@@ -142,46 +142,12 @@
 </div>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.js"></script>
-
+<script type="text/javascript" src="{{ asset('js/global/global-method.js') }}"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
-
-  var $tempsTotal = 0;
-  // Contrôle sur les heures
-  $(".tempsHeure").prop("type", "number");
-  $('.tempsHeure').blur(function(){
-    if (parseInt($(this).val()) > 9 )
-      $(this).val(9)
-    if (parseInt($(this).val()) < 1)
-      $(this).val(1)
-
-    $tempsTotal = 0
-    $('.tempsHeure').each(function( index ) {
-     var $value = parseInt($(this).val());
-
-      if (isNaN($value))
-        $value = 0;
-      $tempsTotal += $value;
-    });
-
-    console.log('Value = ' + $tempsTotal);
-    $('.total').val($tempsTotal);
-  });
-  // Controle champs Temps Partiel
-  $('#demande_embauche_isTempsPartiel').change(function(){
-    if ($('#demande_embauche_isTempsPartiel_0').prop('checked')){
-      $('#tempsPartiel').show();
-      $('#tempsPartiel').find('*').each(function (){
-        $(this).attr('required', 'required')
-      });
-    } else {
-      $('#tempsPartiel').hide();
-      $('#tempsPartiel').find('*').each(function () {
-        $(this).removeAttr('required', 'required')
-      });
-    }
-  }).change();
+	// Controle champs Temps Partiel
+	tempsPartiel();
 
 	// Controle du champs raison
 	// Si coché alors on déploit le détail
@@ -216,115 +182,64 @@ $(document).ready(function(){
 
 
 	// Validation du formulaire
-
-	jQuery.validator.addMethod("greaterThan",
-	function(value, element, params) {
-
-		dateFin = getDateFromParent(element);
-		dateDebut = getDateFromParent(params)
-
-	  return  dateFin > dateDebut;
-
-
-	},'Must be greater than {0}.');
-
-	jQuery.validator.addMethod("validateDate", function(value, element) {
-	  var dates = getArrayDateFromParent(element);
-
-		var m = parseInt( dates[1], 10);
-	  var d = parseInt( dates[0], 10);
-	  var y = parseInt( dates[2], 10);
-
-		var date = new Date(y, m - 1, d);
-
-	  return (date.getFullYear() == y && date.getMonth() + 1 == m && date.getDate() == d);
-	}, "Date incorrect");
-
-
-	function getArrayDateFromParent(element){
-		dates = new Array();
-	  $(element).parent().find('select').each(function(){
-	     dates.push($(this).val());
-	  });
-		return dates;
-	}
-
-	function getDateFromParent(element){
-		dates = new Array();
-	  $(element).parent().find('select').each(function(){
-	     dates.push($(this).val());
-	  });
-		var m = parseInt( dates[1], 10);
-	  var d = parseInt( dates[0], 10);
-	  var y = parseInt( dates[2], 10);
-
-		var date = new Date(y, m - 1, d);
-
-		return date;
-	}
-
 	$("#formLettreMission").validate({
-	rules: {
-	  'demande_lettre_mission[dateDebut][month]' : {
-	    validateDate: true,
-	  },
-	  'demande_lettre_mission[dateFin][month]' : {
-	    validateDate: true,
-			greaterThan: '#demande_lettre_mission_dateDebut_year'
-	  },
-	},
-	messages: {
-	  'fos_user_registration_form[username]': {
-	    validateDate: "Date incorrect"
-	  },
-	errorElement: "em",
-	errorPlacement: function ( error, element ) {
-	  //Add the `help-block` class to the error element
-	  error.addClass( "help-block" );
+		rules: {
+		  'demande_lettre_mission[dateDebut][month]' : {
+		    validateDate: true,
+		  },
+		  'demande_lettre_mission[dateFin][month]' : {
+		    validateDate: true,
+				greaterThan: '#demande_lettre_mission_dateDebut_year'
+		  },
+			'demande_lettre_mission[matricule]' : {
+			 required: true,
+		 },
+	 },
+	 messages: {
 
-	  // Add `has-feedback` class to the parent div.form-group
-	  // in order to add icons to inputs
-	  element.parents( ".col-sm-5" ).addClass( "has-feedback" );
+	 },
+	 errorElement: "em",
+	 errorPlacement: function ( error, element ) {
+	 	// Add the `help-block` class to the error element
+	 	error.addClass( "help-block" );
 
-	  if ( element.prop( "type" ) === "checkbox") {
-	    error.insertAfter(element.parent( "label" ));
-	  } else if (element.prop( "type" ) === "select") {
-	    error.insertAfter( element.parent() );
-	  } else {
-	    error.insertAfter( element );
-	  }
-
-	  // Add the span element, if doesn't exists, and apply the icon classes to it.
-	  if ( !element.next( "span" )[ 0 ] ) {
-	    $( "<span class='glyphicon glyphicon-remove form-control-feedback'></span>" ).insertAfter( element );
-	  }
-
-	},
-	success: function ( label, element ) {
-	  // Add the span element, if doesn't exists, and apply the icon classes to it.
-	  if ( !$( element ).next( "span" )[ 0 ] ) {
-	    $( "<span class='glyphicon glyphicon-ok form-control-feedback'></span>" ).insertAfter( $( element ) );
-	  }
-	},
-	highlight: function ( element, errorClass, validClass ) {
-	  $( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
-	  $( element ).next( "span" ).addClass( "glyphicon-remove" ).removeClass( "glyphicon-ok" );
-	},
-	unhighlight: function ( element, errorClass, validClass ) {
-	  $( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
-	  $( element ).next( "span" ).addClass( "glyphicon-ok" ).removeClass( "glyphicon-remove" );
-	}
-	}
-});
+	 	// Add `has-feedback` class to the parent div.form-group
+	 	// in order to add icons to inputs
+	 	element.parents( ".col-sm-5" ).addClass( "has-feedback" );
 
 
-$('#demande_lettre_mission_dateDebut').focusout(function(){
-    $('#demande_lettre_mission_dateDebut_month').valid();
-		$('#demande_lettre_mission_dateFin_month').valid();
-})
-$('#demande_lettre_mission_dateFin').focusout(function(){
-    $('#demande_lettre_mission_dateFin_month').valid();
-})
+
+	 	if ( element.prop( "type" ) === "checkbox" ) {
+	 		error.insertAfter( element.parent( "label" ) );
+	 	} else if( element.prop( "type" ) === "select-one" || element.prop( "type" ) === "radio") {
+	 		error.appendTo( element.parent().parent());
+	 	} else {
+	 		error.insertAfter( element );
+	 	}
+
+	 	// Add the span element, if doesn't exists, and apply the icon classes to it.
+	 	if ( !element.next( "span" )[ 0 ] ) {
+	 		$( "<span class='glyphicon glyphicon-remove form-control-feedback'></span>" ).insertAfter( element );
+	 	}
+	 },
+	 success: function ( label, element ) {
+	 	// Add the span element, if doesn't exists, and apply the icon classes to it.
+	 	if ( !$( element ).next( "span" )[ 0 ] ) {
+	 		$( "<span class='glyphicon glyphicon-ok form-control-feedback'></span>" ).insertAfter( $( element ) );
+	 	}
+	 },
+	 highlight: function ( element, errorClass, validClass ) {
+	 	$( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
+	 	$( element ).next( "span" ).addClass( "glyphicon-remove" ).removeClass( "glyphicon-ok" );
+	 },
+	 unhighlight: function ( element, errorClass, validClass ) {
+	 	$( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
+	 	$( element ).next( "span" ).addClass( "glyphicon-ok" ).removeClass( "glyphicon-remove" );
+	 }
+	});
+
+/* controle le changement des dates */
+controlChangeDate('#demande_lettre_mission_dateDebut', '#demande_lettre_mission_dateFin');
 });
 </script>
 

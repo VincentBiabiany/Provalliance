@@ -163,12 +163,12 @@ demande_embauche:
 
     dateemb:       Date d'embauche
     ancien:        Ancien salarié
-    lieu:          Lieu
+    lieu:          Salon précédent
     ancien.oui:    Oui
     ancien.no:     Non
     poste:         Poste
-    poste.coif:    Coiffeur
-    poste.tech:    Technicien
+    poste.coif:    Coiffeur(se)
+    poste.tech:    Technicien(ne)
 
     diplome.CAP:   CAP
     diplome.BEP:   BP
