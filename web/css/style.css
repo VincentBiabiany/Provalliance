@@ -515,16 +515,16 @@ table.dataTable tbody tr.selected td.details-control {
 }
 #shadow{
 	display: none;
-	height: 100px;
+	height: 300px;
 	width: 100%;
 	left: 0;
 	position: fixed;
 	z-index: 9;
   bottom: 0px;
 	opacity: 0.5;
-	-webkit-box-shadow: inset 0px -65px 185px -86px rgba(0,0,0,0.75);
-	-moz-box-shadow: inset 0px -65px 185px -86px rgba(0,0,0,0.75);
-	box-shadow: inset 0px -65px 185px -86px rgba(0,0,0,0.75);
+	-webkit-box-shadow: inset 0px -86px 71px -36px rgba(0,0,0,0.53);
+	-moz-box-shadow: inset 0px -86px 71px -36px rgba(0,0,0,0.53);
+	box-shadow: inset 0px -86px 71px -36px rgba(0,0,0,0.53);
 }
 #selectionMultiple #wrap  {
   display: none;

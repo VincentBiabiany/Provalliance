@@ -124,6 +124,22 @@ demande_demission:
       popupValidation:
          message:   Votre demande de démission a été envoyée.
 
+demande_promesse_embauche:
+      titre:         Promesse d'embauche
+      collab:        Collaborateur
+      contrat:       Contrat
+      cdi:           Cdi
+      cdd:           Cdd
+      poste:         Poste de travail
+      n:             N
+      e:             E
+      salaire:       Salaire (€)
+      temps:         Temps
+      dateEmbauche:  Date d'embauche
+
+      popupValidation:
+         message:   Votre demande de démission a été envoyée.
+
 
 
 
