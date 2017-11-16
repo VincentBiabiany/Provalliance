@@ -1,0 +1,36 @@
+{
+  "files": [{
+    "source": "img/fond-filigrane.png",
+    "type": "IMAGE",
+    "size": 961000
+  },{
+    "source": "img/sort_asc.png",
+    "type": "IMAGE",
+    "size": 160000
+  },{
+    "source": "img/sort_desc.png",
+    "type": "IMAGE",
+    "size": 158000
+  },{
+    "source": "img/sort_both.png",
+    "type": "IMAGE",
+    "size": 201000
+  },{
+    "source": "img/franck_provost.svg",
+    "type": "IMAGE",
+    "size": 36900
+  },{
+    "source": "img/saint_algue.svg",
+    "type": "IMAGE",
+    "size": 36900
+  },{
+    "source": "img/jean_louis_david.svg",
+    "type": "IMAGE",
+    "size": 9000
+  },{
+    "source": "css/style.css",
+    "type": "CSS",
+    "size": 21400
+  }]
+
+}
