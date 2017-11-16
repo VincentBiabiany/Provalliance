@@ -33,8 +33,6 @@ class DemandeAcompte extends DemandeForm
     protected $subject ='connu';
     protected $service ='paie';
 
-
-
     /**
      * Set montant
      *

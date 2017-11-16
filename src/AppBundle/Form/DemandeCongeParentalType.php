@@ -2,7 +2,7 @@
 
 namespace AppBundle\Form;
 
-use AppBundle\Entity\DemandeLettreMission;
+use AppBundle\Entity\DemandeCongeParental;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -12,12 +12,13 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 
-class DemandeLettreMissionType extends AbstractType
+class DemandeCongeParentalType extends AbstractType
 {
 
   public function buildForm(FormBuilderInterface $builder, array $options)
@@ -39,20 +40,6 @@ class DemandeLettreMissionType extends AbstractType
                   'translation_domain' => 'translator',
                   'attr' => ['required' => 'required']
               ))
-            ->add('sage', EntityType::class, array(
-                  // query choices from this entity
-                  'class' => 'ApiBundle:Salon',
-                  // use the User.username property as the visible option string
-
-                  'choice_label' => function ($salon) {
-                        return $salon->getAppelation();
-                      },
-                  'query_builder' => function (EntityRepository $er) {
-                      return $er->findAllActiveSalon(true);
-                    },
-                  'label' => 'lettre_mission.salon',
-                  'translation_domain' => 'translator'
-              ))
             ->add('dateDebut', DateType::class, array(
               'widget' => 'choice',
               'format' => 'dd/MM/y',
@@ -69,9 +56,8 @@ class DemandeLettreMissionType extends AbstractType
             ))
             ->add('raison', ChoiceType::class, array(
               'choices' => array(
-                'lettre_mission.35h'   => 'lettre_mission.35h',
-                'lettre_mission.xh'    => 'lettre_mission.xh',
-                'lettre_mission.depla' => 'lettre_mission.depla',
+                'conge_parental.passage' => 'conge_parental.passage',
+                'conge_parental.reprise' => 'conge_parental.reprise',
               ),
               'choice_translation_domain' => 'translator',
               'translation_domain' => 'translator',
@@ -84,6 +70,10 @@ class DemandeLettreMissionType extends AbstractType
                   'translation_domain' => 'translator'
                 ]
             )
+            ->add('pieceJointe', FileType::class, array(
+              'label' => 'conge_parental.lettre',
+              'translation_domain' => 'translator',
+              ))
             ->add('Envoyer', SubmitType::class, array(
               'label' => 'lettre_mission.envoyer',
               'attr' => array('class' =>'btn-black end'),
@@ -95,14 +85,9 @@ class DemandeLettreMissionType extends AbstractType
                   $form = $event->getForm();
                   $data = $event->getForm()->getData();
 
-                  $fileName = $this->fileUploader->upload($data->getPieceJointe(), $data->getMatricule(), 'demande_conge_parental', 'lettre');
-                  $data->setPieceJointe($fileName);
-
-                  if ($data->getRaison() == "lettre_mission.depla")
-                    $data->setSage($form['sage']->getData()->getSage());
-                  else
-                    $data->setSage(null);
-
+                  if ($data->getRaison() != "conge_parental.passage")
+                    $data->setTempPartiel(null);
+                  
                   $data->setMatricule($form['matricule']->getData()->getMatricule());
                   $event->setData($data);
               });
@@ -111,7 +96,7 @@ class DemandeLettreMissionType extends AbstractType
   public function configureOptions(OptionsResolver $resolver)
   {
     $resolver->setDefaults(array(
-      'data_class' => DemandeLettreMission::class,
+      'data_class' => DemandeCongeParental::class,
       'allow_extra_fields' => true,
       'idSalon' => null,
     ));

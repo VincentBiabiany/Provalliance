@@ -50,14 +50,14 @@ class DemandeRuptureCddType extends AbstractType
           ))
         ->add('dateFin', DateType::class, array(
           'widget' => 'choice',
-          'format' => 'd/M/y',
+          'format' => 'dd/MM/y',
           'years' => range(date('Y') - 5, date('Y') + 10),
           'attr' => ['class' => ''],
           'label' => ''
         ))
         ->add('dateDepart', DateType::class, array(
           'widget' => 'choice',
-          'format' => 'd/M/y',
+          'format' => 'dd/MM/y',
           'years' => range(date('Y') - 5, date('Y') + 10),
           'attr' => ['class' => ''],
           'label' => '',

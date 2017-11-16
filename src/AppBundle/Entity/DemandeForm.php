@@ -15,8 +15,9 @@ use Doctrine\ORM\Mapping as ORM;
  *                        "demande_rupture_periode_essai" = "DemandeRupturePeriodeEssai",
  *                        "lettre_mission" = "DemandeLettreMission",
  *                        "demande_demission" = "DemandeDemission",
- *                        "demande_promesse_embauche" = "DemandePromesseEmbauche" ,
- *                        "rupture_cdd" = "DemandeRuptureCdd"
+ *                        "demande_promesse_embauche" = "DemandePromesseEmbauche",
+ *                        "rupture_cdd" = "DemandeRuptureCdd",
+ *                        "conge_parental" = "DemandeCongeParental"
  *                      })
  */
 abstract class DemandeForm

@@ -65,33 +65,37 @@ class DemandeRupturePeriodeEssaiType extends AbstractType
                 ))
                 ->add('date', DateType::class, array(
                   'widget' => 'choice',
-                  'format' => 'd/M/y',
+                  'format' => 'dd/MM/y',
                   'years' => range(date('Y') - 100, date('Y') - 20),
                   'attr' => ['class' => '']))
                 ->add('contrat', FileType::class, array(
                   'label' => 'demande_rupture_periode_essai.contrat',
                   'translation_domain' => 'translator',
-                    ))
+                ))
                 ->add('Envoyer', SubmitType::class, array(
                   'label' => 'global.submit',
                   'attr' => array('class' =>'btn-black end'),
                   'translation_domain' => 'translator'
-              ))
-              ->addEventListener(FormEvents::POST_SUBMIT,
-                  function(FormEvent $event)
-                  {
-                    $form = $event->getForm();
-                    $data = $event->getForm()->getData();
+                ))
+                ->add('lettre', FileType::class, array(
+                  'label' => 'demande_rib.rib',
+                  'translation_domain' => 'translator',
+                  ))
+                ->addEventListener(FormEvents::POST_SUBMIT,
+                    function(FormEvent $event)
+                    {
+                      $form = $event->getForm();
+                      $data = $event->getForm()->getData();
 
-                    $data->setMatricule($form['matricule']->getData()->getMatricule());
-                    $event->setData($data);
+                      $data->setMatricule($form['matricule']->getData()->getMatricule());
+                      $event->setData($data);
 
-                    if ($data->getContrat() != null ){
-                    $fileName = $this->fileUploader->upload($data->getContrat(),0,'rupture_periode_essai', 'contrat');
-                    $data->setContrat($fileName);
+                      if ($data->getContrat() != null ){
+                      $fileName = $this->fileUploader->upload($data->getContrat(),0,'rupture_periode_essai', 'contrat');
+                      $data->setContrat($fileName);
 
-                    }
-                  });
+                      }
+                    });
 
     }
 

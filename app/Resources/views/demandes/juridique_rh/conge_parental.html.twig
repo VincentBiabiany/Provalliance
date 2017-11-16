@@ -1,0 +1,251 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'form/error.html.twig' %}
+{% block title %}{{ "conge_parental.titre"|trans({}, "translator") }}{% endblock %}
+
+{% block body %}
+
+<script type="text/javascript" src="{{ asset('js/jquery.validate.js') }}"></script>
+
+<div class="header">
+	<img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
+</div>
+
+<div class="head">
+	{{ "conge_parental.titre"|trans({}, "translator") }}
+</div>
+<div class="nomSalon">
+  {{ app.session.get('nomSalon') }}
+</div>
+
+<div class="container">
+	<div id="actions" class="formAction">
+		{{ form_start(form, {'attr': {'class': 'allForm', 'id':'formCongeParental'} }) }}
+
+
+ 		<!-- Champs Collaborateur -->
+
+				<div class="form-group">
+					<label class="control-label label col-sm-4 col-xs-12" for="personnel"> {{ form_label(form.matricule) }}</label>
+					<div class="col-sm-9  col-xs-12">
+						{{ form_widget(form.matricule, { 'attr': {'class': 'form-control'} }) }}
+					</div>
+				</div>
+
+
+				<!-- Champs raison -->
+				<div class="form-group row" id="raison">
+					<label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "lettre_mission.raison"|trans({}, "translator") }}</label>
+
+					<div class="col-sm-12" style="display: inline-flex">
+						{% block _demande_lettre_mission_tempsPartiel_row %}
+
+						<div id="demande_conge_parental_raison">
+							{% for key,child in form.raison %}
+
+							<div class="col-sm-12">
+
+								{% if key == 0 %}
+
+										{{ form_widget(child, {'attr' : {'class' : ''} }) }}
+										{{ form_label(child, child.vars.value) }}
+
+										<!-- Temps partiel -->
+										<div style="display:none;" id="champsPartiel">
+											<div class="col-xs-12">
+
+												{% block _demande_embauche_tempsPartiel_row %}
+												<div id="tempsPartiel" class="form-group row" style="">
+													<label class="control-label label col-sm-3 col-xs-12" for="prenom">{{ "demande_embauche.cdd.partiel"|trans({}, "translator") }}</label>
+
+													<div id="listeJours" class="col-sm-9 col-xs-12 pad-box">
+														<label class="control-label label col-sm-12 col-xs-12"  for="nom"></label>
+
+															{% for key,child in form.tempsPartiel %}
+
+															 <div class="jour">
+																	{% if  key == "total"  %}
+																		{{ form_label(child, 'demande_embauche.' ~ key, {'label_attr' : {'class' : 'label'}}) }}
+																		{{ form_widget(child, {'attr' : {'class' : 'form-control total', 'readonly':'readonly'} }) }}
+																	{% else %}
+																		{{ form_label(child, 'demande_embauche.' ~ key, {'label_attr' : {'class' : 'label'}}) }}
+																		{{ form_widget(child, {'attr' : {'class' : 'form-control tempsHeure' } }) }}
+																	{% endif %}
+																</div>
+
+															{% endfor %}
+													</div>
+												</div>
+												{% endblock %}
+											</div>
+										</div>
+
+								{% elseif key == 1 %}
+
+										{{ form_widget(child, {'attr' : {'class' : ''} }) }}
+										{{ form_label(child, child.vars.value) }}
+
+							 {% endif %}
+								</div>
+							{% endfor %}
+
+						</div>
+					</div>
+				</div> <!-- FIN champs raison -->
+				{% endblock %}
+
+
+
+				<!-- Champs date -->
+				<div class="form-group row">
+					<label class="control-label label col-sm-3 col-xs-12">{{ "conge_parental.date"|trans({}, "translator") }}</label>
+				</div>
+
+				<div class="form-group col-sm-12 row">
+
+						<div class="col-sm-6">
+							<div class="jour">
+								<label style="display:none" class="control-label label passage">{{ "conge_parental.du"|trans({}, "translator") }}</label>
+								<label style="display:none" class="control-label label reprise">{{ "conge_parental.le"|trans({}, "translator") }}</label>
+							</div>
+							{{ form_widget(form.dateDebut, { 'attr': {'class':'styleDate'} }) }}
+				 		</div>
+
+					 <div class="col-sm-6">
+						 <div class="jour">
+							<label style="display:none" class="control-label label passage">{{ "conge_parental.au"|trans({}, "translator") }}</label>
+							<label style="display:none" class="control-label label reprise">{{ "conge_parental.aulieu"|trans({}, "translator") }}</label>
+						 </div>
+						 {{ form_widget(form.dateFin, { 'attr': {'class':'styleDate'} }) }}
+					</div>
+
+				</div>
+
+				<div class="form-group">
+					 <label for="demande_conge_parental_pieceJointe" class="label-file">
+						 <i class="glyphicon glyphicon-download-alt"></i>
+						 <span>{{ "conge_parental.lettre"|trans({}, "translator") }}</span>
+					 </label>
+					 {{ form_widget(form.pieceJointe, { 'attr': {'class': 'input-file'} }) }}
+				</div>
+
+
+
+		<div id="">
+			{{ form_end(form) }}
+			<a href="{{ path('home_juridique_rh') }}" class="btn-black precedent">
+					{{ "global.back"|trans({}, "translator") }}
+			</a>
+		</div>
+	</div>
+
+</div>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.js"></script>
+<script type="text/javascript" src="{{ asset('js/global/global-method.js') }}"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	// Controle champs Temps Partiel
+	tempsPartiel();
+	$('.passage').show();
+	// Controle du champs raison
+	// Si coché alors on déploit le détail
+	$('#demande_conge_parental_raison').change(function(){
+		if ($('#demande_conge_parental_raison_0').is(':checked'))
+		{
+			$('#champsPartiel').show();
+			//$('#raison').css('height', '123px');
+			$('.passage').show();
+			$('#listeJours').find('*').each(function() {
+				$(this).attr('required', 'required');
+			});
+		}
+		else
+		{
+			$('#raison').css('height', '65px');
+			$('#champsPartiel').hide();
+			$('.passage').hide();
+			$('#listeJours').find('*').each(function() {
+				$(this).removeAttr('required', 'required');
+			});
+		}
+
+		if ($('#demande_conge_parental_raison_1').is(':checked'))
+		{
+			$('.reprise').show();
+			$('#demande_lettre_mission_sage').attr('required', 'required');
+		}
+		else
+		{
+			$('.reprise').hide();
+			$('#demande_lettre_mission_sage').removeAttr('required', 'required');
+		}
+	}).change();
+
+
+	// Validation du formulaire
+	$("#formCongeParental").validate({
+		rules: {
+		  'demande_lettre_mission[dateDebut][month]' : {
+		    validateDate: true,
+		  },
+		  'demande_lettre_mission[dateFin][month]' : {
+		    validateDate: true,
+				greaterThan: '#demande_lettre_mission_dateDebut_year'
+		  },
+			'demande_lettre_mission[matricule]' : {
+			 required: true,
+		 },
+	 },
+	 messages: {
+
+	 },
+	 errorElement: "em",
+	 errorPlacement: function ( error, element ) {
+	 	// Add the `help-block` class to the error element
+	 	error.addClass( "help-block" );
+
+	 	// Add `has-feedback` class to the parent div.form-group
+	 	// in order to add icons to inputs
+	 	element.parents( ".col-sm-5" ).addClass( "has-feedback" );
+
+
+
+	 	if ( element.prop( "type" ) === "checkbox" ) {
+	 		error.insertAfter( element.parent( "label" ) );
+	 	} else if( element.prop( "type" ) === "select-one" || element.prop( "type" ) === "radio") {
+	 		error.appendTo( element.parent().parent());
+	 	} else {
+	 		error.insertAfter( element );
+	 	}
+
+	 	// Add the span element, if doesn't exists, and apply the icon classes to it.
+	 	if ( !element.next( "span" )[ 0 ] ) {
+	 		$( "<span class='glyphicon glyphicon-remove form-control-feedback'></span>" ).insertAfter( element );
+	 	}
+	 },
+	 success: function ( label, element ) {
+	 	// Add the span element, if doesn't exists, and apply the icon classes to it.
+	 	if ( !$( element ).next( "span" )[ 0 ] ) {
+	 		$( "<span class='glyphicon glyphicon-ok form-control-feedback'></span>" ).insertAfter( $( element ) );
+	 	}
+	 },
+	 highlight: function ( element, errorClass, validClass ) {
+	 	$( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
+	 	$( element ).next( "span" ).addClass( "glyphicon-remove" ).removeClass( "glyphicon-ok" );
+	 },
+	 unhighlight: function ( element, errorClass, validClass ) {
+	 	$( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
+	 	$( element ).next( "span" ).addClass( "glyphicon-ok" ).removeClass( "glyphicon-remove" );
+	 }
+	});
+
+/* controle le changement des dates */
+controlChangeDate('#demande_lettre_mission_dateDebut', '#demande_lettre_mission_dateFin');
+});
+</script>
+
+
+
+
+{% endblock %}

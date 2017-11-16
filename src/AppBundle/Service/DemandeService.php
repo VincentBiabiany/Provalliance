@@ -27,6 +27,7 @@ use AppBundle\Entity\DemandeRupturePeriodeEssai;
 use AppBundle\Entity\DemandeLettreMission;
 use AppBundle\Entity\DemandePromesseEmbauche;
 use AppBundle\Entity\DemandeRuptureCdd;
+use AppBundle\Entity\DemandeCongeParental;
 
 class DemandeService
 {
@@ -62,7 +63,7 @@ class DemandeService
     || $demande instanceof DemandeRib || $demande instanceof DemandeRupturePeriodeEssai
     || $demande instanceof DemandeLettreMission   || $demande instanceof DemandeDemission
     || $demande instanceof DemandePromesseEmbauche || $demande instanceof DemandeLettreMission
-    || $demande instanceof DemandeRuptureCdd) {
+    || $demande instanceof DemandeRuptureCdd || $demande instanceof DemandeCongeParental) {
       self::createDemandeSimple($demande, $idSalon);
     }
 
