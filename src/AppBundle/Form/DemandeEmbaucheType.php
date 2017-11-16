@@ -48,6 +48,7 @@ class DemandeEmbaucheType extends AbstractType
           'translation_domain' => 'translator',
           'expanded' => true,
           'multiple' => false,
+          'attr' => ['class' => 'form-control'],
         ))
         ->add('addresse1', null, array('attr' => ['class' => 'form-control']))
         ->add('addresse2', null, array('attr' => ['class' => 'form-control']))
@@ -71,6 +72,7 @@ class DemandeEmbaucheType extends AbstractType
             'choice_translation_domain' => 'translator',
             'expanded' => true,
             'multiple' => false,
+            'attr' => ['class' => 'form-control'],
           ))
           ->add('nbEnfant', null, array('attr' => ['class' => 'form-control'], 'data' => 0))
           ->add('situationFamille', ChoiceType::class, array(
@@ -156,6 +158,7 @@ class DemandeEmbaucheType extends AbstractType
             'choice_translation_domain' => 'translator',
             'translation_domain' => 'translator',
             'multiple' => false,
+            'attr' => ['class' => 'form-control'],
           ))
           ->add('postes', ChoiceType::class, array(
             'choices' => array(
@@ -167,6 +170,7 @@ class DemandeEmbaucheType extends AbstractType
             'translation_domain' => 'translator',
             'expanded' => true,
             'multiple' => false,
+            'attr' => ['class' => 'form-control'],
           ))
           ->add('diplomes', ChoiceType::class,array(
             'choices' => array(
@@ -179,6 +183,7 @@ class DemandeEmbaucheType extends AbstractType
             'expanded' => true,
             'multiple' => true,
             'required' => true,
+            'attr' => ['class' => 'form-control'],
           ))
           ->add('niveau', ChoiceType::class, array(
             'choices' => array(
@@ -218,6 +223,7 @@ class DemandeEmbaucheType extends AbstractType
             'translation_domain' => 'translator',
             'expanded' => true,
             'multiple' => false,
+            'attr' => ['class' => 'form-control'],
           ))
           ->add('cddRaison', ChoiceType::class, array(
             'choices' => array(
@@ -229,6 +235,7 @@ class DemandeEmbaucheType extends AbstractType
             'translation_domain' => 'translator',
             'expanded' => true,
             'multiple' => false,
+            'attr' => ['class' => 'form-control'],
           ))
           ->add('remplacementNom', null, array('attr' => ['class' => 'form-control']))
           ->add('remplacementNature', null, array('attr' => ['class' => 'form-control']))
@@ -251,6 +258,7 @@ class DemandeEmbaucheType extends AbstractType
             'choice_translation_domain' => 'translator',
             'translation_domain' => 'translator',
             'multiple' => false,
+            'attr' => ['class' => 'form-control'],
           ))
           ->add('Envoyer', SubmitType::class, array(
             'label' => 'demande_embauche.step2',

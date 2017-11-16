@@ -52,7 +52,7 @@ class DemandeDemissionType extends AbstractType
                   'label' => 'demande_demission.collab',
                   'translation_domain' => 'translator'
                 ))
-                ->add('moyen', ChoiceType::class, array(
+                ->add('clause', ChoiceType::class, array(
                   'choices'  => array(
                     'demande_demission.desactiver'  => 'demande_demission.desactiver',
                     'demande_demission.payer' => 'demande_demission.payer',

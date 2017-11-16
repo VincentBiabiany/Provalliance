@@ -32,9 +32,9 @@ class DemandeDemission extends DemandeForm
     /**
      * @var string
      *
-     * @ORM\Column(name="moyen", type="string", nullable=false)
+     * @ORM\Column(name="clause", type="string", nullable=false)
      */
-    private $moyen;
+    private $clause;
 
       /**
      * @var string
@@ -78,27 +78,27 @@ class DemandeDemission extends DemandeForm
         return $this->dem;
     }
     /**
-     * Set moyen
+     * Set clause
      *
-     * @param string $moyen
+     * @param string $clause
      *
      * @return DemandeDemission
      */
-    public function setMoyen($moyen)
+    public function setClause($clause)
     {
-        $this->moyen = $moyen;
+        $this->clause = $clause;
 
         return $this;
     }
 
     /**
-     * Get moyen
+     * Get clause
      *
      * @return string
      */
-    public function getMoyen()
+    public function getClause()
     {
-        return $this->moyen;
+        return $this->clause;
     }
     /**
      * Set date
