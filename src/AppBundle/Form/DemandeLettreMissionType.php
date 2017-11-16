@@ -16,10 +16,17 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use AppBundle\Service\FileUploader;
+
 
 class DemandeLettreMissionType extends AbstractType
 {
+  private $fileUploader;
 
+  public function __construct(FileUploader $fileUploader)
+  {
+  $this->fileUploader = $fileUploader;
+  }
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
     $idSalon = $options["idSalon"];

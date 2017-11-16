@@ -161,10 +161,10 @@ img#logotop{
 /*#actions .col-sm-4{
 	padding-left: 0 !important;
 }*/
-#actions .col-sm-6{
+/*#actions .col-sm-6{
 	padding-left: 0 !important;
 	padding-right: 0 !important;
-}
+}*/
 .menuAction{
 	width: 450px;
 }
@@ -222,6 +222,8 @@ table.dataTable thead th, table.dataTable thead td ,table.dataTable tfoot th, ta
 	cursor: pointer;
 }
 .allForm{
+	background-color: white;
+	padding: 15px;
 	margin-top: 30px;
 
 }
@@ -242,13 +244,14 @@ table.dataTable thead th, table.dataTable thead td ,table.dataTable tfoot th, ta
 	height: 40px;
 	width: 200px;
 	text-align: center;
-	margin-left: 15px;
+	/*margin-left: 15px;*/
 	font-weight: bold;
 	background: white;
 	padding: 0.9rem 1.25rem;
 	position: absolute;
 	right: 0;
 	max-width: inherit;
+	background-color: #f1f1f1;
 }
 .allForm .label-file{
 	position: relative;
@@ -307,11 +310,9 @@ table.dataTable thead th, table.dataTable thead td ,table.dataTable tfoot th, ta
 	padding-left: 5px;
 	margin-left: 5px;
 	margin-right: 5px;
-	border-bottom: 1px solid #333;
-	border-top: none;
-	border-left: none;
-	border-right: none;
+	border: none;
 	border-radius: 4px;
+	background-color: #eeecec;
 }
 
  form#changePassword{
@@ -359,13 +360,14 @@ height: 65px;
 	margin: auto;
 	display: block;
 }
+
 #wrapperForm{
-	width: 875px;
+	width: 1000px;
 	margin: auto;
   margin-bottom: 50px;
 }
 #wrapperFormEmbauche2{
-	width: 920px;
+	width: 1120px;
 	margin: auto;
   margin-bottom: 50px;
 }
@@ -403,15 +405,10 @@ form.demandeDetail .form-group{
 
 }
 .form-control {
-	/*border-radius: 0 !important;*/
-	border: 1px solid #000;
-	border-top: 0 !important;
-  border-left: 0 !important;
-  border-right: 0 !important;
-	webkit-box-shadow: none !important;
-  box-shadow: none !important;
-	/*width: inherit;*/
-    height: 45px;
+	border: none;
+	box-shadow: none !important;
+	background-color: #eeecec;
+	height: 41px;
 }
 #detailDemandeAccompte select.form-control {
     -webkit-appearance: none;
@@ -438,7 +435,10 @@ form.demandeDetail .form-group{
 	 color: #45bd43;
 	 text-decoration: none;
 }
+#block div{
+	margin-bottom: 15px;
 
+}
 /******* RESUME DES DEMANDES *******/
 
 #wrapperForm #propertiesDemandePrint{
@@ -516,7 +516,7 @@ table.dataTable tbody tr.selected td.details-control {
 }
 #shadow{
 	display: none;
-	height: 300px;
+	height: 120px;
 	width: 100%;
 	left: 0;
 	position: fixed;
@@ -635,6 +635,9 @@ table.dataTable thead th, table.dataTable thead td, table.dataTable tfoot th, ta
 	margin :auto;
 
 }
+.imbriq{
+	height: auto !important;
+}
 #demande_embauche_codePostal {
 	width: 125px;
 }
@@ -663,22 +666,35 @@ table.dataTable thead th, table.dataTable thead td, table.dataTable tfoot th, ta
 #demande_embauche_salaireBase label.required, #demande_embauche_typeContrat label.required,
 #demande_embauche_CDD label.required, #fos_user_registration_form_enabled label.required,
 #demande_embauche_isTempsPartiel label.required, #demande_embauche_diplomes label.required,
-#demande_rupture_periode_essai_moyen label.required{
+#demande_rupture_periode_essai_moyen label.required,#demande_demission_clause label.required,
+#demande_promesse_embauche_contrat label.required{
   color: black;
-  margin-left: 2px;
+  margin-left: 6px;
 	margin-right: 10px;
 }
 
+
+.radioInput div {
+    padding-top: 11px;
+}
+#demande_embauche_cddRaison{
+	padding-top: 5px;
+
+}
+#demande_embauche_diplomes label{
+	margin-left: 6px;
+	margin-right: 6px;
+}
 #demande_embauche_nationalite_1{
 	margin-left: 10px;
 
 
 }
 
-#demandeEmbauche2 .form-group{
-	height: auto;
-}
-#demandeEmbauche2 div.col-sm-3,#demandeEmbauche2 div.col-sm-8, #demandeEmbauche2 div.col-sm-4{
+#demandeEmbauche2 div.col-sm-3,#demandeEmbauche2 div.col-sm-8,
+#demandeEmbauche2 div.col-sm-4, #demandeEmbauche2 div.col-sm-2,
+#demandeEmbauche2 div.col-sm-6
+{
     margin-left: 15px;
 	}
 
@@ -692,7 +708,6 @@ table.dataTable thead th, table.dataTable thead td, table.dataTable tfoot th, ta
 #Classification div{
 	width: 110px;
 	text-align: center;
-	margin-right: 15px;
 }
 #Classification div label{
 	background-color: #797979 !important;
@@ -715,6 +730,13 @@ table.dataTable thead th, table.dataTable thead td, table.dataTable tfoot th, ta
 		padding: 0;
 	}
 
+
+#formLettreMission .jour label{
+	font-size: 10px !important;
+}
+#formLettreMission .col-sm-8{
+	 margin-bottom: 10px;
+}
 	/***** RESPONSIVE DESIGN **********/
 @media only screen and (max-width : 765px){
 		.label {
@@ -738,7 +760,9 @@ table.dataTable thead th, table.dataTable thead td, table.dataTable tfoot th, ta
 		    margin: auto;
 		}
 
-
+		#demandeEmbauche2 .form-group{
+			height: auto;
+		}
 		.form-control{
 			 margin-bottom: 20px;
 		}
@@ -841,12 +865,11 @@ padding-left: 25px;
 
 }
 .formAction{
-	width: 700px;
+	width: 735px;
 
 }
 .formActionUpload{
-	width: 520px;
-
+    width: 560px;
 }
 #form_Precedent{
 	position: absolute;
@@ -1033,6 +1056,7 @@ span.inactif{
 	margin-top: 20px;
 	width: auto;
   position: relative;
+  height: 50px;
 }
 #actionsButtons .precedent{
   margin-left: 0;
@@ -1238,10 +1262,10 @@ tr:nth-child(even) {
 .encours{
 
 }
-
+/*
 .pad-box {
 padding-top: 10px;
-}
+}*/
 
 .upload {
 color:black;

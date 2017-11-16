@@ -29,8 +29,7 @@ class RuptureCddController extends Controller
       $demandeService->createDemande($form->getData(), $idSalon);
 
       return $this->redirect($this->generateUrl('homepage',
-        array('flash' => "La demande d'acompte a correctement été envoyée !
-         Un mail vous sera envoyé une fois votre demande traitée.")));
+        array('flash' => "rupture_cdd.popupValidation.message")));
     }
 
     return $this->render('demande_rupture_cdd.html.twig', array(

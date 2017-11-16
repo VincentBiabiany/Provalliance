@@ -17,10 +17,16 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use AppBundle\Service\FileUploader;
 
 class DemandeCongeParentalType extends AbstractType
 {
-
+  private $fileUploader;
+  
+  public function __construct(FileUploader $fileUploader)
+  {
+  $this->fileUploader = $fileUploader;
+  }
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
     $idSalon = $options["idSalon"];
@@ -86,8 +92,8 @@ class DemandeCongeParentalType extends AbstractType
                   $data = $event->getForm()->getData();
 
                   if ($data->getRaison() != "conge_parental.passage")
-                    $data->setTempPartiel(null);
-                  
+                    $data->setTempsPartiel(null);
+
                   $data->setMatricule($form['matricule']->getData()->getMatricule());
                   $event->setData($data);
               });

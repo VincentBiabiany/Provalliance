@@ -64,10 +64,19 @@
 
   </div>
 </div>
+<script type="text/javascript" src="{{ asset('js/jquery.maskMoney.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/jquery.validate.js') }}"></script>
 
 <script type="text/javascript">
   	$('#myModal').modal('show');
 		$("#myModal").css('display','flex');
+
+		$("#demande_acompte_montant").maskMoney({
+			thousands:',',
+			decimal:'.',
+			allowZero: true,
+			suffix: ''
+		});
 
 		$( "#formAccompte" ).validate( {
 	 	rules: {

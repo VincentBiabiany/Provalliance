@@ -29,7 +29,7 @@
 
 				<div class="form-group">
 					<label class="control-label label col-sm-4 col-xs-12" for="moyen">{{ form_label(form.moyen) }}</label>
-					<div class="col-sm-9  col-xs-12">
+					<div class="col-sm-9  col-xs-12 radioInput">
 						{{ form_widget(form.moyen, { 'attr': {'class': 'form-control'} }) }}
 					</div>
 				</div>
@@ -51,7 +51,7 @@
 				</div>
 			<div id="actionsButtons">
 				{{ form_end(form) }}
-						<a href="{{ path('homepage') }}" class="btn-black precedent">
+						<a href="{{ path('home_juridique_rh') }}" class="btn-black precedent">
 								{{ "global.back"|trans({}, "translator") }}
 						</a>
 		  </div>

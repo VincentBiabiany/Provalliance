@@ -37,7 +37,7 @@
     </div>
 
     <label class="control-label label col-sm-3 col-xs-12" for="Nationalité">{{ "demande_embauche.sexe"|trans({}, "translator") }}</label>
-    <div class="col-sm-3 col-xs-12 append" style="display: inline-flex">
+    <div class="col-sm-3 col-xs-12 append radioInput" style="display: inline-flex">
       {{ form_widget(form.sexe) }}
     </div>
 
@@ -80,7 +80,7 @@
 
   <div class="form-group">
     <label class="control-label label col-sm-3 col-xs-12" for="Nationalité">{{ "demande_embauche.nat"|trans({}, "translator") }}</label>
-    <div class="col-sm-3 col-xs-12 append" style="display: inline-flex">
+    <div class="col-sm-3 col-xs-12 append radioInput" style="display: inline-flex">
       {{ form_widget(form.nationalite) }}
     </div>
   </div>

@@ -25,21 +25,21 @@
     </div>
     <div class="form-group">
       <label class="control-label label col-sm-3 col-xs-12" for="groupe">{{ "demande_embauche.ancien"|trans({}, "translator") }}</label>
-      <div class="col-sm-4  col-xs-12 pad-box append" style="display: inline-flex" >
+      <div class="col-sm-2  col-xs-12 radioInput append" style="display: inline-flex" >
         {{ form_widget(form.dejaSalarie) }}
       </div>
     </div>
 
     <div class="form-group">
       <label class="control-label label col-sm-3 col-xs-12" for="date">{{ "demande_embauche.poste"|trans({}, "translator") }}</label>
-      <div class="col-sm-4 col-xs-12 pad-box append" style="display: inline-flex" >
+      <div class="col-sm-4 col-xs-12 radioInput append" style="display: inline-flex" >
         {{ form_widget(form.postes) }}
       </div>
     </div>
 
     <div class="form-group">
       <label class="control-label label col-sm-3 col-xs-12" for="date">{{ "demande_embauche.diplome"|trans({}, "translator") }}</label>
-      <div class="col-sm-4 col-xs-12 pad-box" style="display: inline-flex" >
+      <div class="col-sm-4 col-xs-12 radioInput" style="display: inline-flex" >
         {{ form_widget(form.diplomes) }}
       </div>
     </div>
@@ -62,22 +62,22 @@
 
     <div class="form-group row" >
       <label class="control-label label col-sm-3 col-xs-12" for="prenom">{{ "demande_embauche.salaire"|trans({}, "translator") }}</label>
-      <div class="col-sm-4 col-xs-12 pad-box">
+      <div class="col-sm-3 col-xs-12 radioInput">
         {{ form_widget(form.salaireBase) }}
       </div>
     </div>
 
     <div class="form-group row" >
       <label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "demande_embauche.contrat"|trans({}, "translator") }}</label>
-      <div class="col-sm-8 col-xs-12 pad-box" >
+      <div class="col-sm-6 col-xs-12 radioInput" >
         {{ form_widget(form.typeContrat) }}
       </div>
     </div>
 
-    <div class="form-group row" style="display:none" id="block-cdd">
+    <div class="form-group row imbriq" style="display:none" id="block-cdd">
       <label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "demande_embauche.cdd"|trans({}, "translator") }}</label>
 
-      <div class="col-sm-8 pad-box" style="display: inline-flex">
+      <div class="col-sm-8 radioInput" style="display: inline-flex">
         {% block _demande_embauche_cddRaison_row %}
 
         <div id="demande_embauche_cddRaison">
@@ -113,7 +113,7 @@
 
                     <div>
                       <div class="form-group">
-                        <div class="col-sm-12 col-xs-12 pad-box append" style="display: inline-flex" >
+                        <div class="col-sm-12 col-xs-12 radioInput append" style="display: inline-flex" >
                           {{ form_widget(form.precisionDate) }}
                         </div>
                       </div>
@@ -144,7 +144,7 @@
 
     <div class="form-group row" >
       <label class="control-label label col-sm-3 col-xs-12"  for="">{{ "demande_embauche.cdd.partiel"|trans({}, "translator") }}</label>
-      <div class="col-sm-8 col-xs-12 pad-box" >
+      <div class="col-sm-2 col-xs-12 radioInput" >
         {{ form_widget(form.isTempsPartiel) }}
       </div>
     </div>
@@ -154,7 +154,7 @@
     <div id="tempsPartiel" class="form-group row" style="display:none;">
       <label class="control-label label col-sm-3 col-xs-12" for="prenom">{{ "demande_embauche.cdd.partiel"|trans({}, "translator") }}</label>
 
-      <div id="listeJours" class="col-sm-9 col-xs-12 pad-box">
+      <div id="listeJours" class="col-sm-9 col-xs-12 radioInput">
           {% for key,child in form.tempsPartiel %}
 
            <div class="jour">

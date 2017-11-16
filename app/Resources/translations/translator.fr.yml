@@ -116,9 +116,9 @@ demande_demission:
       titre:       Démission
       collab:      Collaborateur
       dem:         DEM signée
-      moyen:       Moyen
-      desactiver:  Désactiver la Clause de Non Concurrence
-      payer:       Payer la Clause de Non Concurrence 12 mois
+      clause:      Clause
+      desactiver:  Désactiver la clause
+      payer:       Payer la Clause
       choice:      Choisir un fichier
 
       popupValidation:
@@ -131,14 +131,14 @@ demande_promesse_embauche:
       cdi:           Cdi
       cdd:           Cdd
       poste:         Poste de travail
-      n:             N
-      e:             E
+      niveau:        Niveau
+      echelon:       Echelon
       salaire:       Salaire (€)
       temps:         Temps
       dateEmbauche:  Date d'embauche
 
       popupValidation:
-         message:   Votre demande de démission a été envoyée.
+         message:   Votre demande de promesse d'embauche a été envoyée.
 
 
 
@@ -373,11 +373,13 @@ lettre_mission:
     dateDebut:     Du
     dateFin:       Jusqu'au
 
+    popupValidation:
+        message:    Votre demande de lettre de mission a été envoyée.
 
 rupture_cdd:
     titre:        Rupture CDD
-    retour:       Fin de CDD à terme imprécis le ... suite au retour de M.... le
-    depart:       Fin de CDD à terme imprécis le ... suite au départ définitif de M ... le
+    retour:       Fin de CDD (Retour)
+    depart:       Fin de CDD (Départ)
     rupture:      Rupture anticipé de CDD en raison:
     cdi:          Une embauche en CDI au sein du mêm salon le ...
     cdi2:         Une embauche en CDI au sein d'une autre société (départ prévu le)
@@ -391,6 +393,9 @@ rupture_cdd:
     dateretour:   Date de retour
     joindre:      Joindre une lettre
 
+    popupValidation:
+        message:    Votre demande de rupture de CDD a été envoyée.
+
 conge_parental:
     titre:        Congé Parental
     passage:      Passage ..h/semain du ... au ...
@@ -401,6 +406,9 @@ conge_parental:
     du:           Du
     au:           Au
     date:         Date
+
+    popupValidation:
+        message:    Votre demande de congé parental a été envoyée.
 
 message_validation:
     username_required:                  Merci d'entrer un nom d'utilisateur

@@ -40,16 +40,16 @@ class DemandePromesseEmbauche extends DemandeForm
     /**
      * @var string
      *
-     * @ORM\Column(name="n", type="string", nullable=false)
+     * @ORM\Column(name="niveau", type="string", nullable=false)
      */
-    private $n;
+    private $niveau;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="e", type="string", nullable=false)
+     * @ORM\Column(name="echelon", type="string", nullable=false)
      */
-    private $e;
+    private $echelon;
 
     /**
      * @var string
@@ -132,50 +132,50 @@ class DemandePromesseEmbauche extends DemandeForm
         return $this->poste;
     }
     /**
-     * Set n
+     * Set niveau
      *
-     * @param string $n
+     * @param string $niveau
      *
      * @return DemandePromesseEmbauche
      */
-    public function setN($n)
+    public function setNiveau($niveau)
     {
-        $this->n = $n;
+        $this->niveau = $niveau;
 
         return $this;
     }
 
     /**
-     * Get n
+     * Get niveau
      *
      * @return string
      */
-    public function getN()
+    public function getNiveau()
     {
-        return $this->n;
+        return $this->niveau;
     }
     /**
-     * Set e
+     * Set echelon
      *
-     * @param string $e
+     * @param string $echelon
      *
      * @return DemandePromesseEmbauche
      */
-    public function setE($e)
+    public function setEchelon($echelon)
     {
-        $this->e = $e;
+        $this->echelon = $echelon;
 
         return $this;
     }
 
     /**
-     * Get e
+     * Get echelon
      *
      * @return string
      */
-    public function getE()
+    public function getEchelon()
     {
-        return $this->e;
+        return $this->echelon;
     }
 
     /**
