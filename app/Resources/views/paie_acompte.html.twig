@@ -1,0 +1,125 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'form/error.html.twig' %}
+{% block title %}{% endblock %}
+
+{% block body %}
+{% trans_default_domain "translator" %}
+<script type="text/javascript" src="{{ asset('js/jquery.validate.js') }}"></script>
+
+<div class="header">
+	<img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
+</div>
+
+<div class="head">
+	{{ "demande_acompte.titre"|trans({}, "translator") }}
+</div>
+<div class="nomSalon">
+  {{ app.session.get('nomSalon') }}
+</div>
+<div class="container">
+	<div id="actions" class="formAction">
+		{{ form_start(form, {'attr': {'class': 'allForm demande_acompte', 'id':'formAccompte'} }) }}
+
+				<div class="form-group">
+					<label class="control-label label col-sm-4 col-xs-12" for="personnel"> {{ form_label(form.matricule) }}</label>
+					<div class="col-sm-9  col-xs-12">
+						{{ form_widget(form.matricule, { 'attr': {'class': 'form-control'} }) }}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label label col-sm-4 col-xs-12" for="montant">{{ form_label(form.montant) }}</label>
+					<div class="col-sm-9  col-xs-12">
+						{{ form_widget(form.montant, { 'attr': {'class': 'form-control'} }) }}
+					</div>
+				</div>
+
+		<div id="actionsButtons">
+			{{ form_end(form) }}
+						<a href="{{ path('home_paie') }}" class="btn-black precedent">
+								{{ "global.back"|trans({}, "translator") }}
+						</a>
+		</div>
+	</div>
+
+</div>
+<!-- .......................... POP-UP ................................-->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 style="color:black;" class="modal-title"></h4>
+      </div>
+
+      <div class="modal-body">
+				{{ "demande_acompte.info"|trans({}, "translator") }}
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">{{ "global.poursuivre"|trans({}, "translator") }}</button>
+        <button type="button" style="float:left;" class="btn btn-default"  onclick="window.location.href = '{{ path("homepage") }}'">{{ "global.retourac"|trans({}, "translator") }}</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script type="text/javascript">
+  	$('#myModal').modal('show');
+		$("#myModal").css('display','flex');
+
+		$( "#formAccompte" ).validate( {
+	 	rules: {
+	 		'demande_acompte[montant]': {
+	 			required: true,
+	 			min: 1,
+				max: 10000
+	 		}
+	 	},
+	 	messages: {
+	 		'demande_acompte[montant]': {
+	 			required: "{{ "message_validation.acompte_montant_required"|trans({}, "translator") }}",
+	 			min: "{{ "message_validation.acompte_montant_minlength"|trans({}, "translator") }}",
+	 			max: "{{ "message_validation.acompte_montant_maxlength"|trans({}, "translator") }}"
+	 		}
+	 	},
+	 	errorElement: "em",
+	 	errorPlacement: function ( error, element ) {
+	 		// Add the `help-block` class to the error element
+	 		error.addClass( "help-block" );
+
+	 		// Add `has-feedback` class to the parent div.form-group
+	 		// in order to add icons to inputs
+	 		element.parents( ".col-sm-5" ).addClass( "has-feedback" );
+
+	 		if ( element.prop( "type" ) === "checkbox" ) {
+	 			error.insertAfter( element.parent( "label" ) );
+	 		} else {
+	 			error.insertAfter( element );
+	 		}
+
+	 		// Add the span element, if doesn't exists, and apply the icon classes to it.
+	 		if ( !element.next( "span" )[ 0 ] ) {
+	 			$( "<span class='glyphicon glyphicon-remove form-control-feedback'></span>" ).insertAfter( element );
+	 		}
+	 	},
+	 	success: function ( label, element ) {
+	 		// Add the span element, if doesn't exists, and apply the icon classes to it.
+	 		if ( !$( element ).next( "span" )[ 0 ] ) {
+	 			$( "<span class='glyphicon glyphicon-ok form-control-feedback'></span>" ).insertAfter( $( element ) );
+	 		}
+	 	},
+	 	highlight: function ( element, errorClass, validClass ) {
+	 		$( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
+	 		$( element ).next( "span" ).addClass( "glyphicon-remove" ).removeClass( "glyphicon-ok" );
+	 	},
+	 	unhighlight: function ( element, errorClass, validClass ) {
+	 		$( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
+	 		$( element ).next( "span" ).addClass( "glyphicon-ok" ).removeClass( "glyphicon-remove" );
+	 	}
+	 } );
+
+</script>
+
+{% endblock %}
