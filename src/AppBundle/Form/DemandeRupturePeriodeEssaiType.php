@@ -77,10 +77,6 @@ class DemandeRupturePeriodeEssaiType extends AbstractType
                   'attr' => array('class' =>'btn-black end'),
                   'translation_domain' => 'translator'
                 ))
-                ->add('lettre', FileType::class, array(
-                  'label' => 'demande_rib.rib',
-                  'translation_domain' => 'translator',
-                  ))
                 ->addEventListener(FormEvents::POST_SUBMIT,
                     function(FormEvent $event)
                     {
@@ -91,7 +87,7 @@ class DemandeRupturePeriodeEssaiType extends AbstractType
                       $event->setData($data);
 
                       if ($data->getContrat() != null ){
-                      $fileName = $this->fileUploader->upload($data->getContrat(),0,'rupture_periode_essai', 'contrat');
+                      $fileName = $this->fileUploader->upload($data->getContrat(), $data->getMatricule(),'rupture_periode_essai', 'contrat');
                       $data->setContrat($fileName);
 
                       }
