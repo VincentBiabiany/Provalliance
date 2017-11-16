@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'form/error.html.twig' %}
+{% block title %}{% endblock %}
+
+{% block body %}
+{% trans_default_domain "translator" %}
+
+<div class="header">
+	<img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
+</div>
+<div class="head">
+{{ "promesse_embauche.titre"|trans({}, "translator") }}
+</div>
+<div class="nomSalon">
+  {{ app.session.get('nomSalon') }}
+</div>
+<div class="container">
+	<div id="actions" class="formAction">
+
+		{{ form_start(form, {'attr': {'class': 'allForm form-horizontal promesse_embauche', 'id':'PromesseEmbauche'} }) }}
+
+		    {{ form_errors(form)}}
+				<div class="form-group">
+					<label class="control-label label col-sm-4 col-xs-12" for="personnel"> {{ form_label(form.matricule) }}</label>
+					<div class="col-sm-9  col-xs-12">
+						{{ form_widget(form.matricule, { 'attr': {'class': 'form-control'} }) }}
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label label col-sm-4 col-xs-12" for="contrat">{{ form_label(form.contrat) }}</label>
+					<div class="col-sm-9  col-xs-12">
+						{{ form_widget(form.contrat, { 'attr': {'class': 'form-control'} }) }}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label label col-sm-4 col-xs-12" for="poste">{{ form_label(form.poste) }}</label>
+					<div class="col-sm-9  col-xs-12">
+						{{ form_widget(form.poste, { 'attr': {'class': 'form-control'} }) }}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label label col-sm-4 col-xs-12" for="poste">{{ form_label(form.n) }}</label>
+					<div class="col-sm-9  col-xs-12">
+						{{ form_widget(form.n, { 'attr': {'class': 'form-control'} }) }}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label label col-sm-4 col-xs-12" for="poste">{{ form_label(form.e) }}</label>
+					<div class="col-sm-9  col-xs-12">
+						{{ form_widget(form.e, { 'attr': {'class': 'form-control'} }) }}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label label col-sm-4 col-xs-12" for="poste">{{ form_label(form.salaire) }}</label>
+					<div class="col-sm-9  col-xs-12">
+						{{ form_widget(form.salaire, { 'attr': {'class': 'form-control'} }) }}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label label col-sm-4 col-xs-12" for="poste">{{ form_label(form.temps) }}</label>
+					<div class="col-sm-9  col-xs-12">
+						{{ form_widget(form.temps, { 'attr': {'class': 'form-control'} }) }}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label label col-sm-4 col-xs-12" for="date">{{ form_label(form.dateEmbauche) }}</label>
+					<div class="col-sm-9  col-xs-12">
+						{{ form_widget(form.dateEmbauche, { 'attr': {'class':'styleDate'} }) }}
+					</div>
+				</div>
+
+			<div id="actionsButtons">
+				{{ form_end(form) }}
+						<a href="{{ path('homepage') }}" class="btn-black precedent">
+								{{ "global.back"|trans({}, "translator") }}
+						</a>
+		  </div>
+		</div>
+	</div>
+	<script src="{{ asset('js/custom-file-input.js') }}"></script>
+	<script type="text/javascript">
+
+
+	</script>
+{% endblock %}

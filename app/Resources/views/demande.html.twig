@@ -60,7 +60,7 @@
 				</div>
 		  </div>
 		</div>
-
+		<div id="shadow"></div>
 		<table id="demande" class="table table-striped table-bordered" cellspacing="0" width="100%">
 			<thead>
 			<tr>
@@ -301,14 +301,18 @@
 									sessionStorage.setItem('NbDemandeComplexe',0);
 
 								$('#selectionMultiple div').css('display','block');
+								$('#shadow').css('display','block');
 					//Si aucune ligne n'est séléctionné
 					}else{
 					  	$('#selectionMultiple div').css('display','none');
+							$('#shadow').css('display','none');
+
 					}
 				}
 	 });
 {% else %}
 			$('#selectionMultiple').css('display','none');
+			$('#shadow').css('display','none');
 {% endif %}
 
 

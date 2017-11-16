@@ -1,5 +1,5 @@
 <?php
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\Demandes;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,11 +37,11 @@ class RibController extends Controller
       $demandeService->createDemande($form->getData(), $idSalon);
 
       return $this->redirect($this->generateUrl('homepage',
-      array('flash' => "Demande correctement envoyée !")));
+      array('flash' => "demande_rib.popupValidation.message")));
       }
 
 
-    return $this->render('paie_rib.html.twig', array(
+    return $this->render('demandes/paie/rib.html.twig', array(
       'img' => $img,
       'form' => $form->createView(),
       'errors' => null

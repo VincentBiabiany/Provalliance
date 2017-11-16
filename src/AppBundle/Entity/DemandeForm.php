@@ -13,7 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
  *                        "demande_rib" = "DemandeRib",
  *                        "autre_demande" = "AutreDemande",
  *                        "demande_rupture_periode_essai" = "DemandeRupturePeriodeEssai",
- *                        "lettre_mission" = "DemandeLettreMission"  })
+ *                        "lettre_mission" = "DemandeLettreMission",
+ *                        "demande_demission" = "DemandeDemission",
+ *                        "demande_promesse_embauche" = "DemandePromesseEmbauche" })
  */
 
 abstract class DemandeForm

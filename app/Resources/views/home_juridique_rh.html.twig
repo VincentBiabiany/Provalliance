@@ -37,7 +37,7 @@
           <div class="col-sm-4 block">
             <div class="under-block"><p class="carre">{{ "home_juridique_rh.absence"|trans({}, "translator") }}</p></div>
           </div>
-          <div class="col-sm-4 block">
+          <div  onclick="window.location.href = '{{ path('promesse_embauche') }}'"  class="col-sm-4 block">
             <div class="under-block"><p class="carre">{{ "home_juridique_rh.promesse"|trans({}, "translator") }}</p></div>
           </div>
         </div>
@@ -46,7 +46,7 @@
           <div class="col-sm-4 block">
             <div class="under-block"><p class="carre">{{ "home_juridique_rh.avenant"|trans({}, "translator") }}</p></div>
           </div>
-          <div class="col-sm-4 block">
+          <div onclick="window.location.href = '{{ path('demission') }}'"  class="col-sm-4 block">
             <div class="under-block"><p class="carre">{{ "home_juridique_rh.demission"|trans({}, "translator") }}</p></div>
           </div>
           <div onclick="window.location.href = '{{ path('lettremission') }}'" class="col-sm-4 block">
