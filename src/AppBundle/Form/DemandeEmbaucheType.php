@@ -59,7 +59,7 @@ class DemandeEmbaucheType extends AbstractType
               'placeholder' => '_  _ _  _ _  _ _  _ _ _  _ _ _  _ _']))
         ->add('dateNaissance', DateType::class, array(
           'widget' => 'choice',
-          'format' => 'd/M/y',
+          'format' => 'dd/MM/y',
           'years' => range(date('Y') - 100, date('Y') - 20),
           'attr' => ['class' => '']))
         ->add('nationalite', ChoiceType::class, array(
@@ -142,9 +142,10 @@ class DemandeEmbaucheType extends AbstractType
       $builder
           ->add('dateembauche', DateType::class, array(
             'widget' => 'choice',
-            'format' => 'd/M/y',
+            'format' => 'dd/MM/y',
             'years' => range(date('Y') - 80, date('Y') + 2),
-            'attr' => ['class' => '']
+            'attr' => ['class' => ''],
+            'data' => new \DateTime()
           ))
           ->add('dejaSalarie', ChoiceType::class,array(
             'choices' => array(
@@ -184,8 +185,6 @@ class DemandeEmbaucheType extends AbstractType
               'I' => 'I',
               'II' => 'II',
               'III'=> 'III',
-              'IV' => 'IV',
-              'V' => 'V'
             ),
             'choice_translation_domain' => 'translator',
             'translation_domain' => 'translator',
@@ -261,7 +260,7 @@ class DemandeEmbaucheType extends AbstractType
 
           $builder->add('date', DateType::class, array(
             'widget' => 'choice',
-            'format' => 'd/M/y',
+            'format' => 'dd/MM/y',
             'years' => range(date('Y') - 5, date('Y') + 10),
             'attr' => ['class' => 'until'],
             'label' => ' ',
