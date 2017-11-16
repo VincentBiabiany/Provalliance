@@ -116,20 +116,14 @@
        </div>
 
 			 <div class="col-sm-12" id="blockFile" style="display:none">
-
-				 {{ form_widget(form.lettre, { 'attr': {'class': 'input-file'} }) }}
-
 				 <label for="demande_rupture_cdd_lettre" class="label-file">
 					 <i class="glyphicon glyphicon-download-alt"></i>
 					 <span>{{ "rupture_cdd.joindre"|trans({}, "translator") }}</</span>
 				 </label>
-
+				 {{ form_widget(form.lettre, { 'attr': {'class': 'input-file'} }) }}
 			 </div>
 
     </div>
-
-
-
 
 		<div id="">
 			{{ form_end(form) }}
@@ -160,6 +154,8 @@ $(document).ready(function(){
       $('.retourLabel').show();
 			$('#blockNom').show();
 			$('#blockDepart').show();
+			$('#blockFile').hide();
+			$('.fin').show();
     } else {
       $('#retour').hide();
       $('.retourLabel').hide();
@@ -171,6 +167,8 @@ $(document).ready(function(){
       $('.departLabel').show();
 			$('#blockNom').show();
 			$('#blockDepart').show();
+			$('#blockFile').hide();
+			$('.fin').show();
 		} else {
 			$('#depart').hide();
       $('.departLabel').hide();
@@ -180,6 +178,7 @@ $(document).ready(function(){
 			$('#anticipe').show();
 			$('#anticipe').trigger('change');
 			$('#demande_lettre_mission_sage').attr('required', 'required');
+			$('#blockFile').hide();
 
 		} else {
 			$('#anticipe').hide();
@@ -212,29 +211,37 @@ $(document).ready(function(){
 			$('#blockFile').show();
 			$('.fin').hide();
 
+			$('#demande_rupture_cdd_lettre').attr('required', 'required');
+
 		} else {
 			$('#block').hide()
 			$('#blockNom').show();
 			$('#blockDepart').show();
-			$('#blockFile').show();
 			$('.fin').show();
+
+			$('#demande_rupture_cdd_lettre').removeAttr('required', 'required');
 		}
 		event.preventDefault();
 		event.stopPropagation();
 	})
 
-
+	$('#demande_rupture_cdd_dateFin').change(function(){
+      $('#demande_rupture_cdd_dateFin_month').valid();
+  })
+	$('#demande_rupture_cdd_dateDepart').change(function(){
+			$('#demande_rupture_cdd_dateDepart_month').valid();
+	})
 	// Validation du formulaire
 	$("#formRupture").validate({
 		rules: {
-		  '#demande_rupture_cdd_dateDebut_month' : {
+		  'demande_rupture_cdd[dateDepart][month]' : {
 		    validateDate: true,
 		  },
-		  '#demande_rupture_cdd_dateFin_month' : {
+		  'demande_rupture_cdd[dateFin][month]' : {
 		    validateDate: true,
 		  }
 	 },
-	 messages: {
+	  messages: {
 
 	 },
 	 errorElement: "em",

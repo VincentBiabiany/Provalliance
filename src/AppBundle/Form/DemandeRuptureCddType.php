@@ -2,17 +2,13 @@
 
 namespace AppBundle\Form;
 
-use AppBundle\Entity\DemandeRib;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Type;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
@@ -108,12 +104,25 @@ class DemandeRuptureCddType extends AbstractType
               $data = $event->getForm()->getData();
 
               $data->setMatricule($form['matricule']->getData()->getMatricule());
+
+              if ($data->getRaison() == 'rupture_cdd.rupture') {
+                $rupt = $data->getRuptureAncticipe();
+                if ($rupt == 'rupture_cdd.lettre') {
+                  $fileName = $this->fileUploader->upload($data->getLettre(), $data->getMatricule(),'demande_rib', 'rib');
+                  $data->setLettre($fileName);
+                  $data->setDateDepart(null);
+                  $data->setNomCollab(null);
+                } else if ($rupt == 'rupture_cdd.lettre' || $rupt == "") {
+                  $data->setDateDepart(null);
+                  $data->setNomCollab(null);
+                } else {
+                  $data->setLettre(null);
+                  $data->setDateDepart(null);
+                  $data->setDateFin(null);
+                  $data->setNomCollab(null);
+                }
+              }
               $event->setData($data);
-              //
-              // if ($data->getRib() != null ){
-              // $fileName = $this->fileUploader->upload($data->getRib(), 0,'demande_rib', 'rib');
-              // $data->setRib($fileName);
-              // }
             }
         );
   }

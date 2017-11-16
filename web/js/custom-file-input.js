@@ -5,6 +5,7 @@ Array.prototype.forEach.call( inputs, function( input )
 		labelVal = label.innerHTML;
 	input.addEventListener( 'change', function( e )
 	{
+	
 		var fileName = '';
 			fileName = e.target.value.split( '\\' ).pop();
 		if( fileName ){
@@ -17,6 +18,6 @@ Array.prototype.forEach.call( inputs, function( input )
 
         }	else{
     			label.innerHTML = labelVal;
-           }
+        }
 	});
 });

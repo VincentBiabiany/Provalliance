@@ -21,8 +21,9 @@ class PersonnelRepository extends EntityRepository
     $activeP = $repo->findActivePersonnel($idSalon);
 
     $arrayActive = array();
+
     foreach ($activeP as $key => $value) {
-      $arrayActive = $value['matricule'];
+      $arrayActive[] = $value['matricule'];
     }
 
     return $this->createQueryBuilder('p')

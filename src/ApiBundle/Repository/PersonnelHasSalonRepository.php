@@ -19,9 +19,9 @@ class PersonnelHasSalonRepository extends EntityRepository
       return true;}else{ return false;}
     }
 
-// Function listPersoBySalon
-// Paramètre : idSalon
-// Description : retourne les liste du personnel pour un salon donné ( ormis les coiffeurs)
+  // Function listPersoBySalon
+  // Paramètre : idSalon
+  // Description : retourne les liste du personnel pour un salon donné ( ormis les coiffeurs)
   public function listPersoBySalon($idSalon)
   {
     $p = $this->createQueryBuilder('d')
@@ -35,6 +35,7 @@ class PersonnelHasSalonRepository extends EntityRepository
 
       return $p;
   }
+
   public function findActivePersonnel()
   {
     // Permet de checker la date de fin par rapport à la date d'aujourd'hui
@@ -43,10 +44,10 @@ class PersonnelHasSalonRepository extends EntityRepository
     $pers = $this->findAll();
     $this->getEntityManager()->flush();
 
-     $active = $this->createQueryBuilder('ps')
-                      ->select('p.matricule')
-                      ->leftjoin('ps.personnelMatricule', 'p')
-                      ->where('ps.actif = 1')->getQuery()->getResult();
+    $active = $this->createQueryBuilder('ps')
+                   ->select('p.matricule')
+                   ->leftjoin('ps.personnelMatricule', 'p')
+                   ->where('ps.actif = 1')->getQuery()->getResult();
 
       return $active;
    }

@@ -257,7 +257,8 @@ table.dataTable thead th, table.dataTable thead td ,table.dataTable tfoot th, ta
 }
 
 .input-file {
-    display: none !important;
+		visibility: hidden !important;
+		height: 0px;
 }
 .glyphicon-ok{
 	color:green ;
