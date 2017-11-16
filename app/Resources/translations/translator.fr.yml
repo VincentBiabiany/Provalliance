@@ -87,7 +87,7 @@ demande_rib:
 
 autre_demande:
     titre:       Autre demande
-    collab:         Collaborateur
+    collab:      Collaborateur
     envoyer:     Envoyer
     objet:       Objet
     back:        Retour
@@ -372,6 +372,24 @@ lettre_mission:
     date:          Date
     dateDebut:     Du
     dateFin:       Jusqu'au
+
+
+rupture_cdd:
+    titre:        Rupture CDD
+    retour:       Fin de CDD à terme imprécis le ... suite au retour de M.... le
+    depart:       Fin de CDD à terme imprécis le ... suite au départ définitif de M ... le
+    rupture:      Rupture anticipé de CDD en raison:
+    cdi:          Une embauche en CDI au sein du mêm salon le ...
+    cdi2:         Une embauche en CDI au sein d'une autre société (départ prévu le)
+    demande:      Suite à la demande du salarié (départ le )
+    accord:       Un commun accord en payant la prime de précarité
+    accord2:      Un commun accord en ne payant pas la prime de précarité
+    nom:          Retour de M:
+    nom2:         Départ de M:
+    datefin:      Date de fin du Contrat
+    datedepart:   Date de départ
+    dateretour:   Date de retour
+    joindre:       Joindre une lettre
 
 message_validation:
     username_required:                  Merci d'entrer un nom d'utilisateur

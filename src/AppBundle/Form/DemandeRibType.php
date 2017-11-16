@@ -66,13 +66,13 @@ class DemandeRibType extends AbstractType
                     $data = $event->getForm()->getData();
 
                     $data->setMatricule($form['matricule']->getData()->getMatricule());
-                    $event->setData($data);
 
                     if ($data->getRib() != null ){
-                    $fileName = $this->fileUploader->upload($data->getRib(),0,'demande_rib', 'rib');
-                    $data->setRib($fileName);
-
+                      $fileName = $this->fileUploader->upload($data->getRib(), $data->getMatricule(),'demande_rib', 'rib');
+                      $data->setRib($fileName);
                     }
+                    
+                    $event->setData($data);
                   });
 
     }

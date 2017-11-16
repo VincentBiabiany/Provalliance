@@ -11,23 +11,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
- * @ORM\AttributeOverrides({
- *      @ORM\AttributeOverride(name="email",
- *          column=@ORM\Column(
- *              name     = "email",
- *              type     = "string",
- *              length   = 255,
- *              nullable = true,
- *          )
- *      ),
- *      @ORM\AttributeOverride(name="emailCanonical",
- *          column=@ORM\Column(
- *              name     = "email_canonical",
- *              type     = "string",
- *              length   = 255,
- *              nullable = true
- *          )
- *      ),
  * })
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Admin\UserRepository")
  */
