@@ -32,7 +32,7 @@
 
 
 		<!-- Champs raison -->
-		<div class="form-group row" style="height: 100%;">
+		<div class="form-group row imbriq" >
 			<label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "lettre_mission.raison"|trans({}, "translator") }}</label>
 
 			<div class="col-sm-8" style="display: inline-flex">
@@ -125,7 +125,7 @@
 
     </div>
 
-		<div id="">
+		<div id="actionsButtons">
 			{{ form_end(form) }}
 			<a href="{{ path('home_juridique_rh') }}" class="btn-black precedent">
 					{{ "global.back"|trans({}, "translator") }}

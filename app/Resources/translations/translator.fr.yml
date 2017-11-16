@@ -138,7 +138,7 @@ demande_promesse_embauche:
       dateEmbauche:  Date d'embauche
 
       popupValidation:
-         message:   Votre demande de démission a été envoyée.
+         message:   Votre demande de promesse d'embauche a été envoyée.
 
 
 
@@ -373,6 +373,8 @@ lettre_mission:
     dateDebut:     Du
     dateFin:       Jusqu'au
 
+    popupValidation:
+        message:    Votre demande de lettre de mission a été envoyée.
 
 rupture_cdd:
     titre:        Rupture CDD
@@ -391,6 +393,9 @@ rupture_cdd:
     dateretour:   Date de retour
     joindre:      Joindre une lettre
 
+    popupValidation:
+        message:    Votre demande de rupture de CDD a été envoyée.
+
 conge_parental:
     titre:        Congé Parental
     passage:      Passage ..h/semain du ... au ...
@@ -401,6 +406,9 @@ conge_parental:
     du:           Du
     au:           Au
     date:         Date
+
+    popupValidation:
+        message:    Votre demande de congé parental a été envoyée.
 
 message_validation:
     username_required:                  Merci d'entrer un nom d'utilisateur

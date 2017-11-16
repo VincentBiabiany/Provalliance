@@ -138,7 +138,7 @@ class DemandePromesseEmbauche extends DemandeForm
      *
      * @return DemandePromesseEmbauche
      */
-    public function setN($niveau)
+    public function setNiveau($niveau)
     {
         $this->niveau = $niveau;
 
