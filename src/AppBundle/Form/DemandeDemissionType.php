@@ -52,7 +52,7 @@ class DemandeDemissionType extends AbstractType
                   'label' => 'demande_demission.collab',
                   'translation_domain' => 'translator'
                 ))
-                ->add('moyen', ChoiceType::class, array(
+                ->add('clause', ChoiceType::class, array(
                   'choices'  => array(
                     'demande_demission.desactiver'  => 'demande_demission.desactiver',
                     'demande_demission.payer' => 'demande_demission.payer',
@@ -65,7 +65,7 @@ class DemandeDemissionType extends AbstractType
                 ))
                 ->add('date', DateType::class, array(
                   'widget' => 'choice',
-                  'format' => 'd/M/y',
+                  'format' => 'dd/MM/y',
                   'years' => range(date('Y') - 100, date('Y') - 20),
                   'attr' => ['class' => '']))
                 ->add('dem', FileType::class, array(

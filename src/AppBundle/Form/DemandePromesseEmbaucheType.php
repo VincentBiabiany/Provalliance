@@ -67,12 +67,12 @@ class DemandePromesseEmbaucheType extends AbstractType
                       'label' => 'demande_promesse_embauche.poste',
                       'translation_domain' => 'translator',
                     ))
-                ->add('n', TextType::class, array(
-                      'label' => 'demande_promesse_embauche.n',
+                ->add('niveau', TextType::class, array(
+                      'label' => 'demande_promesse_embauche.niveau',
                       'translation_domain' => 'translator',
                     ))
-                ->add('e', TextType::class, array(
-                      'label' => 'demande_promesse_embauche.e',
+                ->add('echelon', TextType::class, array(
+                      'label' => 'demande_promesse_embauche.echelon',
                       'translation_domain' => 'translator',
                     ))
                 ->add('salaire', TextType::class, array(
@@ -86,7 +86,7 @@ class DemandePromesseEmbaucheType extends AbstractType
                 ))
                 ->add('dateEmbauche', DateType::class, array(
                   'widget' => 'choice',
-                  'format' => 'd/M/y',
+                  'format' => 'dd/MM/y',
                   'years' => range(date('Y') - 100, date('Y') - 20),
                   'attr' => ['class' => ''],
                   'label' => 'demande_promesse_embauche.dateEmbauche',
