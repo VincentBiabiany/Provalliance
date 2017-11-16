@@ -227,7 +227,7 @@ demande_embauche:
     niveau:        Niveau
     echelon:       Echelon
 
-    salaire:       Salaire base
+    salaire:       Salaire de base
     salaire.con:   Salaire Conventionnel
     contrat:       Type de contrat
     precision.p:   Date précise
