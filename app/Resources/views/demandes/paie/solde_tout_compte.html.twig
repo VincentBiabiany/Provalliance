@@ -1,0 +1,221 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'form/error.html.twig' %}
+{% block title %}{% endblock %}
+
+{% block body %}
+{% trans_default_domain "translator" %}
+
+<div class="header">
+	<img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
+</div>
+
+<div class="head">
+	{{ "demande_solde_tout_compte.titre"|trans({}, "translator") }}
+</div>
+<div class="nomSalon">
+  {{ app.session.get('nomSalon') }}
+</div>
+<div class="container">
+	<div id="wrapperForm" class="row">
+		{{ form_start(form, {'attr': {'class': 'allForm demande_solde_tout_compte', 'id':'SoldeToutCompte'} }) }}
+
+				<div class="form-group">
+					<label class="control-label label col-sm-4 col-xs-12" for="personnel"> {{ form_label(form.matricule) }}</label>
+					<div class="col-sm-4  col-xs-12">
+						{{ form_widget(form.matricule) }}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label label col-sm-4 col-xs-12" for="adresse">{{ form_label(form.adresse) }}</label>
+					<div class="col-sm-8  col-xs-12">
+						{{ form_widget(form.adresse) }}
+					</div>
+				</div>
+
+
+				<div class="form-group">
+					<label class="control-label label col-sm-4 col-xs-12" for="dateSortie">{{ "demande_solde_tout_compte.dateSortie"|trans({}, "translator") }}</label>
+					<div class="col-sm-3  col-xs-12">
+						{{ form_widget(form.dateSortie) }}
+					</div>
+
+					<label class="control-label label col-sm-4 col-xs-12" for="dateDernierJour">{{ "demande_solde_tout_compte.dateDernierJour"|trans({}, "translator") }}</label>
+					<div class="col-sm-3  col-xs-12">
+						{{ form_widget(form.dateDernierJour) }}
+					</div>
+				</div>
+				<div id='GroupMotif' class="form-group">
+					<label class="control-label label col-sm-4 col-xs-12" for="typeMotif">{{ form_label(form.motif) }}</label>
+					<div class="col-sm-8  col-xs-12 ">
+						{{ form_widget(form.motif) }}
+					</div>
+				</div>
+
+
+				<div id='GroupAbsence' class="form-group ">
+					<label class="control-label label col-sm-4 col-xs-12 " for="typeAbsence">{{ form_label(form.typeAbsence) }}</label>
+					<div class="col-sm-8  col-xs-12 ">
+						{{ form_widget(form.typeAbsence) }}
+					</div>
+				</div>
+
+				<!-- Champs date -->
+				<div class="form-group row imbriq">
+					<label class="control-label label col-sm-3 col-xs-12">{{ "demande_solde_tout_compte.dateAbsence"|trans({}, "translator") }}</label>
+
+
+				<div class="col-sm-8">
+					<div class="col-sm-8">
+
+						<div class="jour">
+							<label class="control-label label">{{ "demande_solde_tout_compte.dateDebutAbsence"|trans({}, "translator") }}</label>
+						</div>
+						{{ form_widget(form.dateDebutAbsence, { 'attr': {'class':'styleDate'} }) }}
+
+					 </div>
+
+					 <div class="col-sm-8">
+						 <div class="jour">
+							<label class="control-label label">{{ "demande_solde_tout_compte.dateFinAbsence"|trans({}, "translator") }}</label>
+						 </div>
+						 {{ form_widget(form.dateFinAbsence, { 'attr': {'class':'styleDate'} }) }}
+					</div>
+				</div>
+		</div>
+				<div class="form-group">
+					<label class="control-label label col-sm-4 col-xs-12" for="adresse">{{ form_label(form.primes) }}</label>
+					<div class="col-sm-8  col-xs-12">
+						{{ form_widget(form.primes) }}
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label label col-sm-4 col-xs-12" for="adresse">{{ form_label(form.remarques) }}</label>
+					<div class="col-sm-8  col-xs-12">
+						{{ form_widget(form.remarques) }}
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label label col-sm-4 col-xs-12" for="rupture">{{ form_label(form.rupture) }}</label>
+					<div class="col-sm-6  col-xs-12">
+						<label for="demande_solde_tout_compte_rupture" class="label-file">
+							<i class="glyphicon glyphicon-download-alt"></i>
+							<span>	{{ "autre_demande.choice"|trans({}, "translator") }}</span>
+						</label>
+						{{ form_widget(form.rupture, { 'attr': {'class': 'input-file'} }) }}
+
+					</div>
+				</div>
+
+		<div id="actionsButtons">
+			{{ form_end(form) }}
+						<a href="{{ path('home_paie') }}" class="btn-black precedent">
+								{{ "global.back"|trans({}, "translator") }}
+						</a>
+		</div>
+	</div>
+
+</div>
+<!-- .......................... POP-UP ................................-->
+<div id="myModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 style="color:black;" class="modal-title">{{ "demande_solde_tout_compte.popupInfo.attention"|trans({}, "translator") }}</h4>
+			</div>
+
+			<div class="modal-body">
+
+				<div id="infoSoldeToutCompte" class="" >
+					<p style="color:black;">{{ "demande_solde_tout_compte.popupInfo.msg"|trans({}, "translator") }}  </br></p>
+
+					<ul>
+						<li>{{ "demande_solde_tout_compte.popupInfo.docRupture"|trans({}, "translator") }}</li>
+					</ul>
+					<h4>{{ "demande_solde_tout_compte.popupInfo.gestionAdministrativeTitre"|trans({}, "translator") }}</h4>
+					<span> {{ "demande_solde_tout_compte.popupInfo.gestionAdministrativeMessage"|trans({}, "translator") }}</span>
+				</div>
+
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">{{ "global.poursuivre"|trans({}, "translator") }}</button>
+				<button type="button" style="float:left;" class="btn btn-default out"  onclick="window.location.href = '{{ path("homepage") }}'">{{ "global.retourac"|trans({}, "translator") }}</button>
+			</div>
+		</div>
+
+	</div>
+</div>
+<script src="{{ asset('js/custom-file-input.js') }}"></script>
+
+<script type="text/javascript" src="{{ asset('js/jquery.validate.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/jquery.maskMoney.min.js') }}"></script>
+
+
+<script type="text/javascript">
+  	$('#myModal').modal('show');
+		$("#myModal").css('display','flex');
+
+		$("#demande_solde_tout_compte_montant").maskMoney({
+			thousands:',',
+			decimal:'.',
+			allowZero: true,
+			suffix: ''
+		});
+
+		$( "#formAccompte" ).validate( {
+	 	rules: {
+	 		'demande_solde_tout_compte[montant]': {
+	 			required: true,
+	 			min: '1.00',
+	 		}
+	 	},
+	 	messages: {
+	 		'demande_solde_tout_compte[montant]': {
+	 			required: "{{ "message_validation.acompte_montant_required"|trans({}, "translator") }}",
+	 			min: "{{ "message_validation.acompte_montant_minlength"|trans({}, "translator") }}",
+	 			max: "{{ "message_validation.acompte_montant_maxlength"|trans({}, "translator") }}"
+	 		}
+	 	},
+	 	errorElement: "em",
+	 	errorPlacement: function ( error, element ) {
+	 		// Add the `help-block` class to the error element
+	 		error.addClass( "help-block" );
+
+	 		// Add `has-feedback` class to the parent div.form-group
+	 		// in order to add icons to inputs
+	 		element.parents( ".col-sm-5" ).addClass( "has-feedback" );
+
+	 		if ( element.prop( "type" ) === "checkbox" ) {
+	 			error.insertAfter( element.parent( "label" ) );
+	 		} else {
+	 			error.insertAfter( element );
+	 		}
+
+	 		// Add the span element, if doesn't exists, and apply the icon classes to it.
+	 		if ( !element.next( "span" )[ 0 ] ) {
+	 			$( "<span class='glyphicon glyphicon-remove form-control-feedback'></span>" ).insertAfter( element );
+	 		}
+	 	},
+	 	success: function ( label, element ) {
+	 		// Add the span element, if doesn't exists, and apply the icon classes to it.
+	 		if ( !$( element ).next( "span" )[ 0 ] ) {
+	 			$( "<span class='glyphicon glyphicon-ok form-control-feedback'></span>" ).insertAfter( $( element ) );
+	 		}
+	 	},
+	 	highlight: function ( element, errorClass, validClass ) {
+	 		$( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
+	 		$( element ).next( "span" ).addClass( "glyphicon-remove" ).removeClass( "glyphicon-ok" );
+	 	},
+	 	unhighlight: function ( element, errorClass, validClass ) {
+	 		$( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
+	 		$( element ).next( "span" ).addClass( "glyphicon-ok" ).removeClass( "glyphicon-remove" );
+	 	}
+	 } );
+
+</script>
+
+{% endblock %}

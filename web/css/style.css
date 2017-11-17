@@ -409,6 +409,12 @@ form.demandeDetail .form-group{
 	background-color: white;
 	height: 41px;
 }
+.form-controlList {
+	border: none;
+	box-shadow: none !important;
+	background-color: white;
+	height: auto;
+}
 #detailDemandeAccompte select.form-control {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -682,15 +688,42 @@ table.dataTable thead th, table.dataTable thead td, table.dataTable tfoot th, ta
   margin-left: 6px;
 	margin-right: 10px;
 }
+#SoldeToutCompte h3{
+	margin-bottom: 20px;
+text-align: center;
+}
 
 .labelRadioStyle label{
 	color: black;
 	margin-left: 6px;
 	margin-right: 10px;
 }
+
+.form-controlList {
+  padding: 13px;
+}
+
+.form-controlList label {
+	color: black;
+	margin-left: 20px;
+	margin-bottom: 9px;
+	display: block;
+}
+
+.form-controlList input {
+  float: left;
+}
 .radioInput div {
     padding-top: 11px;
 }
+#GroupMotif{
+	height: 230px !important;
+}
+
+#GroupAbsence{
+	height: 200px !important;
+}
+
 #demande_embauche_cddRaison{
 	padding-top: 5px;
 

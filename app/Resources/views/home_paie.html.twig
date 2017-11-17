@@ -19,10 +19,10 @@
 
             <div class="col-sm-12">
                 <div class="col-sm-6 block">
-                    <div class="under-block" onclick="window.location.href ='{{ path("paie_acompte") }}'"><p class="carre">{{ "home_paie.acompte"|trans({}, "translator") }}</p></div>
+                    <div class="under-block" onclick="window.location.href ='{{ path("acompte") }}'"><p class="carre">{{ "home_paie.acompte"|trans({}, "translator") }}</p></div>
                 </div>
                 <div class="col-sm-6 block">
-                    <div class="under-block" onclick="window.location.href ='{{ path("paie_rib") }}'"><p class="carre">{{ "home_paie.rib"|trans({}, "translator") }}</p></div>
+                    <div class="under-block" onclick="window.location.href ='{{ path("rib") }}'"><p class="carre">{{ "home_paie.rib"|trans({}, "translator") }}</p></div>
                 </div>
             </div>
 
@@ -30,7 +30,7 @@
                 <div class="col-sm-6 block">
                     <div class="under-block"><p class="carre">{{ "home_paie.attestation"|trans({}, "translator") }}</p></div>
                 </div>
-                <div class="col-sm-6 block">
+                <div class="col-sm-6 block" onclick="window.location.href ='{{ path("solde_tout_compte") }}'">
                     <div class="under-block"><p class="carre">{{ "home_paie.solde"|trans({}, "translator") }}</p></div>
                 </div>
             </div>

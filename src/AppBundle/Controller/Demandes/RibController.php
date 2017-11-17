@@ -21,7 +21,7 @@ use AppBundle\Service\DemandeService;
 class RibController extends Controller
 {
   /**
-  * @Route("/paie_rib", name="paie_rib")
+  * @Route("/paie/rib", name="rib")
   */
   public function indexAction(Request $request, DemandeService $demandeService)
   {

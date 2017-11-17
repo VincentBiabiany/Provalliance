@@ -227,6 +227,47 @@ conge_parental:
     popupValidation:
         message:    Votre demande de congé parental a été envoyée.
 
+demande_solde_tout_compte:
+    titre:                    Solde Tout Compte
+    sousTitreRupture:         Rupture de contrat
+    sousTitreSalaireVariable: Salaire Variable
+    collab:                   Collaborateur
+    adresse:                  Adresse
+    dateSortie:               Date de sortie
+    dateDernierJour:          Date du dernier jour
+    motif:                    Motif de départ
+    preavis:                  Démission avec préavis
+    rpeEmploye:               RUPTURE PERIODE D'ESSAI initiative employeur
+    rpeSalarie:               RUPTURE PERIODE D'ESSAI initiative salarié
+    finCdd:                   Fin de CDD ou ALTERNANCE comme prévu au contrat
+    ruptureAnticipe:          RUPTURE ANTICIPEE DE CDD
+    mutation:                 MUTATION vers le salon
+    salon:                    Salon
+    retraite:                 Retraite
+    typeAbsence:              Type d'absence
+    dateAbsence:              Date d'absence
+    dateDebutAbsence:         Du
+    dateFinAbsence:           Au
+    arretMaladie:             Arrêt Maladie
+    absenceInjustifiee:       Absence injustifée
+    congePayes:               Congés payés
+    congeParental:            Congé Parental
+    autre:                    Autre
+    primes:                   Primes
+    remarques:                Remarques
+    rupture:                  Rupture
+
+    popupValidation:
+        message:    Votre demande de solde tout compte a été envoyée.
+
+    popupInfo:
+        attention: Attention
+        msg:          Avant de commencer à remplir le formulaire, veuillez vérifier que vous disposez toutes les pièces justificatives suivantes au format électronique :
+        docRupture:       Document juridique justifiant la rupture accompagné de ce document à la paie
+        gestionAdministrativeTitre: Gestion Administrative
+        gestionAdministrativeMessage: Supprimer le code caisse, remplir le registre du personnel, informer la médecin du travail
+
+
 demande_embauche:
     header:        Demande d'embauche
     back:          Retour
