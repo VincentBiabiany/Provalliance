@@ -15,21 +15,21 @@ class Enseigne
     /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=45, nullable=true)
+     * @ORM\Column(name="nom", type="string", length=255, nullable=true)
      */
     private $nom;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="logo", type="string", length=45, nullable=true)
+     * @ORM\Column(name="logo", type="string", length=255, nullable=true)
      */
     private $logo;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="libelle_court", type="string", length=45, nullable=true)
+     * @ORM\Column(name="libelle_court", type="string", length=255, nullable=true)
      */
     private $libelleCourt;
 

@@ -17,9 +17,8 @@ class PersonnelHasSalon
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(name="id", type="string")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
@@ -47,7 +46,7 @@ class PersonnelHasSalon
     /**
      * @var \ApiBundle\Entity\Personnel
      *
-     * @ORM\ManyToOne(targetEntity="ApiBundle\Entity\Personnel", inversedBy="matricule")
+     * @ORM\ManyToOne(targetEntity="ApiBundle\Entity\Personnel", inversedBy="personnelHasSalon")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="personnel_matricule", referencedColumnName="matricule")
      * })
@@ -67,7 +66,7 @@ class PersonnelHasSalon
     /**
      * @var \ApiBundle\Entity\Salon
      *
-     * @ORM\ManyToOne(targetEntity="ApiBundle\Entity\Salon", inversedBy="salon")
+     * @ORM\ManyToOne(targetEntity="ApiBundle\Entity\Salon", inversedBy="sage")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="salon_sage", referencedColumnName="sage")
      * })
@@ -90,7 +89,7 @@ class PersonnelHasSalon
        else
        $this->actif = 1;
      }
-     
+
     /**
      * Set dateDebut
      *

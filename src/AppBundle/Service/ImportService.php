@@ -32,7 +32,7 @@ class ImportService
     $champs = array(
                 "champs"   => ["matricule"],
                 "valeur"   => ["0"],
-                "colonnes" => ["matricule","civilite","nom","prenom","date_naissance","ville_naissance","pays_naissance","sexe","nationalite","niveau","echelon","adresse1","adresse2","codepostal","ville","telephone1","telephone2","email","actif"],
+                "colonnes" => ["matricule","civilite","nom","prenom","date_naissance","ville_naissance","pays_naissance","sexe","nationalite","niveau","echelon","adresse1","adresse2","codepostal","ville","telephone","email","date_entree","date_sortie"],
                 "nb"       => 19
               );
     $result = self::handleFile($file, $champs);
@@ -41,7 +41,7 @@ class ImportService
       $entity = $this->em->getRepository('ApiBundle:Personnel')->find($personnel[0]);
 
       if ($entity === null)
-        $entity = new Personnel();
+        $entity = (new Personnel())->setMatricule($personnel[0]);
 
       $entity->setCivilite($personnel[1]);
       $entity->setNom($personnel[2]);
@@ -58,9 +58,10 @@ class ImportService
       $entity->setCodepostal($personnel[13]);
       $entity->setVille($personnel[14]);
       $entity->setTelephone1($personnel[15]);
-      $entity->setTelephone2($personnel[16]);
-      $entity->setEmail($personnel[17]);
-      $entity->setActif($personnel[18]);
+      $entity->setEmail($personnel[16]);
+
+      $entity->setDateEntree(self::returnDate($personnel[17]));
+      $entity->setDateSortie(self::returnDate($personnel[18]));
 
       $this->em->persist($entity);
       $this->em->flush();
@@ -72,7 +73,7 @@ class ImportService
     $champs = array(
                     "champs"   => ["Sage", "Groupe", "Enseigne", "Pays"],
                     "valeur"   => ["0", "20", "21", "22"],
-                    "colonnes" => ["sage","appelation","forme_juridique","rcs_ville","code_naf","siren","capital","raison_sociale","adresse1","adresse2","code_postal","ville","telephone1","telephone2","email","code_marlix","date_ouverture","date_fermeture_sociale","date_fermeture_commerciale","actif","groupe_id","enseigne_id","pays_id"],
+                    "colonnes" => ["sage","appelation","forme_juridique","rcs_ville","code_naf","siren","capital","raison_sociale","adresse1","adresse2","code_postal","ville","telephone1","telephone2","email","code_marlix","date_ouverture","date_fermeture_sociale","date_fermeture_commerciale","groupe_id","enseigne_id","pays_id"],
                     "nb"       => 23
                   );
 
@@ -80,10 +81,11 @@ class ImportService
 
     foreach ($result["result"] as $key => $salon)
     {
+      dump($salon);
       $entity = $this->em->getRepository('ApiBundle:Salon')->find($salon[0]);
 
       if ($entity === null)
-        $entity = new Salon();
+        $entity = (new Salon())->setSage($salon[0]);
 
       $entity->setAppelation($salon[1]);
       $entity->setFormeJuridique($salon[2]);
@@ -104,7 +106,6 @@ class ImportService
       $entity->setDateFermetureSociale(self::returnDate($salon[17]));
       $entity->setDateFermetureCommerciale(self::returnDate($salon[18]));
 
-      $entity->setActif($salon[19]);
 
       $group = $this->em->getRepository('ApiBundle:Groupe')->find($salon[20]);
       if (!$group)
@@ -146,29 +147,30 @@ class ImportService
     $champs = array(
                     "champs"   => ["Profession", "Matricule", "Sage"],
                     "valeur"   => ["2", "1", "3"],
-                    "colonnes" => ["id","personnel_matricule","profession_id","salon_sage","date_debut","date_fin","actif"],
-                    "nb"       => 7
+                    "colonnes" => ["personnel_matricule","profession_id","salon_sage","date_debut","date_fin"],
+                    "nb"       => 5
                   );
 
     $result = self::handleFile($file, $champs);
     foreach ($result["result"] as $key => $lien)
     {
-      $entity = $this->em->getRepository('ApiBundle:PersonnelHasSalon')->find($lien[0]);
+      $link = "{$lien[0]}{$lien[1]}{$lien[2]}";
+      $entity = $this->em->getRepository('ApiBundle:PersonnelHasSalon')->find($link);
 
       if ($entity === null)
         $entity = new PersonnelHasSalon();
 
-      $profession = $this->em->getRepository('ApiBundle:Profession')->find($lien[2]);
+      $profession = $this->em->getRepository('ApiBundle:Profession')->find($lien[1]);
       if (!$profession)
         throw new Exception($this->trans->trans('import.prof', ["%line%"=> ($key+2)],'translator'));
       $entity->setProfession($profession);
 
-      $personnel = $this->em->getRepository('ApiBundle:Personnel')->find($lien[1]);
+      $personnel = $this->em->getRepository('ApiBundle:Personnel')->find($lien[0]);
       if (!$personnel)
         throw new Exception($this->trans->trans('import.matr', ["%line%"=> ($key+2)], 'translator'));
       $entity->setPersonnelMatricule($personnel);
 
-      $salon = $this->em->getRepository('ApiBundle:Salon')->find($lien[3]);
+      $salon = $this->em->getRepository('ApiBundle:Salon')->find($lien[2]);
       if (!$salon)
         throw new Exception($this->trans->trans('import.salonEr', ["%line%"=> ($key+2)],'translator'));
       $entity->setSalonSage($salon);
