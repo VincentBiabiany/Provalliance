@@ -102,9 +102,6 @@ class DemandeLettreMissionType extends AbstractType
                   $form = $event->getForm();
                   $data = $event->getForm()->getData();
 
-                  $fileName = $this->fileUploader->upload($data->getPieceJointe(), $data->getMatricule(), 'demande_conge_parental', 'lettre');
-                  $data->setPieceJointe($fileName);
-
                   if ($data->getRaison() == "lettre_mission.depla")
                     $data->setSage($form['sage']->getData()->getSage());
                   else

@@ -22,7 +22,7 @@ use AppBundle\Service\FileUploader;
 class DemandeCongeParentalType extends AbstractType
 {
   private $fileUploader;
-  
+
   public function __construct(FileUploader $fileUploader)
   {
   $this->fileUploader = $fileUploader;
@@ -90,6 +90,9 @@ class DemandeCongeParentalType extends AbstractType
                 {
                   $form = $event->getForm();
                   $data = $event->getForm()->getData();
+                  
+                  $fileName = $this->fileUploader->upload($data->getPieceJointe(), $data->getMatricule(), 'demande_conge_parental', 'lettre');
+                  $data->setPieceJointe($fileName);
 
                   if ($data->getRaison() != "conge_parental.passage")
                     $data->setTempsPartiel(null);
