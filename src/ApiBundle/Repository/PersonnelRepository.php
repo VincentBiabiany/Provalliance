@@ -27,8 +27,8 @@ class PersonnelRepository extends EntityRepository
     }
 
     return $this->createQueryBuilder('p')
-          ->join('p.salon', 's')
-          ->where('s.sage = :idSalon')
+          ->join('p.personnelHasSalon', 's')
+          ->where('s.salonSage = :idSalon')
           ->andWhere('p.actif = 1')
           ->andWhere('p.matricule IN (:matricule)')
           ->setParameter('matricule', $arrayActive)
@@ -38,9 +38,9 @@ class PersonnelRepository extends EntityRepository
     public function getNb($idPerso, $idSalon) {
           $nb = $this->createQueryBuilder('d')
               ->select('COUNT(d)')
-              ->join('d.salon', 'm')
+              ->join('d.personnelHasSalon', 'm')
               ->where('d.matricule = :idPerso')
-              ->andwhere('m.sage = :idSalon')
+              ->andwhere('m.salonSage = :idSalon')
               ->setParameter('idPerso',$idPerso)
               ->setParameter('idSalon',$idSalon)
               ->getQuery()
@@ -103,8 +103,8 @@ class PersonnelRepository extends EntityRepository
    public function getListPerso($idSalon){
       $listPerso['Aucune sélection'] = 99999;
       $listes= $this->createQueryBuilder('d')
-          ->join('d.salon', 'm')
-          ->andwhere('m.sage = :idSalon')
+          ->join('d.personnelHasSalon', 'm')
+          ->andwhere('m.salonSage = :idSalon')
           ->setParameter('idSalon',$idSalon)
           ->getQuery()
           ->getResult();

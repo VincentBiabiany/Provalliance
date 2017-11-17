@@ -90,6 +90,27 @@ class PersonnelHasSalon
        $this->actif = 1;
      }
 
+     /**
+      * Get id
+      *
+      * @return integer
+      */
+     public function getId()
+     {
+         return $this->id;
+     }
+
+     /**
+      * Set id
+      *
+      * @return PersonnelHasSalon
+      */
+     public function setId($id)
+     {
+        $this->id = $id;
+
+        return $this;
+     }
     /**
      * Set dateDebut
      *

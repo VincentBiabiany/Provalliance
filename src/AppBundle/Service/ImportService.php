@@ -158,7 +158,7 @@ class ImportService
       $entity = $this->em->getRepository('ApiBundle:PersonnelHasSalon')->find($link);
 
       if ($entity === null)
-        $entity = new PersonnelHasSalon();
+        $entity = (new PersonnelHasSalon())->setId($link);
 
       $profession = $this->em->getRepository('ApiBundle:Profession')->find($lien[1]);
       if (!$profession)
@@ -175,9 +175,9 @@ class ImportService
         throw new Exception($this->trans->trans('import.salonEr', ["%line%"=> ($key+2)],'translator'));
       $entity->setSalonSage($salon);
 
-      $entity->setDateDebut(self::returnDate($lien[4]));
-      $entity->setDateFin(self::returnDate($lien[5]));
-      $entity->setActif($lien[6]);
+      $entity->setDateDebut(self::returnDate($lien[3]));
+      $entity->setDateFin(self::returnDate($lien[4]));
+      //$entity->setActif($lien[6]);
 
       $this->em->persist($entity);
       $this->em->flush();
