@@ -60,8 +60,8 @@ class ExportService
 
            //Infos du Collab
                        //  $collabByDemande = $demandeRepo->collabByDemande($demandeExport);
-           //Cas ou la demande concerne un nouveau collaborateur ( Demande d'embauche, demande d'essai ..ect)
-           if ($demandes['nameDemande'] == 'DemandeEmbauche'){
+           //Cas ou la demande concerne un nouveau collaborateur ( Demande d'embauche, demande d'essai pro)
+           if ($demandes['nameDemande'] == 'DemandeEmbauche' || $demandes['nameDemande'] == 'DemandeEssaiProfessionnel'){
                $demandeSelfRepo = $this->em2->getRepository('AppBundle:'.$demandes['nameDemande']);
                $collaborateur = $demandeSelfRepo->infosDemandeSelf($demandes['demandeId']);
 
@@ -155,7 +155,7 @@ class ExportService
       $ColDemandes = [];
 
       $properties = $propertyInfo->getProperties('AppBundle\Entity\\'.$nameEntity);
-      $properties = array_diff($properties,['discr','typeForm','id','nameDemande','service']);
+      $properties = array_diff($properties,['discr','typeForm','id','nameDemande','service','subject']);
 
       $ColDemandes['col']= $properties;
       $ColDemandes['nb']= count($properties);

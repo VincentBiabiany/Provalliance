@@ -49,6 +49,7 @@ class DemandeDemissionType extends AbstractType
                   'query_builder' => function (EntityRepository $er) use ($idSalon) {
                       return $er->findActivePersonnelBySalon($idSalon);
                     },
+                    'attr' => ['class' => 'form-control'],
                   'label' => 'demande_demission.collab',
                   'translation_domain' => 'translator'
                 ))
@@ -59,6 +60,7 @@ class DemandeDemissionType extends AbstractType
                   ),
                   'choice_translation_domain' => 'translator',
                   'translation_domain' => 'translator',
+                  'attr' => ['class' => 'form-control labelRadioStyle'],
                   'expanded' => true,
                   'multiple' => false,
                   'required' => true,
@@ -67,7 +69,7 @@ class DemandeDemissionType extends AbstractType
                   'widget' => 'choice',
                   'format' => 'dd/MM/y',
                   'years' => range(date('Y') - 100, date('Y') - 20),
-                  'attr' => ['class' => '']))
+                  'attr' => ['class' => 'form-control']))
                 ->add('dem', FileType::class, array(
                   'label' => 'demande_demission.dem',
                   'translation_domain' => 'translator',

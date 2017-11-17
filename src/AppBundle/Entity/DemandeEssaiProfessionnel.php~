@@ -1,0 +1,234 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Entity\DemandeForm;
+
+/**
+ * AppBundle\Entity\DemandeEssaiProfessionnel
+ *
+ * @ORM\Table(name="nomande_essai_professionnel")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\DemandeEssaiProfessionnelRepository")
+ */
+class DemandeEssaiProfessionnel extends DemandeForm
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string")
+     */
+    private $nom;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="prenom", type="string")
+     */
+    private $prenom;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="adresse", type="string")
+     */
+    private $adresse;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="code_postal", type="string")
+     */
+    private $codePostal;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ville", type="string")
+     */
+    private $ville;
+
+      /**
+     * @var string
+     *
+     * @ORM\Column(name="date_naissance", type="date", length=255)
+     */
+    private $dateNaissance;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nationalite", type="string")
+     */
+    private $nationalite;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="lieu_naissance", type="string")
+     */
+    private $lieuNaissance;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="departement", type="string")
+     */
+    private $departement;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="num_secu", type="string", length=255)
+     */
+    private $numSecu;
+
+    /**
+    * @var string
+    *
+    * @ORM\Column(name="date_essai", type="date", length=255)
+    */
+    private $dateEssai;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="niveau", type="string", length=255,  nullable=true)
+     */
+    private $niveau;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="diplomes", type="array")
+     */
+    private $diplomes;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="qualification", type="string")
+     */
+    private $qualification;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="nb_heures", type="integer")
+     */
+    private $nbHeures;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="prise_reference", type="string")
+     */
+    private $priseReference;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="telephone", type="string", length=25)
+     */
+    private $telephone;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="carte_id", type="string", length=255)
+     */
+    protected $carteId;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="rib", type="string", length=255)
+     */
+    protected $rib;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="matricule", type="integer")
+     */
+    protected $matricule;
+
+    protected $nameDemande ='DemandeEssaiProfessionnel';
+    protected $typeForm ='Demande d\'essai professionel';
+    protected $subject ='connu';
+    protected $service ='juridique';
+
+
+
+    /**
+     * Set matricule
+     *
+     * @param integer $matricule
+     *
+     * @return DemandeEssaiProfessionnel
+     */
+    public function setMatricule($matricule)
+    {
+        $this->matricule = $matricule;
+
+        return $this;
+    }
+
+    /**
+     * Get matricule
+     *
+     * @return integer
+     */
+    public function getMatricule()
+    {
+        return $this->matricule;
+    }
+    /**
+     * Get nameDemande
+     *
+     * @return integer
+     */
+    public function getNameDemande()
+    {
+        return $this->nameDemande;
+    }
+
+    /**
+     * Get typeForm
+     *
+     * @return integer
+     */
+    public function getTypeForm()
+    {
+        return $this->typeForm;
+    }
+    /**
+     * Get service
+     *
+     * @return integer
+     */
+    public function getService()
+    {
+        return $this->service;
+    }
+
+
+    /**
+     * Get subject
+     *
+     * @return integer
+     */
+    public function getSubject()
+    {
+        return $this->subject;
+    }
+}

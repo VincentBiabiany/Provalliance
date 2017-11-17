@@ -1,0 +1,200 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'form/error.html.twig' %}
+{% block title %}{% endblock %}
+
+{% block body %}
+{% trans_default_domain "translator" %}
+
+<div class="header">
+	<img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
+</div>
+<div class="head">
+{{ "demande_essai_pro.titre"|trans({}, "translator") }}
+</div>
+<div class="nomSalon">
+  {{ app.session.get('nomSalon') }}
+</div>
+<div class="container">
+
+	<div id="wrapperForm" class="row">
+		{{ form_start(form, {'attr': {'class': 'allForm form-horizontal', 'id':'EssaiPro'} }) }}
+
+		    {{ form_errors(form)}}
+				<div class="form-group">
+
+			    <label class="control-label label col-sm-3 col-xs-12">{{ "demande_essai_pro.nom"|trans({}, "translator") }}</label>
+			    <div class="col-sm-3 col-xs-12">
+			      {{ form_widget(form.nom) }}
+			    </div>
+
+			    <label class="control-label label col-sm-3 col-xs-12" >{{ "demande_essai_pro.prenom"|trans({}, "translator") }}</label>
+			    <div class="col-sm-3 col-xs-12">
+			      {{ form_widget(form.prenom) }}
+			    </div>
+			  </div>
+
+				<div class="form-group">
+			    <label class="control-label label col-sm-3 col-xs-12" for="adr">{{ "demande_essai_pro.adresse"|trans({}, "translator") }}</label>
+			    <div class="col-sm-8 col-xs-12">
+			      {{ form_widget(form.adresse) }}
+			    </div>
+			  </div>
+
+				<div class="form-group" >
+			    <label class="control-label label col-sm-3 col-xs-12">{{ "demande_essai_pro.codePostal"|trans({}, "translator") }}</label>
+			    <div class="col-sm-3 col-xs-12">
+			      {{ form_widget(form.codePostal)}}
+
+			    </div>
+
+			    <label class="control-label label col-sm-3 col-xs-12">{{ "demande_essai_pro.ville"|trans({}, "translator") }}</label>
+			    <div class="col-sm-3 col-xs-12">
+			      {{ form_widget(form.ville) }}
+			    </div>
+			  </div>
+
+				<div class="form-group">
+			    <label class="control-label label col-sm-3 col-xs-12" for="demande_essai_pro_dateNaissance">{{ "demande_essai_pro.dateNaissance"|trans({}, "translator") }}</label>
+			    <div class="col-sm-3 col-xs-12">
+			      {{ form_widget(form.dateNaissance, {'attr':{'name':'date','class':'styleDate'}}) }}
+			    </div>
+
+			    <label class="control-label label col-sm-3 col-xs-12" for="Nationalite">{{ "demande_essai_pro.nationalite"|trans({}, "translator") }}</label>
+			    <div class="col-sm-3 col-xs-12 append " style="display: inline-flex">
+			      {{ form_widget(form.nationalite) }}
+			    </div>
+
+			  </div>
+
+				<div class="form-group">
+			    <label class="control-label label col-sm-3 col-xs-12" for="demande_essai_pro_lieuNaissance">{{ "demande_essai_pro.lieuNaissance"|trans({}, "translator") }}</label>
+			    <div class="col-sm-3 col-xs-12">
+			      {{ form_widget(form.lieuNaissance) }}
+			    </div>
+
+			    <label class="control-label label col-sm-3 col-xs-12" for="departement">{{ "demande_essai_pro.departement"|trans({}, "translator") }}</label>
+			    <div class="col-sm-3 col-xs-12 append radioInput" style="display: inline-flex">
+			      {{ form_widget(form.departement) }}
+			    </div>
+			  </div>
+
+				<div class="form-group">
+			    <label class="control-label label col-sm-3 col-xs-12">{{ "demande_essai_pro.numSecu"|trans({}, "translator") }}</label>
+			    <div class="col-sm-3 col-xs-12">
+			      {{ form_widget(form.numSecu) }}
+			    </div>
+			    <label class="control-label label col-sm-3 col-xs-12">{{ "demande_essai_pro.dateEssai"|trans({}, "translator") }}</label>
+			    <div class="col-sm-3 col-xs-12">
+			      {{ form_widget(form.dateEssai) }}
+			    </div>
+				</div>
+
+				<div class="form-group">
+			    <label class="control-label label col-sm-3 col-xs-12">{{ "demande_essai_pro.niveau"|trans({}, "translator") }}</label>
+			    <div class="col-sm-3 col-xs-12">
+			      {{ form_widget(form.niveau) }}
+			    </div>
+
+			    <label class="control-label label col-sm-3 col-xs-12" >{{ "demande_essai_pro.diplomes"|trans({}, "translator") }}</label>
+			    <div class="col-sm-3 col-xs-12">
+			      {{ form_widget(form.diplomes) }}
+			    </div>
+ 			  </div>
+
+				<div class="form-group">
+			    <label class="control-label label col-sm-3 col-xs-12" >{{ "demande_essai_pro.qualification"|trans({}, "translator") }}</label>
+			    <div class="col-sm-3 col-xs-12">
+			      {{ form_widget(form.qualification) }}
+			    </div>
+
+			    <label class="control-label label col-sm-3 col-xs-12" >{{ "demande_essai_pro.nbHeures"|trans({}, "translator") }}</label>
+			    <div class="col-sm-3 col-xs-12">
+			      {{ form_widget(form.nbHeures) }}
+			    </div>
+			  </div>
+
+				<div class="form-group">
+			    <label class="control-label label col-sm-3 col-xs-12 " >{{ "demande_essai_pro.priseReference"|trans({}, "translator") }}</label>
+			    <div class="col-sm-3 col-xs-12 radioInput">
+			      {{ form_widget(form.priseReference) }}
+			    </div>
+
+			    <label class="control-label label col-sm-3 col-xs-12" >{{ "demande_essai_pro.telephone"|trans({}, "translator") }}</label>
+			    <div class="col-sm-3 col-xs-12">
+			      {{ form_widget(form.telephone) }}
+			    </div>
+			  </div>
+
+				<div class="form-group">
+			    <label class="control-label label col-sm-3 col-xs-12" >{{ "demande_essai_pro.carteId"|trans({}, "translator") }}</label>
+			    <div class="col-sm-3 col-xs-12">
+						<label for="demande_essai_professionnel_carteId" class="label-file">
+							<i class="glyphicon glyphicon-download-alt"></i>
+							<span>	{{ "global.choiceFile"|trans({}, "translator") }}</span>
+						</label>
+						{{ form_widget(form.carteId, { 'attr': {'class': 'input-file'} }) }}
+
+			    </div>
+			  </div>
+				<div class="form-group">
+			    <label class="control-label label col-sm-3 col-xs-12" >{{ "demande_essai_pro.rib"|trans({}, "translator") }}</label>
+			    <div class="col-sm-3 col-xs-12">
+						<label for="demande_essai_professionnel_rib" class="label-file">
+							<i class="glyphicon glyphicon-download-alt"></i>
+							<span>	{{ "global.choiceFile"|trans({}, "translator") }}</span>
+						</label>
+						{{ form_widget(form.rib, { 'attr': {'class': 'input-file'} }) }}
+
+			    </div>
+			  </div>
+
+			<div id="actionsButtons">
+				{{ form_end(form) }}
+						<a href="{{ path('home_juridique_rh') }}" class="btn-black precedent">
+								{{ "global.back"|trans({}, "translator") }}
+						</a>
+		  </div>
+		</div>
+	</div>
+
+	<!-- .......................... POP-UP ................................-->
+	<div id="myModal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 style="color:black;" class="modal-title">{{ "demande_essai_pro.popupInfo.attention"|trans({}, "translator") }}</h4>
+	      </div>
+
+	      <div class="modal-body">
+
+	        <div id="infoEssaiPro" class="" >
+	          <p style="color:black;">{{ "demande_essai_pro.popupInfo.msg"|trans({}, "translator") }}  </br></p>
+
+	          <ul>
+	            <li>{{ "demande_essai_pro.popupInfo.docRib"|trans({}, "translator") }}</li>
+	            <li>{{ "demande_essai_pro.popupInfo.docCarteId"|trans({}, "translator") }}</li>
+	          </ul>
+
+						<i>{{ "demande_essai_pro.popupInfo.titreArticle"|trans({}, "translator") }}</i><br/>
+						<span> {{ "demande_essai_pro.popupInfo.articleLoi"|trans({}, "translator") }}</span>
+	        </div>
+
+	      </div>
+
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">{{ "global.poursuivre"|trans({}, "translator") }}</button>
+	        <button type="button" style="float:left;" class="btn btn-default out"  onclick="window.location.href = '{{ path("homepage") }}'">{{ "global.retourac"|trans({}, "translator") }}</button>
+	      </div>
+	    </div>
+
+	  </div>
+	</div>
+	<script src="{{ asset('js/custom-file-input.js') }}"></script>
+	<script type="text/javascript">
+	$('#myModal').modal('show');
+	$("#myModal").css('display','flex');
+
+	</script>
+{% endblock %}

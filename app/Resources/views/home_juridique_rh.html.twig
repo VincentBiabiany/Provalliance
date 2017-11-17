@@ -54,6 +54,18 @@
           </div>
         </div>
 
+        <div class="col-sm-12">
+          <div class="col-sm-4 block">
+            <div class="under-block"><p class="carre"></p></div>
+          </div>
+          <div onclick="window.location.href = '{{ path('essai_professionel') }}'"  class="col-sm-4 block">
+            <div class="under-block"><p class="carre">{{ "home_juridique_rh.essai_pro"|trans({}, "translator") }}</p></div>
+          </div>
+          <div class="col-sm-4 block">
+            <div class="under-block"><p class="carre"></p></div>
+          </div>
+        </div>
+
         <button class="btn-black precedent" onclick="window.location.href = '{{ path("homepage") }}'" style="float:none;">{{ "global.back"|trans({}, "translator") }}</button>
       </div>
     </div>

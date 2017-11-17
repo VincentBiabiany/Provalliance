@@ -28,6 +28,7 @@ use AppBundle\Entity\DemandeLettreMission;
 use AppBundle\Entity\DemandePromesseEmbauche;
 use AppBundle\Entity\DemandeRuptureCdd;
 use AppBundle\Entity\DemandeCongeParental;
+use AppBundle\Entity\DemandeEssaiProfessionnel;
 
 class DemandeService
 {
@@ -63,7 +64,8 @@ class DemandeService
     || $demande instanceof DemandeRib || $demande instanceof DemandeRupturePeriodeEssai
     || $demande instanceof DemandeLettreMission   || $demande instanceof DemandeDemission
     || $demande instanceof DemandePromesseEmbauche || $demande instanceof DemandeLettreMission
-    || $demande instanceof DemandeRuptureCdd || $demande instanceof DemandeCongeParental) {
+    || $demande instanceof DemandeRuptureCdd || $demande instanceof DemandeCongeParental
+    || $demande instanceof DemandeEssaiProfessionnel) {
       self::createDemandeSimple($demande, $idSalon);
     }
 
@@ -248,9 +250,14 @@ class DemandeService
 
   public function createDemandeSimple($demande, $idSalon){
 
-    $personnel =  $this->em->getRepository('ApiBundle:Personnel')
-                           ->findOneBy(array('matricule' => $demande->getMatricule()));
+    if ($demande->getSubject() == 'connu'){
+        $personnel =  $this->em->getRepository('ApiBundle:Personnel')
+                               ->findOneBy(array('matricule' => $demande->getMatricule()));
 
+        $personnel = $personnel->getPrenom().' '.$personnel->getNom();
+       }else{
+        $personnel = 'Nouveau Collaborateur';
+       }
     $demandeSimple = new DemandeSimple();
 
     $demande->setTypeForm( $demande->getTypeForm());
@@ -266,14 +273,9 @@ class DemandeService
 
     // Generation de l'url
     self::generateAbsUrl($demandeSimple);
+    // Envoie du mail
+    self::sendMail($idSalon, $personnel, [1, 5],  $demande->getTypeForm());
 
-    if (  $personnel == null){
-      $personnel ='n/a';
-
-    }else{
-      $personnel = $personnel->getPrenom().' '.$personnel->getNom();
-      self::sendMail($idSalon, $personnel, [1, 5],  $demande->getTypeForm());
-    }
 
 
   }
