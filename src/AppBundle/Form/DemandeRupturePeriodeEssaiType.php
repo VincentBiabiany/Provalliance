@@ -67,7 +67,9 @@ class DemandeRupturePeriodeEssaiType extends AbstractType
                   'widget' => 'choice',
                   'format' => 'dd/MM/y',
                   'years' => range(date('Y') - 100, date('Y') - 20),
-                  'attr' => ['class' => '']))
+                  'attr' => ['class' => ''],
+                  'data' => new \DateTime()
+                ))
                 ->add('contrat', FileType::class, array(
                   'label' => 'demande_rupture_periode_essai.contrat',
                   'translation_domain' => 'translator',

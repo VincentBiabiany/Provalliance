@@ -206,7 +206,9 @@ $( "#form1" ).validate( {
   rules: {
     'demande_embauche[dateNaissance][month]' : {
       validateDate: true,
-    },
+    },'demande_embauche[numSecu]':{
+      minlength: 22
+    }
   },
   messages: {
 

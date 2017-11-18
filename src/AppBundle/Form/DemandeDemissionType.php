@@ -69,7 +69,10 @@ class DemandeDemissionType extends AbstractType
                   'widget' => 'choice',
                   'format' => 'dd/MM/y',
                   'years' => range(date('Y') - 100, date('Y') - 20),
-                  'attr' => ['class' => 'form-control']))
+                  'attr' => ['class' => 'form-control'],
+                  'data' => new \DateTime()
+
+                ))
                 ->add('dem', FileType::class, array(
                   'label' => 'demande_demission.dem',
                   'translation_domain' => 'translator',

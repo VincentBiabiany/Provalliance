@@ -53,7 +53,9 @@ class DemandeAvenantType extends AbstractType
               'format' => 'dd/MM/y',
               'years' => range(date('Y') - 5, date('Y') + 10),
               'attr' => ['class' => ''],
-              'label' => ''
+              'label' => '',
+              'data' => new \DateTime()
+
             ))
             ->add('dateFin', DateType::class, array(
               'widget' => 'choice',
@@ -61,6 +63,8 @@ class DemandeAvenantType extends AbstractType
               'years' => range(date('Y') - 5, date('Y') + 10),
               'attr' => ['class' => ''],
               'label' => '',
+              'data' => new \DateTime()
+
             ))
             ->add('raison', ChoiceType::class, array(
               'choices' => array(

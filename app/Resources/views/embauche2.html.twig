@@ -152,7 +152,7 @@
     <!-- Temps partiel -->
     {% block _demande_embauche_tempsPartiel_row %}
     <div id="tempsPartiel" class="form-group row" style="display:none;">
-      <label class="control-label label col-sm-3 col-xs-12" for="prenom">{{ "demande_embauche.cdd.partiel"|trans({}, "translator") }}</label>
+      <label class="control-label label col-sm-3 col-xs-12" for="prenom">{{ "demande_embauche.cdd.tempsTravail"|trans({}, "translator") }}</label>
 
       <div id="listeJours" class="col-sm-9 col-xs-12 radioInput">
           {% for key,child in form.tempsPartiel %}

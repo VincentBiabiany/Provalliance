@@ -51,7 +51,9 @@ class DemandeCongeParentalType extends AbstractType
               'format' => 'dd/MM/y',
               'years' => range(date('Y') - 5, date('Y') + 10),
               'attr' => ['class' => ''],
-              'label' => ''
+              'label' => '',
+              'data' => new \DateTime()
+
             ))
             ->add('dateFin', DateType::class, array(
               'widget' => 'choice',
@@ -59,6 +61,8 @@ class DemandeCongeParentalType extends AbstractType
               'years' => range(date('Y') - 5, date('Y') + 10),
               'attr' => ['class' => ''],
               'label' => '',
+              'data' => new \DateTime()
+
             ))
             ->add('raison', ChoiceType::class, array(
               'choices' => array(
@@ -90,7 +94,7 @@ class DemandeCongeParentalType extends AbstractType
                 {
                   $form = $event->getForm();
                   $data = $event->getForm()->getData();
-                  
+
                   $fileName = $this->fileUploader->upload($data->getPieceJointe(), $data->getMatricule(), 'demande_conge_parental', 'lettre');
                   $data->setPieceJointe($fileName);
 

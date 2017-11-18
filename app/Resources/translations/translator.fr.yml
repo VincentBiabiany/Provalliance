@@ -130,8 +130,8 @@ demande_promesse_embauche:
       titre:         Promesse d'embauche
       collab:        Collaborateur
       contrat:       Contrat
-      cdi:           Cdi
-      cdd:           Cdd
+      cdi:           CDI
+      cdd:           CDD
       poste:         Poste de travail
       niveau:        Niveau
       echelon:       Echelon
@@ -198,13 +198,13 @@ rupture_cdd:
     retour:       Fin de CDD (Retour)
     depart:       Fin de CDD (Départ)
     rupture:      Rupture anticipé de CDD en raison:
-    cdi:          Une embauche en CDI au sein du mêm salon le ...
+    cdi:          Une embauche en CDI au sein du mêm salon le:
     cdi2:         Une embauche en CDI au sein d'une autre société (départ prévu le)
     demande:      Suite à la demande du salarié (départ le )
     accord:       Un commun accord en payant la prime de précarité
     accord2:      Un commun accord en ne payant pas la prime de précarité
-    nom:          Retour de M:
-    nom2:         Départ de M:
+    nom:          Retour de:
+    nom2:         Départ de:
     datefin:      Date de fin du Contrat
     datedepart:   Date de départ
     dateretour:   Date de retour
@@ -215,8 +215,8 @@ rupture_cdd:
 
 conge_parental:
     titre:        Congé Parental
-    passage:      Passage ..h/semain du ... au ...
-    reprise:      Reprise anticipé à 35h/semain le ... au lieu du ...
+    passage:      Modification du temps de travail
+    reprise:      Reprise anticipé à 35h/semaine prévu :
     lettre:       Joindre lettre
     le:           Le
     aulieu:       Au lieu du
@@ -297,7 +297,7 @@ demande_embauche:
     attention:     Attention !
     msg:           Avant de commencer à remplir le formulaire, veuillez vérifier que vous disposez toutes les pièces justificatives suivantes au format électronique :
     pi:            Carte d'Id. / Titre de Séjour
-    diplome:       Diplôme
+    diplome:       Diplôme(s)
     diplome2:      Diplôme 2
     cartev:        Attestation de carte vitale
     rib:           RIB
@@ -317,8 +317,8 @@ demande_embauche:
     ss:            N° de Sécu
     email:         Email
     fam:           Situation familliale
-    fam.marie:     Marié
-    fam.pacse:     Pacsé
+    fam.marie:     Marié(e)
+    fam.pacse:     Pacsé(e)
     fam.conc:      Concubinage
     fam.celib:     Célibataire
     nbenf:         Nombre d'enfant(s)
@@ -350,7 +350,7 @@ demande_embauche:
 
     cdi:           CDI
     appr:          Contrat d'apprentissage
-    pro:           Contrat de profes.
+    pro:           Contrat de pro
     cdd:           CDD
 
     cdd.surcroit:  Surcroît d'activité
@@ -361,6 +361,7 @@ demande_embauche:
     cdd.renouv:    Renouvellement du CDD pour le même motif
     cdd.retour:    Jusqu'au retour physique
     cdd.partiel:   Temps partiel
+    cdd.tempsTravail:   Temps de travail
 
     lundi:         Lu
     mardi:         Ma
