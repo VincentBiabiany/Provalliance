@@ -36,13 +36,11 @@
 				<div class="form-group row imbriq" id="raison">
 					<label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "lettre_mission.raison"|trans({}, "translator") }}</label>
 
-					<div class="col-sm-col-sm-9" style="display: inline-flex">
+					<div class="col-sm-col-sm-9">
 						{% block _demande_lettre_mission_tempsPartiel_row %}
 
-						<div id="demande_avenant_raison">
+						<div id="demande_avenant_raison" class="form-controlList">
 							{% for key,child in form.raison %}
-
-							<div class="col-sm-12">
 
 								{% if key == 0 %}
 
@@ -84,7 +82,7 @@
                     </div>
 
 							 {% endif %}
-								</div>
+
 							{% endfor %}
 
 						</div>

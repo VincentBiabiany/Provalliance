@@ -419,7 +419,41 @@ form.demandeDetail .form-group{
 	box-shadow: none !important;
 	background-color: white;
 	height: auto;
+	padding: 13px;
+	border-bottom: solid 1px #444;
+	border-radius: 4px;
 }
+
+.labelRadioStyle label{
+	color: black;
+	margin-left: 6px;
+	margin-right: 10px;
+}
+.form-controlList label {
+	color: black;
+	margin-left: 20px;
+	margin-bottom: 9px;
+	display: block;
+}
+
+.form-controlList input {
+  float: left;
+	margin-bottom: 10px;
+}
+.radioInput div {
+    padding-top: 11px;
+}
+#GroupMotif{
+	height: 230px !important;
+}
+ #GroupEtat{
+	height: 130px !important;
+
+ }
+#GroupAbsence{
+	height: 200px !important;
+}
+
 #detailDemandeAccompte select.form-control {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -698,40 +732,6 @@ table.dataTable thead th, table.dataTable thead td, table.dataTable tfoot th, ta
 text-align: center;
 }
 
-.labelRadioStyle label{
-	color: black;
-	margin-left: 6px;
-	margin-right: 10px;
-}
-
-.form-controlList {
-  padding: 13px;
-}
-
-.form-controlList label {
-	color: black;
-	margin-left: 20px;
-	margin-bottom: 9px;
-	display: block;
-}
-
-.form-controlList input {
-  float: left;
-}
-.radioInput div {
-    padding-top: 11px;
-}
-#GroupMotif{
-	height: 230px !important;
-}
- #GroupEtat{
-	height: 130px !important;
-
- }
-#GroupAbsence{
-	height: 200px !important;
-}
-
 #demande_embauche_cddRaison{
 	padding-top: 5px;
 
@@ -772,7 +772,7 @@ text-align: center;
 }
 .jour{
     float: left;
-    width: 50px;
+    width: 45px;
 		margin-left: 20px;
 	}
 	.jour label{
@@ -780,12 +780,14 @@ text-align: center;
     text-align: center !important;
     background-color: #797979 !important;
     line-height: inherit;
+		margin-left: 0px;
 	}
 	#listeJours{
 		padding: 0;
 	}
-
-
+.onlyUploadFile{
+width: 210px;
+}
 #formLettreMission .jour label{
 	font-size: 10px !important;
 }

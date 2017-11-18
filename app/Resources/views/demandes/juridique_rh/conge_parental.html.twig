@@ -4,7 +4,6 @@
 
 {% block body %}
 
-<script type="text/javascript" src="{{ asset('js/jquery.validate.js') }}"></script>
 
 <div class="header">
 	<img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
@@ -36,13 +35,11 @@
 				<div class="form-group row imbriq" id="raison">
 					<label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "lettre_mission.raison"|trans({}, "translator") }}</label>
 
-					<div class="col-sm-col-sm-9" style="display: inline-flex">
+					<div class="col-sm-9 col-xs-12" >
 						{% block _demande_lettre_mission_tempsPartiel_row %}
 
-						<div id="demande_conge_parental_raison">
+						<div id="demande_conge_parental_raison" class="form-controlList">
 							{% for key,child in form.raison %}
-
-							<div class="col-sm-12">
 
 								{% if key == 0 %}
 
@@ -57,7 +54,7 @@
 												<div id="tempsPartiel" class="form-group row" style="">
 													<label class="control-label label col-sm-3 col-xs-12" for="prenom">{{ "demande_embauche.cdd.partiel"|trans({}, "translator") }}</label>
 
-													<div id="listeJours" class="col-sm-9 col-xs-12 pad-box">
+													<div id="listeJours" class="col-sm-12 col-xs-12 pad-box">
 														<label class="control-label label col-sm-12 col-xs-12"  for="nom"></label>
 
 															{% for key,child in form.tempsPartiel %}
@@ -85,7 +82,6 @@
 										{{ form_label(child, child.vars.value) }}
 
 							 {% endif %}
-								</div>
 							{% endfor %}
 
 						</div>
@@ -102,7 +98,7 @@
 
 				<div class="form-group col-sm-12 row">
 
-						<div class="col-sm-6">
+						<div class="col-sm-5">
 							<div class="jour">
 								<label style="display:none" class="control-label label passage">{{ "conge_parental.du"|trans({}, "translator") }}</label>
 								<label style="display:none" class="control-label label reprise">{{ "conge_parental.le"|trans({}, "translator") }}</label>
@@ -110,7 +106,7 @@
 							{{ form_widget(form.dateDebut, { 'attr': {'class':'styleDate'} }) }}
 				 		</div>
 
-					 <div class="col-sm-6">
+					 <div class="col-sm-5">
 						 <div class="jour">
 							<label style="display:none" class="control-label label passage">{{ "conge_parental.au"|trans({}, "translator") }}</label>
 							<label style="display:none" class="control-label label reprise">{{ "conge_parental.aulieu"|trans({}, "translator") }}</label>
@@ -120,7 +116,7 @@
 
 				</div>
 	</div>
-				<div class="form-group">
+				<div class="form-group onlyUploadFile">
 					 <label for="demande_conge_parental_pieceJointe" class="label-file">
 						 <i class="glyphicon glyphicon-download-alt"></i>
 						 <span>{{ "conge_parental.lettre"|trans({}, "translator") }}</span>
@@ -137,10 +133,10 @@
 			</a>
 		</div>
 	</div>
-
 </div>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.js"></script>
+
+<script type="text/javascript" src="{{ asset('js/jquery.validate.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/global/global-method.js') }}"></script>
 
 <script type="text/javascript">
@@ -162,7 +158,6 @@ $(document).ready(function(){
 		}
 		else
 		{
-			$('#raison').css('height', '65px');
 			$('#champsPartiel').hide();
 			$('.passage').hide();
 			$('#listeJours').find('*').each(function() {
