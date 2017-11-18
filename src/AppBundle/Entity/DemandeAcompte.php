@@ -80,6 +80,7 @@ class DemandeAcompte extends DemandeForm
     {
         return $this->matricule;
     }
+
     /**
      * Get nameDemande
      *

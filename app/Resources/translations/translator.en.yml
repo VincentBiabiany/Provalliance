@@ -8,6 +8,7 @@ global:
     retourac:      Retour à l'accueil
     accepter:      Accepter
     rejeter:       Rejeter
+    choiceFile:    Choisir un fichier
 
 login:
     username:  Nom d'utilisateur
@@ -52,6 +53,7 @@ home_juridique_rh:
     promesse:     Promesse d'embauche
     avenant:      Avenant
     demission:    Démission
+    essai_pro:    Essai professionnel
     mission:      Lettre de mission
     header:       Nouvelle demande Juridique / RH
     back:         Retour
@@ -116,9 +118,9 @@ demande_demission:
       titre:       Démission
       collab:      Collaborateur
       dem:         DEM signée
-      moyen:       Moyen
-      desactiver:  Désactiver la Clause de Non Concurrence
-      payer:       Payer la Clause de Non Concurrence 12 mois
+      clause:      Clause
+      desactiver:  Désactiver la clause
+      payer:       Payer la Clause
       choice:      Choisir un fichier
 
       popupValidation:
@@ -131,51 +133,140 @@ demande_promesse_embauche:
       cdi:           Cdi
       cdd:           Cdd
       poste:         Poste de travail
-      n:             N
-      e:             E
+      niveau:        Niveau
+      echelon:       Echelon
       salaire:       Salaire (€)
       temps:         Temps
       dateEmbauche:  Date d'embauche
 
       popupValidation:
-         message:   Votre demande de démission a été envoyée.
+         message:   Votre demande de promesse d'embauche a été envoyée.
 
+demande_essai_pro:
+      titre:           Essai professionnel
+      nom:             Nom
+      prenom:          Prenom
+      adresse:         Adresse
+      codePostal:      Code Postal
+      dateNaissance:   Date de naissance
+      nationalite:     Nationalité
+      ville:           Ville
+      lieuNaissance:   Lieu de naissance
+      departement:     Département
+      numSecu:         N° S.S:
+      dateEssai:       Date d'essai
+      niveau:          Niv. Convention
+      diplomes:        Diplômes
+      qualification:   Qualification
+      nbHeures:        Nombre d'heures
+      priseReference:  Prise de référence
+      oui:             Oui
+      non:             Non
+      telephone:       Téléphone
+      rib:             Rib
+      carteId:         Pièce d'identité
 
+      popupValidation:
+         message:   Votre demande de d'essai professionnel a été envoyée.
 
+      popupInfo:
+         attention: Attention
+         msg:          Avant de commencer à remplir le formulaire, veuillez vérifier que vous disposez toutes les pièces justificatives suivantes au format électronique :
+         docRib:       Photocopie de la pièce d'identité
+         docCarteId:   Rib
+         titreArticle: '*Article 7.1.1 de la convention Collective de la Coiffure - Essai Professionnel'
+         articleLoi: L'embauche peut être précédée d'un essai professionnel qui consiste en une épreuve permettant à l'employeur de vérifier la qualification du postulant et son aptitude à occuper le poste demandé. Sa durée ne peut dépasser 1 journée et fera l'objet d'une indemnité forfaitaire de déplacement basée sur 7 fois le taux horaire minimum garanti du poste à pourvoir.Lorsque l'employeur refuse le candidat présenté sur sa demande par un bureau de placement, il lui devra à titre d'indemnité de déplacement une somme égale à 2 heures de travail sur la base du SMIC.
 
-import:
-    header:    Administration Import
+lettre_mission:
+    titre:         Lettre de mission
+    nom:           Collaborateur
+    envoyer:       Envoyer
+    35h:           Passage à 35h/semaine
+    xh:            Passage à
+    depla:         Déplacement vers le salon
+    raison:        Raison
+    salon:         Salon
+    date:          Date
+    dateDebut:     Du
+    dateFin:       Jusqu'au
 
-    salon:     Import des salons
-    personnel: Import du personnel
-    lien:      Import Personnel/Salon
-    import:    Valider
-    choisir:   Choisir un fichier
+    popupValidation:
+        message:    Votre demande de lettre de mission a été envoyée.
 
+rupture_cdd:
+    titre:        Rupture CDD
+    retour:       Fin de CDD (Retour)
+    depart:       Fin de CDD (Départ)
+    rupture:      Rupture anticipé de CDD en raison:
+    cdi:          Une embauche en CDI au sein du mêm salon le ...
+    cdi2:         Une embauche en CDI au sein d'une autre société (départ prévu le)
+    demande:      Suite à la demande du salarié (départ le )
+    accord:       Un commun accord en payant la prime de précarité
+    accord2:      Un commun accord en ne payant pas la prime de précarité
+    nom:          Retour de M:
+    nom2:         Départ de M:
+    datefin:      Date de fin du Contrat
+    datedepart:   Date de départ
+    dateretour:   Date de retour
+    joindre:      Joindre une lettre
 
-    erreur:    Erreur
-    success:   Données importées
-    sucmsg:    Import des données réussies
-    ok:        Ok
+    popupValidation:
+        message:    Votre demande de rupture de CDD a été envoyée.
 
-    nocsv:     "Le fichier n'est pas un CSV"
-    corrupt:   Le fichier est corrompu
-    fileerror: 'Erreur dans le fichier:'
-    nbchamps:  >
-                      Erreur dans l'en-tête : attendu:
+conge_parental:
+    titre:        Congé Parental
+    passage:      Passage ..h/semain du ... au ...
+    reprise:      Reprise anticipé à 35h/semain le ... au lieu du ...
+    lettre:       Joindre lettre
+    le:           Le
+    aulieu:       Au lieu du
+    du:           Du
+    au:           Au
+    date:         Date
 
-                      %champs%
+    popupValidation:
+        message:    Votre demande de congé parental a été envoyée.
 
-    nb:        "Probleme de nombre de champs ligne: %line% - attendu: %expd% alors qu'il y en a: %nb%"
-    champs:    "Champs obligatoire %champs% non présent ligne: %line%"
+demande_solde_tout_compte:
+    titre:                    Solde Tout Compte
+    sousTitreRupture:         Rupture de contrat
+    sousTitreSalaireVariable: Salaire Variable
+    collab:                   Collaborateur
+    adresse:                  Adresse
+    dateSortie:               Date de sortie
+    dateDernierJour:          Date du dernier jour
+    motif:                    Motif de départ
+    preavis:                  Démission avec préavis
+    rpeEmploye:               RUPTURE PERIODE D'ESSAI initiative employeur
+    rpeSalarie:               RUPTURE PERIODE D'ESSAI initiative salarié
+    finCdd:                   Fin de CDD ou ALTERNANCE comme prévu au contrat
+    ruptureAnticipe:          RUPTURE ANTICIPEE DE CDD
+    mutation:                 MUTATION vers le salon
+    salon:                    Salon
+    retraite:                 Retraite
+    typeAbsence:              Type d'absence
+    dateAbsence:              Date d'absence
+    dateDebutAbsence:         Du
+    dateFinAbsence:           Au
+    arretMaladie:             Arrêt Maladie
+    absenceInjustifiee:       Absence injustifée
+    congePayes:               Congés payés
+    congeParental:            Congé Parental
+    autre:                    Autre
+    primes:                   Primes
+    remarques:                Remarques
+    rupture:                  Rupture
 
-    groupe:    "Le groupe ligne %line% n'existe pas."
-    enseigne:  "L'enseigne ligne %line% n'existe pas."
-    pays:      "Le pays ligne %line% n'existe pas."
+    popupValidation:
+        message:    Votre demande de solde tout compte a été envoyée.
 
-    prof:      "La profession ligne %line% n'existe pas."
-    matr:      "Le matricule ligne %line% n'existe pas."
-    salonEr:   "Le salon ligne %line% n'existe pas."
+    popupInfo:
+        attention: Attention
+        msg:          Avant de commencer à remplir le formulaire, veuillez vérifier que vous disposez toutes les pièces justificatives suivantes au format électronique :
+        docRupture:       Document juridique justifiant la rupture accompagné de ce document à la paie
+        gestionAdministrativeTitre: Gestion Administrative
+        gestionAdministrativeMessage: Supprimer le code caisse, remplir le registre du personnel, informer la médecin du travail
+
 
 demande_embauche:
     header:        Demande d'embauche
@@ -274,6 +365,26 @@ demande_embauche:
     popupValidation:
         message:    Votre demande d’embauche a été envoyée.
 
+avenant:
+    titre:              Demande d'avenant
+    partielTherap:      Temps partiel thérapeuthique ...h/semaine du ... au ...
+    arretMaladie:       Arrêt maladie
+    avisMed:            Avis méd. du travail
+    partielDef:         Temps partiel définitif ..h/semaine du ... au ...
+    courrier:           Joindre courrier
+    tempsPlein:         Temps plein définitif 35h/semaine à partir du
+    39h:                39h/semaine définitif à partir du ...
+    manager:            Passage Manager Niveau 3 Echelon 1, à partir du ...
+    fixe:               Salaire fixe
+    variable:           Salaire varialble mensuel
+    trim:               Salaire variable trimestriel
+    aPartir:            A partir du
+    du:                 Du
+    au:                 Au
+
+    popupValidation:
+        message:        Votre demande d'avenant a été envoyée.
+
 suivi_demandes:
     header:              Suivre les demandes
     codesage:            Code Sage
@@ -360,37 +471,6 @@ admin:
         header:      Modification du mot de passe
 
 
-lettre_mission:
-    titre:         Lettre de mission
-    nom:           Collaborateur
-    envoyer:       Envoyer
-    35h:           Passage à 35h/semaine
-    xh:            Passage à
-    depla:         Déplacement vers le salon
-    raison:        Raison
-    salon:         Salon
-    date:          Date
-    dateDebut:     Du
-    dateFin:       Jusqu'au
-
-
-rupture_cdd:
-    titre:        Rupture CDD
-    retour:       Fin de CDD à terme imprécis le ... suite au retour de M.... le
-    depart:       Fin de CDD à terme imprécis le ... suite au départ définitif de M ... le
-    rupture:      Rupture anticipé de CDD en raison:
-    cdi:          Une embauche en CDI au sein du mêm salon le ...
-    cdi2:         Une embauche en CDI au sein d'une autre société (départ prévu le)
-    demande:      Suite à la demande du salarié (départ le )
-    accord:       Un commun accord en payant la prime de précarité
-    accord2:      Un commun accord en ne payant pas la prime de précarité
-    nom:          Retour de M:
-    nom2:         Départ de M:
-    datefin:      Date de fin du Contrat
-    datedepart:   Date de départ
-    dateretour:   Date de retour
-    joindre:       Joindre une lettre
-
 message_validation:
     username_required:                  Merci d'entrer un nom d'utilisateur
     username_minlength:                 Votre nom d'utilisateur doit comporter au moins 5 caractères
@@ -409,3 +489,37 @@ message_validation:
 
     autre_demande_objet_required:       Merci de saisir un objet
     autre_demande_commentaire_required: Vous devez saisir un commentaire
+
+import:
+    header:    Administration Import
+
+    salon:     Import des salons
+    personnel: Import du personnel
+    lien:      Import Personnel/Salon
+    import:    Valider
+    choisir:   Choisir un fichier
+
+
+    erreur:    Erreur
+    success:   Données importées
+    sucmsg:    Import des données réussies
+    ok:        Ok
+
+    nocsv:     "Le fichier n'est pas un CSV"
+    corrupt:   Le fichier est corrompu
+    fileerror: 'Erreur dans le fichier:'
+    nbchamps:  >
+                      Erreur dans l'en-tête : attendu:
+
+                      %champs%
+
+    nb:        "Probleme de nombre de champs ligne: %line% - attendu: %expd% alors qu'il y en a: %nb%"
+    champs:    "Champs obligatoire %champs% non présent ligne: %line%"
+
+    groupe:    "Le groupe ligne %line% n'existe pas."
+    enseigne:  "L'enseigne ligne %line% n'existe pas."
+    pays:      "Le pays ligne %line% n'existe pas."
+
+    prof:      "La profession ligne %line% n'existe pas."
+    matr:      "Le matricule ligne %line% n'existe pas."
+    salonEr:   "Le salon ligne %line% n'existe pas."

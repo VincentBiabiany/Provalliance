@@ -365,6 +365,26 @@ demande_embauche:
     popupValidation:
         message:    Votre demande d’embauche a été envoyée.
 
+avenant:
+    titre:              Demande d'avenant
+    partielTherap:      Temps partiel thérapeuthique ...h/semaine du ... au ...
+    arretMaladie:       Arrêt maladie
+    avisMed:            Avis méd. du travail
+    partielDef:         Temps partiel définitif ..h/semaine du ... au ...
+    courrier:           Joindre courrier
+    tempsPlein:         Temps plein définitif 35h/semaine à partir du
+    39h:                39h/semaine définitif à partir du ...
+    manager:            Passage Manager Niveau 3 Echelon 1, à partir du ...
+    fixe:               Salaire fixe
+    variable:           Salaire varialble mensuel
+    trim:               Salaire variable trimestriel
+    aPartir:            A partir du
+    du:                 Du
+    au:                 Au
+
+    popupValidation:
+        message:        Votre demande d'avenant a été envoyée.
+
 suivi_demandes:
     header:              Suivre les demandes
     codesage:            Code Sage
@@ -449,6 +469,7 @@ admin:
 
     changement_mdp:
         header:      Modification du mot de passe
+
 
 message_validation:
     username_required:                  Merci d'entrer un nom d'utilisateur

@@ -1,0 +1,380 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'form/error.html.twig' %}
+{% block title %}{{ "conge_parental.titre"|trans({}, "translator") }}{% endblock %}
+
+{% block body %}
+
+<script type="text/javascript" src="{{ asset('js/jquery.validate.js') }}"></script>
+
+<div class="header">
+	<img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
+</div>
+
+<div class="head">
+	{{ "conge_parental.titre"|trans({}, "translator") }}
+</div>
+<div class="nomSalon">
+  {{ app.session.get('nomSalon') }}
+</div>
+
+<div class="container">
+	<div id="actions" class="formAction">
+		{{ form_start(form, {'attr': {'class': 'allForm', 'id':'formAvenant'} }) }}
+
+
+ 		<!-- Champs Collaborateur -->
+
+				<div class="form-group">
+					<label class="control-label label col-sm-4 col-xs-12" for="personnel"> {{ form_label(form.matricule) }}</label>
+					<div class="col-sm-9  col-xs-12">
+						{{ form_widget(form.matricule, { 'attr': {'class': 'form-control'} }) }}
+					</div>
+				</div>
+
+
+				<!-- Champs raison -->
+				<div class="form-group row imbriq" id="raison">
+					<label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "lettre_mission.raison"|trans({}, "translator") }}</label>
+
+					<div class="col-sm-col-sm-9" style="display: inline-flex">
+						{% block _demande_lettre_mission_tempsPartiel_row %}
+
+						<div id="demande_avenant_raison">
+							{% for key,child in form.raison %}
+
+							<div class="col-sm-12">
+
+								{% if key == 0 %}
+
+										{{ form_widget(child, {'attr' : {'class' : ''} }) }}
+										{{ form_label(child) }}
+
+                    <div id="raison0">
+                    </div>
+
+								{% elseif key == 1 %}
+
+										{{ form_widget(child, {'attr' : {'class' : ''} }) }}
+										{{ form_label(child) }}
+
+                    <div id="raison1">
+                    </div>
+
+                {% elseif key == 2 %}
+
+                    {{ form_widget(child, {'attr' : {'class' : ''} }) }}
+                    {{ form_label(child) }}
+
+                    <div id="raison2">
+                    </div>
+                {% elseif key == 3 %}
+
+                    {{ form_widget(child, {'attr' : {'class' : ''} }) }}
+                    {{ form_label(child) }}
+
+                    <div id="raison3">
+                    </div>
+
+                {% elseif key == 4 %}
+
+                    {{ form_widget(child, {'attr' : {'class' : ''} }) }}
+                    {{ form_label(child) }}
+
+                    <div id="raison4">
+                    </div>
+
+							 {% endif %}
+								</div>
+							{% endfor %}
+
+						</div>
+					</div>
+				</div> <!-- FIN champs raison -->
+				{% endblock %}
+
+        <!-- Temps partiel -->
+        <div style="display:none;" id="champsPartiel">
+          <div class="col-xs-12">
+
+            {% block _demande_embauche_tempsPartiel_row %}
+            <div id="tempsPartiel" class="form-group row" style="">
+              <label class="control-label label col-sm-3 col-xs-12" for="prenom">{{ "demande_embauche.cdd.partiel"|trans({}, "translator") }}</label>
+
+              <div id="listeJours" class="col-sm-9 col-xs-12 pad-box">
+                <label class="control-label label col-sm-12 col-xs-12"  for="nom"></label>
+
+                  {% for key,child in form.tempsPartiel %}
+
+                   <div class="jour">
+                      {% if  key == "total"  %}
+                        {{ form_label(child, 'demande_embauche.' ~ key, {'label_attr' : {'class' : 'label'}}) }}
+                        {{ form_widget(child, {'attr' : {'class' : 'form-control total', 'readonly':'readonly'} }) }}
+                      {% else %}
+                        {{ form_label(child, 'demande_embauche.' ~ key, {'label_attr' : {'class' : 'label'}}) }}
+                        {{ form_widget(child, {'attr' : {'class' : 'form-control tempsHeure' } }) }}
+                      {% endif %}
+                    </div>
+
+                  {% endfor %}
+              </div>
+            </div>
+            {% endblock %}
+          </div>
+        </div>
+
+				<!-- Champs date -->
+				<div class="form-group row imbriq" id="dates" style="display:none;">
+					<label class="control-label label col-sm-3 col-xs-12">{{ "conge_parental.date"|trans({}, "translator") }}</label>
+
+
+  				<div class="form-group col-sm-12 row">
+
+  						<div class="col-sm-6">
+  							<div class="jour" style="width: 90px;">
+  								<label style="display:none" class="control-label label passage">{{ "avenant.du"|trans({}, "translator") }}</label>
+                  <label style="display:none; " class="control-label label reprise">{{ "avenant.aPartir"|trans({}, "translator") }}</label>
+  							</div>
+  							{{ form_widget(form.dateDebut, { 'attr': {'class':'styleDate'} }) }}
+  				 		</div>
+
+  					 <div class="col-sm-6" id="dateFin" style="display:none" >
+  						 <div class="jour">
+  							<label style="display:none" class="control-label label passage">{{ "avenant.au"|trans({}, "translator") }}</label>
+  						 </div>
+  						 {{ form_widget(form.dateFin, { 'attr': {'class':'styleDate'} }) }}
+  					</div>
+
+  				</div>
+	     </div>
+
+       <!-- Pièce jointe -->
+       <div class="form-group imbriq" id="pieceJointe" style="display:none;">
+				<div class="form-group">
+
+					 <label id="pjLabel1" for="demande_avenant_pieceJointe1" class="label-file" style="display:none;">
+						 <i class="glyphicon glyphicon-download-alt"></i>
+						 <span>{{ "avenant.arretMaladie"|trans({}, "translator") }}</span>
+					 </label>
+
+           <label id="pjLabel2" for="demande_avenant_pieceJointe1" class="label-file" style="display:none;">
+						 <i class="glyphicon glyphicon-download-alt"></i>
+						 <span>{{ "avenant.courrier"|trans({}, "translator") }}</span>
+					 </label>
+
+					 {{ form_widget(form.pieceJointe1, { 'attr': {'class': 'input-file'} }) }}
+				</div>
+
+        <div class="form-group" id="pj2" >
+
+           <label for="demande_avenant_pieceJointe2" class="label-file">
+             <i class="glyphicon glyphicon-download-alt"></i>
+             <span>{{ "avenant.avisMed"|trans({}, "translator") }}</span>
+           </label>
+
+           {{ form_widget(form.pieceJointe2, { 'attr': {'class': 'input-file'} }) }}
+        </div>
+      </div>
+
+      <!-- Salaire -->
+
+      <div class="form-group" style="display:none;" id="salaire">
+       <div class="form-group">
+
+          <label class="control-label label">{{ "avenant.fixe"|trans({}, "translator") }}</label>
+          {{ form_widget(form.salaireFixe, { 'attr': {'class': 'form-control salaireReq'} })}}
+
+          <label class="control-label label">{{ "avenant.variable"|trans({}, "translator") }}</label>
+          {{ form_widget(form.salaireMens, { 'attr': {'class': 'form-control salaireReq'} }) }}
+
+          <label class="control-label label">{{ "avenant.trim"|trans({}, "translator") }}</label>
+          {{ form_widget(form.salaireTrim, { 'attr': {'class': 'form-control salaireReq'} }) }}
+       </div>
+     </div>
+
+		<div id="actionsButtons">
+			{{ form_end(form) }}
+			<a href="{{ path('home_juridique_rh') }}" class="btn-black precedent">
+					{{ "global.back"|trans({}, "translator") }}
+			</a>
+		</div>
+	</div>
+
+</div>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.js"></script>
+<script type="text/javascript" src="{{ asset('js/global/global-method.js') }}"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	// Controle champs Temps Partiel
+	tempsPartiel();
+
+  // Controle du champs raison
+	// Si coché alors on déploit le détail
+	$('#demande_avenant_raison').change(function(){
+
+    $('#salaire').hide();
+
+    if ($('#demande_avenant_raison_0').is(':checked')) {
+
+      $('#demande_avenant_pieceJointe1').attr('required', 'required');
+      $('#demande_avenant_dateDebut').attr('required', 'required');
+      $('#demande_avenant_dateFin').attr('required', 'required');
+
+      $('#pjLabel1').show();
+      $('#pjLabel2').hide();
+      $('#pj2').show();
+
+      $('.passage').show();
+      $('#dateFin').show();
+      $('.reprise').hide();
+
+    } else {
+
+      $('#demande_avenant_pieceJointe1').removeAttr('required', 'required');
+      $('#demande_avenant_dateFin').removeAttr('required', 'required');
+
+      $('#pj2').hide();
+      $('#pjLabel1').hide();
+      $('#pjLabel2').show();
+
+      $('.passage').hide();
+      $('.reprise').show();
+      $('#dateFin').hide();
+    }
+
+
+    if ($('#demande_avenant_raison_3').is(':checked') || $('#demande_avenant_raison_4').is(':checked')) {
+      $('#demande_avenant_pieceJointe1').removeAttr('required', 'required');
+    } else {
+      $('#demande_avenant_pieceJointe1').attr('required', 'required');
+    }
+
+    if ($('#demande_avenant_raison_4').is(':checked')) {
+      $('.salaireReq').attr('required', 'required');
+    } else {
+      $('.salaireReq').removeAttr('required', 'required');
+    }
+
+		if ($('#demande_avenant_raison_0').is(':checked') || $('#demande_avenant_raison_1').is(':checked') )
+		{
+			$('#champsPartiel').show();
+      $('#dates').show();
+
+
+      if ($('#demande_avenant_raison_0').is(':checked')) {
+
+        $('#champsPartiel').appendTo($('#raison0'));
+        $('#dates').appendTo($('#raison0'));
+        $('#pieceJointe').show().appendTo($('#raison0'));
+
+      } else {
+
+        $('#champsPartiel').appendTo($('#raison1'));
+        $('#dates').appendTo($('#raison1'));
+        $('#pieceJointe').show().appendTo($('#raison1'));
+      }
+
+			$('#listeJours').find('*').each(function() {
+				$(this).attr('required', 'required');
+			});
+
+		} else {
+
+			$('#champsPartiel').hide();
+			$('#listeJours').find('*').each(function() {
+				$(this).removeAttr('required', 'required');
+			});
+
+
+      if ($('#demande_avenant_raison_2').is(':checked')) {
+
+        $('#dates').show().appendTo($('#raison2'));
+        $('#pieceJointe').show().appendTo($('#raison2'));
+
+      } else if ($('#demande_avenant_raison_3').is(':checked')) {
+
+          $('#dates').show().appendTo($('#raison3'));
+          $('#pieceJointe').hide();
+
+      } else if ($('#demande_avenant_raison_4').is(':checked')) {
+
+          $('#dates').show().appendTo($('#raison4'));
+          $('#pieceJointe').hide();
+          $('#salaire').show().appendTo('#raison4');
+      }
+
+		}
+
+	}).change();
+
+	$('#demande_avenant_dateDebut').focusout(function(){
+      $('#demande_avenant_dateDebut_month').valid();
+  })
+	$('#demande_avenant_dateFin').focusout(function(){
+			$('#demande_avenant_dateFin_month').valid();
+			$('#demande_avenant_dateDebut_month').valid();
+	})
+	// Validation du formulaire
+	$("#formAvenant").validate({
+		rules: {
+		  'demande_avenant[dateDebut][month]' : {
+		    validateDate: true,
+		  },
+		  'demande_avenant[dateFin][month]' : {
+		    validateDate: true,
+				greaterThan: '#demande_lettre_mission_dateDebut_year'
+		  }
+	 },
+	 messages: {
+
+	 },
+	 errorElement: "em",
+	 errorPlacement: function ( error, element ) {
+	 	// Add the `help-block` class to the error element
+	 	error.addClass( "help-block" );
+
+	 	// Add `has-feedback` class to the parent div.form-group
+	 	// in order to add icons to inputs
+	 	element.parents( ".col-sm-5" ).addClass( "has-feedback" );
+
+
+
+	 	if ( element.prop( "type" ) === "checkbox" ) {
+	 		error.insertAfter( element.parent( "label" ) );
+	 	} else if( element.prop( "type" ) === "select-one" || element.prop( "type" ) === "radio") {
+	 		error.appendTo( element.parent().parent());
+	 	} else {
+	 		error.insertAfter( element );
+	 	}
+
+	 	// Add the span element, if doesn't exists, and apply the icon classes to it.
+	 	if ( !element.next( "span" )[ 0 ] ) {
+	 		$( "<span class='glyphicon glyphicon-remove form-control-feedback'></span>" ).insertAfter( element );
+	 	}
+	 },
+	 success: function ( label, element ) {
+	 	// Add the span element, if doesn't exists, and apply the icon classes to it.
+	 	if ( !$( element ).next( "span" )[ 0 ] ) {
+	 		$( "<span class='glyphicon glyphicon-ok form-control-feedback'></span>" ).insertAfter( $( element ) );
+	 	}
+	 },
+	 highlight: function ( element, errorClass, validClass ) {
+	 	$( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
+	 	$( element ).next( "span" ).addClass( "glyphicon-remove" ).removeClass( "glyphicon-ok" );
+	 },
+	 unhighlight: function ( element, errorClass, validClass ) {
+	 	$( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
+	 	$( element ).next( "span" ).addClass( "glyphicon-ok" ).removeClass( "glyphicon-remove" );
+	 }
+	});
+
+/* controle le changement des dates */
+controlChangeDate('#demande_lettre_mission_dateDebut', '#demande_lettre_mission_dateFin');
+});
+</script>
+
+
+
+
+{% endblock %}

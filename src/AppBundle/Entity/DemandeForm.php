@@ -20,7 +20,7 @@ use Doctrine\ORM\Mapping as ORM;
  *                        "conge_parental" = "DemandeCongeParental",
  *                        "demande_essai_professionnel" = "DemandeEssaiProfessionnel",
  *                        "demande_solde_tout_compte" = "DemandeSoldeToutCompte",
- *
+ *                        "demande_avenant" = "DemandeAvenant",
  *                      })
  */
 abstract class DemandeForm
