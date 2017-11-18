@@ -49,6 +49,17 @@ class PersonnelRepository extends EntityRepository
             return $nb[0][1];
       }
 
+      public function findActiveSalon($idPerson) {
+
+        // Met à jour les PersonnelHasSalon par rapport au date de fin
+        $repo = $this->getEntityManager()->getRepository('ApiBundle:PersonnelHasSalon')->findBy(['personnelMatricule' => $idPerson]);
+        $salons = array();
+        foreach ($repo as $key => $persHasSalon) {
+          $salons[] = $persHasSalon->getSalonSage();
+        }
+        return $salons;
+      }
+
 
    // Fonction whichPersonnel: Retourne la liste du personnel en fonction d'un salon pour la partie ADMIN
     public function getPerso($idSalon){

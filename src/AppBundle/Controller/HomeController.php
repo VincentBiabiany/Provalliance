@@ -42,7 +42,8 @@ class HomeController extends Controller
       $personnel = $em->getRepository('ApiBundle:Personnel')->findOneBy(array('matricule' => $idPersonnnel));
 
       $salons    = $em->getRepository('ApiBundle:Salon')->findAllActiveSalon();
-      $salons = $personnel->getSalon();
+      $salons = $em->getRepository('ApiBundle:Personnel')->findActiveSalon($idPersonnnel); //$personnel->getPersonnelHasSalon()->getSalonSage();
+      dump($idPersonnnel, $salons);
     }
 
     return $this->render('home.html.twig', [

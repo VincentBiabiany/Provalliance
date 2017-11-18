@@ -527,29 +527,6 @@ class Personnel
         return $this->telephone1;
     }
 
-    /**
-     * Set telephone2
-     *
-     * @param string $telephone2
-     *
-     * @return Personnel
-     */
-    public function setTelephone2($telephone2)
-    {
-        $this->telephone2 = $telephone2;
-
-        return $this;
-    }
-
-    /**
-     * Get telephone2
-     *
-     * @return string
-     */
-    public function getTelephone2()
-    {
-        return $this->telephone2;
-    }
 
     /**
      * Set email
@@ -620,36 +597,17 @@ class Personnel
       return $this;
     }
 
-    /**
-     * Add salon
-     *
-     * @param \ApiBundle\Entity\Salon $salon
-     *
-     * @return Personnel
-     */
-    public function addSalon(\ApiBundle\Entity\Salon $salon)
-    {
-        $this->salon[] = $salon;
-        return $this;
-    }
-    /**
-     * Remove salon
-     *
-     * @param \ApiBundle\Entity\Salon $salon
-     */
-    public function removeSalon(\ApiBundle\Entity\Salon $salon)
-    {
-        $this->salon->removeElement($salon);
-    }
+
     /**
      * Get salon
      *
      * @return Salon
      */
-    public function getSalon()
+    public function getPersonnelHasSalon()
     {
-        return $this->salon;
+        return $this->personnelHasSalon;
     }
+    
     /**
      * Set dateNaissance
      *
