@@ -228,8 +228,9 @@ table.dataTable thead th, table.dataTable thead td ,table.dataTable tfoot th, ta
 }
 
 .form-control-feedback {
-    top: 5px !important;
-    right: 25px !important;
+	top: 3px !important;
+	font-size: 11px;
+	right: 10px !important;
 
 }
 .form-control[disabled], fieldset[disabled] .form-control {
@@ -309,7 +310,10 @@ table.dataTable thead th, table.dataTable thead td ,table.dataTable tfoot th, ta
 	padding-left: 5px;
 	margin-left: 5px;
 	margin-right: 5px;
-	border: none;
+	border-bottom: solid 1px #444;
+	border-top:none;
+	border-left:none;
+	border-right:none;
 	border-radius: 4px;
 	background-color: white;
 }
@@ -408,6 +412,7 @@ form.demandeDetail .form-group{
 	box-shadow: none !important;
 	background-color: white;
 	height: 41px;
+	border-bottom: solid 1px #444;
 }
 .form-controlList {
 	border: none;
@@ -656,7 +661,7 @@ table.dataTable thead th, table.dataTable thead td, table.dataTable tfoot th, ta
 	height: auto !important;
 }
 #demande_embauche_codePostal {
-	width: 125px;
+	/*width: 125px;*/
 }
 #demande_embauche_dateNaissance, #demande_embauche_dateembauche{
 	width: 205px;
@@ -664,14 +669,14 @@ table.dataTable thead th, table.dataTable thead td, table.dataTable tfoot th, ta
 
 #demande_embauche_nom, #demande_embauche_numSecu, #demande_embauche_situationFamille,
 #demande_embauche_telephone, #demande_embauche_villeNaissance{
-	width: 180px;
+	/*width: 180px;*/
 }
 #demande_embauche_prenom, #demande_embauche_ville, #demande_embauche_email, #demande_embauche_autre2{
 	width: 100%;
 
 }
 #demande_embauche_addresse1, #demande_embauche_addresse2{
-	width: 583px;
+	/*width: 583px;*/
 
 }
 #demande_embauche_nbEnfant{
@@ -719,7 +724,10 @@ text-align: center;
 #GroupMotif{
 	height: 230px !important;
 }
+ #GroupEtat{
+	height: 130px !important;
 
+ }
 #GroupAbsence{
 	height: 200px !important;
 }

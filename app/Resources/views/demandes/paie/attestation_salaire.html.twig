@@ -4,34 +4,55 @@
 
 {% block body %}
 {% trans_default_domain "translator" %}
-<script type="text/javascript" src="{{ asset('js/jquery.validate.js') }}"></script>
 
 <div class="header">
 	<img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
 </div>
 
 <div class="head">
-	{{ "demande_acompte.titre"|trans({}, "translator") }}
+	{{ "demande_attestation_salaire.titre"|trans({}, "translator") }}
 </div>
 <div class="nomSalon">
   {{ app.session.get('nomSalon') }}
 </div>
 <div class="container">
-	<div id="actions" class="formAction">
-		{{ form_start(form, {'attr': {'class': 'allForm demande_acompte', 'id':'formAccompte'} }) }}
+	<div id="wrapperForm" class="row">
+		{{ form_start(form, {'attr': {'class': 'allForm demande_attestation_salaire', 'id':'AttestationSalaire'} }) }}
 
 				<div class="form-group">
 					<label class="control-label label col-sm-4 col-xs-12" for="personnel"> {{ form_label(form.matricule) }}</label>
-					<div class="col-sm-9  col-xs-12">
-						{{ form_widget(form.matricule, { 'attr': {'class': 'form-control'} }) }}
+					<div class="col-sm-4  col-xs-12">
+						{{ form_widget(form.matricule) }}
 					</div>
 				</div>
+				<div id='GroupEtat' class="form-group">
+					<label class="control-label label col-sm-4 col-xs-12" for="reprise">{{ form_label(form.etat) }}</label>
+					<div class="col-sm-8  col-xs-12">
+						{{ form_widget(form.etat) }}
+					</div>
+				</div>
+				<div id='GroupMotif' class="form-group">
+					<label class="control-label label col-sm-4 col-xs-12" for="typeMotif">{{ form_label(form.motif) }}</label>
+					<div class="col-sm-8  col-xs-12 ">
+						{{ form_widget(form.motif) }}
+					</div>
+				</div>
+
 				<div class="form-group">
-					<label class="control-label label col-sm-4 col-xs-12" for="montant">{{ form_label(form.montant) }}</label>
-					<div class="col-sm-9  col-xs-12">
-						{{ form_widget(form.montant, { 'attr': {'class': 'form-control'} }) }}
+					<label class="control-label label col-sm-4 col-xs-12" for="dateDernierJour">{{ "demande_attestation_salaire.dateDernierJour"|trans({}, "translator") }}</label>
+					<div class="col-sm-3  col-xs-12">
+						{{ form_widget(form.dateDernierJour) }}
 					</div>
 				</div>
+
+				<div class="form-group">
+					<label class="control-label label col-sm-4 col-xs-12" for="dateSortie">{{ "demande_attestation_salaire.dateReprise"|trans({}, "translator") }}</label>
+					<div class="col-sm-3  col-xs-12">
+						{{ form_widget(form.dateReprise) }}
+					</div>
+				</div>
+
+
 
 		<div id="actionsButtons">
 			{{ form_end(form) }}
@@ -42,36 +63,18 @@
 	</div>
 
 </div>
-<!-- .......................... POP-UP ................................-->
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
 
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 style="color:black;" class="modal-title"></h4>
-      </div>
+<script src="{{ asset('js/custom-file-input.js') }}"></script>
 
-      <div class="modal-body">
-				{{ "demande_acompte.info"|trans({}, "translator") }}
-      </div>
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">{{ "global.poursuivre"|trans({}, "translator") }}</button>
-        <button type="button" style="float:left;" class="btn btn-default"  onclick="window.location.href = '{{ path("homepage") }}'">{{ "global.retourac"|trans({}, "translator") }}</button>
-      </div>
-    </div>
-
-  </div>
-</div>
-<script type="text/javascript" src="{{ asset('js/jquery.maskMoney.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/jquery.validate.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/jquery.maskMoney.min.js') }}"></script>
+
 
 <script type="text/javascript">
   	$('#myModal').modal('show');
 		$("#myModal").css('display','flex');
 
-		$("#demande_acompte_montant").maskMoney({
+		$("#demande_attestation_salaire_montant").maskMoney({
 			thousands:',',
 			decimal:'.',
 			allowZero: true,
@@ -80,14 +83,13 @@
 
 		$( "#formAccompte" ).validate( {
 	 	rules: {
-	 		'demande_acompte[montant]': {
+	 		'demande_attestation_salaire[montant]': {
 	 			required: true,
-	 			min: 1,
-				max: 10000
+	 			min: '1.00',
 	 		}
 	 	},
 	 	messages: {
-	 		'demande_acompte[montant]': {
+	 		'demande_attestation_salaire[montant]': {
 	 			required: "{{ "message_validation.acompte_montant_required"|trans({}, "translator") }}",
 	 			min: "{{ "message_validation.acompte_montant_minlength"|trans({}, "translator") }}",
 	 			max: "{{ "message_validation.acompte_montant_maxlength"|trans({}, "translator") }}"

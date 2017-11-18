@@ -29,6 +29,7 @@ use AppBundle\Entity\DemandePromesseEmbauche;
 use AppBundle\Entity\DemandeRuptureCdd;
 use AppBundle\Entity\DemandeCongeParental;
 use AppBundle\Entity\DemandeEssaiProfessionnel;
+use AppBundle\Entity\DemandeAttestationSalaire;
 use AppBundle\Entity\DemandeSoldeToutCompte;
 
 class DemandeService
@@ -66,7 +67,8 @@ class DemandeService
     || $demande instanceof DemandeLettreMission   || $demande instanceof DemandeDemission
     || $demande instanceof DemandePromesseEmbauche || $demande instanceof DemandeLettreMission
     || $demande instanceof DemandeRuptureCdd || $demande instanceof DemandeCongeParental
-    || $demande instanceof DemandeEssaiProfessionnel || $demande instanceof DemandeSoldeToutCompte) {
+    || $demande instanceof DemandeEssaiProfessionnel || $demande instanceof DemandeSoldeToutCompte
+    || $demande instanceof DemandeAttestationSalaire) {
       self::createDemandeSimple($demande, $idSalon);
     }
 
