@@ -154,7 +154,6 @@ $(document).ready(function(){
 										  .append('<a href="#" class="remove-abs pull-right"> \
 															<span class="glyphicon glyphicon-remove"></span> \
 													</a>')
-
 										  .on('click', '.remove-abs', function(e){
 													e.preventDefault();
 
@@ -166,53 +165,53 @@ $(document).ready(function(){
 											});
 
 					newLi.appendTo(emailList);
-					console.log($('#demande_absences_injustifiees_absences_' + (absences - 1)))
+					console.log($('demande_absences_injustifiees[absences][' + (absences - 1) + '][month]'))
 
+					$('demande_absences_injustifiees[absences][' + (absences - 1) + '][month]').rules( "add", {
+														validateDate: true
+						})
+					$('#demande_absences_injustifiees_absences_' + (absences - 1)).change(function(){
 
+						$('#demande_absences_injustifiees_absences_' + (absences - 1) + '_month').valid();
 
+					})
+				$("#formAbsence").validate();
 			});
-			$("#formAbsence").validate();
-			$('#demande_absences_injustifiees_absences_' + (absences - 1)).rules( "add", {
-												validateDate: true,
-				})
-			$('#demande_absences_injustifiees_absences_' + (absences - 1)).focusout(function(){
-				console.log('zz')
-				$('#demande_absences_injustifiees_absences_' + (absences - 1) + '_month').valid();
-			})
+
 
 
 	var retards = '{{ form.retards|length }}';
 
-	jQuery(document).ready(function() {
-			jQuery('#add-retard').click(function(e) {
-					e.preventDefault();
 
-					var emailList = jQuery('#retard-fields-list');
+	jQuery('#add-retard').click(function(e) {
+			e.preventDefault();
 
-					// grab the prototype template
-					var newWidget = emailList.attr('data-prototype');
+			var emailList = jQuery('#retard-fields-list');
+
+			// grab the prototype template
+			var newWidget = emailList.attr('data-prototype');
 
 
-					newWidget = newWidget.replace(/__name__/g, retards);
+			newWidget = newWidget.replace(/__name__/g, retards);
 
-					retards++;
+			retards++;
 
-					// create a new list element and add it to the list
-					var newLi = jQuery('<div></div>').html(newWidget)
-											.append('<a href="#" class="remove-retard pull-right"> \
-																	<span class="glyphicon glyphicon-remove"></span> \
-															</a>')
-											.on('click', '.remove-retard', function(e){
-													e.preventDefault();
-													$(this).parent()
-																 .fadeOut()
-																 .remove();
+			// create a new list element and add it to the list
+			var newLi = jQuery('<div></div>').html(newWidget)
+									.append('<a href="#" class="remove-retard pull-right"> \
+															<span class="glyphicon glyphicon-remove"></span> \
+													</a>')
+									.on('click', '.remove-retard', function(e){
+											e.preventDefault();
+											$(this).parent()
+														 .fadeOut()
+														 .remove();
 
-																 retards--;
-												});
-					newLi.appendTo(emailList);
-			});
-	})
+														 retards--;
+										});
+			newLi.appendTo(emailList);
+	});
+
 
 
   // Controle du champs raison

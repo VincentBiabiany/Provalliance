@@ -34,7 +34,7 @@ class AbsencesInjustifieesController extends Controller
         array('flash' => "absences.popupValidation.message")));
     }
 
-    return $this->render('demandes\juridique_rh\absences_inustifiees.html.twig', array(
+    return $this->render('demandes\juridique_rh\absences_injustifiees.html.twig', array(
                                                   'img' => $img,
                                                   'form' => $form->createView(),
                                                   'errors' => null
