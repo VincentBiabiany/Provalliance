@@ -59,6 +59,12 @@
                         <span class="glyphicon glyphicon-home"></span>
                         <span class="libelle">{{ "home.accueil"|trans({}, "translator") }}</span>
                     </a>
+                {% elseif is_granted('ROLE_PAIE') or is_granted('ROLE_JURIDIQUE') %}
+                <a class="out" href="{{ path('demande') }}">
+                    <span class="glyphicon glyphicon-home"></span>
+                    <span class="libelle">{{ "home.accueil"|trans({}, "translator") }}</span>
+                </a>
+
                 {% endif  %}
 
             </div>

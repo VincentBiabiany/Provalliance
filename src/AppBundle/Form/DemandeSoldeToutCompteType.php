@@ -65,14 +65,18 @@ class DemandeSoldeToutCompteType extends AbstractType
                 'widget' => 'choice',
                 'format' => 'dd/MM/y',
                 'years' => range(date('Y') - 100, date('Y') - 20),
-                'attr' => ['class' => 'form-control styleDate','name'=>'date']
+                'attr' => ['class' => 'form-control styleDate','name'=>'date'],
+                'data' => new \DateTime()
+
                 ))
                 ->add('dateDernierJour', DateType::class, array(
                 'label' => 'demande_solde_tout_compte.dateDernierJour',
                 'widget' => 'choice',
                 'format' => 'dd/MM/y',
                 'years' => range(date('Y') - 100, date('Y') - 20),
-                'attr' => ['class' => 'form-control styleDate','name'=>'date']
+                'attr' => ['class' => 'form-control styleDate','name'=>'date'],
+                'data' => new \DateTime()
+
                 ))
                 ->add('motif', ChoiceType::class, array(
                   'choices'  => array(
@@ -113,7 +117,9 @@ class DemandeSoldeToutCompteType extends AbstractType
                   'format' => 'dd/MM/y',
                   'years' => range(date('Y') - 5, date('Y') + 10),
                   'attr' => ['class' => ''],
-                  'label' => ''
+                  'label' => '',
+                  'data' => new \DateTime()
+
                 ))
                 ->add('dateFinAbsence', DateType::class, array(
                   'widget' => 'choice',
@@ -121,6 +127,7 @@ class DemandeSoldeToutCompteType extends AbstractType
                   'years' => range(date('Y') - 5, date('Y') + 10),
                   'attr' => ['class' => ''],
                   'label' => '',
+                  'data' => new \DateTime()
                 ))
                 ->add('primes', TextType::class, array(
                      'label' => 'demande_solde_tout_compte.primes',

@@ -75,8 +75,8 @@ demande_acompte:
 
 
 demande_rib:
-    titre:              Demande de rib
-    rib:                Rib
+    titre:              Demande de RIB
+    rib:                RIB
     rappel:             Rappel
     collaborateur:      Collaborateur
     envoyer:            Envoyer
@@ -145,7 +145,7 @@ demande_promesse_embauche:
 demande_essai_pro:
       titre:           Essai professionnel
       nom:             Nom
-      prenom:          Prenom
+      prenom:          Prénom
       adresse:         Adresse
       codePostal:      Code Postal
       dateNaissance:   Date de naissance
@@ -153,7 +153,7 @@ demande_essai_pro:
       ville:           Ville
       lieuNaissance:   Lieu de naissance
       departement:     Département
-      numSecu:         N° S.S:
+      numSecu:         N° Sécu:
       dateEssai:       Date d'essai
       niveau:          Niv. Convention
       diplomes:        Diplômes
@@ -163,7 +163,7 @@ demande_essai_pro:
       oui:             Oui
       non:             Non
       telephone:       Téléphone
-      rib:             Rib
+      rib:             RIB
       carteId:         Pièce d'identité
 
       popupValidation:
@@ -173,7 +173,7 @@ demande_essai_pro:
          attention: Attention
          msg:          Avant de commencer à remplir le formulaire, veuillez vérifier que vous disposez toutes les pièces justificatives suivantes au format électronique :
          docRib:       Photocopie de la pièce d'identité
-         docCarteId:   Rib
+         docCarteId:   RIB
          titreArticle: '*Article 7.1.1 de la convention Collective de la Coiffure - Essai Professionnel'
          articleLoi: L'embauche peut être précédée d'un essai professionnel qui consiste en une épreuve permettant à l'employeur de vérifier la qualification du postulant et son aptitude à occuper le poste demandé. Sa durée ne peut dépasser 1 journée et fera l'objet d'une indemnité forfaitaire de déplacement basée sur 7 fois le taux horaire minimum garanti du poste à pourvoir.Lorsque l'employeur refuse le candidat présenté sur sa demande par un bureau de placement, il lui devra à titre d'indemnité de déplacement une somme égale à 2 heures de travail sur la base du SMIC.
 
@@ -182,7 +182,8 @@ lettre_mission:
     nom:           Collaborateur
     envoyer:       Envoyer
     35h:           Passage à 35h/semaine
-    xh:            Passage à
+    xh:            Passage à temps partiel
+    tempsTravail:  Temps de travail
     depla:         Déplacement vers le salon
     raison:        Raison
     salon:         Salon
@@ -260,11 +261,11 @@ demande_solde_tout_compte:
     dateDernierJour:          Date du dernier jour
     motif:                    Motif de départ
     preavis:                  Démission avec préavis
-    rpeEmploye:               RUPTURE PERIODE D'ESSAI initiative employeur
-    rpeSalarie:               RUPTURE PERIODE D'ESSAI initiative salarié
+    rpeEmploye:               Rupture période d'essai initiative employeur
+    rpeSalarie:               Rupture période d'essai initiative salarié
     finCdd:                   Fin de CDD ou ALTERNANCE comme prévu au contrat
-    ruptureAnticipe:          RUPTURE ANTICIPEE DE CDD
-    mutation:                 MUTATION vers le salon
+    ruptureAnticipe:          Rupture anticipée DE CDD
+    mutation:                 Mutation vers le salon
     salon:                    Salon
     retraite:                 Retraite
     typeAbsence:              Type d'absence
@@ -391,14 +392,16 @@ demande_embauche:
 
 avenant:
     titre:              Demande d'avenant
-    partielTherap:      Temps partiel thérapeuthique ...h/semaine du ... au ...
+    raison:             Raison
+    partielTherap:      Temps partiel thérapeuthique
+    TempsPartiel:       Temps de travail
     arretMaladie:       Arrêt maladie
     avisMed:            Avis méd. du travail
-    partielDef:         Temps partiel définitif ..h/semaine du ... au ...
+    partielDef:         Temps partiel définitif
     courrier:           Joindre courrier
-    tempsPlein:         Temps plein définitif 35h/semaine à partir du
-    39h:                39h/semaine définitif à partir du ...
-    manager:            Passage Manager Niveau 3 Echelon 1, à partir du ...
+    tempsPlein:         Temps plein définitif 35h/semaine
+    39h:                39h/semaine définitif
+    manager:            Passage Manager Niveau 3 Echelon 1
     fixe:               Salaire fixe
     variable:           Salaire varialble mensuel
     trim:               Salaire variable trimestriel
@@ -413,9 +416,9 @@ suivi_demandes:
     header:              Suivre les demandes
     codesage:            Code Sage
     enseigne:            Enseigne
-    appelation:          Appelation
+    appellation:         Appellation
     coordinateur:        Coordinateur
-    manager:             Manager
+    manager:             Demandeur
     date:                Date
     statut:              Statut
     typedemande:         Type
