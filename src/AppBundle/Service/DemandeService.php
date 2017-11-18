@@ -32,6 +32,7 @@ use AppBundle\Entity\DemandeEssaiProfessionnel;
 use AppBundle\Entity\DemandeAttestationSalaire;
 use AppBundle\Entity\DemandeSoldeToutCompte;
 use AppBundle\Entity\DemandeAvenant;
+use AppBundle\Entity\DemandeAbsencesInjustifiees;
 
 class DemandeService
 {
@@ -69,7 +70,9 @@ class DemandeService
     || $demande instanceof DemandePromesseEmbauche || $demande instanceof DemandeLettreMission
     || $demande instanceof DemandeRuptureCdd || $demande instanceof DemandeCongeParental
     || $demande instanceof DemandeEssaiProfessionnel || $demande instanceof DemandeSoldeToutCompte
-    || $demande instanceof DemandeAvenant  || $demande instanceof DemandeAttestationSalaire) {
+    || $demande instanceof DemandeAvenant
+    || $demande instanceof DemandeAbsencesInjustifiees
+    || $demande instanceof DemandeAttestationSalaire) ) {
       self::createDemandeSimple($demande, $idSalon);
     }
 

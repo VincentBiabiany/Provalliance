@@ -14,6 +14,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class DemandeAcompte extends DemandeForm
 {
+
+    protected $nameDemande ='DemandeAcompte';
+    protected $typeForm ='Demande acompte';
+    protected $subject ='connu';
+    protected $service ='paie';
+
     /**
      * @var string
      *
@@ -27,11 +33,6 @@ class DemandeAcompte extends DemandeForm
      * @ORM\Column(name="matricule", type="integer")
      */
     private $matricule;
-
-    protected $nameDemande ='DemandeAcompte';
-    protected $typeForm ='Demande acompte';
-    protected $subject ='connu';
-    protected $service ='paie';
 
     /**
      * Set montant

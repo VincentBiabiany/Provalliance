@@ -408,6 +408,15 @@ avenant:
     popupValidation:
         message:        Votre demande d'avenant a été envoyée.
 
+absences:
+    titre:              Absences Injustifiees
+    abs:                Absence injustifée depuis le ...
+    absLes:             Absences injustifiees les ...
+    retards:            Retards répétés les ...
+
+    popupValidation:
+        message:        Votre demande d'absence injustifiée à bien été envoyé.
+
 suivi_demandes:
     header:              Suivre les demandes
     codesage:            Code Sage
@@ -426,7 +435,6 @@ suivi_demandes:
     deselect:            Déselectionner
     serviceJuridique:    Service Juridique
     servicePaie:         Service Paie
-
 
 
 datatable:

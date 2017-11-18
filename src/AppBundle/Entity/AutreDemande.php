@@ -14,6 +14,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class AutreDemande extends DemandeForm
 {
+    private $pieceJointes;
+    protected $nameDemande ='AutreDemande';
+    protected $typeForm ='Autre demande';
+    protected $subject ='connu';
+    private $service;
 
     /**
      * @var int
@@ -51,11 +56,6 @@ class AutreDemande extends DemandeForm
      *
      * @ORM\Column(name="piece_jointes", type="array", nullable=true)
      */
-    private $pieceJointes;
-    protected $nameDemande ='AutreDemande';
-    protected $typeForm ='Autre demande';
-    protected $subject ='connu';
-    private $service;
 
     /**
      * Set matricule

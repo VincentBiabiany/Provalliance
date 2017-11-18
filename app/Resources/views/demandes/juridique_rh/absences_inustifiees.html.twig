@@ -1,0 +1,310 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'form/error.html.twig' %}
+{% block title %}{{ "conge_parental.titre"|trans({}, "translator") }}{% endblock %}
+
+{% block body %}
+
+<script type="text/javascript" src="{{ asset('js/jquery.validate.js') }}"></script>
+
+<div class="header">
+	<img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
+</div>
+
+<div class="head">
+	{{ "conge_parental.titre"|trans({}, "translator") }}
+</div>
+<div class="nomSalon">
+  {{ app.session.get('nomSalon') }}
+</div>
+
+<div class="container">
+	<div id="actions" class="formAction">
+		{{ form_start(form, {'attr': {'class': 'allForm', 'id':'formAbsence'} }) }}
+
+
+ 		<!-- Champs Collaborateur -->
+
+				<div class="form-group">
+					<label class="control-label label col-sm-4 col-xs-12" for="personnel"> {{ form_label(form.matricule) }}</label>
+					<div class="col-sm-9  col-xs-12">
+						{{ form_widget(form.matricule, { 'attr': {'class': 'form-control'} }) }}
+					</div>
+				</div>
+
+
+				<!-- Champs raison -->
+				<div class="form-group row imbriq" id="raison">
+					<label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "lettre_mission.raison"|trans({}, "translator") }}</label>
+
+					<div class="col-sm-col-sm-9" style="display: inline-flex">
+						{% block _demande_lettre_mission_tempsPartiel_row %}
+
+						<div id="demande_absences_raison">
+							{% for key,child in form.raison %}
+
+							<div class="col-sm-12">
+
+								{% if key == 0 %}
+
+										{{ form_widget(child, {'attr' : {'class' : ''} }) }}
+										{{ form_label(child) }}
+
+                    <div id="raison0"  style="display: none">
+                      <div class="form-group col-sm-12 row">
+              						<div class="col-sm-6">
+              							{{ form_widget(form.dateDebut, { 'attr': {'class':'styleDate'} }) }}
+              				 		</div>
+                				</div>
+              	     </div>
+
+								{% elseif key == 1 %}
+
+										{{ form_widget(child, {'attr' : {'class' : ''} }) }}
+										{{ form_label(child) }}
+
+                    <div id="raison1" style="display: none">
+
+
+											<div id="email-fields-list" data-prototype="{{ form_widget(form.absences.vars.prototype)|e }}">
+											{{ form_widget(form.absences, {'attr' : {'class' : ''} }) }}
+											{% for abs in form.absences %}
+													<div class="col-xs-4 retard-item">
+															{{ form_errors(abs) }}
+															{{ form_widget(abs) }}
+													</div>
+											{% endfor %}
+											</div>
+
+											<a href="#" id="add-another-email"><span class="glyphicon glyphicon-plus"></span> Ajouter une absence</a>
+
+                    </div>
+
+                {% elseif key == 2 %}
+
+                    {{ form_widget(child, {'attr' : {'class' : ''} }) }}
+                    {{ form_label(child) }}
+
+                    <div id="raison2" style="display: none">
+
+
+											<div id="retard-fields-list" data-prototype="{{ form_widget(form.retards.vars.prototype)|e }}">
+											{{ form_widget(form.retards) }}
+											{% for retard in form.retards %}
+
+													<div class="col-xs-4 retard-item">
+
+														{{ form_row(retard.date) }}
+														{{ form_row(retard.minute) }}
+													</div>
+
+											{% endfor %}
+											</div>
+
+											<a href="#" id="add-retard"> <span class="glyphicon glyphicon-plus"></span>Ajouter un retard</a>
+
+										</div>
+
+							 {% endif %}
+								</div>
+							{% endfor %}
+
+						</div>
+					</div>
+				</div> <!-- FIN champs raison -->
+				{% endblock %}
+
+
+		<div id="actionsButtons">
+			{{ form_end(form) }}
+			<a href="{{ path('home_juridique_rh') }}" class="btn-black precedent">
+					{{ "global.back"|trans({}, "translator") }}
+			</a>
+		</div>
+	</div>
+
+</div>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.js"></script>
+<script type="text/javascript" src="{{ asset('js/global/global-method.js') }}"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+	// keep track of how many email fields have been rendered
+
+
+	var absences = '{{ form.absences|length }}';
+
+
+			jQuery('#add-another-email').click(function(e) {
+					e.preventDefault();
+
+					var emailList = jQuery('#email-fields-list');
+
+					// grab the prototype template
+					var newWidget = emailList.attr('data-prototype');
+					// replace the "__name__" used in the id and name of the prototype
+					// with a number that's unique to your emails
+					// end name attribute looks like name="contact[emails][2]"
+					newWidget = newWidget.replace(/__name__/g, absences);
+					absences++;
+
+					// create a new list element and add it to the list
+					var newLi = jQuery('<div></div>').html(newWidget)
+										  .append('<a href="#" class="remove-abs pull-right"> \
+															<span class="glyphicon glyphicon-remove"></span> \
+													</a>')
+
+										  .on('click', '.remove-abs', function(e){
+													e.preventDefault();
+
+													$(this).parent()
+																 .fadeOut()
+																 .remove();
+
+																 absences--;
+											});
+
+					newLi.appendTo(emailList);
+					console.log($('#demande_absences_injustifiees_absences_' + (absences - 1)))
+
+
+
+			});
+			$("#formAbsence").validate();
+			$('#demande_absences_injustifiees_absences_' + (absences - 1)).rules( "add", {
+												validateDate: true,
+				})
+			$('#demande_absences_injustifiees_absences_' + (absences - 1)).focusout(function(){
+				console.log('zz')
+				$('#demande_absences_injustifiees_absences_' + (absences - 1) + '_month').valid();
+			})
+
+
+	var retards = '{{ form.retards|length }}';
+
+	jQuery(document).ready(function() {
+			jQuery('#add-retard').click(function(e) {
+					e.preventDefault();
+
+					var emailList = jQuery('#retard-fields-list');
+
+					// grab the prototype template
+					var newWidget = emailList.attr('data-prototype');
+
+
+					newWidget = newWidget.replace(/__name__/g, retards);
+
+					retards++;
+
+					// create a new list element and add it to the list
+					var newLi = jQuery('<div></div>').html(newWidget)
+											.append('<a href="#" class="remove-retard pull-right"> \
+																	<span class="glyphicon glyphicon-remove"></span> \
+															</a>')
+											.on('click', '.remove-retard', function(e){
+													e.preventDefault();
+													$(this).parent()
+																 .fadeOut()
+																 .remove();
+
+																 retards--;
+												});
+					newLi.appendTo(emailList);
+			});
+	})
+
+
+  // Controle du champs raison
+	// Si coché alors on déploit le détail
+	$('#demande_absences_raison').change(function(){
+
+    if ($('#demande_absences_injustifiees_raison_0').is(':checked')) {
+			$('#raison0').show()
+		} else {
+			$('#raison0').hide()
+		}
+
+		if ($('#demande_absences_injustifiees_raison_1').is(':checked')) {
+			$('#raison1').show()
+			if (!$('#demande_absences_injustifiees_absences_0').length)
+				$('#add-another-email').trigger('click');
+		} else {
+			$('#raison1').hide()
+		}
+
+		if ($('#demande_absences_injustifiees_raison_2').is(':checked')) {
+			$('#raison2').show()
+			if (!$('#demande_absences_injustifiees_retards_0').length)
+				$('#add-retard').trigger('click');
+		} else {
+			$('#raison2').hide()
+		}
+
+
+	}).change();
+
+
+	$('#demande_absences_injustifiees_dateDebut').focusout(function(){
+      $('#demande_absences_injustifiees_dateDebut_month').valid();
+  })
+
+	// Validation du formulaire
+	$("#formAbsence").validate({
+		rules: {
+		  'demande_absences_injustifiees[dateDebut][month]' : {
+		    validateDate: true,
+		  }
+	 },
+	 messages: {
+
+	 },
+	 errorElement: "em",
+	 errorPlacement: function ( error, element ) {
+	 	// Add the `help-block` class to the error element
+	 	error.addClass( "help-block" );
+
+	 	// Add `has-feedback` class to the parent div.form-group
+	 	// in order to add icons to inputs
+	 	element.parents( ".col-sm-5" ).addClass( "has-feedback" );
+
+
+
+	 	if ( element.prop( "type" ) === "checkbox" ) {
+	 		error.insertAfter( element.parent( "label" ) );
+	 	} else if( element.prop( "type" ) === "select-one" || element.prop( "type" ) === "radio") {
+	 		error.appendTo( element.parent().parent());
+	 	} else {
+	 		error.insertAfter( element );
+	 	}
+
+	 	// Add the span element, if doesn't exists, and apply the icon classes to it.
+	 	if ( !element.next( "span" )[ 0 ] ) {
+	 		$( "<span class='glyphicon glyphicon-remove form-control-feedback'></span>" ).insertAfter( element );
+	 	}
+	 },
+	 success: function ( label, element ) {
+	 	// Add the span element, if doesn't exists, and apply the icon classes to it.
+	 	if ( !$( element ).next( "span" )[ 0 ] ) {
+	 		$( "<span class='glyphicon glyphicon-ok form-control-feedback'></span>" ).insertAfter( $( element ) );
+	 	}
+	 },
+	 highlight: function ( element, errorClass, validClass ) {
+	 	$( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
+	 	$( element ).next( "span" ).addClass( "glyphicon-remove" ).removeClass( "glyphicon-ok" );
+	 },
+	 unhighlight: function ( element, errorClass, validClass ) {
+	 	$( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
+	 	$( element ).next( "span" ).addClass( "glyphicon-ok" ).removeClass( "glyphicon-remove" );
+	 }
+	});
+
+/* controle le changement des dates */
+controlChangeDate('#demande_lettre_mission_dateDebut', '#demande_lettre_mission_dateFin');
+});
+</script>
+
+
+
+
+{% endblock %}
