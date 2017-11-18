@@ -1,0 +1,36 @@
+$addListener = function($form, $name, $champ, $nb, idInt) {
+
+  var addFieldAjax = function() {
+    var isChecked = $('#demande_embauche_' + $champ + '_' + $nb).prop('checked');
+
+    if ( (isChecked && $('#at' + idInt).length == 0)  ){
+      var $form2 = $(this).closest('form');
+      // Simulate form data, but only include the selected sport value.
+      var data = {};
+      data["demande_embauche[" + $name + "]" ] = $name;
+      console.log(data);
+
+
+      // Submit data via AJAX to the form's action path.
+      $.ajax({
+        url : "{{path('rh_embauche')}}",
+        type: $form2.attr('method'),
+        data : data,
+        success: function(html) {
+          //console.log(html);
+          // Replace current position field ...
+          var label = $(html).find('label[for="demande_embauche_autre_'+$name+'"]').text();
+          var input = $(html).find('#demande_embauche_autre_' + $name);
+          var elem = '<div id="at' + idInt +'"><label for="demande_embauche_autre_' + $name + '" class="control-label label col-sm-3 col-xs-12 required">' + label + '</label><div id="autre' + idInt +'" class="other col-sm-3"></div></div>';
+
+          $form.parent().parent().append(elem);
+          input.appendTo('#autre' + idInt);
+        }
+      }); // Fin ajax
+    } else {
+      if(!isChecked)
+        $('#at' + idInt).remove();
+    }
+  }
+  $form.change(addFieldAjax).change(); // Fin change()
+}

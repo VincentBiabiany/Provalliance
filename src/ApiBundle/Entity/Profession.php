@@ -15,7 +15,7 @@ class Profession
     /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=45, nullable=true)
+     * @ORM\Column(name="nom", type="string", length=255, nullable=true)
      */
     private $nom;
 
@@ -27,7 +27,6 @@ class Profession
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-
 
 
     /**

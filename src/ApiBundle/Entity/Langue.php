@@ -15,7 +15,7 @@ class Langue
     /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=45, nullable=true)
+     * @ORM\Column(name="nom", type="string", length=255, nullable=true)
      */
     private $nom;
 

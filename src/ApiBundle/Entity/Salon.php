@@ -15,107 +15,115 @@ use Doctrine\ORM\Mapping as ORM;
 class Salon
 {
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="sage", type="integer")
+     * @ORM\Id
+     */
+    private $sage;
+
+    /**
      * @var string
      *
-     * @ORM\Column(name="appelation", type="string", length=100, nullable=true)
+     * @ORM\Column(name="appelation", type="string", length=255, nullable=true)
      */
     private $appelation;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="forme_juridique", type="string", length=60, nullable=true)
+     * @ORM\Column(name="forme_juridique", type="string", length=255, nullable=true)
      */
     private $formeJuridique;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="rcs_ville", type="string", length=80, nullable=true)
+     * @ORM\Column(name="rcs_ville", type="string", length=255, nullable=true)
      */
     private $rcsVille;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="code_naf", type="string", length=6, nullable=true)
+     * @ORM\Column(name="code_naf", type="string", length=255, nullable=true)
      */
     private $codeNaf;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="siren", type="string", length=45, nullable=true)
+     * @ORM\Column(name="siren", type="string", length=255, nullable=true)
      */
     private $siren;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="capital", type="string", length=45, nullable=true)
+     * @ORM\Column(name="capital", type="string", length=255, nullable=true)
      */
     private $capital;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="raison_sociale", type="string", length=45, nullable=true)
+     * @ORM\Column(name="raison_sociale", type="string", length=255, nullable=true)
      */
     private $raisonSociale;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="adresse1", type="string", length=80, nullable=true)
+     * @ORM\Column(name="adresse1", type="string", length=255, nullable=true)
      */
     private $adresse1;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="adresse2", type="string", length=80, nullable=true)
+     * @ORM\Column(name="adresse2", type="string", length=255, nullable=true)
      */
     private $adresse2;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="code_postal", type="string", length=15, nullable=true)
+     * @ORM\Column(name="code_postal", type="string", length=255, nullable=true)
      */
     private $codePostal;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="ville", type="string", length=80, nullable=true)
+     * @ORM\Column(name="ville", type="string", length=255, nullable=true)
      */
     private $ville;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="telephone1", type="string", length=45, nullable=true)
+     * @ORM\Column(name="telephone1", type="string", length=255, nullable=true)
      */
     private $telephone1;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="telephone2", type="string", length=45, nullable=true)
+     * @ORM\Column(name="telephone2", type="string", length=255, nullable=true)
      */
     private $telephone2;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=45, nullable=true)
+     * @ORM\Column(name="email", type="string", length=255, nullable=true)
      */
     private $email;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="code_marlix", type="string", length=20, nullable=true)
+     * @ORM\Column(name="code_marlix", type="string", length=255, nullable=true)
      */
     private $codeMarlix;
 
@@ -147,14 +155,6 @@ class Salon
      */
     private $actif;
 
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="sage", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $sage;
 
     /**
      * @var \ApiBundle\Entity\Enseigne
@@ -664,6 +664,18 @@ class Salon
     public function getSage()
     {
         return $this->sage;
+    }
+
+    /**
+     * Set sage
+     *
+     * @return Salon
+     */
+    public function setSage($sage)
+    {
+       $this->sage = $sage;
+       
+       return $this;
     }
 
     /**

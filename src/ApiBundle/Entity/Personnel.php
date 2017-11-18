@@ -13,23 +13,31 @@ use Doctrine\ORM\Mapping as ORM;
 class Personnel
 {
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="matricule", type="integer")
+     * @ORM\Id
+     */
+    private $matricule;
+
+    /**
      * @var string
      *
-     * @ORM\Column(name="civilite", type="string", length=10, nullable=true)
+     * @ORM\Column(name="civilite", type="string", length=255, nullable=true)
      */
     private $civilite;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=60, nullable=true)
+     * @ORM\Column(name="nom", type="string", length=255, nullable=true)
      */
     private $nom;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="prenom", type="string", length=60, nullable=true)
+     * @ORM\Column(name="prenom", type="string", length=255, nullable=true)
      */
     private $prenom;
 
@@ -43,93 +51,100 @@ class Personnel
     /**
      * @var string
      *
-     * @ORM\Column(name="ville_naissance", type="string", length=80, nullable=true)
+     * @ORM\Column(name="ville_naissance", type="string", length=255, nullable=true)
      */
     private $villeNaissance;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="pays_naissance", type="string", length=80, nullable=true)
+     * @ORM\Column(name="pays_naissance", type="string", length=255, nullable=true)
      */
     private $paysNaissance;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="sexe", type="string", length=1, nullable=true)
+     * @ORM\Column(name="sexe", type="string", length=255, nullable=true)
      */
     private $sexe;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="nationalite", type="string", length=60, nullable=true)
+     * @ORM\Column(name="nationalite", type="string", length=255, nullable=true)
      */
     private $nationalite;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="niveau", type="string", length=60, nullable=true)
+     * @ORM\Column(name="niveau", type="string", length=3, nullable=true)
      */
     private $niveau;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="echelon", type="string", length=60, nullable=true)
+     * @ORM\Column(name="echelon", type="string", length=1, nullable=true)
      */
     private $echelon;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="adresse1", type="string", length=80, nullable=true)
+     * @ORM\Column(name="adresse1", type="string", length=255, nullable=true)
      */
     private $adresse1;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="adresse2", type="string", length=80, nullable=true)
+     * @ORM\Column(name="adresse2", type="string", length=255, nullable=true)
      */
     private $adresse2;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="codepostal", type="string", length=20, nullable=true)
+     * @ORM\Column(name="codepostal", type="string", length=255, nullable=true)
      */
     private $codepostal;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="ville", type="string", length=80, nullable=true)
+     * @ORM\Column(name="ville", type="string", length=255, nullable=true)
      */
     private $ville;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="telephone1", type="string", length=45, nullable=true)
+     * @ORM\Column(name="telephone", type="string", length=255, nullable=true)
      */
-    private $telephone1;
+    private $telephone;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="telephone2", type="string", length=45, nullable=true)
-     */
-    private $telephone2;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=80, nullable=true)
+     * @ORM\Column(name="email", type="string", length=255, nullable=true)
      */
     private $email;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_entree", type="date", nullable=false)
+     */
+    private $dateEntree;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_sortie", type="date", nullable=true)
+     */
+    private $dateSortie;
 
     /**
      * @var boolean
@@ -139,28 +154,10 @@ class Personnel
     private $actif;
 
     /**
-     * @var integer
      *
-     * @ORM\Column(name="matricule", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\OneToMany(targetEntity="ApiBundle\Entity\PersonnelHasSalon", mappedBy="personnelMatricule")
      */
-    private $matricule;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="ApiBundle\Entity\Salon", inversedBy="salon_sage")
-     * @ORM\JoinTable(name="personnel_has_salon",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="personnel_matricule", referencedColumnName="matricule")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="salon_sage", referencedColumnName="sage")
-     *   }
-     * )
-     */
-    private $salon;
+    private $personnelHasSalon;
 
     /**
      * Constructor
@@ -613,6 +610,17 @@ class Personnel
     }
 
     /**
+     * Set matricule
+     *
+     * @return Personnel
+     */
+    public function setMatricule($matricule)
+    {
+      $this->matricule = $matricule;
+      return $this;
+    }
+
+    /**
      * Add salon
      *
      * @param \ApiBundle\Entity\Salon $salon
@@ -642,4 +650,51 @@ class Personnel
     {
         return $this->salon;
     }
+    /**
+     * Set dateNaissance
+     *
+     * @param \DateTime dateEntree
+     *
+     * @return Personnel
+     */
+    public function setDateEntree($dateEntree)
+    {
+        $this->dateEntree = $dateEntree;
+
+        return $this;
+    }
+
+    /**
+     * Get dateEntree
+     *
+     * @return \DateTime
+     */
+    public function getDateEntree()
+    {
+        return $this->dateEntree;
+    }
+
+    /**
+     * Set dateSortie
+     *
+     * @param \DateTime $dateSortie
+     *
+     * @return Personnel
+     */
+    public function setDateSortie($dateSortie)
+    {
+        $this->dateSortie = $dateSortie;
+        return $this;
+    }
+
+    /**
+     * Get dateNaissance
+     *
+     * @return \DateTime
+     */
+    public function getDateSortie()
+    {
+        return $this->$dateSortie;
+    }
+
 }
