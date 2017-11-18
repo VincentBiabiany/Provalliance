@@ -7,24 +7,23 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use AppBundle\Entity\DemandeAcompte;
 use AppBundle\Entity\DemandeSimple;
-use AppBundle\Entity\RibSalarie;
-use AppBundle\Form\DemandeAcompteType;
+use AppBundle\Entity\DemandeAttestationSalaire;
+use AppBundle\Form\DemandeAttestationSalaireType;
 use AppBundle\Service\DemandeService;
 
-class AcompteController extends Controller
+class AttestationSalaireController extends Controller
 {
   /**
-  * @Route("/paie/acompte", name="acompte")
+  * @Route("/paie/attestation_salaire", name="attestation_salaire")
   */
   public function indexAction(Request $request, DemandeService $demandeService)
   {
     $img = $request->getSession()->get('img');
     $idSalon = $request->getSession()->get('idSalon');
 
-    $demandeacompte = new DemandeAcompte();
-    $form = $this->createForm(DemandeAcompteType::class, $demandeacompte, array("idSalon" => $idSalon));
+    $attestationsalaire = new DemandeAttestationSalaire();
+    $form = $this->createForm(DemandeAttestationSalaireType::class, $attestationsalaire, array("idSalon" => $idSalon));
     $form->handleRequest($request);
 
     $img = $request->getSession()->get('img');
@@ -37,7 +36,7 @@ class AcompteController extends Controller
       if (count($errors) > 0) {
 
         $errorsString = (string) $errors;
-        return $this->render('demandes/paie/paie_acompte.html.twig',
+        return $this->render('demandes/paie/attestation_salaire.html.twig',
                             array(
                               'img' => $img,
                               'form' => $form->createView(),
@@ -49,12 +48,12 @@ class AcompteController extends Controller
         $demandeService->createDemande($form->getData(), $idSalon);
 
         return $this->redirect($this->generateUrl('homepage',
-        array('flash' => "demande_acompte.popupValidation.message")));
+        array('flash' => "demande_attestation_salaire.popupValidation.message")));
 
       }
     }
 
-    return $this->render('demandes/paie/acompte.html.twig', array(
+    return $this->render('demandes/paie/attestation_salaire.html.twig', array(
                                                   'img' => $img,
                                                   'form' => $form->createView(),
                                                   'errors' => null

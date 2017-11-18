@@ -227,6 +227,29 @@ conge_parental:
     popupValidation:
         message:    Votre demande de congé parental a été envoyée.
 
+demande_attestation_salaire:
+    titre:               Attestation Salaire
+    collaborateur:       Collaborateur
+    etat:                Etat
+    reprise:             Reprise
+    nonReprise:          Non reprise
+    prolongation:        Prolongation
+    motif:               Motif
+    maladie:             Maladie
+    maternite:           Maternité
+    paternite:           Paternité
+    miTemps:             Mi-temps
+    accidentTravail:     Accident du travail
+    maladiePro:          Maladie Professionnel
+    dateDernierJour:     Date du dernier jour
+    dateReprise:         Date de reprise
+    du:           Du
+    au:           Au
+    date:         Date
+
+    popupValidation:
+        message:    Votre demande d'attestation salaire a été envoyée.
+
 demande_solde_tout_compte:
     titre:                    Solde Tout Compte
     sousTitreRupture:         Rupture de contrat

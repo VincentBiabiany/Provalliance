@@ -21,6 +21,7 @@ use Doctrine\ORM\Mapping as ORM;
  *                        "demande_essai_professionnel" = "DemandeEssaiProfessionnel",
  *                        "demande_solde_tout_compte" = "DemandeSoldeToutCompte",
  *                        "demande_avenant" = "DemandeAvenant",
+ *                        "demande_attestation_salaire" = "DemandeAttestationSalaire"
  *                      })
  */
 abstract class DemandeForm
