@@ -69,7 +69,7 @@ class DemandeService
     || $demande instanceof DemandePromesseEmbauche || $demande instanceof DemandeLettreMission
     || $demande instanceof DemandeRuptureCdd || $demande instanceof DemandeCongeParental
     || $demande instanceof DemandeEssaiProfessionnel || $demande instanceof DemandeSoldeToutCompte
-    || $demande instanceof DemandeAvenant  || $demande instanceof DemandeAttestationSalaire) {) {
+    || $demande instanceof DemandeAvenant  || $demande instanceof DemandeAttestationSalaire) {
       self::createDemandeSimple($demande, $idSalon);
     }
 
