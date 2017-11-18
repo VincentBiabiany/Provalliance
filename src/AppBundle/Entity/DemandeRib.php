@@ -13,6 +13,11 @@ use AppBundle\Entity\DemandeForm;
  */
 class DemandeRib extends DemandeForm
 {
+    protected $nameDemande ='DemandeRib';
+    protected $typeForm ='Demande rib';
+    protected $subject ='connu';
+    protected $service ='paie';
+    
     /**
      * @var int
      *
@@ -36,11 +41,7 @@ class DemandeRib extends DemandeForm
      */
     protected $matricule;
 
-    protected $nameDemande ='DemandeRib';
-    protected $typeForm ='Demande rib';
-    protected $subject ='connu';
-    protected $service ='paie';
-    
+
     /**
      * Set rib
      *
