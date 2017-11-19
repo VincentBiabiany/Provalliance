@@ -12,12 +12,16 @@ use ApiBundle\Entity\Personnel;
  */
 class PersonnelHasSalonRepository extends EntityRepository
 {
-  public function ifCoiffeur($idPerso){
-    $p= $this->findOneBy(array('personnelMatricule' => $idPerso, 'profession' => 3));
+  public function ifCoiffeur($idPerso)
+  {
+    $p = $this->findOneBy(array('personnelMatricule' => $idPerso, 'profession' => 3));
 
     if (empty($p)){
-      return true;}else{ return false;}
+      return true;
+    } else {
+      return false;
     }
+  }
 
   // Function listPersoBySalon
   // Paramètre : idSalon
@@ -25,13 +29,14 @@ class PersonnelHasSalonRepository extends EntityRepository
   public function listPersoBySalon($idSalon)
   {
     $p = $this->createQueryBuilder('d')
-        ->select('d')
-        ->where('d.salonSage = :idSalon')
-        ->andwhere('d.profession != :idCoiffeur')
-        ->setParameter('idCoiffeur',3)
-        ->setParameter('idSalon',$idSalon)
-        ->getQuery()
-        ->getResult();
+              ->select('d')
+              ->where('d.salonSage = :idSalon')
+              ->andwhere('d.profession != :idCoiffeur')
+              ->andWhere('d.actif = 1')
+              ->setParameter('idCoiffeur',3)
+              ->setParameter('idSalon',$idSalon)
+              ->getQuery()
+              ->getResult();
 
       return $p;
   }
@@ -55,23 +60,29 @@ class PersonnelHasSalonRepository extends EntityRepository
    // Fonction infosCoordinateur : Retourne un coordinateur pour un salon donné
    // Paramètre : idsalon
    // Return array
-   public function infosCoordinateur($idsalon){
+   public function infosCoordinateur($idsalon)
+   {
      $coordo=[];
-     $requete = $this->findOneBy(array("profession" => 2,
-                                "salonSage" => $idsalon,
-       ));
-       if (empty($coordo)){
-           $coordo['name'] = 'n/a';
-           $coordo['dateDeb'] = 'n/a';
-           $coordo['dateFin'] = 'n/a';
-           $coordo['profession'] = 'n/a';
-       }else{
-           $coordo['name'] = $requete->getPersonnelMatricule()->getNom().' '.$requete->getPersonnelMatricule()->getPrenom();
-           $coordo['dateDeb'] = $requete->getDateDebut()->format('d-m-Y');
-           $coordo['dateFin'] = $requete->getDateFin()->format('d-m-Y');
-           $coordo['profession'] = $requete->getProfession()->getNom();
-       }
-       return $coordo;
+     $requete = $this->findOneBy(["profession" => 2,
+                                       "salonSage" => $idsalon,
+                                     ]);
+
+   if (empty($coordo)) {
+
+     $coordo['name'] = 'n/a';
+     $coordo['dateDeb'] = 'n/a';
+     $coordo['dateFin'] = 'n/a';
+     $coordo['profession'] = 'n/a';
+
+   } else {
+
+     $coordo['name'] = $requete->getPersonnelMatricule()->getNom().' '.$requete->getPersonnelMatricule()->getPrenom();
+     $coordo['dateDeb'] = $requete->getDateDebut()->format('d-m-Y');
+     $coordo['dateFin'] = $requete->getDateFin()->format('d-m-Y');
+     $coordo['profession'] = $requete->getProfession()->getNom();
+
    }
+   return $coordo;
+ }
 
 }

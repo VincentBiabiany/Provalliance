@@ -81,7 +81,9 @@ $( "#fos_user_registration_form_username").change(function(){
 						 $( "#username .glyphicon").addClass('glyphicon-remove');
 						 $( "#fos_user_registration_form_username").attr('aria-invalid','true');
 						 $( "#fos_user_registration_form_Valider").css('display','none');
-					 }else{
+
+					 } else {
+						 
 						 $( "#fos_user_registration_form_username").attr('aria-invalid','false');
 						 $( "#username .glyphicon").removeClass('glyphicon-remove');
 						 $( "#username .glyphicon").addClass('glyphicon-ok');

@@ -17,7 +17,7 @@ class Account
     /**
      * @var int
      *
-     * @ORM\Column(name="personnel_matricule", type="integer")
+     * @ORM\Column(name="matricule", type="integer")
      */
     private $matricule;
 

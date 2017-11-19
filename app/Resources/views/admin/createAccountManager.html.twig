@@ -42,7 +42,7 @@
      });
 
   {% else %}
-        $( "#CreateFormStep" ).load("/admin/createS1"); // on fait apparaitre le nouveau contenu
+        $( "#CreateFormStep" ).load( "{{path('createAccountS1')}}" ); // on fait apparaitre le nouveau contenu
 
   {% endif %}
 

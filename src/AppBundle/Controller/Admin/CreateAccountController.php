@@ -21,21 +21,20 @@ use Doctrine\ORM\EntityRepository;
 
 class CreateAccountController extends Controller
 {
-  /**
+   /**
     * @Route("/admin/create_type", name="createType")
     */
    public function createTypeAction(Request $request)
    {
-
-        return $this->render('admin/createType.html.twig');
+    return $this->render('admin/createType.html.twig');
    }
-  /**
+
+   /**
     * @Route("/admin/create", name="createAccountManager")
     */
    public function createAccountAction(Request $request)
    {
-
-        return $this->render('admin/createAccountManager.html.twig',['errors'=>null]);
+    return $this->render('admin/createAccountManager.html.twig',['errors'=>null]);
    }
 
    /**
@@ -44,61 +43,61 @@ class CreateAccountController extends Controller
    public function createAccountStep1Action(Request $request)
    {
      $form = $this->createFormBuilder()
-                 ->add('appelation', EntityType::class, array(
-                    'class' => 'ApiBundle:Salon',
-                    'choice_label' => 'appelation',
-                    'query_builder' => function(EntityRepository $er) {
-                        return $er->findSalonForAdmin();
-                     },
-                    'label' => 'admin.manager.salon',
-                    'placeholder' => 'Choisir un salon',
-                    'multiple' => false,
-                    'translation_domain' => 'translator'
-                 ))
-               ->getForm()
-          ;
+                   ->add('appelation', EntityType::class, array(
+                      'class' => 'ApiBundle:Salon',
+                      'choice_label' => 'appelation',
+                      'query_builder' => function(EntityRepository $er) {
+                          return $er->findSalonForAdmin();
+                       },
+                      'label' => 'admin.manager.salon',
+                      'placeholder' => 'Choisir un salon',
+                      'multiple' => false,
+                      'translation_domain' => 'translator'
+                   ))
+                   ->getForm();
+
           return $this->render('admin/createAccountStep1.html.twig',['form'=>$form->createView()]);
 
    }
+
    /**
     * @Route("/admin/createS2", name="createAccountS2")
     */
    public function createAccountStep2Action(Request $request)
    {
-            $personnel = new Personnel();
-            $idSalon = $request->get('idsalon');
-            //On sauvegarde le salon en cas de retour en arrière
-            $request->getSession()->set("idSalonAdmin", $idSalon);
+     $personnel = new Personnel();
+     $idSalon = $request->get('idsalon');
+     //On sauvegarde le salon en cas de retour en arrière
+     $request->getSession()->set("idSalonAdmin", $idSalon);
 
-            //Retourne la liste des personnels par salon
-            $entitym = $this->getDoctrine()->getManager();
-            $accountRepo = $entitym->getRepository('AppBundle:Account');
-            $entity = $this->getDoctrine()->getManager('referentiel');
-            $personnelRepo = $entity->getRepository('ApiBundle:Personnel');
-            $listePerso = $personnelRepo->getPerso($idSalon);
+     //Retourne la liste des personnels par salon
+     $entitym = $this->getDoctrine()->getManager();
+     $accountRepo = $entitym->getRepository('AppBundle:Account');
 
-            //Filtre des conmptes déjà crées
+     $entity = $this->getDoctrine()->getManager('referentiel');
+     $personnelRepo = $entity->getRepository('ApiBundle:Personnel');
+     $listePerso = $personnelRepo->getPerso($idSalon);
 
-            foreach ($listePerso as $key => $value) {
-              // dump($listePerso);
-             // $matricule =  $listePerso[$key]->getPersonnelMatricule()->getMatricule();
+     //Filtre des conmptes déjà crées
+     foreach ($listePerso as $key => $value) {
+       // dump($listePerso);
+       // $matricule =  $listePerso[$key]->getPersonnelMatricule()->getMatricule();
+       if ($accountRepo->ifInAccount($value)) {
+         unset($listePerso[$key]);
+       }
+     }
 
-                if( $accountRepo->ifInAccount($value)){
-                  unset($listePerso[$key]);
-                }
-            }
-
-           if($listePerso == null ){
-              $listePerso['Aucun utilisateur disponible']= null;
-           }
-           $formS2 = $this->createFormBuilder()
-           ->add('nom', ChoiceType::class, array(
-                'choices' => $listePerso,
-                'label' => 'admin.manager.collab',
-                'translation_domain' => 'translator'
-             ))
-           ->getForm();
-         return $this->render('admin/createAccountStep2.html.twig',['formS2'=>$formS2->createView()]);
+     if($listePerso == null ){
+       $listePerso['Aucun utilisateur disponible']= null;
+     }
+     $formS2 = $this->createFormBuilder()
+     ->add('nom', ChoiceType::class, array(
+       'choices' => $listePerso,
+       'label' => 'admin.manager.collab',
+       'translation_domain' => 'translator'
+     ))
+     ->getForm();
+     return $this->render('admin/createAccountStep2.html.twig',['formS2'=>$formS2->createView()]);
    }
 
    /**
