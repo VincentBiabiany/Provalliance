@@ -62,13 +62,13 @@
 										{{ form_widget(child, {'attr' : {'class' : ''} }) }}
 										{{ form_label(child) }}
 
-                    <div id="raison1" style="display: none">
+                    <div id="raison1" >
 
 
 											<div id="email-fields-list" data-prototype="{{ form_widget(form.absences.vars.prototype)|e }}">
 											{{ form_widget(form.absences, {'attr' : {'class' : ''} }) }}
 											{% for abs in form.absences %}
-													<div class="col-xs-4 retard-item">
+													<div class="col-xs-4 absence-item">
 															{{ form_errors(abs) }}
 															{{ form_widget(abs) }}
 													</div>
@@ -162,20 +162,12 @@ $(document).ready(function(){
 																 .remove();
 
 																 absences--;
-											});
+
+											})
 
 					newLi.appendTo(emailList);
-					console.log($('demande_absences_injustifiees[absences][' + (absences - 1) + '][month]'))
 
-					$('demande_absences_injustifiees[absences][' + (absences - 1) + '][month]').rules( "add", {
-														validateDate: true
-						})
-					$('#demande_absences_injustifiees_absences_' + (absences - 1)).change(function(){
-
-						$('#demande_absences_injustifiees_absences_' + (absences - 1) + '_month').valid();
-
-					})
-				$("#formAbsence").validate();
+				 validateNewField('absences_' + (absences - 1) );
 			});
 
 
@@ -210,6 +202,7 @@ $(document).ready(function(){
 														 retards--;
 										});
 			newLi.appendTo(emailList);
+			validateNewField('retards_' + (retards - 1) +'_date' );
 	});
 
 
@@ -243,6 +236,18 @@ $(document).ready(function(){
 
 	}).change();
 
+	function validateNewField($selector) {
+
+		$('#demande_absences_injustifiees_'  + $selector).focusout(function(){
+				console.log('test ' + $selector)
+				$('#demande_absences_injustifiees_'+ $selector + '_month').valid();
+		})
+
+		$('#demande_absences_injustifiees_' + $selector + '_month').rules( "add", {
+											validateDate: true
+
+		})
+	}
 
 	$('#demande_absences_injustifiees_dateDebut').focusout(function(){
       $('#demande_absences_injustifiees_dateDebut_month').valid();
