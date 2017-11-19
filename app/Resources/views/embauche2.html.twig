@@ -55,7 +55,7 @@
         {{ form_widget(form.echelon) }}
       </div>
       <div class="col-sm-3 col-xs-12" >
-        <label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "demande_embauche.autre"|trans({}, "translator") }}</label>
+        <label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "demande_embauche.autre"|trans({}, "translator")|capitalize  }}</label>
         {{ form_widget(form.autre) }}
       </div>
     </div>
@@ -91,8 +91,8 @@
                 {{ form_label(child, child.vars.value) }}
                 <div style="display:none;">
                   <div class="col-xs-12">
-                    <label class="control-label label">{{ "demande_embauche.cdd.date"|trans({}, "translator") }}</label>
-                    <input type="text" id="demande_embauche[raison][jusquau]" name="demande_embauche[raison][jusquau]" class="jusquau js-datepicker form-control">
+                    <label class="control-label label dateAppend" id="cdd0">{{ "demande_embauche.cdd.date"|trans({}, "translator") }}</label>
+
                   </div>
                 </div>
 
@@ -106,10 +106,9 @@
                     <label class="control-label label">{{ "demande_embauche.cdd.nature"|trans({}, "translator") }}</label>{{ form_widget(form.remplacementNature) }}
                     <label class="control-label label">{{ "demande_embauche.cdd.nom"|trans({}, "translator") }}</label>   {{ form_widget(form.remplacementNom) }}
 
-                    <div id="test" >
-                      <label class="control-label label">{{ "demande_embauche.cdd.date"|trans({}, "translator") }}</label>
-                      <input type="text" id="demande_embauche[raison][jusquau]" class="jusquau js-datepicker form-control" name="demande_embauche[raison][jusquau]">
-                    </div>
+
+                    <label class="control-label label dateAppend" id="cdd1" >{{ "demande_embauche.cdd.date"|trans({}, "translator") }}</label>
+
 
                     <div>
                       <div class="form-group">
@@ -128,8 +127,8 @@
               {{ form_label(child, child.vars.value) }}
               <div style="display:none;">
                 <div class="col-xs-12">
-                  <label class="control-label label">{{ "demande_embauche.cdd.date"|trans({}, "translator") }}</label>
-                  <input type="text" id="demande_embauche[raison][jusquau]" name="demande_embauche[raison][jusquau]" class="jusquau js-datepicker form-control">
+                  <label class="control-label label dateAppend" id="cdd2">{{ "demande_embauche.cdd.date"|trans({}, "translator") }}</label>
+
                 </div>
               </div>
 
@@ -244,13 +243,13 @@ $(document).ready(function(){
   $('#demande_embauche_dateembauche').focusout(function(){
       $('#demande_embauche_dateembauche_month').valid();
   })
-  // $('#demande_embauche_date').focusout(function(){
-  //     $('#demande_embauche_date_month').each(function(){
-  //       console.log('test')
-  //         $(this).valid();
-  //     })
-  // })
 
+  $('#demande_embauche_date').focusout(function(){
+      $('#demande_embauche_date_month').each(function(){
+        console.log('test')
+          $(this).valid();
+      })
+  })
 
   // Controle champs Temps Partiel
   tempsPartiel();
@@ -276,18 +275,23 @@ $(document).ready(function(){
     if ($('input[name="demande_embauche[typeContrat]"]:checked').val() == "demande_embauche.cdd")
     {
       $('#block-cdd').show();
+
       $('input[name="demande_embauche[cddRaison]"]').attr('required', 'required');
       $('input[name="demande_embauche[cddRaison]"]:not(:checked)').children().each(function() {
         $(this).removeAttr('required','required');
       });
+      $('#demande_embauche_cddRaison').change()
     }
     else
     {
       $('#block-cdd').hide();
       $('#block-cdd').find('*').each(function() {
         $(this).removeAttr('required','required');
-        // if ($(this).is('input'))
-        //   $(this).val("");
+        if ($(this).is('input') || $(this).is('radio')){
+          $(this).val("");
+          $(this).prop('checked', false);
+        }
+
       });
     }
   }).change();
@@ -297,6 +301,10 @@ $(document).ready(function(){
   $('#demande_embauche_cddRaison').change(function(){
 
     $('input[name="demande_embauche[cddRaison]"]:checked', '#demande_embauche_cddRaison').parent().find('*').each(function() {
+
+     if ($(this).hasClass('dateAppend'))
+        $('#demande_embauche_date').insertAfter($(this))
+
         $(this).attr('required','required');
         $(this).removeAttr('disabled','disabled');
         $(this).show();
@@ -310,12 +318,19 @@ $(document).ready(function(){
 
     $('input[name="demande_embauche[cddRaison]"]:not(:checked)', '#demande_embauche_cddRaison').parent().find('*').each(function() {
         $(this).removeAttr('required','required');
-        if ($(this).is('select')){
+
+        if ($(this).is('select')) {
           $(this).attr('disabled','disabled');
           $(this).parent().attr('disabled','disabled');
         }
-        // if ($(this).is('input'))
-        //   $(this).val("");
+        // console.log($(this))
+        //
+        if ($(this).is('input') || $(this).is('radio')){
+          console.log($(this))
+          $(this).val("");
+          $(this).prop('checked', false);
+        }
+
     });
   }).change();
 
@@ -392,9 +407,9 @@ $(document).ready(function(){
 
 <script>
   // Remplace les champs date en calendrier
-  $(document).ready(function() {
-    $('.jusquau').replaceWith( $('#demande_embauche_date') );
-  });
+  // $(document).ready(function() {
+  //   $('.jusquau').replaceWith( $('#demande_embauche_date') );
+  // });
 
   // Si clique sur déconnexion ou admin ou home alors
   // on clear la session

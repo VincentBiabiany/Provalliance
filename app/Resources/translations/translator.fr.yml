@@ -371,7 +371,8 @@ demande_embauche:
     total:         Total
 
 
-    autre:         Précisez
+    autre:         autre
+    precisez:      Précisez
 
     sexe:          Sexe
     sexe.m:        M

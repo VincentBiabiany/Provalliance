@@ -227,6 +227,29 @@ conge_parental:
     popupValidation:
         message:    Votre demande de congé parental a été envoyée.
 
+demande_attestation_salaire:
+    titre:               Attestation Salaire
+    collaborateur:       Collaborateur
+    etat:                Etat
+    reprise:             Reprise
+    nonReprise:          Non reprise
+    prolongation:        Prolongation
+    motif:               Motif
+    maladie:             Maladie
+    maternite:           Maternité
+    paternite:           Paternité
+    miTemps:             Mi-temps
+    accidentTravail:     Accident du travail
+    maladiePro:          Maladie Professionnel
+    dateDernierJour:     Date du dernier jour
+    dateReprise:         Date de reprise
+    du:           Du
+    au:           Au
+    date:         Date
+
+    popupValidation:
+        message:    Votre demande d'attestation salaire a été envoyée.
+
 demande_solde_tout_compte:
     titre:                    Solde Tout Compte
     sousTitreRupture:         Rupture de contrat
@@ -348,7 +371,8 @@ demande_embauche:
     total:         Total
 
 
-    autre:         Précisez
+    autre:         autre
+    precisez:      Précisez
 
     sexe:          Sexe
     sexe.m:        M
@@ -385,6 +409,15 @@ avenant:
     popupValidation:
         message:        Votre demande d'avenant a été envoyée.
 
+absences:
+    titre:              Absences Injustifiees
+    abs:                Absence injustifée depuis le ...
+    absLes:             Absences injustifiees les ...
+    retards:            Retards répétés les ...
+
+    popupValidation:
+        message:        Votre demande d'absence injustifiée à bien été envoyé.
+
 suivi_demandes:
     header:              Suivre les demandes
     codesage:            Code Sage
@@ -403,7 +436,6 @@ suivi_demandes:
     deselect:            Déselectionner
     serviceJuridique:    Service Juridique
     servicePaie:         Service Paie
-
 
 
 datatable:

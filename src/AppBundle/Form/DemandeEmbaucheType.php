@@ -270,7 +270,7 @@ class DemandeEmbaucheType extends AbstractType
             'widget' => 'choice',
             'format' => 'dd/MM/y',
             'years' => range(date('Y') - 5, date('Y') + 10),
-            'attr' => ['class' => 'until'],
+            'attr' => ['class' => 'styleDate'],
             'label' => ' ',
             'mapped' => false,
             'data' => $this->session->get('date')
@@ -311,7 +311,7 @@ class DemandeEmbaucheType extends AbstractType
                 $form->add('autre_diplome', TextType::class, array(
                   'attr' => array('class' => 'form-control'),
                   'mapped' => false,
-                  'label' => 'demande_embauche.autre',
+                  'label' => 'demande_embauche.precisez',
                   'translation_domain' => 'translator',
                   'empty_data' => $test
                 ));
@@ -325,7 +325,7 @@ class DemandeEmbaucheType extends AbstractType
                 $form->add('autre_poste', TextType::class, array(
                   'attr' => array('class' => 'form-control'),
                   'mapped' => false,
-                  'label' => 'demande_embauche.autre',
+                  'label' => 'demande_embauche.precisez',
                   'translation_domain' => 'translator',
                   'empty_data' => $test
                 ));
@@ -383,12 +383,14 @@ class DemandeEmbaucheType extends AbstractType
             // raison, jusqu'au, nature, nom
 
 
-            if($data->getTypeContrat() == 'embauche.cdd')
+            if($data->getTypeContrat() == 'demande_embauche.cdd')
             {
-              if ($form->get('date')->getData() != null)
+              if ($form->get('date')->getData() != null) {
                 $data->setCddDate($form->get('date')->getData());
                 $this->session->set('date', $form->get('date')->getData());
-                //$data->setCddRaison($data->getCddRaison());
+              }
+
+              
             //
             //   if (isset($extra['raison']['absence']))
             //     $data->setRemplacementNature($extra['raison']['absence']);
@@ -441,7 +443,6 @@ class DemandeEmbaucheType extends AbstractType
                  $array[2] = $this->session->get('diplome');
                  $data->setDiplomes($array);
                 }
-
 
               // if($data->getTypeContrat() == 'embauche.cdd')
               // {

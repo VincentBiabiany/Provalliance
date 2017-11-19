@@ -34,7 +34,7 @@ class EmbaucheController extends Controller
 
       $form->handleRequest($request);
       if ($form->isSubmitted() && $form->isValid()) {
-        $session = $request->getSession();
+        $session->set('from', 'embauche1');
         $session->set('demande', $form->getData());
         return $this->redirectToRoute('rh_embauche2');
       }
@@ -52,7 +52,11 @@ class EmbaucheController extends Controller
      */
     public function index2Action(Request $request)
     {
+
       $session = $request->getSession();
+      if ($session->get('from') != 'embauche1' && $session->get('from') != 'embauche2')
+          return $this->redirectToRoute('rh_embauche');
+
       $demande = $session->get('demande');
       //$demande->setTempsPartiel();
       $form = $this->createForm(DemandeEmbaucheType::class, $demande, array('step' => '2'));
@@ -60,6 +64,7 @@ class EmbaucheController extends Controller
       $form->handleRequest($request);
 
       if ($form->isSubmitted() && $form->isValid()) {
+       $session->set('from', 'embauche2');
        $session->set('demande', $form->getData());
 
        return $this->redirectToRoute('rh_embauche3');
@@ -83,6 +88,7 @@ class EmbaucheController extends Controller
      public function clearSession($request) {
 
        $session = $request->getSession();
+       $session->remove('from');
        $session->remove('demande');
        $session->remove('nat');
        $session->remove('poste');
@@ -96,6 +102,11 @@ class EmbaucheController extends Controller
     public function index3Action(Request $request, DemandeService $demandeService)
     {
       $session = $request->getSession();
+
+      if ($session->get('from') != 'embauche2')
+          return $this->redirectToRoute('rh_embauche');
+
+
       $form = $this->createForm(DemandeEmbaucheType::class, $session->get('demande'), array('step' => '3'));
 
       $form->handleRequest($request);
