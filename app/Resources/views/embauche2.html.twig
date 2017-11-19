@@ -90,8 +90,8 @@
                 {{ form_widget(child, {'attr' : {'class' : ''} }) }}
                 {{ form_label(child, child.vars.value) }}
                 <div style="display:none;">
-                  <div class="col-xs-12">
-                    <label class="control-label label dateAppend" id="cdd0">{{ "demande_embauche.cdd.date"|trans({}, "translator") }}</label>
+                  <div class="col-xs-12" id="cdd0">
+                    <label class="control-label label dateAppend" >{{ "demande_embauche.cdd.date"|trans({}, "translator") }}</label>
 
                   </div>
                 </div>
@@ -101,13 +101,13 @@
                 {{ form_widget(child, {'attr' : {'class' : ''} }) }}
                 {{ form_label(child, child.vars.value) }}
                 <div style="display:none;">
-                  <div class="col-xs-12">
+                  <div class="col-xs-12" id="cdd1">
 
                     <label class="control-label label">{{ "demande_embauche.cdd.nature"|trans({}, "translator") }}</label>{{ form_widget(form.remplacementNature) }}
                     <label class="control-label label">{{ "demande_embauche.cdd.nom"|trans({}, "translator") }}</label>   {{ form_widget(form.remplacementNom) }}
 
 
-                    <label class="control-label label dateAppend" id="cdd1" >{{ "demande_embauche.cdd.date"|trans({}, "translator") }}</label>
+                    <label class="control-label label dateAppend"  >{{ "demande_embauche.cdd.date"|trans({}, "translator") }}</label>
 
 
                     <div>
@@ -271,23 +271,22 @@ $(document).ready(function(){
 
   // Controle du champs CDD
   // Si coché alors on déploit le détail
-  $('#demande_embauche_typeContrat').change(function(){
-    if ($('input[name="demande_embauche[typeContrat]"]:checked').val() == "demande_embauche.cdd")
-    {
-      $('#block-cdd').show();
+  $('#demande_embauche_typeContrat').change(function() {
 
+    if ($('input[name="demande_embauche[typeContrat]"]:checked').val() == "demande_embauche.cdd") {
+      $('#block-cdd').show();
       $('input[name="demande_embauche[cddRaison]"]').attr('required', 'required');
       $('input[name="demande_embauche[cddRaison]"]:not(:checked)').children().each(function() {
         $(this).removeAttr('required','required');
       });
-      $('#demande_embauche_cddRaison').change()
-    }
-    else
-    {
+
+    } else {
+      console.log('else')
       $('#block-cdd').hide();
       $('#block-cdd').find('*').each(function() {
         $(this).removeAttr('required','required');
-        if ($(this).is('input') || $(this).is('radio')){
+
+        if ($(this).is('input') || $(this).is('radio')) {
           $(this).val("");
           $(this).prop('checked', false);
         }
@@ -323,17 +322,37 @@ $(document).ready(function(){
           $(this).attr('disabled','disabled');
           $(this).parent().attr('disabled','disabled');
         }
-        // console.log($(this))
-        //
-        if ($(this).is('input') || $(this).is('radio')){
-          console.log($(this))
-          $(this).val("");
-          $(this).prop('checked', false);
-        }
 
     });
+
+    if ($('#demande_embauche_cddRaison_0').is(':checked')) {
+
+      clearFields( $('#cdd1') );
+      clearFields( $('#cdd2') );
+
+    } else if ($('#demande_embauche_cddRaison_1').is(':checked')) {
+
+      clearFields( $('#cdd0') );
+      clearFields( $('#cdd2') );
+
+    } else {
+
+      clearFields( $('#cdd0') );
+      clearFields( $('#cdd1') );
+
+    }
+
   }).change();
 
+function clearFields($elem) {
+  $elem.find('*').each(function() {
+
+    if ($(this).is('input')){
+      $(this).val("");
+      $(this).prop('checked', false);
+    }
+  })
+}
 
   var $situ  = $('#demande_embauche_dejaSalarie');
   var $situ2 = $('#demande_embauche_postes');
