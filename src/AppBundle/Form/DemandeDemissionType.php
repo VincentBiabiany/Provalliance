@@ -50,13 +50,13 @@ class DemandeDemissionType extends AbstractType
                       return $er->findActivePersonnelBySalon($idSalon);
                     },
                     'attr' => ['class' => 'form-control'],
-                  'label' => 'demande_demission.collab',
+                  'label' => '___demande_demission.collab',
                   'translation_domain' => 'translator'
                 ))
                 ->add('clause', ChoiceType::class, array(
                   'choices'  => array(
-                    'demande_demission.desactiver'  => 'demande_demission.desactiver',
-                    'demande_demission.payer' => 'demande_demission.payer',
+                    '___demande_demission.desactiver'  => '___demande_demission.desactiver',
+                    '___demande_demission.payer' => '___demande_demission.payer',
                   ),
                   'choice_translation_domain' => 'translator',
                   'translation_domain' => 'translator',
@@ -69,9 +69,12 @@ class DemandeDemissionType extends AbstractType
                   'widget' => 'choice',
                   'format' => 'dd/MM/y',
                   'years' => range(date('Y') - 100, date('Y') - 20),
-                  'attr' => ['class' => 'form-control']))
+                  'attr' => ['class' => 'form-control'],
+                  'data' => new \DateTime()
+
+                ))
                 ->add('dem', FileType::class, array(
-                  'label' => 'demande_demission.dem',
+                  'label' => '___demande_demission.dem',
                   'translation_domain' => 'translator',
                     ))
                 ->add('Envoyer', SubmitType::class, array(

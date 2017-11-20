@@ -68,9 +68,9 @@
 				<th class="click"></th>
 				<th>{{ "suivi_demandes.codesage"|trans({}, "translator") }}</th>
 				<th>{{ "suivi_demandes.enseigne"|trans({}, "translator") }}</th>
-				<th>{{ "suivi_demandes.appelation"|trans({}, "translator") }}</th>
+				<th>{{ "suivi_demandes.appellation"|trans({}, "translator") }}</th>
 				<th>{{ "suivi_demandes.coordinateur"|trans({}, "translator") }}</th>
-				<th>{{ "suivi_demandes.manager"|trans({}, "translator") }}</th>
+				<th>{{ "suivi_demandes.demandeur"|trans({}, "translator") }}</th>
 				<th>{{ "suivi_demandes.date"|trans({}, "translator") }}</th>
 				<th>{{ "suivi_demandes.statut"|trans({}, "translator") }}</th>
 				<th>{{ "suivi_demandes.typedemande"|trans({}, "translator") }}</th>
@@ -84,9 +84,9 @@
 				<th class="click"></th>
 				<th>{{ "suivi_demandes.codesage"|trans({}, "translator") }}</th>
 				<th>{{ "suivi_demandes.enseigne"|trans({}, "translator") }}</th>
-				<th>{{ "suivi_demandes.appelation"|trans({}, "translator") }}</th>
+				<th>{{ "suivi_demandes.appellation"|trans({}, "translator") }}</th>
 				<th>{{ "suivi_demandes.coordinateur"|trans({}, "translator") }}</th>
-				<th>{{ "suivi_demandes.manager"|trans({}, "translator") }}</th>
+				<th>{{ "suivi_demandes.demandeur"|trans({}, "translator") }}</th>
 				<th>{{ "suivi_demandes.date"|trans({}, "translator") }}</th>
 				<th>{{ "suivi_demandes.statut"|trans({}, "translator") }}</th>
 				<th>{{ "suivi_demandes.typedemande"|trans({}, "translator") }}</th>
@@ -178,9 +178,9 @@
 							{"data": "", "class":"filt details-control", "orderable":false,},
 							{"data": "sage", "class":"filt","name":"x"},
 							{"data": "enseigne","class":"filt","name":"x"},
-							{"data": "appelation","class":"filt","name":"x"},
+							{"data": "appellation","class":"filt","name":"x"},
 							{"data": "coordinateur","class":"filt","name":"x"},
-							{"data": "manager","class":"filt","name":"x"},
+							{"data": "demandeur","class":"filt","name":"x"},
 							{"data": "date","class":"filt","name":"x"},
 							{"data": "statut","name":"default", "class":"filt statut"},
 							{"data": "type","class":"filt","name":"x"},
@@ -258,7 +258,7 @@
 					var id = dt.row(this).data()['id'];
 					$.ajax({
 							url: "{{ path('detail') }}",
-						  data: {"id" : id}
+						  data: {"id" : id,'action':'detail'}
 						}).done(function( response ) {
 					    window.location.href = response;
 				  });
@@ -334,7 +334,7 @@
 											$.ajax({
 													url: "{{ path('printMultiple') }}",
 													async: false,
-												  data: {"id" : demandes}
+												  data: {"id" : demandes,'action':'print'}
 												}).done(function( response ) {
 											    	$("#forPrint").html("");
 											    	$("#forPrint").append(response);
@@ -387,18 +387,6 @@
 			 				});
 
 			 	});
-
-			 	//Affiche le détail d'une demande
-			 	$('#demande tbody').on( 'click', 'tr td.details-control', function () {
-			 			var id = dt.row(this).data()['id'];
-			 			$.ajax({
-			 					url: '{{ path("detail") }}',
-			 					data: {"id" : id}
-			 				}).done(function( response ) {
-			 					window.location.href = response;
-			 			});
-			 		}
-			 	);
 
 				// Function typeDemande
 	 		 // Paramètres : id Demande

@@ -21,14 +21,18 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use AppBundle\Service\FileUploader;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class DemandePromesseEmbaucheType extends AbstractType
 {
     private $fileUploader;
+    private $session;
 
-    public function __construct(FileUploader $fileUploader)
+    public function __construct(FileUploader $fileUploader,Session $session)
     {
     $this->fileUploader = $fileUploader;
+    $this->session = $session;
+
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -71,10 +75,14 @@ class DemandePromesseEmbaucheType extends AbstractType
                       'label' => 'demande_promesse_embauche.niveau',
                       'translation_domain' => 'translator',
                     ))
-                ->add('echelon', TextType::class, array(
-                      'label' => 'demande_promesse_embauche.echelon',
-                      'translation_domain' => 'translator',
-                    ))
+                ->add('echelon', ChoiceType::class, array(
+                  'choices' => array(
+                    '1' => '1',
+                    '2' => '2',
+                    '3'=> '3'),
+                    'label' => 'demande_promesse_embauche.echelon',
+                    'translation_domain' => 'translator'
+                  ))
                 ->add('salaire', TextType::class, array(
                      'label' => 'demande_promesse_embauche.salaire',
                      'translation_domain' => 'translator',
@@ -90,12 +98,15 @@ class DemandePromesseEmbaucheType extends AbstractType
                   'years' => range(date('Y') - 100, date('Y') - 20),
                   'attr' => ['class' => ''],
                   'label' => 'demande_promesse_embauche.dateEmbauche',
-                  'translation_domain' => 'translator'))
+                  'translation_domain' => 'translator',
+                  'data' => new \DateTime()
+                    ))
                 ->add('Envoyer', SubmitType::class, array(
                   'label' => 'global.submit',
                   'attr' => array('class' =>'btn-black end'),
                   'translation_domain' => 'translator'
               ))
+
               ->addEventListener(FormEvents::POST_SUBMIT,
                   function(FormEvent $event)
                   {

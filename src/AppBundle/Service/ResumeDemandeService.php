@@ -5,6 +5,8 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\Translation\Translator;
+use Symfony\Component\Translation\Loader\ArrayLoader;
 use Doctrine\ORM\EntityManager;
 use ApiBundle\Entity\Personnel;
 use ApiBundle\Entity\PersonnelHasSalon;
@@ -18,19 +20,25 @@ use Symfony\Bridge\Doctrine\PropertyInfo\DoctrineExtractor;
 use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
 use Symfony\Component\PropertyInfo\PropertyInfoExtractor;
 use Symfony\Component\PropertyInfo\PropertyInfo;
+use Symfony\Component\Asset\PathPackage;
+use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 
 class ResumeDemandeService
 {
   private $em;
   private $em2;
+  private $translator;
 
-  public function __construct(EntityManager $em, EntityManager $em2)
+
+  public function __construct(EntityManager $em, EntityManager $em2, Translator $translator)
   {
     $this->em           = $em;
     $this->em2          = $em2;
+    $this->translator   = $translator;
+
   }
 
-  public function generateResume($idDemandes)
+  public function generateResume($idDemandes,$action)
   {
     //Extrator Properties
     $reflectionExtractor = new ReflectionExtractor();
@@ -43,6 +51,11 @@ class ResumeDemandeService
 
     //Var For HTML
       $response = '';
+      $fileList = '';
+
+    //Path
+    $package = new PathPackage('web/uploads/files', new EmptyVersionStrategy());
+
     //1 demande par page
     foreach ($idDemandes as $idDemande ) {
       $response .= '<div class="page">';
@@ -79,13 +92,83 @@ class ResumeDemandeService
                             }
 
                             //On affiche pas les fichiers liés à la demande
-                            if( self::ifFile($prop) == true ){
+                            if( self::ifFile($prop) == false ){
                               $response .= '<p><b>'.ucfirst($property).'</b> : ';
-                              $response .= $prop.'</p>';
-                            }
+
+                                if( is_array($prop)){
+                                  //champs de type array
+                                  $b=1;
+                                  $lastItem=count($prop);
+                                 foreach ($prop as $key => $value){
+                                   // dump($prop);
+                                   // frsdf();
+                                   $re = '/_{3,}/';
+                                   if( preg_match_all($re, $value, $matches, PREG_SET_ORDER, 0)){
+                                    $value = $this->translator->trans($value,array(),'translator','fr_FR');
+                                      }
+                                      if( is_numeric($key)){
+                                        $key = '';
+                                      }else{
+                                        $key = $key.': ';
+                                      }
+                                          if($b == $lastItem){
+                                             $response .= $key.$value;
+                                           }else{
+                                             $response .= $key.': '.$value.' - ';
+
+                                           }
+
+                                        $b++;
+                                    }
+                                     $response .= '</p>';
+                                }else{
+                                  //champs classique
+                                  //on vérifie si c'est une valeur provenant du fichier de traduction 'translator'
+                                  $re = '/_{3,}/';
+                                 if( preg_match_all($re, $prop, $matches, PREG_SET_ORDER, 0)){
+                                  $response .= $this->translator->trans($prop,array(),'translator','fr_FR');
+
+                                    } else{
+                                      switch ($prop) {
+                                          case '':
+                                              $response .= 'n/a';
+                                              break;
+                                          case 'true':
+                                              $response .= $this->translator->trans('global.affirme',array(),'translator','fr_FR');
+                                              break;
+                                          case 'false':
+                                              $response .= $this->translator->trans('global.negative',array(),'translator','fr_FR');
+
+                                              break;
+                                          default:
+                                           $response .= $prop;
+                                      }
+
+
+                                    }
+                                  $response .= '</p>';
+
+                                }
+                            }else{
+                              if ($action =='detail'){
+                              $fileList .= '<li>'.ucfirst($property);
+                              $path = $package->getUrl($prop);
+                              $fileList .= '<a class="downloadFile" href="'.$path.'">Télécharger le document</a></li>';
+                             }
+                          }
                 }
           }
+
           $response .= '</div>';
+          if ($action =='detail'){
+
+              if(empty($fileList)  ){
+                $fileList = 'Aucun document disponible';
+              }
+              $response .= '<div id="FileList" class="contentBlock"><h2>Document(s) lié(s)</h2> <ul>';
+              $response .= $fileList;
+              $response .= '</ul></div>';
+        }
 
             $response .= "<div id='infosDemandePrint' class='contentBlock'><h2> Statut de la demande </h2>";
             // Info de la demande
@@ -106,19 +189,24 @@ class ResumeDemandeService
 
  }
 
+    //Function ifFile: test si le champs est un fichier
+    //Return: retourne false si $property est un fichier
    public function ifFile($property){
       $tabFiles= ['png','jpg','pdf','jpeg','bmp','doc','docx'];
       $occ=0;
-      foreach ($tabFiles as $tabFile ) {
-                 if(strpos($property, $tabFile) !== false){
-                    $occ++;
-                 }
-      }
 
+      if(!is_array($property)){
+          foreach ($tabFiles as $tabFile ) {
+
+                     if(strpos($property, $tabFile) !== false){
+                        $occ++;
+                     }
+          }
+        }
       if ( $occ > 0){
-        return false;
-      }else{
         return true;
+      }else{
+        return false;
       }
   }
 }

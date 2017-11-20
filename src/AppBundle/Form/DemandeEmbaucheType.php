@@ -41,8 +41,8 @@ class DemandeEmbaucheType extends AbstractType
         ->add('prenom', null, array('attr' => ['class' => 'form-control']))
         ->add('sexe', ChoiceType::class, array(
           'choices'  => array(
-            'demande_embauche.sexe.m'  => 'demande_embauche.sexe.m',
-            'demande_embauche.sexe.f' => 'demande_embauche.sexe.f',
+            '___demande_embauche.sexe.m'  => '___demande_embauche.sexe.m',
+            '___demande_embauche.sexe.f' => '___demande_embauche.sexe.f',
           ),
           'choice_translation_domain' => 'translator',
           'translation_domain' => 'translator',
@@ -65,8 +65,8 @@ class DemandeEmbaucheType extends AbstractType
           'attr' => ['class' => '']))
         ->add('nationalite', ChoiceType::class, array(
             'choices'  => array(
-              'demande_embauche.nat.fr'  => 'demande_embauche.nat.fr',
-              'demande_embauche.nat.etr' => 'demande_embauche.nat.etr',
+              '___demande_embauche.nat.fr'  => '___demande_embauche.nat.fr',
+              '___demande_embauche.nat.etr' => '___demande_embauche.nat.etr',
             ),
             'translation_domain' => 'translator',
             'choice_translation_domain' => 'translator',
@@ -77,10 +77,10 @@ class DemandeEmbaucheType extends AbstractType
           ->add('nbEnfant', null, array('attr' => ['class' => 'form-control'], 'data' => 0))
           ->add('situationFamille', ChoiceType::class, array(
             'choices'  => array(
-              'demande_embauche.fam.celib' => 'demande_embauche.fam.celib',
-              'demande_embauche.fam.marie' => 'demande_embauche.fam.marie',
-              'demande_embauche.fam.pacse' => 'demande_embauche.fam.pacse',
-              'demande_embauche.fam.conc'  => 'demande_embauche.fam.conc',
+              '___demande_embauche.fam.celib' => '___demande_embauche.fam.celib',
+              '___demande_embauche.fam.marie' => '___demande_embauche.fam.marie',
+              '___demande_embauche.fam.pacse' => '___demande_embauche.fam.pacse',
+              '___demande_embauche.fam.conc'  => '___demande_embauche.fam.conc',
             ),
             'choice_translation_domain' => 'translator',
             'translation_domain' => 'translator',
@@ -89,7 +89,7 @@ class DemandeEmbaucheType extends AbstractType
           ->add('villeNaissance', null, array('attr' => ['class' => 'form-control']))
           ->add('paysNaissance', null, array('attr' => ['class' => 'form-control']))
           ->add('Envoyer', SubmitType::class, array(
-            'label' => 'demande_embauche.step1',
+            'label' => '___demande_embauche.step1',
             'attr' => array('class' => 'btn-black end'),
             'translation_domain' => 'translator',
           ))
@@ -107,7 +107,11 @@ class DemandeEmbaucheType extends AbstractType
               {
                 $form->add('autre_nationalite', TextType::class, array(
                     'attr' => array('class' => 'form-control'),
+<<<<<<< HEAD
                     'label' => 'demande_embauche.precisez',
+=======
+                    'label' => '___demande_embauche.autre',
+>>>>>>> verifChampsForm
                     'translation_domain' => 'translator',
                     'mapped' => false,
                     'empty_data' => $test
@@ -151,8 +155,8 @@ class DemandeEmbaucheType extends AbstractType
           ))
           ->add('dejaSalarie', ChoiceType::class,array(
             'choices' => array(
-              'demande_embauche.ancien.oui' => 'true',
-              'demande_embauche.ancien.no' => 'false'
+              '___demande_embauche.ancien.oui' => 'true',
+              '___demande_embauche.ancien.no' => 'false'
             ),
             'expanded' => true,
             'choice_translation_domain' => 'translator',
@@ -162,9 +166,9 @@ class DemandeEmbaucheType extends AbstractType
           ))
           ->add('postes', ChoiceType::class, array(
             'choices' => array(
-              'demande_embauche.poste.coif' => 'demande_embauche.poste.coif',
-              'demande_embauche.poste.tech' => 'demande_embauche.poste.tech',
-              'demande_embauche.autre'      => 'demande_embauche.autre'
+              '___demande_embauche.poste.coif' => '___demande_embauche.poste.coif',
+              '___demande_embauche.poste.tech' => '___demande_embauche.poste.tech',
+              '___demande_embauche.autre'      => '___demande_embauche.autre'
             ),
             'choice_translation_domain' => 'translator',
             'translation_domain' => 'translator',
@@ -174,9 +178,9 @@ class DemandeEmbaucheType extends AbstractType
           ))
           ->add('diplomes', ChoiceType::class,array(
             'choices' => array(
-              'demande_embauche.diplome.CAP' => 'demande_embauche.diplome.CAP',
-              'demande_embauche.diplome.BEP' => 'demande_embauche.diplome.BEP',
-              'demande_embauche.autre'=> 'demande_embauche.autre'
+              '___demande_embauche.diplome.CAP' => '___demande_embauche.diplome.CAP',
+              '___demande_embauche.diplome.BEP' => '___demande_embauche.diplome.BEP',
+              '___demande_embauche.autre'=> '___demande_embauche.autre'
             ),
             'choice_translation_domain' => 'translator',
             'translation_domain' => 'translator',
@@ -207,17 +211,17 @@ class DemandeEmbaucheType extends AbstractType
           ))
           ->add('autre', TextType::class, array(
             'required'   => false,
-            'label' => 'demande_embauche.autre',
+            'label' => '___demande_embauche.autre',
             'translation_domain' => 'translator',
             'attr' => ['class' => 'form-control']
           ))
           ->add('salaireBase', null, array('attr' => ['class' => 'form-control']))
           ->add('typeContrat', ChoiceType::class, array(
             'choices' => array(
-              'demande_embauche.cdi'  => 'demande_embauche.cdi',
-              'demande_embauche.appr' => 'demande_embauche.appr',
-              'demande_embauche.pro' => 'demande_embauche.pro',
-              'demande_embauche.cdd'  => 'demande_embauche.cdd'
+              '___demande_embauche.cdi'  => '___demande_embauche.cdi',
+              '___demande_embauche.appr' => '___demande_embauche.appr',
+              '___demande_embauche.pro' => '___demande_embauche.pro',
+              '___demande_embauche.cdd'  => '___demande_embauche.cdd'
             ),
             'choice_translation_domain' => 'translator',
             'translation_domain' => 'translator',
@@ -227,9 +231,9 @@ class DemandeEmbaucheType extends AbstractType
           ))
           ->add('cddRaison', ChoiceType::class, array(
             'choices' => array(
-              'demande_embauche.cdd.surcroit'  => 'demande_embauche.cdd.surcroit',
-              'demande_embauche.cdd.rempla' => 'demande_embauche.cdd.rempla',
-              'demande_embauche.cdd.renouv' => 'demande_embauche.cdd.renouv',
+              '___demande_embauche.cdd.surcroit'  => '___demande_embauche.cdd.surcroit',
+              '___demande_embauche.cdd.rempla' => '___demande_embauche.cdd.rempla',
+              '___demande_embauche.cdd.renouv' => '___demande_embauche.cdd.renouv',
             ),
             'choice_translation_domain' => 'translator',
             'translation_domain' => 'translator',
@@ -241,8 +245,8 @@ class DemandeEmbaucheType extends AbstractType
           ->add('remplacementNature', null, array('attr' => ['class' => 'form-control']))
           ->add('precisionDate', ChoiceType::class,array(
             'choices' => array(
-              'demande_embauche.precision.p' => 'demande_embauche.precision.p',
-              'demande_embauche.precision.i' => 'demande_embauche.precision.i'
+              '___demande_embauche.precision.p' => '___demande_embauche.precision.p',
+              '___demande_embauche.precision.i' => '___demande_embauche.precision.i'
             ),
             'expanded' => true,
             'choice_translation_domain' => 'translator',
@@ -251,8 +255,8 @@ class DemandeEmbaucheType extends AbstractType
           ))
           ->add('isTempsPartiel', ChoiceType::class,array(
             'choices' => array(
-              'demande_embauche.ancien.oui' => 'true',
-              'demande_embauche.ancien.no' => 'false'
+              '___demande_embauche.ancien.oui' => 'true',
+              '___demande_embauche.ancien.no' => 'false'
             ),
             'expanded' => true,
             'choice_translation_domain' => 'translator',
@@ -261,7 +265,7 @@ class DemandeEmbaucheType extends AbstractType
             'attr' => ['class' => 'form-control'],
           ))
           ->add('Envoyer', SubmitType::class, array(
-            'label' => 'demande_embauche.step2',
+            'label' => '___demande_embauche.step2',
             'attr' => array('class' =>'btn-black end'),
             'translation_domain' => 'translator',
           ));
@@ -298,7 +302,7 @@ class DemandeEmbaucheType extends AbstractType
                   $form->add('autre_lieu', TextType::class, array(
                     'attr' => array('class' => 'form-control'),
                     'mapped' => false,
-                    'label' => 'demande_embauche.lieu',
+                    'label' => '___demande_embauche.lieu',
                     'translation_domain' => 'translator',
                     'empty_data' => $value
                   ));
@@ -311,7 +315,11 @@ class DemandeEmbaucheType extends AbstractType
                 $form->add('autre_diplome', TextType::class, array(
                   'attr' => array('class' => 'form-control'),
                   'mapped' => false,
+<<<<<<< HEAD
                   'label' => 'demande_embauche.precisez',
+=======
+                  'label' => '___demande_embauche.autre',
+>>>>>>> verifChampsForm
                   'translation_domain' => 'translator',
                   'empty_data' => $test
                 ));
@@ -325,7 +333,11 @@ class DemandeEmbaucheType extends AbstractType
                 $form->add('autre_poste', TextType::class, array(
                   'attr' => array('class' => 'form-control'),
                   'mapped' => false,
+<<<<<<< HEAD
                   'label' => 'demande_embauche.precisez',
+=======
+                  'label' => '___demande_embauche.autre',
+>>>>>>> verifChampsForm
                   'translation_domain' => 'translator',
                   'empty_data' => $test
                 ));
@@ -383,7 +395,11 @@ class DemandeEmbaucheType extends AbstractType
             // raison, jusqu'au, nature, nom
 
 
+<<<<<<< HEAD
             if($data->getTypeContrat() == 'demande_embauche.cdd')
+=======
+            if($data->getTypeContrat() == '___demande_embauche.cdd')
+>>>>>>> verifChampsForm
             {
               if ($form->get('date')->getData() != null) {
                 $data->setCddDate($form->get('date')->getData());
@@ -426,7 +442,7 @@ class DemandeEmbaucheType extends AbstractType
         ->add('rib', FileType::class)
         ->add('mutuelle', FileType::class)
         ->add('Envoyer', SubmitType::class, array(
-          'label' => 'demande_embauche.send',
+          'label' => '___demande_embauche.send',
           'attr' => array('class' =>'btn-black end'),
           'translation_domain' => 'translator',
         ))
@@ -435,10 +451,10 @@ class DemandeEmbaucheType extends AbstractType
               $form = $event->getForm();
               $data = $event->getData();
 
-              if ($data->getPostes() == 'demande_embauche.autre')
+              if ($data->getPostes() == '___demande_embauche.autre')
                 $data->setPostes($this->session->get('poste'));
 
-               if (in_array('demande_embauche.autre', $data->getDiplomes())) {
+               if (in_array('___demande_embauche.autre', $data->getDiplomes())) {
                  $array = $data->getDiplomes();
                  $array[2] = $this->session->get('diplome');
                  $data->setDiplomes($array);
@@ -490,8 +506,8 @@ class DemandeEmbaucheType extends AbstractType
           ->add('paysNaissance', TextType::class, array('attr' => ['class' => 'form-control', 'readonly' => true]))
           ->add('nationalite', ChoiceType::class, array(
             'choices'  => array(
-              'demande_embauche.nat.fr'  => 'demande_embauche.nat.fr',
-              'demande_embauche.nat.etr' => 'demande_embauche.nat.etr',
+              '___demande_embauche.nat.fr'  => '___demande_embauche.nat.fr',
+              '___demande_embauche.nat.etr' => '___demande_embauche.nat.etr',
             ),
             'attr' => array('readonly' => true,
             'disabled' => true,
@@ -501,8 +517,8 @@ class DemandeEmbaucheType extends AbstractType
           ))
           ->add('sexe', ChoiceType::class, array(
             'choices'  => array(
-              'demande_embauche.sexe.m'  => 'demande_embauche.sexe.m',
-              'demande_embauche.sexe.f' => 'demande_embauche.sexe.f',
+              '___demande_embauche.sexe.m'  => '___demande_embauche.sexe.m',
+              '___demande_embauche.sexe.f' => '___demande_embauche.sexe.f',
             ),
             'attr' => array('readonly' => true,
             'disabled' => true,
@@ -513,10 +529,10 @@ class DemandeEmbaucheType extends AbstractType
           ->add('nbEnfant', null, array('attr' => ['class' => 'form-control', 'readonly' => true]))
           ->add('situationFamille', ChoiceType::class, array(
             'choices'  => array(
-              'demande_embauche.fam.marie' => 'demande_embauche.fam.marie',
-              'demande_embauche.fam.pacse' => 'demande_embauche.fam.pacse',
-              'demande_embauche.fam.conc'  => 'demande_embauche.fam.conc',
-              'demande_embauche.fam.celib' => 'demande_embauche.fam.celib',
+              '___demande_embauche.fam.marie' => '___demande_embauche.fam.marie',
+              '___demande_embauche.fam.pacse' => '___demande_embauche.fam.pacse',
+              '___demande_embauche.fam.conc'  => '___demande_embauche.fam.conc',
+              '___demande_embauche.fam.celib' => '___demande_embauche.fam.celib',
             ),
             'attr' => array('readonly' => true,
             'disabled' => true,
@@ -532,8 +548,8 @@ class DemandeEmbaucheType extends AbstractType
           ))
           ->add('dejaSalarie', ChoiceType::class, array(
             'choices' => array(
-              'demande_embauche.ancien.oui' => 'true',
-              'demande_embauche.ancien.no' => 'false'
+              '___demande_embauche.ancien.oui' => 'true',
+              '___demande_embauche.ancien.no' => 'false'
             ),
             'choice_translation_domain' => 'translator',
             'translation_domain' => 'translator',
@@ -542,21 +558,21 @@ class DemandeEmbaucheType extends AbstractType
             'disabled' => true,
             'class' =>'onlyread form-control'),
           ));
-          if ($demande->getDejaSalarie() == 'demande_embauche.ancien.no')
+          if ($demande->getDejaSalarie() == '___demande_embauche.ancien.no')
           {
             $form->add("salarieLieu", TextType::class, array(
               'attr' => array('readonly' => true)
             ));
           }
 
-          if ($demande->getPostes() == "demande_embauche.poste.coif"
-          || $demande->getPostes() == "demande_embauche.poste.tech")
+          if ($demande->getPostes() == "___demande_embauche.poste.coif"
+          || $demande->getPostes() == "___demande_embauche.poste.tech")
           {
             $form->add('postes', ChoiceType::class, array(
               'choices' => array(
-                'demande_embauche.poste.coif' => 'demande_embauche.poste.coif',
-                'demande_embauche.poste.tech' => 'demande_embauche.poste.tech',
-                'demande_embauche.autre'      => 'demande_embauche.autre'
+                '___demande_embauche.poste.coif' => '___demande_embauche.poste.coif',
+                '___demande_embauche.poste.tech' => '___demande_embauche.poste.tech',
+                '___demande_embauche.autre'      => '___demande_embauche.autre'
               ),
               'attr' => array('readonly' => true,
               'disabled' => true,
@@ -597,7 +613,7 @@ class DemandeEmbaucheType extends AbstractType
           {
             $form->add('autre', TextType::class, array(
               'required'   => false,
-              'label' => 'demande_embauche.autre',
+              'label' => '___demande_embauche.autre',
               'translation_domain' => 'translator',
               'attr' => ['class' => 'form-control', 'readonly' => true]
             ));
@@ -643,10 +659,10 @@ class DemandeEmbaucheType extends AbstractType
           $form
           ->add('typeContrat', ChoiceType::class,array(
             'choices' => array(
-              'demande_embauche.cdi'  => 'demande_embauche.cdi',
-              'demande_embauche.appr' => 'demande_embauche.appr',
-              'demande_embauche.pro' => 'demande_embauche.pro',
-              'demande_embauche.cdd'  => 'demande_embauche.cdd'
+              '___demande_embauche.cdi'  => '___demande_embauche.cdi',
+              '___demande_embauche.appr' => '___demande_embauche.appr',
+              '___demande_embauche.pro' => '___demande_embauche.pro',
+              '___demande_embauche.cdd'  => '___demande_embauche.cdd'
             ),
             'attr' => array('readonly' => true,
             'disabled' => true,
@@ -654,15 +670,15 @@ class DemandeEmbaucheType extends AbstractType
             'choice_translation_domain' => 'translator',
             'translation_domain' => 'translator',
           ));
-          if ($demande->getTypeContrat() == 'demande_embauche.cdd')
+          if ($demande->getTypeContrat() == '___demande_embauche.cdd')
           {
             $form
             ->add('cddRaison', ChoiceType::class, array(
               'choices' => array(
-                'demande_embauche.cdd.rempla'  => 'demande_embauche.cdd.rempla'
+                '___demande_embauche.cdd.rempla'  => '___demande_embauche.cdd.rempla'
               ),
               'required'   => false,
-              'label' => 'demande_embauche.cdd.retour',
+              'label' => '___demande_embauche.cdd.retour',
               'choice_translation_domain' => 'translator',
               'translation_domain' => 'translator',
               'attr' => ['readonly' => true,'disabled' => true]
@@ -679,10 +695,10 @@ class DemandeEmbaucheType extends AbstractType
               else
                 $form->add('cddRetour', ChoiceType::class, array(
                   'choices' => array(
-                    'demande_embauche.cdd.retour'  => 'demande_embauche.cdi',
+                    '___demande_embauche.cdd.retour'  => '___demande_embauche.cdi',
                   ),
                   'required'   => false,
-                  'label' => 'demande_embauche.cdd.retour',
+                  'label' => '___demande_embauche.cdd.retour',
                   'choice_translation_domain' => 'translator',
                   'translation_domain' => 'translator',
                   'attr' => ['class' => 'form-control', 'readonly' => true]

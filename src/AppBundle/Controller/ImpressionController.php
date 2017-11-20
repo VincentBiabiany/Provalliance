@@ -21,7 +21,7 @@ class ImpressionController extends Controller
   {
 
     // On récupère le service
-    $rep = $ResumeDemandeService->generateResume(  $request->get('id'));
+    $rep = $ResumeDemandeService->generateResume(  $request->get('id'), $request->get('action') );
 
      $response = new Response(json_encode($rep), 200, ['Content-Type' => 'application/json']);
 

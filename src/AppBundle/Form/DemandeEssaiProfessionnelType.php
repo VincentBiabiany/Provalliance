@@ -57,7 +57,8 @@ class DemandeEssaiProfessionnelType extends AbstractType
                 'widget' => 'choice',
                 'format' => 'dd/MM/y',
                 'years' => range(date('Y') - 100, date('Y') - 20),
-                'attr' => ['class' => 'form-control styleDate','name'=>'date']
+                'attr' => ['class' => 'form-control styleDate','name'=>'date'],
+
                 ))
                 ->add('nationalite', TextType::class, array(
                 'attr' => ['class' => 'form-control']
@@ -76,7 +77,9 @@ class DemandeEssaiProfessionnelType extends AbstractType
                 'widget' => 'choice',
                 'format' => 'dd/MM/y',
                 'years' => range(date('Y') - 100, date('Y') - 20),
-                'attr' => ['class' => 'form-control styleDate','name'=>'date']
+                'attr' => ['class' => 'form-control styleDate','name'=>'date'],
+                'data' => new \DateTime()
+
                 ))
                 ->add('niveau', ChoiceType::class, array(
                   'choices' => array(

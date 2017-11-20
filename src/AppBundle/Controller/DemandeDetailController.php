@@ -138,7 +138,7 @@ class DemandeDetailController extends Controller
   {
     // On récupère le service
     $idDemande[0] = $request->get('id');
-    $response = $ResumeDemandeService->generateResume($idDemande);
+    $response = $ResumeDemandeService->generateResume($idDemande,$request->get('action'));
     return new Response(json_encode($response), 200, ['Content-Type' => 'application/json']);
 
   }
@@ -209,6 +209,7 @@ class DemandeDetailController extends Controller
       $dateTraitement = $dateTraitement->format('d/m/Y');
 
     return $this->render('demande_detail_complexe.html.twig', array(
+      'idDemande'       => $request->get('id'),
       'demandeur'       => $demandeur,
       'date'            => $date->format('d/m/Y'),
       'dateTraitement'  => $dateTraitement,

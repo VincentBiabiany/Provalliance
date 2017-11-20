@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% form_theme form 'form/error.html.twig' %}
-{% block title %}{{ "rupture_cdd.titre"|trans({}, "translator") }}{% endblock %}
+{% block title %}{{ "___demande_rupture_cdd.titre"|trans({}, "translator") }}{% endblock %}
 
 {% block body %}
 
@@ -11,7 +11,7 @@
 </div>
 
 <div class="head">
-	{{ "rupture_cdd.titre"|trans({}, "translator") }}
+	{{ "___demande_rupture_cdd.titre"|trans({}, "translator") }}
 </div>
 <div class="nomSalon">
   {{ app.session.get('nomSalon') }}
@@ -33,7 +33,7 @@
 
 		<!-- Champs raison -->
 		<div class="form-group row imbriq" >
-			<label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "lettre_mission.raison"|trans({}, "translator") }}</label>
+			<label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "___demande_rupture_cdd.raison"|trans({}, "translator") }}</label>
 
 			<div class="col-sm-8">
 				{% block _demande_rupture_cdd_raison_row %}
@@ -97,26 +97,26 @@
     <div id="block" class="col-xs-12" style="display:none">
 
       <div class="col-sm-12" id="fin">
-        <label class="control-label label fin">{{ "rupture_cdd.datefin"|trans({}, "translator") }}</label>
+        <label class="control-label label fin">{{ "___demande_rupture_cdd.datefin"|trans({}, "translator") }}</label>
         {{ form_widget(form.dateFin, { 'attr': {'class':'styleDate'} }) }}
       </div>
 
       <div class="col-sm-12" id="blockNom">
-        <label style="display:none" class="control-label label retourLabel">{{ "rupture_cdd.nom"|trans({}, "translator") }}</label>
-        <label style="display:none" class="control-label label departLabel">{{ "rupture_cdd.nom2"|trans({}, "translator") }}</label>
+        <label style="display:none" class="control-label label retourLabel">{{ "___demande_rupture_cdd.nom"|trans({}, "translator") }}</label>
+        <label style="display:none" class="control-label label departLabel">{{ "___demande_rupture_cdd.nom2"|trans({}, "translator") }}</label>
         {{ form_widget(form.nomCollab, {'attr' : {'class' : 'form-control', 'style':'max-width:180px;' } }) }}
       </div>
 
        <div class="col-sm-12" id="blockDepart">
-         <label style="display:none" class="control-label label retourLabel">{{ "rupture_cdd.dateretour"|trans({}, "translator") }}</label>
-         <label style="display:none" class="control-label label departLabel">{{ "rupture_cdd.datedepart"|trans({}, "translator") }}</label>
+         <label style="display:none" class="control-label label retourLabel">{{ "___demande_rupture_cdd.dateretour"|trans({}, "translator") }}</label>
+         <label style="display:none" class="control-label label departLabel">{{ "___demande_rupture_cdd.datedepart"|trans({}, "translator") }}</label>
          {{ form_widget(form.dateDepart, { 'attr': {'class':'styleDate'} }) }}
        </div>
 
 			 <div class="col-sm-12" id="blockFile" style="display:none">
 				 <label for="demande_rupture_cdd_lettre" class="label-file">
 					 <i class="glyphicon glyphicon-download-alt"></i>
-					 <span>{{ "rupture_cdd.joindre"|trans({}, "translator") }}</</span>
+					 <span>{{ "___demande_rupture_cdd.joindre"|trans({}, "translator") }}</</span>
 				 </label>
 				 {{ form_widget(form.lettre, { 'attr': {'class': 'input-file'} }) }}
 			 </div>

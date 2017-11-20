@@ -11,7 +11,7 @@
 </div>
 
 <div class="head">
-	{{ "conge_parental.titre"|trans({}, "translator") }}
+	{{ "avenant.titre"|trans({}, "translator") }}
 </div>
 <div class="nomSalon">
   {{ app.session.get('nomSalon') }}
@@ -34,7 +34,7 @@
 
 				<!-- Champs raison -->
 				<div class="form-group row imbriq" id="raison">
-					<label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "lettre_mission.raison"|trans({}, "translator") }}</label>
+					<label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "avenant.raison"|trans({}, "translator") }}</label>
 
 					<div class="col-sm-col-sm-9">
 						{% block _demande_lettre_mission_tempsPartiel_row %}
@@ -96,7 +96,7 @@
 
             {% block _demande_embauche_tempsPartiel_row %}
             <div id="tempsPartiel" class="form-group row" style="">
-              <label class="control-label label col-sm-3 col-xs-12" for="prenom">{{ "demande_embauche.cdd.partiel"|trans({}, "translator") }}</label>
+              <label class="control-label label col-sm-3 col-xs-12" for="prenom">{{ "avenant.TempsPartiel"|trans({}, "translator") }}</label>
 
               <div id="listeJours" class="col-sm-9 col-xs-12 pad-box">
                 <label class="control-label label col-sm-12 col-xs-12"  for="nom"></label>
@@ -122,8 +122,6 @@
 
 				<!-- Champs date -->
 				<div class="form-group row imbriq" id="dates" style="display:none;">
-					<label class="control-label label col-sm-3 col-xs-12">{{ "conge_parental.date"|trans({}, "translator") }}</label>
-
 
   				<div class="form-group col-sm-12 row">
 

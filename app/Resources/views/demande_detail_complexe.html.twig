@@ -17,53 +17,7 @@
 
 <div id="wrapperForm" class="row">
 
-	{% if statut > 1 %}
-	<div <div class="btn-black precedent" id="hide" style="float: none;"> Deplier les infos </div>
-	<div  id="formCplx" class="row" style="display:none;" >
-	{% else %}
-	<div  class="row">
-	{% endif %}
-
-		{% form_theme form 'form/acompte.html.twig' %}
-			{{ form_start(form, {'attr': {'class': 'demandeDetail'} }) }}
-			{{ form_end(form) }}
-
-	 {% if statut > 1 %}
-	 </div>
-	 {% endif %}
-	 </div>
-
-		<div id="infosDemande" class="col-sm-12">
-			<p> <b>Demandeur : </b>{{ demandeur.nom }} {{ demandeur.prenom }} </p>
-			<p> <p> <b>Date d'envoi :</b>  {{ date }} </p> <b>Statut:</b>  {{ statut }} {% if dateTraitement is not null %} le {{ dateTraitement }} {% endif %}</p>
-			<p> <b>Salon :</b> {{ salon.appelation }} </p>
-			<p> <b>Adresse :</b>  {{ salon.adresse1 }} {{ salon.codepostal }} {{ salon.ville }}  </p>
-
-
-			{% if is_granted('ROLE_PAIE') or is_granted('ROLE_JURIDIQUE') %}
-			<p> <b>Siren :</b>  {{ salon.siren }}</p>
-			<p> <b>Rcs :</b>  {{ salon.rcsVille }}</p>
-			{% endif  %}
-
-
-			{% if docService != null %}
-				<div class="form-group" style="padding-top: 50px">
-					<label class="control-label label col-sm-3 col-xs-12" for="personnel"> Doc service</label>
-						<a href="{{ asset('uploads/files/' ~ docService ) }}" ><div class="col-sm-9"> Telecharger le document
-								{{ form_widget(form, { 'attr' : {'class': 'getDocument form-control' } }) }}
-					 </div></a>
-				</div>
-			{% endif %}
-
-			{% if docSalon != null %}
-				<div class="form-group" style="padding-top: 50px">
-					<label class="control-label label col-sm-3 col-xs-12" for="personnel"> Doc service</label>
-						<div class="col-sm-9"><a href="{{ asset('uploads/files/' ~ docSalon ) }}"> Telecharger le document
-					  </a></div>
-				</div>
-			{% endif %}
-
-		</div>
+</div>
 
 		<!-- ................... Parti Validation ..........................-->
 
@@ -105,6 +59,19 @@ $('.closeAlert').bind('click', function(){
 });
 $('#hide').on('click', function(){
 	$('#formCplx').toggle();
+});
+
+// document ready
+jQuery(document).ready(function($){
+
+	$.ajax({
+			url: "{{ path('generateResume') }}",
+			async: false,
+			data: {"id" : "{{ idDemande }}",'action':'detail'}
+		}).done(function( response ) {
+				$('#wrapperForm').prepend(response);
+
+	});
 });
 </script>
 {% endblock %}

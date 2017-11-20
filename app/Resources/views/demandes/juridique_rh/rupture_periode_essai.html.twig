@@ -9,7 +9,7 @@
 	<img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
 </div>
 <div class="head">
-{{ "demande_rupture_periode_essai.titre"|trans({}, "translator") }}
+{{ "___demande_rupture_periode_essai.titre"|trans({}, "translator") }}
 </div>
 <div class="nomSalon">
   {{ app.session.get('nomSalon') }}
@@ -45,7 +45,7 @@
 						{{ form_widget(form.contrat, { 'attr': {'class': 'input-file'} }) }}
 						<label for="demande_rupture_periode_essai_contrat" class="label-file">
 							<i class="glyphicon glyphicon-download-alt"></i>
-							<span>{{ "demande_rupture_periode_essai.choice"|trans({}, "translator") }}</span>
+							<span>{{ "___demande_rupture_periode_essai.choice"|trans({}, "translator") }}</span>
 						</label>
 					</div>
 				</div>
@@ -57,7 +57,6 @@
 		  </div>
 		</div>
 	</div>
-	<script src="{{ asset('js/custom-file-input.js') }}"></script>
 	<script type="text/javascript">
 
 

@@ -9,7 +9,7 @@
 	<img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
 </div>
 <div class="head">
-{{ "demande_demission.titre"|trans({}, "translator") }}
+{{ "___demande_demission.titre"|trans({}, "translator") }}
 </div>
 <div class="nomSalon">
   {{ app.session.get('nomSalon') }}
@@ -45,7 +45,7 @@
 						{{ form_widget(form.dem, { 'attr': {'class': 'input-file'} }) }}
 						<label for="demande_demission_dem" class="label-file">
 							<i class="glyphicon glyphicon-download-alt"></i>
-							<span>{{ "demande_demission.choice"|trans({}, "translator") }}</span>
+							<span>{{ "___demande_demission.choice"|trans({}, "translator") }}</span>
 						</label>
 					</div>
 				</div>

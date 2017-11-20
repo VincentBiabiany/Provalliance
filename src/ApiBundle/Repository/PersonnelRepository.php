@@ -106,7 +106,7 @@ class PersonnelRepository extends EntityRepository
   // en premier lieu
   public function getListPerso($idSalon)
   {
-    $listPerso['Aucune sélection'] = 99999;
+    $listPerso['Ne concerne aucun collaborateur'] = 99999;
     $listes = $this->createQueryBuilder('d')
                    ->join('d.personnelHasSalon', 'm')
                    ->andwhere('m.salonSage = :idSalon')

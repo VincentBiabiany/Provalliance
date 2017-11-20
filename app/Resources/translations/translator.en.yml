@@ -317,8 +317,8 @@ demande_embauche:
     ss:            N° de Sécu
     email:         Email
     fam:           Situation familliale
-    fam.marie:     Marié
-    fam.pacse:     Pacsé
+    fam.marie:     Marié(e)
+    fam.pacse:     Pacsé(e)
     fam.conc:      Concubinage
     fam.celib:     Célibataire
     nbenf:         Nombre d'enfant(s)
@@ -350,17 +350,18 @@ demande_embauche:
 
     cdi:           CDI
     appr:          Contrat d'apprentissage
-    pro:           Contrat de profes.
+    pro:           Contrat de pro
     cdd:           CDD
 
-    cdd.surcroit:  Surcroît d'activité
-    cdd.rempla:    Remplacement
-    cdd.nature:    Nature de l'absence
-    cdd.nom:       Nom du remplacé
-    cdd.date:      Jusqu'au
-    cdd.renouv:    Renouvellement du CDD pour le même motif
-    cdd.retour:    Jusqu'au retour physique
-    cdd.partiel:   Temps partiel
+    cdd.surcroit:       Surcroît d'activité
+    cdd.rempla:         Remplacement
+    cdd.nature:         Nature de l'absence
+    cdd.nom:            Nom du remplacé
+    cdd.date:           Jusqu'au
+    cdd.renouv:         Renouvellement du CDD pour le même motif
+    cdd.retour:         Jusqu'au retour physique
+    cdd.partiel:        Temps partiel
+    cdd.tempsTravail:   Temps de travail
 
     lundi:         Lu
     mardi:         Ma
@@ -371,7 +372,7 @@ demande_embauche:
     total:         Total
 
 
-    autre:         autre
+    autre:         Autre
     precisez:      Précisez
 
     sexe:          Sexe

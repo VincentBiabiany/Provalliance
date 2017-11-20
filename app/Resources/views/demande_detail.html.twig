@@ -11,7 +11,13 @@
 	{{ typedemande }}
 </div>
 <div class="nomSalon">
-	{{ app.session.get('nomSalon') }}
+{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_COORDINATEUR') %}
+			{{ app.session.get('nomSalon') }}
+{% elseif is_granted('ROLE_JURIDIQUE') %}
+{{ "suivi_demandes.serviceJuridique"|trans({}, "translator") }}
+{% elseif is_granted('ROLE_PAIE') %}
+{{ "suivi_demandes.servicePaie"|trans({}, "translator") }}
+{% endif %}
 </div>
 <div class="container">
 	<div id="wrapperForm" class="row">
@@ -56,7 +62,7 @@
 			$.ajax({
 					url: "{{ path('generateResume') }}",
 					async: false,
-					data: {"id" : "{{ idDemande }}"}
+					data: {"id" : "{{ idDemande }}",'action':'detail'}
 				}).done(function( response ) {
 						$('#wrapperForm').prepend(response);
 
