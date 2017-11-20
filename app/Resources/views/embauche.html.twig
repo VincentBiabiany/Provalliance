@@ -327,13 +327,7 @@ $addListener($situ, "nationalite", "nationalite", 1, 1);
 <script type="text/javascript" src="{{ asset('js/global/global-method.js') }}"></script>
 
 <script>
-$('.tempsHeure').blur(function(){
-  if (parseInt($(this).val()) > 9 )
-    $(this).val(9)
-  if (parseInt($(this).val()) < 0)
-    $(this).val(0)
 
-  $tempsTotal = 0
 uppercaseField("#demande_embauche_nom");
 uppercaseField("#demande_embauche_ville");
 uppercaseField("#demande_embauche_villeNaissance");

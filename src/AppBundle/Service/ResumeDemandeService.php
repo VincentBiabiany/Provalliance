@@ -177,10 +177,14 @@ class ResumeDemandeService
             $statutDemande = $demandeRepo->whichStatut($infoDemande['statut']);
 
             $response .= '<p><b>Demandeur</b> : '.$infosCollab['nom'].' '.$infosCollab['prenom'].'</p>';
-            $response .= '<p><b>Date d\'envoi</b> : '.$infoDemande['dateTraitement']->format('d-m-Y').'</p>';
-            $response .= '<p><b>Statut</b> : '.$statutDemande.'</p>';
+            $response .= '<p><b>Date d\'envoi</b> : '.$infoDemande['dateTraitement']->format('d/m/Y').'</p>';
+            $response .= '<p><b>Statut</b> : <span class="'.$statutDemande.'">' . $statutDemande .'</span></p>';
             $response .= '<p><b>Salon</b> : '.$infosSalon['appelation'].'</p>';
             $response .= '<p><b>Adresse</b> : '.$infosSalon['adresse1'].' '.$infosSalon['codePostal'].' '.$infosSalon['ville'].'</p>';
+
+            if ($statutDemande == "Rejeté")
+              $response .= '<p><b>Motif du rejet</b> : '.$infoDemande['message'].'</p>';
+
             $response .= '</div>';
       $response .= '</div>';
 

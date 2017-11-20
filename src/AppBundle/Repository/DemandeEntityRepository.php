@@ -362,6 +362,7 @@ class DemandeEntityRepository extends \Doctrine\ORM\EntityRepository
      $demandes['nameDemande'] = $requete->getDemandeform()->getNameDemande();
      $demandes['demandeId'] = $requete->getDemandeform()->getId();
      $demandes['typeForm'] = $requete->getDemandeform()->getTypeForm();
+     $demandes['message'] = $requete->getMessage();
 
      return $demandes;
 

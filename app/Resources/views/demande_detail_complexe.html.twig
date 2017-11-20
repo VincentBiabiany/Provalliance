@@ -16,7 +16,7 @@
 <div class="container">
 
 <div id="wrapperForm" class="row">
-
+		{{ detail |raw }}
 </div>
 
 		<!-- ................... Parti Validation ..........................-->
@@ -32,8 +32,6 @@
 				{% endfor %}
 
 				<hr id="separatorDetailDemande"/>
-				<!-- { form_start(form2, {'attr': {'id':'form_message','novalidate': 'novalidate'}}) }} -->
-				<!-- { form_end(form2) }} -->
 				{% form_theme form2 'form/demande_complexe.html.twig' %}
 				{{ form_start(form2, {'attr': {'id':'form_message','novalidate': 'novalidate'}}) }}
 				{{ form_end(form2) }}
@@ -43,12 +41,15 @@
 
 
 		<div class="col-sm-12" style="padding: 0;">
-			<button  onclick="window.location.href ='{{ path("demande") }}'" class="btn-black precedent">Précédent</button>
+			<button  onclick="window.location.href ='{{ path("demande") }}'" class="btn-black precedent">{{ "global.back"|trans({}, "translator") }}</button>
 		</div>
 
 	</div>
 </div>
 <script src="{{ asset('js/custom-file-input.js') }}"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.js"></script>
+<script type="text/javascript" src="{{ asset('js/global/global-method.js') }}"></script>
 
 <script language="javascript">
 $('#demande_complexe_reject, #demande_complexe_accept').css('marginTop','30px');
@@ -61,17 +62,85 @@ $('#hide').on('click', function(){
 	$('#formCplx').toggle();
 });
 
-// document ready
-jQuery(document).ready(function($){
+$('#demande_complexe_docService').prop('required', true);
+$('#demande_complexe_docSalon').prop('required', true);
 
-	$.ajax({
-			url: "{{ path('generateResume') }}",
-			async: false,
-			data: {"id" : "{{ idDemande }}",'action':'detail'}
-		}).done(function( response ) {
-				$('#wrapperForm').prepend(response);
-
-	});
+$('#demande_complexe_accept').on('click', function(){
+	console.log('click')
+	$('#demande_complexe_message').rules('remove');
+	$('#demande_complexe_message').prop('required', false)
 });
+
+
+$('#demande_complexe_reject').on('click', function(){
+
+	$('#demande_complexe_message').rules('add', {required:true});
+	$('#demande_complexe_message').prop('required', true)
+});
+
+
+$( "#form_message" ).validate( {
+  rules: {
+    '#demande_complexe_docService' : {
+      required: true,
+    },
+		'#demande_complexe_docSalon' : {
+			required: true,
+		}
+  },
+  messages: {
+
+	},
+	errorElement: "em",
+  errorPlacement: function ( error, element ) {
+		// Add the `help-block` class to the error element
+		error.addClass( "help-block" );
+
+		// Add `has-feedback` class to the parent div.form-group
+		// in order to add icons to inputs
+		element.parents( ".col-sm-5" ).addClass( "has-feedback" );
+
+
+
+    if ( element.prop( "type" ) === "checkbox" ) {
+      error.insertAfter( element.parent( "label" ) );
+    } else if( element.prop( "type" ) === "select-one" || element.prop( "type" ) === "radio") {
+      error.appendTo( element.parent());
+    } else {
+      error.insertAfter( element );
+    }
+
+		// Add the span element, if doesn't exists, and apply the icon classes to it.
+		if ( !element.next( "span" )[ 0 ] ) {
+			$( "<span class='glyphicon glyphicon-remove form-control-feedback'></span>" ).insertAfter( element );
+		}
+	},
+	success: function ( label, element ) {
+		// Add the span element, if doesn't exists, and apply the icon classes to it.
+		if ( !$( element ).next( "span" )[ 0 ] ) {
+			$( "<span class='glyphicon glyphicon-ok form-control-feedback'></span>" ).insertAfter( $( element ) );
+		}
+	},
+	highlight: function ( element, errorClass, validClass ) {
+		$( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
+		$( element ).next( "span" ).addClass( "glyphicon-remove" ).removeClass( "glyphicon-ok" );
+	},
+	unhighlight: function ( element, errorClass, validClass ) {
+		$( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
+		$( element ).next( "span" ).addClass( "glyphicon-ok" ).removeClass( "glyphicon-remove" );
+	}
+});
+// document ready
+// jQuery(document).ready(function($){
+//
+// 	$.ajax({
+// 			url: "{{ path('generateResume') }}",
+// 			async: false,
+// 			data: {"id" : "{{ idDemande }}",'action':'detail'}
+// 		}).done(function( response ) {
+// 				$('#wrapperForm').prepend(response);
+//
+// 	});
+// });
 </script>
 {% endblock %}
