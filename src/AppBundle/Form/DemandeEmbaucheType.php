@@ -107,11 +107,7 @@ class DemandeEmbaucheType extends AbstractType
               {
                 $form->add('autre_nationalite', TextType::class, array(
                     'attr' => array('class' => 'form-control'),
-<<<<<<< HEAD
-                    'label' => 'demande_embauche.precisez',
-=======
-                    'label' => '___demande_embauche.autre',
->>>>>>> verifChampsForm
+                    'label' => '___demande_embauche.precisez',
                     'translation_domain' => 'translator',
                     'mapped' => false,
                     'empty_data' => $test
@@ -315,11 +311,7 @@ class DemandeEmbaucheType extends AbstractType
                 $form->add('autre_diplome', TextType::class, array(
                   'attr' => array('class' => 'form-control'),
                   'mapped' => false,
-<<<<<<< HEAD
-                  'label' => 'demande_embauche.precisez',
-=======
-                  'label' => '___demande_embauche.autre',
->>>>>>> verifChampsForm
+                  'label' => '___demande_embauche.precisez',
                   'translation_domain' => 'translator',
                   'empty_data' => $test
                 ));
@@ -333,11 +325,7 @@ class DemandeEmbaucheType extends AbstractType
                 $form->add('autre_poste', TextType::class, array(
                   'attr' => array('class' => 'form-control'),
                   'mapped' => false,
-<<<<<<< HEAD
-                  'label' => 'demande_embauche.precisez',
-=======
-                  'label' => '___demande_embauche.autre',
->>>>>>> verifChampsForm
+                  'label' => '___demande_embauche.precisez',
                   'translation_domain' => 'translator',
                   'empty_data' => $test
                 ));
@@ -395,18 +383,14 @@ class DemandeEmbaucheType extends AbstractType
             // raison, jusqu'au, nature, nom
 
 
-<<<<<<< HEAD
-            if($data->getTypeContrat() == 'demande_embauche.cdd')
-=======
             if($data->getTypeContrat() == '___demande_embauche.cdd')
->>>>>>> verifChampsForm
             {
               if ($form->get('date')->getData() != null) {
                 $data->setCddDate($form->get('date')->getData());
                 $this->session->set('date', $form->get('date')->getData());
               }
 
-            
+
             //
             //   if (isset($extra['raison']['absence']))
             //     $data->setRemplacementNature($extra['raison']['absence']);
