@@ -32,7 +32,7 @@ class LettreMissionController extends Controller
       $demandeService->createDemande($form->getData(), $idSalon);
 
       return $this->redirect($this->generateUrl('homepage',
-        array('flash' => "lettre_mission.popupValidation.message")));
+        array('flash' => "___demande_lettre_mission.popupValidation.message")));
 
     }
 

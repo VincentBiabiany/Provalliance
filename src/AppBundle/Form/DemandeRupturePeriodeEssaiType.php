@@ -49,13 +49,13 @@ class DemandeRupturePeriodeEssaiType extends AbstractType
                   'query_builder' => function (EntityRepository $er) use ($idSalon) {
                       return $er->findActivePersonnelBySalon($idSalon);
                     },
-                  'label' => 'demande_rupture_periode_essai.collab',
+                  'label' => '___demande_rupture_periode_essai.collab',
                   'translation_domain' => 'translator'
                 ))
                 ->add('moyen', ChoiceType::class, array(
                   'choices'  => array(
-                    'demande_rupture_periode_essai.rmp'  => 'demande_rupture_periode_essai.rmp',
-                    'demande_rupture_periode_essai.lrar' => 'demande_rupture_periode_essai.lrar',
+                    '___demande_rupture_periode_essai.rmp'  => '___demande_rupture_periode_essai.rmp',
+                    '___demande_rupture_periode_essai.lrar' => '___demande_rupture_periode_essai.lrar',
                   ),
                   'choice_translation_domain' => 'translator',
                   'translation_domain' => 'translator',
@@ -71,7 +71,7 @@ class DemandeRupturePeriodeEssaiType extends AbstractType
                   'data' => new \DateTime()
                 ))
                 ->add('contrat', FileType::class, array(
-                  'label' => 'demande_rupture_periode_essai.contrat',
+                  'label' => '___demande_rupture_periode_essai.contrat',
                   'translation_domain' => 'translator',
                 ))
                 ->add('Envoyer', SubmitType::class, array(

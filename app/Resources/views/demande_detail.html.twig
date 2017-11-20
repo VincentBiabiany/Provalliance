@@ -62,7 +62,7 @@
 			$.ajax({
 					url: "{{ path('generateResume') }}",
 					async: false,
-					data: {"id" : "{{ idDemande }}"}
+					data: {"id" : "{{ idDemande }}",'action':'detail'}
 				}).done(function( response ) {
 						$('#wrapperForm').prepend(response);
 

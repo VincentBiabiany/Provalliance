@@ -42,7 +42,7 @@ class DemandeLettreMissionType extends AbstractType
                   'query_builder' => function (EntityRepository $er) use ($idSalon) {
                       return $er->findActivePersonnelBySalon($idSalon);
                     },
-                  'label' => 'lettre_mission.nom',
+                  'label' => '___demande_lettre_mission.nom',
                   'translation_domain' => 'translator',
                   'attr' => ['required' => 'required']
               ))
@@ -57,7 +57,7 @@ class DemandeLettreMissionType extends AbstractType
                   'query_builder' => function (EntityRepository $er) {
                       return $er->findAllActiveSalon(true);
                     },
-                  'label' => 'lettre_mission.salon',
+                  'label' => '___demande_lettre_mission.salon',
                   'translation_domain' => 'translator'
               ))
             ->add('dateDebut', DateType::class, array(
@@ -80,9 +80,9 @@ class DemandeLettreMissionType extends AbstractType
             ))
             ->add('raison', ChoiceType::class, array(
               'choices' => array(
-                'lettre_mission.35h'   => 'lettre_mission.35h',
-                'lettre_mission.xh'    => 'lettre_mission.xh',
-                'lettre_mission.depla' => 'lettre_mission.depla',
+                '___demande_lettre_mission.35h'   => '___demande_lettre_mission.35h',
+                '___demande_lettre_mission.xh'    => '___demande_lettre_mission.xh',
+                '___demande_lettre_mission.depla' => '___demande_lettre_mission.depla',
               ),
               'choice_translation_domain' => 'translator',
               'translation_domain' => 'translator',
@@ -96,7 +96,7 @@ class DemandeLettreMissionType extends AbstractType
                 ]
             )
             ->add('Envoyer', SubmitType::class, array(
-              'label' => 'lettre_mission.envoyer',
+              'label' => 'global.submit',
               'attr' => array('class' =>'btn-black end'),
               'translation_domain' => 'translator',
             ))
@@ -106,7 +106,7 @@ class DemandeLettreMissionType extends AbstractType
                   $form = $event->getForm();
                   $data = $event->getForm()->getData();
 
-                  if ($data->getRaison() == "lettre_mission.depla")
+                  if ($data->getRaison() == "___demande_lettre_mission.depla")
                     $data->setSage($form['sage']->getData()->getSage());
                   else
                     $data->setSage(null);

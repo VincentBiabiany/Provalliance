@@ -46,7 +46,7 @@ body,p,a,h1,h2,h3,h4,h5 {
 	width: 100%;
 	background-color: white;
 	height: 65px;
-	/*padding-top: 15px;*/
+	padding-top: 4px;
 }
 
 .header hr{
@@ -514,8 +514,16 @@ form.demandeDetail .form-group{
 	padding-top: 0px;
 
 }
+
+#FileList ul li{
+margin-bottom: 5px;
+}
+a.downloadFile{
+display: inline-block;
+margin-left: 15px;
+}
 #wrapperForm p{
-  margin-bottom:2px;
+  margin-bottom:5px;
 }
 
 #wrapperForm .page{

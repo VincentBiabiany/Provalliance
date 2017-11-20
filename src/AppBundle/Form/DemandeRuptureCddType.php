@@ -45,7 +45,7 @@ class DemandeRuptureCddType extends AbstractType
             'query_builder' => function (EntityRepository $er) use ($idSalon) {
                 return $er->findActivePersonnelBySalon($idSalon);
               },
-            'label' => 'demande_rib.collaborateur',
+            'label' => '___demande_rupture_cdd.collaborateur',
             'translation_domain' => 'translator'
           ))
         ->add('dateFin', DateType::class, array(
@@ -68,9 +68,9 @@ class DemandeRuptureCddType extends AbstractType
         ))
         ->add('raison', ChoiceType::class, array(
           'choices' => array(
-            'rupture_cdd.retour'   => 'rupture_cdd.retour',
-            'rupture_cdd.depart'   => 'rupture_cdd.depart',
-            'rupture_cdd.rupture'  => 'rupture_cdd.rupture',
+            '___demande_rupture_cdd.retour'   => '___demande_rupture_cdd.retour',
+            '___demande_rupture_cdd.depart'   => '___demande_rupture_cdd.depart',
+            '___demande_rupture_cdd.rupture'  => '___demande_rupture_cdd.rupture',
           ),
           'choice_translation_domain' => 'translator',
           'translation_domain' => 'translator',
@@ -79,11 +79,11 @@ class DemandeRuptureCddType extends AbstractType
         ))
         ->add('ruptureAncticipe', ChoiceType::class, array(
           'choices' => array(
-            'rupture_cdd.cdi'     => 'rupture_cdd.cdi',
-            'rupture_cdd.cdi2'    => 'rupture_cdd.cdi2',
-            'rupture_cdd.demande' => 'rupture_cdd.demande',
-            'rupture_cdd.accord'  => 'rupture_cdd.accord',
-            'rupture_cdd.accord2' => 'rupture_cdd.accord2',
+            '___demande_rupture_cdd.cdi'     => '___demande_rupture_cdd.cdi',
+            '___demande_rupture_cdd.cdi2'    => '___demande_rupture_cdd.cdi2',
+            '___demande_rupture_cdd.demande' => '___demande_rupture_cdd.demande',
+            '___demande_rupture_cdd.accord'  => '___demande_rupture_cdd.accord',
+            '___demande_rupture_cdd.accord2' => '___demande_rupture_cdd.accord2',
           ),
           'choice_translation_domain' => 'translator',
           'translation_domain' => 'translator',
@@ -91,7 +91,7 @@ class DemandeRuptureCddType extends AbstractType
           'multiple' => false,
         ))
         ->add('lettre', FileType::class, array(
-          'label' => 'demande_rib.rib',
+          'label' => '___demande_rupture_cdd.rib',
           'translation_domain' => 'translator',
             ))
         ->add('nomCollab', TextType::class, array(
@@ -109,14 +109,14 @@ class DemandeRuptureCddType extends AbstractType
 
               $data->setMatricule($form['matricule']->getData()->getMatricule());
 
-              if ($data->getRaison() == 'rupture_cdd.rupture') {
+              if ($data->getRaison() == '___demande_rupture_cdd.rupture') {
                 $rupt = $data->getRuptureAncticipe();
-                if ($rupt == 'rupture_cdd.lettre') {
+                if ($rupt == '___demande_rupture_cdd.lettre') {
                   $fileName = $this->fileUploader->upload($data->getLettre(), $data->getMatricule(),'demande_rib', 'rib');
                   $data->setLettre($fileName);
                   $data->setDateDepart(null);
                   $data->setNomCollab(null);
-                } else if ($rupt == 'rupture_cdd.lettre' || $rupt == "") {
+                } else if ($rupt == '___demande_rupture_cdd.lettre' || $rupt == "") {
                   $data->setDateDepart(null);
                   $data->setNomCollab(null);
                 } else {

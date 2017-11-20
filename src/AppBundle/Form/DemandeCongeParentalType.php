@@ -94,6 +94,8 @@ class DemandeCongeParentalType extends AbstractType
                 {
                   $form = $event->getForm();
                   $data = $event->getForm()->getData();
+                  $data->setMatricule($form['matricule']->getData()->getMatricule());
+                  $event->setData($data);
 
                   $fileName = $this->fileUploader->upload($data->getPieceJointe(), $data->getMatricule(), 'demande_conge_parental', 'lettre');
                   $data->setPieceJointe($fileName);
@@ -101,8 +103,7 @@ class DemandeCongeParentalType extends AbstractType
                   if ($data->getRaison() != "conge_parental.passage")
                     $data->setTempsPartiel(null);
 
-                  $data->setMatricule($form['matricule']->getData()->getMatricule());
-                  $event->setData($data);
+
               });
   }
 

@@ -81,7 +81,6 @@ class ImportService
 
     foreach ($result["result"] as $key => $salon)
     {
-      dump($salon);
       $entity = $this->em->getRepository('ApiBundle:Salon')->find($salon[0]);
 
       if ($entity === null)

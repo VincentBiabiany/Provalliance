@@ -9,6 +9,8 @@ global:
     accepter:      Accepter
     rejeter:       Rejeter
     choiceFile:    Choisir un fichier
+    affirme:       Oui
+    negative:      Non
 
 login:
     username:  Nom d'utilisateur
@@ -28,7 +30,7 @@ home:
     demand:            Suivre les demandes
     ca:                Suivi journalier du CA
     volume:            Suivi journalier du volume
-    deconnection:      Déconnection
+    deconnexion:       Déconnexion
     accueil:           Accueil
     gestion:           Gestion
     autre_demand:      Autre demande
@@ -101,7 +103,7 @@ autre_demande:
     popupValidation:
         message:    Votre demande a été envoyée.
 
-demande_rupture_periode_essai:
+___demande_rupture_periode_essai:
     titre:       Rupture de Période d'essai
     collab:      Collaborateur
     contrat:     Contrat
@@ -114,7 +116,7 @@ demande_rupture_periode_essai:
     popupValidation:
         message:    Votre demande de rupture de période d'essai a été envoyée.
 
-demande_demission:
+___demande_demission:
       titre:       Démission
       collab:      Collaborateur
       dem:         DEM signée
@@ -177,10 +179,9 @@ demande_essai_pro:
          titreArticle: '*Article 7.1.1 de la convention Collective de la Coiffure - Essai Professionnel'
          articleLoi: L'embauche peut être précédée d'un essai professionnel qui consiste en une épreuve permettant à l'employeur de vérifier la qualification du postulant et son aptitude à occuper le poste demandé. Sa durée ne peut dépasser 1 journée et fera l'objet d'une indemnité forfaitaire de déplacement basée sur 7 fois le taux horaire minimum garanti du poste à pourvoir.Lorsque l'employeur refuse le candidat présenté sur sa demande par un bureau de placement, il lui devra à titre d'indemnité de déplacement une somme égale à 2 heures de travail sur la base du SMIC.
 
-lettre_mission:
+___demande_lettre_mission:
     titre:         Lettre de mission
     nom:           Collaborateur
-    envoyer:       Envoyer
     35h:           Passage à 35h/semaine
     xh:            Passage à temps partiel
     tempsTravail:  Temps de travail
@@ -194,22 +195,25 @@ lettre_mission:
     popupValidation:
         message:    Votre demande de lettre de mission a été envoyée.
 
-rupture_cdd:
-    titre:        Rupture CDD
-    retour:       Fin de CDD (Retour)
-    depart:       Fin de CDD (Départ)
-    rupture:      Rupture anticipé de CDD en raison:
-    cdi:          Une embauche en CDI au sein du mêm salon le:
-    cdi2:         Une embauche en CDI au sein d'une autre société (départ prévu le)
-    demande:      Suite à la demande du salarié (départ le )
-    accord:       Un commun accord en payant la prime de précarité
-    accord2:      Un commun accord en ne payant pas la prime de précarité
-    nom:          Retour de:
-    nom2:         Départ de:
-    datefin:      Date de fin du Contrat
-    datedepart:   Date de départ
-    dateretour:   Date de retour
-    joindre:      Joindre une lettre
+___demande_rupture_cdd:
+    titre:         Rupture CDD
+    collaborateur: Collaborateur
+    raison:        Raison
+    retour:        Fin de CDD (Retour)
+    depart:        Fin de CDD (Départ)
+    rupture:       Rupture anticipé de CDD en raison:
+    cdi:           Une embauche en CDI au sein du mêm salon le:
+    cdi2:          Une embauche en CDI au sein d'une autre société (départ prévu le)
+    demande:       Suite à la demande du salarié (départ le )
+    accord:        Un commun accord en payant la prime de précarité
+    accord2:       Un commun accord en ne payant pas la prime de précarité
+    nom:           Retour de:
+    nom2:          Départ de:
+    datefin:       Date de fin du Contrat
+    datedepart:    Date de départ
+    dateretour:    Date de retour
+    joindre:       Joindre une lettre
+    rib:            RIB
 
     popupValidation:
         message:    Votre demande de rupture de CDD a été envoyée.
@@ -292,7 +296,7 @@ demande_solde_tout_compte:
         gestionAdministrativeMessage: Supprimer le code caisse, remplir le registre du personnel, informer la médecin du travail
 
 
-demande_embauche:
+___demande_embauche:
     header:        Demande d'embauche
     back:          Retour
     attention:     Attention !
@@ -418,7 +422,7 @@ suivi_demandes:
     enseigne:            Enseigne
     appellation:         Appellation
     coordinateur:        Coordinateur
-    manager:             Demandeur
+    demandeur:           Demandeur
     date:                Date
     statut:              Statut
     typedemande:         Type
