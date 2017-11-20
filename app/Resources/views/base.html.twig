@@ -91,6 +91,23 @@
 
 
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+
+        {% block javascripts %}
+        <script>
+        $(document).ready(function(){
+          if (document.getElementsByTagName) {
+            var inputElements = document.getElementsByTagName("input");
+              for (i=0; inputElements[i]; i++) {
+                $(inputElements[i]).prop('autocomplete', "off");
+                if ((inputElements[i].className.indexOf("disableAutoComplete") != -1)) {
+                  console.log('input off')
+                  inputElements[i].setAttribute("autocomplete", "off");
+                }
+              }
+          }
+      });
+
+        </script>
+        {% endblock %}
     </body>
 </html>

@@ -67,7 +67,7 @@ class ResumeDemandeService
 
       $properties = $propertyInfo->getProperties('AppBundle\Entity\\'.$nameEntity);
       $properties = array_diff($properties,['discr','typeForm','id','nameDemande','subject','service']);
-      $response .= '<h1>'.$infoDemande['typeForm'].'  |  '.$infoDemande['dateTraitement']->format('d-m-y').'
+      $response .= '<h1>'.$infoDemande['typeForm'].'  |  '.$infoDemande['dateTraitement']->format('d/m/y').'
         |  Réf. : '.$idDemandeItSelf.'</h1>';
 
       $response .= "<div id='propertiesDemandePrint'  class='contentBlock'><h2> Récapitulatif de la demande </h2>";
@@ -176,11 +176,15 @@ class ResumeDemandeService
             $infosSalon = $salonRepo->infosSalon($infoDemande['codeSage']);
             $statutDemande = $demandeRepo->whichStatut($infoDemande['statut']);
 
-            $response .= '<p><b>Demandeur</b>  '.$infosCollab['nom'].' '.$infosCollab['prenom'].'</p>';
-            $response .= '<p><b>Date d\'envoi</b>  '.$infoDemande['dateTraitement']->format('d-m-Y').'</p>';
-            $response .= '<p><b>Statut</b>  '.$statutDemande.'</p>';
-            $response .= '<p><b>Salon</b>  '.$infosSalon['appelation'].'</p>';
-            $response .= '<p><b>Adresse</b>  '.$infosSalon['adresse1'].' '.$infosSalon['codePostal'].' '.$infosSalon['ville'].'</p>';
+            $response .= '<p><b>Demandeur</b> : '.$infosCollab['nom'].' '.$infosCollab['prenom'].'</p>';
+            $response .= '<p><b>Date d\'envoi</b> : '.$infoDemande['dateTraitement']->format('d/m/Y').'</p>';
+            $response .= '<p><b>Statut</b> : <span class="'.$statutDemande.'">' . $statutDemande .'</span></p>';
+            $response .= '<p><b>Salon</b> : '.$infosSalon['appelation'].'</p>';
+            $response .= '<p><b>Adresse</b> : '.$infosSalon['adresse1'].' '.$infosSalon['codePostal'].' '.$infosSalon['ville'].'</p>';
+
+            if ($statutDemande == "Rejeté")
+              $response .= '<p><b>Motif du rejet</b> : '.$infoDemande['message'].'</p>';
+
             $response .= '</div>';
       $response .= '</div>';
 

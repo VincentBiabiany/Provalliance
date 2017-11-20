@@ -37,7 +37,7 @@ class DemandeDetailController extends Controller
 
       if ($demande instanceof DemandeSimple)
         return self::detailSimple($demande, $request, $id, $ResumeDemandeService);
-      return self::detailComplexe($demande, $request, $id, $fileuploader);
+      return self::detailComplexe($demande, $request, $id, $fileuploader, $ResumeDemandeService);
     }
 
     public function detailSimple($demande, $request, $id, $ResumeDemandeService)
@@ -48,8 +48,7 @@ class DemandeDetailController extends Controller
 
       $demandeur = $em->getRepository('ApiBundle:Personnel')
                       ->findOneBy(array('matricule' => $demande->getUser()->getMatricule()));
-      if (in_array('ROLE_ADMIN', $this->getUser()->getRoles(), true) || $demandeur == null)
-      {
+      if (in_array('ROLE_ADMIN', $this->getUser()->getRoles(), true) || $demandeur == null) {
         $demandeur = new Personnel();
         $demandeur->setNom('Admin');
         $demandeur->setPrenom('');
@@ -103,21 +102,10 @@ class DemandeDetailController extends Controller
           return $this->redirectToRoute("demande");
         }
 
-    //     if ($demande->getDemandeform()->getTypeForm() == "Demande d'acompte")
-    //     {
-    //       $demandeacompte = new DemandeAcompte();
-    //       $demandeacompte = $demande->getDemandeform();
-    //       $form = $this->createForm(DemandeAcompteType::class,
-    //       $demandeacompte,
-    //       array("idSalon" => null,
-    //       "matricule" => $demande->getDemandeform()->getMatricule()
-    //     ));
-    //   }
-
-
-
     if($dateTraitement)
       $dateTraitement = $dateTraitement->format('d/m/Y');
+
+      $detail = self::generateResume($request->get('id'), $ResumeDemandeService);
     return $this->render('demande_detail.html.twig', array(
       'idDemande'       => $request->get('id'),
       'demandeur'       => $demandeur,
@@ -129,22 +117,24 @@ class DemandeDetailController extends Controller
       'salon'           => $salon,
       'form2'           => $form2->createView(),
       'img'             => $request->getSession()->get('img'),
+      'detail'          => $detail
     ));
   }
+
   /**
    * @Route("/generateResume", name="generateResume")
    */
-  public function generateResume(Request $request, ResumeDemandeService $ResumeDemandeService)
+  public function generateResume($idDemande, $ResumeDemandeService)
   {
     // On récupère le service
-    $idDemande[0] = $request->get('id');
-    $response = $ResumeDemandeService->generateResume($idDemande,$request->get('action'));
-    return new Response(json_encode($response), 200, ['Content-Type' => 'application/json']);
+    //$idDemande[0] = $request->get('id');
+    $response = $ResumeDemandeService->generateResume([$idDemande], 'detail');
+    return $response;//new Response(json_encode($response), 200, ['Content-Type' => 'application/json']);
 
   }
 
 
-  public function detailComplexe($demande, $request, $id, $fileuploader)
+  public function detailComplexe($demande, $request, $id, $fileuploader, $ResumeDemandeService)
   {
     $em = $this->getDoctrine()->getManager("referentiel");
 
@@ -208,6 +198,7 @@ class DemandeDetailController extends Controller
     if ($dateTraitement)
       $dateTraitement = $dateTraitement->format('d/m/Y');
 
+      $detail = self::generateResume($request->get('id'), $ResumeDemandeService);
     return $this->render('demande_detail_complexe.html.twig', array(
       'idDemande'       => $request->get('id'),
       'demandeur'       => $demandeur,
@@ -221,6 +212,7 @@ class DemandeDetailController extends Controller
       'docSalon'        => $docSalon,
       'docService'      => $docService,
       'img'             => $request->getSession()->get('img'),
+      'detail'          => $detail
     ));
   }
 

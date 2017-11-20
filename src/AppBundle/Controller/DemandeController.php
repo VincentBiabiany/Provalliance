@@ -79,7 +79,6 @@ class DemandeController extends Controller
       else
         $service ='juridique';
 
-
         $col = array(
           "id",
           "",
@@ -265,11 +264,12 @@ class DemandeController extends Controller
 
       } else {
         /* Compte du nombre de demande pour la pagination */
-        $nb = $demandeRepo->getNb($role,$idsalon);
+        //$nb = $demandeRepo->getNb($role,$idsalon);
+        $nb = count($demandes);
         $output = array(
           'data' => array(),
-          'recordsFiltered' => $nb[0][1],
-          'recordsTotal' => $nb[0][1]
+          'recordsFiltered' => $nb,//$nb[0][1],
+          'recordsTotal' =>  $nb//$nb[0][1]
         );
 
         /* Récupération des informations de chaque demande en fonction du type de demande  */
