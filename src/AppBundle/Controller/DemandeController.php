@@ -188,7 +188,7 @@ class DemandeController extends Controller
             // Récup par demande du collab
             foreach ($demandesSalon as $key => $demande) {
 
-              if ($demande->getDemandeform()->getTypeForm() == "Demande d'embauche") {
+              if ($demande->getDemandeform()->getTypeForm() == "Demande d'embauche" || $demande->getDemandeform()->getTypeForm() == "Demande d'essai professionnel" ) {
                 $collab[] = $demandeRepo->whichPersonnel($demande);
               } else {
                 $idP = $demande->getDemandeform()->getMatricule();

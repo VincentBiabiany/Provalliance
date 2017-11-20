@@ -315,41 +315,27 @@ $addListener = function($form, $name, $champ, $nb, idInt) {
   }
   $form.change(addFieldAjax).change(); // Fin change()
 }
-var $situ =  $('#demande_embauche_nationalite');
+var $situ = $('#demande_embauche_nationalite');
 $addListener($situ, "nationalite", "nationalite", 1, 1);
 </script>
 
 <script src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap-datepicker.fr.min.js') }}"></script>
 <link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker.min.css') }}"/>
+<script type="text/javascript" src="{{ asset('js/global/global-method.js') }}"></script>
 
 <script>
+$('.tempsHeure').blur(function(){
+  if (parseInt($(this).val()) > 9 )
+    $(this).val(9)
+  if (parseInt($(this).val()) < 0)
+    $(this).val(0)
 
-// UPPERCASE sur
-
-function uppercaseField($champs){
-  $("#demande_embauche_" + $champs).bind('keyup', function (e) {
-      if (e.which >= 97 && e.which <= 122) {
-          var newKey = e.which - 32;
-          // I have tried setting those
-          e.keyCode = newKey;
-          e.charCode = newKey;
-      }
-      $("#demande_embauche_"+$champs).val(($("#demande_embauche_"+$champs).val()).toUpperCase());
-  });
-
-  $("#demande_embauche_" + $champs).focusout(function () {
-    $("#demande_embauche_" + $champs).val (function () {
-        return this.value.toUpperCase();
-    })
-  });
-}
-
-uppercaseField("nom");
-uppercaseField("ville");
-uppercaseField("villeNaissance");
-uppercaseField("paysNaissance");
-
+  $tempsTotal = 0
+uppercaseField("#demande_embauche_nom");
+uppercaseField("#demande_embauche_ville");
+uppercaseField("#demande_embauche_villeNaissance");
+uppercaseField("#demande_embauche_paysNaissance");
 
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.12/jquery.mask.js" ></script>

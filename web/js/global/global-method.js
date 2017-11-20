@@ -12,8 +12,8 @@ function tempsPartiel() {
   $('.tempsHeure').blur(function(){
     if (parseInt($(this).val()) > 9 )
       $(this).val(9)
-    if (parseInt($(this).val()) < 1)
-      $(this).val(1)
+    if (parseInt($(this).val()) < 0)
+      $(this).val(0)
 
     $tempsTotal = 0
     $('.tempsHeure').each(function( index ) {
@@ -61,7 +61,7 @@ jQuery.validator.addMethod("validateDate", function(value, element) {
   var date = new Date(y, m - 1, d);
 
   return (date.getFullYear() == y && date.getMonth() + 1 == m && date.getDate() == d);
-}, "Date incorrect");
+}, "Date incorrecte");
 
 
 /**
@@ -110,4 +110,27 @@ function controlChangeDate($date1, $date2) {
   $($date2).focusout(function(){
       $($date2 +'_month').valid();
   })
+}
+
+/**
+ *
+ * Met la valeur du champs en majuscule
+ *
+ */
+function uppercaseField($champs){
+  $($champs).bind('keyup', function (e) {
+      if (e.which >= 97 && e.which <= 122) {
+          var newKey = e.which - 32;
+          // I have tried setting those
+          e.keyCode = newKey;
+          e.charCode = newKey;
+      }
+      $($champs).val(($($champs).val()).toUpperCase());
+  });
+
+  $($champs).focusout(function () {
+    $($champs).val (function () {
+        return this.value.toUpperCase();
+    })
+  });
 }

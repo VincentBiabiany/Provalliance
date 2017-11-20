@@ -14,7 +14,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class DemandeAcompte extends DemandeForm
 {
-
     protected $nameDemande ='DemandeAcompte';
     protected $typeForm ='Demande acompte';
     protected $subject ='connu';

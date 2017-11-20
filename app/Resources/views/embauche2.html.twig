@@ -38,7 +38,7 @@
     </div>
 
     <div class="form-group">
-      <label class="control-label label col-sm-3 col-xs-12" for="date">{{ "demande_embauche.diplome"|trans({}, "translator") }}</label>
+      <label class="control-label label col-sm-3 col-xs-12" for="date">{{ "demande_embauche.diplomes"|trans({}, "translator") }}</label>
       <div class="col-sm-4 col-xs-12 radioInput" style="display: inline-flex" >
         {{ form_widget(form.diplomes) }}
       </div>
@@ -81,6 +81,7 @@
         {% block _demande_embauche_cddRaison_row %}
 
         <div id="demande_embauche_cddRaison">
+
           {% for key,child in form.cddRaison %}
 
           <div class="col-sm-12">
@@ -187,7 +188,7 @@
 <script type="text/javascript" src="{{ asset('js/global/global-method.js') }}"></script>
 
 <script>
-
+$('#demande_embauche_date').hide()
 $(document).ready(function(){
   $("#demandeEmbauche2").validate({
     rules: {
@@ -254,25 +255,30 @@ $(document).ready(function(){
   // Controle champs Temps Partiel
   tempsPartiel();
 
-  $('#demande_embauche_isTempsPartiel').change(function(){
+  $('#demande_embauche_isTempsPartiel').change(function(e){
     if ($('#demande_embauche_isTempsPartiel_0').prop('checked')){
       $('#tempsPartiel').show();
-      $('#tempsPartiel').find('*').each(function (){
+      $('#tempsPartiel').find('*').each(function (e){
         $(this).attr('required', 'required')
+        e.preventDefault();
+        e.stopPropagation();
       });
     } else {
       $('#tempsPartiel').hide();
-      $('#tempsPartiel').find('*').each(function () {
+      $('#tempsPartiel').find('*').each(function (e) {
         $(this).removeAttr('required', 'required')
       });
     }
+
+    e.preventDefault();
+    e.stopPropagation();
   }).change();
 
 
   // Controle du champs CDD
   // Si coché alors on déploit le détail
   $('#demande_embauche_typeContrat').change(function() {
-
+    console.log('cdd checked')
     if ($('input[name="demande_embauche[typeContrat]"]:checked').val() == "demande_embauche.cdd") {
       $('#block-cdd').show();
       $('input[name="demande_embauche[cddRaison]"]').attr('required', 'required');
@@ -280,29 +286,27 @@ $(document).ready(function(){
         $(this).removeAttr('required','required');
       });
 
+      // $('#demande_embauche_cddRaison').trigger('change');
     } else {
+
       console.log('else')
       $('#block-cdd').hide();
-      $('#block-cdd').find('*').each(function() {
-        $(this).removeAttr('required','required');
 
-        if ($(this).is('input') || $(this).is('radio')) {
-          $(this).val("");
-          $(this).prop('checked', false);
-        }
-
-      });
+      clearFields( $('#cdd0') );
+      clearFields( $('#cdd1') );
+      clearFields( $('#cdd2') );
     }
   }).change();
 
   // Gère le niveau en dessous de cddRaison
   // Si cheked alors on deploie + required
-  $('#demande_embauche_cddRaison').change(function(){
+  $('#demande_embauche_cddRaison').change(function(e){
 
     $('input[name="demande_embauche[cddRaison]"]:checked', '#demande_embauche_cddRaison').parent().find('*').each(function() {
-
+        console.log('checked :' + $(this).val())
      if ($(this).hasClass('dateAppend'))
-        $('#demande_embauche_date').insertAfter($(this))
+
+        $('#demande_embauche_date').show().insertAfter($(this))
 
         $(this).attr('required','required');
         $(this).removeAttr('disabled','disabled');
@@ -311,11 +315,13 @@ $(document).ready(function(){
     });
 
     $('input[name="demande_embauche[cddRaison]"]:not(:checked)', '#demande_embauche_cddRaison').parent().find('div').each(function() {
+      console.log(' not checked :' + $(this).val())
         $(this).removeAttr('required','required');
         $(this).hide();
     });
 
     $('input[name="demande_embauche[cddRaison]"]:not(:checked)', '#demande_embauche_cddRaison').parent().find('*').each(function() {
+      console.log('not checked :' + $(this).val())
         $(this).removeAttr('required','required');
 
         if ($(this).is('select')) {
@@ -341,18 +347,19 @@ $(document).ready(function(){
       clearFields( $('#cdd1') );
 
     }
-
+    e.preventDefault();
+    e.stopPropagation();
   }).change();
 
-function clearFields($elem) {
-  $elem.find('*').each(function() {
-
-    if ($(this).is('input')){
-      $(this).val("");
-      $(this).prop('checked', false);
-    }
-  })
-}
+  function clearFields($elem) {
+    $elem.find('*').each(function() {
+      console.log('clearing ... ' + $(this).val())
+      if ($(this).is('input')){
+        $(this).val("");
+        $(this).prop('checked', false);
+      }
+    })
+  }
 
   var $situ  = $('#demande_embauche_dejaSalarie');
   var $situ2 = $('#demande_embauche_postes');
