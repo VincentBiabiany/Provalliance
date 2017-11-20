@@ -93,7 +93,7 @@ class ResumeDemandeService
 
                             //On affiche pas les fichiers liés à la demande
                             if( self::ifFile($prop) == false ){
-                              $response .= '<p><b>'.ucfirst($property).'</b> : ';
+                              $response .= '<p><b>'.ucfirst($property).'</b>  ';
 
                                 if( is_array($prop)){
                                   //champs de type array
@@ -109,10 +109,10 @@ class ResumeDemandeService
                                       if( is_numeric($key)){
                                         $key = '';
                                       }else{
-                                        $key = $key.': ';
+                                        $key = $key.'';
                                       }
                                           if($b == $lastItem){
-                                             $response .= $key.$value;
+                                             $response .= $key.': '.$value;
                                            }else{
                                              $response .= $key.': '.$value.' - ';
 
@@ -151,7 +151,7 @@ class ResumeDemandeService
                                 }
                             }else{
                               if ($action =='detail'){
-                              $fileList .= '<li>'.ucfirst($property);
+                              $fileList .= '<li><b>'.ucfirst($property).'</b>';
                               $path = $package->getUrl($prop);
                               $fileList .= '<a class="downloadFile" href="'.$path.'">Télécharger le document</a></li>';
                              }
@@ -176,11 +176,11 @@ class ResumeDemandeService
             $infosSalon = $salonRepo->infosSalon($infoDemande['codeSage']);
             $statutDemande = $demandeRepo->whichStatut($infoDemande['statut']);
 
-            $response .= '<p><b>Demandeur</b> : '.$infosCollab['nom'].' '.$infosCollab['prenom'].'</p>';
-            $response .= '<p><b>Date d\'envoi</b> : '.$infoDemande['dateTraitement']->format('d-m-Y').'</p>';
-            $response .= '<p><b>Statut</b> : '.$statutDemande.'</p>';
-            $response .= '<p><b>Salon</b> : '.$infosSalon['appelation'].'</p>';
-            $response .= '<p><b>Adresse</b> : '.$infosSalon['adresse1'].' '.$infosSalon['codePostal'].' '.$infosSalon['ville'].'</p>';
+            $response .= '<p><b>Demandeur</b>  '.$infosCollab['nom'].' '.$infosCollab['prenom'].'</p>';
+            $response .= '<p><b>Date d\'envoi</b>  '.$infoDemande['dateTraitement']->format('d-m-Y').'</p>';
+            $response .= '<p><b>Statut</b>  '.$statutDemande.'</p>';
+            $response .= '<p><b>Salon</b>  '.$infosSalon['appelation'].'</p>';
+            $response .= '<p><b>Adresse</b>  '.$infosSalon['adresse1'].' '.$infosSalon['codePostal'].' '.$infosSalon['ville'].'</p>';
             $response .= '</div>';
       $response .= '</div>';
 
@@ -192,7 +192,7 @@ class ResumeDemandeService
     //Function ifFile: test si le champs est un fichier
     //Return: retourne false si $property est un fichier
    public function ifFile($property){
-      $tabFiles= ['png','jpg','pdf','jpeg','bmp','doc','docx'];
+      $tabFiles= ['png','jpg','pdf','jpeg','bmp','doc','docx','txt'];
       $occ=0;
 
       if(!is_array($property)){

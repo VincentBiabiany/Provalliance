@@ -514,17 +514,30 @@ form.demandeDetail .form-group{
 	padding-top: 0px;
 
 }
-
+.contentBlock p b, .contentBlock ul li b{
+	background-color: #444;
+	    color: white;
+	    font-weight: 100;
+	    padding: 5px;
+	    padding-right: 9px;
+	    padding-left: 9px;
+	    margin-right: 5px;
+}
+#FileList ul{
+			padding: 0;
+}
 #FileList ul li{
-margin-bottom: 5px;
+	margin-bottom: 15px;
+	text-decoration: none;
+	list-style: none;
 }
 a.downloadFile{
 display: inline-block;
 margin-left: 15px;
 }
 #wrapperForm p{
-  margin-bottom:5px;
-}
+    margin-bottom: 14px;
+	}
 
 #wrapperForm .page{
 	height: auto;
@@ -546,6 +559,7 @@ margin-left: 15px;
 	width: 250px;
 	padding: 5px;
 	font-weight: bold;
+	margin-bottom: 25px;
 }
 
 /******* LISTE DES DEMANDES ******/
