@@ -17,6 +17,8 @@ parameters:
     referentiel_dbname: referentiel
     files_directory: '%kernel.project_dir%/web/uploads/files'
     files_directory_import: '%kernel.project_dir%/web/uploads/tmp'
-    
+    session_max_idle_time: 300 # secondes d'inactivité (60s * 5 = 300) soit 5 minutes
+
+
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt

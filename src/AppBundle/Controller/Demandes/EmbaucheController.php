@@ -23,7 +23,9 @@ class EmbaucheController extends Controller
     {
       $session = $request->getSession();
       $isSubmitted = false;
+
       if ($session->get('demande') != null) {
+        dump($request, $session->get('demande') );
         $demandeEmbauche = $session->get('demande');
         $isSubmitted = true;
       } else {
@@ -52,18 +54,19 @@ class EmbaucheController extends Controller
      */
     public function index2Action(Request $request)
     {
-
       $session = $request->getSession();
       if ($session->get('from') != 'embauche1' && $session->get('from') != 'embauche2')
           return $this->redirectToRoute('rh_embauche');
 
       $demande = $session->get('demande');
-      //$demande->setTempsPartiel();
+      dump($demande);
+
       $form = $this->createForm(DemandeEmbaucheType::class, $demande, array('step' => '2'));
 
       $form->handleRequest($request);
 
       if ($form->isSubmitted() && $form->isValid()) {
+
        $session->set('from', 'embauche2');
        $session->set('demande', $form->getData());
 

@@ -72,13 +72,8 @@ services:
         arguments: ['@doctrine.orm.referentiel_entity_manager',
                     '@doctrine.orm.default_entity_manager']
 
-    # AppBundle\Filter\TwigFilter:
-    #     arguments: ['@templating']
-    #     tags:
-    #         - { name: assetic.filter.twig, alias: twig }
-    # assetic.filter.twig:
-    #     class: AppBundle\Filter\TwigFilter
-    #     arguments:
-    #         - '@templating'
-    #     tags:
-    #         - { name: "assetic.filter", alias: "twig" }
+    app.eventsubscriber.session_idle:
+            class: AppBundle\EventSubscriber\SessionIdleHandler
+            arguments: ["@session", "@security.token_storage", "@router", "%session_max_idle_time%"]
+            tags:
+                - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }

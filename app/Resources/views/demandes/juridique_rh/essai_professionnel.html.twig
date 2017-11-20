@@ -192,9 +192,26 @@
 	  </div>
 	</div>
 	<script src="{{ asset('js/custom-file-input.js') }}"></script>
+	<script src="{{ asset('js/custom-file-input.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/global/global-method.js') }}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.12/jquery.mask.js" ></script>
 	<script type="text/javascript">
-	$('#myModal').modal('show');
-	$("#myModal").css('display','flex');
 
+		uppercaseField("#demande_essai_professionnel_nom");
+		uppercaseField("#demande_essai_professionnel_ville");
+		uppercaseField("#demande_essai_professionnel_nationalite");
+		uppercaseField("#demande_essai_professionnel_lieuNaissance");
+
+
+$('#demande_essai_professionnel_nbHeures').blur(function(){
+	if (parseInt($(this).val()) > 7 )
+		$(this).val(7)
+	if (parseInt($(this).val()) < 1)
+		$(this).val(1)
+});
+		$('#myModal').modal('show');
+		$("#myModal").css('display','flex');
+		$('#demande_essai_professionnel_numSecu').mask('2 99 12 99 999 999 99', {'translation': {9: {pattern: /[0-9]/}, 2:{pattern: /[0-2]/}, 1: {pattern: /[0-1]/}}});
+    $('#demande_essai_professionnel_telephone').mask('99 99 99 99 99', {'translation': {9: {pattern: /[0-9]/}}});
 	</script>
 {% endblock %}

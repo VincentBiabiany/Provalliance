@@ -162,7 +162,7 @@ class DemandeEntityRepository extends \Doctrine\ORM\EntityRepository
 
       $demandesSalon = $this->findAll();
       foreach ($demandesSalon as $key => $demande) {
-        if ($demande->getDemandeform()->getTypeForm() == "Demande d'embauche") {
+        if ($demande->getDemandeform()->getTypeForm() == "Demande d'embauche" || $demande->getDemandeform()->getTypeForm() == "Demande d'essai professionnel") {
           if ($this->whichPersonnel($demande) == $filter[10])
             $demandeId[] = $demandeId[] =  $demande->getId();
         } else {
