@@ -45,6 +45,42 @@ class DemandeRuptureCdd extends DemandeForm
    */
   private $raison;
 
+  /**
+   * ___demande_rupture_cdd.finCddLe
+   *
+   * @var string
+   *
+   * @ORM\Column(name="finCddLe", type="date", length=255, nullable=true)
+   */
+  private $finCddLe;
+
+  /**
+   * ___demande_rupture_cdd.retourCollabLe
+   *
+   * @var string
+   *
+   * @ORM\Column(name="retour_collab_le", type="date", length=255, nullable=true)
+   */
+  private $retourCollabLe;
+
+  /**
+   * ___demande_rupture_cdd.finCddLe
+   *
+   * @var string
+   *
+   * @ORM\Column(name="finCddLe2", type="date", length=255, nullable=true)
+   */
+  private $finCddLe2;
+
+  /**
+   * ___demande_rupture_cdd.departCollabLe
+   *
+   * @var string
+   *
+   * @ORM\Column(name="depart_collab_le", type="date", length=255, nullable=true)
+   */
+  private $departCollabLe;
+
 
   /**
    * ___demande_rupture_cdd.ruptAnt
@@ -55,24 +91,33 @@ class DemandeRuptureCdd extends DemandeForm
    */
   private $ruptureAnticipe;
 
-
   /**
-   * ___demande_rupture_cdd.date1
+   * ___demande_rupture_cdd.embSalonLe
    *
    * @var string
    *
-   * @ORM\Column(name="date_debut", type="date", length=255, nullable=true)
+   * @ORM\Column(name="emb_salon_le", type="date", length=255, nullable=true)
    */
-  private $dateFin;
+  private $embSalonLe;
+
 
   /**
-   * ___demande_rupture_cdd.date2
+   * ___demande_rupture_cdd.departPrevuLe
    *
    * @var string
    *
-   * @ORM\Column(name="date_fin", type="date", length=255, nullable=true)
+   * @ORM\Column(name="depart_prevu_le", type="date", length=255, nullable=true)
    */
-  private $dateDepart;
+  private $departPrevuLe;
+
+  /**
+   * ___demande_rupture_cdd.departPrevuLe
+   *
+   * @var string
+   *
+   * @ORM\Column(name="depart_prevu_le2", type="date", length=255, nullable=true)
+   */
+  private $departPrevuLe2;
 
   /**
    * ___demande_rupture_cdd.pj
@@ -82,6 +127,7 @@ class DemandeRuptureCdd extends DemandeForm
    * @ORM\Column(name="lettre", type="string", length=255, nullable=true)
    */
   private $lettre;
+
 
   /**
    * ___demande_rupture_cdd.collaborateur
@@ -133,6 +179,7 @@ class DemandeRuptureCdd extends DemandeForm
   }
 
 
+
     /**
      * Set matricule
      *
@@ -182,75 +229,195 @@ class DemandeRuptureCdd extends DemandeForm
     }
 
     /**
-     * Set ruptureAncticipe
+     * Set finCddLe
      *
-     * @param string $ruptureAncticipe
+     * @param \DateTime $finCddLe
      *
      * @return DemandeRuptureCdd
      */
-    public function setRuptureAnticipe($ruptureAncticipe)
+    public function setFinCddLe($finCddLe)
     {
-        $this->ruptureAncticipe = $ruptureAncticipe;
+        $this->finCddLe = $finCddLe;
 
         return $this;
     }
 
     /**
-     * Get ruptureAncticipe
+     * Get finCddLe
+     *
+     * @return \DateTime
+     */
+    public function getFinCddLe()
+    {
+        return $this->finCddLe;
+    }
+
+    /**
+     * Set retourCollabLe
+     *
+     * @param \DateTime $retourCollabLe
+     *
+     * @return DemandeRuptureCdd
+     */
+    public function setRetourCollabLe($retourCollabLe)
+    {
+        $this->retourCollabLe = $retourCollabLe;
+
+        return $this;
+    }
+
+    /**
+     * Get retourCollabLe
+     *
+     * @return \DateTime
+     */
+    public function getRetourCollabLe()
+    {
+        return $this->retourCollabLe;
+    }
+
+    /**
+     * Set finCddLe2
+     *
+     * @param \DateTime $finCddLe2
+     *
+     * @return DemandeRuptureCdd
+     */
+    public function setFinCddLe2($finCddLe2)
+    {
+        $this->finCddLe2 = $finCddLe2;
+
+        return $this;
+    }
+
+    /**
+     * Get finCddLe2
+     *
+     * @return \DateTime
+     */
+    public function getFinCddLe2()
+    {
+        return $this->finCddLe2;
+    }
+
+    /**
+     * Set departCollabLe
+     *
+     * @param \DateTime $departCollabLe
+     *
+     * @return DemandeRuptureCdd
+     */
+    public function setDepartCollabLe($departCollabLe)
+    {
+        $this->departCollabLe = $departCollabLe;
+
+        return $this;
+    }
+
+    /**
+     * Get departCollabLe
+     *
+     * @return \DateTime
+     */
+    public function getDepartCollabLe()
+    {
+        return $this->departCollabLe;
+    }
+
+    /**
+     * Set ruptureAnticipe
+     *
+     * @param string $ruptureAnticipe
+     *
+     * @return DemandeRuptureCdd
+     */
+    public function setRuptureAnticipe($ruptureAnticipe)
+    {
+        $this->ruptureAnticipe = $ruptureAnticipe;
+
+        return $this;
+    }
+
+    /**
+     * Get ruptureAnticipe
      *
      * @return string
      */
-    public function getRuptureAncticipe()
+    public function getRuptureAnticipe()
     {
-        return $this->ruptureAncticipe;
+        return $this->ruptureAnticipe;
     }
 
     /**
-     * Set dateFin
+     * Set embSalonLe
      *
-     * @param \DateTime $dateFin
+     * @param \DateTime $embSalonLe
      *
      * @return DemandeRuptureCdd
      */
-    public function setDateFin($dateFin)
+    public function setEmbSalonLe($embSalonLe)
     {
-        $this->dateFin = $dateFin;
+        $this->embSalonLe = $embSalonLe;
 
         return $this;
     }
 
     /**
-     * Get dateFin
+     * Get embSalonLe
      *
      * @return \DateTime
      */
-    public function getDateFin()
+    public function getEmbSalonLe()
     {
-        return $this->dateFin;
+        return $this->embSalonLe;
     }
 
     /**
-     * Set dateDepart
+     * Set departPrevuLe
      *
-     * @param \DateTime $dateDepart
+     * @param \DateTime $departPrevuLe
      *
      * @return DemandeRuptureCdd
      */
-    public function setDateDepart($dateDepart)
+    public function setDepartPrevuLe($departPrevuLe)
     {
-        $this->dateDepart = $dateDepart;
+        $this->departPrevuLe = $departPrevuLe;
 
         return $this;
     }
 
     /**
-     * Get dateDepart
+     * Get departPrevuLe
      *
      * @return \DateTime
      */
-    public function getDateDepart()
+    public function getDepartPrevuLe()
     {
-        return $this->dateDepart;
+        return $this->departPrevuLe;
+    }
+
+    /**
+     * Set departPrevuLe2
+     *
+     * @param \DateTime $departPrevuLe2
+     *
+     * @return DemandeRuptureCdd
+     */
+    public function setDepartPrevuLe2($departPrevuLe2)
+    {
+        $this->departPrevuLe2 = $departPrevuLe2;
+
+        return $this;
+    }
+
+    /**
+     * Get departPrevuLe2
+     *
+     * @return \DateTime
+     */
+    public function getDepartPrevuLe2()
+    {
+        return $this->departPrevuLe2;
     }
 
     /**
@@ -299,15 +466,5 @@ class DemandeRuptureCdd extends DemandeForm
     public function getNomCollab()
     {
         return $this->nomCollab;
-    }
-
-    /**
-     * Get ruptureAnticipe
-     *
-     * @return string
-     */
-    public function getRuptureAnticipe()
-    {
-        return $this->ruptureAnticipe;
     }
 }

@@ -221,8 +221,11 @@ ___demande_rupture_cdd:
     ruptAnt:       Rupture Anticipée
     nomCol:        Nom
     pj:            Pièce jointe
-    date1:         Le
-    date2:         Le
+    finCddLe:      Fin CDD le
+    retourCollabLe: Retour le
+    departCollabLe: Départ le
+    embSalonLe:       Embauche le
+    departPrevuLe:    Départ prévu le
 
     popupValidation:
         message:    Votre demande de rupture de CDD a été envoyée.

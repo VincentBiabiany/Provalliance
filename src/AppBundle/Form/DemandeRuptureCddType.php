@@ -48,7 +48,7 @@ class DemandeRuptureCddType extends AbstractType
             'label' => '___demande_rupture_cdd.collaborateur',
             'translation_domain' => 'translator'
           ))
-        ->add('dateFin', DateType::class, array(
+        ->add('finCddLe', DateType::class, array(
           'widget' => 'choice',
           'format' => 'dd/MM/y',
           'years' => range(date('Y') - 5, date('Y') + 10),
@@ -57,7 +57,52 @@ class DemandeRuptureCddType extends AbstractType
           'data' => new \DateTime()
 
         ))
-        ->add('dateDepart', DateType::class, array(
+        ->add('retourCollabLe', DateType::class, array(
+          'widget' => 'choice',
+          'format' => 'dd/MM/y',
+          'years' => range(date('Y') - 5, date('Y') + 10),
+          'attr' => ['class' => ''],
+          'label' => '',
+          'data' => new \DateTime()
+
+        ))
+        ->add('finCddLe2', DateType::class, array(
+          'widget' => 'choice',
+          'format' => 'dd/MM/y',
+          'years' => range(date('Y') - 5, date('Y') + 10),
+          'attr' => ['class' => ''],
+          'label' => '',
+          'data' => new \DateTime()
+
+        ))
+        ->add('departCollabLe', DateType::class, array(
+          'widget' => 'choice',
+          'format' => 'dd/MM/y',
+          'years' => range(date('Y') - 5, date('Y') + 10),
+          'attr' => ['class' => ''],
+          'label' => '',
+          'data' => new \DateTime()
+
+        ))
+        ->add('embSalonLe', DateType::class, array(
+          'widget' => 'choice',
+          'format' => 'dd/MM/y',
+          'years' => range(date('Y') - 5, date('Y') + 10),
+          'attr' => ['class' => ''],
+          'label' => '',
+          'data' => new \DateTime()
+
+        ))
+        ->add('departPrevuLe', DateType::class, array(
+          'widget' => 'choice',
+          'format' => 'dd/MM/y',
+          'years' => range(date('Y') - 5, date('Y') + 10),
+          'attr' => ['class' => ''],
+          'label' => '',
+          'data' => new \DateTime()
+
+        ))
+        ->add('departPrevuLe2', DateType::class, array(
           'widget' => 'choice',
           'format' => 'dd/MM/y',
           'years' => range(date('Y') - 5, date('Y') + 10),
@@ -109,21 +154,55 @@ class DemandeRuptureCddType extends AbstractType
 
               $data->setMatricule($form['matricule']->getData()->getMatricule());
 
+              if ($data->getRaison() == '___demande_rupture_cdd.retour') {
+
+                $save = $data->getFinCddLe();
+                $save2 = $data->getRetourCollabLe();
+
+                self::setAllDateNull($data);
+
+                $data->setFinCddLe($save);
+                $data->setRetourCollabLe($save2);
+
+              } else if ($data->getRaison() == '___demande_rupture_cdd.depart') {
+
+                $save = $data->getFinCddLe();
+                $save2 = $data->getDepartCollabLe();
+
+                self::setAllDateNull($data);
+
+                $data->setFinCddLe2($save);
+                $data->setDepartCollabLe($save2);
+              }
+
+
               if ($data->getRaison() == '___demande_rupture_cdd.rupture') {
-                $rupt = $data->getRuptureAncticipe();
-                if ($rupt == '___demande_rupture_cdd.lettre') {
+
+                $rupt = $data->getRuptureAnticipe();
+
+                if ($rupt == '___demande_rupture_cdd.cdi') {
+                  $data->setNomCollab(null);
+
+                  $save = $data->getEmbSalonLe();
+                  self::setAllDateNull($data);
+                  $data->setEmbSalonLe($save);
+
+                } else if ($rupt == '___demande_rupture_cdd.cd2') {
+
+                  $save = $data->getDepartPrevuLe();
+                  self::setAllDateNull($data);
+                  $data->setDepartPrevuLe($save);
+
+                } else if ($rupt == '___demande_rupture_cdd.lettre') {
                   $fileName = $this->fileUploader->upload($data->getLettre(), $data->getMatricule(),'demande_rib', 'rib');
                   $data->setLettre($fileName);
-                  $data->setDateDepart(null);
-                  $data->setNomCollab(null);
-                } else if ($rupt == '___demande_rupture_cdd.lettre' || $rupt == "") {
-                  $data->setDateDepart(null);
-                  $data->setNomCollab(null);
+
+                  $save = $data->getDepartPrevuLe2();
+                  self::setAllDateNull($data);
+                  $data->setDepartPrevuLe2($save);
+
                 } else {
-                  $data->setLettre(null);
-                  $data->setDateDepart(null);
-                  $data->setDateFin(null);
-                  $data->setNomCollab(null);
+                  self::setAllDateNull($data);
                 }
               }
               $event->setData($data);
@@ -131,6 +210,17 @@ class DemandeRuptureCddType extends AbstractType
         );
   }
 
+  public function setAllDateNull($data)
+  {
+    $data->setFinCddLe2(null);
+    $data->setDepartCollabLe(null);
+    $data->setFinCddLe(null);
+    $data->setRetourCollabLe(null);
+    $data->setDepartPrevuLe(null);
+    $data->setDepartPrevuLe2(null);
+    $data->setEmbSalonLe(null);
+
+  }
 	public function configureOptions(OptionsResolver $resolver)
 	{
 		$resolver->setDefaults(array(

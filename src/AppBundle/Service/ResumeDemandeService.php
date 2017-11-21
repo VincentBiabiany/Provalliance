@@ -85,7 +85,7 @@ class ResumeDemandeService
     $fileList = '';
 
     //Path
-    $package = new PathPackage('web/uploads/files', new EmptyVersionStrategy());
+    $package = new PathPackage('uploads/files', new EmptyVersionStrategy());
 
     //1 demande par page
     foreach ($idDemandes as $idDemande ) {
@@ -128,7 +128,7 @@ class ResumeDemandeService
           $prop = self::transformDate($qb[0][$property]);
 
           //On affiche pas les fichiers liés à la demande
-          if (self::ifFile($prop) == false) {
+          if ($prop != null) {
             $response .= '<p><b class="col-sm-2"> '.self::getTraduction($property).'</b>  ';
 
             if(is_array($prop)){
@@ -140,7 +140,7 @@ class ResumeDemandeService
             }
 
             // Si cest un file et qu'on est dans le résumé des demandes
-          } else if ($action =='detail') {
+          } else if (self::ifFile($prop) && $action =='detail') {
             $fileList .= '<li><b class="col-sm-2">'.ucfirst($property).'</b>';
             $path = $package->getUrl($prop); //self::generateAbsUrl($prop);
             $fileList .= '<a class="downloadFile" href="'.$path.'">Télécharger le document</a></li>';
@@ -240,7 +240,7 @@ class ResumeDemandeService
 
       switch ($prop) {
         case '':
-          $response .= 'n/a';
+          //$response .= 'n/a';
         break;
 
         case 'true':
@@ -280,7 +280,6 @@ class ResumeDemandeService
     if (isset($prop[0]) && is_array($prop[0]))
     {
       foreach ($prop as $keys => $values){
-        $response .= '<br>';
         foreach ($values as $key => $value){
 
           $value = self::transformDate($value);
@@ -306,7 +305,6 @@ class ResumeDemandeService
     } else {
 
       foreach ($prop as $key => $value){
-        $response .= '<br>';
         if (preg_match_all('/_{3,}/', $value, $matches, PREG_SET_ORDER, 0)) {
           $value = $this->translator->trans($value,array(),'translator');
         }

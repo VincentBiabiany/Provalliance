@@ -320,7 +320,7 @@ class DemandeEmbauche extends DemandeForm
     private $tempsPartiel;
 
     /**
-     * ___demande_embauchepi
+     * ___demande_embauche.pi
      *
      * @var string
      *

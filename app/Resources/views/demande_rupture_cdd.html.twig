@@ -47,6 +47,14 @@
 								{{ form_label(child, child.vars.value) }}
 
                 <div id="retour">
+									<div class="col-sm-12 sousLabel">
+										<label class="control-label label">{{ "___demande_rupture_cdd.retourCollabLe"|trans({}, "translator") }}</label>
+										{{ form_widget(form.retourCollabLe, { 'attr': {'class':'styleDate'} }) }}
+									</div>
+									<div class="col-sm-12 sousLabel">
+										<label class="control-label label">{{ "___demande_rupture_cdd.finCddLe"|trans({}, "translator") }}</label>
+										{{ form_widget(form.finCddLe, { 'attr': {'class':'styleDate'} }) }}
+									</div>
 
                 </div>
 						{% elseif key == 1 %}
@@ -56,6 +64,15 @@
 
                 <div id="depart">
 
+							      <div class="col-sm-12 sousLabel">
+							        <label class="control-label label">{{ "___demande_rupture_cdd.finCddLe"|trans({}, "translator") }}</label>
+							        {{ form_widget(form.finCddLe2, { 'attr': {'class':'styleDate'} }) }}
+							      </div>
+
+										<div class="col-sm-12 sousLabel">
+							 			 <label class="control-label label">{{ "___demande_rupture_cdd.departCollabLe"|trans({}, "translator") }}</label>
+							 			 {{ form_widget(form.departCollabLe, { 'attr': {'class':'styleDate'} }) }}
+							 		 </div>
                 </div>
 						{% else %}
 
@@ -68,9 +85,64 @@
                   {% for key2,child2 in form.ruptureAnticipe %}
     							<div class="col-sm-12" id="block{{key2}}">
 
-                    {{ form_widget(child2, {'attr' : {'class' : ''} }) }}
-                    {{ form_label(child2, child2.vars.value) }}
-                  </div>
+
+										{% if key2 == 0 %}
+
+	                    {{ form_widget(child2, {'attr' : {'class' : ''} }) }}
+	                    {{ form_label(child2, child2.vars.value) }}
+
+											<div id="raison0" style="display:none">
+												<div class="col-sm-12 sousLabel">
+												 <label class="control-label label">{{ "___demande_rupture_cdd.embSalonLe"|trans({}, "translator") }}</label>
+												 {{ form_widget(form.embSalonLe, { 'attr': {'class':'styleDate'} }) }}
+											 </div>
+											</div>
+
+										{% elseif key2 == 1 %}
+
+											{{ form_widget(child2, {'attr' : {'class' : ''} }) }}
+											{{ form_label(child2, child2.vars.value) }}
+
+											<div id="raison1" style="display:none">
+												<div class="col-sm-12 sousLabel">
+												 <label class="control-label label">{{ "___demande_rupture_cdd.departPrevuLe"|trans({}, "translator") }}</label>
+												 {{ form_widget(form.departPrevuLe, { 'attr': {'class':'styleDate'} }) }}
+											 </div>
+											</div>
+
+										{% elseif key2 == 2 %}
+
+											{{ form_widget(child2, {'attr' : {'class' : ''} }) }}
+											{{ form_label(child2, child2.vars.value) }}
+
+											<div id="raison2" style="display:none">
+												<div class="col-sm-12 sousLabel">
+												 <label class="control-label label">{{ "___demande_rupture_cdd.departPrevuLe"|trans({}, "translator") }}</label>
+												 {{ form_widget(form.departPrevuLe2, { 'attr': {'class':'styleDate'} }) }}
+											 </div>
+
+											 <div class="col-sm-12 sousLabel">
+												 <label for="demande_rupture_cdd_lettre" class="label-file">
+													 <i class="glyphicon glyphicon-download-alt"></i>
+													 <span>{{ "___demande_rupture_cdd.joindre"|trans({}, "translator") }}</</span>
+												 </label>
+												 {{ form_widget(form.lettre, { 'attr': {'class': 'input-file'} }) }}
+											 </div>
+
+											</div>
+
+										{% elseif key2 == 3 %}
+
+											{{ form_widget(child2, {'attr' : {'class' : ''} }) }}
+											{{ form_label(child2, child2.vars.value) }}
+
+										{% else %}
+
+											{{ form_widget(child2, {'attr' : {'class' : ''} }) }}
+											{{ form_label(child2, child2.vars.value) }}
+
+										{% endif %}
+										</div>
                 {% endfor %}
 
                 </div>
@@ -81,44 +153,16 @@
 				</div>
 			</div>
 		</div> <!-- FIN champs raison -->
-		{% endblock %}
-
-
-		<!-- Temps partiel -->
-
-
-		<!-- Champs salon -->
-
-
-		<!-- Champs date -->
+	{% endblock %}
 
 
     <div id="block" class="col-xs-12" style="display:none">
-
-      <div class="col-sm-12 sousLabel" id="fin">
-        <label class="control-label label fin">{{ "___demande_rupture_cdd.datefin"|trans({}, "translator") }}</label>
-        {{ form_widget(form.dateFin, { 'attr': {'class':'styleDate'} }) }}
-      </div>
 
       <div class="col-sm-12 sousLabel" id="blockNom">
         <label style="display:none" class="control-label label retourLabel">{{ "___demande_rupture_cdd.nom"|trans({}, "translator") }}</label>
         <label style="display:none" class="control-label label departLabel">{{ "___demande_rupture_cdd.nom2"|trans({}, "translator") }}</label>
         {{ form_widget(form.nomCollab, {'attr' : {'class' : 'form-control', 'style':'max-width:180px;' } }) }}
       </div>
-
-       <div class="col-sm-12 sousLabel" id="blockDepart">
-         <label style="display:none" class="control-label label retourLabel">{{ "___demande_rupture_cdd.dateretour"|trans({}, "translator") }}</label>
-         <label style="display:none" class="control-label label departLabel">{{ "___demande_rupture_cdd.datedepart"|trans({}, "translator") }}</label>
-         {{ form_widget(form.dateDepart, { 'attr': {'class':'styleDate'} }) }}
-       </div>
-
-			 <div class="col-sm-12 sousLabel" id="blockFile" style="display:none">
-				 <label for="demande_rupture_cdd_lettre" class="label-file">
-					 <i class="glyphicon glyphicon-download-alt"></i>
-					 <span>{{ "___demande_rupture_cdd.joindre"|trans({}, "translator") }}</</span>
-				 </label>
-				 {{ form_widget(form.lettre, { 'attr': {'class': 'input-file'} }) }}
-			 </div>
 
     </div>
 
@@ -140,7 +184,8 @@
 $(document).ready(function(){
 	// Controle champs Temps Partiel
 
-
+$('#retour').hide();
+$('#depart').hide();
 	// Controle du champs raison
 	// Si coché alors on déploit le détail
 	$('#demande_rupture_cdd_raison').change(function(event){
@@ -151,7 +196,7 @@ $(document).ready(function(){
       $('.retourLabel').show();
 			$('#blockNom').show();
 			$('#blockDepart').show();
-			$('#blockFile').hide();
+
 			$('.fin').show();
     } else {
       $('#retour').hide();
@@ -188,35 +233,23 @@ $(document).ready(function(){
 	$('#anticipe').change(function(event){
 		console.log('trigger 2')
     if ($('#demande_rupture_cdd_ruptureAnticipe_0').is(':checked')) {
-      $('#block').show().appendTo( $('#block0') );
-			$('#blockNom').hide();
-			$('#blockDepart').hide();
-			$('#blockFile').hide();
-			$('.fin').hide();
 
+			$('#raison0').show();
+			$('#raison1').hide();
+			$('#raison2').hide();
     } else if ($('#demande_rupture_cdd_ruptureAnticipe_1').is(':checked')) {
-			$('#block').show().appendTo( $('#block1') );
-			$('#blockNom').hide();
-			$('#blockDepart').hide();
-			$('#blockFile').hide();
-			$('.fin').hide();
-
+			$('#raison0').hide();
+			$('#raison1').show();
+			$('#raison2').hide();
 		} else if ($('#demande_rupture_cdd_ruptureAnticipe_2').is(':checked')) {
-			$('#block').show().appendTo( $('#block2') );
-			$('#blockNom').hide();
-			$('#blockDepart').hide();
-			$('#blockFile').show();
-			$('.fin').hide();
-
-			$('#demande_rupture_cdd_lettre').attr('required', 'required');
+			$('#raison0').hide();
+			$('#raison1').hide();
+		  $('#raison2').show();
 
 		} else {
-			$('#block').hide()
-			$('#blockNom').show();
-			$('#blockDepart').show();
-			$('.fin').show();
-
-			$('#demande_rupture_cdd_lettre').removeAttr('required', 'required');
+			$('#raison0').hide();
+			$('#raison1').hide();
+			$('#raison2').hide();
 		}
 		event.preventDefault();
 		event.stopPropagation();
