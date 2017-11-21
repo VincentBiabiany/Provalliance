@@ -32,6 +32,8 @@ class DemandeEmbauche extends DemandeForm
     private $nom;
 
     /**
+     * ___demande_embauche.prenom
+     *
      * @var string
      *
      * @ORM\Column(name="prenom", type="string", length=255)
@@ -39,6 +41,8 @@ class DemandeEmbauche extends DemandeForm
     private $prenom;
 
     /**
+     * ___demande_embauche.adr1
+     *
      * @var string
      *
      * @ORM\Column(name="addresse_1", type="string", length=255)
@@ -46,6 +50,7 @@ class DemandeEmbauche extends DemandeForm
     private $addresse1;
 
     /**
+     * ___demande_embauche.sexe
      * @var string
      *
      * @ORM\Column(name="sexe", type="string", length=255)
@@ -53,6 +58,8 @@ class DemandeEmbauche extends DemandeForm
     private $sexe;
 
     /**
+     * ___demande_embauche.adr2
+     *
      * @var string
      *
      * @ORM\Column(name="addresse_2", type="string", length=255, nullable=true)
@@ -60,7 +67,8 @@ class DemandeEmbauche extends DemandeForm
     private $addresse2;
 
     /**
-     * Test
+     * ___demande_embauche.cp
+     *
      *  @var string
      *
      * @ORM\Column(name="code_postal", type="string", length=20)
@@ -69,6 +77,8 @@ class DemandeEmbauche extends DemandeForm
 
 
     /**
+     * ___demande_embauche.ville
+     *
      * @var string
      *
      * @ORM\Column(name="ville", type="string", length=255)
@@ -76,6 +86,8 @@ class DemandeEmbauche extends DemandeForm
     private $ville;
 
     /**
+     * ___demande_embauche.tel
+     *
      * @var string
      *
      * @ORM\Column(name="telephone", type="string", length=25)
@@ -83,6 +95,8 @@ class DemandeEmbauche extends DemandeForm
     private $telephone;
 
     /**
+     * ___demande_embauche.email
+     *
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255)
@@ -90,6 +104,8 @@ class DemandeEmbauche extends DemandeForm
     private $email;
 
     /**
+     * ___demande_embauche.ss
+     *
      * @var string
      *
      * @ORM\Column(name="num_secu", type="string", length=255)
@@ -97,6 +113,8 @@ class DemandeEmbauche extends DemandeForm
     private $numSecu;
 
     /**
+     * ___demande_embauche.daten
+     *
      * @var string
      *
      * @ORM\Column(name="date_naissance", type="date", length=255)
@@ -104,6 +122,8 @@ class DemandeEmbauche extends DemandeForm
     private $dateNaissance;
 
     /**
+     * ___demande_embauche.villen
+     *
      * @var string
      *
      * @ORM\Column(name="ville_naissance", type="string", length=255)
@@ -111,6 +131,8 @@ class DemandeEmbauche extends DemandeForm
     private $villeNaissance;
 
     /**
+     * ___demande_embauche.paysNaissance
+     *
      * @var string
      *
      * @ORM\Column(name="pays_naissance", type="string", length=255)
@@ -118,6 +140,8 @@ class DemandeEmbauche extends DemandeForm
     private $paysNaissance;
 
     /**
+     * ___demande_embauche.nat
+     *
      * @var string
      *
      * @ORM\Column(name="nationalite", type="string", length=255)
@@ -125,6 +149,8 @@ class DemandeEmbauche extends DemandeForm
     private $nationalite;
 
     /**
+     * ___demande_embauche.nbenf
+     *
      * @var int
      *
      * @ORM\Column(name="nb_enfant", type="integer", nullable=true)
@@ -132,6 +158,8 @@ class DemandeEmbauche extends DemandeForm
     private $nbEnfant;
 
     /**
+     * ___demande_embauche.fam
+     *
      * @var string
      *
      * @ORM\Column(name="situation_famille", type="string")
@@ -139,6 +167,8 @@ class DemandeEmbauche extends DemandeForm
     private $situationFamille;
 
     /**
+     * ___demande_embauche.dateemb
+     *
      * @var string
      *
      * @ORM\Column(name="date_embauche", type="date", length=255)
@@ -146,6 +176,8 @@ class DemandeEmbauche extends DemandeForm
     private $dateEmbauche;
 
     /**
+     * ___demande_embauche.ancien
+     *
      * @var string
      *
      * @ORM\Column(name="deja_salarie", type="string", length=255)
@@ -153,6 +185,8 @@ class DemandeEmbauche extends DemandeForm
     private $dejaSalarie;
 
     /**
+     * ___demande_embauche.lieu
+     *
      * @var string
      *
      * @ORM\Column(name="salarie_lieu", type="string", length=255,  nullable=true)
@@ -160,6 +194,8 @@ class DemandeEmbauche extends DemandeForm
     private $salarieLieu;
 
     /**
+     * ___demande_embauche.poste
+     *
      * @var string
      *
      * @ORM\Column(name="postes", type="string", length=255)
@@ -167,6 +203,8 @@ class DemandeEmbauche extends DemandeForm
     private $postes;
 
     /**
+     * ___demande_embauche.diplomes
+     *
      * @var array
      *
      * @ORM\Column(name="diplomes", type="array")
@@ -174,6 +212,8 @@ class DemandeEmbauche extends DemandeForm
     private $diplomes;
 
     /**
+     * ___demande_embauche.niveau
+     *
      * @var string
      *
      * @ORM\Column(name="niveau", type="string", length=255,  nullable=true)
@@ -181,6 +221,8 @@ class DemandeEmbauche extends DemandeForm
     private $niveau;
 
     /**
+     * ___demande_embauche.echelon
+     *
      * @var string
      *
      * @ORM\Column(name="echelon", type="string", length=255,  nullable=true)
@@ -188,6 +230,8 @@ class DemandeEmbauche extends DemandeForm
     private $echelon;
 
     /**
+     * ___demande_embauche.nom
+     *
      * @var string
      *
      * @ORM\Column(name="autre", type="string", length=255,  nullable=true)
@@ -195,6 +239,8 @@ class DemandeEmbauche extends DemandeForm
     private $autre;
 
     /**
+     * ___demande_embauche.salaire
+     *
      * @var int
      *
      * @ORM\Column(name="salaire_base", type="integer")
@@ -202,6 +248,8 @@ class DemandeEmbauche extends DemandeForm
     private $salaireBase;
 
     /**
+     * ___demande_embauche.contrat
+     *
      * @var string
      *
      * @ORM\Column(name="type_contrat", type="string", length=255,  nullable=true)
@@ -209,6 +257,8 @@ class DemandeEmbauche extends DemandeForm
     private $typeContrat;
 
     /**
+     * ___demande_embauche.cdd
+     *
      * @var string
      *
      * @ORM\Column(name="cdd_raison", type="string", length=255,  nullable=true)
@@ -216,6 +266,8 @@ class DemandeEmbauche extends DemandeForm
     private $cddRaison;
 
     /**
+     * ___demande_embauche.cdd.nature
+     *
      * @var string
      *
      * @ORM\Column(name="remplacement_nature", type="string", length=255,  nullable=true)
@@ -223,6 +275,8 @@ class DemandeEmbauche extends DemandeForm
     private $remplacementNature;
 
     /**
+     * ___demande_embauche.cdd.date
+     *
      * @var string
      *
      * @ORM\Column(name="cdd_date", type="date", length=255,  nullable=true)
@@ -230,6 +284,8 @@ class DemandeEmbauche extends DemandeForm
     private $cddDate;
 
     /**
+     * ___demande_embauche.cdd.partiel
+     *
      * @var string
      *
      * @ORM\Column(name="precision_date", type="string", length=255, nullable=true)
@@ -237,6 +293,8 @@ class DemandeEmbauche extends DemandeForm
     private $precisionDate;
 
     /**
+     * ___demande_embauche.cdd.nom
+     *
      * @var string
      *
      * @ORM\Column(name="remplacement_nom", type="string", length=255,  nullable=true)
@@ -244,6 +302,8 @@ class DemandeEmbauche extends DemandeForm
     private $remplacementNom;
 
     /**
+     * ___demande_embauche.partiel
+     *
      * @var array
      *
      * @ORM\Column(name="is_temps_partiel", type="string", length=255)
@@ -251,6 +311,8 @@ class DemandeEmbauche extends DemandeForm
     private $isTempsPartiel;
 
     /**
+     * ___demande_embauche.cdd.partiel
+     *
      * @var array
      *
      * @ORM\Column(name="temps_partiel", type="array",  nullable=true)
@@ -258,6 +320,8 @@ class DemandeEmbauche extends DemandeForm
     private $tempsPartiel;
 
     /**
+     * ___demande_embauche.nom
+     *
      * @var string
      *
      * @ORM\Column(name="carte_id", type="string", length=255)
@@ -265,6 +329,8 @@ class DemandeEmbauche extends DemandeForm
     protected $carteId;
 
     /**
+     * ___demande_embauche.nom
+     *
      * @var string
      *
      * @ORM\Column(name="diplome_file", type="string", length=255)
@@ -272,6 +338,8 @@ class DemandeEmbauche extends DemandeForm
     protected $diplomeFile;
 
     /**
+     * ___demande_embauche.nom
+     *
      * @var string
      *
      * @ORM\Column(name="diplome_file2", type="string", length=255, nullable=true)
@@ -279,6 +347,8 @@ class DemandeEmbauche extends DemandeForm
     protected $diplomeFile2;
 
     /**
+     * ___demande_embauche.nom
+     *
      * @var string
      *
      * @ORM\Column(name="carte_vitale", type="string", length=255)
@@ -286,6 +356,8 @@ class DemandeEmbauche extends DemandeForm
     protected $carteVitale;
 
     /**
+     * ___demande_embauche.nom
+     *
      * @var string
      *
      * @ORM\Column(name="rib", type="string", length=255)
@@ -293,6 +365,8 @@ class DemandeEmbauche extends DemandeForm
     protected $rib;
 
     /**
+     * ___demande_embauche.nom
+     *
      * @var string
      *
      * @ORM\Column(name="mutuelle", type="string", length=255)

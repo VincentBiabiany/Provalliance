@@ -32,7 +32,8 @@ class ResumeDemandeService
   private $em;
   private $em2;
   private $translator;
-
+  private $propertyInfo;
+  private $nameEntity;
 
   public function __construct(EntityManager $em, EntityManager $em2, Translator $translator)
   {
@@ -68,12 +69,14 @@ class ResumeDemandeService
       $accessExtractors
     );
 
+    $this->propertyInfo = $propertyInfo;
+
     //Extrator Properties
     // $reflectionExtractor = new ReflectionExtractor();
     // $listExtractors = $reflectionExtractor;
     // $propertyInfo = new PropertyInfoExtractor(array( $listExtractors ), [$listExtractors, $reflectionExtractor]);
 
-    dump($propertyInfo->getShortDescription('AppBundle\Entity\DemandeEmbauche', "nom"));
+    //dump($propertyInfo->getShortDescription('AppBundle\Entity\DemandeEmbauche', "nom"));
 
 
 
@@ -98,15 +101,16 @@ class ResumeDemandeService
 
       $nameEntity = $infoDemande['nameDemande'];
       $idDemandeItSelf = $infoDemande['demandeId'];
+      $this->nameEntity = $nameEntity;
 
       // Recupération de la demande
       $qb = $this->em2->createQueryBuilder()
-      ->add('select', 'u')
-      ->add('from', 'AppBundle:'.$nameEntity.' u')
-      ->add('where', 'u.id = :idDemande')
-      ->setParameter('idDemande', $idDemandeItSelf)
-      ->getQuery()
-      ->getArrayResult();
+                      ->add('select', 'u')
+                      ->add('from', 'AppBundle:'.$nameEntity.' u')
+                      ->add('where', 'u.id = :idDemande')
+                      ->setParameter('idDemande', $idDemandeItSelf)
+                      ->getQuery()
+                      ->getArrayResult();
 
 
       // Récupération des noms des propriétés de l'entité
@@ -136,7 +140,7 @@ class ResumeDemandeService
 
           //On affiche pas les fichiers liés à la demande
           if (self::ifFile($prop) == false) {
-            $response .= '<p><b>'.ucfirst($property).'</b>  ';
+            $response .= '<p><b>'.self::getTraduction($property).'</b>  ';
 
             if(is_array($prop)){
               $response .= self::transformArray($prop);
@@ -214,25 +218,34 @@ class ResumeDemandeService
       switch ($prop) {
         case '':
           $response .= 'n/a';
-          break;
+        break;
 
         case 'true':
           $response .= $this->translator->trans('global.affirme',array(),'translator','fr_FR');
-          break;
+        break;
 
         case 'false':
           $response .= $this->translator->trans('global.negative',array(),'translator','fr_FR');
-          break;
+        break;
 
         default:
-          $response .= $prop;
+          $response .= $prop; //self::getTraduction($prop);
+
+
       }
-
-
+      $response .= '</p>';
     }
-    $response .= '</p>';
-
     return $response;
+  }
+
+  public function getTraduction($prop)
+  {
+    dump($prop, $this->propertyInfo->getShortDescription('AppBundle\Entity\\'. $this->nameEntity, $prop));
+
+    $trad = $this->translator
+                  ->trans($this->propertyInfo->getShortDescription('AppBundle\Entity\\'. $this->nameEntity, $prop),
+                                                                  array(),'translator');
+    return $trad;
   }
 
   public function transformArray($prop)
@@ -246,7 +259,7 @@ class ResumeDemandeService
       // frsdf();
       $re = '/_{3,}/';
       if (preg_match_all($re, $value, $matches, PREG_SET_ORDER, 0)) {
-        $value = $this->translator->trans($value,array(),'translator','fr_FR');
+        $value = $this->translator->trans($value,array(),'translator');
       }
 
       if (is_numeric($key)) {
@@ -267,24 +280,23 @@ class ResumeDemandeService
     return $response;
   }
 
-    //Function ifFile: test si le champs est un fichier
-    //Return: retourne false si $property est un fichier
-   public function ifFile($property){
-      $tabFiles= ['png','jpg','pdf','jpeg','bmp','doc','docx','txt'];
-      $occ=0;
+  //Function ifFile: test si le champs est un fichier
+  //Return: retourne false si $property est un fichier
+  public function ifFile($property){
+    $tabFiles= ['png','jpg','pdf','jpeg','bmp','doc','docx','txt', 'html', 'csv', 'tmp'];
+    $occ = 0;
 
-      if(!is_array($property)){
-          foreach ($tabFiles as $tabFile ) {
-
-                     if(strpos($property, $tabFile) !== false){
-                        $occ++;
-                     }
-          }
+    if (!is_array($property)) {
+      foreach ($tabFiles as $tabFile ) {
+        if(strpos($property, $tabFile) !== false){
+          $occ++;
         }
-      if ( $occ > 0){
-        return true;
-      }else{
-        return false;
       }
+    }
+    if ( $occ > 0){
+      return true;
+    } else {
+      return false;
+    }
   }
 }
