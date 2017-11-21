@@ -39,7 +39,7 @@ class RupturePeriodeEssaiController extends Controller
       $demandeService->createDemande($form->getData(), $idSalon);
 
       return $this->redirect($this->generateUrl('homepage',
-      array('flash' => "demande_rupture_periode_essai.popupValidation.message")));
+      array('flash' => "___demande_rupture_periode_essai.popupValidation.message")));
       }
 
 

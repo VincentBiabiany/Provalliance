@@ -95,33 +95,40 @@
 				<div class="form-group row imbriq">
 					<label class="control-label label col-sm-3 col-xs-12">{{ "___demande_conge_parental.date"|trans({}, "translator") }}</label>
 
+					<div class="col-sm-9 col-xs-12" >
 
-				<div class="form-group col-sm-12 row">
+						    <div id='CongePatPeriode' class="form-controlList PeriodeTemps">
 
-						<div class="col-sm-5">
-							<div class="jour">
-								<label style="display:none" class="control-label label passage">{{ "___demande_conge_parental.du"|trans({}, "translator") }}</label>
-								<label style="display:none" class="control-label label reprise">{{ "___demande_conge_parental.le"|trans({}, "translator") }}</label>
-							</div>
-							{{ form_widget(form.dateDebut, { 'attr': {'class':'styleDate'} }) }}
-				 		</div>
+										<div class="col-sm-12 sousLabel">
+											<div class="jourInline ">
+												<label style="display:none" class="control-label label passage">{{ "___demande_conge_parental.du"|trans({}, "translator") }}</label>
+												<label style="display:none" class="control-label label reprise">{{ "___demande_conge_parental.le"|trans({}, "translator") }}</label>
+											</div>
+											{{ form_widget(form.dateDebut, { 'attr': {'class':'styleDate'} }) }}
+								 		</div>
 
-					 <div class="col-sm-5">
-						 <div class="jour">
-							<label style="display:none" class="control-label label passage">{{ "___demande_conge_parental.au"|trans({}, "translator") }}</label>
-							<label style="display:none" class="control-label label reprise">{{ "___demande_conge_parental.aulieu"|trans({}, "translator") }}</label>
+										 <div class="col-sm-12 sousLabel">
+											 <div class="jourInline">
+												<label style="display:none" class="control-label label passage">{{ "___demande_conge_parental.au"|trans({}, "translator") }}</label>
+												<label style="display:none" class="control-label label reprise">{{ "___demande_conge_parental.aulieu"|trans({}, "translator") }}</label>
+											 </div>
+											 {{ form_widget(form.dateFin, { 'attr': {'class':'styleDate'} }) }}
+										</div>
+
 						 </div>
-						 {{ form_widget(form.dateFin, { 'attr': {'class':'styleDate'} }) }}
-					</div>
-
 				</div>
 	</div>
-				<div class="form-group onlyUploadFile">
+				<div class="form-group">
+					<label class="control-label label col-sm-4 col-xs-12" for="dem">{{ form_label(form.pieceJointe) }}</label>
+	         <div class="col-sm-9  col-xs-12">
 					 <label for="demande_conge_parental_pieceJointe" class="label-file">
 						 <i class="glyphicon glyphicon-download-alt"></i>
-						 <span>{{ "___demande_conge_parental.lettre"|trans({}, "translator") }}</span>
+						 <span>{{ "global.choiceFile"|trans({}, "translator") }}</span>
 					 </label>
 					 {{ form_widget(form.pieceJointe, { 'attr': {'class': 'input-file'} }) }}
+
+				 </div>
+
 				</div>
 
 
@@ -138,6 +145,7 @@
 <script type="text/javascript" src="{{ asset('js/jquery.validate.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/global/global-method.js') }}"></script>
+<script src="{{ asset('js/custom-file-input.js') }}"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -181,18 +189,12 @@ $(document).ready(function(){
 	// Validation du formulaire
 	$("#formCongeParental").validate({
 		rules: {
-		  'demande_lettre_mission[dateDebut][month]' : {
-		    validateDate: true,
-		  },
-		  'demande_lettre_mission[dateFin][month]' : {
-		    validateDate: true,
-				greaterThan: '#demande_lettre_mission_dateDebut_year'
-		  },
-			'demande_lettre_mission[matricule]' : {
+			'demande_conge_parental[pieceJointe]' : {
 			 required: true,
 		 },
 	 },
 	 messages: {
+		 'demande_conge_parental[pieceJointe]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
 
 	 },
 	 errorElement: "em",

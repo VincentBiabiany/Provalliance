@@ -166,7 +166,7 @@ class PersonnelRepository extends EntityRepository
       $collaborateur['adresse2']       = 'n/a';
       $collaborateur['codePostal']     = 'n/a';
       $collaborateur['ville']          = 'n/a';
-      $collaborateur['telephone1']     = 'n/a';
+      $collaborateur['telephone']     = 'n/a';
       $collaborateur['email']          = 'n/a';
       $collaborateur['dateEntree']     = 'n/a';
       $collaborateur['dateSortie']     = 'n/a';
@@ -176,10 +176,10 @@ class PersonnelRepository extends EntityRepository
       $collaborateur['matricule']      = $requete->getMatricule();
       $collaborateur['nom']            = $requete->getNom();
       $collaborateur['prenom']         = $requete->getPrenom();
-      $collaborateur['dateNaissance']  = $requete->getDateNaissance()->format('d-m-Y');
+      $collaborateur['dateNaissance']  = $requete->getDateNaissance()->format('d/m/Y');
       $collaborateur['villeNaissance'] = $requete->getVilleNaissance();
       $collaborateur['paysNaissance']  = $requete->getPaysNaissance();
-      $collaborateur['dateNaissance']  = $requete->getDateNaissance()->format('d-m-Y');
+      $collaborateur['dateNaissance']  = $requete->getDateNaissance()->format('d/m/Y');
       $collaborateur['sexe']           = $requete->getSexe();
       $collaborateur['nationalite']    = $requete->getNationalite();
       $collaborateur['niveau']         = $requete->getNiveau();
@@ -188,10 +188,15 @@ class PersonnelRepository extends EntityRepository
       $collaborateur['adresse2']       = $requete->getAdresse2();
       $collaborateur['codePostal']     = $requete->getCodepostal();
       $collaborateur['ville']          = $requete->getVille();
-      $collaborateur['telephone']      = $requete->getTelephone1();
+      $collaborateur['telephone']      = $requete->getTelephone();
       $collaborateur['email']          = $requete->getEmail();
-      $collaborateur['dateEntree']     = $requete->getDateEntree()->format('d-m-Y');;
-      $collaborateur['dateSortie']     = $requete->getDateSortie()->format('d-m-Y');;
+      $collaborateur['dateEntree']     = $requete->getDateEntree()->format('d/m/Y');
+
+      if($requete->getDateSortie()!= null){
+          $collaborateur['dateSortie']     = $requete->getDateSortie()->format('d/m/Y');
+        }else{
+          $collaborateur['dateSortie']     = 'n/a';
+        }
     }
 
     return $collaborateur;

@@ -40,7 +40,7 @@ class DemandeAbsencesInjustifieesType extends AbstractType
                   'query_builder' => function (EntityRepository $er) use ($idSalon) {
                       return $er->findActivePersonnelBySalon($idSalon);
                     },
-                  'label' => 'lettre_mission.nom',
+                  'label' => '___demande_absences.collaborateur',
                   'translation_domain' => 'translator',
                   'attr' => ['required' => 'required']
               ))
@@ -53,9 +53,9 @@ class DemandeAbsencesInjustifieesType extends AbstractType
             ))
             ->add('raison', ChoiceType::class, array(
               'choices' => array(
-                'absences.abs'      => 'absences.abs',
-                'absences.absLes'   => 'absences.absLes',
-                'absences.retards'  => 'absences.retards',
+                '___demande_absences.abs'      => '___demande_absences.abs',
+                '___demande_absences.absLes'   => '___demande_absences.absLes',
+                '___demande_absences.retards'  => '___demande_absences.retards',
               ),
               'choice_translation_domain' => 'translator',
               'translation_domain' => 'translator',
@@ -65,7 +65,7 @@ class DemandeAbsencesInjustifieesType extends AbstractType
             ->add('retards',CollectionType::class, array(
               'entry_type'     => RetardsType::class,
               'entry_options'  => array(
-                  'attr'       => array('class' => 'email-box'),
+                  'attr'       => array('class' => 'email-box sousLabel'),
               ),
               'allow_add'      => true,
               'allow_delete'   => true
@@ -73,7 +73,7 @@ class DemandeAbsencesInjustifieesType extends AbstractType
             ->add('absences',CollectionType::class, array(
               'entry_type'   => DateType::class,
               'entry_options'  => array(
-                  'attr'       => array('class' => 'styleDate'),
+                  'attr'       => array('class' => 'styleDate sousLabel listAbsence'),
                   'widget' => 'choice',
                   'format' => 'dd/MM/y',
                   'years' => range(date('Y') - 5, date('Y') + 10),
@@ -82,7 +82,7 @@ class DemandeAbsencesInjustifieesType extends AbstractType
               'allow_delete'   => true
             ))
             ->add('Envoyer', SubmitType::class, array(
-              'label' => 'lettre_mission.envoyer',
+              'label' => 'global.submit',
               'attr' => array('class' =>'btn-black end'),
               'translation_domain' => 'translator',
             ))
@@ -97,12 +97,12 @@ class DemandeAbsencesInjustifieesType extends AbstractType
 
                   // die(dump($data));
                   $raison = $data->getRaison();
-                  if ($raison == 'absences.abs') {
+                  if ($raison == '___demande_absences.abs') {
 
                     $data->setAbsences(null);
                     $data->setRetards(null);
 
-                  } else if ($raison == 'absences.absLes') {
+                  } else if ($raison == '___demande_absences.absLes') {
 
                     $data->setRetards(null);
 

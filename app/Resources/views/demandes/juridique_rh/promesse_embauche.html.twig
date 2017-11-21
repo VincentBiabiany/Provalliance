@@ -9,7 +9,7 @@
 	<img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
 </div>
 <div class="head">
-{{ "demande_promesse_embauche.titre"|trans({}, "translator") }}
+{{ "___demande_promesse_embauche.titre"|trans({}, "translator") }}
 </div>
 <div class="nomSalon">
   {{ app.session.get('nomSalon') }}
@@ -35,31 +35,31 @@
 				</div>
 				<div class="form-group">
 					<label class="control-label label col-sm-4 col-xs-12" for="poste">{{ form_label(form.poste) }}</label>
-					<div class="col-sm-6  col-xs-12">
+					<div class="col-sm-6  col-xs-12 radioInput">
 						{{ form_widget(form.poste, { 'attr': {'class': 'form-control'} }) }}
 					</div>
 				</div>
-				<div class="form-group">
-					<label class="control-label label col-sm-4 col-xs-12" for="poste">{{ form_label(form.niveau) }}</label>
-					<div class="col-sm-6  col-xs-12">
-						{{ form_widget(form.niveau, { 'attr': {'class': 'form-control'} }) }}
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="control-label label col-sm-4 col-xs-12" for="poste">{{ form_label(form.echelon) }}</label>
-					<div class="col-sm-6  col-xs-12">
-						{{ form_widget(form.echelon, { 'attr': {'class': 'form-control'} }) }}
-					</div>
-				</div>
+				<div id="Classification" class="form-group s" >
+					<label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "___demande_promesse_embauche.classification"|trans({}, "translator") }}</label>
+		      <div class="col-sm-3 col-xs-12" >
+		        <label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ form_label(form.niveau) }}</label>
+		        {{ form_widget(form.niveau) }}
+		      </div>
+		      <div class="col-sm-3 col-xs-12" >
+		        <label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ form_label(form.echelon) }}</label>
+		        {{ form_widget(form.echelon) }}
+		      </div>
+		     </div>
+
 				<div class="form-group">
 					<label class="control-label label col-sm-4 col-xs-12" for="poste">{{ form_label(form.salaire) }}</label>
-					<div class="col-sm-6  col-xs-12">
+					<div class="col-sm-3  col-xs-12">
 						{{ form_widget(form.salaire, { 'attr': {'class': 'form-control'} }) }}
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="control-label label col-sm-4 col-xs-12" for="poste">{{ form_label(form.temps) }}</label>
-					<div class="col-sm-6  col-xs-12">
+					<div class="col-sm-3  col-xs-12">
 						{{ form_widget(form.temps, { 'attr': {'class': 'form-control'} }) }}
 					</div>
 				</div>
@@ -78,9 +78,62 @@
 		  </div>
 		</div>
 	</div>
-	<script src="{{ asset('js/custom-file-input.js') }}"></script>
-	<script type="text/javascript">
+	<script type="text/javascript" src="{{ asset('js/jquery.validate.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/global/global-method.js') }}"></script>
 
+	<script type="text/javascript">
+	// Validation du formulaire
+	$("#PromesseEmbauche").validate({
+		rules: {
+
+	 },
+	 messages: {
+		 'demande_promesse_embauche[contrat]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+		 'demande_promesse_embauche[poste]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+		 'demande_promesse_embauche[salaire]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+		 'demande_promesse_embauche[temps]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+
+	 },
+	 errorElement: "em",
+	 errorPlacement: function ( error, element ) {
+		// Add the `help-block` class to the error element
+		error.addClass( "help-block" );
+
+		// Add `has-feedback` class to the parent div.form-group
+		// in order to add icons to inputs
+		element.parents( ".col-sm-5" ).addClass( "has-feedback" );
+
+
+
+		if ( element.prop( "type" ) === "checkbox" ) {
+			error.insertAfter( element.parent( "label" ) );
+		} else if( element.prop( "type" ) === "select-one" || element.prop( "type" ) === "radio") {
+			error.appendTo( element.parent().parent());
+		} else {
+			error.insertAfter( element );
+		}
+
+		// Add the span element, if doesn't exists, and apply the icon classes to it.
+		if ( !element.next( "span" )[ 0 ] ) {
+			$( "<span class='glyphicon glyphicon-remove form-control-feedback'></span>" ).insertAfter( element );
+		}
+	 },
+	 success: function ( label, element ) {
+		// Add the span element, if doesn't exists, and apply the icon classes to it.
+		if ( !$( element ).next( "span" )[ 0 ] ) {
+			$( "<span class='glyphicon glyphicon-ok form-control-feedback'></span>" ).insertAfter( $( element ) );
+		}
+	 },
+	 highlight: function ( element, errorClass, validClass ) {
+		$( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
+		$( element ).next( "span" ).addClass( "glyphicon-remove" ).removeClass( "glyphicon-ok" );
+	 },
+	 unhighlight: function ( element, errorClass, validClass ) {
+		$( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
+		$( element ).next( "span" ).addClass( "glyphicon-ok" ).removeClass( "glyphicon-remove" );
+	 }
+	});
 
 	</script>
 {% endblock %}

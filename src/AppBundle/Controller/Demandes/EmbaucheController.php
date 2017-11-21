@@ -25,7 +25,6 @@ class EmbaucheController extends Controller
       $isSubmitted = false;
 
       if ($session->get('demande') != null) {
-        dump($request, $session->get('demande') );
         $demandeEmbauche = $session->get('demande');
         $isSubmitted = true;
       } else {

@@ -42,11 +42,12 @@
 				<div class="form-group">
 					<label class="control-label label col-sm-4 col-xs-12" for="contrat">{{ form_label(form.contrat) }}</label>
 					<div class="col-sm-9  col-xs-12">
-						{{ form_widget(form.contrat, { 'attr': {'class': 'input-file'} }) }}
 						<label for="demande_rupture_periode_essai_contrat" class="label-file">
 							<i class="glyphicon glyphicon-download-alt"></i>
 							<span>{{ "___demande_rupture_periode_essai.choice"|trans({}, "translator") }}</span>
 						</label>
+						{{ form_widget(form.contrat, { 'attr': {'class': 'input-file'} }) }}
+
 					</div>
 				</div>
 			<div id="actionsButtons">
@@ -57,8 +58,67 @@
 		  </div>
 		</div>
 	</div>
-	<script type="text/javascript">
+	<script type="text/javascript" src="{{ asset('js/jquery.validate.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/global/global-method.js') }}"></script>
+	<script src="{{ asset('js/custom-file-input.js') }}"></script>
 
+	<script type="text/javascript">
+	// Validation du formulaire
+	$("#RupturePeriodeEssai").validate({
+		rules: {
+			'demande_rupture_periode_essai[contrat]' : {
+			 required: true,
+		 },
+ 			'demande_rupture_periode_essai[moyen]' : {
+ 			 required: true,
+ 		 },
+
+	 },
+	 messages: {
+		 'demande_rupture_periode_essai[contrat]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+		 'demande_rupture_periode_essai[moyen]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+
+	 },
+	 errorElement: "em",
+	 errorPlacement: function ( error, element ) {
+	 	// Add the `help-block` class to the error element
+	 	error.addClass( "help-block" );
+
+	 	// Add `has-feedback` class to the parent div.form-group
+	 	// in order to add icons to inputs
+	 	element.parents( ".col-sm-5" ).addClass( "has-feedback" );
+
+
+
+	 	if ( element.prop( "type" ) === "checkbox" ) {
+	 		error.insertAfter( element.parent( "label" ) );
+	 	} else if( element.prop( "type" ) === "select-one" || element.prop( "type" ) === "radio") {
+	 		error.appendTo( element.parent().parent());
+	 	} else {
+	 		error.insertAfter( element );
+	 	}
+
+	 	// Add the span element, if doesn't exists, and apply the icon classes to it.
+	 	if ( !element.next( "span" )[ 0 ] ) {
+	 		$( "<span class='glyphicon glyphicon-remove form-control-feedback'></span>" ).insertAfter( element );
+	 	}
+	 },
+	 success: function ( label, element ) {
+	 	// Add the span element, if doesn't exists, and apply the icon classes to it.
+	 	if ( !$( element ).next( "span" )[ 0 ] ) {
+	 		$( "<span class='glyphicon glyphicon-ok form-control-feedback'></span>" ).insertAfter( $( element ) );
+	 	}
+	 },
+	 highlight: function ( element, errorClass, validClass ) {
+	 	$( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
+	 	$( element ).next( "span" ).addClass( "glyphicon-remove" ).removeClass( "glyphicon-ok" );
+	 },
+	 unhighlight: function ( element, errorClass, validClass ) {
+	 	$( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
+	 	$( element ).next( "span" ).addClass( "glyphicon-ok" ).removeClass( "glyphicon-remove" );
+	 }
+	});
 
 	</script>
 {% endblock %}

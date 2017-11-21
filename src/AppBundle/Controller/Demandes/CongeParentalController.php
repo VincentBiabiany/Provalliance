@@ -32,7 +32,7 @@ class CongeParentalController extends Controller
       $demandeService->createDemande($form->getData(), $idSalon);
 
       return $this->redirect($this->generateUrl('homepage',
-        array('flash' => "conge_parental.popupValidation.message")));
+        array('flash' => "___demande_conge_parental.popupValidation.message")));
     }
 
     return $this->render('demandes/juridique_rh/conge_parental.html.twig', array(

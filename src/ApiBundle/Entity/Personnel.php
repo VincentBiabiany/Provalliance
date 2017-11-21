@@ -504,27 +504,27 @@ class Personnel
     }
 
     /**
-     * Set telephone1
+     * Set telephone
      *
-     * @param string $telephone1
+     * @param string $telephone
      *
      * @return Personnel
      */
-    public function setTelephone1($telephone1)
+    public function setTelephone1($telephone)
     {
-        $this->telephone1 = $telephone1;
+        $this->telephone = $telephone;
 
         return $this;
     }
 
     /**
-     * Get telephone1
+     * Get telephone
      *
      * @return string
      */
-    public function getTelephone1()
+    public function getTelephone()
     {
-        return $this->telephone1;
+        return $this->telephone;
     }
 
 
@@ -607,9 +607,9 @@ class Personnel
     {
         return $this->personnelHasSalon;
     }
-    
+
     /**
-     * Set dateNaissance
+     * Set dateEntree
      *
      * @param \DateTime dateEntree
      *
@@ -646,13 +646,13 @@ class Personnel
     }
 
     /**
-     * Get dateNaissance
+     * Get dateSortie
      *
      * @return \DateTime
      */
     public function getDateSortie()
     {
-        return $this->$dateSortie;
+        return $this->dateSortie;
     }
 
 }

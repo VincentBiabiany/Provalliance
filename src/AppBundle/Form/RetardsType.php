@@ -21,9 +21,16 @@ class RetardsType extends AbstractType
               'widget' => 'choice',
               'format' => 'dd/MM/y',
               'years' => range(date('Y') - 5, date('Y') + 10),
+              'label' => '___demande_absences.date',
+              'label_attr' => array('class' => 'control-label label'),
+              'translation_domain' => 'translator',
+              'attr' => ['class' => ' styleDate ','required' => 'required']
             ])
             ->add('minute', NumberType::class, [
-              
+              'label' => '___demande_absences.minute',
+              'label_attr' => array('class' => 'control-label label'),
+              'translation_domain' => 'translator',
+              'attr' => ['class' => 'form-control','required' => 'required']
             ]);
   }
 
