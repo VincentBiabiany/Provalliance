@@ -19,20 +19,19 @@
        {{ form_start(form, { 'attr' : { 'id':'demandeEmbauche3','class': 'allForm form-horizontal' } }) }}
     	<div class="form-group" >
     			<label class="control-label label col-sm-4 col-xs-12" >{{ "___demande_embauche.diplome"|trans({}, "translator") }}</label>
-    		  <div class="col-sm-4 col-sm-offset-2 col-xs-12">
-
+    		  <div class="col-sm-6 col-sm-offset-1 col-xs-12">
             <label for="demande_embauche_diplomeFile" class="label-file">
               <i class="glyphicon glyphicon-download-alt"></i>
               <span>{{ "___demande_embauche.choix"|trans({}, "translator") }}</span>
             </label>
             {{ form_widget(form.diplomeFile, { 'attr': {'class': 'input-file'} }) }}
 
+
     		  </div>
     	</div>
       <div class="form-group" >
           <label class="control-label label col-sm-4 col-xs-12" >{{ "___demande_embauche.diplome2"|trans({}, "translator") }}</label>
-          <div class="col-sm-4 col-sm-offset-2 col-xs-12">
-
+          <div class="col-sm-6 col-sm-offset-1 col-xs-12">
             <label for="demande_embauche_diplomeFile2" class="label-file">
               <i class="glyphicon glyphicon-download-alt"></i>
               <span>{{ "___demande_embauche.choix"|trans({}, "translator") }}</span>
@@ -43,7 +42,7 @@
       </div>
     	<div class="form-group">
           <label class="control-label label col-sm-4 col-xs-12">{{ "___demande_embauche.cartev"|trans({}, "translator") }}</label>
-      		<div class="col-sm-4 col-sm-offset-2 col-xs-12">
+      		<div class="col-sm-6 col-sm-offset-1 col-xs-12">
 
             <label for="demande_embauche_carteVitale" class="label-file">
               <i class="glyphicon glyphicon-download-alt"></i>
@@ -55,7 +54,7 @@
     	</div>
       <div class="form-group" >
           <label class="control-label label col-sm-4 col-xs-12">{{ "___demande_embauche.rib"|trans({}, "translator") }}</label>
-      		<div class="col-sm-4 col-sm-offset-2 col-xs-12">
+      		<div class="col-sm-6 col-sm-offset-1 col-xs-12">
 
             <label for="demande_embauche_rib" class="label-file">
               <i class="glyphicon glyphicon-download-alt"></i>
@@ -67,7 +66,7 @@
     	</div>
       <div class="form-group" >
           <label class="control-label label col-sm-4 col-xs-12">{{ "___demande_embauche.adhesion"|trans({}, "translator") }}</label>
-          <div class="col-sm-4 col-sm-offset-2 col-xs-12">
+          <div class="col-sm-6 col-sm-offset-1 col-xs-12">
 
             <label for="demande_embauche_mutuelle" class="label-file">
               <i class="glyphicon glyphicon-download-alt"></i>
@@ -79,7 +78,7 @@
     	</div>
       <div class="form-group" >
           <label class="control-label label col-sm-3 col-xs-12">{{ "___demande_embauche.pi"|trans({}, "translator") }}</label>
-          <div class="col-sm-4 col-sm-offset-2 col-xs-12">
+          <div class="col-sm-6 col-sm-offset-1 col-xs-12">
 
             <label for="demande_embauche_carteId" class="label-file">
               <i class="glyphicon glyphicon-download-alt"></i>
@@ -101,7 +100,8 @@
 </div>
 
 <script src="{{ asset('js/custom-file-input.js') }}"></script>
-
+<script type="text/javascript" src="{{ asset('js/jquery.validate.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
 <script language="javascript">
 
   $('.libelle').click(function(){
@@ -117,5 +117,56 @@
   }
 
 	$('#topNav').css('display', 'initial');
+  $("#demandeEmbauche3").validate({
+    rules: {
+
+    },
+    messages: {
+      'demande_embauche[diplomeFile]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+      'demande_embauche[diplomeFile2]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+      'demande_embauche[carteVitale]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+      'demande_embauche[mutuelle]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+      'demande_embauche[rib]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+      'demande_embauche[carteId]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+    },
+    errorElement: "em",
+    errorPlacement: function ( error, element ) {
+      // Add the `help-block` class to the error element
+      error.addClass( "help-block" );
+
+      // Add `has-feedback` class to the parent div.form-group
+      // in order to add icons to inputs
+      element.parents( ".col-sm-5" ).addClass( "has-feedback" );
+
+
+      if ( element.prop( "type" ) === "checkbox" ) {
+        error.insertAfter( element.parent( "label" ) );
+      } else if( element.prop( "type" ) === "select-one" || element.prop( "type" ) === "radio") {
+        error.appendTo( element.parent());
+      } else {
+        error.insertAfter( element );
+      }
+
+      // Add the span element, if doesn't exists, and apply the icon classes to it.
+      if ( !element.next( "span" )[ 0 ] ) {
+        $( "<span class='glyphicon glyphicon-remove form-control-feedback'></span>" ).insertAfter( element );
+      }
+    },
+    success: function ( label, element ) {
+      // Add the span element, if doesn't exists, and apply the icon classes to it.
+      if ( !$( element ).next( "span" )[ 0 ] ) {
+        $( "<span class='glyphicon glyphicon-ok form-control-feedback'></span>" ).insertAfter( $( element ) );
+      }
+    },
+    highlight: function ( element, errorClass, validClass ) {
+      $( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
+      $( element ).next( "span" ).addClass( "glyphicon-remove" ).removeClass( "glyphicon-ok" );
+    },
+    unhighlight: function ( element, errorClass, validClass ) {
+      $( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
+      $( element ).next( "span" ).addClass( "glyphicon-ok" ).removeClass( "glyphicon-remove" );
+    }
+  });
+
 </script>
 {% endblock %}

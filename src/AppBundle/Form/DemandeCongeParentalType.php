@@ -42,7 +42,7 @@ class DemandeCongeParentalType extends AbstractType
                   'query_builder' => function (EntityRepository $er) use ($idSalon) {
                       return $er->findActivePersonnelBySalon($idSalon);
                     },
-                  'label' => 'lettre_mission.nom',
+                  'label' => '___demande_conge_parental.collaborateur',
                   'translation_domain' => 'translator',
                   'attr' => ['required' => 'required']
               ))
@@ -66,8 +66,8 @@ class DemandeCongeParentalType extends AbstractType
             ))
             ->add('raison', ChoiceType::class, array(
               'choices' => array(
-                '___conge_parental.passage' => '___conge_parental.passage',
-                '___conge_parental.reprise' => '___conge_parental.reprise',
+                '___demande_conge_parental.passage' => '___demande_conge_parental.passage',
+                '___demande_conge_parental.reprise' => '___demande_conge_parental.reprise',
               ),
               'choice_translation_domain' => 'translator',
               'translation_domain' => 'translator',
@@ -81,11 +81,11 @@ class DemandeCongeParentalType extends AbstractType
                 ]
             )
             ->add('pieceJointe', FileType::class, array(
-              'label' => 'conge_parental.lettre',
+              'label' => '___demande_conge_parental.lettre',
               'translation_domain' => 'translator',
               ))
             ->add('Envoyer', SubmitType::class, array(
-              'label' => 'lettre_mission.envoyer',
+              'label' => 'global.submit',
               'attr' => array('class' =>'btn-black end'),
               'translation_domain' => 'translator',
             ))
@@ -100,7 +100,7 @@ class DemandeCongeParentalType extends AbstractType
                   $fileName = $this->fileUploader->upload($data->getPieceJointe(), $data->getMatricule(), 'demande_conge_parental', 'lettre');
                   $data->setPieceJointe($fileName);
 
-                  if ($data->getRaison() != "conge_parental.passage")
+                  if ($data->getRaison() != "___demande_conge_parental.passage")
                     $data->setTempsPartiel(null);
 
 

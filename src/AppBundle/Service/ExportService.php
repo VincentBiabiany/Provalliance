@@ -77,15 +77,15 @@ class ExportService
      $phpExcelObject->setActiveSheetIndex(0) ->setCellValue('A'.$i, 'Code SAGE salon')->setCellValue('B'.$i, 'Enseigne commerciale')->setCellValue('C'.$i, 'Appelation du salon')
       ->setCellValue('D'.$i, 'Forme juridique')->setCellValue('E'.$i, 'RCS ville')->setCellValue('F'.$i, 'Code NAF')->setCellValue('G'.$i, 'SIREN')
       ->setCellValue('H'.$i, 'Capital')->setCellValue('I'.$i, 'Raison sociale')->setCellValue('J'.$i, 'Adresse 1')->setCellValue('K'.$i, 'Adresse 2')
-      ->setCellValue('L'.$i, 'Code postal')->setCellValue('M'.$i, 'Ville')->setCellValue('N'.$i, 'Pays')->setCellValue('O'.$i, 'Téléphone 1')
-      ->setCellValue('P'.$i, 'Téléphone 2')->setCellValue('Q'.$i, 'Email')->setCellValue('R'.$i, 'Code MARLIX salon')->setCellValue('S'.$i, 'Date ouverture')
+      ->setCellValue('L'.$i, 'Code postal')->setCellValue('M'.$i, 'Ville')->setCellValue('N'.$i, 'Pays')->setCellValue('O'.$i, 'Téléphone')
+      ->setCellValue('P'.$i, '')->setCellValue('Q'.$i, 'Email')->setCellValue('R'.$i, 'Code MARLIX salon')->setCellValue('S'.$i, 'Date ouverture')
       ->setCellValue('T'.$i, 'Coordinateur')->setCellValue('U'.$i, 'Manager')->setCellValue('V'.$i, 'Responsable régional')
       ->setCellValue('W'.$i, 'N°matricule')->setCellValue('X'.$i, 'Civilité')->setCellValue('Y'.$i, 'Nom')
       ->setCellValue('Z'.$i, 'Prénom')->setCellValue('AA'.$i, 'Date naissance')->setCellValue('AB'.$i, 'Ville naissance')
       ->setCellValue('AC'.$i, 'Pays naissance')->setCellValue('AD'.$i, 'Sexe')->setCellValue('AE'.$i, 'Nationalité')->setCellValue('AF'.$i, 'Date entrée')
       ->setCellValue('AG'.$i, 'Date sortie')->setCellValue('AH'.$i, 'Niveau')->setCellValue('AI'.$i, 'Echelon')->setCellValue('AJ'.$i, 'Emploi')
       ->setCellValue('AK'.$i, 'Adresse 1')->setCellValue('AL'.$i, 'Adresse 2')->setCellValue('AM'.$i, 'Code postal')->setCellValue('AN'.$i, 'Ville')
-      ->setCellValue('AO'.$i, 'Pays')->setCellValue('AP'.$i, 'Téléphone 1')->setCellValue('AQ'.$i, 'Téléphone 2')->setCellValue('AR'.$i, 'Email')
+      ->setCellValue('AO'.$i, 'Pays')->setCellValue('AP'.$i, 'Téléphone')->setCellValue('AQ'.$i, '')->setCellValue('AR'.$i, 'Email')
       ->setCellValue('AS'.$i, 'Date')->setCellValue('AT'.$i, 'Statut demande')->setCellValue('AU'.$i, 'Type demande');
 
           //Colonnes spécifiques à chaque demande
@@ -104,13 +104,13 @@ class ExportService
       ->setCellValue('D'.$j, $salon['formeJuridique'])->setCellValue('E'.$j, $salon['rcsVille'])->setCellValue('F'.$j, $salon['codeNaf'])->setCellValue('G'.$j, $salon['siren'])
       ->setCellValue('H'.$j, $salon['capital'])->setCellValue('I'.$j, $salon['raisonSociale'])->setCellValue('J'.$j, $salon['adresse1'])->setCellValue('K'.$j, $salon['adresse2'])
       ->setCellValue('L'.$j, $salon['codePostal'])->setCellValue('M'.$j, $salon['ville'])->setCellValue('N'.$j, 'Pays')->setCellValue('O'.$j,$salon['telephone1'])
-      ->setCellValue('P'.$j, $salon['telephone2'])->setCellValue('Q'.$j, $salon['email'])->setCellValue('R'.$j, $salon['codeMarlix'])->setCellValue('S'.$j,  $salon['dateOuverture']->format('d-m-Y'))
+      ->setCellValue('P'.$j, '')->setCellValue('Q'.$j, $salon['email'])->setCellValue('R'.$j, $salon['codeMarlix'])->setCellValue('S'.$j,  $salon['dateOuverture']->format('d-m-Y'))
       ->setCellValue('T'.$j, $coordo['name'])->setCellValue('U'.$j,'manager')->setCellValue('V'.$j, 'Responsable régional')
       ->setCellValue('W'.$j, $collaborateur['matricule'])->setCellValue('X'.$j, 'Civilité')->setCellValue('Y'.$j, $collaborateur['nom'])->setCellValue('Z'.$j, $collaborateur['prenom'])->setCellValue('AA'.$j,$collaborateur["dateNaissance"])
       ->setCellValue('AB'.$j, $collaborateur['villeNaissance'])->setCellValue('AC'.$j, $collaborateur['paysNaissance'])->setCellValue('AD'.$j, $collaborateur['sexe'])->setCellValue('AE'.$j, $collaborateur['nationalite'])
       ->setCellValue('AF'.$j, $coordo['dateDeb'])->setCellValue('AG'.$j, $coordo['dateFin'])->setCellValue('AH'.$j, $collaborateur['niveau'])->setCellValue('AI'.$j,  $collaborateur['echelon'])
       ->setCellValue('AJ'.$j, $coordo['profession'])->setCellValue('AK'.$j, $collaborateur['adresse1'])->setCellValue('AL'.$j, $collaborateur['adresse2'])->setCellValue('AM'.$j, $collaborateur["codePostal"])
-      ->setCellValue('AN'.$j, $collaborateur['ville'])->setCellValue('AO'.$j, 'Pays')->setCellValue('AP'.$j, $collaborateur['telephone1'])->setCellValue('AQ'.$j, $collaborateur['telephone2'])->setCellValue('AR'.$j, $collaborateur['email'])
+      ->setCellValue('AN'.$j, $collaborateur['ville'])->setCellValue('AO'.$j, 'Pays')->setCellValue('AP'.$j, $collaborateur['telephone'])->setCellValue('AQ'.$j, '')->setCellValue('AR'.$j, $collaborateur['email'])
       ->setCellValue('AS'.$j, $demandes['dateTraitement']->format('d-m-Y'))->setCellValue('AT'.$j, self::labelStatut($demandes['statut']))->setCellValue('AU'.$j, $demandes['typeForm']);
 
       for ($k = 0; $k < $ColDemandes['nb']; $k++) {

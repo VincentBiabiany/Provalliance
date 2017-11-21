@@ -45,9 +45,9 @@ class DemandeEmbauche extends DemandeForm
      *
      * @var string
      *
-     * @ORM\Column(name="addresse_1", type="string", length=255)
+     * @ORM\Column(name="adresse_1", type="string", length=255)
      */
-    private $addresse1;
+    private $adresse1;
 
     /**
      * ___demande_embauche.sexe
@@ -62,9 +62,9 @@ class DemandeEmbauche extends DemandeForm
      *
      * @var string
      *
-     * @ORM\Column(name="addresse_2", type="string", length=255, nullable=true)
+     * @ORM\Column(name="adresse_2", type="string", length=255, nullable=true)
      */
-    private $addresse2;
+    private $adresse2;
 
     /**
      * ___demande_embauche.cp
@@ -432,51 +432,51 @@ class DemandeEmbauche extends DemandeForm
     }
 
     /**
-     * Set addresse1
+     * Set adresse1
      *
-     * @param string $addresse1
+     * @param string $adresse1
      *
      * @return DemandeEmbauche
      */
-    public function setAddresse1($addresse1)
+    public function setAdresse1($adresse1)
     {
-        $this->addresse1 = $addresse1;
+        $this->adresse1 = $adresse1;
 
         return $this;
     }
 
     /**
-     * Get addresse1
+     * Get adresse1
      *
      * @return string
      */
-    public function getAddresse1()
+    public function getAdresse1()
     {
-        return $this->addresse1;
+        return $this->adresse1;
     }
 
     /**
-     * Set addresse2
+     * Set adresse2
      *
-     * @param string $addresse2
+     * @param string $adresse2
      *
      * @return DemandeEmbauche
      */
-    public function setAddresse2($addresse2)
+    public function setAdresse2($adresse2)
     {
-        $this->addresse2 = $addresse2;
+        $this->adresse2 = $adresse2;
 
         return $this;
     }
 
     /**
-     * Get addresse2
+     * Get adresse2
      *
      * @return string
      */
-    public function getAddresse2()
+    public function getAdresse2()
     {
-        return $this->addresse2;
+        return $this->adresse2;
     }
 
     /**

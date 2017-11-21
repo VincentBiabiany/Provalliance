@@ -101,7 +101,7 @@ class ResumeDemandeService
 
       // Récupération des noms des propriétés de l'entité
       $properties = $propertyInfo->getProperties('AppBundle\Entity\\'.$nameEntity);
-     dump($properties);
+
       $properties = array_diff($properties,['discr','typeForm','id','nameDemande','subject','service']);
 
       $response .= '<div class="page">';

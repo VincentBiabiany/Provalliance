@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% form_theme form 'form/error.html.twig' %}
-{% block title %}{{ "conge_parental.titre"|trans({}, "translator") }}{% endblock %}
+{% block title %}{{ "___demande_avenant.titre"|trans({}, "translator") }}{% endblock %}
 
 {% block body %}
 
@@ -11,7 +11,7 @@
 </div>
 
 <div class="head">
-	{{ "avenant.titre"|trans({}, "translator") }}
+	{{ "___demande_avenant.titre"|trans({}, "translator") }}
 </div>
 <div class="nomSalon">
   {{ app.session.get('nomSalon') }}
@@ -34,9 +34,9 @@
 
 				<!-- Champs raison -->
 				<div class="form-group row imbriq" id="raison">
-					<label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "avenant.raison"|trans({}, "translator") }}</label>
+					<label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "___demande_avenant.raison"|trans({}, "translator") }}</label>
 
-					<div class="col-sm-col-sm-9">
+					<div class="col-sm-9">
 						{% block _demande_lettre_mission_tempsPartiel_row %}
 
 						<div id="demande_avenant_raison" class="form-controlList">
@@ -96,7 +96,7 @@
 
             {% block _demande_embauche_tempsPartiel_row %}
             <div id="tempsPartiel" class="form-group row" style="">
-              <label class="control-label label col-sm-3 col-xs-12" for="prenom">{{ "avenant.TempsPartiel"|trans({}, "translator") }}</label>
+              <label class="control-label label col-sm-3 col-xs-12" for="prenom">{{ "___demande_avenant.TempsPartiel"|trans({}, "translator") }}</label>
 
               <div id="listeJours" class="col-sm-9 col-xs-12 pad-box">
                 <label class="control-label label col-sm-12 col-xs-12"  for="nom"></label>
@@ -105,10 +105,10 @@
 
                    <div class="jour">
                       {% if  key == "total"  %}
-                        {{ form_label(child, 'demande_embauche.' ~ key, {'label_attr' : {'class' : 'label'}}) }}
+                        {{ form_label(child, '___demande_avenant.' ~ key, {'label_attr' : {'class' : 'label'}}) }}
                         {{ form_widget(child, {'attr' : {'class' : 'form-control total', 'readonly':'readonly'} }) }}
                       {% else %}
-                        {{ form_label(child, 'demande_embauche.' ~ key, {'label_attr' : {'class' : 'label'}}) }}
+                        {{ form_label(child, '___demande_avenant.' ~ key, {'label_attr' : {'class' : 'label'}}) }}
                         {{ form_widget(child, {'attr' : {'class' : 'form-control tempsHeure' } }) }}
                       {% endif %}
                     </div>
@@ -127,15 +127,15 @@
 
   						<div class="col-sm-6">
   							<div class="jour" style="width: 90px;">
-  								<label style="display:none" class="control-label label passage">{{ "avenant.du"|trans({}, "translator") }}</label>
-                  <label style="display:none; " class="control-label label reprise">{{ "avenant.aPartir"|trans({}, "translator") }}</label>
+  								<label style="display:none" class="control-label label passage">{{ "___demande_avenant.du"|trans({}, "translator") }}</label>
+                  <label style="display:none; " class="control-label label reprise">{{ "___demande_avenant.aPartir"|trans({}, "translator") }}</label>
   							</div>
   							{{ form_widget(form.dateDebut, { 'attr': {'class':'styleDate'} }) }}
   				 		</div>
 
   					 <div class="col-sm-6" id="dateFin" style="display:none" >
   						 <div class="jour">
-  							<label style="display:none" class="control-label label passage">{{ "avenant.au"|trans({}, "translator") }}</label>
+  							<label style="display:none" class="control-label label passage">{{ "___demande_avenant.au"|trans({}, "translator") }}</label>
   						 </div>
   						 {{ form_widget(form.dateFin, { 'attr': {'class':'styleDate'} }) }}
   					</div>
@@ -149,12 +149,12 @@
 
 					 <label id="pjLabel1" for="demande_avenant_pieceJointe1" class="label-file" style="display:none;">
 						 <i class="glyphicon glyphicon-download-alt"></i>
-						 <span>{{ "avenant.arretMaladie"|trans({}, "translator") }}</span>
+						 <span>{{ "___demande_avenant.arretMaladie"|trans({}, "translator") }}</span>
 					 </label>
 
            <label id="pjLabel2" for="demande_avenant_pieceJointe1" class="label-file" style="display:none;">
 						 <i class="glyphicon glyphicon-download-alt"></i>
-						 <span>{{ "avenant.courrier"|trans({}, "translator") }}</span>
+						 <span>{{ "___demande_avenant.courrier"|trans({}, "translator") }}</span>
 					 </label>
 
 					 {{ form_widget(form.pieceJointe1, { 'attr': {'class': 'input-file'} }) }}
@@ -164,7 +164,7 @@
 
            <label for="demande_avenant_pieceJointe2" class="label-file">
              <i class="glyphicon glyphicon-download-alt"></i>
-             <span>{{ "avenant.avisMed"|trans({}, "translator") }}</span>
+             <span>{{ "___demande_avenant.avisMed"|trans({}, "translator") }}</span>
            </label>
 
            {{ form_widget(form.pieceJointe2, { 'attr': {'class': 'input-file'} }) }}
@@ -176,13 +176,13 @@
       <div class="form-group" style="display:none;" id="salaire">
        <div class="form-group">
 
-          <label class="control-label label">{{ "avenant.fixe"|trans({}, "translator") }}</label>
+          <label class="control-label label">{{ "___demande_avenant.fixe"|trans({}, "translator") }}</label>
           {{ form_widget(form.salaireFixe, { 'attr': {'class': 'form-control salaireReq'} })}}
 
-          <label class="control-label label">{{ "avenant.variable"|trans({}, "translator") }}</label>
+          <label class="control-label label">{{ "___demande_avenant.variable"|trans({}, "translator") }}</label>
           {{ form_widget(form.salaireMens, { 'attr': {'class': 'form-control salaireReq'} }) }}
 
-          <label class="control-label label">{{ "avenant.trim"|trans({}, "translator") }}</label>
+          <label class="control-label label">{{ "___demande_avenant.trim"|trans({}, "translator") }}</label>
           {{ form_widget(form.salaireTrim, { 'attr': {'class': 'form-control salaireReq'} }) }}
        </div>
      </div>

@@ -461,12 +461,21 @@ form.demandeDetail .form-group{
     text-overflow: '';
 }
 
-/*label.required{
-	color: white;
-	font-size: 15px;
-	font-weight: lighter;
-	line-height: 30px;
-}*/
+
+/***** FORMULAIRE RUPTURE CDD ******/
+#anticipe{
+		display:none; height: 222px;
+}
+
+/***** FORMULAIRE CONGE PAT ******/
+.PeriodeTemps div{
+		margin-bottom: 15px;
+
+}
+#CongePatPeriode{
+	display: grid;
+
+}
 .end{
    background-color: #45bd43 !important;
 }
@@ -703,10 +712,58 @@ table.dataTable thead th, table.dataTable thead td {
 }
 table.dataTable thead th, table.dataTable thead td, table.dataTable tfoot th, table.dataTable tfoot td {
     vertical-align: middle;
-
 }
 
+/******** FORMULAIRE ABSENCES INJUSTIFIEES ******/
+#demande_absences_raison{
+	display: grid;
+}
 
+.listAbsence{
+  position: relative;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	margin-left: 20px
+}
+
+.add{
+	margin-bottom: 15px;
+	display: block;
+	margin-left: 15px;
+	background-color: #caced0;
+	padding: 5px;
+	width: 169px;
+	text-align: center;
+	text-decoration: none
+}
+.add:hover{
+	text-decoration: none
+
+}
+.remove-abs {
+	position: absolute;
+	top: 10px;
+}
+ .remove-abs .glyphicon-minus{
+	 color: red;
+ }
+ .listRetards{
+	 margin-bottom: 15px;
+	 display: grid;
+ }
+ .listRetards .sousLabel div{
+	 float: left;
+	 margin-left: 20px;
+
+ }
+  .listRetards .sousLabel div label{
+ margin-left: 25px;
+}
+
+/******* FORMULAIRE AVENANT ******/
+#demande_avenant_raison{
+	display: grid;
+}
 /******* FORMULAIRE EMBAUCHE ******/
 #infoEmbauche{
 	max-width: 875px;
@@ -744,7 +801,8 @@ table.dataTable thead th, table.dataTable thead td, table.dataTable tfoot th, ta
 #demande_embauche_salaireBase label.required, #demande_embauche_typeContrat label.required,
 #demande_embauche_CDD label.required, #fos_user_registration_form_enabled label.required,
 #demande_embauche_isTempsPartiel label.required, #demande_embauche_diplomes label.required,
-#demande_rupture_periode_essai_moyen label.required,#demande_promesse_embauche_contrat label.required{
+#demande_rupture_periode_essai_moyen label.required,#demande_promesse_embauche_contrat label.required,
+#demande_promesse_embauche_poste label.required{
   color: black;
   margin-left: 6px;
 	margin-right: 10px;
@@ -786,16 +844,25 @@ text-align: center;
 	width: 110px;
 	text-align: center;
 }
-#Classification div label{
+.sousLabel div label,.sousLabel label{
 	background-color: #797979 !important;
+	margin-left: 0;
+
 }
+.sousLabel select,.sousLabel input{
+background-color: #f1f1f1 !important;
+}
+
 #Classification div select,#Classification div input, div.other input{
 	width: 100%;
 }
 .jour{
     float: left;
     width: 45px;
-		margin-left: 20px;
+		margin-left: 10px;
+	}
+.jourInline{
+    width: 95px;
 	}
 	.jour label{
 		display: block;

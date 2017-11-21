@@ -31,7 +31,7 @@ class AbsencesInjustifieesController extends Controller
       $demandeService->createDemande($form->getData(), $idSalon);
 
       return $this->redirect($this->generateUrl('homepage',
-        array('flash' => "absences.popupValidation.message")));
+        array('flash' => "___demande_absences.popupValidation.message")));
     }
 
     return $this->render('demandes\juridique_rh\absences_injustifiees.html.twig', array(

@@ -44,7 +44,7 @@ class DemandeAvenantType extends AbstractType
                   'query_builder' => function (EntityRepository $er) use ($idSalon) {
                       return $er->findActivePersonnelBySalon($idSalon);
                     },
-                  'label' => 'lettre_mission.nom',
+                  'label' => '___demande_avenant.collaborateur',
                   'translation_domain' => 'translator',
                   'attr' => ['required' => 'required']
               ))
@@ -68,11 +68,11 @@ class DemandeAvenantType extends AbstractType
             ))
             ->add('raison', ChoiceType::class, array(
               'choices' => array(
-                '___avenant.partielTherap' => '___avenant.partielTherap',
-                '___avenant.partielDef'    => '___avenant.partielDef',
-                '___avenant.tempsPlein'    => '___avenant.tempsPlein',
-                '___avenant.39h'           => '___avenant.39h',
-                '___avenant.manager'       => '___avenant.manager',
+                '___demande_avenant.partielTherap' => '___demande_avenant.partielTherap',
+                '___demande_avenant.partielDef'    => '___demande_avenant.partielDef',
+                '___demande_avenant.tempsPlein'    => '___demande_avenant.tempsPlein',
+                '___demande_avenant.39h'           => '___demande_avenant.39h',
+                '___demande_avenant.manager'       => '___demande_avenant.manager',
               ),
               'choice_translation_domain' => 'translator',
               'translation_domain' => 'translator',
@@ -101,7 +101,7 @@ class DemandeAvenantType extends AbstractType
               'translation_domain' => 'translator',
             ))
             ->add('Envoyer', SubmitType::class, array(
-              'label' => 'lettre_mission.envoyer',
+              'label' => 'global.submit',
               'attr' => array('class' =>'btn-black end'),
               'translation_domain' => 'translator',
             ))
@@ -113,7 +113,7 @@ class DemandeAvenantType extends AbstractType
 
                   $data->setMatricule($form['matricule']->getData()->getMatricule());
                   dump($data->getRaison());
-                  if ($data->getRaison() != 'avenant.partielTherap' && $data->getRaison() != 'avenant.partielDef')
+                  if ($data->getRaison() != '___demande_avenant.partielTherap' && $data->getRaison() != '___demande_avenant.partielDef')
                   {
                     $data->setTempsPartiel(null);
                   }
@@ -122,14 +122,14 @@ class DemandeAvenantType extends AbstractType
                     $data->setDateFin(null);
                   }
 
-                  if ($data->getRaison() != 'avenant.manager')
+                  if ($data->getRaison() != '___demande_avenant.manager')
                   {
                     $data->setSalaireFixe(null);
                     $data->setSalaireMens(null);
                     $data->setSalaireTrim(null);
                   }
 
-                  if ($data->getRaison() != 'avenant.manager' && $data->getRaison() != 'avenant.39h')
+                  if ($data->getRaison() != '___demande_avenant.manager' && $data->getRaison() != '___demande_avenant.39h')
                   {
                     $fileName = $this->fileUploader->upload($data->getPieceJointe1(), $data->getMatricule(), 'demande_avenant', 'courrier');
                     $data->setPieceJointe1($fileName);
@@ -139,7 +139,7 @@ class DemandeAvenantType extends AbstractType
                     $data->setPieceJointe1(null);
                   }
 
-                  if ($data->getRaison() == 'avenant.partielTherap')
+                  if ($data->getRaison() == '___demande_avenant.partielTherap')
                   {
                     $fileName = $this->fileUploader->upload($data->getPieceJointe2(), $data->getMatricule(), 'demande_avenant', 'courrier');
                     $data->setPieceJointe2($fileName);

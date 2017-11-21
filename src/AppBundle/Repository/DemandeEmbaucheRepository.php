@@ -27,8 +27,8 @@ class DemandeEmbaucheRepository extends \Doctrine\ORM\EntityRepository
     $collaborateur['nationalite']    = $requete->getNationalite();
     $collaborateur['niveau']         = $requete->getNiveau();
     $collaborateur['echelon']        = $requete->getEchelon();
-    $collaborateur['adresse1']       = $requete->getAddresse1();
-    $collaborateur['adresse2']       = $requete->getAddresse2();
+    $collaborateur['adresse1']       = $requete->getAdresse1();
+    $collaborateur['adresse2']       = $requete->getAdresse2();
     $collaborateur['codePostal']     = $requete->getCodepostal();
     $collaborateur['ville' ]         = $requete->getVille();
     $collaborateur['telephone1']     = $requete->getTelephone();

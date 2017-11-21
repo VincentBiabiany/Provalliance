@@ -46,14 +46,14 @@
   <div class="form-group">
     <label class="control-label label col-sm-3 col-xs-12" for="adr">{{ "___demande_embauche.adr1"|trans({}, "translator") }}</label>
     <div class="col-sm-9 col-xs-12">
-      {{ form_widget(form.addresse1) }}
+      {{ form_widget(form.adresse1) }}
     </div>
   </div>
 
   <div class="form-group">
     <label class="control-label label col-sm-3 col-xs-12" for="adr">{{ "___demande_embauche.adr2"|trans({}, "translator") }}</label>
     <div class="col-sm-9 col-xs-12">
-      {{ form_widget(form.addresse2) }}
+      {{ form_widget(form.adresse2) }}
     </div>
   </div>
 
@@ -167,40 +167,11 @@
 
   </div>
 </div>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.js"></script>
+<script type="text/javascript" src="{{ asset('js/jquery.validate.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/global/global-method.js') }}"></script>
 
 <script type="text/javascript">
-// $(document).ready(function () {
-//   jQuery.validator.addMethod("validateDate", function(value, element) {
-//     console.log(element);
-//     return (element.value != "bob"); //(date.getFullYear() == y && date.getMonth() + 1 == m && date.getDate() == d);
-//   }, "Date incorrect");
-//
-//
-//   $('#form1').validate({
-//       rules : {
-//           demande_embauche_prenom: {  required : false, validateDate: true }
-//       }
-//   });
-//
-// });
-
-  // jQuery.validator.addMethod("validateDate", function(value, element) {
-  //   dates = new Array();
-  //   $(element).parent().find('select').each(function(){
-  //      dates.push($(this).val());
-  //   });
-  //   console.log(dates);
-  //
-  //   var m = parseInt( dates[1], 10);
-  //   var d = parseInt( dates[0], 10);
-  //   var y = parseInt( dates[2], 10);
-  //   var date = new Date(y, m - 1, d);
-  //
-  //   return (date.getFullYear() == y && date.getMonth() + 1 == m && date.getDate() == d); //(date.getFullYear() == y && date.getMonth() + 1 == m && date.getDate() == d);
-  // }, "Date incorrect");
 
 $( "#form1" ).validate( {
   rules: {
@@ -211,7 +182,20 @@ $( "#form1" ).validate( {
     }
   },
   messages: {
-
+    'demande_embauche[nom]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+    'demande_embauche[prenom]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+    'demande_embauche[sexe]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+    'demande_embauche[adresse1]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+    'demande_embauche[codePostal]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+    'demande_embauche[ville]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+    'demande_embauche[telephone]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+    'demande_embauche[nationalite]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+    'demande_embauche[numSecu]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+    'demande_embauche[email]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+    'demande_embauche[nbEnfant]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+    'demande_embauche[nom]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+    'demande_embauche[villeNaissance]': "{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+    'demande_embauche[paysNaissance]': "{{ "message_validation.enabled_required"|trans({}, "translator") }}"
 	},
 	errorElement: "em",
   errorPlacement: function ( error, element ) {

@@ -53,7 +53,7 @@ class DemandePromesseEmbaucheType extends AbstractType
                   'query_builder' => function (EntityRepository $er) use ($idSalon) {
                       return $er->findActivePersonnelBySalon($idSalon);
                     },
-                  'label' => 'demande_promesse_embauche.collab',
+                  'label' => '___demande_promesse_embauche.collaborateur',
                   'translation_domain' => 'translator'
                 ))
                 ->add('contrat', ChoiceType::class, array(
@@ -67,37 +67,53 @@ class DemandePromesseEmbaucheType extends AbstractType
                   'multiple' => false,
                   'required' => true,
                 ))
-                ->add('poste', TextType::class, array(
-                      'label' => 'demande_promesse_embauche.poste',
-                      'translation_domain' => 'translator',
-                    ))
-                ->add('niveau', TextType::class, array(
-                      'label' => 'demande_promesse_embauche.niveau',
-                      'translation_domain' => 'translator',
-                    ))
+                ->add('poste', ChoiceType::class, array(
+                  'choices' => array(
+                    '___demande_promesse_embauche.coiffeur' => '___demande_promesse_embauche.coiffeur',
+                    '___demande_promesse_embauche.technicien' => '___demande_promesse_embauche.technicien',
+                  ),
+                  'choice_translation_domain' => 'translator',
+                  'translation_domain' => 'translator',
+                  'expanded' => true,
+                  'multiple' => false,
+                  'attr' => ['class' => 'form-control'],
+                ))
+                ->add('niveau', ChoiceType::class, array(
+                  'choices' => array(
+                    'I' => 'I',
+                    'II' => 'II',
+                    'III'=> 'III',
+                  ),
+                  'label' => '___demande_promesse_embauche.niveau',
+                  'choice_translation_domain' => 'translator',
+                  'translation_domain' => 'translator',
+                  'attr' => ['class' => 'form-control']
+                ))
                 ->add('echelon', ChoiceType::class, array(
                   'choices' => array(
                     '1' => '1',
                     '2' => '2',
                     '3'=> '3'),
-                    'label' => 'demande_promesse_embauche.echelon',
-                    'translation_domain' => 'translator'
+                    'label' => '___demande_promesse_embauche.echelon',
+                    'translation_domain' => 'translator',
+                    'attr' => ['class' => 'form-control']
+
                   ))
                 ->add('salaire', TextType::class, array(
-                     'label' => 'demande_promesse_embauche.salaire',
+                     'label' => '___demande_promesse_embauche.salaire',
                      'translation_domain' => 'translator',
                      'attr' => array('min' => '0')
                 ))
-                ->add('temps', TextType::class, array(
-                     'label' => 'demande_promesse_embauche.temps',
+                ->add('temps', NumberType::class, array(
+                     'label' => '___demande_promesse_embauche.temps',
                      'translation_domain' => 'translator',
                 ))
                 ->add('dateEmbauche', DateType::class, array(
                   'widget' => 'choice',
                   'format' => 'dd/MM/y',
-                  'years' => range(date('Y') - 100, date('Y') - 20),
+                  'years' => range(date('Y') - 5, date('Y') + 10),
                   'attr' => ['class' => ''],
-                  'label' => 'demande_promesse_embauche.dateEmbauche',
+                  'label' => '___demande_promesse_embauche.dateEmbauche',
                   'translation_domain' => 'translator',
                   'data' => new \DateTime()
                     ))

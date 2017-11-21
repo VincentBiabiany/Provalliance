@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% form_theme form 'form/error.html.twig' %}
-{% block title %}{{ "conge_parental.titre"|trans({}, "translator") }}{% endblock %}
+{% block title %}{% endblock %}
 
 {% block body %}
 
@@ -11,7 +11,7 @@
 </div>
 
 <div class="head">
-	{{ "conge_parental.titre"|trans({}, "translator") }}
+	{{ "___demande_absences.titre"|trans({}, "translator") }}
 </div>
 <div class="nomSalon">
   {{ app.session.get('nomSalon') }}
@@ -34,12 +34,12 @@
 
 				<!-- Champs raison -->
 				<div class="form-group row imbriq" id="raison">
-					<label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "lettre_mission.raison"|trans({}, "translator") }}</label>
+					<label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "___demande_absences.raison"|trans({}, "translator") }}</label>
 
-					<div class="col-sm-col-sm-9" style="display: inline-flex">
-						{% block _demande_lettre_mission_tempsPartiel_row %}
+					<div class="col-sm-9 col-xs-12" >
+						{% block _demande____demande_absences_tempsPartiel_row %}
 
-						<div id="demande_absences_raison">
+						<div id="demande_absences_raison" class="form-controlList">
 							{% for key,child in form.raison %}
 
 							<div class="col-sm-12">
@@ -52,7 +52,7 @@
                     <div id="raison0"  style="display: none">
                       <div class="form-group col-sm-12 row">
               						<div class="col-sm-6">
-              							{{ form_widget(form.dateDebut, { 'attr': {'class':'styleDate'} }) }}
+              							{{ form_widget(form.dateDebut, { 'attr': {'class':'styleDate sousLabel'} }) }}
               				 		</div>
                 				</div>
               	     </div>
@@ -66,16 +66,16 @@
 
 
 											<div id="email-fields-list" data-prototype="{{ form_widget(form.absences.vars.prototype)|e }}">
-											{{ form_widget(form.absences, {'attr' : {'class' : ''} }) }}
+											{{ form_widget(form.absences, {'attr' : {'class' : ' '}}) }}
 											{% for abs in form.absences %}
-													<div class="col-xs-4 absence-item">
+													<div class="col-xs-4 absence-item ">
 															{{ form_errors(abs) }}
 															{{ form_widget(abs) }}
 													</div>
 											{% endfor %}
-											</div>
 
-											<a href="#" id="add-another-email"><span class="glyphicon glyphicon-plus"></span> Ajouter une absence</a>
+										</div>
+										<a href="#" class="add" id="add-another-email"><span class="glyphicon glyphicon-plus"></span> Ajouter une absence</a>
 
                     </div>
 
@@ -93,14 +93,17 @@
 
 													<div class="col-xs-4 retard-item">
 
-														{{ form_row(retard.date) }}
-														{{ form_row(retard.minute) }}
+														{{ form_label(retard.datee, {'attr' : {'class' : 'control-label label'} }) }}
+														{{ form_widget(retard.datee) }}
+
+														{{ form_label(retard.minute, {'attr' : {'class' : 'control-label label'} }) }}
+														{{ form_widget(retard.minute) }}
 													</div>
 
 											{% endfor %}
-											</div>
 
-											<a href="#" id="add-retard"> <span class="glyphicon glyphicon-plus"></span>Ajouter un retard</a>
+										</div>
+										<a href="#" class="add" id="add-retard"> <span class="glyphicon glyphicon-plus"></span>Ajouter un retard</a>
 
 										</div>
 
@@ -123,9 +126,10 @@
 	</div>
 
 </div>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.js"></script>
+<script type="text/javascript" src="{{ asset('js/jquery.validate.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/global/global-method.js') }}"></script>
+<script src="{{ asset('js/custom-file-input.js') }}"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -150,9 +154,9 @@ $(document).ready(function(){
 					absences++;
 
 					// create a new list element and add it to the list
-					var newLi = jQuery('<div></div>').html(newWidget)
+					var newLi = jQuery('<div style="position:relative;"></div>').html(newWidget)
 										  .append('<a href="#" class="remove-abs pull-right"> \
-															<span class="glyphicon glyphicon-remove"></span> \
+															<span class="glyphicon glyphicon-minus"></span> \
 													</a>')
 										  .on('click', '.remove-abs', function(e){
 													e.preventDefault();
@@ -164,7 +168,6 @@ $(document).ready(function(){
 																 absences--;
 
 											})
-
 					newLi.appendTo(emailList);
 
 				 validateNewField('absences_' + (absences - 1) );
@@ -189,9 +192,9 @@ $(document).ready(function(){
 			retards++;
 
 			// create a new list element and add it to the list
-			var newLi = jQuery('<div></div>').html(newWidget)
+			var newLi = jQuery('<div class="listRetards"></div>').html(newWidget)
 									.append('<a href="#" class="remove-retard pull-right"> \
-															<span class="glyphicon glyphicon-remove"></span> \
+															<span class="glyphicon glyphicon-minus"></span> \
 													</a>')
 									.on('click', '.remove-retard', function(e){
 											e.preventDefault();

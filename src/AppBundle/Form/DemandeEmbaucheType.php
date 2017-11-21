@@ -50,8 +50,11 @@ class DemandeEmbaucheType extends AbstractType
           'multiple' => false,
           'attr' => ['class' => 'form-control'],
         ))
-        ->add('addresse1', null, array('attr' => ['class' => 'form-control']))
-        ->add('addresse2', null, array('attr' => ['class' => 'form-control']))
+        ->add('adresse1', null, array('attr' => ['class' => 'form-control']))
+        ->add('adresse2', null, array('attr' => ['class' => 'form-control']))
+        ->add('codePostal', null, array('attr' => ['class' => 'form-control']))
+        ->add('adresse1', null, array('attr' => ['class' => 'form-control']))
+        ->add('adresse2', null, array('attr' => ['class' => 'form-control']))
         ->add('codePostal', TextType::class, array('attr' => ['class' => 'form-control']))
         ->add('ville', null, array('attr' => ['class' => 'form-control']))
         ->add('telephone', TextType::class, array('attr' => ['class' => 'form-control']))
@@ -419,12 +422,24 @@ class DemandeEmbaucheType extends AbstractType
     case '3':
 
       $builder
-        ->add('carteId', FileType::class)
-        ->add('carteVitale', FileType::class)
-        ->add('diplomeFile', FileType::class)
-        ->add('diplomeFile2', FileType::class)
-        ->add('rib', FileType::class)
-        ->add('mutuelle', FileType::class)
+        ->add('carteId', FileType::class, array(
+          'required' => 'required'
+        ))
+        ->add('carteVitale', FileType::class, array(
+          'required' => 'required'
+        ))
+        ->add('diplomeFile', FileType::class, array(
+          'required' => 'required'
+        ))
+        ->add('diplomeFile2', FileType::class, array(
+          'required' => 'required'
+        ))
+        ->add('rib', FileType::class, array(
+          'required' => 'required'
+        ))
+        ->add('mutuelle', FileType::class, array(
+          'required' => 'required'
+        ))
         ->add('Envoyer', SubmitType::class, array(
           'label' => '___demande_embauche.send',
           'attr' => array('class' =>'btn-black end'),
@@ -474,8 +489,8 @@ class DemandeEmbaucheType extends AbstractType
           $form
           ->add('nom', null, array('attr' => ['class' => 'form-control', 'readonly' => true]))
           ->add('prenom', null, array('attr' => ['class' => 'form-control', 'readonly' => true]))
-          ->add('addresse1', null, array('attr' => ['class' => 'form-control', 'readonly' => true]))
-          ->add('addresse2', null, array('attr' => ['class' => 'form-control', 'readonly' => true]))
+          ->add('adresse1', null, array('attr' => ['class' => 'form-control', 'readonly' => true]))
+          ->add('adresse2', null, array('attr' => ['class' => 'form-control', 'readonly' => true]))
           ->add('codePostal', NumberType::class, array('attr' => ['class' => 'form-control', 'readonly' => true]))
           ->add('ville', null, array('attr' => ['class' => 'form-control', 'readonly' => true]))
           ->add('telephone', null, array('attr' => ['class' => 'form-control', 'readonly' => true]))

@@ -74,6 +74,17 @@ class DemandeRuptureCdd extends DemandeForm
    */
   private $dateDepart;
 
+   /** @var string
+    *
+    * @ORM\Column(name="raison", type="string", length=255)
+    */
+   private $raison;
+
+   /** @var string
+   *
+   * @ORM\Column(name="rupture_anticipe", type="string", length=255, nullable=true)
+   */
+  private $ruptureAnticipe;
 
   /**
    * ___demande_rupture_cdd.pj
@@ -82,7 +93,7 @@ class DemandeRuptureCdd extends DemandeForm
    *
    * @ORM\Column(name="lettre", type="string", length=255, nullable=true)
    */
-  protected $lettre;
+  private $lettre;
 
   /**
    * ___demande_rupture_cdd.collaborateur
@@ -91,7 +102,7 @@ class DemandeRuptureCdd extends DemandeForm
    *
    * @ORM\Column(name="nom_collab", type="string", length=255, nullable=true)
    */
-  protected $nomCollab;
+  private $nomCollab;
 
 
   /**
@@ -277,6 +288,7 @@ class DemandeRuptureCdd extends DemandeForm
     {
         return $this->lettre;
     }
+
 
     /**
      * Set nomCollab
