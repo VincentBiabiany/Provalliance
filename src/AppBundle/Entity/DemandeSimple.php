@@ -19,6 +19,13 @@ class DemandeSimple extends DemandeEntity
    * @ORM\Column(name="message", type="string", nullable=true)
    */
   private $message;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="doc_service", type="string", length=255, nullable=true)
+   */
+  protected $docService;
   
   /**
    * Set message
@@ -44,4 +51,28 @@ class DemandeSimple extends DemandeEntity
       return $this->message;
   }
 
+
+    /**
+     * Set docService
+     *
+     * @param string $docService
+     *
+     * @return DemandeSimple
+     */
+    public function setDocService($docService)
+    {
+        $this->docService = $docService;
+
+        return $this;
+    }
+
+    /**
+     * Get docService
+     *
+     * @return string
+     */
+    public function getDocService()
+    {
+        return $this->docService;
+    }
 }

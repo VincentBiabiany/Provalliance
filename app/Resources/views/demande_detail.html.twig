@@ -27,21 +27,17 @@
 		{% if is_granted('ROLE_PAIE') or is_granted('ROLE_JURIDIQUE')  and  statut != 0 %}
 		<div class="" style="max-width: 100%; margin: auto;">
 			<hr id="separatorDetailDemande"/>
+
+			{% form_theme form2 'form/demande_complexe.html.twig' %}
 			{{ form_start(form2, {'attr': {'id':'form_message','novalidate': 'novalidate'}}) }}
 
 			{% for flash_message in app.session.flashBag.get('error') %}
-
-<em id="" class="error help-block">{{ flash_message }}</em>
+				<em id="" class="error help-block">{{ flash_message }}</em>
 			{% endfor %}
-			<div class="form-group">
-					<div class="col-sm-12  col-xs-12">
-						{{ form_row(form2.message) }}
-				  </div>
-			</div>
 
-			{{ form_row(form2.reject, {'attr': {'class': 'btn-black end reject'} }) }}
-			{{ form_row(form2.accept, {'attr': {'class': 'btn-black end accept'} }) }}
+
 			{{ form_end(form2) }}
+
 		</div>
 		{% endif  %}
 		<div class="col-sm-12" style="padding: 0;">

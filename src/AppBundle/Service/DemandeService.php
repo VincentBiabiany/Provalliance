@@ -64,21 +64,36 @@ class DemandeService
   public function createDemande($demande, $idSalon)
   {
 
-    if ($demande instanceof AutreDemande || $demande instanceof DemandeAcompte
-    || $demande instanceof DemandeRib || $demande instanceof DemandeRupturePeriodeEssai
-    || $demande instanceof DemandeLettreMission   || $demande instanceof DemandeDemission
-    || $demande instanceof DemandePromesseEmbauche || $demande instanceof DemandeLettreMission
-    || $demande instanceof DemandeRuptureCdd || $demande instanceof DemandeCongeParental
-    || $demande instanceof DemandeEssaiProfessionnel || $demande instanceof DemandeSoldeToutCompte
-    || $demande instanceof DemandeAvenant
-    || $demande instanceof DemandeAbsencesInjustifiees
-    || $demande instanceof DemandeAttestationSalaire)  {
+    if (
+         $demande instanceof AutreDemande                  ||
+         $demande instanceof DemandeAcompte                ||
+         $demande instanceof DemandeRib                    ||
+         $demande instanceof DemandePromesseEmbauche       ||
+         $demande instanceof DemandeSoldeToutCompte        ||
+         $demande instanceof DemandeAbsencesInjustifiees   ||
+         $demande instanceof DemandeAttestationSalaire
+      )
+    {
       self::createDemandeSimple($demande, $idSalon);
     }
 
     if ($demande instanceof DemandeEmbauche) {
       self::createDemandeEmbauche($demande, $idSalon);
     }
+
+    if (
+        $demande instanceof DemandeLettreMission       ||
+        $demande instanceof DemandeRuptureCdd          ||
+        $demande instanceof DemandeRupturePeriodeEssai ||
+        $demande instanceof DemandeAvenant             ||
+        $demande instanceof DemandeDemission           ||
+        $demande instanceof DemandeCongeParental       ||
+        $demande instanceof DemandeEssaiProfessionnel
+      )
+    {
+      self::createDemandeComplexe($demande, $idSalon);
+    }
+
   }
   /*         M   C   les 2
   * array -> 0,  1 , 2
@@ -282,10 +297,39 @@ class DemandeService
     self::generateAbsUrl($demandeSimple);
     // Envoie du mail
     self::sendMail($idSalon, $personnel, [1, 5],  $demande->getTypeForm());
-
-
-
   }
+
+  public function createDemandeComplexe($demande, $idSalon){
+
+    if ($demande->getSubject() == 'connu'){
+        $personnel =  $this->em->getRepository('ApiBundle:Personnel')
+                               ->findOneBy(array('matricule' => $demande->getMatricule()));
+
+        $personnel = $personnel->getPrenom().' '.$personnel->getNom();
+       } else {
+        $personnel = 'Nouveau Collaborateur';
+       }
+
+    $demandeComplexe = new DemandeComplexe();
+    $demande->setTypeForm($demande->getTypeForm());
+
+    $demandeComplexe->setService($demande->getService());
+    $demandeComplexe->setUser($this->token->getUser());
+    $demandeComplexe->setIdSalon($idSalon);
+
+    $demandeComplexe->setDemandeform($demande);
+
+    $this->emWebapp->persist($demandeComplexe);
+    $this->emWebapp->flush();
+
+    // Generation de l'url
+    self::generateAbsUrl($demandeComplexe);
+
+    // Envoie du mail
+    self::sendMail($idSalon, $personnel, [1, 5],  $demande->getTypeForm());
+  }
+
+
 
   public function createDemandeEmbauche($demande, $idSalon)
   {

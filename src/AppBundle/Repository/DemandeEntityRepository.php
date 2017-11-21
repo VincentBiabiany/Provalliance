@@ -255,7 +255,7 @@ class DemandeEntityRepository extends \Doctrine\ORM\EntityRepository
          ->getQuery()
          ->getResult();
 
-       } else if ($role =='ROLE_JURIDIQUE'){
+       } else if ($role =='ROLE_JURIDIQUE') {
          return $this->createQueryBuilder('p')
          ->where('p.service = :serviceUser')
          ->setParameter('serviceUser', 'juridique')
@@ -364,6 +364,14 @@ class DemandeEntityRepository extends \Doctrine\ORM\EntityRepository
      $demandes['typeForm'] = $requete->getDemandeform()->getTypeForm();
      $demandes['message'] = $requete->getMessage();
 
+     if ($requete instanceof DemandeComplexe){
+      $demandes['complexe'] = true;
+      $demandes['docService'] = $requete->getDocService();
+      $demandes['docSalon'] = $requete->getDocSalon();
+     } else {
+      $demandes['complexe'] = false;
+      $demandes['docService'] = $requete->getDocService();
+    }
      return $demandes;
 
    }
