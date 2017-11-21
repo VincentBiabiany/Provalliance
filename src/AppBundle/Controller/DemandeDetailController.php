@@ -184,16 +184,16 @@ class DemandeDetailController extends Controller
       self::traitement($form2, $demande, $id, $fileuploader);
       return $this->redirectToRoute("demande");
     }
-
-    if ($demande->getDemandeform()->getTypeForm() == "Demande d'embauche")
-    {
-      $demandeEmbauche = new DemandeEmbauche();
-      $demandeEmbauche = $demande->getDemandeform();
-      $form = $this->createForm(DemandeEmbaucheType::class,
-                                          $demandeEmbauche,
-                                          array("step" => 4,
-                                        ));
-    }
+    //
+    // if ($demande->getDemandeform()->getTypeForm() == "Demande d'embauche")
+    // {
+    //   $demandeEmbauche = new DemandeEmbauche();
+    //   $demandeEmbauche = $demande->getDemandeform();
+    //   $form = $this->createForm(DemandeEmbaucheType::class,
+    //                                       $demandeEmbauche,
+    //                                       array("step" => 4,
+    //                                     ));
+    // }
 
     if ($dateTraitement)
       $dateTraitement = $dateTraitement->format('d/m/Y');
@@ -207,7 +207,6 @@ class DemandeDetailController extends Controller
       'statut'          => $statut,
       'typedemande'     => $typedemande,
       'salon'           => $salon,
-      'form'            => $form->createView(),
       'form2'           => $form2->createView(),
       'docSalon'        => $docSalon,
       'docService'      => $docService,

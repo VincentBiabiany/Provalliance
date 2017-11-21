@@ -37,7 +37,7 @@
               <i class="glyphicon glyphicon-download-alt"></i>
               <span>{{ "___demande_embauche.choix"|trans({}, "translator") }}</span>
             </label>
-            {{ form_widget(form.diplomeFile2, { 'attr': {'class': 'input-file'} }) }}
+            {{ form_widget(form.diplomeFile2, { 'attr': {'class': 'input-file', 'required', 'false'} }) }}
 
           </div>
       </div>

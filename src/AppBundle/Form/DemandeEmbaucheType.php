@@ -52,7 +52,7 @@ class DemandeEmbaucheType extends AbstractType
         ))
         ->add('addresse1', null, array('attr' => ['class' => 'form-control']))
         ->add('addresse2', null, array('attr' => ['class' => 'form-control']))
-        ->add('codePostal', null, array('attr' => ['class' => 'form-control']))
+        ->add('codePostal', TextType::class, array('attr' => ['class' => 'form-control']))
         ->add('ville', null, array('attr' => ['class' => 'form-control']))
         ->add('telephone', TextType::class, array('attr' => ['class' => 'form-control']))
         ->add('email', EmailType::class, array('attr' => ['class' => 'form-control']))

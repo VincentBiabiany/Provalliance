@@ -23,6 +23,10 @@ use Symfony\Component\PropertyInfo\PropertyInfo;
 use Symfony\Component\Asset\PathPackage;
 use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 
+
+use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
+
+
 class ResumeDemandeService
 {
   private $em;
@@ -40,10 +44,40 @@ class ResumeDemandeService
 
   public function generateResume($idDemandes,$action)
   {
-    //Extrator Properties
+
+    $phpDocExtractor = new PhpDocExtractor();
+    $descriptionExtractors = array($phpDocExtractor);
+    $phpDocExtractor = new PhpDocExtractor();
     $reflectionExtractor = new ReflectionExtractor();
-    $listExtractors = $reflectionExtractor;
-    $propertyInfo = new PropertyInfoExtractor(array( $listExtractors ));
+
+    // array of PropertyListExtractorInterface
+    $listExtractors = array($reflectionExtractor);
+
+    // array of PropertyTypeExtractorInterface
+    $typeExtractors = array($phpDocExtractor, $reflectionExtractor);
+
+    // array of PropertyDescriptionExtractorInterface
+    $descriptionExtractors = array($phpDocExtractor);
+
+    // array of PropertyAccessExtractorInterface
+    $accessExtractors = array($reflectionExtractor);
+
+    $propertyInfo = new PropertyInfoExtractor(
+        $listExtractors,
+        $typeExtractors,
+        $descriptionExtractors,
+        $accessExtractors
+    );
+
+    //Extrator Properties
+    // $reflectionExtractor = new ReflectionExtractor();
+    // $listExtractors = $reflectionExtractor;
+    // $propertyInfo = new PropertyInfoExtractor(array( $listExtractors ), [$listExtractors, $reflectionExtractor]);
+
+    dump($propertyInfo->getShortDescription('AppBundle\Entity\DemandeEmbauche', "nom"));
+
+
+
     //Repository
     $demandeRepo = $this->em2->getRepository('AppBundle:DemandeEntity');
     $salonRepo = $this->em->getRepository('ApiBundle:Salon');
