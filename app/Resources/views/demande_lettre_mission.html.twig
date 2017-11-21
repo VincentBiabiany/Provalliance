@@ -4,7 +4,6 @@
 
 {% block body %}
 
-<script type="text/javascript" src="{{ asset('js/jquery.validate.js') }}"></script>
 
 <div class="header">
 	<img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
@@ -138,8 +137,8 @@
 	</div>
 
 </div>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.js"></script>
+<script type="text/javascript" src="{{ asset('js/jquery.validate.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/global/global-method.js') }}"></script>
 
 <script type="text/javascript">

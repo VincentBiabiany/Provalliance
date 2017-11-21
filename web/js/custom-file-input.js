@@ -1,11 +1,11 @@
 var inputs = document.querySelectorAll( '.input-file' );
 Array.prototype.forEach.call( inputs, function( input )
 {
-	var label	 = input.nextElementSibling,
+	var label	 = input.previousElementSibling,
 		labelVal = label.innerHTML;
 	input.addEventListener( 'change', function( e )
 	{
-	
+
 		var fileName = '';
 			fileName = e.target.value.split( '\\' ).pop();
 		if( fileName ){

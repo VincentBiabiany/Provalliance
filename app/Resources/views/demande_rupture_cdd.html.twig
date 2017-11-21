@@ -4,7 +4,6 @@
 
 {% block body %}
 
-<script type="text/javascript" src="{{ asset('js/jquery.validate.js') }}"></script>
 
 <div class="header">
 	<img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
@@ -35,7 +34,7 @@
 		<div class="form-group row imbriq" >
 			<label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "___demande_rupture_cdd.raison"|trans({}, "translator") }}</label>
 
-			<div class="col-sm-8">
+			<div class="col-sm-9">
 				{% block _demande_rupture_cdd_raison_row %}
 
 				<div id="demande_rupture_cdd_raison" class="form-controlList">
@@ -63,10 +62,10 @@
 							{{ form_widget(child, {'attr' : {'class' : ''} }) }}
 							{{ form_label(child, child.vars.value) }}
 
-              <div id="anticipe" style="display:none;">
+              <div id="anticipe" >
                 <div class="col-xs-12">
 
-                  {% for key2,child2 in form.ruptureAncticipe %}
+                  {% for key2,child2 in form.ruptureAnticipe %}
     							<div class="col-sm-12" id="block{{key2}}">
 
                     {{ form_widget(child2, {'attr' : {'class' : ''} }) }}
@@ -96,24 +95,24 @@
 
     <div id="block" class="col-xs-12" style="display:none">
 
-      <div class="col-sm-12" id="fin">
+      <div class="col-sm-12 sousLabel" id="fin">
         <label class="control-label label fin">{{ "___demande_rupture_cdd.datefin"|trans({}, "translator") }}</label>
         {{ form_widget(form.dateFin, { 'attr': {'class':'styleDate'} }) }}
       </div>
 
-      <div class="col-sm-12" id="blockNom">
+      <div class="col-sm-12 sousLabel" id="blockNom">
         <label style="display:none" class="control-label label retourLabel">{{ "___demande_rupture_cdd.nom"|trans({}, "translator") }}</label>
         <label style="display:none" class="control-label label departLabel">{{ "___demande_rupture_cdd.nom2"|trans({}, "translator") }}</label>
         {{ form_widget(form.nomCollab, {'attr' : {'class' : 'form-control', 'style':'max-width:180px;' } }) }}
       </div>
 
-       <div class="col-sm-12" id="blockDepart">
+       <div class="col-sm-12 sousLabel" id="blockDepart">
          <label style="display:none" class="control-label label retourLabel">{{ "___demande_rupture_cdd.dateretour"|trans({}, "translator") }}</label>
          <label style="display:none" class="control-label label departLabel">{{ "___demande_rupture_cdd.datedepart"|trans({}, "translator") }}</label>
          {{ form_widget(form.dateDepart, { 'attr': {'class':'styleDate'} }) }}
        </div>
 
-			 <div class="col-sm-12" id="blockFile" style="display:none">
+			 <div class="col-sm-12 sousLabel" id="blockFile" style="display:none">
 				 <label for="demande_rupture_cdd_lettre" class="label-file">
 					 <i class="glyphicon glyphicon-download-alt"></i>
 					 <span>{{ "___demande_rupture_cdd.joindre"|trans({}, "translator") }}</</span>
@@ -132,8 +131,8 @@
 	</div>
 
 </div>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.js"></script>
+<script type="text/javascript" src="{{ asset('js/jquery.validate.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/global/global-method.js') }}"></script>
 <script src="{{ asset('js/custom-file-input.js') }}"></script>
 
@@ -188,21 +187,21 @@ $(document).ready(function(){
 
 	$('#anticipe').change(function(event){
 		console.log('trigger 2')
-    if ($('#demande_rupture_cdd_ruptureAncticipe_0').is(':checked')) {
+    if ($('#demande_rupture_cdd_ruptureAnticipe_0').is(':checked')) {
       $('#block').show().appendTo( $('#block0') );
 			$('#blockNom').hide();
 			$('#blockDepart').hide();
 			$('#blockFile').hide();
 			$('.fin').hide();
 
-    } else if ($('#demande_rupture_cdd_ruptureAncticipe_1').is(':checked')) {
+    } else if ($('#demande_rupture_cdd_ruptureAnticipe_1').is(':checked')) {
 			$('#block').show().appendTo( $('#block1') );
 			$('#blockNom').hide();
 			$('#blockDepart').hide();
 			$('#blockFile').hide();
 			$('.fin').hide();
 
-		} else if ($('#demande_rupture_cdd_ruptureAncticipe_2').is(':checked')) {
+		} else if ($('#demande_rupture_cdd_ruptureAnticipe_2').is(':checked')) {
 			$('#block').show().appendTo( $('#block2') );
 			$('#blockNom').hide();
 			$('#blockDepart').hide();
@@ -240,6 +239,7 @@ $(document).ready(function(){
 		  }
 	 },
 	  messages: {
+			'demande_rupture_cdd[nomCollab]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
 
 	 },
 	 errorElement: "em",

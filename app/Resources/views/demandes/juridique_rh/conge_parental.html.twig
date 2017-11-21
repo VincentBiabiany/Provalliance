@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% form_theme form 'form/error.html.twig' %}
-{% block title %}{{ "conge_parental.titre"|trans({}, "translator") }}{% endblock %}
+{% block title %}{{ "___demande_conge_parental.titre"|trans({}, "translator") }}{% endblock %}
 
 {% block body %}
 
@@ -10,7 +10,7 @@
 </div>
 
 <div class="head">
-	{{ "conge_parental.titre"|trans({}, "translator") }}
+	{{ "___demande_conge_parental.titre"|trans({}, "translator") }}
 </div>
 <div class="nomSalon">
   {{ app.session.get('nomSalon') }}
@@ -33,7 +33,7 @@
 
 				<!-- Champs raison -->
 				<div class="form-group row imbriq" id="raison">
-					<label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "lettre_mission.raison"|trans({}, "translator") }}</label>
+					<label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "___demande_conge_parental.raison"|trans({}, "translator") }}</label>
 
 					<div class="col-sm-9 col-xs-12" >
 						{% block _demande_lettre_mission_tempsPartiel_row %}
@@ -52,7 +52,7 @@
 
 												{% block _demande_embauche_tempsPartiel_row %}
 												<div id="tempsPartiel" class="form-group row" style="">
-													<label class="control-label label col-sm-3 col-xs-12" for="prenom">{{ "demande_embauche.cdd.partiel"|trans({}, "translator") }}</label>
+													<label class="control-label label col-sm-3 col-xs-12" for="prenom">{{ "___demande_conge_parental.TempsPartiel"|trans({}, "translator") }}</label>
 
 													<div id="listeJours" class="col-sm-12 col-xs-12 pad-box">
 														<label class="control-label label col-sm-12 col-xs-12"  for="nom"></label>
@@ -61,10 +61,10 @@
 
 															 <div class="jour">
 																	{% if  key == "total"  %}
-																		{{ form_label(child, 'demande_embauche.' ~ key, {'label_attr' : {'class' : 'label'}}) }}
+																		{{ form_label(child, '___demande_conge_parental.' ~ key, {'label_attr' : {'class' : 'label'}}) }}
 																		{{ form_widget(child, {'attr' : {'class' : 'form-control total', 'readonly':'readonly'} }) }}
 																	{% else %}
-																		{{ form_label(child, 'demande_embauche.' ~ key, {'label_attr' : {'class' : 'label'}}) }}
+																		{{ form_label(child, '___demande_conge_parental.' ~ key, {'label_attr' : {'class' : 'label'}}) }}
 																		{{ form_widget(child, {'attr' : {'class' : 'form-control tempsHeure' } }) }}
 																	{% endif %}
 																</div>
@@ -93,23 +93,23 @@
 
 				<!-- Champs date -->
 				<div class="form-group row imbriq">
-					<label class="control-label label col-sm-3 col-xs-12">{{ "conge_parental.date"|trans({}, "translator") }}</label>
+					<label class="control-label label col-sm-3 col-xs-12">{{ "___demande_conge_parental.date"|trans({}, "translator") }}</label>
 
 
 				<div class="form-group col-sm-12 row">
 
 						<div class="col-sm-5">
 							<div class="jour">
-								<label style="display:none" class="control-label label passage">{{ "conge_parental.du"|trans({}, "translator") }}</label>
-								<label style="display:none" class="control-label label reprise">{{ "conge_parental.le"|trans({}, "translator") }}</label>
+								<label style="display:none" class="control-label label passage">{{ "___demande_conge_parental.du"|trans({}, "translator") }}</label>
+								<label style="display:none" class="control-label label reprise">{{ "___demande_conge_parental.le"|trans({}, "translator") }}</label>
 							</div>
 							{{ form_widget(form.dateDebut, { 'attr': {'class':'styleDate'} }) }}
 				 		</div>
 
 					 <div class="col-sm-5">
 						 <div class="jour">
-							<label style="display:none" class="control-label label passage">{{ "conge_parental.au"|trans({}, "translator") }}</label>
-							<label style="display:none" class="control-label label reprise">{{ "conge_parental.aulieu"|trans({}, "translator") }}</label>
+							<label style="display:none" class="control-label label passage">{{ "___demande_conge_parental.au"|trans({}, "translator") }}</label>
+							<label style="display:none" class="control-label label reprise">{{ "___demande_conge_parental.aulieu"|trans({}, "translator") }}</label>
 						 </div>
 						 {{ form_widget(form.dateFin, { 'attr': {'class':'styleDate'} }) }}
 					</div>
@@ -119,7 +119,7 @@
 				<div class="form-group onlyUploadFile">
 					 <label for="demande_conge_parental_pieceJointe" class="label-file">
 						 <i class="glyphicon glyphicon-download-alt"></i>
-						 <span>{{ "conge_parental.lettre"|trans({}, "translator") }}</span>
+						 <span>{{ "___demande_conge_parental.lettre"|trans({}, "translator") }}</span>
 					 </label>
 					 {{ form_widget(form.pieceJointe, { 'attr': {'class': 'input-file'} }) }}
 				</div>

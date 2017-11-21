@@ -66,15 +66,20 @@ class ResumeDemandeService
       $idDemandeItSelf = $infoDemande['demandeId'];
 
       $properties = $propertyInfo->getProperties('AppBundle\Entity\\'.$nameEntity);
+
       $properties = array_diff($properties,['discr','typeForm','id','nameDemande','subject','service']);
+      // dump($properties);
+
       $response .= '<h1>'.$infoDemande['typeForm'].'  |  '.$infoDemande['dateTraitement']->format('d-m-y').'
         |  Réf. : '.$idDemandeItSelf.'</h1>';
 
       $response .= "<div id='propertiesDemandePrint'  class='contentBlock'><h2> Récapitulatif de la demande </h2>";
           // Boucle pour propriétés de la demande
-          for ($k = 0; $k < count($properties); $k++) {
-            if (isset($properties[$k])){
-            $property = $properties[$k];
+            foreach ($properties as $idProperty => $valueProperty){
+
+            if (isset($properties[$idProperty])){
+
+            $property = $properties[$idProperty];
 
             $qb = $this->em2->createQueryBuilder()
                             ->add('select', 'u')
@@ -100,21 +105,21 @@ class ResumeDemandeService
                                   $b=1;
                                   $lastItem=count($prop);
                                  foreach ($prop as $key => $value){
-                                   // dump($prop);
-                                   // frsdf();
+
                                    $re = '/_{3,}/';
                                    if( preg_match_all($re, $value, $matches, PREG_SET_ORDER, 0)){
                                     $value = $this->translator->trans($value,array(),'translator','fr_FR');
                                       }
                                       if( is_numeric($key)){
                                         $key = '';
+                                        // $value = ;
                                       }else{
-                                        $key = $key.'';
+                                        $key = $key.': ';
                                       }
                                           if($b == $lastItem){
-                                             $response .= $key.': '.$value;
+                                             $response .= $key.$value;
                                            }else{
-                                             $response .= $key.': '.$value.' - ';
+                                             $response .= $key.$value.' - ';
 
                                            }
 

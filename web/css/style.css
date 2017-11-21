@@ -461,12 +461,12 @@ form.demandeDetail .form-group{
     text-overflow: '';
 }
 
-/*label.required{
-	color: white;
-	font-size: 15px;
-	font-weight: lighter;
-	line-height: 30px;
-}*/
+
+/***** FORMULAIRE RUPTURE CDD ******/
+#anticipe{
+		display:none; height: 222px;
+}
+
 .end{
    background-color: #45bd43 !important;
 }
@@ -786,9 +786,15 @@ text-align: center;
 	width: 110px;
 	text-align: center;
 }
-#Classification div label{
+.sousLabel div label,.sousLabel label{
 	background-color: #797979 !important;
+	margin-left: 0;
+
 }
+.sousLabel select,.sousLabel input{
+background-color: #f1f1f1 !important;
+}
+
 #Classification div select,#Classification div input, div.other input{
 	width: 100%;
 }

@@ -77,7 +77,7 @@ class DemandeRuptureCddType extends AbstractType
           'expanded' => true,
           'multiple' => false,
         ))
-        ->add('ruptureAncticipe', ChoiceType::class, array(
+        ->add('ruptureAnticipe', ChoiceType::class, array(
           'choices' => array(
             '___demande_rupture_cdd.cdi'     => '___demande_rupture_cdd.cdi',
             '___demande_rupture_cdd.cdi2'    => '___demande_rupture_cdd.cdi2',

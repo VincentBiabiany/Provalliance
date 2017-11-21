@@ -44,7 +44,7 @@
       </div>
     </div>
 
-    <div id="Classification" class="form-group" >
+    <div id="Classification" class="form-group s" >
       <label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "___demande_embauche.class"|trans({}, "translator") }}</label>
       <div class="col-sm-3 col-xs-12" >
         <label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "___demande_embauche.niveau"|trans({}, "translator") }}</label>
@@ -184,8 +184,8 @@
 
 </div>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.js"></script>
+<script type="text/javascript" src="{{ asset('js/jquery.validate.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/global/global-method.js') }}"></script>
 
 <script>
@@ -201,7 +201,11 @@ $(document).ready(function(){
       },
     },
     messages: {
-
+      'demande_embauche[dejaSalarie]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+      'demande_embauche[postes]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+      'demande_embauche[salaireBase]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+      'demande_embauche[typeContrat]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+      'demande_embauche[isTempsPartiel]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
   	},
   	errorElement: "em",
     errorPlacement: function ( error, element ) {
