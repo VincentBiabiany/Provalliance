@@ -17,7 +17,7 @@ class DemandeRib extends DemandeForm
     protected $typeForm ='Demande rib';
     protected $subject ='connu';
     protected $service ='paie';
-    
+
     /**
      * @var int
      *
@@ -27,14 +27,10 @@ class DemandeRib extends DemandeForm
      */
     private $id;
 
-    /**
-     * @var array
-     *
-     * @ORM\Column(name="rib", type="array", nullable=true)
-     */
-    private $rib;
 
     /**
+     * __demande_rib.collaborateur
+     *
      * @var int
      *
      * @ORM\Column(name="matricule", type="integer")
@@ -43,52 +39,15 @@ class DemandeRib extends DemandeForm
 
 
     /**
-     * Set rib
+     * __demande_rib.rib
      *
-     * @param array $rib
+     * @var array
      *
-     * @return DemandeRib
+     * @ORM\Column(name="rib", type="array", nullable=true)
      */
-    public function setRib($rib)
-    {
-        $this->rib = $rib;
+    private $rib;
 
-        return $this;
-    }
 
-    /**
-     * Get rib
-     *
-     * @return array
-     */
-    public function getRib()
-    {
-        return $this->rib;
-    }
-
-    /**
-     * Set matricule
-     *
-     * @param integer $matricule
-     *
-     * @return DemandeRib
-     */
-    public function setMatricule($matricule)
-    {
-        $this->matricule = $matricule;
-
-        return $this;
-    }
-
-    /**
-     * Get matricule
-     *
-     * @return integer
-     */
-    public function getMatricule()
-    {
-        return $this->matricule;
-    }
     /**
      * Get nameDemande
      *
@@ -127,5 +86,53 @@ class DemandeRib extends DemandeForm
     public function getSubject()
     {
         return $this->subject;
+    }
+
+    /**
+     * Set matricule
+     *
+     * @param integer $matricule
+     *
+     * @return DemandeRib
+     */
+    public function setMatricule($matricule)
+    {
+        $this->matricule = $matricule;
+
+        return $this;
+    }
+
+    /**
+     * Get matricule
+     *
+     * @return integer
+     */
+    public function getMatricule()
+    {
+        return $this->matricule;
+    }
+
+    /**
+     * Set rib
+     *
+     * @param array $rib
+     *
+     * @return DemandeRib
+     */
+    public function setRib($rib)
+    {
+        $this->rib = $rib;
+
+        return $this;
+    }
+
+    /**
+     * Get rib
+     *
+     * @return array
+     */
+    public function getRib()
+    {
+        return $this->rib;
     }
 }

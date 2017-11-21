@@ -35,6 +35,8 @@ class DemandeAvenant extends DemandeForm
   private $matricule;
 
   /**
+   * ___avenant.du
+   *
    * @var string
    *
    * @ORM\Column(name="date_debut", type="date", length=255, nullable=true)
@@ -42,6 +44,8 @@ class DemandeAvenant extends DemandeForm
   private $dateDebut;
 
   /**
+   * ___avenant.au
+   *
    * @var string
    *
    * @ORM\Column(name="date_fin", type="date", length=255, nullable=true)
@@ -49,6 +53,8 @@ class DemandeAvenant extends DemandeForm
   private $dateFin;
 
   /**
+   * ___avenant.raison
+   *
    * @var string
    *
    * @ORM\Column(name="raison", type="string", length=255, nullable=false)
@@ -56,6 +62,8 @@ class DemandeAvenant extends DemandeForm
   private $raison;
 
   /**
+   * ___avenant.collab
+   *
    * @var array
    *
    * @ORM\Column(name="temps_partiel", type="array", nullable=true)
@@ -63,6 +71,8 @@ class DemandeAvenant extends DemandeForm
   private $tempsPartiel;
 
   /**
+   * ___avenant.pj
+   *
    * @var string
    *
    * @ORM\Column(name="piece_jointe1", type="string", length=255, nullable=true)
@@ -70,6 +80,8 @@ class DemandeAvenant extends DemandeForm
   protected $pieceJointe1;
 
   /**
+   * ___avenant.pj
+   *
    * @var string
    *
    * @ORM\Column(name="piece_jointe2", type="string", length=255, nullable=true)
@@ -77,6 +89,8 @@ class DemandeAvenant extends DemandeForm
   protected $pieceJointe2;
 
   /**
+   * ___avenant.fixe
+   *
    * @var int
    *
    * @ORM\Column(name="salaire_fixe", type="integer", nullable=true)
@@ -84,6 +98,8 @@ class DemandeAvenant extends DemandeForm
   protected $salaireFixe;
 
   /**
+   * ___avenant.variable
+   *
    * @var int
    *
    * @ORM\Column(name="salaire_var_mens", type="integer", nullable=true)
@@ -91,6 +107,8 @@ class DemandeAvenant extends DemandeForm
   protected $salaireMens;
 
   /**
+   * ___avenant.trim
+   *
    * @var int
    *
    * @ORM\Column(name="salaire_var_trim", type="integer", nullable=true)
@@ -142,6 +160,8 @@ class DemandeAvenant extends DemandeForm
   {
       return $this->subject;
   }
+
+  
 
     /**
      * Set matricule

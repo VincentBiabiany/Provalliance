@@ -28,6 +28,8 @@ class DemandeLettreMission extends DemandeForm
     private $id;
 
     /**
+     * ___demande_lettre_mission.nom
+     *
      * @var int
      *
      * @ORM\Column(name="matricule", type="integer", nullable=false)
@@ -35,6 +37,8 @@ class DemandeLettreMission extends DemandeForm
     private $matricule;
 
     /**
+     * ___demande_lettre_mission.salon
+     *
      * @var int
      *
      * @ORM\Column(name="sage", type="integer", nullable=true)
@@ -42,6 +46,8 @@ class DemandeLettreMission extends DemandeForm
     private $sage;
 
     /**
+     * ___demande_lettre_mission.dateDebut
+     *
      * @var string
      *
      * @ORM\Column(name="date_debut", type="date", length=255)
@@ -49,6 +55,8 @@ class DemandeLettreMission extends DemandeForm
     private $dateDebut;
 
     /**
+     * ___demande_lettre_mission.dateFin
+     *
      * @var string
      *
      * @ORM\Column(name="date_fin", type="date", length=255)
@@ -56,6 +64,8 @@ class DemandeLettreMission extends DemandeForm
     private $dateFin;
 
     /**
+     * ___demande_lettre_mission.raison
+     *
      * @var string
      *
      * @ORM\Column(name="raison", type="string", length=255, nullable=true)
@@ -63,6 +73,8 @@ class DemandeLettreMission extends DemandeForm
     private $raison;
 
     /**
+     * ___demande_lettre_mission.tempsTravail
+     *
      * @var array
      *
      * @ORM\Column(name="temps_partiel", type="array", nullable=false)

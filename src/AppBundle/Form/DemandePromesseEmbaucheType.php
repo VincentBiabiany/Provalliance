@@ -58,8 +58,8 @@ class DemandePromesseEmbaucheType extends AbstractType
                 ))
                 ->add('contrat', ChoiceType::class, array(
                   'choices'  => array(
-                    'demande_promesse_embauche.cdi'  => 'demande_promesse_embauche.cdi',
-                    'demande_promesse_embauche.cdd' => 'demande_promesse_embauche.cdd',
+                    '___demande_promesse_embauche.cdi'  => '___demande_promesse_embauche.cdi',
+                    '___demande_promesse_embauche.cdd' => '___demande_promesse_embauche.cdd',
                   ),
                   'choice_translation_domain' => 'translator',
                   'translation_domain' => 'translator',

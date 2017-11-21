@@ -14,11 +14,12 @@ use Doctrine\ORM\Mapping as ORM;
 
 abstract class DemandeEntity
 {
-  const statut_REJETE  = 0;
-  const statut_EN_COURS = 1;
-  const statut_TRAITE  = 2;
-  const statut_ASIGNE  = 3;
-  const statut_AVALIDE  = 4;
+    const statut_REJETE  = 0;
+    const statut_EN_COURS = 1;
+    const statut_TRAITE  = 2;
+    const statut_ASIGNE  = 3;
+    const statut_AVALIDE  = 4;
+    
     /**
      * @var int
      *

@@ -58,9 +58,9 @@ class DemandeAttestationSalaireType extends AbstractType
                 ))
                 ->add('etat', ChoiceType::class, array(
                   'choices'  => array(
-                    'demande_attestation_salaire.reprise'  => 'demande_attestation_salaire.reprise',
-                    'demande_attestation_salaire.nonReprise' => 'demande_attestation_salaire.nonReprise',
-                    'demande_attestation_salaire.prolongation' => 'demande_attestation_salaire.prolongation',
+                    '___demande_attestation_salaire.reprise'  => '___demande_attestation_salaire.reprise',
+                    '___demande_attestation_salaire.nonReprise' => '___demande_attestation_salaire.nonReprise',
+                    '___demande_attestation_salaire.prolongation' => '___demande_attestation_salaire.prolongation',
                   ),
                   'choice_translation_domain' => 'translator',
                   'translation_domain' => 'translator',
@@ -72,12 +72,12 @@ class DemandeAttestationSalaireType extends AbstractType
                 ))
                 ->add('motif', ChoiceType::class, array(
                   'choices'  => array(
-                    'demande_attestation_salaire.maladie'  => 'demande_attestation_salaire.maladie',
-                    'demande_attestation_salaire.maternite' => 'demande_attestation_salaire.maternite',
-                    'demande_attestation_salaire.paternite' => 'demande_attestation_salaire.paternite',
-                    'demande_attestation_salaire.miTemps' => 'demande_attestation_salaire.miTemps',
-                    'demande_attestation_salaire.accidentTravail' => 'demande_attestation_salaire.accidentTravail',
-                    'demande_attestation_salaire.maladiePro' => 'demande_attestation_salaire.maladiePro',
+                    '___demande_attestation_salaire.maladie'  => '___demande_attestation_salaire.maladie',
+                    '___demande_attestation_salaire.maternite' => '___demande_attestation_salaire.maternite',
+                    '___demande_attestation_salaire.paternite' => '___demande_attestation_salaire.paternite',
+                    '___demande_attestation_salaire.miTemps' => '___demande_attestation_salaire.miTemps',
+                    '___demande_attestation_salaire.accidentTravail' => '___demande_attestation_salaire.accidentTravail',
+                    '___demande_attestation_salaire.maladiePro' => '___demande_attestation_salaire.maladiePro',
                   ),
                   'choice_translation_domain' => 'translator',
                   'translation_domain' => 'translator',
@@ -116,11 +116,6 @@ class DemandeAttestationSalaireType extends AbstractType
                     $data = $event->getForm()->getData();
 
                     $data->setMatricule($form['matricule']->getData()->getMatricule());
-
-                    // if ($data->getRupture() != null ){
-                    //   $fileName = $this->fileUploader->upload($data->getRupture(), $data->getMatricule(),'demande_attestation_salaire', 'rupture');
-                    //   $data->setRupture($fileName);
-                    // }
                     $event->setData($data);
                   });
 

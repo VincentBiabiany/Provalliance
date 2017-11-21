@@ -22,8 +22,6 @@ use Symfony\Component\PropertyInfo\PropertyInfoExtractor;
 use Symfony\Component\PropertyInfo\PropertyInfo;
 use Symfony\Component\Asset\PathPackage;
 use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
-
-
 use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
 
 
@@ -40,13 +38,11 @@ class ResumeDemandeService
     $this->em           = $em;
     $this->em2          = $em2;
     $this->translator   = $translator;
-
   }
 
   public function generateResume($idDemandes,$action)
   {
-    $phpDocExtractor = new PhpDocExtractor();
-    $descriptionExtractors = array($phpDocExtractor);
+
     $phpDocExtractor = new PhpDocExtractor();
     $reflectionExtractor = new ReflectionExtractor();
 
@@ -71,15 +67,6 @@ class ResumeDemandeService
 
     $this->propertyInfo = $propertyInfo;
 
-    //Extrator Properties
-    // $reflectionExtractor = new ReflectionExtractor();
-    // $listExtractors = $reflectionExtractor;
-    // $propertyInfo = new PropertyInfoExtractor(array( $listExtractors ), [$listExtractors, $reflectionExtractor]);
-
-    //dump($propertyInfo->getShortDescription('AppBundle\Entity\DemandeEmbauche', "nom"));
-
-
-
     //Repository
     $demandeRepo = $this->em2->getRepository('AppBundle:DemandeEntity');
     $salonRepo = $this->em->getRepository('ApiBundle:Salon');
@@ -91,7 +78,6 @@ class ResumeDemandeService
 
     //Path
     $package = new PathPackage('web/uploads/files', new EmptyVersionStrategy());
-
 
     //1 demande par page
     foreach ($idDemandes as $idDemande ) {
@@ -115,32 +101,29 @@ class ResumeDemandeService
 
       // Récupération des noms des propriétés de l'entité
       $properties = $propertyInfo->getProperties('AppBundle\Entity\\'.$nameEntity);
+     dump($properties);
       $properties = array_diff($properties,['discr','typeForm','id','nameDemande','subject','service']);
-
 
       $response .= '<div class="page">';
       $response .= '<h1>'.$infoDemande['typeForm'].'  |  '.$infoDemande['dateTraitement']->format('d/m/y').'
       |  Réf. : '.$idDemandeItSelf.'</h1>';
       $response .= "<div id='propertiesDemandePrint'  class='contentBlock'><h2> Récapitulatif de la demande </h2>";
 
-
-
-      $nbProprietes = count($properties);
-
       // Boucle pour propriétés de la demande
-      for ($k = 0; $k < $nbProprietes; $k++) {
 
-        if (isset($properties[$k])) {
+      foreach ($properties as $idProperty => $valueProperty) {
 
-          $property = $properties[$k];
-          //dump($property);
+         if (isset($properties[$idProperty])){
+
+          $property = $properties[$idProperty];
+
 
           //Si la propriété est une date on la formate
           $prop = self::transformDate($qb[0][$property]);
 
           //On affiche pas les fichiers liés à la demande
           if (self::ifFile($prop) == false) {
-            $response .= '<p><b>'.self::getTraduction($property).'</b>  ';
+            $response .= '<p><b class="col-sm-2"> '.self::getTraduction($property).'</b>  ';
 
             if(is_array($prop)){
               $response .= self::transformArray($prop);
@@ -152,11 +135,10 @@ class ResumeDemandeService
 
             // Si cest un file et qu'on est dans le résumé des demandes
           } else if ($action =='detail') {
-            $fileList .= '<li><b>'.ucfirst($property).'</b>';
+            $fileList .= '<li><b class="col-sm-2">'.ucfirst($property).'</b>';
             $path = $package->getUrl($prop);
             $fileList .= '<a class="downloadFile" href="'.$path.'">Télécharger le document</a></li>';
           }
-
 
         } // If isset
       } // Fin for sur propriétés
@@ -179,11 +161,11 @@ class ResumeDemandeService
     $infosSalon = $salonRepo->infosSalon($infoDemande['codeSage']);
     $statutDemande = $demandeRepo->whichStatut($infoDemande['statut']);
 
-    $response .= '<p><b>Demandeur</b> : '.$infosCollab['nom'].' '.$infosCollab['prenom'].'</p>';
-    $response .= '<p><b>Date d\'envoi</b> : '.$infoDemande['dateTraitement']->format('d/m/Y').'</p>';
-    $response .= '<p><b>Statut</b> : <span class="'.$statutDemande.'">' . $statutDemande .'</span></p>';
-    $response .= '<p><b>Salon</b> : '.$infosSalon['appelation'].'</p>';
-    $response .= '<p><b>Adresse</b> : '.$infosSalon['adresse1'].' '.$infosSalon['codePostal'].' '.$infosSalon['ville'].'</p>';
+    $response .= '<p><b class="col-sm-2">Demandeur</b> '.$infosCollab['nom'].' '.$infosCollab['prenom'].'</p>';
+    $response .= '<p><b class="col-sm-2">Date d\'envoi</b>  '.$infoDemande['dateTraitement']->format('d/m/Y').'</p>';
+    $response .= '<p><b class="col-sm-2">Statut</b>  <span class="'.$statutDemande.'">' . $statutDemande .'</span></p>';
+    $response .= '<p><b class="col-sm-2">Salon</b>  '.$infosSalon['appelation'].'</p>';
+    $response .= '<p><b class="col-sm-2">Adresse</b>  '.$infosSalon['adresse1'].' '.$infosSalon['codePostal'].' '.$infosSalon['ville'].'</p>';
 
     if ($statutDemande == "Rejeté")
       $response .= '<p><b>Motif du rejet</b> : '.$infoDemande['message'].'</p>';
@@ -210,9 +192,8 @@ class ResumeDemandeService
   {
     $response ='';
 
-    $re = '/_{3,}/';
-    if ( preg_match_all( $re , $prop, $matches, PREG_SET_ORDER, 0)) {
-      $response .= $this->translator->trans($prop, array(),'translator','fr_FR');
+    if ( preg_match_all( '/_{3,}/', $prop, $matches, PREG_SET_ORDER, 0)) {
+      $response .= $this->translator->trans($prop, array(),'translator');
     } else {
 
       switch ($prop) {
@@ -221,15 +202,15 @@ class ResumeDemandeService
         break;
 
         case 'true':
-          $response .= $this->translator->trans('global.affirme',array(),'translator','fr_FR');
+          $response .= $this->translator->trans('global.affirme',array(),'translator');
         break;
 
         case 'false':
-          $response .= $this->translator->trans('global.negative',array(),'translator','fr_FR');
+          $response .= $this->translator->trans('global.negative',array(),'translator');
         break;
 
         default:
-          $response .= $prop; //self::getTraduction($prop);
+          $response .= $prop;
 
 
       }
@@ -240,8 +221,6 @@ class ResumeDemandeService
 
   public function getTraduction($prop)
   {
-    dump($prop, $this->propertyInfo->getShortDescription('AppBundle\Entity\\'. $this->nameEntity, $prop));
-
     $trad = $this->translator
                   ->trans($this->propertyInfo->getShortDescription('AppBundle\Entity\\'. $this->nameEntity, $prop),
                                                                   array(),'translator');
@@ -251,30 +230,61 @@ class ResumeDemandeService
   public function transformArray($prop)
   {
     $response = "";
-    //champs de type array
     $b = 1;
     $lastItem = count($prop);
-    foreach ($prop as $key => $value){
-      // dump($prop);
-      // frsdf();
-      $re = '/_{3,}/';
-      if (preg_match_all($re, $value, $matches, PREG_SET_ORDER, 0)) {
-        $value = $this->translator->trans($value,array(),'translator');
+    dump($prop);
+
+    // Cas du tableau à 2 dimensions
+    if (is_array($prop[0]))
+    {
+      foreach ($prop as $keys => $values){
+        $response .= '<br>';
+        foreach ($values as $key => $value){
+
+          $value = self::transformDate($value);
+          if (preg_match_all('/_{3,}/', $value, $matches, PREG_SET_ORDER, 0)) {
+            $value = $this->translator->trans($value,array(),'translator');
+          }
+
+          if (is_numeric($key)) {
+            $key = '';
+          } else {
+            $key = $key.'';
+          }
+
+          if ($b == $lastItem) {
+            $response .= $key.': '.$value ;
+          } else {
+            $response .= $key.': '.$value.' - ';
+          }
+          $b++;
+        }
       }
 
-      if (is_numeric($key)) {
-        $key = '';
-      } else {
-        $key = $key.'';
-      }
+    } else {
 
-      if ($b == $lastItem) {
-        $response .= $key.': '.$value;
-      } else {
-        $response .= $key.': '.$value.' - ';
+      foreach ($prop as $key => $value){
+        $response .= '<br>';
+        if (preg_match_all('/_{3,}/', $value, $matches, PREG_SET_ORDER, 0)) {
+          $value = $this->translator->trans($value,array(),'translator');
+        }
+
+        if (is_numeric($key)) {
+          $key = '';
+        } else {
+          $key = $key.'';
+        }
+
+        if ($b == $lastItem) {
+          $response .= $key.': '.$value ;
+        } else {
+          $response .= $key.': '.$value.' - ';
+        }
+        $b++;
       }
-      $b++;
     }
+
+
     $response .= '</p>';
 
     return $response;
@@ -282,18 +292,20 @@ class ResumeDemandeService
 
   //Function ifFile: test si le champs est un fichier
   //Return: retourne false si $property est un fichier
-  public function ifFile($property){
+  public function ifFile($property)
+  {
     $tabFiles= ['png','jpg','pdf','jpeg','bmp','doc','docx','txt', 'html', 'csv', 'tmp'];
     $occ = 0;
 
     if (!is_array($property)) {
       foreach ($tabFiles as $tabFile ) {
-        if(strpos($property, $tabFile) !== false){
+        if(strpos($property, $tabFile) !== false) {
           $occ++;
         }
       }
     }
-    if ( $occ > 0){
+
+    if ($occ > 0) {
       return true;
     } else {
       return false;

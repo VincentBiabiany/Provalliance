@@ -13,6 +13,11 @@ use AppBundle\Entity\DemandeForm;
  */
 class DemandePromesseEmbauche extends DemandeForm
 {
+    protected $nameDemande ='DemandePromesseEmbauche';
+    protected $typeForm ='Demande de promesse d\'embauche';
+    protected $subject ='connu';
+    protected $service ='juridique';
+
     /**
      * @var int
      *
@@ -22,15 +27,29 @@ class DemandePromesseEmbauche extends DemandeForm
      */
     private $id;
 
+    /**
+     * ___demande_promesse_embauche.collab
+     *
+     * @var int
+     *
+     * @ORM\Column(name="matricule", type="integer")
+     */
+    protected $matricule;
+
 
     /**
+     * ___demande_promesse_embauche.contrat
+     *
      * @var string
      *
      * @ORM\Column(name="contrat", type="string", nullable=false)
      */
     private $contrat;
 
+
     /**
+     * ___demande_promesse_embauche.poste
+     *
      * @var string
      *
      * @ORM\Column(name="poste", type="string", nullable=false)
@@ -38,6 +57,8 @@ class DemandePromesseEmbauche extends DemandeForm
     private $poste;
 
     /**
+     * ___demande_promesse_embauche.niveau
+     *
      * @var string
      *
      * @ORM\Column(name="niveau", type="string", nullable=false)
@@ -45,6 +66,8 @@ class DemandePromesseEmbauche extends DemandeForm
     private $niveau;
 
     /**
+     * ___demande_promesse_embauche.echelon
+     *
      * @var string
      *
      * @ORM\Column(name="echelon", type="string", nullable=false)
@@ -52,6 +75,8 @@ class DemandePromesseEmbauche extends DemandeForm
     private $echelon;
 
     /**
+     * ___demande_promesse_embauche.salaire
+     *
      * @var string
      *
      * @ORM\Column(name="salaire", type="string", nullable=false)
@@ -59,30 +84,88 @@ class DemandePromesseEmbauche extends DemandeForm
     private $salaire;
 
     /**
+     * ___demande_promesse_embauche.temps
+     *
      * @var string
      *
      * @ORM\Column(name="temps", type="string", nullable=false)
      */
     private $temps;
 
-      /**
+    /**
+     * ___demande_promesse_embauche.dateEmbauche
+     *
      * @var string
      *
      * @ORM\Column(name="date_embauche", type="date", length=255)
      */
     private $dateEmbauche;
+
+
     /**
-     * @var int
+     * Get nameDemande
      *
-     * @ORM\Column(name="matricule", type="integer")
+     * @return integer
      */
-    protected $matricule;
+    public function getNameDemande()
+    {
+        return $this->nameDemande;
+    }
 
-    protected $nameDemande ='DemandePromesseEmbauche';
-    protected $typeForm ='Demande de promesse d\'embauche';
-    protected $subject ='connu';
-    protected $service ='juridique';
+    /**
+     * Get typeForm
+     *
+     * @return integer
+     */
+    public function getTypeForm()
+    {
+        return $this->typeForm;
+    }
 
+    /**
+     * Get service
+     *
+     * @return integer
+     */
+    public function getService()
+    {
+        return $this->service;
+    }
+
+
+    /**
+     * Get subject
+     *
+     * @return integer
+     */
+    public function getSubject()
+    {
+        return $this->subject;
+    }
+
+    /**
+     * Set matricule
+     *
+     * @param integer $matricule
+     *
+     * @return DemandePromesseEmbauche
+     */
+    public function setMatricule($matricule)
+    {
+        $this->matricule = $matricule;
+
+        return $this;
+    }
+
+    /**
+     * Get matricule
+     *
+     * @return integer
+     */
+    public function getMatricule()
+    {
+        return $this->matricule;
+    }
 
     /**
      * Set contrat
@@ -131,6 +214,7 @@ class DemandePromesseEmbauche extends DemandeForm
     {
         return $this->poste;
     }
+
     /**
      * Set niveau
      *
@@ -154,6 +238,7 @@ class DemandePromesseEmbauche extends DemandeForm
     {
         return $this->niveau;
     }
+
     /**
      * Set echelon
      *
@@ -248,69 +333,5 @@ class DemandePromesseEmbauche extends DemandeForm
     public function getDateEmbauche()
     {
         return $this->dateEmbauche;
-    }
-
-
-    /**
-     * Set matricule
-     *
-     * @param integer $matricule
-     *
-     * @return DemandePromesseEmbauche
-     */
-    public function setMatricule($matricule)
-    {
-        $this->matricule = $matricule;
-
-        return $this;
-    }
-
-    /**
-     * Get matricule
-     *
-     * @return integer
-     */
-    public function getMatricule()
-    {
-        return $this->matricule;
-    }
-    /**
-     * Get nameDemande
-     *
-     * @return integer
-     */
-    public function getNameDemande()
-    {
-        return $this->nameDemande;
-    }
-
-    /**
-     * Get typeForm
-     *
-     * @return integer
-     */
-    public function getTypeForm()
-    {
-        return $this->typeForm;
-    }
-    /**
-     * Get service
-     *
-     * @return integer
-     */
-    public function getService()
-    {
-        return $this->service;
-    }
-
-
-    /**
-     * Get subject
-     *
-     * @return integer
-     */
-    public function getSubject()
-    {
-        return $this->subject;
     }
 }

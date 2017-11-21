@@ -20,6 +20,27 @@ class DemandeAbsencesInjustifiees extends DemandeForm
   protected $service = 'juridique';
 
   /**
+   * ___absences.matricule
+   *
+   * @var int
+   *
+   * @ORM\Column(name="matricule", type="integer")
+   */
+  protected $matricule;
+
+  /**
+   * ___absences.raison
+   *
+   * @var string
+   *
+   * @ORM\Column(name="raison", type="string", length=255, nullable=true)
+   */
+  private $raison;
+
+
+  /**
+   * ___absences.retards
+   *
    * @var array
    *
    * @ORM\Column(name="retards", type="array", nullable=true)
@@ -28,6 +49,8 @@ class DemandeAbsencesInjustifiees extends DemandeForm
 
 
   /**
+   * ___absences.absLes
+   *
    * @var array
    *
    * @ORM\Column(name="absences", type="array", nullable=true)
@@ -35,187 +58,175 @@ class DemandeAbsencesInjustifiees extends DemandeForm
   private $absences;
 
   /**
+   * ___absences.date
+   *
    * @var string
    *
    * @ORM\Column(name="date_debut", type="date", length=255, nullable=true)
    */
   private $dateDebut;
 
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="raison", type="string", length=255, nullable=true)
-   */
-  private $raison;
 
   /**
-   * @var int
+   * Set retards
    *
-   * @ORM\Column(name="matricule", type="integer")
+   * @param array $retards
+   *
+   * @return DemandeAbsencesInjustifiees
    */
-  protected $matricule;
+  public function setRetards($retards)
+  {
+      $this->retards = $retards;
 
+      return $this;
+  }
 
-      /**
-       * Set retards
-       *
-       * @param array $retards
-       *
-       * @return DemandeAbsencesInjustifiees
-       */
-      public function setRetards($retards)
-      {
-          $this->retards = $retards;
+  /**
+   * Get retards
+   *
+   * @return array
+   */
+  public function getRetards()
+  {
+      return $this->retards;
+  }
 
-          return $this;
-      }
+  /**
+   * Set absences
+   *
+   * @param array $absences
+   *
+   * @return DemandeAbsencesInjustifiees
+   */
+  public function setAbsences($absences)
+  {
+      $this->absences = $absences;
 
-      /**
-       * Get retards
-       *
-       * @return array
-       */
-      public function getRetards()
-      {
-          return $this->retards;
-      }
+      return $this;
+  }
 
-      /**
-       * Set absences
-       *
-       * @param array $absences
-       *
-       * @return DemandeAbsencesInjustifiees
-       */
-      public function setAbsences($absences)
-      {
-          $this->absences = $absences;
+  /**
+   * Get absences
+   *
+   * @return array
+   */
+  public function getAbsences()
+  {
+      return $this->absences;
+  }
 
-          return $this;
-      }
+  /**
+   * Set dateDebut
+   *
+   * @param \DateTime $dateDebut
+   *
+   * @return DemandeAbsencesInjustifiees
+   */
+  public function setDateDebut($dateDebut)
+  {
+      $this->dateDebut = $dateDebut;
 
-      /**
-       * Get absences
-       *
-       * @return array
-       */
-      public function getAbsences()
-      {
-          return $this->absences;
-      }
+      return $this;
+  }
 
-      /**
-       * Set dateDebut
-       *
-       * @param \DateTime $dateDebut
-       *
-       * @return DemandeAbsencesInjustifiees
-       */
-      public function setDateDebut($dateDebut)
-      {
-          $this->dateDebut = $dateDebut;
+  /**
+   * Get dateDebut
+   *
+   * @return \DateTime
+   */
+  public function getDateDebut()
+  {
+      return $this->dateDebut;
+  }
 
-          return $this;
-      }
+  /**
+   * Set raison
+   *
+   * @param string $raison
+   *
+   * @return DemandeAbsencesInjustifiees
+   */
+  public function setRaison($raison)
+  {
+      $this->raison = $raison;
 
-      /**
-       * Get dateDebut
-       *
-       * @return \DateTime
-       */
-      public function getDateDebut()
-      {
-          return $this->dateDebut;
-      }
+      return $this;
+  }
 
-      /**
-       * Set raison
-       *
-       * @param string $raison
-       *
-       * @return DemandeAbsencesInjustifiees
-       */
-      public function setRaison($raison)
-      {
-          $this->raison = $raison;
+  /**
+   * Get raison
+   *
+   * @return string
+   */
+  public function getRaison()
+  {
+      return $this->raison;
+  }
 
-          return $this;
-      }
+  /**
+   * Set matricule
+   *
+   * @param integer $matricule
+   *
+   * @return DemandeAbsencesInjustifiees
+   */
+  public function setMatricule($matricule)
+  {
+      $this->matricule = $matricule;
 
-      /**
-       * Get raison
-       *
-       * @return string
-       */
-      public function getRaison()
-      {
-          return $this->raison;
-      }
+      return $this;
+  }
 
-      /**
-       * Set matricule
-       *
-       * @param integer $matricule
-       *
-       * @return DemandeAbsencesInjustifiees
-       */
-      public function setMatricule($matricule)
-      {
-          $this->matricule = $matricule;
-
-          return $this;
-      }
-
-      /**
-       * Get matricule
-       *
-       * @return integer
-       */
-      public function getMatricule()
-      {
-          return $this->matricule;
-      }
+  /**
+   * Get matricule
+   *
+   * @return integer
+   */
+  public function getMatricule()
+  {
+      return $this->matricule;
+  }
 
 
 
-    /**
-     * Get subject
-     *
-     * @return integer
-     */
-    public function getSubject()
-    {
-        return $this->subject;
-    }
+/**
+ * Get subject
+ *
+ * @return integer
+ */
+public function getSubject()
+{
+    return $this->subject;
+}
 
-    /**
-     * Get nameDemande
-     *
-     * @return integer
-     */
-    public function getNameDemande()
-    {
-        return $this->nameDemande;
-    }
+/**
+ * Get nameDemande
+ *
+ * @return integer
+ */
+public function getNameDemande()
+{
+    return $this->nameDemande;
+}
 
-    /**
-     * Get typeForm
-     *
-     * @return integer
-     */
-    public function getTypeForm()
-    {
-        return $this->typeForm;
-    }
-    /**
-     * Get service
-     *
-     * @return integer
-     */
-    public function getService()
-    {
-        return $this->service;
-    }
+/**
+ * Get typeForm
+ *
+ * @return integer
+ */
+public function getTypeForm()
+{
+    return $this->typeForm;
+}
+/**
+ * Get service
+ *
+ * @return integer
+ */
+public function getService()
+{
+    return $this->service;
+}
 
 
 }

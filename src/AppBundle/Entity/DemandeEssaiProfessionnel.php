@@ -23,6 +23,8 @@ class DemandeEssaiProfessionnel extends DemandeForm
     private $id;
 
     /**
+     * ___demande_essai_pro.nom
+     *
      * @var string
      *
      * @ORM\Column(name="nom", type="string")
@@ -30,6 +32,8 @@ class DemandeEssaiProfessionnel extends DemandeForm
     private $nom;
 
     /**
+     * ___demande_essai_pro.prenom
+     *
      * @var string
      *
      * @ORM\Column(name="prenom", type="string")
@@ -37,6 +41,8 @@ class DemandeEssaiProfessionnel extends DemandeForm
     private $prenom;
 
     /**
+     * ___demande_essai_pro.adresse
+     *
      * @var string
      *
      * @ORM\Column(name="adresse", type="string")
@@ -44,6 +50,8 @@ class DemandeEssaiProfessionnel extends DemandeForm
     private $adresse;
 
     /**
+     * ___demande_essai_pro.codePostal
+     *
      * @var string
      *
      * @ORM\Column(name="code_postal", type="string")
@@ -51,13 +59,17 @@ class DemandeEssaiProfessionnel extends DemandeForm
     private $codePostal;
 
     /**
+     * ___demande_essai_pro.ville
+     *
      * @var string
      *
      * @ORM\Column(name="ville", type="string")
      */
     private $ville;
 
-      /**
+    /**
+     * ___demande_essai_pro.dateNaissance
+     *
      * @var string
      *
      * @ORM\Column(name="date_naissance", type="date", length=255)
@@ -65,6 +77,8 @@ class DemandeEssaiProfessionnel extends DemandeForm
     private $dateNaissance;
 
     /**
+     * ___demande_essai_pro.nationalite
+     *
      * @var string
      *
      * @ORM\Column(name="nationalite", type="string")
@@ -72,6 +86,8 @@ class DemandeEssaiProfessionnel extends DemandeForm
     private $nationalite;
 
     /**
+     * ___demande_essai_pro.lieuNaissance
+     *
      * @var string
      *
      * @ORM\Column(name="lieu_naissance", type="string")
@@ -79,13 +95,18 @@ class DemandeEssaiProfessionnel extends DemandeForm
     private $lieuNaissance;
 
     /**
+     * ___demande_essai_pro.departement
+     *
      * @var string
      *
      * @ORM\Column(name="departement", type="string")
      */
     private $departement;
 
+
     /**
+     * ___demande_essai_pro.numSecu
+     *
      * @var string
      *
      * @ORM\Column(name="num_secu", type="string", length=255)
@@ -93,6 +114,8 @@ class DemandeEssaiProfessionnel extends DemandeForm
     private $numSecu;
 
     /**
+     * ___demande_essai_pro.dateEssai
+     *
     * @var string
     *
     * @ORM\Column(name="date_essai", type="date", length=255)
@@ -100,6 +123,8 @@ class DemandeEssaiProfessionnel extends DemandeForm
     private $dateEssai;
 
     /**
+     * ___demande_essai_pro.niveau
+     *
      * @var string
      *
      * @ORM\Column(name="niveau", type="string", length=255,  nullable=true)
@@ -107,6 +132,8 @@ class DemandeEssaiProfessionnel extends DemandeForm
     private $niveau;
 
     /**
+     * ___demande_essai_pro.diplomes
+     *
      * @var array
      *
      * @ORM\Column(name="diplomes", type="array")
@@ -114,13 +141,18 @@ class DemandeEssaiProfessionnel extends DemandeForm
     private $diplomes;
 
     /**
+     * ___demande_essai_pro.qualification
+     *
      * @var string
      *
      * @ORM\Column(name="qualification", type="string")
      */
+
     private $qualification;
 
     /**
+     * ___demande_essai_pro.nbHeures
+     *
      * @var int
      *
      * @ORM\Column(name="nb_heures", type="integer")
@@ -128,6 +160,8 @@ class DemandeEssaiProfessionnel extends DemandeForm
     private $nbHeures;
 
     /**
+     * ___demande_essai_pro.priseReference
+     *
      * @var string
      *
      * @ORM\Column(name="prise_reference", type="string")
@@ -135,6 +169,8 @@ class DemandeEssaiProfessionnel extends DemandeForm
     private $priseReference;
 
     /**
+     * ___demande_essai_pro.telephone
+     *
      * @var string
      *
      * @ORM\Column(name="telephone", type="string", length=25)
@@ -142,6 +178,8 @@ class DemandeEssaiProfessionnel extends DemandeForm
     private $telephone;
 
     /**
+     * ___demande_essai_pro.carteId
+     *
      * @var string
      *
      * @ORM\Column(name="carte_id", type="string", length=255)
@@ -149,6 +187,8 @@ class DemandeEssaiProfessionnel extends DemandeForm
     protected $carteId;
 
     /**
+     * ___demande_essai_pro.rib
+     *
      * @var string
      *
      * @ORM\Column(name="rib", type="string", length=255)

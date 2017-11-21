@@ -28,6 +28,8 @@ class DemandeRuptureCdd extends DemandeForm
   private $id;
 
   /**
+   * ___demande_rupture_cdd.nomCol
+   *
    * @var int
    *
    * @ORM\Column(name="matricule", type="integer", nullable=false)
@@ -35,6 +37,28 @@ class DemandeRuptureCdd extends DemandeForm
   private $matricule;
 
   /**
+   * ___demande_rupture_cdd.raison
+   *
+   * @var string
+   *
+   * @ORM\Column(name="raison", type="string", length=255)
+   */
+  private $raison;
+
+
+  /**
+   * ___demande_rupture_cdd.ruptAnt
+   *
+  * @var string
+  *
+  * @ORM\Column(name="rupture_anticipe", type="string", length=255, nullable=true)
+  */
+ private $ruptureAncticipe;
+
+
+  /**
+   * ___demande_rupture_cdd.date1
+   *
    * @var string
    *
    * @ORM\Column(name="date_debut", type="date", length=255, nullable=true)
@@ -42,25 +66,18 @@ class DemandeRuptureCdd extends DemandeForm
   private $dateFin;
 
   /**
+   * ___demande_rupture_cdd.date2
+   *
    * @var string
    *
    * @ORM\Column(name="date_fin", type="date", length=255, nullable=true)
    */
   private $dateDepart;
 
-   /** @var string
-    *
-    * @ORM\Column(name="raison", type="string", length=255)
-    */
-   private $raison;
-
-   /** @var string
-   *
-   * @ORM\Column(name="rupture_anticipe", type="string", length=255, nullable=true)
-   */
-  private $ruptureAncticipe;
 
   /**
+   * ___demande_rupture_cdd.pj
+   *
    * @var string
    *
    * @ORM\Column(name="lettre", type="string", length=255, nullable=true)
@@ -68,6 +85,8 @@ class DemandeRuptureCdd extends DemandeForm
   protected $lettre;
 
   /**
+   * ___demande_rupture_cdd.collaborateur
+   *
    * @var string
    *
    * @ORM\Column(name="nom_collab", type="string", length=255, nullable=true)
@@ -140,6 +159,54 @@ class DemandeRuptureCdd extends DemandeForm
     }
 
     /**
+     * Set raison
+     *
+     * @param string $raison
+     *
+     * @return DemandeRuptureCdd
+     */
+    public function setRaison($raison)
+    {
+        $this->raison = $raison;
+
+        return $this;
+    }
+
+    /**
+     * Get raison
+     *
+     * @return string
+     */
+    public function getRaison()
+    {
+        return $this->raison;
+    }
+
+    /**
+     * Set ruptureAncticipe
+     *
+     * @param string $ruptureAncticipe
+     *
+     * @return DemandeRuptureCdd
+     */
+    public function setRuptureAncticipe($ruptureAncticipe)
+    {
+        $this->ruptureAncticipe = $ruptureAncticipe;
+
+        return $this;
+    }
+
+    /**
+     * Get ruptureAncticipe
+     *
+     * @return string
+     */
+    public function getRuptureAncticipe()
+    {
+        return $this->ruptureAncticipe;
+    }
+
+    /**
      * Set dateFin
      *
      * @param \DateTime $dateFin
@@ -209,54 +276,6 @@ class DemandeRuptureCdd extends DemandeForm
     public function getLettre()
     {
         return $this->lettre;
-    }
-
-    /**
-     * Set raison
-     *
-     * @param string $raison
-     *
-     * @return DemandeRuptureCdd
-     */
-    public function setRaison($raison)
-    {
-        $this->raison = $raison;
-
-        return $this;
-    }
-
-    /**
-     * Get raison
-     *
-     * @return string
-     */
-    public function getRaison()
-    {
-        return $this->raison;
-    }
-
-    /**
-     * Set ruptureAncticipe
-     *
-     * @param string $ruptureAncticipe
-     *
-     * @return DemandeRuptureCdd
-     */
-    public function setRuptureAncticipe($ruptureAncticipe)
-    {
-        $this->ruptureAncticipe = $ruptureAncticipe;
-
-        return $this;
-    }
-
-    /**
-     * Get ruptureAncticipe
-     *
-     * @return string
-     */
-    public function getRuptureAncticipe()
-    {
-        return $this->ruptureAncticipe;
     }
 
     /**

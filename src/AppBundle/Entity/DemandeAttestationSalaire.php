@@ -14,7 +14,24 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class DemandeAttestationSalaire extends DemandeForm
 {
+    protected $nameDemande ='DemandeAttestationSalaire';
+    protected $typeForm ='Demande d\'attestation salaire';
+    protected $subject ='connu';
+    protected $service ='paie';
+
     /**
+     * ___demande_attestation_salaire.collaborateur
+     *
+     * @var int
+     *
+     * @ORM\Column(name="matricule", type="integer")
+     */
+    private $matricule;
+
+
+    /**
+     * ___demande_attestation_salaire.etat
+     *
      * @var string
      *
      * @ORM\Column(name="etat", type="string")
@@ -22,6 +39,8 @@ class DemandeAttestationSalaire extends DemandeForm
     private $etat;
 
     /**
+     * ___demande_attestation_salaire.motif
+     *
      * @var string
      *
      * @ORM\Column(name="motif", type="string")
@@ -29,77 +48,24 @@ class DemandeAttestationSalaire extends DemandeForm
     private $motif;
 
     /**
+     * ___demande_attestation_salaire.dateDernierJour
+     *
      * @var string
      *
      * @ORM\Column(name="date_dernier_jour", type="date")
      */
     private $dateDernierJour;
+
     /**
+     * ___demande_attestation_salaire.dateReprise
+     *
      * @var string
      *
      * @ORM\Column(name="date_reprise", type="date")
      */
     private $dateReprise;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="matricule", type="integer")
-     */
-    private $matricule;
 
-    protected $nameDemande ='DemandeAttestationSalaire';
-    protected $typeForm ='Demande d\'attestation salaire';
-    protected $subject ='connu';
-    protected $service ='paie';
-
-    /**
-     * Set etat
-     *
-     * @param integer $etat
-     *
-     * @return DemandeAttestationSalaire
-     */
-    public function setEtat($etat)
-    {
-        $this->etat = $etat;
-
-        return $this;
-    }
-
-    /**
-     * Get etat
-     *
-     * @return integer
-     */
-    public function getEtat()
-    {
-        return $this->etat;
-    }
-
-    /**
-     * Set matricule
-     *
-     * @param integer $matricule
-     *
-     * @return DemandeAttestationSalaire
-     */
-    public function setMatricule($matricule)
-    {
-        $this->matricule = $matricule;
-
-        return $this;
-    }
-
-    /**
-     * Get matricule
-     *
-     * @return integer
-     */
-    public function getMatricule()
-    {
-        return $this->matricule;
-    }
     /**
      * Get nameDemande
      *
@@ -138,6 +104,54 @@ class DemandeAttestationSalaire extends DemandeForm
     public function getSubject()
     {
         return $this->subject;
+    }
+
+    /**
+     * Set matricule
+     *
+     * @param integer $matricule
+     *
+     * @return DemandeAttestationSalaire
+     */
+    public function setMatricule($matricule)
+    {
+        $this->matricule = $matricule;
+
+        return $this;
+    }
+
+    /**
+     * Get matricule
+     *
+     * @return integer
+     */
+    public function getMatricule()
+    {
+        return $this->matricule;
+    }
+
+    /**
+     * Set etat
+     *
+     * @param string $etat
+     *
+     * @return DemandeAttestationSalaire
+     */
+    public function setEtat($etat)
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+    /**
+     * Get etat
+     *
+     * @return string
+     */
+    public function getEtat()
+    {
+        return $this->etat;
     }
 
     /**

@@ -9,6 +9,8 @@ global:
     accepter:      Accepter
     rejeter:       Rejeter
     choiceFile:    Choisir un fichier
+    affirme:       Oui
+    negative:      Non
 
 login:
     username:  Nom d'utilisateur
@@ -28,7 +30,7 @@ home:
     demand:            Suivre les demandes
     ca:                Suivi journalier du CA
     volume:            Suivi journalier du volume
-    deconnection:      Déconnection
+    deconnexion:       Déconnexion
     accueil:           Accueil
     gestion:           Gestion
     autre_demand:      Autre demande
@@ -48,7 +50,7 @@ home_juridique_rh:
     embauche:     Demande embauche
     rupture:      Rupture CDD
     conge:        Congé parental
-    essai:         Rupture période d'essai
+    essai:        Rupture période d'essai
     absence:      Absence injustifiée
     promesse:     Promesse d'embauche
     avenant:      Avenant
@@ -58,7 +60,7 @@ home_juridique_rh:
     header:       Nouvelle demande Juridique / RH
     back:         Retour
 
-demande_acompte:
+___demande_acompte:
     titre:    Demande d'acompte
     nom:      Collaborateur
     envoyer:  Envoyer
@@ -75,8 +77,8 @@ demande_acompte:
 
 
 demande_rib:
-    titre:              Demande de rib
-    rib:                Rib
+    titre:              Demande de RIB
+    rib:                RIB
     rappel:             Rappel
     collaborateur:      Collaborateur
     envoyer:            Envoyer
@@ -101,7 +103,7 @@ autre_demande:
     popupValidation:
         message:    Votre demande a été envoyée.
 
-demande_rupture_periode_essai:
+___demande_rupture_periode_essai:
     titre:       Rupture de Période d'essai
     collab:      Collaborateur
     contrat:     Contrat
@@ -114,7 +116,7 @@ demande_rupture_periode_essai:
     popupValidation:
         message:    Votre demande de rupture de période d'essai a été envoyée.
 
-demande_demission:
+___demande_demission:
       titre:       Démission
       collab:      Collaborateur
       dem:         DEM signée
@@ -122,16 +124,17 @@ demande_demission:
       desactiver:  Désactiver la clause
       payer:       Payer la Clause
       choice:      Choisir un fichier
+      date:        Date
 
       popupValidation:
          message:   Votre demande de démission a été envoyée.
 
-demande_promesse_embauche:
+___demande_promesse_embauche:
       titre:         Promesse d'embauche
       collab:        Collaborateur
       contrat:       Contrat
-      cdi:           Cdi
-      cdd:           Cdd
+      cdi:           CDI
+      cdd:           CDD
       poste:         Poste de travail
       niveau:        Niveau
       echelon:       Echelon
@@ -142,10 +145,10 @@ demande_promesse_embauche:
       popupValidation:
          message:   Votre demande de promesse d'embauche a été envoyée.
 
-demande_essai_pro:
+___demande_essai_pro:
       titre:           Essai professionnel
       nom:             Nom
-      prenom:          Prenom
+      prenom:          Prénom
       adresse:         Adresse
       codePostal:      Code Postal
       dateNaissance:   Date de naissance
@@ -153,7 +156,7 @@ demande_essai_pro:
       ville:           Ville
       lieuNaissance:   Lieu de naissance
       departement:     Département
-      numSecu:         N° S.S:
+      numSecu:         N° Sécu:
       dateEssai:       Date d'essai
       niveau:          Niv. Convention
       diplomes:        Diplômes
@@ -163,7 +166,7 @@ demande_essai_pro:
       oui:             Oui
       non:             Non
       telephone:       Téléphone
-      rib:             Rib
+      rib:             RIB
       carteId:         Pièce d'identité
 
       popupValidation:
@@ -173,16 +176,16 @@ demande_essai_pro:
          attention: Attention
          msg:          Avant de commencer à remplir le formulaire, veuillez vérifier que vous disposez toutes les pièces justificatives suivantes au format électronique :
          docRib:       Photocopie de la pièce d'identité
-         docCarteId:   Rib
+         docCarteId:   RIB
          titreArticle: '*Article 7.1.1 de la convention Collective de la Coiffure - Essai Professionnel'
          articleLoi: L'embauche peut être précédée d'un essai professionnel qui consiste en une épreuve permettant à l'employeur de vérifier la qualification du postulant et son aptitude à occuper le poste demandé. Sa durée ne peut dépasser 1 journée et fera l'objet d'une indemnité forfaitaire de déplacement basée sur 7 fois le taux horaire minimum garanti du poste à pourvoir.Lorsque l'employeur refuse le candidat présenté sur sa demande par un bureau de placement, il lui devra à titre d'indemnité de déplacement une somme égale à 2 heures de travail sur la base du SMIC.
 
-lettre_mission:
+___demande_lettre_mission:
     titre:         Lettre de mission
     nom:           Collaborateur
-    envoyer:       Envoyer
     35h:           Passage à 35h/semaine
-    xh:            Passage à
+    xh:            Passage à temps partiel
+    tempsTravail:  Temps de travail
     depla:         Déplacement vers le salon
     raison:        Raison
     salon:         Salon
@@ -193,41 +196,53 @@ lettre_mission:
     popupValidation:
         message:    Votre demande de lettre de mission a été envoyée.
 
-rupture_cdd:
-    titre:        Rupture CDD
-    retour:       Fin de CDD (Retour)
-    depart:       Fin de CDD (Départ)
-    rupture:      Rupture anticipé de CDD en raison:
-    cdi:          Une embauche en CDI au sein du mêm salon le ...
-    cdi2:         Une embauche en CDI au sein d'une autre société (départ prévu le)
-    demande:      Suite à la demande du salarié (départ le )
-    accord:       Un commun accord en payant la prime de précarité
-    accord2:      Un commun accord en ne payant pas la prime de précarité
-    nom:          Retour de M:
-    nom2:         Départ de M:
-    datefin:      Date de fin du Contrat
-    datedepart:   Date de départ
-    dateretour:   Date de retour
-    joindre:      Joindre une lettre
+___demande_rupture_cdd:
+    titre:         Rupture CDD
+    collaborateur: Collaborateur
+    raison:        Raison
+    retour:        Fin de CDD (Retour)
+    depart:        Fin de CDD (Départ)
+    rupture:       Rupture anticipé de CDD en raison:
+    cdi:           Une embauche en CDI au sein du mêm salon le:
+    cdi2:          Une embauche en CDI au sein d'une autre société (départ prévu le)
+    demande:       Suite à la demande du salarié (départ le )
+    accord:        Un commun accord en payant la prime de précarité
+    accord2:       Un commun accord en ne payant pas la prime de précarité
+    nom:           Retour de:
+    nom2:          Départ de:
+    datefin:       Date de fin du Contrat
+    datedepart:    Date de départ
+    dateretour:    Date de retour
+    joindre:       Joindre une lettre
+    rib:           RIB
+    ruptAnt:       Rupture Anticipée
+    nomCol:        Nom
+    pj:            Pièce jointe
+    date1:         Le
+    date2:         Le
 
     popupValidation:
         message:    Votre demande de rupture de CDD a été envoyée.
 
-conge_parental:
+___conge_parental:
     titre:        Congé Parental
-    passage:      Passage ..h/semain du ... au ...
-    reprise:      Reprise anticipé à 35h/semain le ... au lieu du ...
+    collab:       Collaborateur
+    tempsPartiel: Temps Partiel
+    passage:      Modification du temps de travail
+    reprise:      Reprise anticipé à 35h/semaine prévu :
     lettre:       Joindre lettre
+    lettreLabel:  Lettre
     le:           Le
     aulieu:       Au lieu du
     du:           Du
     au:           Au
     date:         Date
+    raison:       Raison
 
     popupValidation:
         message:    Votre demande de congé parental a été envoyée.
 
-demande_attestation_salaire:
+___demande_attestation_salaire:
     titre:               Attestation Salaire
     collaborateur:       Collaborateur
     etat:                Etat
@@ -250,7 +265,7 @@ demande_attestation_salaire:
     popupValidation:
         message:    Votre demande d'attestation salaire a été envoyée.
 
-demande_solde_tout_compte:
+___demande_solde_tout_compte:
     titre:                    Solde Tout Compte
     sousTitreRupture:         Rupture de contrat
     sousTitreSalaireVariable: Salaire Variable
@@ -260,11 +275,11 @@ demande_solde_tout_compte:
     dateDernierJour:          Date du dernier jour
     motif:                    Motif de départ
     preavis:                  Démission avec préavis
-    rpeEmploye:               RUPTURE PERIODE D'ESSAI initiative employeur
-    rpeSalarie:               RUPTURE PERIODE D'ESSAI initiative salarié
+    rpeEmploye:               Rupture période d'essai initiative employeur
+    rpeSalarie:               Rupture période d'essai initiative salarié
     finCdd:                   Fin de CDD ou ALTERNANCE comme prévu au contrat
-    ruptureAnticipe:          RUPTURE ANTICIPEE DE CDD
-    mutation:                 MUTATION vers le salon
+    ruptureAnticipe:          Rupture anticipée DE CDD
+    mutation:                 Mutation vers le salon
     salon:                    Salon
     retraite:                 Retraite
     typeAbsence:              Type d'absence
@@ -291,7 +306,7 @@ demande_solde_tout_compte:
         gestionAdministrativeMessage: Supprimer le code caisse, remplir le registre du personnel, informer la médecin du travail
 
 
-demande_embauche:
+___demande_embauche:
     header:        Demande d'embauche
     back:          Retour
     attention:     Attention !
@@ -354,14 +369,14 @@ demande_embauche:
     pro:           Contrat de pro
     cdd:           CDD
 
-    cdd.surcroit:       Surcroît d'activité
-    cdd.rempla:         Remplacement
-    cdd.nature:         Nature de l'absence
-    cdd.nom:            Nom du remplacé
-    cdd.date:           Jusqu'au
-    cdd.renouv:         Renouvellement du CDD pour le même motif
-    cdd.retour:         Jusqu'au retour physique
-    cdd.partiel:        Temps partiel
+    cdd.surcroit:  Surcroît d'activité
+    cdd.rempla:    Remplacement
+    cdd.nature:    Nature de l'absence
+    cdd.nom:       Nom du remplacé
+    cdd.date:      Jusqu'au
+    cdd.renouv:    Renouvellement du CDD pour le même motif
+    cdd.retour:    Jusqu'au retour physique
+    cdd.partiel:   Temps partiel
     cdd.tempsTravail:   Temps de travail
 
     lundi:         Lu
@@ -373,7 +388,7 @@ demande_embauche:
     total:         Total
 
 
-    autre:         Autre
+    autre:         autre
     precisez:      Précisez
 
     sexe:          Sexe
@@ -391,32 +406,38 @@ demande_embauche:
     popupValidation:
         message:    Votre demande d’embauche a été envoyée.
 
-avenant:
+___avenant:
     titre:              Demande d'avenant
-    partielTherap:      Temps partiel thérapeuthique ...h/semaine du ... au ...
+    collab:             Collaborateur
+    raison:             Raison
+    partielTherap:      Temps partiel thérapeuthique
+    TempsPartiel:       Temps de travail
     arretMaladie:       Arrêt maladie
     avisMed:            Avis méd. du travail
-    partielDef:         Temps partiel définitif ..h/semaine du ... au ...
+    partielDef:         Temps partiel définitif
     courrier:           Joindre courrier
-    tempsPlein:         Temps plein définitif 35h/semaine à partir du
-    39h:                39h/semaine définitif à partir du ...
-    manager:            Passage Manager Niveau 3 Echelon 1, à partir du ...
+    tempsPlein:         Temps plein définitif 35h/semaine
+    39h:                39h/semaine définitif
+    manager:            Passage Manager Niveau 3 Echelon 1
     fixe:               Salaire fixe
     variable:           Salaire varialble mensuel
     trim:               Salaire variable trimestriel
     aPartir:            A partir du
     du:                 Du
     au:                 Au
+    pj:                 Pièce pieceJointe
 
     popupValidation:
         message:        Votre demande d'avenant a été envoyée.
 
-absences:
-    titre:              Absences Injustifiees
+___absences:
+    titre:              Absences Injustifiées
     abs:                Absence injustifée depuis le ...
-    absLes:             Absences injustifiees les ...
+    absLes:             Absences injustifiees
     retards:            Retards répétés les ...
-
+    matricule:          Nom
+    date:               Date
+    raison:             Raison
     popupValidation:
         message:        Votre demande d'absence injustifiée à bien été envoyé.
 
@@ -424,9 +445,9 @@ suivi_demandes:
     header:              Suivre les demandes
     codesage:            Code Sage
     enseigne:            Enseigne
-    appelation:          Appelation
+    appellation:         Appellation
     coordinateur:        Coordinateur
-    manager:             Manager
+    demandeur:           Demandeur
     date:                Date
     statut:              Statut
     typedemande:         Type

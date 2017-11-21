@@ -98,8 +98,8 @@ class DemandeEssaiProfessionnelType extends AbstractType
                 ))
                 ->add('priseReference', ChoiceType::class, array(
                           'choices'  => array(
-                            'demande_essai_pro.oui'  => 'demande_essai_pro.oui',
-                            'demande_essai_pro.non' => 'demande_essai_pro.non'),
+                            '___demande_essai_pro.oui'  => '___demande_essai_pro.oui',
+                            '___demande_essai_pro.non' => '___demande_essai_pro.non'),
                           'attr' => ['class' => 'form-control labelRadioStyle'],
                           'choice_translation_domain' => 'translator',
                           'translation_domain' => 'translator',

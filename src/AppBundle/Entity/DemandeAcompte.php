@@ -20,18 +20,49 @@ class DemandeAcompte extends DemandeForm
     protected $service ='paie';
 
     /**
+     * ___demande_acompte.nom
+     *
+     * @var int
+     *
+     * @ORM\Column(name="matricule", type="integer")
+     */
+    private $matricule;
+
+
+    /**
+     * ___demande_acompte.montant
+     *
      * @var string
      *
      * @ORM\Column(name="montant", type="string")
      */
     private $montant;
 
+
     /**
-     * @var int
+     * Set matricule
      *
-     * @ORM\Column(name="matricule", type="integer")
+     * @param integer $matricule
+     *
+     * @return DemandeAcompte
      */
-    private $matricule;
+    public function setMatricule($matricule)
+    {
+        $this->matricule = $matricule;
+
+        return $this;
+    }
+
+    /**
+     * Get matricule
+     *
+     * @return integer
+     */
+    public function getMatricule()
+    {
+        return $this->matricule;
+    }
+
 
     /**
      * Set montant
@@ -57,29 +88,6 @@ class DemandeAcompte extends DemandeForm
         return $this->montant;
     }
 
-    /**
-     * Set matricule
-     *
-     * @param integer $matricule
-     *
-     * @return DemandeAcompte
-     */
-    public function setMatricule($matricule)
-    {
-        $this->matricule = $matricule;
-
-        return $this;
-    }
-
-    /**
-     * Get matricule
-     *
-     * @return integer
-     */
-    public function getMatricule()
-    {
-        return $this->matricule;
-    }
 
     /**
      * Get nameDemande

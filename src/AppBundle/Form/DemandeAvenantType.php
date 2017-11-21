@@ -68,11 +68,11 @@ class DemandeAvenantType extends AbstractType
             ))
             ->add('raison', ChoiceType::class, array(
               'choices' => array(
-                'avenant.partielTherap' => 'avenant.partielTherap',
-                'avenant.partielDef'    => 'avenant.partielDef',
-                'avenant.tempsPlein'    => 'avenant.tempsPlein',
-                'avenant.39h'           => 'avenant.39h',
-                'avenant.manager'       => 'avenant.manager',
+                '___avenant.partielTherap' => '___avenant.partielTherap',
+                '___avenant.partielDef'    => '___avenant.partielDef',
+                '___avenant.tempsPlein'    => '___avenant.tempsPlein',
+                '___avenant.39h'           => '___avenant.39h',
+                '___avenant.manager'       => '___avenant.manager',
               ),
               'choice_translation_domain' => 'translator',
               'translation_domain' => 'translator',

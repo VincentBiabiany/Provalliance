@@ -320,7 +320,7 @@ class DemandeEmbauche extends DemandeForm
     private $tempsPartiel;
 
     /**
-     * ___demande_embauche.nom
+     * ___demande_embauchepi
      *
      * @var string
      *
@@ -329,7 +329,7 @@ class DemandeEmbauche extends DemandeForm
     protected $carteId;
 
     /**
-     * ___demande_embauche.nom
+     * ___demande_embauche.diplome
      *
      * @var string
      *
@@ -338,7 +338,7 @@ class DemandeEmbauche extends DemandeForm
     protected $diplomeFile;
 
     /**
-     * ___demande_embauche.nom
+     * ___demande_embauche.diplome2
      *
      * @var string
      *
@@ -347,7 +347,7 @@ class DemandeEmbauche extends DemandeForm
     protected $diplomeFile2;
 
     /**
-     * ___demande_embauche.nom
+     * ___demande_embauche.cartev
      *
      * @var string
      *
@@ -356,7 +356,7 @@ class DemandeEmbauche extends DemandeForm
     protected $carteVitale;
 
     /**
-     * ___demande_embauche.nom
+     * ___demande_embauche.rib
      *
      * @var string
      *
@@ -365,7 +365,7 @@ class DemandeEmbauche extends DemandeForm
     protected $rib;
 
     /**
-     * ___demande_embauche.nom
+     * ___demande_embauche.adhesion
      *
      * @var string
      *

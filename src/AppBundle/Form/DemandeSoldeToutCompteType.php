@@ -80,13 +80,13 @@ class DemandeSoldeToutCompteType extends AbstractType
                 ))
                 ->add('motif', ChoiceType::class, array(
                   'choices'  => array(
-                    'demande_solde_tout_compte.preavis'  => 'demande_solde_tout_compte.preavis',
-                    'demande_solde_tout_compte.rpeEmploye' => 'demande_solde_tout_compte.rpeEmploye',
-                    'demande_solde_tout_compte.rpeSalarie' => 'demande_solde_tout_compte.rpeSalarie',
-                    'demande_solde_tout_compte.finCdd' => 'demande_solde_tout_compte.finCdd',
-                    'demande_solde_tout_compte.ruptureAnticipe' => 'demande_solde_tout_compte.ruptureAnticipe',
-                    'demande_solde_tout_compte.mutation' => 'demande_solde_tout_compte.mutation',
-                    'demande_solde_tout_compte.retraite' => 'demande_solde_tout_compte.retraite',
+                    '___demande_solde_tout_compte.preavis'  => '___demande_solde_tout_compte.preavis',
+                    '___demande_solde_tout_compte.rpeEmploye' => '___demande_solde_tout_compte.rpeEmploye',
+                    '___demande_solde_tout_compte.rpeSalarie' => '___demande_solde_tout_compte.rpeSalarie',
+                    '___demande_solde_tout_compte.finCdd' => '___demande_solde_tout_compte.finCdd',
+                    '___demande_solde_tout_compte.ruptureAnticipe' => '___demande_solde_tout_compte.ruptureAnticipe',
+                    '___demande_solde_tout_compte.mutation' => '___demande_solde_tout_compte.mutation',
+                    '___demande_solde_tout_compte.retraite' => '___demande_solde_tout_compte.retraite',
                   ),
                   'choice_translation_domain' => 'translator',
                   'translation_domain' => 'translator',
@@ -98,11 +98,11 @@ class DemandeSoldeToutCompteType extends AbstractType
                 ))
                 ->add('typeAbsence', ChoiceType::class, array(
                   'choices'  => array(
-                    'demande_solde_tout_compte.arretMaladie'  => 'demande_solde_tout_compte.arretMaladie',
-                    'demande_solde_tout_compte.absenceInjustifiee' => 'demande_solde_tout_compte.absenceInjustifiee',
-                    'demande_solde_tout_compte.congePayes' => 'demande_solde_tout_compte.congePayes',
-                    'demande_solde_tout_compte.congeParental' => 'demande_solde_tout_compte.congeParental',
-                    'demande_solde_tout_compte.autre' => 'demande_solde_tout_compte.autre',
+                    '___demande_solde_tout_compte.arretMaladie'  => '___demande_solde_tout_compte.arretMaladie',
+                    '___demande_solde_tout_compte.absenceInjustifiee' => '___demande_solde_tout_compte.absenceInjustifiee',
+                    '___demande_solde_tout_compte.congePayes' => '___demande_solde_tout_compte.congePayes',
+                    '___demande_solde_tout_compte.congeParental' => '___demande_solde_tout_compte.congeParental',
+                    '___demande_solde_tout_compte.autre' => '___demande_solde_tout_compte.autre',
                   ),
                   'choice_translation_domain' => 'translator',
                   'translation_domain' => 'translator',

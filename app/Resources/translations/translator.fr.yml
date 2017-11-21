@@ -50,7 +50,7 @@ home_juridique_rh:
     embauche:     Demande embauche
     rupture:      Rupture CDD
     conge:        Congé parental
-    essai:         Rupture période d'essai
+    essai:        Rupture période d'essai
     absence:      Absence injustifiée
     promesse:     Promesse d'embauche
     avenant:      Avenant
@@ -60,7 +60,7 @@ home_juridique_rh:
     header:       Nouvelle demande Juridique / RH
     back:         Retour
 
-demande_acompte:
+___demande_acompte:
     titre:    Demande d'acompte
     nom:      Collaborateur
     envoyer:  Envoyer
@@ -76,7 +76,7 @@ demande_acompte:
 
 
 
-demande_rib:
+__demande_rib:
     titre:              Demande de RIB
     rib:                RIB
     rappel:             Rappel
@@ -124,11 +124,12 @@ ___demande_demission:
       desactiver:  Désactiver la clause
       payer:       Payer la Clause
       choice:      Choisir un fichier
+      date:        Date
 
       popupValidation:
          message:   Votre demande de démission a été envoyée.
 
-demande_promesse_embauche:
+___demande_promesse_embauche:
       titre:         Promesse d'embauche
       collab:        Collaborateur
       contrat:       Contrat
@@ -144,7 +145,7 @@ demande_promesse_embauche:
       popupValidation:
          message:   Votre demande de promesse d'embauche a été envoyée.
 
-demande_essai_pro:
+___demande_essai_pro:
       titre:           Essai professionnel
       nom:             Nom
       prenom:          Prénom
@@ -213,26 +214,35 @@ ___demande_rupture_cdd:
     datedepart:    Date de départ
     dateretour:    Date de retour
     joindre:       Joindre une lettre
-    rib:            RIB
+    rib:           RIB
+    ruptAnt:       Rupture Anticipée
+    nomCol:        Nom
+    pj:            Pièce jointe
+    date1:         Le
+    date2:         Le
 
     popupValidation:
         message:    Votre demande de rupture de CDD a été envoyée.
 
-conge_parental:
+___conge_parental:
     titre:        Congé Parental
+    collab:       Collaborateur
+    tempsPartiel: Temps Partiel
     passage:      Modification du temps de travail
     reprise:      Reprise anticipé à 35h/semaine prévu :
     lettre:       Joindre lettre
+    lettreLabel:  Lettre
     le:           Le
     aulieu:       Au lieu du
     du:           Du
     au:           Au
     date:         Date
+    raison:       Raison
 
     popupValidation:
         message:    Votre demande de congé parental a été envoyée.
 
-demande_attestation_salaire:
+___demande_attestation_salaire:
     titre:               Attestation Salaire
     collaborateur:       Collaborateur
     etat:                Etat
@@ -255,7 +265,7 @@ demande_attestation_salaire:
     popupValidation:
         message:    Votre demande d'attestation salaire a été envoyée.
 
-demande_solde_tout_compte:
+___demande_solde_tout_compte:
     titre:                    Solde Tout Compte
     sousTitreRupture:         Rupture de contrat
     sousTitreSalaireVariable: Salaire Variable
@@ -396,8 +406,9 @@ ___demande_embauche:
     popupValidation:
         message:    Votre demande d’embauche a été envoyée.
 
-avenant:
+___avenant:
     titre:              Demande d'avenant
+    collab:             Collaborateur
     raison:             Raison
     partielTherap:      Temps partiel thérapeuthique
     TempsPartiel:       Temps de travail
@@ -414,16 +425,19 @@ avenant:
     aPartir:            A partir du
     du:                 Du
     au:                 Au
+    pj:                 Pièce pieceJointe
 
     popupValidation:
         message:        Votre demande d'avenant a été envoyée.
 
-absences:
-    titre:              Absences Injustifiees
+___absences:
+    titre:              Absences Injustifiées
     abs:                Absence injustifée depuis le ...
-    absLes:             Absences injustifiees les ...
+    absLes:             Absences injustifiees
     retards:            Retards répétés les ...
-
+    matricule:          Nom
+    date:               Date
+    raison:             Raison
     popupValidation:
         message:        Votre demande d'absence injustifiée à bien été envoyé.
 

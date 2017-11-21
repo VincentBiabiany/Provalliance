@@ -19,7 +19,10 @@ class DemandeCongeParental extends DemandeForm
   protected $subject ='connu';
   protected $service ='juridique';
 
+
   /**
+   * ___conge_parental.collab
+   *
    * @var int
    *
    * @ORM\Column(name="matricule", type="integer")
@@ -27,27 +30,8 @@ class DemandeCongeParental extends DemandeForm
   private $matricule;
 
   /**
-   * @var array
+   * ___conge_parental.raison
    *
-   * @ORM\Column(name="temps_partiel", type="array", nullable=true)
-   */
-  private $tempsPartiel;
-
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="date_debut", type="date", length=255)
-   */
-  private $dateDebut;
-
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="date_fin", type="date", length=255)
-   */
-  private $dateFin;
-
-  /**
    * @var string
    *
    * @ORM\Column(name="raison", type="string", length=255, nullable=true)
@@ -55,11 +39,42 @@ class DemandeCongeParental extends DemandeForm
   private $raison;
 
   /**
+   * ___conge_parental.tempsPartiel
+   *
+   * @var array
+   *
+   * @ORM\Column(name="temps_partiel", type="array", nullable=true)
+   */
+  private $tempsPartiel;
+
+  /**
+   * ___conge_parental.le
+   *
+   * @var string
+   *
+   * @ORM\Column(name="date_debut", type="date", length=255)
+   */
+  private $dateDebut;
+
+  /**
+   * ___conge_parental.au
+   *
+   * @var string
+   *
+   * @ORM\Column(name="date_fin", type="date", length=255)
+   */
+  private $dateFin;
+
+
+  /**
+   * ___conge_parental.Lettre
+   *
    * @var string
    *
    * @ORM\Column(name="piece_jointe", type="string", length=255, nullable=false)
    */
   protected $pieceJointe;
+
 
   public function __construct()
   {
@@ -129,6 +144,30 @@ class DemandeCongeParental extends DemandeForm
     public function getMatricule()
     {
         return $this->matricule;
+    }
+
+    /**
+     * Set raison
+     *
+     * @param string $raison
+     *
+     * @return DemandeCongeParental
+     */
+    public function setRaison($raison)
+    {
+        $this->raison = $raison;
+
+        return $this;
+    }
+
+    /**
+     * Get raison
+     *
+     * @return string
+     */
+    public function getRaison()
+    {
+        return $this->raison;
     }
 
     /**
@@ -225,29 +264,5 @@ class DemandeCongeParental extends DemandeForm
     public function getPieceJointe()
     {
         return $this->pieceJointe;
-    }
-
-    /**
-     * Set raison
-     *
-     * @param string $raison
-     *
-     * @return DemandeCongeParental
-     */
-    public function setRaison($raison)
-    {
-        $this->raison = $raison;
-
-        return $this;
-    }
-
-    /**
-     * Get raison
-     *
-     * @return string
-     */
-    public function getRaison()
-    {
-        return $this->raison;
     }
 }

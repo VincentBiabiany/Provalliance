@@ -66,8 +66,8 @@ class DemandeCongeParentalType extends AbstractType
             ))
             ->add('raison', ChoiceType::class, array(
               'choices' => array(
-                'conge_parental.passage' => 'conge_parental.passage',
-                'conge_parental.reprise' => 'conge_parental.reprise',
+                '___conge_parental.passage' => '___conge_parental.passage',
+                '___conge_parental.reprise' => '___conge_parental.reprise',
               ),
               'choice_translation_domain' => 'translator',
               'translation_domain' => 'translator',

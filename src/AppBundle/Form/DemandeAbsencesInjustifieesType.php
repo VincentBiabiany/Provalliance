@@ -53,9 +53,9 @@ class DemandeAbsencesInjustifieesType extends AbstractType
             ))
             ->add('raison', ChoiceType::class, array(
               'choices' => array(
-                'absences.abs'      => 'absences.abs',
-                'absences.absLes'   => 'absences.absLes',
-                'absences.retards'  => 'absences.retards',
+                '___absences.abs'      => '___absences.abs',
+                '___absences.absLes'   => '___absences.absLes',
+                '___absences.retards'  => '___absences.retards',
               ),
               'choice_translation_domain' => 'translator',
               'translation_domain' => 'translator',
