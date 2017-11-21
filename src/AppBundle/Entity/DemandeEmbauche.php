@@ -23,6 +23,8 @@ class DemandeEmbauche extends DemandeForm
     private $id;
 
     /**
+     * Label test
+     *
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=255 )
@@ -58,7 +60,8 @@ class DemandeEmbauche extends DemandeForm
     private $adresse2;
 
     /**
-     * @var string
+     * Test
+     *  @var string
      *
      * @ORM\Column(name="code_postal", type="string", length=20)
      */

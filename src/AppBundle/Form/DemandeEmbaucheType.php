@@ -50,9 +50,15 @@ class DemandeEmbaucheType extends AbstractType
           'multiple' => false,
           'attr' => ['class' => 'form-control'],
         ))
+<<<<<<< HEAD
         ->add('adresse1', null, array('attr' => ['class' => 'form-control']))
         ->add('adresse2', null, array('attr' => ['class' => 'form-control']))
         ->add('codePostal', null, array('attr' => ['class' => 'form-control']))
+=======
+        ->add('addresse1', null, array('attr' => ['class' => 'form-control']))
+        ->add('addresse2', null, array('attr' => ['class' => 'form-control']))
+        ->add('codePostal', TextType::class, array('attr' => ['class' => 'form-control']))
+>>>>>>> dev
         ->add('ville', null, array('attr' => ['class' => 'form-control']))
         ->add('telephone', TextType::class, array('attr' => ['class' => 'form-control']))
         ->add('email', EmailType::class, array('attr' => ['class' => 'form-control']))

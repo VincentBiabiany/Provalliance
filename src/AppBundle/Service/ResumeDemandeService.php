@@ -23,6 +23,10 @@ use Symfony\Component\PropertyInfo\PropertyInfo;
 use Symfony\Component\Asset\PathPackage;
 use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 
+
+use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
+
+
 class ResumeDemandeService
 {
   private $em;
@@ -40,10 +44,40 @@ class ResumeDemandeService
 
   public function generateResume($idDemandes,$action)
   {
-    //Extrator Properties
+
+    $phpDocExtractor = new PhpDocExtractor();
+    $descriptionExtractors = array($phpDocExtractor);
+    $phpDocExtractor = new PhpDocExtractor();
     $reflectionExtractor = new ReflectionExtractor();
-    $listExtractors = $reflectionExtractor;
-    $propertyInfo = new PropertyInfoExtractor(array( $listExtractors ));
+
+    // array of PropertyListExtractorInterface
+    $listExtractors = array($reflectionExtractor);
+
+    // array of PropertyTypeExtractorInterface
+    $typeExtractors = array($phpDocExtractor, $reflectionExtractor);
+
+    // array of PropertyDescriptionExtractorInterface
+    $descriptionExtractors = array($phpDocExtractor);
+
+    // array of PropertyAccessExtractorInterface
+    $accessExtractors = array($reflectionExtractor);
+
+    $propertyInfo = new PropertyInfoExtractor(
+        $listExtractors,
+        $typeExtractors,
+        $descriptionExtractors,
+        $accessExtractors
+    );
+
+    //Extrator Properties
+    // $reflectionExtractor = new ReflectionExtractor();
+    // $listExtractors = $reflectionExtractor;
+    // $propertyInfo = new PropertyInfoExtractor(array( $listExtractors ), [$listExtractors, $reflectionExtractor]);
+
+    dump($propertyInfo->getShortDescription('AppBundle\Entity\DemandeEmbauche', "nom"));
+
+
+
     //Repository
     $demandeRepo = $this->em2->getRepository('AppBundle:DemandeEntity');
     $salonRepo = $this->em->getRepository('ApiBundle:Salon');
@@ -68,9 +102,13 @@ class ResumeDemandeService
       $properties = $propertyInfo->getProperties('AppBundle\Entity\\'.$nameEntity);
 
       $properties = array_diff($properties,['discr','typeForm','id','nameDemande','subject','service']);
+<<<<<<< HEAD
       // dump($properties);
 
       $response .= '<h1>'.$infoDemande['typeForm'].'  |  '.$infoDemande['dateTraitement']->format('d-m-y').'
+=======
+      $response .= '<h1>'.$infoDemande['typeForm'].'  |  '.$infoDemande['dateTraitement']->format('d/m/y').'
+>>>>>>> dev
         |  Réf. : '.$idDemandeItSelf.'</h1>';
 
       $response .= "<div id='propertiesDemandePrint'  class='contentBlock'><h2> Récapitulatif de la demande </h2>";
@@ -181,11 +219,15 @@ class ResumeDemandeService
             $infosSalon = $salonRepo->infosSalon($infoDemande['codeSage']);
             $statutDemande = $demandeRepo->whichStatut($infoDemande['statut']);
 
-            $response .= '<p><b>Demandeur</b>  '.$infosCollab['nom'].' '.$infosCollab['prenom'].'</p>';
-            $response .= '<p><b>Date d\'envoi</b>  '.$infoDemande['dateTraitement']->format('d-m-Y').'</p>';
-            $response .= '<p><b>Statut</b>  '.$statutDemande.'</p>';
-            $response .= '<p><b>Salon</b>  '.$infosSalon['appelation'].'</p>';
-            $response .= '<p><b>Adresse</b>  '.$infosSalon['adresse1'].' '.$infosSalon['codePostal'].' '.$infosSalon['ville'].'</p>';
+            $response .= '<p><b>Demandeur</b> : '.$infosCollab['nom'].' '.$infosCollab['prenom'].'</p>';
+            $response .= '<p><b>Date d\'envoi</b> : '.$infoDemande['dateTraitement']->format('d/m/Y').'</p>';
+            $response .= '<p><b>Statut</b> : <span class="'.$statutDemande.'">' . $statutDemande .'</span></p>';
+            $response .= '<p><b>Salon</b> : '.$infosSalon['appelation'].'</p>';
+            $response .= '<p><b>Adresse</b> : '.$infosSalon['adresse1'].' '.$infosSalon['codePostal'].' '.$infosSalon['ville'].'</p>';
+
+            if ($statutDemande == "Rejeté")
+              $response .= '<p><b>Motif du rejet</b> : '.$infoDemande['message'].'</p>';
+
             $response .= '</div>';
       $response .= '</div>';
 

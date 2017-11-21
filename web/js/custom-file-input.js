@@ -15,7 +15,6 @@ Array.prototype.forEach.call( inputs, function( input )
             }else{
               label.querySelector( 'span' ).innerHTML = fileName;
             }
-
         }	else{
     			label.innerHTML = labelVal;
         }
