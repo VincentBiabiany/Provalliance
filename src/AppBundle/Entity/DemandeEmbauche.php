@@ -23,7 +23,7 @@ class DemandeEmbauche extends DemandeForm
     private $id;
 
     /**
-     * Label test
+     * ___demande_embauche.nom
      *
      * @var string
      *

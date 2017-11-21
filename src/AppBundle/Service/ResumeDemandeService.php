@@ -44,7 +44,6 @@ class ResumeDemandeService
 
   public function generateResume($idDemandes,$action)
   {
-
     $phpDocExtractor = new PhpDocExtractor();
     $descriptionExtractors = array($phpDocExtractor);
     $phpDocExtractor = new PhpDocExtractor();
@@ -63,10 +62,10 @@ class ResumeDemandeService
     $accessExtractors = array($reflectionExtractor);
 
     $propertyInfo = new PropertyInfoExtractor(
-        $listExtractors,
-        $typeExtractors,
-        $descriptionExtractors,
-        $accessExtractors
+      $listExtractors,
+      $typeExtractors,
+      $descriptionExtractors,
+      $accessExtractors
     );
 
     //Extrator Properties
@@ -84,148 +83,189 @@ class ResumeDemandeService
     $persoRepo = $this->em->getRepository('ApiBundle:Personnel');
 
     //Var For HTML
-      $response = '';
-      $fileList = '';
+    $response = '';
+    $fileList = '';
 
     //Path
     $package = new PathPackage('web/uploads/files', new EmptyVersionStrategy());
 
+
     //1 demande par page
     foreach ($idDemandes as $idDemande ) {
-      $response .= '<div class="page">';
+
       $infoDemande = $demandeRepo->infosDemande($idDemande);
       $infosCollab = $persoRepo->InfosCollab($infoDemande['userID']);
 
       $nameEntity = $infoDemande['nameDemande'];
       $idDemandeItSelf = $infoDemande['demandeId'];
 
+      // Recupération de la demande
+      $qb = $this->em2->createQueryBuilder()
+      ->add('select', 'u')
+      ->add('from', 'AppBundle:'.$nameEntity.' u')
+      ->add('where', 'u.id = :idDemande')
+      ->setParameter('idDemande', $idDemandeItSelf)
+      ->getQuery()
+      ->getArrayResult();
+
+
+      // Récupération des noms des propriétés de l'entité
       $properties = $propertyInfo->getProperties('AppBundle\Entity\\'.$nameEntity);
       $properties = array_diff($properties,['discr','typeForm','id','nameDemande','subject','service']);
+
+
+      $response .= '<div class="page">';
       $response .= '<h1>'.$infoDemande['typeForm'].'  |  '.$infoDemande['dateTraitement']->format('d/m/y').'
-        |  Réf. : '.$idDemandeItSelf.'</h1>';
-
+      |  Réf. : '.$idDemandeItSelf.'</h1>';
       $response .= "<div id='propertiesDemandePrint'  class='contentBlock'><h2> Récapitulatif de la demande </h2>";
-          // Boucle pour propriétés de la demande
-          for ($k = 0; $k < count($properties); $k++) {
-            if (isset($properties[$k])){
-            $property = $properties[$k];
-
-            $qb = $this->em2->createQueryBuilder()
-                            ->add('select', 'u')
-                            ->add('from', 'AppBundle:'.$nameEntity.' u')
-                            ->add('where', 'u.id = :idDemande')
-                            ->setParameter('idDemande', $idDemandeItSelf)
-                            ->getQuery()
-                            ->getArrayResult();
-                            //Si la propriété est une date on la formate
-                            if ( is_object ($qb[0][$property])){
-                              $prop = $qb[0][$property]->format('d-m-y');
-
-                            } else{
-                              $prop = $qb[0][$property];
-                            }
-
-                            //On affiche pas les fichiers liés à la demande
-                            if( self::ifFile($prop) == false ){
-                              $response .= '<p><b>'.ucfirst($property).'</b>  ';
-
-                                if( is_array($prop)){
-                                  //champs de type array
-                                  $b=1;
-                                  $lastItem=count($prop);
-                                 foreach ($prop as $key => $value){
-                                   // dump($prop);
-                                   // frsdf();
-                                   $re = '/_{3,}/';
-                                   if( preg_match_all($re, $value, $matches, PREG_SET_ORDER, 0)){
-                                    $value = $this->translator->trans($value,array(),'translator','fr_FR');
-                                      }
-                                      if( is_numeric($key)){
-                                        $key = '';
-                                      }else{
-                                        $key = $key.'';
-                                      }
-                                          if($b == $lastItem){
-                                             $response .= $key.': '.$value;
-                                           }else{
-                                             $response .= $key.': '.$value.' - ';
-
-                                           }
-
-                                        $b++;
-                                    }
-                                     $response .= '</p>';
-                                }else{
-                                  //champs classique
-                                  //on vérifie si c'est une valeur provenant du fichier de traduction 'translator'
-                                  $re = '/_{3,}/';
-                                 if( preg_match_all($re, $prop, $matches, PREG_SET_ORDER, 0)){
-                                  $response .= $this->translator->trans($prop,array(),'translator','fr_FR');
-
-                                    } else{
-                                      switch ($prop) {
-                                          case '':
-                                              $response .= 'n/a';
-                                              break;
-                                          case 'true':
-                                              $response .= $this->translator->trans('global.affirme',array(),'translator','fr_FR');
-                                              break;
-                                          case 'false':
-                                              $response .= $this->translator->trans('global.negative',array(),'translator','fr_FR');
-
-                                              break;
-                                          default:
-                                           $response .= $prop;
-                                      }
 
 
-                                    }
-                                  $response .= '</p>';
 
-                                }
-                            }else{
-                              if ($action =='detail'){
-                              $fileList .= '<li><b>'.ucfirst($property).'</b>';
-                              $path = $package->getUrl($prop);
-                              $fileList .= '<a class="downloadFile" href="'.$path.'">Télécharger le document</a></li>';
-                             }
-                          }
-                }
+      $nbProprietes = count($properties);
+
+      // Boucle pour propriétés de la demande
+      for ($k = 0; $k < $nbProprietes; $k++) {
+
+        if (isset($properties[$k])) {
+
+          $property = $properties[$k];
+          //dump($property);
+
+          //Si la propriété est une date on la formate
+          $prop = self::transformDate($qb[0][$property]);
+
+          //On affiche pas les fichiers liés à la demande
+          if (self::ifFile($prop) == false) {
+            $response .= '<p><b>'.ucfirst($property).'</b>  ';
+
+            if(is_array($prop)){
+              $response .= self::transformArray($prop);
+            } else {
+              //champs classique
+              //on vérifie si c'est une valeur provenant du fichier de traduction 'translator'
+              $response .= self::transformNormal($prop);
+            }
+
+            // Si cest un file et qu'on est dans le résumé des demandes
+          } else if ($action =='detail') {
+            $fileList .= '<li><b>'.ucfirst($property).'</b>';
+            $path = $package->getUrl($prop);
+            $fileList .= '<a class="downloadFile" href="'.$path.'">Télécharger le document</a></li>';
           }
 
-          $response .= '</div>';
-          if ($action =='detail'){
 
-              if(empty($fileList)  ){
-                $fileList = 'Aucun document disponible';
-              }
-              $response .= '<div id="FileList" class="contentBlock"><h2>Document(s) lié(s)</h2> <ul>';
-              $response .= $fileList;
-              $response .= '</ul></div>';
-        }
+        } // If isset
+      } // Fin for sur propriétés
+    } // Fin du foreach
 
-            $response .= "<div id='infosDemandePrint' class='contentBlock'><h2> Statut de la demande </h2>";
-            // Info de la demande
-            // $infosDemande = $demandeRepo->infosDemande($idDemande);
-            $infosSalon = $salonRepo->infosSalon($infoDemande['codeSage']);
-            $statutDemande = $demandeRepo->whichStatut($infoDemande['statut']);
+    $response .= '</div>';
+    if ($action =='detail') {
 
-            $response .= '<p><b>Demandeur</b> : '.$infosCollab['nom'].' '.$infosCollab['prenom'].'</p>';
-            $response .= '<p><b>Date d\'envoi</b> : '.$infoDemande['dateTraitement']->format('d/m/Y').'</p>';
-            $response .= '<p><b>Statut</b> : <span class="'.$statutDemande.'">' . $statutDemande .'</span></p>';
-            $response .= '<p><b>Salon</b> : '.$infosSalon['appelation'].'</p>';
-            $response .= '<p><b>Adresse</b> : '.$infosSalon['adresse1'].' '.$infosSalon['codePostal'].' '.$infosSalon['ville'].'</p>';
+      if (empty($fileList)) {
+        $fileList = 'Aucun document disponible';
+      }
+      $response .= '<div id="FileList" class="contentBlock"><h2>Document(s) lié(s)</h2> <ul>';
+      $response .= $fileList;
+      $response .= '</ul></div>';
+    }
 
-            if ($statutDemande == "Rejeté")
-              $response .= '<p><b>Motif du rejet</b> : '.$infoDemande['message'].'</p>';
+    $response .= "<div id='infosDemandePrint' class='contentBlock'><h2> Statut de la demande </h2>";
+    // Info de la demande
+    // $infosDemande = $demandeRepo->infosDemande($idDemande);
+    $infosSalon = $salonRepo->infosSalon($infoDemande['codeSage']);
+    $statutDemande = $demandeRepo->whichStatut($infoDemande['statut']);
 
-            $response .= '</div>';
-      $response .= '</div>';
+    $response .= '<p><b>Demandeur</b> : '.$infosCollab['nom'].' '.$infosCollab['prenom'].'</p>';
+    $response .= '<p><b>Date d\'envoi</b> : '.$infoDemande['dateTraitement']->format('d/m/Y').'</p>';
+    $response .= '<p><b>Statut</b> : <span class="'.$statutDemande.'">' . $statutDemande .'</span></p>';
+    $response .= '<p><b>Salon</b> : '.$infosSalon['appelation'].'</p>';
+    $response .= '<p><b>Adresse</b> : '.$infosSalon['adresse1'].' '.$infosSalon['codePostal'].' '.$infosSalon['ville'].'</p>';
 
-   }
-   return $response;
+    if ($statutDemande == "Rejeté")
+      $response .= '<p><b>Motif du rejet</b> : '.$infoDemande['message'].'</p>';
 
- }
+    $response .= '</div>';
+    $response .= '</div>';
+
+    return $response;
+  }
+
+  public function transformDate($propriete)
+  {
+    if (is_object ($propriete)) {
+      $prop = $propriete->format('d/m/y');
+    } else {
+      $prop = $propriete;
+    }
+
+    return $prop;
+  }
+
+
+  public function transformNormal($prop)
+  {
+    $response ='';
+
+    $re = '/_{3,}/';
+    if ( preg_match_all( $re , $prop, $matches, PREG_SET_ORDER, 0)) {
+      $response .= $this->translator->trans($prop, array(),'translator','fr_FR');
+    } else {
+
+      switch ($prop) {
+        case '':
+          $response .= 'n/a';
+          break;
+
+        case 'true':
+          $response .= $this->translator->trans('global.affirme',array(),'translator','fr_FR');
+          break;
+
+        case 'false':
+          $response .= $this->translator->trans('global.negative',array(),'translator','fr_FR');
+          break;
+
+        default:
+          $response .= $prop;
+      }
+
+
+    }
+    $response .= '</p>';
+
+    return $response;
+  }
+
+  public function transformArray($prop)
+  {
+    $response = "";
+    //champs de type array
+    $b = 1;
+    $lastItem = count($prop);
+    foreach ($prop as $key => $value){
+      // dump($prop);
+      // frsdf();
+      $re = '/_{3,}/';
+      if (preg_match_all($re, $value, $matches, PREG_SET_ORDER, 0)) {
+        $value = $this->translator->trans($value,array(),'translator','fr_FR');
+      }
+
+      if (is_numeric($key)) {
+        $key = '';
+      } else {
+        $key = $key.'';
+      }
+
+      if ($b == $lastItem) {
+        $response .= $key.': '.$value;
+      } else {
+        $response .= $key.': '.$value.' - ';
+      }
+      $b++;
+    }
+    $response .= '</p>';
+
+    return $response;
+  }
 
     //Function ifFile: test si le champs est un fichier
     //Return: retourne false si $property est un fichier
