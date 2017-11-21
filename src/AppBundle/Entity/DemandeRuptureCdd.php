@@ -49,11 +49,11 @@ class DemandeRuptureCdd extends DemandeForm
   /**
    * ___demande_rupture_cdd.ruptAnt
    *
-  * @var string
-  *
-  * @ORM\Column(name="rupture_anticipe", type="string", length=255, nullable=true)
-  */
- private $ruptureAncticipe;
+   * @var string
+   *
+   * @ORM\Column(name="rupture_anticipe", type="string", length=255, nullable=true)
+   */
+  private $ruptureAnticipe;
 
 
   /**
@@ -73,18 +73,6 @@ class DemandeRuptureCdd extends DemandeForm
    * @ORM\Column(name="date_fin", type="date", length=255, nullable=true)
    */
   private $dateDepart;
-
-   /** @var string
-    *
-    * @ORM\Column(name="raison", type="string", length=255)
-    */
-   private $raison;
-
-   /** @var string
-   *
-   * @ORM\Column(name="rupture_anticipe", type="string", length=255, nullable=true)
-   */
-  private $ruptureAnticipe;
 
   /**
    * ___demande_rupture_cdd.pj
@@ -200,7 +188,7 @@ class DemandeRuptureCdd extends DemandeForm
      *
      * @return DemandeRuptureCdd
      */
-    public function setRuptureAncticipe($ruptureAncticipe)
+    public function setRuptureAnticipe($ruptureAncticipe)
     {
         $this->ruptureAncticipe = $ruptureAncticipe;
 
@@ -289,7 +277,6 @@ class DemandeRuptureCdd extends DemandeForm
         return $this->lettre;
     }
 
-
     /**
      * Set nomCollab
      *
@@ -312,5 +299,15 @@ class DemandeRuptureCdd extends DemandeForm
     public function getNomCollab()
     {
         return $this->nomCollab;
+    }
+
+    /**
+     * Get ruptureAnticipe
+     *
+     * @return string
+     */
+    public function getRuptureAnticipe()
+    {
+        return $this->ruptureAnticipe;
     }
 }
