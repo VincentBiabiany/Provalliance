@@ -36,11 +36,11 @@ class DemandeDetailController extends Controller
       ->findOneBy(array("id" => $id));
 
       if ($demande instanceof DemandeSimple)
-        return self::detailSimple($demande, $request, $id, $ResumeDemandeService);
+        return self::detailSimple($demande, $request, $id, $fileuploader, $ResumeDemandeService);
       return self::detailComplexe($demande, $request, $id, $fileuploader, $ResumeDemandeService);
     }
 
-    public function detailSimple($demande, $request, $id, $ResumeDemandeService)
+    public function detailSimple($demande, $request, $id, $fileuploader, $ResumeDemandeService)
     {
       $em = $this->getDoctrine()->getManager("referentiel");
       $salon = $em->getRepository('ApiBundle:Salon')
@@ -61,23 +61,22 @@ class DemandeDetailController extends Controller
       $message = $demande->getMessage();
 
       $form2 = $this->createFormBuilder()
-                    ->setMethod("POST")
-                    ->add('message', TextareaType::class, array(
-                      'attr' => ['class' => 'form-control col-sm-9 col-xs-12'],
-                      'label_attr' => ['class' => 'control-label label col-sm-3 col-xs-12'],
-                      'label' => 'Motif',
-                      'data' => $message))
-                    ->add('accept', SubmitType::class, array(
-                      'label' => 'global.accepter',
-                      'translation_domain' => 'translator'
-                     ))
-                    ->add('reject', SubmitType::class, array(
-                      'label' => 'global.rejeter',
-                      'translation_domain' => 'translator'
-                     ))
-                    ->getForm();
+                    ->setMethod("POST");
 
+      if ($statut != 0 && $statut != 2){
+          $form2 = $form2->add('message', TextareaType::class, array(
+                                'attr' => ['class' => 'form-control col-sm-9 col-xs-12'],
+                                'label_attr' => ['class' => 'control-label label col-sm-3 col-xs-12'],
+                                'label' => 'Motif',
+                                'data' => $message))
+                        ->add('docService', FileType::class, ['label' => 'Ajouter un document'])
+                        ->add('reject', SubmitType::class, array( 'attr' => ['class'=>'btn-black end reject']))
+                        ->add('accept', SubmitType::class, array( 'attr' => ['class'=>'btn-black end accept']));
+        }
+
+        $form2 = $form2->getForm();
         $form2->handleRequest($request);
+
         if ($form2->isSubmitted())
         {
           if ($form2->get('reject')->isClicked())
@@ -95,7 +94,15 @@ class DemandeDetailController extends Controller
           {
             $demande->setstatut(DemandeEntity::statut_TRAITE);
             $demande->setDateTraitement(new \DateTime());
+
+            if ($form2["docService"]->getData() != null)
+            {
+              $fileName = $fileuploader->upload($form2["docService"]->getData(), 0, 'à revoir', 'pj');
+              $demande->setDocService($fileName);
+            }
+
             $demande->setMessage($form2["message"]->getData());
+
           }
           $this->getDoctrine()->getManager()->flush();
           $this->addFlash("success", "Demande correctement traitée");

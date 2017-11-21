@@ -23,7 +23,7 @@ use Symfony\Component\PropertyInfo\PropertyInfo;
 use Symfony\Component\Asset\PathPackage;
 use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
-
+use Symfony\Component\Routing\Router;
 
 class ResumeDemandeService
 {
@@ -32,12 +32,20 @@ class ResumeDemandeService
   private $translator;
   private $propertyInfo;
   private $nameEntity;
+  private $router;
 
-  public function __construct(EntityManager $em, EntityManager $em2, Translator $translator)
+  public function __construct(EntityManager $em, EntityManager $em2, Translator $translator, Router $router)
   {
     $this->em           = $em;
     $this->em2          = $em2;
     $this->translator   = $translator;
+    $this->router       = $router;
+  }
+
+  public function generateAbsUrl($doc)
+  {
+    $url = $this->url = $this->router->generate('homepage', [], 0);
+    return $url .=  __DIR__.'/../../../../web/uploads/files/' . $doc;
   }
 
   public function generateResume($idDemandes,$action)
@@ -105,8 +113,7 @@ class ResumeDemandeService
       $properties = array_diff($properties,['discr','typeForm','id','nameDemande','subject','service']);
 
       $response .= '<div class="page">';
-      $response .= '<h1>'.$infoDemande['typeForm'].'  |  '.$infoDemande['dateTraitement']->format('d/m/y').'
-      |  Réf. : '.$idDemandeItSelf.'</h1>';
+      $response .= '<h1>'.$infoDemande['typeForm'].'  |  '.$infoDemande['dateTraitement']->format('d/m/y').'|  Réf. : '.$idDemandeItSelf.'</h1>';
       $response .= "<div id='propertiesDemandePrint'  class='contentBlock'><h2> Récapitulatif de la demande </h2>";
 
       // Boucle pour propriétés de la demande
@@ -116,7 +123,6 @@ class ResumeDemandeService
          if (isset($properties[$idProperty])){
 
           $property = $properties[$idProperty];
-
 
           //Si la propriété est une date on la formate
           $prop = self::transformDate($qb[0][$property]);
@@ -136,7 +142,7 @@ class ResumeDemandeService
             // Si cest un file et qu'on est dans le résumé des demandes
           } else if ($action =='detail') {
             $fileList .= '<li><b class="col-sm-2">'.ucfirst($property).'</b>';
-            $path = $package->getUrl($prop);
+            $path = $package->getUrl($prop); //self::generateAbsUrl($prop);
             $fileList .= '<a class="downloadFile" href="'.$path.'">Télécharger le document</a></li>';
           }
 
@@ -150,6 +156,7 @@ class ResumeDemandeService
       if (empty($fileList)) {
         $fileList = 'Aucun document disponible';
       }
+
       $response .= '<div id="FileList" class="contentBlock"><h2>Document(s) lié(s)</h2> <ul>';
       $response .= $fileList;
       $response .= '</ul></div>';
@@ -172,6 +179,41 @@ class ResumeDemandeService
 
     $response .= '</div>';
     $response .= '</div>';
+
+
+    // Document échangé pour les demandes complexes
+    if ($infoDemande['complexe']) {
+      $fileList ='';
+      if ($infoDemande['docService']){
+        $fileList .= '<li><b class="col-sm-2">Document du service</b>';
+        $path = $package->getUrl($infoDemande['docService']);//self::generateAbsUrl($infoDemande['docService']);
+        $fileList .= '<a class="downloadFile" href="'.$path.'">Télécharger le document</a></li>';
+      }
+
+      if ($infoDemande['docSalon']) {
+        $fileList .= '<li><b class="col-sm-2">Document du salon</b>';
+        $path = $package->getUrl($infoDemande['docService']);//self::generateAbsUrl($infoDemande['docSalon']);
+        $fileList .= '<a class="downloadFile" href="'.$path.'">Télécharger le document</a></li>';
+      }
+
+      $response .= '<div id="FileList" class="contentBlock"><h2>Document(s) échangé(s)</h2> <ul>';
+      $response .= $fileList;
+      $response .= '</ul></div>';
+    } else {
+      $fileList ='';
+      if ($infoDemande['docService']){
+        $fileList .= '<li><b class="col-sm-2">Document du service</b>';
+        $path = $package->getUrl($infoDemande['docService']);//self::generateAbsUrl($infoDemande['docService']);
+        $fileList .= '<a class="downloadFile" href="'.$path.'">Télécharger le document</a></li>';
+      }
+
+      $response .= '<div id="FileList" class="contentBlock"><h2>Document(s) échangé(s)</h2> <ul>';
+      $response .= $fileList;
+      $response .= '</ul></div>';
+    }
+
+
+
 
     return $response;
   }
@@ -232,10 +274,10 @@ class ResumeDemandeService
     $response = "";
     $b = 1;
     $lastItem = count($prop);
-    dump($prop);
+    //dump($prop);
 
     // Cas du tableau à 2 dimensions
-    if (is_array($prop[0]))
+    if (isset($prop[0]) && is_array($prop[0]))
     {
       foreach ($prop as $keys => $values){
         $response .= '<br>';

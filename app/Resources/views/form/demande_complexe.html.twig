@@ -39,3 +39,29 @@
       </div>
 </div>
 {% endblock %}
+
+
+{% block _form_message_row %}
+<div class="form-group" style="padding-top: 50px">
+  <label class="control-label label col-sm-3 col-xs-12" for="personnel"> {{ form_label(form) }}</label>
+      <div class="col-sm-9">
+          {{ form_widget(form, { 'attr' : {'class': ' form-control' } }) }}
+      </div>
+</div>
+{% endblock %}
+
+{% block _form_docService_row %}
+<div class="form-group" style="padding-top: 50px">
+  <label class="control-label label col-sm-3 col-xs-12" for="personnel"> {{ form_label(form) }}</label>
+
+  <div class="col-sm-3">
+
+    <label for="demande_complexe_docSalon" class="label-file">
+      <i class="glyphicon glyphicon-download-alt"></i>
+      <span>Choisir un fichier</span>
+    </label>
+    {{ form_widget(form, { 'attr' : {'class': 'input-file', 'style' : ' margin-top: -1px;'} }) }}
+  </div>
+
+</div>
+{% endblock %}
