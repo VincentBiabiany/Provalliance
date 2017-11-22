@@ -11,6 +11,7 @@ global:
     choiceFile:    Choisir un fichier
     affirme:       Oui
     negative:      Non
+    fichier:       Choisir un fichier
 
 login:
     username:  Nom d'utilisateur
@@ -47,7 +48,7 @@ home_paie:
     header:       Nouvelle demande PAIE
 
 home_juridique_rh:
-    embauche:     Demande embauche
+    embauche:     Demande d'embauche
     rupture:      Rupture CDD
     conge:        Congé parental
     essai:        Rupture période d'essai
@@ -74,9 +75,7 @@ ___demande_acompte:
     popupValidation:
         message:    Votre demande d’acompte a été envoyée.
 
-
-
-__demande_rib:
+___demande_rib:
     titre:              Demande de RIB
     rib:                RIB
     rappel:             Rappel
@@ -195,6 +194,13 @@ ___demande_lettre_mission:
     date:          Date
     dateDebut:     Du
     dateFin:       Jusqu'au
+    lundi:         Lu
+    mardi:         Ma
+    mercredi:      Me
+    jeudi:         Je
+    vendredi:      Ve
+    samedi:        Sa
+    total:         Total
 
     popupValidation:
         message:    Votre demande de lettre de mission a été envoyée.
@@ -207,8 +213,8 @@ ___demande_rupture_cdd:
     depart:        Fin de CDD (Départ)
     rupture:       Rupture anticipé de CDD en raison:
     cdi:           Une embauche en CDI au sein du mêm salon le:
-    cdi2:          Une embauche en CDI au sein d'une autre société (départ prévu le)
-    demande:       Suite à la demande du salarié (départ le )
+    cdi2:          Une embauche en CDI au sein d'une autre société
+    demande:       Suite à la demande du salarié
     accord:        Un commun accord en payant la prime de précarité
     accord2:       Un commun accord en ne payant pas la prime de précarité
     nom:           Retour de:
@@ -232,7 +238,7 @@ ___demande_rupture_cdd:
 
 ___demande_conge_parental:
     titre:        Congé Parental
-    collab:       Collaborateur
+    collaborateur:       Collaborateur
     raison:       Raison
     passage:      Passage ..h/semaine du ... au ...
     reprise:      Reprise anticipé à 35h/semaine le ... au lieu du ...
@@ -282,7 +288,7 @@ ___demande_solde_tout_compte:
     titre:                    Solde Tout Compte
     sousTitreRupture:         Rupture de contrat
     sousTitreSalaireVariable: Salaire Variable
-    collab:                   Collaborateur
+    collaborateur:            Collaborateur
     adresse:                  Adresse
     dateSortie:               Date de sortie
     dateDernierJour:          Date du dernier jour
@@ -325,6 +331,7 @@ ___demande_embauche:
     attention:     Attention !
     msg:           Avant de commencer à remplir le formulaire, veuillez vérifier que vous disposez toutes les pièces justificatives suivantes au format électronique :
     pi:            Carte d'Id. / Titre de Séjour
+    id:            Id. / Titre de Séjour
     diplomes:      Diplôme(s)
     diplome:       Diplôme
     diplome2:      Diplôme 2
@@ -434,7 +441,7 @@ ___demande_avenant:
     39h:                39h/semaine définitif
     manager:            Passage Manager Niveau 3 Echelon 1
     fixe:               Salaire fixe
-    variable:           Salaire varialble mensuel
+    variable:           Salaire variable mensuel
     trim:               Salaire variable trimestriel
     aPartir:            A partir du
     du:                 Du
@@ -450,6 +457,7 @@ ___demande_avenant:
     vendredi:           Ve
     samedi:             Sa
     total:              Total
+
     popupValidation:
         message:        Votre demande d'avenant a été envoyée.
 
@@ -513,7 +521,7 @@ admin:
         header:         Administration Accueil
         create:         Créer un nouveau compte
         gestion:        Gestion des comptes utilisateurs
-        import:         Import De Données
+        import:         Import de Données
     create:
         manager: Compte Manager / Coordinateur
         service: Compte Service

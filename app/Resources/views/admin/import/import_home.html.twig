@@ -20,22 +20,27 @@
 				<div class="form-group">
 					<label style="width: 215px;"  class="control-label label col-sm-4 col-xs-12">{{ "import.salon" | trans({}, "translator") }}</label>
 					<div class="col-sm-6">
-						{{ form_widget(form.salon, { 'attr': {'class': 'input-file'} }) }}
+
 						<label for="form_salon" class="label-file">
 							<i class="glyphicon glyphicon-download-alt"></i>
 							<span>{{ "import.choisir" | trans({}, "translator") }}</span>
 						</label>
+
+						{{ form_widget(form.salon, { 'attr': {'class': 'input-file'} }) }}
+						
 					</div>
 				</div>
 
 				<div class="form-group">
 					<label style="width: 215px;" class="control-label label col-sm-4 col-xs-12">{{ "import.personnel" | trans({}, "translator") }}</label>
 			    <div class="col-sm-6">
-						{{ form_widget(form.personnel, { 'attr': {'class': 'input-file'} }) }}
+
 						<label for="form_personnel" class="label-file">
 							<i class="glyphicon glyphicon-download-alt"></i>
 							<span>{{ "import.choisir" | trans({}, "translator") }}</span>
 						</label>
+
+						{{ form_widget(form.personnel, { 'attr': {'class': 'input-file'} }) }}
 
 					</div>
 				</div>
@@ -43,11 +48,13 @@
 				<div class="form-group">
 					<label style="width: 215px;"  class="control-label label col-sm-4 col-xs-12">{{ "import.lien" | trans({}, "translator") }}</label>
 			    <div class="col-sm-6">
-						{{ form_widget(form.lien, { 'attr': {'class': 'input-file'} }) }}
+
 						<label for="form_lien" class="label-file">
 							<i class="glyphicon glyphicon-download-alt"></i>
 							<span>{{ "import.choisir" | trans({}, "translator") }}</span>
 						</label>
+
+						{{ form_widget(form.lien, { 'attr': {'class': 'input-file'} }) }}
 			    </div>
 	 			</div>
 
