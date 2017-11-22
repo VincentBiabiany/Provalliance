@@ -19,8 +19,6 @@
 <div class="container">
 	<div id="actions" class="formAction">
 		{{ form_start(form, {'attr': {'class': 'allForm', 'id':'formCongeParental'} }) }}
-
-
  		<!-- Champs Collaborateur -->
 
 				<div class="form-group">
@@ -54,7 +52,7 @@
 												<div id="tempsPartiel" class="form-group row" style="">
 													<label class="control-label label col-sm-3 col-xs-12" for="prenom">{{ "___demande_conge_parental.tempsPartiel"|trans({}, "translator") }}</label>
 
-													<div id="listeJours" class="col-sm-12 col-xs-12 pad-box">
+													<div id="listeJours" class="col-sm-12 col-xs-12 sousLabel">
 														<label class="control-label label col-sm-12 col-xs-12"  for="nom"></label>
 
 															{% for key,child in form.tempsPartiel %}
