@@ -521,7 +521,7 @@ admin:
         header:         Administration Accueil
         create:         Créer un nouveau compte
         gestion:        Gestion des comptes utilisateurs
-        import:         Import de Données
+        import:         Import de données
     create:
         manager: Compte Manager / Coordinateur
         service: Compte Service
