@@ -22,7 +22,7 @@ class DemandeAbsencesInjustifiees extends DemandeForm
 
 
   /**
-   * ___absences.matricule
+   * ___demande_absences.collaborateur
    *
    * @var int
    *
@@ -31,7 +31,7 @@ class DemandeAbsencesInjustifiees extends DemandeForm
   protected $matricule;
 
   /**
-   * ___absences.raison
+   * ___demande_absences.raison
    *
    * @var string
    *
@@ -41,7 +41,7 @@ class DemandeAbsencesInjustifiees extends DemandeForm
 
 
   /**
-   * ___absences.retards
+   * ___demande_absences.retards
    *
    * @var array
    *
@@ -51,7 +51,7 @@ class DemandeAbsencesInjustifiees extends DemandeForm
 
 
   /**
-   * ___absences.absLes
+   * ___demande_absences.absLes
    *
    * @var array
    *
@@ -60,135 +60,13 @@ class DemandeAbsencesInjustifiees extends DemandeForm
   private $absences;
 
   /**
-   * ___absences.date
+   * ___demande_absences.date
    *
    * @var string
    *
    * @ORM\Column(name="date_debut", type="date", length=255, nullable=true)
    */
   private $dateDebut;
-
-
-  /**
-   * Set retards
-   *
-   * @param array $retards
-   *
-   * @return DemandeAbsencesInjustifiees
-   */
-  public function setRetards($retards)
-  {
-      $this->retards = $retards;
-
-      return $this;
-  }
-
-  /**
-   * Get retards
-   *
-   * @return array
-   */
-  public function getRetards()
-  {
-      return $this->retards;
-  }
-
-  /**
-   * Set absences
-   *
-   * @param array $absences
-   *
-   * @return DemandeAbsencesInjustifiees
-   */
-  public function setAbsences($absences)
-  {
-      $this->absences = $absences;
-
-      return $this;
-  }
-
-  /**
-   * Get absences
-   *
-   * @return array
-   */
-  public function getAbsences()
-  {
-      return $this->absences;
-  }
-
-  /**
-   * Set dateDebut
-   *
-   * @param \DateTime $dateDebut
-   *
-   * @return DemandeAbsencesInjustifiees
-   */
-  public function setDateDebut($dateDebut)
-  {
-      $this->dateDebut = $dateDebut;
-
-      return $this;
-  }
-
-  /**
-   * Get dateDebut
-   *
-   * @return \DateTime
-   */
-  public function getDateDebut()
-  {
-      return $this->dateDebut;
-  }
-
-  /**
-   * Set raison
-   *
-   * @param string $raison
-   *
-   * @return DemandeAbsencesInjustifiees
-   */
-  public function setRaison($raison)
-  {
-      $this->raison = $raison;
-
-      return $this;
-  }
-
-  /**
-   * Get raison
-   *
-   * @return string
-   */
-  public function getRaison()
-  {
-      return $this->raison;
-  }
-
-  /**
-   * Set matricule
-   *
-   * @param integer $matricule
-   *
-   * @return DemandeAbsencesInjustifiees
-   */
-  public function setMatricule($matricule)
-  {
-      $this->matricule = $matricule;
-
-      return $this;
-  }
-
-  /**
-   * Get matricule
-   *
-   * @return integer
-   */
-  public function getMatricule()
-  {
-      return $this->matricule;
-  }
-
 
   /**
    * Get subject
@@ -240,4 +118,124 @@ class DemandeAbsencesInjustifiees extends DemandeForm
   }
 
 
+
+    /**
+     * Set matricule
+     *
+     * @param integer $matricule
+     *
+     * @return DemandeAbsencesInjustifiees
+     */
+    public function setMatricule($matricule)
+    {
+        $this->matricule = $matricule;
+
+        return $this;
+    }
+
+    /**
+     * Get matricule
+     *
+     * @return integer
+     */
+    public function getMatricule()
+    {
+        return $this->matricule;
+    }
+
+    /**
+     * Set raison
+     *
+     * @param string $raison
+     *
+     * @return DemandeAbsencesInjustifiees
+     */
+    public function setRaison($raison)
+    {
+        $this->raison = $raison;
+
+        return $this;
+    }
+
+    /**
+     * Get raison
+     *
+     * @return string
+     */
+    public function getRaison()
+    {
+        return $this->raison;
+    }
+
+    /**
+     * Set retards
+     *
+     * @param array $retards
+     *
+     * @return DemandeAbsencesInjustifiees
+     */
+    public function setRetards($retards)
+    {
+        $this->retards = $retards;
+
+        return $this;
+    }
+
+    /**
+     * Get retards
+     *
+     * @return array
+     */
+    public function getRetards()
+    {
+        return $this->retards;
+    }
+
+    /**
+     * Set absences
+     *
+     * @param array $absences
+     *
+     * @return DemandeAbsencesInjustifiees
+     */
+    public function setAbsences($absences)
+    {
+        $this->absences = $absences;
+
+        return $this;
+    }
+
+    /**
+     * Get absences
+     *
+     * @return array
+     */
+    public function getAbsences()
+    {
+        return $this->absences;
+    }
+
+    /**
+     * Set dateDebut
+     *
+     * @param \DateTime $dateDebut
+     *
+     * @return DemandeAbsencesInjustifiees
+     */
+    public function setDateDebut($dateDebut)
+    {
+        $this->dateDebut = $dateDebut;
+
+        return $this;
+    }
+
+    /**
+     * Get dateDebut
+     *
+     * @return \DateTime
+     */
+    public function getDateDebut()
+    {
+        return $this->dateDebut;
+    }
 }
