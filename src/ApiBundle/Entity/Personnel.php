@@ -13,9 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
 class Personnel
 {
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="matricule", type="integer")
+     * @ORM\Column(name="matricule", type="string", length=255)
      * @ORM\Id
      */
     private $matricule;
