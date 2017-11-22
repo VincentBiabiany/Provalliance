@@ -50,7 +50,7 @@ class DemandeComplexeType extends AbstractType
                 ))
                 ->add('docService', FileType::class, ['label' => 'Ajouter un document'])
                 ->add('reject', SubmitType::class, array( 'attr' => ['class'=>'btn-black end reject']))
-                ->add('accept', SubmitType::class, array( 'attr' => ['class'=>'btn-black end accept']));
+                ->add('accept', SubmitType::class, array( 'attr' => ['class'=>'btn-black end accept', 'label'=>'Renvoyer']));
 
       }
 

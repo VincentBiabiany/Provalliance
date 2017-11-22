@@ -129,23 +129,24 @@ class ResumeDemandeService
 
           //On affiche pas les fichiers liés à la demande
           if ($prop != null) {
-            $response .= '<p><b class="col-sm-2"> '.self::getTraduction($property).'</b>  ';
 
-            if(is_array($prop)){
+            if (is_array($prop)) {
+              $response .= '<p><b class="col-sm-2"> '.self::getTraduction($property).'</b>  ';
               $response .= self::transformArray($prop);
+
+            } else if (self::ifFile($prop) == true && $action =='detail') {
+
+              // Si cest un file et qu'on est dans le résumé des demandes
+              $fileList .= '<li><b class="col-sm-2">'.ucfirst($property).'</b>';
+              $path = $package->getUrl($prop); //self::generateAbsUrl($prop);
+              $fileList .= '<a class="downloadFile" href="'.$path.'">Télécharger le document</a></li>';
             } else {
+              $response .= '<p><b class="col-sm-2"> '.self::getTraduction($property).'</b>  ';
               //champs classique
               //on vérifie si c'est une valeur provenant du fichier de traduction 'translator'
               $response .= self::transformNormal($prop);
             }
-
-            // Si cest un file et qu'on est dans le résumé des demandes
-          } else if (self::ifFile($prop) && $action =='detail') {
-            $fileList .= '<li><b class="col-sm-2">'.ucfirst($property).'</b>';
-            $path = $package->getUrl($prop); //self::generateAbsUrl($prop);
-            $fileList .= '<a class="downloadFile" href="'.$path.'">Télécharger le document</a></li>';
           }
-
         } // If isset
       } // Fin for sur propriétés
     } // Fin du foreach
@@ -334,7 +335,7 @@ class ResumeDemandeService
   //Return: retourne false si $property est un fichier
   public function ifFile($property)
   {
-    $tabFiles= ['png','jpg','pdf','jpeg','bmp','doc','docx','txt', 'html', 'csv', 'tmp'];
+    $tabFiles = ['png','jpg','pdf','jpeg','bmp','doc','docx','txt', 'html', 'csv', 'tmp', 'xlsx', 'md'];
     $occ = 0;
 
     if (!is_array($property)) {
