@@ -464,7 +464,23 @@ form.demandeDetail .form-group{
 
 /***** FORMULAIRE RUPTURE CDD ******/
 #anticipe{
-		display:none; height: 222px;
+		display:flex;
+}
+#demande_rupture_cdd_raison #depart div{
+
+margin-bottom: 15px;
+}
+#demande_rupture_cdd_raison #retour div{
+
+	margin-bottom: 15px;
+}
+
+#raison0 div, #raison1 div, #raison2 div{
+	margin-bottom: 15px;
+
+}
+.sousLabel .label-file:hover {
+    color: white;
 }
 
 /***** FORMULAIRE CONGE PAT ******/
@@ -774,6 +790,14 @@ table.dataTable thead th, table.dataTable thead td, table.dataTable tfoot th, ta
 /******* FORMULAIRE AVENANT ******/
 #demande_avenant_raison{
 	display: grid;
+}
+
+#dates div{
+	margin-bottom:15px;
+}
+
+#salaire div label{
+  width: 200px;
 }
 /******* FORMULAIRE EMBAUCHE ******/
 #infoEmbauche{

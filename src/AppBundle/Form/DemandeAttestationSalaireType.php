@@ -93,6 +93,8 @@ class DemandeAttestationSalaireType extends AbstractType
                 'years' => range(date('Y') - 100, date('Y') - 20),
                 'data' => new \DateTime(),
                 'label' => '___demande_attestation_salaire.dateReprise',
+                'translation_domain' => 'translator'
+
                 ))
                 ->add('dateDernierJour', DateType::class, array(
                 'widget' => 'choice',
@@ -100,6 +102,8 @@ class DemandeAttestationSalaireType extends AbstractType
                 'years' => range(date('Y') - 100, date('Y') - 20),
                 'data' => new \DateTime(),
                 'label' => '___demande_attestation_salaire.dateDernierJour',
+                'translation_domain' => 'translator'
+
                 ))
 
               ->add('Envoyer', SubmitType::class, array(

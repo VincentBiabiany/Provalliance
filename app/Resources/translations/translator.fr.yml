@@ -48,7 +48,7 @@ home_paie:
     header:       Nouvelle demande PAIE
 
 home_juridique_rh:
-    embauche:     Demande embauche
+    embauche:     Demande d'embauche
     rupture:      Rupture CDD
     conge:        Congé parental
     essai:        Rupture période d'essai
@@ -213,8 +213,8 @@ ___demande_rupture_cdd:
     depart:        Fin de CDD (Départ)
     rupture:       Rupture anticipé de CDD en raison:
     cdi:           Une embauche en CDI au sein du mêm salon le:
-    cdi2:          Une embauche en CDI au sein d'une autre société (départ prévu le)
-    demande:       Suite à la demande du salarié (départ le )
+    cdi2:          Une embauche en CDI au sein d'une autre société
+    demande:       Suite à la demande du salarié
     accord:        Un commun accord en payant la prime de précarité
     accord2:       Un commun accord en ne payant pas la prime de précarité
     nom:           Retour de:
@@ -441,7 +441,7 @@ ___demande_avenant:
     39h:                39h/semaine définitif
     manager:            Passage Manager Niveau 3 Echelon 1
     fixe:               Salaire fixe
-    variable:           Salaire varialble mensuel
+    variable:           Salaire variable mensuel
     trim:               Salaire variable trimestriel
     aPartir:            A partir du
     du:                 Du

@@ -31,7 +31,7 @@ class AvenantController extends Controller
       $demandeService->createDemande($form->getData(), $idSalon);
 
       return $this->redirect($this->generateUrl('homepage',
-        array('flash' => "avenant.popupValidation.message")));
+        array('flash' => "___demande_avenant.popupValidation.message")));
     }
 
     return $this->render('demandes/juridique_rh/avenant.html.twig', array(

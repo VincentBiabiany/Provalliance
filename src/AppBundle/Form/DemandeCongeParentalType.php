@@ -95,6 +95,7 @@ class DemandeCongeParentalType extends AbstractType
             ->add('tempsPartiel', CollectionType::class,
                 [
                   'entry_type' => NumberType::class,
+                  'label' => '___demande_conge_parental.tempsPartiel',
                   'translation_domain' => 'translator'
                 ]
             )
