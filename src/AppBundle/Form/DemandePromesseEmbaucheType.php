@@ -131,12 +131,6 @@ class DemandePromesseEmbaucheType extends AbstractType
 
                     $data->setMatricule($form['matricule']->getData()->getMatricule());
                     $event->setData($data);
-
-                    // if ($data->getDem() != null ){
-                    // $fileName = $this->fileUploader->upload($data->getDem(),0,'demission', 'dem');
-                    // $data->setDem($fileName);
-                    //
-                    // }
                   });
 
     }

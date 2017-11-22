@@ -94,8 +94,6 @@ class DemandeAbsencesInjustifieesType extends AbstractType
 
                   $data->setMatricule($form['matricule']->getData()->getMatricule());
 
-
-                  // die(dump($data));
                   $raison = $data->getRaison();
                   if ($raison == '___demande_absences.abs') {
 
@@ -110,7 +108,6 @@ class DemandeAbsencesInjustifieesType extends AbstractType
 
                     $data->setAbsences(null);
                   }
-
 
                   $event->setData($data);
               });
