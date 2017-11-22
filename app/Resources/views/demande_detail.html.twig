@@ -26,7 +26,6 @@
 
 		{% if is_granted('ROLE_PAIE') or is_granted('ROLE_JURIDIQUE')  and  statut != 0 %}
 		<div class="" style="max-width: 100%; margin: auto;width: 1000px;">
-			<hr id="separatorDetailDemande"/>
 
 			{% form_theme form2 'form/demande_complexe.html.twig' %}
 			{{ form_start(form2, {'attr': {'id':'form_message','novalidate': 'novalidate'}}) }}
