@@ -24,168 +24,170 @@
 
  		<!-- Champs Collaborateur -->
 
-				<div class="form-group">
-					<label class="control-label label col-sm-4 col-xs-12" for="personnel"> {{ form_label(form.matricule) }}</label>
-					<div class="col-sm-9  col-xs-12">
-						{{ form_widget(form.matricule, { 'attr': {'class': 'form-control'} }) }}
-					</div>
-				</div>
+		<div class="form-group">
+			<label class="control-label label col-sm-4 col-xs-12" for="personnel"> {{ form_label(form.matricule) }}</label>
+			<div class="col-sm-9  col-xs-12">
+				{{ form_widget(form.matricule, { 'attr': {'class': 'form-control'} }) }}
+			</div>
+		</div>
 
 
-				<!-- Champs raison -->
-				<div class="form-group row imbriq" id="raison">
-					<label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "___demande_avenant.raison"|trans({}, "translator") }}</label>
+		<!-- Champs raison -->
+		<div class="form-group row imbriq" id="raison">
+			<label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "___demande_avenant.raison"|trans({}, "translator") }}</label>
 
-					<div class="col-sm-9">
-						{% block _demande_lettre_mission_tempsPartiel_row %}
+			<div class="col-sm-9">
+				{% block _demande_lettre_mission_tempsPartiel_row %}
 
-						<div id="demande_avenant_raison" class="form-controlList">
-							{% for key,child in form.raison %}
+				<div id="demande_avenant_raison" class="form-controlList">
+					{% for key,child in form.raison %}
 
-								{% if key == 0 %}
+						{% if key == 0 %}
 
-										{{ form_widget(child, {'attr' : {'class' : ''} }) }}
-										{{ form_label(child) }}
+								{{ form_widget(child, {'attr' : {'class' : ''} }) }}
+								{{ form_label(child) }}
 
-                    <div id="raison0">
-                    </div>
+                <div id="raison0">
 
-								{% elseif key == 1 %}
+									<div class="col-sm-6">
+										<div class="jour" style="width: 90px;">
+											<label style="display:none" class="control-label label">{{ "___demande_avenant.du"|trans({}, "translator") }}</label>
+										</div>
+										{{ form_widget(form.du, { 'attr': {'class':'styleDate'} }) }}
+									</div>
 
-										{{ form_widget(child, {'attr' : {'class' : ''} }) }}
-										{{ form_label(child) }}
+								 <div class="col-sm-6" id="dateFin" style="display:none" >
+									 <div class="jour">
+										<label style="display:none" class="control-label label">{{ "___demande_avenant.au"|trans({}, "translator") }}</label>
+									 </div>
+									 {{ form_widget(form.au, { 'attr': {'class':'styleDate'} }) }}
+								</div>
 
-                    <div id="raison1">
-                    </div>
+								<div class="form-group">
 
-                {% elseif key == 2 %}
+									 <label id="pjLabel1" for="demande_avenant_arretMaladie" class="label-file">
+										 <i class="glyphicon glyphicon-download-alt"></i>
+										 <span>{{ "___demande_avenant.arretMaladie"|trans({}, "translator") }}</span>
+									 </label>
 
-                    {{ form_widget(child, {'attr' : {'class' : ''} }) }}
-                    {{ form_label(child) }}
+									 {{ form_widget(form.arretMaladie, { 'attr': {'class': 'input-file'} }) }}
 
-                    <div id="raison2">
-                    </div>
-                {% elseif key == 3 %}
+						       <label id="pjLabel2" for="avisMed" class="label-file">
+										 <i class="glyphicon glyphicon-download-alt"></i>
+										 <span>{{ "___demande_avenant.avisMed"|trans({}, "translator") }}</span>
+									 </label>
 
-                    {{ form_widget(child, {'attr' : {'class' : ''} }) }}
-                    {{ form_label(child) }}
+									 {{ form_widget(form.avisMed, { 'attr': {'class': 'input-file'} }) }}
+								</div>
 
-                    <div id="raison3">
-                    </div>
-
-                {% elseif key == 4 %}
-
-                    {{ form_widget(child, {'attr' : {'class' : ''} }) }}
-                    {{ form_label(child) }}
-
-                    <div id="raison4">
-                    </div>
-
-							 {% endif %}
-
-							{% endfor %}
-
-						</div>
-					</div>
-				</div> <!-- FIN champs raison -->
-				{% endblock %}
-
-        <!-- Temps partiel -->
-        <div style="display:none;" id="champsPartiel">
-          <div class="col-xs-12">
-
-            {% block _demande_embauche_tempsPartiel_row %}
-            <div id="tempsPartiel" class="form-group row" style="">
-              <label class="control-label label col-sm-3 col-xs-12" for="prenom">{{ "___demande_avenant.TempsPartiel"|trans({}, "translator") }}</label>
-
-              <div id="listeJours" class="col-sm-9 col-xs-12 pad-box">
-                <label class="control-label label col-sm-12 col-xs-12"  for="nom"></label>
-
-                  {% for key,child in form.tempsPartiel %}
-
-                   <div class="jour">
-                      {% if  key == "total"  %}
-                        {{ form_label(child, '___demande_avenant.' ~ key, {'label_attr' : {'class' : 'label'}}) }}
-                        {{ form_widget(child, {'attr' : {'class' : 'form-control total', 'readonly':'readonly'} }) }}
-                      {% else %}
-                        {{ form_label(child, '___demande_avenant.' ~ key, {'label_attr' : {'class' : 'label'}}) }}
-                        {{ form_widget(child, {'attr' : {'class' : 'form-control tempsHeure' } }) }}
-                      {% endif %}
-                    </div>
-
-                  {% endfor %}
               </div>
-            </div>
-            {% endblock %}
+
+						{% elseif key == 1 %}
+
+								{{ form_widget(child, {'attr' : {'class' : ''} }) }}
+								{{ form_label(child) }}
+
+                <div id="raison1">
+                </div>
+
+            {% elseif key == 2 %}
+
+                {{ form_widget(child, {'attr' : {'class' : ''} }) }}
+                {{ form_label(child) }}
+
+                <div id="raison2">
+                </div>
+            {% elseif key == 3 %}
+
+                {{ form_widget(child, {'attr' : {'class' : ''} }) }}
+                {{ form_label(child) }}
+
+                <div id="raison3">
+                </div>
+
+            {% elseif key == 4 %}
+
+                {{ form_widget(child, {'attr' : {'class' : ''} }) }}
+                {{ form_label(child) }}
+
+                <div id="raison4">
+                </div>
+
+					 {% endif %}
+
+					{% endfor %}
+
+				</div>
+			</div>
+		</div> <!-- FIN champs raison -->
+		{% endblock %}
+
+    <!-- Temps partiel -->
+    <div style="display:none;" id="champsPartiel">
+      <div class="col-xs-12">
+
+        {% block _demande_embauche_tempsPartiel_row %}
+        <div id="tempsPartiel" class="form-group row" style="">
+          <label class="control-label label col-sm-3 col-xs-12" for="prenom">{{ "___demande_avenant.TempsPartiel"|trans({}, "translator") }}</label>
+
+          <div id="listeJours" class="col-sm-9 col-xs-12 pad-box">
+            <label class="control-label label col-sm-12 col-xs-12"  for="nom"></label>
+
+              {% for key,child in form.tempsPartiel %}
+
+               <div class="jour">
+                  {% if  key == "total"  %}
+                    {{ form_label(child, '___demande_avenant.' ~ key, {'label_attr' : {'class' : 'label'}}) }}
+                    {{ form_widget(child, {'attr' : {'class' : 'form-control total', 'readonly':'readonly'} }) }}
+                  {% else %}
+                    {{ form_label(child, '___demande_avenant.' ~ key, {'label_attr' : {'class' : 'label'}}) }}
+                    {{ form_widget(child, {'attr' : {'class' : 'form-control tempsHeure' } }) }}
+                  {% endif %}
+                </div>
+
+              {% endfor %}
           </div>
         </div>
-
-				<!-- Champs date -->
-				<div class="form-group row imbriq" id="dates" style="display:none;">
-
-  				<div class="form-group col-sm-12 row">
-
-  						<div class="col-sm-6">
-  							<div class="jour" style="width: 90px;">
-  								<label style="display:none" class="control-label label passage">{{ "___demande_avenant.du"|trans({}, "translator") }}</label>
-                  <label style="display:none; " class="control-label label reprise">{{ "___demande_avenant.aPartir"|trans({}, "translator") }}</label>
-  							</div>
-  							{{ form_widget(form.dateDebut, { 'attr': {'class':'styleDate'} }) }}
-  				 		</div>
-
-  					 <div class="col-sm-6" id="dateFin" style="display:none" >
-  						 <div class="jour">
-  							<label style="display:none" class="control-label label passage">{{ "___demande_avenant.au"|trans({}, "translator") }}</label>
-  						 </div>
-  						 {{ form_widget(form.dateFin, { 'attr': {'class':'styleDate'} }) }}
-  					</div>
-
-  				</div>
-	     </div>
-
-       <!-- Pièce jointe -->
-       <div class="form-group imbriq" id="pieceJointe" style="display:none;">
-				<div class="form-group">
-
-					 <label id="pjLabel1" for="demande_avenant_pieceJointe1" class="label-file" style="display:none;">
-						 <i class="glyphicon glyphicon-download-alt"></i>
-						 <span>{{ "___demande_avenant.arretMaladie"|trans({}, "translator") }}</span>
-					 </label>
-
-           <label id="pjLabel2" for="demande_avenant_pieceJointe1" class="label-file" style="display:none;">
-						 <i class="glyphicon glyphicon-download-alt"></i>
-						 <span>{{ "___demande_avenant.courrier"|trans({}, "translator") }}</span>
-					 </label>
-
-					 {{ form_widget(form.pieceJointe1, { 'attr': {'class': 'input-file'} }) }}
-				</div>
-
-        <div class="form-group" id="pj2" >
-
-           <label for="demande_avenant_pieceJointe2" class="label-file">
-             <i class="glyphicon glyphicon-download-alt"></i>
-             <span>{{ "___demande_avenant.avisMed"|trans({}, "translator") }}</span>
-           </label>
-
-           {{ form_widget(form.pieceJointe2, { 'attr': {'class': 'input-file'} }) }}
-        </div>
+        {% endblock %}
       </div>
+    </div>
 
-      <!-- Salaire -->
+		<!-- Champs date -->
+		<div class="form-group row imbriq" id="dates" style="display:none;">
+			<div class="col-sm-6">
+				<div class="jour">
+				 <label style="display:none" class="control-label label">{{ "___demande_avenant.aPartirDu"|trans({}, "translator") }}</label>
+				</div>
+				{{ form_widget(form.aPartirDu, { 'attr': {'class':'styleDate'} }) }}
+		 </div>
+   </div>
 
-      <div class="form-group" style="display:none;" id="salaire">
-       <div class="form-group">
 
-          <label class="control-label label">{{ "___demande_avenant.fixe"|trans({}, "translator") }}</label>
-          {{ form_widget(form.salaireFixe, { 'attr': {'class': 'form-control salaireReq'} })}}
+   <!-- Courrier  -->
+    <div class="form-group" id="pj2" >
+       <label for="demande_avenant_courrier" class="label-file">
+         <i class="glyphicon glyphicon-download-alt"></i>
+         <span>{{ "___demande_avenant.courrier"|trans({}, "translator") }}</span>
+       </label>
+       {{ form_widget(form.courrier, { 'attr': {'class': 'input-file'} }) }}
+    </div>
 
-          <label class="control-label label">{{ "___demande_avenant.variable"|trans({}, "translator") }}</label>
-          {{ form_widget(form.salaireMens, { 'attr': {'class': 'form-control salaireReq'} }) }}
 
-          <label class="control-label label">{{ "___demande_avenant.trim"|trans({}, "translator") }}</label>
-          {{ form_widget(form.salaireTrim, { 'attr': {'class': 'form-control salaireReq'} }) }}
-       </div>
-     </div>
+  <!-- Salaire -->
+
+  <div class="form-group" style="display:none;" id="salaire">
+   <div class="form-group">
+
+      <label class="control-label label">{{ "___demande_avenant.fixe"|trans({}, "translator") }}</label>
+      {{ form_widget(form.salaireFixe, { 'attr': {'class': 'form-control salaireReq'} })}}
+
+      <label class="control-label label">{{ "___demande_avenant.variable"|trans({}, "translator") }}</label>
+      {{ form_widget(form.salaireMens, { 'attr': {'class': 'form-control salaireReq'} }) }}
+
+      <label class="control-label label">{{ "___demande_avenant.trim"|trans({}, "translator") }}</label>
+      {{ form_widget(form.salaireTrim, { 'attr': {'class': 'form-control salaireReq'} }) }}
+   </div>
+ </div>
 
 		<div id="actionsButtons">
 			{{ form_end(form) }}

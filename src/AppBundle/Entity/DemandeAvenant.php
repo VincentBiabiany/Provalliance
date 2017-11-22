@@ -35,25 +35,7 @@ class DemandeAvenant extends DemandeForm
   private $matricule;
 
   /**
-   * ___avenant.du
-   *
-   * @var string
-   *
-   * @ORM\Column(name="date_debut", type="date", length=255, nullable=true)
-   */
-  private $dateDebut;
-
-  /**
-   * ___avenant.au
-   *
-   * @var string
-   *
-   * @ORM\Column(name="date_fin", type="date", length=255, nullable=true)
-   */
-  private $dateFin;
-
-  /**
-   * ___avenant.raison
+   * ___demande_avenant.raison
    *
    * @var string
    *
@@ -62,7 +44,34 @@ class DemandeAvenant extends DemandeForm
   private $raison;
 
   /**
-   * ___avenant.collab
+   * ___demande_avenant.du
+   *
+   * @var string
+   *
+   * @ORM\Column(name="du", type="date", length=255, nullable=true)
+   */
+  private $du;
+
+  /**
+   * ___demande_avenant.au
+   *
+   * @var string
+   *
+   * @ORM\Column(name="au", type="date", length=255, nullable=true)
+   */
+  private $au;
+
+  /**
+   * ___demande_avenant.aPartirDu
+   *
+   * @var string
+   *
+   * @ORM\Column(name="a_partir_du", type="date", length=255, nullable=true)
+   */
+  private $aPartirDu;
+
+  /**
+   * ___demande_avenant.collab
    *
    * @var array
    *
@@ -71,25 +80,34 @@ class DemandeAvenant extends DemandeForm
   private $tempsPartiel;
 
   /**
-   * ___avenant.pj
+   * ___demande_avenant.arretMaladie
    *
    * @var string
    *
-   * @ORM\Column(name="piece_jointe1", type="string", length=255, nullable=true)
+   * @ORM\Column(name="arret_maladie", type="string", length=255, nullable=true)
    */
-  protected $pieceJointe1;
+  protected $arretMaladie;
 
   /**
-   * ___avenant.pj
+   * ___demande_avenant.avisMed
    *
    * @var string
    *
-   * @ORM\Column(name="piece_jointe2", type="string", length=255, nullable=true)
+   * @ORM\Column(name="avis_med", type="string", length=255, nullable=true)
    */
-  protected $pieceJointe2;
+  protected $avisMed;
 
   /**
-   * ___avenant.fixe
+   * ___demande_avenant.courrierLabel
+   *
+   * @var string
+   *
+   * @ORM\Column(name="courrier", type="string", length=255, nullable=true)
+   */
+  protected $courrier;
+
+  /**
+   * ___demande_avenant.fixe
    *
    * @var int
    *
@@ -98,7 +116,7 @@ class DemandeAvenant extends DemandeForm
   protected $salaireFixe;
 
   /**
-   * ___avenant.variable
+   * ___demande_avenant.variable
    *
    * @var int
    *
@@ -107,7 +125,7 @@ class DemandeAvenant extends DemandeForm
   protected $salaireMens;
 
   /**
-   * ___avenant.trim
+   * ___demande_avenant.trim
    *
    * @var int
    *
@@ -161,8 +179,6 @@ class DemandeAvenant extends DemandeForm
       return $this->subject;
   }
 
-  
-
     /**
      * Set matricule
      *
@@ -185,54 +201,6 @@ class DemandeAvenant extends DemandeForm
     public function getMatricule()
     {
         return $this->matricule;
-    }
-
-    /**
-     * Set dateDebut
-     *
-     * @param \DateTime $dateDebut
-     *
-     * @return DemandeAvenant
-     */
-    public function setDateDebut($dateDebut)
-    {
-        $this->dateDebut = $dateDebut;
-
-        return $this;
-    }
-
-    /**
-     * Get dateDebut
-     *
-     * @return \DateTime
-     */
-    public function getDateDebut()
-    {
-        return $this->dateDebut;
-    }
-
-    /**
-     * Set dateFin
-     *
-     * @param \DateTime $dateFin
-     *
-     * @return DemandeAvenant
-     */
-    public function setDateFin($dateFin)
-    {
-        $this->dateFin = $dateFin;
-
-        return $this;
-    }
-
-    /**
-     * Get dateFin
-     *
-     * @return \DateTime
-     */
-    public function getDateFin()
-    {
-        return $this->dateFin;
     }
 
     /**
@@ -260,6 +228,78 @@ class DemandeAvenant extends DemandeForm
     }
 
     /**
+     * Set du
+     *
+     * @param \DateTime $du
+     *
+     * @return DemandeAvenant
+     */
+    public function setDu($du)
+    {
+        $this->du = $du;
+
+        return $this;
+    }
+
+    /**
+     * Get du
+     *
+     * @return \DateTime
+     */
+    public function getDu()
+    {
+        return $this->du;
+    }
+
+    /**
+     * Set au
+     *
+     * @param \DateTime $au
+     *
+     * @return DemandeAvenant
+     */
+    public function setAu($au)
+    {
+        $this->au = $au;
+
+        return $this;
+    }
+
+    /**
+     * Get au
+     *
+     * @return \DateTime
+     */
+    public function getAu()
+    {
+        return $this->au;
+    }
+
+    /**
+     * Set aPartirDu
+     *
+     * @param \DateTime $aPartirDu
+     *
+     * @return DemandeAvenant
+     */
+    public function setAPartirDu($aPartirDu)
+    {
+        $this->aPartirDu = $aPartirDu;
+
+        return $this;
+    }
+
+    /**
+     * Get aPartirDu
+     *
+     * @return \DateTime
+     */
+    public function getAPartirDu()
+    {
+        return $this->aPartirDu;
+    }
+
+    /**
      * Set tempsPartiel
      *
      * @param array $tempsPartiel
@@ -284,51 +324,75 @@ class DemandeAvenant extends DemandeForm
     }
 
     /**
-     * Set pieceJointe1
+     * Set arretMaladie
      *
-     * @param string $pieceJointe1
+     * @param string $arretMaladie
      *
      * @return DemandeAvenant
      */
-    public function setPieceJointe1($pieceJointe1)
+    public function setArretMaladie($arretMaladie)
     {
-        $this->pieceJointe1 = $pieceJointe1;
+        $this->arretMaladie = $arretMaladie;
 
         return $this;
     }
 
     /**
-     * Get pieceJointe1
+     * Get arretMaladie
      *
      * @return string
      */
-    public function getPieceJointe1()
+    public function getArretMaladie()
     {
-        return $this->pieceJointe1;
+        return $this->arretMaladie;
     }
 
     /**
-     * Set pieceJointe2
+     * Set avisMed
      *
-     * @param string $pieceJointe2
+     * @param string $avisMed
      *
      * @return DemandeAvenant
      */
-    public function setPieceJointe2($pieceJointe2)
+    public function setAvisMed($avisMed)
     {
-        $this->pieceJointe2 = $pieceJointe2;
+        $this->avisMed = $avisMed;
 
         return $this;
     }
 
     /**
-     * Get pieceJointe2
+     * Get avisMed
      *
      * @return string
      */
-    public function getPieceJointe2()
+    public function getAvisMed()
     {
-        return $this->pieceJointe2;
+        return $this->avisMed;
+    }
+
+    /**
+     * Set courrier
+     *
+     * @param string $courrier
+     *
+     * @return DemandeAvenant
+     */
+    public function setCourrier($courrier)
+    {
+        $this->courrier = $courrier;
+
+        return $this;
+    }
+
+    /**
+     * Get courrier
+     *
+     * @return string
+     */
+    public function getCourrier()
+    {
+        return $this->courrier;
     }
 
     /**

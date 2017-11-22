@@ -424,11 +424,12 @@ ___demande_avenant:
     collaborateur:      Collaborateur
     raison:             Raison
     partielTherap:      Temps partiel thérapeuthique
-    TempsPartiel:       Temps de travail
+
     arretMaladie:       Arrêt maladie
     avisMed:            Avis méd. du travail
     partielDef:         Temps partiel définitif
     courrier:           Joindre courrier
+    courrierLabel:      Courrier
     tempsPlein:         Temps plein définitif 35h/semaine
     39h:                39h/semaine définitif
     manager:            Passage Manager Niveau 3 Echelon 1
@@ -438,14 +439,17 @@ ___demande_avenant:
     aPartir:            A partir du
     du:                 Du
     au:                 Au
+    aPartirDu:          A partir du
+
+    TempsPartiel:       Temps de travail
     pj:                 Pièce pieceJointe
-    lundi:         Lu
-    mardi:         Ma
-    mercredi:      Me
-    jeudi:         Je
-    vendredi:      Ve
-    samedi:        Sa
-    total:         Total
+    lundi:              Lu
+    mardi:              Ma
+    mercredi:           Me
+    jeudi:              Je
+    vendredi:           Ve
+    samedi:             Sa
+    total:              Total
     popupValidation:
         message:        Votre demande d'avenant a été envoyée.
 

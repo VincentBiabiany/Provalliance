@@ -48,7 +48,7 @@ class DemandeAvenantType extends AbstractType
                   'translation_domain' => 'translator',
                   'attr' => ['required' => 'required']
               ))
-            ->add('dateDebut', DateType::class, array(
+            ->add('du', DateType::class, array(
               'widget' => 'choice',
               'format' => 'dd/MM/y',
               'years' => range(date('Y') - 5, date('Y') + 10),
@@ -57,7 +57,25 @@ class DemandeAvenantType extends AbstractType
               'data' => new \DateTime()
 
             ))
-            ->add('dateFin', DateType::class, array(
+            ->add('au', DateType::class, array(
+              'widget' => 'choice',
+              'format' => 'dd/MM/y',
+              'years' => range(date('Y') - 5, date('Y') + 10),
+              'attr' => ['class' => ''],
+              'label' => '',
+              'data' => new \DateTime()
+
+            ))
+            ->add('du', DateType::class, array(
+              'widget' => 'choice',
+              'format' => 'dd/MM/y',
+              'years' => range(date('Y') - 5, date('Y') + 10),
+              'attr' => ['class' => ''],
+              'label' => '',
+              'data' => new \DateTime()
+
+            ))
+            ->add('aPartirDu', DateType::class, array(
               'widget' => 'choice',
               'format' => 'dd/MM/y',
               'years' => range(date('Y') - 5, date('Y') + 10),
@@ -85,10 +103,13 @@ class DemandeAvenantType extends AbstractType
                   'translation_domain' => 'translator'
                 ]
             )
-            ->add('pieceJointe1', FileType::class, array(
+            ->add('arretMaladie', FileType::class, array(
               'translation_domain' => 'translator',
             ))
-            ->add('pieceJointe2', FileType::class, array(
+            ->add('avisMed', FileType::class, array(
+              'translation_domain' => 'translator',
+            ))
+            ->add('courrier', FileType::class, array(
               'translation_domain' => 'translator',
             ))
             ->add('salaireFixe', NumberType::class, array(
@@ -112,7 +133,7 @@ class DemandeAvenantType extends AbstractType
                   $data = $event->getForm()->getData();
 
                   $data->setMatricule($form['matricule']->getData()->getMatricule());
-                  dump($data->getRaison());
+                  //dump($data->getRaison());
                   if ($data->getRaison() != '___demande_avenant.partielTherap' && $data->getRaison() != '___demande_avenant.partielDef')
                   {
                     $data->setTempsPartiel(null);
