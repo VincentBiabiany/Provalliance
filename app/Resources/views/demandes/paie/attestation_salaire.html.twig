@@ -10,7 +10,7 @@
 </div>
 
 <div class="head">
-	{{ "demande_attestation_salaire.titre"|trans({}, "translator") }}
+	{{ "___demande_attestation_salaire.titre"|trans({}, "translator") }}
 </div>
 <div class="nomSalon">
   {{ app.session.get('nomSalon') }}
@@ -39,16 +39,16 @@
 				</div>
 
 				<div class="form-group">
-					<label class="control-label label col-sm-4 col-xs-12" for="dateDernierJour">{{ "demande_attestation_salaire.dateDernierJour"|trans({}, "translator") }}</label>
+					<label class="control-label label col-sm-4 col-xs-12" for="dateDernierJour">{{ form_label(form.dateDernierJour) }}</label>
 					<div class="col-sm-3  col-xs-12">
-						{{ form_widget(form.dateDernierJour) }}
+						{{ form_widget(form.dateDernierJour, {'attr':{'class':'styleDate'}}) }}
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label class="control-label label col-sm-4 col-xs-12" for="dateSortie">{{ "demande_attestation_salaire.dateReprise"|trans({}, "translator") }}</label>
+					<label class="control-label label col-sm-4 col-xs-12" for="dateSortie">{{ form_label(form.dateReprise) }}</label>
 					<div class="col-sm-3  col-xs-12">
-						{{ form_widget(form.dateReprise) }}
+						{{ form_widget(form.dateReprise, {'attr':{'class':'styleDate'}}) }}
 					</div>
 				</div>
 
