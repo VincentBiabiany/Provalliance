@@ -19,6 +19,7 @@ class AutreDemande extends DemandeForm
     protected $typeForm ='Autre demande';
     protected $subject ='connu';
     private $service;
+    protected $nomDoc = 'absence';
 
     /**
      * @var int
@@ -186,6 +187,17 @@ class AutreDemande extends DemandeForm
     {
         return $this->nameDemande;
     }
+    
+    /**
+     * Get nomDoc
+     *
+     * @return integer
+     */
+    public function getNomDoc()
+    {
+        return $this->nomDoc;
+    }
+
     /**
      * Get typeForm
      *

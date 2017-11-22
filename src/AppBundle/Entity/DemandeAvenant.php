@@ -17,6 +17,7 @@ class DemandeAvenant extends DemandeForm
   protected $typeForm ='Demande d\'avenant';
   protected $subject ='connu';
   protected $service ='juridique';
+  protected $nomDoc = 'avenant';
 
   /**
    * @var int
@@ -151,6 +152,16 @@ class DemandeAvenant extends DemandeForm
       return $this->nameDemande;
   }
 
+  /**
+   * Get nomDoc
+   *
+   * @return integer
+   */
+  public function getNomDoc()
+  {
+      return $this->nomDoc;
+  }
+  
   /**
    * Get typeForm
    *

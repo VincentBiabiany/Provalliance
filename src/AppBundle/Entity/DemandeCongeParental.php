@@ -18,7 +18,7 @@ class DemandeCongeParental extends DemandeForm
   protected $typeForm ='Demande de congé parental';
   protected $subject ='connu';
   protected $service ='juridique';
-
+  protected $nomDoc = 'conge_parental';
 
   /**
    * ___demande_conge_parental.collab
@@ -106,6 +106,16 @@ class DemandeCongeParental extends DemandeForm
   public function getNameDemande()
   {
       return $this->nameDemande;
+  }
+  
+  /**
+   * Get nomDoc
+   *
+   * @return integer
+   */
+  public function getNomDoc()
+  {
+      return $this->nomDoc;
   }
 
   /**

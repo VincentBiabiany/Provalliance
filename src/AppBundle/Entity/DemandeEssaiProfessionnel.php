@@ -13,6 +13,12 @@ use AppBundle\Entity\DemandeForm;
  */
 class DemandeEssaiProfessionnel extends DemandeForm
 {
+    protected $nameDemande ='DemandeEssaiProfessionnel';
+    protected $typeForm ='Demande d\'essai professionnel';
+    protected $subject ='inconnu';
+    protected $service ='juridique';
+    protected $nomDoc = 'essai_pro';
+
     /**
      * @var int
      *
@@ -195,11 +201,6 @@ class DemandeEssaiProfessionnel extends DemandeForm
      */
     protected $rib;
 
-    protected $nameDemande ='DemandeEssaiProfessionnel';
-    protected $typeForm ='Demande d\'essai professionnel';
-    protected $subject ='inconnu';
-    protected $service ='juridique';
-
     /**
      * Get nameDemande
      *
@@ -208,6 +209,16 @@ class DemandeEssaiProfessionnel extends DemandeForm
     public function getNameDemande()
     {
         return $this->nameDemande;
+    }
+
+    /**
+     * Get nomDoc
+     *
+     * @return integer
+     */
+    public function getNomDoc()
+    {
+        return $this->nomDoc;
     }
 
     /**

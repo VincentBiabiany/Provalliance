@@ -11,6 +11,7 @@ global:
     choiceFile:    Choisir un fichier
     affirme:       Oui
     negative:      Non
+    fichier:       Choisir un fichier
 
 login:
     username:  Nom d'utilisateur

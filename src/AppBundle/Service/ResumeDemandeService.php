@@ -110,7 +110,7 @@ class ResumeDemandeService
       // Récupération des noms des propriétés de l'entité
       $properties = $propertyInfo->getProperties('AppBundle\Entity\\'.$nameEntity);
 
-      $properties = array_diff($properties,['discr','typeForm','id','nameDemande','subject','service']);
+      $properties = array_diff($properties, ['discr', 'typeForm', 'id', 'nameDemande', 'subject', 'service', 'nomDoc']);
 
       $response .= '<div class="page">';
       $response .= '<h1>'.$infoDemande['typeForm'].'  |  '.$infoDemande['dateTraitement']->format('d/m/y').'|  Réf. : '.$idDemandeItSelf.'</h1>';
@@ -275,7 +275,6 @@ class ResumeDemandeService
     $response = "";
     $b = 1;
     $lastItem = count($prop);
-    //dump($prop);
 
     // Cas du tableau à 2 dimensions
     if (isset($prop[0]) && is_array($prop[0]))

@@ -13,6 +13,8 @@ use AppBundle\Entity\DemandeForm;
  */
 class DemandeEmbauche extends DemandeForm
 {
+      protected $nomDoc = 'embauche';
+
     /**
      * @var int
      *
@@ -394,6 +396,16 @@ class DemandeEmbauche extends DemandeForm
         return $this->nameDemande;
     }
 
+    /**
+     * Get nomDoc
+     *
+     * @return integer
+     */
+    public function getNomDoc()
+    {
+        return $this->nomDoc;
+    }
+    
     /**
      * Get subject
      *

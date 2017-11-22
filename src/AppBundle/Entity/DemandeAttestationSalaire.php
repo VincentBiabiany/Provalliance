@@ -18,6 +18,7 @@ class DemandeAttestationSalaire extends DemandeForm
     protected $typeForm ='Demande d\'attestation salaire';
     protected $subject ='connu';
     protected $service ='paie';
+    protected $nomDoc = 'attestation_salaire';
 
     /**
      * ___demande_attestation_salaire.collaborateur
@@ -74,6 +75,16 @@ class DemandeAttestationSalaire extends DemandeForm
     public function getNameDemande()
     {
         return $this->nameDemande;
+    }
+    
+    /**
+     * Get nomDoc
+     *
+     * @return integer
+     */
+    public function getNomDoc()
+    {
+        return $this->nomDoc;
     }
 
     /**

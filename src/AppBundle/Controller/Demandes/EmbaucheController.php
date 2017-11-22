@@ -58,7 +58,6 @@ class EmbaucheController extends Controller
           return $this->redirectToRoute('rh_embauche');
 
       $demande = $session->get('demande');
-      dump($demande);
 
       $form = $this->createForm(DemandeEmbaucheType::class, $demande, array('step' => '2'));
 

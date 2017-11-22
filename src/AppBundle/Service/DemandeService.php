@@ -296,19 +296,19 @@ class DemandeService
     // Generation de l'url
     self::generateAbsUrl($demandeSimple);
     // Envoie du mail
-    self::sendMail($idSalon, $personnel, [1, 5],  $demande->getTypeForm());
+    self::sendMail($idSalon, $personnel, [2, 7],  $demande->getTypeForm());
   }
 
   public function createDemandeComplexe($demande, $idSalon){
 
     if ($demande->getSubject() == 'connu'){
-        $personnel =  $this->em->getRepository('ApiBundle:Personnel')
-                               ->findOneBy(array('matricule' => $demande->getMatricule()));
+      $personnel =  $this->em->getRepository('ApiBundle:Personnel')
+                             ->findOneBy(array('matricule' => $demande->getMatricule()));
 
-        $personnel = $personnel->getPrenom().' '.$personnel->getNom();
-       } else {
-        $personnel = 'Nouveau Collaborateur';
-       }
+      $personnel = $personnel->getPrenom().' '.$personnel->getNom();
+    } else {
+      $personnel = 'Nouveau Collaborateur';
+    }
 
     $demandeComplexe = new DemandeComplexe();
     $demande->setTypeForm($demande->getTypeForm());
@@ -337,8 +337,6 @@ class DemandeService
     $demandeComplexe->setService('juridique');
     $demandeComplexe->setUser($this->token->getUser());
     $demandeComplexe->setIdSalon($idSalon);
-
-    //$demandeEmbauche = $form->getData();
 
     $fileName = $this->fileUploader->upload($demande->getCarteId(), 0, 'embauche', 'ID');
     $demande->setCarteId($fileName);

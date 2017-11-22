@@ -18,6 +18,8 @@ class DemandeAbsencesInjustifiees extends DemandeForm
   protected $typeForm = 'Demande d\'absences injustifiees';
   protected $subject = 'connu';
   protected $service = 'juridique';
+  protected $nomDoc = 'acompte';
+
 
   /**
    * ___absences.matricule
@@ -188,45 +190,54 @@ class DemandeAbsencesInjustifiees extends DemandeForm
   }
 
 
+  /**
+   * Get subject
+   *
+   * @return integer
+   */
+  public function getSubject()
+  {
+      return $this->subject;
+  }
 
-/**
- * Get subject
- *
- * @return integer
- */
-public function getSubject()
-{
-    return $this->subject;
-}
+  /**
+   * Get nameDemande
+   *
+   * @return integer
+   */
+  public function getNameDemande()
+  {
+      return $this->nameDemande;
+  }
 
-/**
- * Get nameDemande
- *
- * @return integer
- */
-public function getNameDemande()
-{
-    return $this->nameDemande;
-}
+  /**
+   * Get nomDoc
+   *
+   * @return integer
+   */
+  public function getNomDoc()
+  {
+      return $this->nomDoc;
+  }
 
-/**
- * Get typeForm
- *
- * @return integer
- */
-public function getTypeForm()
-{
-    return $this->typeForm;
-}
-/**
- * Get service
- *
- * @return integer
- */
-public function getService()
-{
-    return $this->service;
-}
+  /**
+   * Get typeForm
+   *
+   * @return integer
+   */
+  public function getTypeForm()
+  {
+      return $this->typeForm;
+  }
+  /**
+   * Get service
+   *
+   * @return integer
+   */
+  public function getService()
+  {
+      return $this->service;
+  }
 
 
 }

@@ -17,7 +17,7 @@
 
     <label for="demande_complexe_docSalon" class="label-file">
       <i class="glyphicon glyphicon-download-alt"></i>
-      <span>Choisir un fichier</span>
+      <span>{{ "global.fichier"|trans({}, "translator") }}</span>
     </label>
     {{ form_widget(form, { 'attr' : {'class': 'input-file', 'style' : ' margin-top: -1px;'} }) }}
   </div>
@@ -32,7 +32,7 @@
 
           <label for="demande_complexe_docService" class="label-file">
             <i class="glyphicon glyphicon-download-alt"></i>
-            <span>Choisir un fichier</span>
+            <span>{{ "global.fichier"|trans({}, "translator") }}</span>
           </label>
 
           {{ form_widget(form, { 'attr' : {'class': 'input-file', 'style' : ' margin-top: -1px;'} }) }}
@@ -58,7 +58,7 @@
 
     <label for="form_docService" class="label-file">
       <i class="glyphicon glyphicon-download-alt"></i>
-      <span>Choisir un fichier</span>
+      <span>{{ "global.fichier"|trans({}, "translator") }}</span>
     </label>
     {{ form_widget(form, { 'attr' : {'class': 'input-file', 'style' : ' margin-top: -1px;'} }) }}
   </div>

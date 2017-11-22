@@ -18,6 +18,7 @@ class DemandeAcompte extends DemandeForm
     protected $typeForm ='Demande acompte';
     protected $subject ='connu';
     protected $service ='paie';
+    protected $nomDoc = 'absence';
 
     /**
      * ___demande_acompte.nom
@@ -53,6 +54,16 @@ class DemandeAcompte extends DemandeForm
         return $this;
     }
 
+    /**
+     * Get nomDoc
+     *
+     * @return integer
+     */
+    public function getNomDoc()
+    {
+        return $this->nomDoc;
+    }
+    
     /**
      * Get matricule
      *

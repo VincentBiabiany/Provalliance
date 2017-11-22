@@ -11,6 +11,7 @@ use AppBundle\Entity\DemandeComplexe;
 use AppBundle\Entity\DemandeSimple;
 use AppBundle\Entity\DemandeAcompte;
 use AppBundle\Entity\DemandeEmbauche;
+use AppBundle\Entity\DemandeEssaiProfessionnel;
 use AppBundle\Form\DemandeAcompteType;
 use AppBundle\Form\DemandeComplexeType;
 use AppBundle\Form\DemandeEmbaucheType;
@@ -95,7 +96,8 @@ class DemandeDetailController extends Controller
             $demande->setDateTraitement(new \DateTime());
 
             if ($form2["docService"]->getData() != null) {
-              $fileName = $fileuploader->upload($form2["docService"]->getData(), 0, 'à revoir', 'pj');
+
+              $fileName = $fileuploader->upload($form2["docService"]->getData(), $demande->getDemandeform()->getMatricule(), $demande->getDemandeform()->getNomDoc(), 'pj-service');
               $demande->setDocService($fileName);
             }
             $demande->setMessage($form2["message"]->getData());
@@ -210,6 +212,13 @@ class DemandeDetailController extends Controller
 
   public function traitement($form2, $demande, $id, $fileUploader)
   {
+    if ($demande->getDemandeform() instanceof DemandeEssaiProfessionnel || $demande->getDemandeform() instanceof DemandeEmbauche)
+      $matricule = 0;
+    else
+      $matricule = $demande->getDemandeform()->getMatricule();
+
+    $nomDoc = $demande->getDemandeform()->getNomDoc();
+
     if ($demande->getStatut() == DemandeEntity::statut_AVALIDE) {
       $demande->setstatut(DemandeEntity::statut_TRAITE);
       $demande->setDateTraitement(new \DateTime());
@@ -218,9 +227,12 @@ class DemandeDetailController extends Controller
         $demande->setMessage($form2["message"]->getData());
 
       if ($form2->has('docSalon') && $form2["docSalon"]->getData() != null) {
-        $fileName = $fileUploader->upload($form2["docSalon"]->getData());
+
+
+        $fileName = $fileUploader->upload($form2["docSalon"]->getData(), $matricule, $nomDoc, 'pj-salon');
         $demande->setDocSalon($fileName);
       }
+
     }
 
     if ($demande->getStatut() == DemandeEntity::statut_ASIGNE) {
@@ -232,7 +244,7 @@ class DemandeDetailController extends Controller
 
       if ($form2->has('docSalon') && $form2["docSalon"]->getData() != null) {
 
-        $fileName = $fileUploader->upload($form2["docSalon"]->getData(), 0, 'demande', 'pj');
+        $fileName = $fileUploader->upload($form2["docSalon"]->getData(), $matricule, $nomDoc, 'pj-service');
         $demande->setDocSalon($fileName);
       }
     }
@@ -245,7 +257,7 @@ class DemandeDetailController extends Controller
         $demande->setMessage($form2["message"]->getData());
 
       if ($form2["docService"]->getData() != null) {
-        $fileName = $fileUploader->upload($form2["docService"]->getData(), 0, 'embauche', 'pj');
+        $fileName = $fileUploader->upload($form2["docService"]->getData(), $matricule, $nomDoc, 'pj-service');
         $demande->setDocService($fileName);
       }
     }
