@@ -9,7 +9,7 @@
 	<img style="display: block !important;margin: auto !important;" id="logotop" src="{{ img }}">
 </div>
 <div class="head">
-{{ "demande_essai_pro.titre"|trans({}, "translator") }}
+{{ "___demande_essai_pro.titre"|trans({}, "translator") }}
 </div>
 <div class="nomSalon">
   {{ app.session.get('nomSalon') }}
@@ -22,111 +22,111 @@
 		    {{ form_errors(form)}}
 				<div class="form-group">
 
-			    <label class="control-label label col-sm-3 col-xs-12">{{ "demande_essai_pro.nom"|trans({}, "translator") }}</label>
+			    <label class="control-label label col-sm-3 col-xs-12">{{ form_label(form.nom) }}</label>
 			    <div class="col-sm-3 col-xs-12">
 			      {{ form_widget(form.nom) }}
 			    </div>
 
-			    <label class="control-label label col-sm-3 col-xs-12" >{{ "demande_essai_pro.prenom"|trans({}, "translator") }}</label>
+			    <label class="control-label label col-sm-3 col-xs-12" >{{ form_label(form.prenom) }}</label>
 			    <div class="col-sm-3 col-xs-12">
 			      {{ form_widget(form.prenom) }}
 			    </div>
 			  </div>
 
 				<div class="form-group">
-			    <label class="control-label label col-sm-3 col-xs-12" for="adr">{{ "demande_essai_pro.adresse"|trans({}, "translator") }}</label>
+			    <label class="control-label label col-sm-3 col-xs-12" for="adr">{{ form_label(form.adresse) }}</label>
 			    <div class="col-sm-8 col-xs-12">
 			      {{ form_widget(form.adresse) }}
 			    </div>
 			  </div>
 
 				<div class="form-group" >
-			    <label class="control-label label col-sm-3 col-xs-12">{{ "demande_essai_pro.codePostal"|trans({}, "translator") }}</label>
+			    <label class="control-label label col-sm-3 col-xs-12">{{ form_label(form.codePostal) }}</label>
 			    <div class="col-sm-3 col-xs-12">
 			      {{ form_widget(form.codePostal)}}
 
 			    </div>
 
-			    <label class="control-label label col-sm-3 col-xs-12">{{ "demande_essai_pro.ville"|trans({}, "translator") }}</label>
+			    <label class="control-label label col-sm-3 col-xs-12">{{ form_label(form.ville) }}</label>
 			    <div class="col-sm-3 col-xs-12">
 			      {{ form_widget(form.ville) }}
 			    </div>
 			  </div>
 
 				<div class="form-group">
-			    <label class="control-label label col-sm-3 col-xs-12" for="demande_essai_pro_dateNaissance">{{ "demande_essai_pro.dateNaissance"|trans({}, "translator") }}</label>
+			    <label class="control-label label col-sm-3 col-xs-12" for="demande_essai_pro_dateNaissance">{{ form_label(form.dateNaissance) }}</label>
 			    <div class="col-sm-3 col-xs-12">
 			      {{ form_widget(form.dateNaissance, {'attr':{'name':'date','class':'styleDate'}}) }}
 			    </div>
 
-			    <label class="control-label label col-sm-3 col-xs-12" for="Nationalite">{{ "demande_essai_pro.nationalite"|trans({}, "translator") }}</label>
-			    <div class="col-sm-3 col-xs-12 append " style="display: inline-flex">
+			    <label class="control-label label col-sm-3 col-xs-12" for="Nationalite">{{ form_label(form.nationalite) }}</label>
+			    <div class="col-sm-3 col-xs-12 append " >
 			      {{ form_widget(form.nationalite) }}
 			    </div>
 
 			  </div>
 
 				<div class="form-group">
-			    <label class="control-label label col-sm-3 col-xs-12" for="demande_essai_pro_lieuNaissance">{{ "demande_essai_pro.lieuNaissance"|trans({}, "translator") }}</label>
+			    <label class="control-label label col-sm-3 col-xs-12" for="demande_essai_pro_lieuNaissance">{{ form_label(form.lieuNaissance) }}</label>
 			    <div class="col-sm-3 col-xs-12">
 			      {{ form_widget(form.lieuNaissance) }}
 			    </div>
 
-			    <label class="control-label label col-sm-3 col-xs-12" for="departement">{{ "demande_essai_pro.departement"|trans({}, "translator") }}</label>
-			    <div class="col-sm-3 col-xs-12 append radioInput" style="display: inline-flex">
+			    <label class="control-label label col-sm-3 col-xs-12" for="departement">{{ form_label(form.departement) }}</label>
+			    <div class="col-sm-3 col-xs-12 append radioInput" >
 			      {{ form_widget(form.departement) }}
 			    </div>
 			  </div>
 
 				<div class="form-group">
-			    <label class="control-label label col-sm-3 col-xs-12">{{ "demande_essai_pro.numSecu"|trans({}, "translator") }}</label>
+			    <label class="control-label label col-sm-3 col-xs-12">{{ form_label(form.numSecu) }}</label>
 			    <div class="col-sm-3 col-xs-12">
 			      {{ form_widget(form.numSecu) }}
 			    </div>
-			    <label class="control-label label col-sm-3 col-xs-12">{{ "demande_essai_pro.dateEssai"|trans({}, "translator") }}</label>
+			    <label class="control-label label col-sm-3 col-xs-12">{{ form_label(form.dateEssai) }}</label>
 			    <div class="col-sm-3 col-xs-12">
-			      {{ form_widget(form.dateEssai) }}
+			      {{ form_widget(form.dateEssai, {'attr':{'name':'date','class':'styleDate'}}) }}
 			    </div>
 				</div>
 
 				<div class="form-group">
-			    <label class="control-label label col-sm-3 col-xs-12">{{ "demande_essai_pro.niveau"|trans({}, "translator") }}</label>
+			    <label class="control-label label col-sm-3 col-xs-12">{{ form_label(form.niveau) }}</label>
 			    <div class="col-sm-3 col-xs-12">
 			      {{ form_widget(form.niveau) }}
 			    </div>
 
-			    <label class="control-label label col-sm-3 col-xs-12" >{{ "demande_essai_pro.diplomes"|trans({}, "translator") }}</label>
+			    <label class="control-label label col-sm-3 col-xs-12" >{{ form_label(form.diplomes) }}</label>
 			    <div class="col-sm-3 col-xs-12">
 			      {{ form_widget(form.diplomes) }}
 			    </div>
  			  </div>
 
 				<div class="form-group">
-			    <label class="control-label label col-sm-3 col-xs-12" >{{ "demande_essai_pro.qualification"|trans({}, "translator") }}</label>
+			    <label class="control-label label col-sm-3 col-xs-12" >{{ form_label(form.qualification) }}</label>
 			    <div class="col-sm-3 col-xs-12">
 			      {{ form_widget(form.qualification) }}
 			    </div>
 
-			    <label class="control-label label col-sm-3 col-xs-12" >{{ "demande_essai_pro.nbHeures"|trans({}, "translator") }}</label>
+			    <label class="control-label label col-sm-3 col-xs-12" >{{ form_label(form.nbHeures) }}</label>
 			    <div class="col-sm-3 col-xs-12">
 			      {{ form_widget(form.nbHeures) }}
 			    </div>
 			  </div>
 
 				<div class="form-group">
-			    <label class="control-label label col-sm-3 col-xs-12 " >{{ "demande_essai_pro.priseReference"|trans({}, "translator") }}</label>
+			    <label class="control-label label col-sm-3 col-xs-12 " >{{ form_label(form.priseReference) }}</label>
 			    <div class="col-sm-3 col-xs-12 radioInput">
 			      {{ form_widget(form.priseReference) }}
 			    </div>
 
-			    <label class="control-label label col-sm-3 col-xs-12" >{{ "demande_essai_pro.telephone"|trans({}, "translator") }}</label>
+			    <label class="control-label label col-sm-3 col-xs-12" >{{ form_label(form.telephone) }}</label>
 			    <div class="col-sm-3 col-xs-12">
 			      {{ form_widget(form.telephone) }}
 			    </div>
 			  </div>
 
 				<div class="form-group">
-			    <label class="control-label label col-sm-3 col-xs-12" >{{ "demande_essai_pro.carteId"|trans({}, "translator") }}</label>
+			    <label class="control-label label col-sm-3 col-xs-12" >{{ form_label(form.carteId) }}</label>
 			    <div class="col-sm-3 col-xs-12">
 						<label for="demande_essai_professionnel_carteId" class="label-file">
 							<i class="glyphicon glyphicon-download-alt"></i>
@@ -137,7 +137,7 @@
 			    </div>
 			  </div>
 				<div class="form-group">
-			    <label class="control-label label col-sm-3 col-xs-12" >{{ "demande_essai_pro.rib"|trans({}, "translator") }}</label>
+			    <label class="control-label label col-sm-3 col-xs-12" >{{ form_label(form.rib) }}</label>
 			    <div class="col-sm-3 col-xs-12">
 						<label for="demande_essai_professionnel_rib" class="label-file">
 							<i class="glyphicon glyphicon-download-alt"></i>
@@ -164,21 +164,21 @@
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal">&times;</button>
-	        <h4 style="color:black;" class="modal-title">{{ "demande_essai_pro.popupInfo.attention"|trans({}, "translator") }}</h4>
+	        <h4 style="color:black;" class="modal-title">{{ "___demande_essai_pro.popupInfo.attention"|trans({}, "translator") }}</h4>
 	      </div>
 
 	      <div class="modal-body">
 
 	        <div id="infoEssaiPro" class="" >
-	          <p style="color:black;">{{ "demande_essai_pro.popupInfo.msg"|trans({}, "translator") }}  </br></p>
+	          <p style="color:black;">{{ "___demande_essai_pro.popupInfo.msg"|trans({}, "translator") }}  </br></p>
 
 	          <ul>
-	            <li>{{ "demande_essai_pro.popupInfo.docRib"|trans({}, "translator") }}</li>
-	            <li>{{ "demande_essai_pro.popupInfo.docCarteId"|trans({}, "translator") }}</li>
+	            <li>{{ "___demande_essai_pro.popupInfo.docRib"|trans({}, "translator") }}</li>
+	            <li>{{ "___demande_essai_pro.popupInfo.docCarteId"|trans({}, "translator") }}</li>
 	          </ul>
 
-						<i>{{ "demande_essai_pro.popupInfo.titreArticle"|trans({}, "translator") }}</i><br/>
-						<span> {{ "demande_essai_pro.popupInfo.articleLoi"|trans({}, "translator") }}</span>
+						<i>{{ "___demande_essai_pro.popupInfo.titreArticle"|trans({}, "translator") }}</i><br/>
+						<span> {{ "___demande_essai_pro.popupInfo.articleLoi"|trans({}, "translator") }}</span>
 	        </div>
 
 	      </div>
@@ -191,8 +191,10 @@
 
 	  </div>
 	</div>
-	<script src="{{ asset('js/custom-file-input.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/jquery.validate.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('js/global/global-method.js') }}"></script>
+	<script src="{{ asset('js/custom-file-input.js') }}"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.12/jquery.mask.js" ></script>
 	<script type="text/javascript">
 
@@ -212,5 +214,68 @@ $('#demande_essai_professionnel_nbHeures').blur(function(){
 		$("#myModal").css('display','flex');
 		$('#demande_essai_professionnel_numSecu').mask('2 99 12 99 999 999 99', {'translation': {9: {pattern: /[0-9]/}, 2:{pattern: /[0-2]/}, 1: {pattern: /[0-1]/}}});
     $('#demande_essai_professionnel_telephone').mask('99 99 99 99 99', {'translation': {9: {pattern: /[0-9]/}}});
+
+		$("#EssaiPro").validate({
+			rules: {
+
+		 },
+		 messages: {
+			 'demande_essai_professionnel[nom]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+			 'demande_essai_professionnel[prenom]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+			 'demande_essai_professionnel[adresse]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+			 'demande_essai_professionnel[codePostal]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+			 'demande_essai_professionnel[ville]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+			 'demande_essai_professionnel[nationalite]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+			 'demande_essai_professionnel[lieuNaissance]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+			 'demande_essai_professionnel[departement]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+			 'demande_essai_professionnel[numSecu]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+			 'demande_essai_professionnel[diplomes]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+			 'demande_essai_professionnel[qualification]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+			 'demande_essai_professionnel[nbHeures]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+			 'demande_essai_professionnel[priseReference]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+			 'demande_essai_professionnel[telephone]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+			 'demande_essai_professionnel[carteId]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+			 'demande_essai_professionnel[rib]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+
+		 },
+		 errorElement: "em",
+		 errorPlacement: function ( error, element ) {
+		 	// Add the `help-block` class to the error element
+		 	error.addClass( "help-block" );
+
+		 	// Add `has-feedback` class to the parent div.form-group
+		 	// in order to add icons to inputs
+		 	element.parents( ".col-sm-5" ).addClass( "has-feedback" );
+
+
+
+		 	if ( element.prop( "type" ) === "checkbox" ) {
+		 		error.insertAfter( element.parent( "label" ) );
+		 	} else if( element.prop( "type" ) === "select-one" || element.prop( "type" ) === "radio") {
+		 		error.appendTo( element.parent().parent());
+		 	} else {
+		 		error.insertAfter( element );
+		 	}
+
+		 	// Add the span element, if doesn't exists, and apply the icon classes to it.
+		 	if ( !element.next( "span" )[ 0 ] ) {
+		 		$( "<span class='glyphicon glyphicon-remove form-control-feedback'></span>" ).insertAfter( element );
+		 	}
+		 },
+		 success: function ( label, element ) {
+		 	// Add the span element, if doesn't exists, and apply the icon classes to it.
+		 	if ( !$( element ).next( "span" )[ 0 ] ) {
+		 		$( "<span class='glyphicon glyphicon-ok form-control-feedback'></span>" ).insertAfter( $( element ) );
+		 	}
+		 },
+		 highlight: function ( element, errorClass, validClass ) {
+		 	$( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
+		 	$( element ).next( "span" ).addClass( "glyphicon-remove" ).removeClass( "glyphicon-ok" );
+		 },
+		 unhighlight: function ( element, errorClass, validClass ) {
+		 	$( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
+		 	$( element ).next( "span" ).addClass( "glyphicon-ok" ).removeClass( "glyphicon-remove" );
+		 }
+		});
 	</script>
 {% endblock %}

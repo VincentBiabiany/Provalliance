@@ -530,7 +530,7 @@ form.demandeDetail .form-group{
 	    padding: 5px;
 	    padding-right: 9px;
 	    padding-left: 9px;
-	    margin-right: 5px;
+	    margin-right: 10px;
 }
 #FileList ul{
 			padding: 0;
@@ -759,7 +759,18 @@ table.dataTable thead th, table.dataTable thead td, table.dataTable tfoot th, ta
   .listRetards .sousLabel div label{
  margin-left: 25px;
 }
+/******* FORMULAIRE LETTRE DE MISSION ******/
+#demande_lettre_mission_raison, #demande_lettre_mission_date{
+	display: grid;
 
+}
+
+#formLettreMission .jour label{
+	font-size: 10px !important;
+}
+#formLettreMission .col-sm-8{
+	 margin-bottom: 10px;
+}
 /******* FORMULAIRE AVENANT ******/
 #demande_avenant_raison{
 	display: grid;
@@ -861,9 +872,7 @@ background-color: #f1f1f1 !important;
     width: 45px;
 		margin-left: 10px;
 	}
-.jourInline{
-    width: 95px;
-	}
+
 	.jour label{
 		display: block;
     text-align: center !important;
@@ -877,12 +886,7 @@ background-color: #f1f1f1 !important;
 .onlyUploadFile{
 width: 210px;
 }
-#formLettreMission .jour label{
-	font-size: 10px !important;
-}
-#formLettreMission .col-sm-8{
-	 margin-bottom: 10px;
-}
+
 	/***** RESPONSIVE DESIGN **********/
 @media only screen and (max-width : 765px){
 		.label {

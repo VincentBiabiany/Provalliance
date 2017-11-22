@@ -32,13 +32,13 @@
 
 
 				<!-- Champs raison -->
-				<div class="form-group row imbriq" style="">
+				<div class="form-group row imbriq">
 					<label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "___demande_lettre_mission.raison"|trans({}, "translator") }}</label>
 
-					<div class="col-sm-8 pad-box" style="display: inline-flex">
+					<div class="col-sm-9 col-xs-12">
 						{% block _demande_lettre_mission_tempsPartiel_row %}
 
-						<div id="demande_lettre_mission_raison">
+						<div id="demande_lettre_mission_raison"  class="form-controlList">
 							{% for key,child in form.raison %}
 
 							<div class="col-sm-12">
@@ -69,8 +69,7 @@
 
 
 				<!-- Temps partiel -->
-				<div style="display:none;" id="champsPartiel">
-					<div class="col-xs-12">
+				<div class="form-group" style="display:none;" id="champsPartiel">
 
 						{% block _demande_embauche_tempsPartiel_row %}
 						<div id="tempsPartiel" class="form-group row" style="">
@@ -83,10 +82,10 @@
 
 									 <div class="jour">
 											{% if  key == "total"  %}
-												{{ form_label(child, 'demande_embauche.' ~ key, {'label_attr' : {'class' : 'label'}}) }}
+												{{ form_label(child, '___demande_lettre_mission.' ~ key, {'label_attr' : {'class' : 'label'}}) }}
 												{{ form_widget(child, {'attr' : {'class' : 'form-control total', 'readonly':'readonly'} }) }}
 											{% else %}
-												{{ form_label(child, 'demande_embauche.' ~ key, {'label_attr' : {'class' : 'label'}}) }}
+												{{ form_label(child, '___demande_lettre_mission.' ~ key, {'label_attr' : {'class' : 'label'}}) }}
 												{{ form_widget(child, {'attr' : {'class' : 'form-control tempsHeure' } }) }}
 											{% endif %}
 										</div>
@@ -95,7 +94,6 @@
 							</div>
 						</div>
 						{% endblock %}
-					</div>
 				</div>
 
 				<!-- Champs salon -->
@@ -107,26 +105,30 @@
 				</div>
 
 				<!-- Champs date -->
-				<div class="form-group row imbriq">
+			<div class="form-group row imbriq">
+				<label class="control-label label col-sm-3 col-xs-12"  for="nom">{{ "___demande_lettre_mission.date"|trans({}, "translator") }}</label>
 
-				<div class="col-sm-8">
-					<div class="col-sm-8">
+				<div class="col-sm-9 col-xs-12">
 
-						<div class="jour">
+		  <div id="demande_lettre_mission_date" class="form-controlList">
+					 <div class="col-sm-12 sousLabel">
+						<div class="col-sm-3">
 							<label class="control-label label">{{ "___demande_lettre_mission.dateDebut"|trans({}, "translator") }}</label>
 						</div>
 						{{ form_widget(form.dateDebut, { 'attr': {'class':'styleDate'} }) }}
 
 					 </div>
 
-					 <div class="col-sm-8">
-						 <div class="jour">
+					 <div class="col-sm-12 sousLabel">
+						 <div class="col-sm-3">
 							<label class="control-label label">{{ "___demande_lettre_mission.dateFin"|trans({}, "translator") }}</label>
 						 </div>
 						 {{ form_widget(form.dateFin, { 'attr': {'class':'styleDate'} }) }}
 					</div>
-				</div>
-</div>
+
+        </div>
+     </div>
+  </div>
 
 		<div id="actionsButtons">
 			{{ form_end(form) }}
@@ -151,7 +153,7 @@ $(document).ready(function(){
 	$('#demande_lettre_mission_raison').change(function(){
 		if ($('#demande_lettre_mission_raison_1').is(':checked'))
 		{
-			$('#champsPartiel').show();
+			$('#champsPartiel').css('display','contents');
 			$('#listeJours').find('*').each(function() {
 				$(this).attr('required', 'required');
 			});
@@ -193,6 +195,7 @@ $(document).ready(function(){
 		 },
 	 },
 	 messages: {
+		 'demande_lettre_mission[raison]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
 
 	 },
 	 errorElement: "em",
