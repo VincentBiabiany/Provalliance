@@ -163,7 +163,7 @@ class ResumeDemandeService
       $response .= '</ul></div>';
     }
 
-    $response .= "<div id='infosDemandePrint' class='contentBlock'><h2> Statut de la demande </h2>";
+    $response .= "<div id='infosDemandePrint' class='contentBlock'> <h2> Statut de la demande </h2>";
     // Info de la demande
     // $infosDemande = $demandeRepo->infosDemande($idDemande);
     $infosSalon = $salonRepo->infosSalon($infoDemande['codeSage']);
