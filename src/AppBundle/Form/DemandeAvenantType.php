@@ -112,13 +112,13 @@ class DemandeAvenantType extends AbstractType
             ->add('courrier', FileType::class, array(
               'translation_domain' => 'translator',
             ))
-            ->add('salaireFixe', NumberType::class, array(
+            ->add('salaireFixe', null, array(
               'translation_domain' => 'translator',
             ))
-            ->add('salaireMens', NumberType::class, array(
+            ->add('salaireMens', null, array(
               'translation_domain' => 'translator',
             ))
-            ->add('salaireTrim', NumberType::class, array(
+            ->add('salaireTrim', null, array(
               'translation_domain' => 'translator',
             ))
             ->add('Envoyer', SubmitType::class, array(
@@ -133,37 +133,44 @@ class DemandeAvenantType extends AbstractType
                   $data = $event->getForm()->getData();
 
                   $data->setMatricule($form['matricule']->getData()->getMatricule());
-                  //dump($data->getRaison());
-                  if ($data->getRaison() != '___demande_avenant.partielTherap' && $data->getRaison() != '___demande_avenant.partielDef')
-                  {
-                    $data->setTempsPartiel(null);
-                  }
-                  else
-                  {
-                    $data->setDateFin(null);
+
+                  $raison = $data->getRaison();
+
+                  if ($raison == '___demande_avenant.partielTherap') {
+                    $data->setAPartirDu(null);
+                    $data->setCourrier(null);
+
+                    $fileName = $this->fileUploader->upload($data->getAvisMed(), $data->getMatricule(), 'demande_avenant', 'courrier');
+                    $data->setAvisMed($fileName);
+
+                    $fileName = $this->fileUploader->upload($data->getArretMaladie(), $data->getMatricule(), 'demande_avenant', 'courrier');
+                    $data->setArretMaladie($fileName);
+
+                  } else {
+                    $data->setDu(null);
+                    $data->setAu(null);
+                    $data->setAvisMed(null);
+                    $data->setArretMaladie(null);
                   }
 
-                  if ($data->getRaison() != '___demande_avenant.manager')
-                  {
+                  if ($raison == '___demande_avenant.manager' || $raison == '___demande_avenant.39h') {
+                    $data->setCourrier(null);
+                    $data->setTempsPartiel(null);
+                  }
+
+                  if ($raison != '___demande_avenant.manager') {
                     $data->setSalaireFixe(null);
                     $data->setSalaireMens(null);
                     $data->setSalaireTrim(null);
                   }
 
-                  if ($data->getRaison() != '___demande_avenant.manager' && $data->getRaison() != '___demande_avenant.39h')
-                  {
-                    $fileName = $this->fileUploader->upload($data->getPieceJointe1(), $data->getMatricule(), 'demande_avenant', 'courrier');
-                    $data->setPieceJointe1($fileName);
-                  }
-                  else
-                  {
-                    $data->setPieceJointe1(null);
+                  if ($raison == '___demande_avenant.partielDef' || $raison == '___demande_avenant.tempsPlein') {
+                    $fileName = $this->fileUploader->upload($data->getCourrier(), $data->getMatricule(), 'demande_avenant', 'courrier');
+                    $data->setCourrier($fileName);
                   }
 
-                  if ($data->getRaison() == '___demande_avenant.partielTherap')
-                  {
-                    $fileName = $this->fileUploader->upload($data->getPieceJointe2(), $data->getMatricule(), 'demande_avenant', 'courrier');
-                    $data->setPieceJointe2($fileName);
+                  if ($raison != '___demande_avenant.partielTherap' && $raison != '___demande_avenant.partielDef') {
+                    $data->setTempsPartiel(null);
                   }
 
                   $event->setData($data);

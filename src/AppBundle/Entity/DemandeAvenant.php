@@ -28,6 +28,8 @@ class DemandeAvenant extends DemandeForm
   private $id;
 
   /**
+   * ___demande_avenant.collaborateur
+   *
    * @var int
    *
    * @ORM\Column(name="matricule", type="integer", nullable=false)
@@ -71,7 +73,7 @@ class DemandeAvenant extends DemandeForm
   private $aPartirDu;
 
   /**
-   * ___demande_avenant.collab
+   * ___demande_avenant.TempsPartiel
    *
    * @var array
    *
@@ -282,7 +284,7 @@ class DemandeAvenant extends DemandeForm
      *
      * @return DemandeAvenant
      */
-    public function setAPartirDu($aPartirDu)
+    public function setaPartirDu($aPartirDu)
     {
         $this->aPartirDu = $aPartirDu;
 
@@ -294,7 +296,7 @@ class DemandeAvenant extends DemandeForm
      *
      * @return \DateTime
      */
-    public function getAPartirDu()
+    public function getaPartirDu()
     {
         return $this->aPartirDu;
     }
