@@ -74,9 +74,7 @@ ___demande_acompte:
     popupValidation:
         message:    Votre demande d’acompte a été envoyée.
 
-
-
-__demande_rib:
+___demande_rib:
     titre:              Demande de RIB
     rib:                RIB
     rappel:             Rappel
@@ -289,7 +287,7 @@ ___demande_solde_tout_compte:
     titre:                    Solde Tout Compte
     sousTitreRupture:         Rupture de contrat
     sousTitreSalaireVariable: Salaire Variable
-    collab:                   Collaborateur
+    collaborateur:            Collaborateur
     adresse:                  Adresse
     dateSortie:               Date de sortie
     dateDernierJour:          Date du dernier jour
@@ -457,7 +455,7 @@ ___demande_avenant:
     vendredi:           Ve
     samedi:             Sa
     total:              Total
-    
+
     popupValidation:
         message:        Votre demande d'avenant a été envoyée.
 

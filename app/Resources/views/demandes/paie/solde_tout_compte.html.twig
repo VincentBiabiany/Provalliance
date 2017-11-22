@@ -10,7 +10,7 @@
 </div>
 
 <div class="head">
-	{{ "demande_solde_tout_compte.titre"|trans({}, "translator") }}
+	{{ "___demande_solde_tout_compte.titre"|trans({}, "translator") }}
 </div>
 <div class="nomSalon">
   {{ app.session.get('nomSalon') }}
@@ -34,14 +34,14 @@
 
 
 				<div class="form-group">
-					<label class="control-label label col-sm-4 col-xs-12" for="dateSortie">{{ "demande_solde_tout_compte.dateSortie"|trans({}, "translator") }}</label>
+					<label class="control-label label col-sm-4 col-xs-12" for="dateSortie">{{ form_label(form.dateSortie) }}</label>
 					<div class="col-sm-3  col-xs-12">
-						{{ form_widget(form.dateSortie) }}
+						{{ form_widget(form.dateSortie, {'attr':{'class':'styleDate'}}) }}
 					</div>
 
-					<label class="control-label label col-sm-4 col-xs-12" for="dateDernierJour">{{ "demande_solde_tout_compte.dateDernierJour"|trans({}, "translator") }}</label>
+					<label class="control-label label col-sm-4 col-xs-12" for="dateDernierJour">{{ form_label(form.dateDernierJour) }}</label>
 					<div class="col-sm-3  col-xs-12">
-						{{ form_widget(form.dateDernierJour) }}
+						{{ form_widget(form.dateDernierJour, {'attr':{'class':'styleDate'}}) }}
 					</div>
 				</div>
 				<div id='GroupMotif' class="form-group">
@@ -61,14 +61,14 @@
 
 				<!-- Champs date -->
 				<div class="form-group row imbriq">
-					<label class="control-label label col-sm-3 col-xs-12">{{ "demande_solde_tout_compte.dateAbsence"|trans({}, "translator") }}</label>
+					<label class="control-label label col-sm-3 col-xs-12">{{ "___demande_solde_tout_compte.dateAbsence"|trans({}, "translator") }}</label>
 
 
 				<div class="col-sm-8">
 					<div class="col-sm-8">
 
 						<div class="jour">
-							<label class="control-label label">{{ "demande_solde_tout_compte.dateDebutAbsence"|trans({}, "translator") }}</label>
+							<label class="control-label label">{{ form_label(form.dateDebutAbsence) }}</label>
 						</div>
 						{{ form_widget(form.dateDebutAbsence, { 'attr': {'class':'styleDate'} }) }}
 
@@ -76,7 +76,7 @@
 
 					 <div class="col-sm-8">
 						 <div class="jour">
-							<label class="control-label label">{{ "demande_solde_tout_compte.dateFinAbsence"|trans({}, "translator") }}</label>
+							<label class="control-label label">{{ form_label(form.dateFinAbsence) }}</label>
 						 </div>
 						 {{ form_widget(form.dateFinAbsence, { 'attr': {'class':'styleDate'} }) }}
 					</div>
@@ -98,7 +98,7 @@
 
 				<div class="form-group">
 					<label class="control-label label col-sm-4 col-xs-12" for="rupture">{{ form_label(form.rupture) }}</label>
-					<div class="col-sm-6  col-xs-12">
+					<div class="col-sm-3  col-xs-12">
 						<label for="demande_solde_tout_compte_rupture" class="label-file">
 							<i class="glyphicon glyphicon-download-alt"></i>
 							<span>	{{ "autre_demande.choice"|trans({}, "translator") }}</span>
@@ -124,19 +124,19 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 style="color:black;" class="modal-title">{{ "demande_solde_tout_compte.popupInfo.attention"|trans({}, "translator") }}</h4>
+				<h4 style="color:black;" class="modal-title">{{ "___demande_solde_tout_compte.popupInfo.attention"|trans({}, "translator") }}</h4>
 			</div>
 
 			<div class="modal-body">
 
 				<div id="infoSoldeToutCompte" class="" >
-					<p style="color:black;">{{ "demande_solde_tout_compte.popupInfo.msg"|trans({}, "translator") }}  </br></p>
+					<p style="color:black;">{{ "___demande_solde_tout_compte.popupInfo.msg"|trans({}, "translator") }}  </br></p>
 
 					<ul>
-						<li>{{ "demande_solde_tout_compte.popupInfo.docRupture"|trans({}, "translator") }}</li>
+						<li>{{ "___demande_solde_tout_compte.popupInfo.docRupture"|trans({}, "translator") }}</li>
 					</ul>
-					<h4>{{ "demande_solde_tout_compte.popupInfo.gestionAdministrativeTitre"|trans({}, "translator") }}</h4>
-					<span> {{ "demande_solde_tout_compte.popupInfo.gestionAdministrativeMessage"|trans({}, "translator") }}</span>
+					<h4>{{ "___demande_solde_tout_compte.popupInfo.gestionAdministrativeTitre"|trans({}, "translator") }}</h4>
+					<span> {{ "___demande_solde_tout_compte.popupInfo.gestionAdministrativeMessage"|trans({}, "translator") }}</span>
 				</div>
 
 			</div>
@@ -149,8 +149,10 @@
 
 	</div>
 </div>
-<script src="{{ asset('js/custom-file-input.js') }}"></script>
-
+<script type="text/javascript" src="{{ asset('js/jquery.validate.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/global/global-method.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/custom-file-input.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/jquery.validate.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/jquery.maskMoney.min.js') }}"></script>
 
@@ -166,7 +168,7 @@
 			suffix: ''
 		});
 
-		$( "#formAccompte" ).validate( {
+		$( "#SoldeToutCompte" ).validate( {
 	 	rules: {
 	 		'demande_solde_tout_compte[montant]': {
 	 			required: true,
@@ -174,11 +176,16 @@
 	 		}
 	 	},
 	 	messages: {
-	 		'demande_solde_tout_compte[montant]': {
+	 		'demande_solde_tout_compte[typeAbsence]': {
 	 			required: "{{ "message_validation.acompte_montant_required"|trans({}, "translator") }}",
 	 			min: "{{ "message_validation.acompte_montant_minlength"|trans({}, "translator") }}",
 	 			max: "{{ "message_validation.acompte_montant_maxlength"|trans({}, "translator") }}"
-	 		}
+	 		},
+			'demande_solde_tout_compte[adresse]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+			'demande_solde_tout_compte[primes]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+			'demande_solde_tout_compte[remarques]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+			'demande_solde_tout_compte[motif]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+			'demande_solde_tout_compte[rupture]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
 	 	},
 	 	errorElement: "em",
 	 	errorPlacement: function ( error, element ) {

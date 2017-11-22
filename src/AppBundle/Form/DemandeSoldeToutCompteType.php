@@ -52,31 +52,30 @@ class DemandeSoldeToutCompteType extends AbstractType
                   'query_builder' => function (EntityRepository $er) use ($idSalon) {
                       return $er->findActivePersonnelBySalon($idSalon);
                     },
-                  'label' => 'demande_solde_tout_compte.collab',
+                  'label' => '___demande_solde_tout_compte.collaborateur',
                   'translation_domain' => 'translator',
                   'attr' => ['class' => 'form-control','required' => 'required']
                 ))
                 ->add('adresse', TextType::class, array(
-                     'label' => 'demande_solde_tout_compte.adresse',
+                     'label' => '___demande_solde_tout_compte.adresse',
                      'translation_domain' => 'translator',
                      'attr' => ['class' => 'form-control']
                 ))
                 ->add('dateSortie', DateType::class, array(
                 'widget' => 'choice',
                 'format' => 'dd/MM/y',
-                'years' => range(date('Y') - 100, date('Y') - 20),
+                'years' => range(date('Y') - 5, date('Y') + 10),
                 'attr' => ['class' => 'form-control styleDate','name'=>'date'],
                 'data' => new \DateTime()
-
                 ))
                 ->add('dateDernierJour', DateType::class, array(
-                'label' => 'demande_solde_tout_compte.dateDernierJour',
+                'label' => '___demande_solde_tout_compte.dateDernierJour',
+                'translation_domain' => 'translator',
                 'widget' => 'choice',
                 'format' => 'dd/MM/y',
-                'years' => range(date('Y') - 100, date('Y') - 20),
+                'years' => range(date('Y') - 5, date('Y') + 10),
                 'attr' => ['class' => 'form-control styleDate','name'=>'date'],
                 'data' => new \DateTime()
-
                 ))
                 ->add('motif', ChoiceType::class, array(
                   'choices'  => array(
@@ -91,10 +90,11 @@ class DemandeSoldeToutCompteType extends AbstractType
                   'choice_translation_domain' => 'translator',
                   'translation_domain' => 'translator',
                   'attr' => ['class' => 'form-controlList labelRadioStyle'],
-                  'label' => 'demande_solde_tout_compte.motif',
+                  'label' => '___demande_solde_tout_compte.motif',
                   'expanded' => true,
                   'multiple' => false,
                   'required' => true,
+                  'data' => '___demande_solde_tout_compte.preavis'
                 ))
                 ->add('typeAbsence', ChoiceType::class, array(
                   'choices'  => array(
@@ -107,10 +107,12 @@ class DemandeSoldeToutCompteType extends AbstractType
                   'choice_translation_domain' => 'translator',
                   'translation_domain' => 'translator',
                   'attr' => ['class' => 'form-controlList labelRadioStyle'],
-                  'label' => 'demande_solde_tout_compte.typeAbsence',
+                  'label' => '___demande_solde_tout_compte.typeAbsence',
                   'expanded' => true,
                   'multiple' => false,
                   'required' => true,
+                  'data' => '___demande_solde_tout_compte.arretMaladie'
+
                 ))
                 ->add('dateDebutAbsence', DateType::class, array(
                   'widget' => 'choice',
@@ -130,12 +132,12 @@ class DemandeSoldeToutCompteType extends AbstractType
                   'data' => new \DateTime()
                 ))
                 ->add('primes', TextType::class, array(
-                     'label' => 'demande_solde_tout_compte.primes',
+                     'label' => '___demande_solde_tout_compte.primes',
                      'translation_domain' => 'translator',
                      'attr' => ['class' => 'form-control']
                 ))
                 ->add('remarques', TextareaType::class, array(
-                     'label' => 'demande_solde_tout_compte.remarques',
+                     'label' => '___demande_solde_tout_compte.remarques',
                      'translation_domain' => 'translator',
                      'attr' => ['class' => 'form-control']
                 ))

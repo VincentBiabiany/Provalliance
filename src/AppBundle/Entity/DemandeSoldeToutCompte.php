@@ -22,7 +22,7 @@ class DemandeSoldeToutCompte extends DemandeForm
   protected $service ='paie';
 
     /**
-     * ___demande_solde_tout_compte.collab
+     * ___demande_solde_tout_compte.collaborateur
      *
      * @var int
      *

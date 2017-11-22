@@ -52,7 +52,7 @@ class DemandeAttestationSalaireType extends AbstractType
                   'query_builder' => function (EntityRepository $er) use ($idSalon) {
                       return $er->findActivePersonnelBySalon($idSalon);
                     },
-                  'label' => 'demande_attestation_salaire.collaborateur',
+                  'label' => '___demande_attestation_salaire.collaborateur',
                   'translation_domain' => 'translator',
                   'attr' => ['class' => 'form-control','required' => 'required']
                 ))
@@ -65,7 +65,7 @@ class DemandeAttestationSalaireType extends AbstractType
                   'choice_translation_domain' => 'translator',
                   'translation_domain' => 'translator',
                   'attr' => ['class' => 'form-controlList labelRadioStyle'],
-                  'label' => 'demande_attestation_salaire.etat',
+                  'label' => '___demande_attestation_salaire.etat',
                   'expanded' => true,
                   'multiple' => false,
                   'required' => true,
@@ -82,7 +82,7 @@ class DemandeAttestationSalaireType extends AbstractType
                   'choice_translation_domain' => 'translator',
                   'translation_domain' => 'translator',
                   'attr' => ['class' => 'form-controlList labelRadioStyle'],
-                  'label' => 'demande_attestation_salaire.motif',
+                  'label' => '___demande_attestation_salaire.motif',
                   'expanded' => true,
                   'multiple' => false,
                   'required' => true,
@@ -91,17 +91,15 @@ class DemandeAttestationSalaireType extends AbstractType
                 'widget' => 'choice',
                 'format' => 'dd/MM/y',
                 'years' => range(date('Y') - 100, date('Y') - 20),
-                'attr' => ['class' => 'form-control styleDate','name'=>'date'],
-                'data' => new \DateTime()
-
+                'data' => new \DateTime(),
+                'label' => '___demande_attestation_salaire.dateReprise',
                 ))
                 ->add('dateDernierJour', DateType::class, array(
                 'widget' => 'choice',
                 'format' => 'dd/MM/y',
                 'years' => range(date('Y') - 100, date('Y') - 20),
-                'attr' => ['class' => 'form-control styleDate','name'=>'date'],
-                'data' => new \DateTime()
-
+                'data' => new \DateTime(),
+                'label' => '___demande_attestation_salaire.dateDernierJour',
                 ))
 
               ->add('Envoyer', SubmitType::class, array(

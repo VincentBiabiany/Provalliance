@@ -49,7 +49,7 @@ class SoldeToutCompteController extends Controller
         $demandeService->createDemande($form->getData(), $idSalon);
 
         return $this->redirect($this->generateUrl('homepage',
-        array('flash' => "demande_solde_tout_compte.popupValidation.message")));
+        array('flash' => "___demande_solde_tout_compte.popupValidation.message")));
 
       }
     }

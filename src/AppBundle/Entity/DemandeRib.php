@@ -29,7 +29,7 @@ class DemandeRib extends DemandeForm
 
 
     /**
-     * __demande_rib.collaborateur
+     * ___demande_rib.collaborateur
      *
      * @var int
      *
@@ -39,7 +39,7 @@ class DemandeRib extends DemandeForm
 
 
     /**
-     * __demande_rib.rib
+     * ___demande_rib.rib
      *
      * @var array
      *

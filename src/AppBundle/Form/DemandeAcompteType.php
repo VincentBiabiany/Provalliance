@@ -27,7 +27,7 @@ class DemandeAcompteType extends AbstractType
 
        $builder
                 ->add('montant', TextType::class, array(
-                     'label' => 'demande_acompte.montant',
+                     'label' => '___demande_acompte.montant',
                      'translation_domain' => 'translator',
                      'attr' => array('min' => '0')
                 ))
@@ -43,7 +43,7 @@ class DemandeAcompteType extends AbstractType
                   'query_builder' => function (EntityRepository $er) use ($idSalon) {
                       return $er->findActivePersonnelBySalon($idSalon);
                     },
-                  'label' => 'demande_acompte.nom',
+                  'label' => '___demande_acompte.nom',
                   'translation_domain' => 'translator',
                   'attr' => ['required' => 'required']
                 ))

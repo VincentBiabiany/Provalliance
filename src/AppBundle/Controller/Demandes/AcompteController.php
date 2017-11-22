@@ -49,7 +49,7 @@ class AcompteController extends Controller
         $demandeService->createDemande($form->getData(), $idSalon);
 
         return $this->redirect($this->generateUrl('homepage',
-        array('flash' => "demande_acompte.popupValidation.message")));
+        array('flash' => "___demande_acompte.popupValidation.message")));
 
       }
     }

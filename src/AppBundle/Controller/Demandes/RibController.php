@@ -38,7 +38,7 @@ class RibController extends Controller
       $demandeService->createDemande($form->getData(), $idSalon);
 
       return $this->redirect($this->generateUrl('homepage',
-      array('flash' => "demande_rib.popupValidation.message")));
+      array('flash' => "___demande_rib.popupValidation.message")));
       }
 
 
