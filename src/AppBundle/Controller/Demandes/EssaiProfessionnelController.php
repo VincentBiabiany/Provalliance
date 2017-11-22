@@ -39,7 +39,7 @@ class EssaiProfessionnelController extends Controller
       $demandeService->createDemande($form->getData(), $idSalon);
 
       return $this->redirect($this->generateUrl('homepage',
-      array('flash' => "demande_essai_pro.popupValidation.message")));
+      array('flash' => "___demande_essai_pro.popupValidation.message")));
       }
 
 

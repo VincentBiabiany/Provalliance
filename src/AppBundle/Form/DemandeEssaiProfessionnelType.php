@@ -39,34 +39,52 @@ class DemandeEssaiProfessionnelType extends AbstractType
 
        $builder
                 ->add('nom', TextType::class, array(
-                          'attr' => ['class' => 'form-control']
+                          'attr' => ['class' => 'form-control'],
+                          'label' => '___demande_essai_pro.nom',
+                          'translation_domain' => 'translator',
                 ))
                 ->add('prenom', TextType::class, array(
-                          'attr' => ['class' => 'form-control']
+                          'attr' => ['class' => 'form-control'],
+                          'label' => '___demande_essai_pro.prenom',
+                          'translation_domain' => 'translator',
                 ))
                 ->add('adresse', TextType::class, array(
-                          'attr' => ['class' => 'form-control']
+                          'attr' => ['class' => 'form-control'],
+                          'label' => '___demande_essai_pro.adresse',
+                          'translation_domain' => 'translator',
                 ))
                 ->add('codePostal', TextType::class, array(
-                          'attr' => ['class' => 'form-control']
+                          'attr' => ['class' => 'form-control'],
+                          'label' => '___demande_essai_pro.codePostal',
+                          'translation_domain' => 'translator',
                 ))
                 ->add('ville', TextType::class, array(
-                          'attr' => ['class' => 'form-control']
+                          'attr' => ['class' => 'form-control'],
+                          'label' => '___demande_essai_pro.ville',
+                          'translation_domain' => 'translator',
                 ))
                 ->add('dateNaissance', DateType::class, array(
                           'widget' => 'choice',
                           'format' => 'dd/MM/y',
                           'years' => range(date('Y') - 100, date('Y') - 20),
-                          'attr' => ['class' => 'form-control styleDate','name'=>'date']
+                          'attr' => ['class' => 'form-control styleDate','name'=>'date'],
+                          'label' => '___demande_essai_pro.dateNaissance',
+                          'translation_domain' => 'translator',
                 ))
                 ->add('nationalite', TextType::class, array(
-                          'attr' => ['class' => 'form-control']
+                          'attr' => ['class' => 'form-control'],
+                          'label' => '___demande_essai_pro.nationalite',
+                          'translation_domain' => 'translator',
                 ))
                 ->add('lieuNaissance', TextType::class, array(
-                          'attr' => ['class' => 'form-control']
+                          'attr' => ['class' => 'form-control'],
+                          'label' => '___demande_essai_pro.lieuNaissance',
+                          'translation_domain' => 'translator',
                 ))
                 ->add('departement', null, array(
-                          'attr' => ['class' => 'form-control']
+                          'attr' => ['class' => 'form-control'],
+                          'label' => '___demande_essai_pro.departement',
+                          'translation_domain' => 'translator',
                 ))
                 ->add('numSecu', TextType::class, array(
                           'attr' => ['class' => 'form-control',
@@ -77,7 +95,9 @@ class DemandeEssaiProfessionnelType extends AbstractType
                           'format' => 'dd/MM/y',
                           'years' => range(date('Y') - 5, date('Y') + 2),
                           'data' => new \DateTime(),
-                          'attr' => ['class' => 'form-control styleDate','name'=>'date']
+                          'attr' => ['class' => 'form-control styleDate','name'=>'date'],
+                          'label' => '___demande_essai_pro.dateEssai',
+                          'translation_domain' => 'translator',
                 ))
                 ->add('niveau', ChoiceType::class, array(
                           'choices' => array(
@@ -85,16 +105,24 @@ class DemandeEssaiProfessionnelType extends AbstractType
                             'II' => 'II',
                             'III'=> 'III',
                           ),
-                          'attr' => ['class' => 'form-control']
+                          'attr' => ['class' => 'form-control'],
+                          'label' => '___demande_essai_pro.niveau',
+                          'translation_domain' => 'translator',
                         ))
                 ->add('diplomes', TextType::class, array(
-                          'attr' => ['class' => 'form-control']
+                          'attr' => ['class' => 'form-control'],
+                          'label' => '___demande_essai_pro.diplomes',
+                          'translation_domain' => 'translator',
                 ))
                 ->add('qualification', TextType::class, array(
-                          'attr' => ['class' => 'form-control']
+                          'attr' => ['class' => 'form-control'],
+                          'label' => '___demande_essai_pro.qualification',
+                          'translation_domain' => 'translator',
                 ))
                 ->add('nbHeures', null, array(
-                          'attr' => ['class' => 'form-control']
+                          'attr' => ['class' => 'form-control'],
+                          'label' => '___demande_essai_pro.nbHeures',
+                          'translation_domain' => 'translator',
                 ))
                 ->add('priseReference', ChoiceType::class, array(
                           'choices'  => array(
@@ -108,10 +136,18 @@ class DemandeEssaiProfessionnelType extends AbstractType
                           'required' => true,
                 ))
                 ->add('telephone', TextType::class, array(
-                          'attr' => ['class' => 'form-control']
+                          'attr' => ['class' => 'form-control'],
+                          'label' => '___demande_essai_pro.telephone',
+                          'translation_domain' => 'translator',
                 ))
-                ->add('carteId', FileType::class)
-                ->add('rib', FileType::class)
+                ->add('carteId', FileType::class, array(
+                    'label' => '___demande_essai_pro.carteId',
+                    'translation_domain' => 'translator',
+                ))
+                ->add('rib', FileType::class, array(
+                    'label' => '___demande_essai_pro.rib',
+                    'translation_domain' => 'translator',
+                ))
                 ->add('Envoyer', SubmitType::class, array(
                           'label' => 'global.submit',
                           'attr' => array('class' =>'btn-black end'),

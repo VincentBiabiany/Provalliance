@@ -66,7 +66,7 @@ class DemandeRupturePeriodeEssaiType extends AbstractType
                 ->add('date', DateType::class, array(
                   'widget' => 'choice',
                   'format' => 'dd/MM/y',
-                  'years' => range(date('Y') - 100, date('Y') - 20),
+                  'years' => range(date('Y') - 5, date('Y') + 10),
                   'attr' => ['class' => ''],
                   'data' => new \DateTime()
                 ))

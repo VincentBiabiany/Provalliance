@@ -39,7 +39,7 @@ class DemissionController extends Controller
       $demandeService->createDemande($form->getData(), $idSalon);
 
       return $this->redirect($this->generateUrl('homepage',
-      array('flash' => "demande_demission.popupValidation.message")));
+      array('flash' => "___demande_demission.popupValidation.message")));
       }
 
 
