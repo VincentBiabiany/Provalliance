@@ -46,7 +46,7 @@ class DemandeCongeParentalType extends AbstractType
                   'translation_domain' => 'translator',
                   'attr' => ['required' => 'required']
               ))
-            ->add('dateDebut', DateType::class, array(
+            ->add('du', DateType::class, array(
               'widget' => 'choice',
               'format' => 'dd/MM/y',
               'years' => range(date('Y') - 5, date('Y') + 10),
@@ -55,7 +55,25 @@ class DemandeCongeParentalType extends AbstractType
               'data' => new \DateTime()
 
             ))
-            ->add('dateFin', DateType::class, array(
+            ->add('au', DateType::class, array(
+              'widget' => 'choice',
+              'format' => 'dd/MM/y',
+              'years' => range(date('Y') - 5, date('Y') + 10),
+              'attr' => ['class' => ''],
+              'label' => '',
+              'data' => new \DateTime()
+
+            ))
+            ->add('le', DateType::class, array(
+              'widget' => 'choice',
+              'format' => 'dd/MM/y',
+              'years' => range(date('Y') - 5, date('Y') + 10),
+              'attr' => ['class' => ''],
+              'label' => '',
+              'data' => new \DateTime()
+
+            ))
+            ->add('aulieu', DateType::class, array(
               'widget' => 'choice',
               'format' => 'dd/MM/y',
               'years' => range(date('Y') - 5, date('Y') + 10),
@@ -100,8 +118,15 @@ class DemandeCongeParentalType extends AbstractType
                   $fileName = $this->fileUploader->upload($data->getPieceJointe(), $data->getMatricule(), 'demande_conge_parental', 'lettre');
                   $data->setPieceJointe($fileName);
 
-                  if ($data->getRaison() != "___demande_conge_parental.passage")
+                  if ($data->getRaison() != "___demande_conge_parental.passage"){
                     $data->setTempsPartiel(null);
+                    $data->setDu(null);
+                    $data->setAu(null);
+                  } else {
+                    $data->setLe(null);
+                    $data->setAulieu(null);
+                  }
+
 
 
               });

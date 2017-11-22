@@ -61,11 +61,15 @@
 
 															 <div class="jour">
 																	{% if  key == "total"  %}
+
 																		{{ form_label(child, '___demande_conge_parental.' ~ key, {'label_attr' : {'class' : 'label'}}) }}
 																		{{ form_widget(child, {'attr' : {'class' : 'form-control total', 'readonly':'readonly'} }) }}
+
 																	{% else %}
+
 																		{{ form_label(child, '___demande_conge_parental.' ~ key, {'label_attr' : {'class' : 'label'}}) }}
 																		{{ form_widget(child, {'attr' : {'class' : 'form-control tempsHeure' } }) }}
+
 																	{% endif %}
 																</div>
 
@@ -103,16 +107,22 @@
 											<div class="jourInline ">
 												<label style="display:none" class="control-label label passage">{{ "___demande_conge_parental.du"|trans({}, "translator") }}</label>
 												<label style="display:none" class="control-label label reprise">{{ "___demande_conge_parental.le"|trans({}, "translator") }}</label>
+
+
 											</div>
-											{{ form_widget(form.dateDebut, { 'attr': {'class':'styleDate'} }) }}
+											{{ form_widget(form.du, { 'attr': {'class':'styleDate passage'} }) }}
+											{{ form_widget(form.le, { 'attr': {'class':'styleDate reprise'} }) }}
 								 		</div>
 
 										 <div class="col-sm-12 sousLabel">
 											 <div class="jourInline">
 												<label style="display:none" class="control-label label passage">{{ "___demande_conge_parental.au"|trans({}, "translator") }}</label>
 												<label style="display:none" class="control-label label reprise">{{ "___demande_conge_parental.aulieu"|trans({}, "translator") }}</label>
+
 											 </div>
-											 {{ form_widget(form.dateFin, { 'attr': {'class':'styleDate'} }) }}
+
+ 											{{ form_widget(form.au, { 'attr': {'class':'styleDate passage'} }) }}
+ 											{{ form_widget(form.aulieu, { 'attr': {'class':'styleDate reprise'} }) }}
 										</div>
 
 						 </div>

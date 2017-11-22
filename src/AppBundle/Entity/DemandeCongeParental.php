@@ -21,7 +21,7 @@ class DemandeCongeParental extends DemandeForm
 
 
   /**
-   * ___conge_parental.collab
+   * ___demande_conge_parental.collab
    *
    * @var int
    *
@@ -30,7 +30,7 @@ class DemandeCongeParental extends DemandeForm
   private $matricule;
 
   /**
-   * ___conge_parental.raison
+   * ___demande_conge_parental.raison
    *
    * @var string
    *
@@ -39,7 +39,7 @@ class DemandeCongeParental extends DemandeForm
   private $raison;
 
   /**
-   * ___conge_parental.tempsPartiel
+   * ___demande_conge_parental.tempsPartiel
    *
    * @var array
    *
@@ -48,26 +48,43 @@ class DemandeCongeParental extends DemandeForm
   private $tempsPartiel;
 
   /**
-   * ___conge_parental.le
+   * ___demande_conge_parental.du
    *
    * @var string
    *
-   * @ORM\Column(name="date_debut", type="date", length=255)
+   * @ORM\Column(name="du", type="date", length=255, nullable=true)
    */
-  private $dateDebut;
+  private $du;
 
   /**
-   * ___conge_parental.au
+   * ___demande_conge_parental.au
    *
    * @var string
    *
-   * @ORM\Column(name="date_fin", type="date", length=255)
+   * @ORM\Column(name="au", type="date", length=255, nullable=true)
    */
-  private $dateFin;
-
+  private $au;
 
   /**
-   * ___conge_parental.Lettre
+   * ___demande_conge_parental.le
+   *
+   * @var string
+   *
+   * @ORM\Column(name="date_debut", type="date", length=255, nullable=true)
+   */
+  private $le;
+
+  /**
+   * ___demande_conge_parental.aulieu
+   *
+   * @var string
+   *
+   * @ORM\Column(name="date_fin", type="date", length=255, nullable=true)
+   */
+  private $aulieu;
+
+  /**
+   * ___demande_conge_parental.lettreLabel
    *
    * @var string
    *
@@ -110,7 +127,6 @@ class DemandeCongeParental extends DemandeForm
       return $this->service;
   }
 
-
   /**
    * Get subject
    *
@@ -120,6 +136,7 @@ class DemandeCongeParental extends DemandeForm
   {
       return $this->subject;
   }
+
 
 
     /**
@@ -195,51 +212,99 @@ class DemandeCongeParental extends DemandeForm
     }
 
     /**
-     * Set dateDebut
+     * Set du
      *
-     * @param \DateTime $dateDebut
+     * @param \DateTime $du
      *
      * @return DemandeCongeParental
      */
-    public function setDateDebut($dateDebut)
+    public function setDu($du)
     {
-        $this->dateDebut = $dateDebut;
+        $this->du = $du;
 
         return $this;
     }
 
     /**
-     * Get dateDebut
+     * Get du
      *
      * @return \DateTime
      */
-    public function getDateDebut()
+    public function getDu()
     {
-        return $this->dateDebut;
+        return $this->du;
     }
 
     /**
-     * Set dateFin
+     * Set au
      *
-     * @param \DateTime $dateFin
+     * @param \DateTime $au
      *
      * @return DemandeCongeParental
      */
-    public function setDateFin($dateFin)
+    public function setAu($au)
     {
-        $this->dateFin = $dateFin;
+        $this->au = $au;
 
         return $this;
     }
 
     /**
-     * Get dateFin
+     * Get au
      *
      * @return \DateTime
      */
-    public function getDateFin()
+    public function getAu()
     {
-        return $this->dateFin;
+        return $this->au;
+    }
+
+    /**
+     * Set le
+     *
+     * @param \DateTime $le
+     *
+     * @return DemandeCongeParental
+     */
+    public function setLe($le)
+    {
+        $this->le = $le;
+
+        return $this;
+    }
+
+    /**
+     * Get le
+     *
+     * @return \DateTime
+     */
+    public function getLe()
+    {
+        return $this->le;
+    }
+
+    /**
+     * Set aulieu
+     *
+     * @param \DateTime $aulieu
+     *
+     * @return DemandeCongeParental
+     */
+    public function setAulieu($aulieu)
+    {
+        $this->aulieu = $aulieu;
+
+        return $this;
+    }
+
+    /**
+     * Get aulieu
+     *
+     * @return \DateTime
+     */
+    public function getAulieu()
+    {
+        return $this->aulieu;
     }
 
     /**
