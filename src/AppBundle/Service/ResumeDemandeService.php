@@ -168,7 +168,7 @@ class ResumeDemandeService
     // $infosDemande = $demandeRepo->infosDemande($idDemande);
     $infosSalon = $salonRepo->infosSalon($infoDemande['codeSage']);
     $statutDemande = $demandeRepo->whichStatut($infoDemande['statut']);
-gmp_setbit( , $index [, $set_clear])
+    
     $response .= '<p><b class="col-sm-2">Demandeur</b> '.$infosCollab['nom'].' '.$infosCollab['prenom'].'</p>';
     $response .= '<p><b class="col-sm-2">Date d\'envoi</b>  '.$infoDemande['dateTraitement']->format('d/m/Y').'</p>';
     $response .= '<p><b class="col-sm-2">Statut</b>  <span class="statutLabel '.$statutDemande.'">' . $statutDemande .'</span></p>';
