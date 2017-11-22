@@ -171,12 +171,12 @@ class ResumeDemandeService
 
     $response .= '<p><b class="col-sm-2">Demandeur</b> '.$infosCollab['nom'].' '.$infosCollab['prenom'].'</p>';
     $response .= '<p><b class="col-sm-2">Date d\'envoi</b>  '.$infoDemande['dateTraitement']->format('d/m/Y').'</p>';
-    $response .= '<p><b class="col-sm-2">Statut</b>  <span class="'.$statutDemande.'">' . $statutDemande .'</span></p>';
+    $response .= '<p><b class="col-sm-2">Statut</b>  <span class="statutLabel '.$statutDemande.'">' . $statutDemande .'</span></p>';
     $response .= '<p><b class="col-sm-2">Salon</b>  '.$infosSalon['appelation'].'</p>';
     $response .= '<p><b class="col-sm-2">Adresse</b>  '.$infosSalon['adresse1'].' '.$infosSalon['codePostal'].' '.$infosSalon['ville'].'</p>';
 
     if ($statutDemande == "Rejeté")
-      $response .= '<p><b>Motif du rejet</b> : '.$infoDemande['message'].'</p>';
+      $response .= '<p><b>Motif du rejet</b>'.$infoDemande['message'].'</p>';
 
     $response .= '</div>';
     $response .= '</div>';
