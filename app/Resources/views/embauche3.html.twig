@@ -25,8 +25,6 @@
               <span>{{ "___demande_embauche.choix"|trans({}, "translator") }}</span>
             </label>
             {{ form_widget(form.diplomeFile, { 'attr': {'class': 'input-file'} }) }}
-
-
     		  </div>
     	</div>
       <div class="form-group" >
@@ -36,7 +34,7 @@
               <i class="glyphicon glyphicon-download-alt"></i>
               <span>{{ "___demande_embauche.choix"|trans({}, "translator") }}</span>
             </label>
-            {{ form_widget(form.diplomeFile2, { 'attr': {'class': 'input-file', 'required', 'false'} }) }}
+            {{ form_widget(form.diplomeFile2, { 'attr': {'class': 'input-file', 'required': 'false'} }) }}
 
           </div>
       </div>
@@ -117,13 +115,14 @@
   }
 
 	$('#topNav').css('display', 'initial');
+
+
   $("#demandeEmbauche3").validate({
     rules: {
 
     },
     messages: {
       'demande_embauche[diplomeFile]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
-      'demande_embauche[diplomeFile2]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
       'demande_embauche[carteVitale]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
       'demande_embauche[mutuelle]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
       'demande_embauche[rib]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
@@ -167,6 +166,7 @@
       $( element ).next( "span" ).addClass( "glyphicon-ok" ).removeClass( "glyphicon-remove" );
     }
   });
-
+$("#demande_embauche_diplomeFile2").rules('remove');
+$("#demande_embauche_diplomeFile2").prop('required', false);
 </script>
 {% endblock %}

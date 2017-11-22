@@ -92,7 +92,7 @@ class DemandeDemissionType extends AbstractType
                     $event->setData($data);
 
                     if ($data->getDem() != null ){
-                    $fileName = $this->fileUploader->upload($data->getDem(),0,'demission', 'dem');
+                    $fileName = $this->fileUploader->upload($data->getDem(), $data->getMatricule(), 'demission', 'dem');
                     $data->setDem($fileName);
 
                     }

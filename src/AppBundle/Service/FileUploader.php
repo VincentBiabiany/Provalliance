@@ -14,7 +14,7 @@ class FileUploader
 
     public function upload(UploadedFile $file, $matricule = 0, $typeDemande, $id)
     {
-      $today = date("m-d-y");
+      $today = date("m-d-y_h-m-s");
       $fileName = $matricule.'_'.$id.'_'.$typeDemande.'_'.$today.'.'.$file->getClientOriginalExtension();
       $file->move($this->getTargetDir(), $fileName);
       return $fileName;

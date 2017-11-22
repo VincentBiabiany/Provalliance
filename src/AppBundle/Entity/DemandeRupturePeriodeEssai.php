@@ -17,6 +17,9 @@ class DemandeRupturePeriodeEssai extends DemandeForm
       protected $typeForm ='Demande rupture periode d\'essai';
       protected $subject ='connu';
       protected $service ='juridique';
+      protected $nomDoc = 'rupt_periode_essai';
+
+
     /**
      * @var int
      *
@@ -73,6 +76,16 @@ class DemandeRupturePeriodeEssai extends DemandeForm
         return $this->nameDemande;
     }
 
+    /**
+     * Get nomDoc
+     *
+     * @return integer
+     */
+    public function getNomDoc()
+    {
+        return $this->nomDoc;
+    }
+    
     /**
      * Get typeForm
      *

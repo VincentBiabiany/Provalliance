@@ -17,6 +17,7 @@ class DemandeRuptureCdd extends DemandeForm
   protected $typeForm ='Demande de rupture CDD';
   protected $subject ='connu';
   protected $service ='juridique';
+  protected $nomDoc = 'rupture_cdd';
 
   /**
    * @var int
@@ -147,6 +148,16 @@ class DemandeRuptureCdd extends DemandeForm
   public function getNameDemande()
   {
       return $this->nameDemande;
+  }
+
+  /**
+   * Get nomDoc
+   *
+   * @return integer
+   */
+  public function getNomDoc()
+  {
+      return $this->nomDoc;
   }
 
   /**

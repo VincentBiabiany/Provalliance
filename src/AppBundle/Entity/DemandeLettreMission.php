@@ -17,6 +17,7 @@ class DemandeLettreMission extends DemandeForm
     protected $typeForm ='Demande de lettre de mission';
     protected $subject ='connu';
     protected $service ='juridique';
+    protected $nomDoc = 'lettre_mission';
 
     /**
      * @var int
@@ -99,6 +100,16 @@ class DemandeLettreMission extends DemandeForm
         $this->matricule = $matricule;
 
         return $this;
+    }
+    
+    /**
+     * Get nomDoc
+     *
+     * @return integer
+     */
+    public function getNomDoc()
+    {
+        return $this->nomDoc;
     }
 
     /**

@@ -159,16 +159,11 @@ class DemandeEssaiProfessionnelType extends AbstractType
                     $form = $event->getForm();
                     $data = $event->getForm()->getData();
 
-                    // $data->setMatricule($form['matricule']->getData()->getMatricule());
-                    // $matricule = $form['matricule']->getData()->getMatricule();
-                    // $event->setData($data);
-
-                    if ($data->getRib() != null && $data->getCarteId() != null){
-                    $rib = $this->fileUploader->upload($data->getRib(),'0','essai_pro', 'rib');
-                    $carteId = $this->fileUploader->upload($data->getCarteId(),'0','essai_pro', 'carteId');
-                    $data->setRib($rib);
-                    $data->setCarteId($carteId);
-
+                    if ($data->getRib() != null && $data->getCarteId() != null) {
+                      $rib = $this->fileUploader->upload($data->getRib(), 0, 'essai_pro', 'rib');
+                      $carteId = $this->fileUploader->upload($data->getCarteId(), '0', 'essai_pro', 'carteId');
+                      $data->setRib($rib);
+                      $data->setCarteId($carteId);
                     }
                   });
 

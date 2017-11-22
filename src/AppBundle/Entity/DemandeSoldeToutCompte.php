@@ -14,12 +14,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class DemandeSoldeToutCompte extends DemandeForm
 {
+    protected $nameDemande ='DemandeSoldeToutCompte';
+    protected $typeForm ='Demande solde tout compte';
+    protected $subject ='connu';
+    protected $service ='paie';
+    protected $nomDoc = 'solde_tout_compte';
 
-
-  protected $nameDemande ='DemandeSoldeToutCompte';
-  protected $typeForm ='Demande solde tout compte';
-  protected $subject ='connu';
-  protected $service ='paie';
 
     /**
      * ___demande_solde_tout_compte.collab
@@ -129,6 +129,16 @@ class DemandeSoldeToutCompte extends DemandeForm
     public function getNameDemande()
     {
         return $this->nameDemande;
+    }
+
+    /**
+     * Get nomDoc
+     *
+     * @return integer
+     */
+    public function getNomDoc()
+    {
+        return $this->nomDoc;
     }
 
     /**
@@ -425,4 +435,6 @@ class DemandeSoldeToutCompte extends DemandeForm
     {
         return $this->rupture;
     }
+
+
 }

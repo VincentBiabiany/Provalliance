@@ -17,6 +17,7 @@ class DemandePromesseEmbauche extends DemandeForm
     protected $typeForm ='Demande de promesse d\'embauche';
     protected $subject ='connu';
     protected $service ='juridique';
+    protected $nomDoc = 'promesse_embauche';
 
     /**
      * @var int
@@ -112,6 +113,16 @@ class DemandePromesseEmbauche extends DemandeForm
         return $this->nameDemande;
     }
 
+    /**
+     * Get nomDoc
+     *
+     * @return integer
+     */
+    public function getNomDoc()
+    {
+        return $this->nomDoc;
+    }
+    
     /**
      * Get typeForm
      *

@@ -17,6 +17,7 @@ class DemandeRib extends DemandeForm
     protected $typeForm ='Demande rib';
     protected $subject ='connu';
     protected $service ='paie';
+    protected $nomDoc = 'rib';
 
     /**
      * @var int
@@ -58,6 +59,16 @@ class DemandeRib extends DemandeForm
         return $this->nameDemande;
     }
 
+    /**
+     * Get nomDoc
+     *
+     * @return integer
+     */
+    public function getNomDoc()
+    {
+        return $this->nomDoc;
+    }
+    
     /**
      * Get typeForm
      *

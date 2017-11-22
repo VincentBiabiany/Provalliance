@@ -11,6 +11,7 @@ use AppBundle\Entity\DemandeComplexe;
 use AppBundle\Entity\DemandeSimple;
 use AppBundle\Entity\DemandeAcompte;
 use AppBundle\Entity\DemandeEmbauche;
+use AppBundle\Entity\DemandeEssaiProfessionnel;
 use AppBundle\Form\DemandeAcompteType;
 use AppBundle\Form\DemandeComplexeType;
 use AppBundle\Form\DemandeEmbaucheType;
@@ -31,9 +32,9 @@ class DemandeDetailController extends Controller
     public function detailIdAction(Request $request, $id, FileUploader $fileuploader, ResumeDemandeService $ResumeDemandeService)
     {
       $demande = $this->getDoctrine()
-      ->getManager()
-      ->getRepository('AppBundle:DemandeEntity')
-      ->findOneBy(array("id" => $id));
+                      ->getManager()
+                      ->getRepository('AppBundle:DemandeEntity')
+                      ->findOneBy(array("id" => $id));
 
       if ($demande instanceof DemandeSimple)
         return self::detailSimple($demande, $request, $id, $fileuploader, $ResumeDemandeService);
@@ -77,32 +78,29 @@ class DemandeDetailController extends Controller
         $form2 = $form2->getForm();
         $form2->handleRequest($request);
 
-        if ($form2->isSubmitted())
-        {
-          if ($form2->get('reject')->isClicked())
-          {
-            if($form2["message"]->getData() == null)
-            {
+        if ($form2->isSubmitted()) {
+          if ($form2->get('reject')->isClicked()) {
+
+            if($form2["message"]->getData() == null) {
               $this->addFlash("error", "Il est obligatoire de saisir un motif pour votre rejet de demande d'acompte");
               return $this->redirect($this->generateUrl('demande_detail', array('id' => $id)));
             }
+
             $demande->setstatut(DemandeEntity::statut_REJETE);
             $demande->setDateTraitement(new \DateTime());
             $demande->setMessage($form2["message"]->getData());
-          }
-          else
-          {
+
+          } else {
+
             $demande->setstatut(DemandeEntity::statut_TRAITE);
             $demande->setDateTraitement(new \DateTime());
 
-            if ($form2["docService"]->getData() != null)
-            {
-              $fileName = $fileuploader->upload($form2["docService"]->getData(), 0, 'à revoir', 'pj');
+            if ($form2["docService"]->getData() != null) {
+
+              $fileName = $fileuploader->upload($form2["docService"]->getData(), $demande->getDemandeform()->getMatricule(), $demande->getDemandeform()->getNomDoc(), 'pj-service');
               $demande->setDocService($fileName);
             }
-
             $demande->setMessage($form2["message"]->getData());
-
           }
           $this->getDoctrine()->getManager()->flush();
           $this->addFlash("success", "Demande correctement traitée");
@@ -169,12 +167,11 @@ class DemandeDetailController extends Controller
 
     // Traitement de l'ajout de doc
     $form2->handleRequest($request);
-    if ($form2->isSubmitted())
-    {
-      if ( $form2->has('reject') && $form2->get('reject')->isClicked())
-      {
-        if ($form2->has('message') && $form2["message"]->getData() == null)
-        {
+    if ($form2->isSubmitted()) {
+
+      if ( $form2->has('reject') && $form2->get('reject')->isClicked()) {
+
+        if ($form2->has('message') && $form2["message"]->getData() == null) {
           $this->addFlash("error", "Il est obligatoire de saisir un motif pour votre rejet");
           return $this->redirect($this->generateUrl('demande_detail', array('id' => $id)));
         }
@@ -184,6 +181,7 @@ class DemandeDetailController extends Controller
 
         if ($form2->has('message'))
           $demande->setMessage($form2["message"]->getData());
+
         $this->getDoctrine()->getManager()->flush();
         return $this->redirectToRoute("demande");
       }
@@ -191,16 +189,6 @@ class DemandeDetailController extends Controller
       self::traitement($form2, $demande, $id, $fileuploader);
       return $this->redirectToRoute("demande");
     }
-    //
-    // if ($demande->getDemandeform()->getTypeForm() == "Demande d'embauche")
-    // {
-    //   $demandeEmbauche = new DemandeEmbauche();
-    //   $demandeEmbauche = $demande->getDemandeform();
-    //   $form = $this->createForm(DemandeEmbaucheType::class,
-    //                                       $demandeEmbauche,
-    //                                       array("step" => 4,
-    //                                     ));
-    // }
 
     if ($dateTraitement)
       $dateTraitement = $dateTraitement->format('d/m/Y');
@@ -224,48 +212,52 @@ class DemandeDetailController extends Controller
 
   public function traitement($form2, $demande, $id, $fileUploader)
   {
-  //  $fileUploader = $this->get(FileUploader::class);
+    if ($demande->getDemandeform() instanceof DemandeEssaiProfessionnel || $demande->getDemandeform() instanceof DemandeEmbauche)
+      $matricule = 0;
+    else
+      $matricule = $demande->getDemandeform()->getMatricule();
 
-    if ($demande->getStatut() == DemandeEntity::statut_AVALIDE)
-    {
+    $nomDoc = $demande->getDemandeform()->getNomDoc();
+
+    if ($demande->getStatut() == DemandeEntity::statut_AVALIDE) {
       $demande->setstatut(DemandeEntity::statut_TRAITE);
       $demande->setDateTraitement(new \DateTime());
 
       if ($form2->has('message'))
         $demande->setMessage($form2["message"]->getData());
 
-      if ($form2->has('docSalon') && $form2["docSalon"]->getData() != null)
-      {
-        $fileName = $fileUploader->upload($form2["docSalon"]->getData());
+      if ($form2->has('docSalon') && $form2["docSalon"]->getData() != null) {
+
+
+        $fileName = $fileUploader->upload($form2["docSalon"]->getData(), $matricule, $nomDoc, 'pj-salon');
         $demande->setDocSalon($fileName);
       }
+
     }
-    if ($demande->getStatut() == DemandeEntity::statut_ASIGNE)
-    {
+
+    if ($demande->getStatut() == DemandeEntity::statut_ASIGNE) {
       $demande->setstatut(DemandeEntity::statut_AVALIDE);
       $demande->setDateTraitement(new \DateTime());
 
       if ($form2->has('message'))
         $demande->setMessage($form2["message"]->getData());
 
-      if ($form2->has('docSalon') && $form2["docSalon"]->getData() != null)
-      {
-        $fileName = $fileUploader->upload($form2["docSalon"]->getData(), 0, 'embauche', 'Contrat2');
+      if ($form2->has('docSalon') && $form2["docSalon"]->getData() != null) {
+
+        $fileName = $fileUploader->upload($form2["docSalon"]->getData(), $matricule, $nomDoc, 'pj-service');
         $demande->setDocSalon($fileName);
       }
     }
 
-    if ($demande->getStatut() == DemandeEntity::statut_EN_COURS)
-    {
+    if ($demande->getStatut() == DemandeEntity::statut_EN_COURS) {
       $demande->setstatut(DemandeEntity::statut_ASIGNE);
       $demande->setDateTraitement(new \DateTime());
 
       if ($form2->has('message'))
         $demande->setMessage($form2["message"]->getData());
 
-      if ($form2["docService"]->getData() != null)
-      {
-        $fileName = $fileUploader->upload($form2["docService"]->getData(), 0, 'embauche', 'Contrat1');
+      if ($form2["docService"]->getData() != null) {
+        $fileName = $fileUploader->upload($form2["docService"]->getData(), $matricule, $nomDoc, 'pj-service');
         $demande->setDocService($fileName);
       }
     }

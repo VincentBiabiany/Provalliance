@@ -17,6 +17,7 @@ class DemandeDemission extends DemandeForm
     protected $typeForm ='Demande de démission';
     protected $subject ='connu';
     protected $service ='juridique';
+    protected $nomDoc = 'demission';
 
     /**
      * @var int
@@ -73,6 +74,16 @@ class DemandeDemission extends DemandeForm
     public function getNameDemande()
     {
         return $this->nameDemande;
+    }
+    
+    /**
+     * Get nomDoc
+     *
+     * @return integer
+     */
+    public function getNomDoc()
+    {
+        return $this->nomDoc;
     }
 
     /**

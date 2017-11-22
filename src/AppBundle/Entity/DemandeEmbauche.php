@@ -13,6 +13,8 @@ use AppBundle\Entity\DemandeForm;
  */
 class DemandeEmbauche extends DemandeForm
 {
+      protected $nomDoc = 'embauche';
+
     /**
      * @var int
      *
@@ -41,6 +43,14 @@ class DemandeEmbauche extends DemandeForm
     private $prenom;
 
     /**
+     * ___demande_embauche.sexe
+     * @var string
+     *
+     * @ORM\Column(name="sexe", type="string", length=255)
+     */
+    private $sexe;
+
+    /**
      * ___demande_embauche.adr1
      *
      * @var string
@@ -48,14 +58,6 @@ class DemandeEmbauche extends DemandeForm
      * @ORM\Column(name="adresse_1", type="string", length=255)
      */
     private $adresse1;
-
-    /**
-     * ___demande_embauche.sexe
-     * @var string
-     *
-     * @ORM\Column(name="sexe", type="string", length=255)
-     */
-    private $sexe;
 
     /**
      * ___demande_embauche.adr2
@@ -67,16 +69,6 @@ class DemandeEmbauche extends DemandeForm
     private $adresse2;
 
     /**
-     * ___demande_embauche.cp
-     *
-     *  @var string
-     *
-     * @ORM\Column(name="code_postal", type="string", length=20)
-     */
-    private $codePostal;
-
-
-    /**
      * ___demande_embauche.ville
      *
      * @var string
@@ -84,6 +76,15 @@ class DemandeEmbauche extends DemandeForm
      * @ORM\Column(name="ville", type="string", length=255)
      */
     private $ville;
+
+    /**
+     * ___demande_embauche.cp
+     *
+     *  @var string
+     *
+     * @ORM\Column(name="code_postal", type="string", length=20)
+     */
+    private $codePostal;
 
     /**
      * ___demande_embauche.tel
@@ -149,6 +150,15 @@ class DemandeEmbauche extends DemandeForm
     private $nationalite;
 
     /**
+     * ___demande_embauche.fam
+     *
+     * @var string
+     *
+     * @ORM\Column(name="situation_famille", type="string")
+     */
+    private $situationFamille;
+
+    /**
      * ___demande_embauche.nbenf
      *
      * @var int
@@ -157,14 +167,6 @@ class DemandeEmbauche extends DemandeForm
      */
     private $nbEnfant;
 
-    /**
-     * ___demande_embauche.fam
-     *
-     * @var string
-     *
-     * @ORM\Column(name="situation_famille", type="string")
-     */
-    private $situationFamille;
 
     /**
      * ___demande_embauche.dateemb
@@ -320,7 +322,7 @@ class DemandeEmbauche extends DemandeForm
     private $tempsPartiel;
 
     /**
-     * ___demande_embauche.pi
+     * ___demande_embauche.id
      *
      * @var string
      *
@@ -383,6 +385,37 @@ class DemandeEmbauche extends DemandeForm
       $this->tempsPartiel = ['lundi'=>0, 'mardi'=>0,'mercredi'=>0, 'jeudi'=>0,'vendredi'=>0,'samedi'=>0,'total'=>0];
     }
 
+
+    /**
+     * Get nameDemande
+     *
+     * @return integer
+     */
+    public function getNameDemande()
+    {
+        return $this->nameDemande;
+    }
+
+    /**
+     * Get nomDoc
+     *
+     * @return integer
+     */
+    public function getNomDoc()
+    {
+        return $this->nomDoc;
+    }
+    
+    /**
+     * Get subject
+     *
+     * @return integer
+     */
+    public function getSubject()
+    {
+        return $this->subject;
+    }
+
     /**
      * Set nom
      *
@@ -429,6 +462,30 @@ class DemandeEmbauche extends DemandeForm
     public function getPrenom()
     {
         return $this->prenom;
+    }
+
+    /**
+     * Set sexe
+     *
+     * @param string $sexe
+     *
+     * @return DemandeEmbauche
+     */
+    public function setSexe($sexe)
+    {
+        $this->sexe = $sexe;
+
+        return $this;
+    }
+
+    /**
+     * Get sexe
+     *
+     * @return string
+     */
+    public function getSexe()
+    {
+        return $this->sexe;
     }
 
     /**
@@ -480,30 +537,6 @@ class DemandeEmbauche extends DemandeForm
     }
 
     /**
-     * Set codePostal
-     *
-     * @param string $codePostal
-     *
-     * @return DemandeEmbauche
-     */
-    public function setCodePostal($codePostal)
-    {
-        $this->codePostal = $codePostal;
-
-        return $this;
-    }
-
-    /**
-     * Get codePostal
-     *
-     * @return string
-     */
-    public function getCodePostal()
-    {
-        return $this->codePostal;
-    }
-
-    /**
      * Set ville
      *
      * @param string $ville
@@ -528,9 +561,33 @@ class DemandeEmbauche extends DemandeForm
     }
 
     /**
+     * Set codePostal
+     *
+     * @param string $codePostal
+     *
+     * @return DemandeEmbauche
+     */
+    public function setCodePostal($codePostal)
+    {
+        $this->codePostal = $codePostal;
+
+        return $this;
+    }
+
+    /**
+     * Get codePostal
+     *
+     * @return string
+     */
+    public function getCodePostal()
+    {
+        return $this->codePostal;
+    }
+
+    /**
      * Set telephone
      *
-     * @param integer $telephone
+     * @param string $telephone
      *
      * @return DemandeEmbauche
      */
@@ -544,7 +601,7 @@ class DemandeEmbauche extends DemandeForm
     /**
      * Get telephone
      *
-     * @return integer
+     * @return string
      */
     public function getTelephone()
     {
@@ -578,7 +635,7 @@ class DemandeEmbauche extends DemandeForm
     /**
      * Set numSecu
      *
-     * @param integer $numSecu
+     * @param string $numSecu
      *
      * @return DemandeEmbauche
      */
@@ -592,7 +649,7 @@ class DemandeEmbauche extends DemandeForm
     /**
      * Get numSecu
      *
-     * @return integer
+     * @return string
      */
     public function getNumSecu()
     {
@@ -648,6 +705,30 @@ class DemandeEmbauche extends DemandeForm
     }
 
     /**
+     * Set paysNaissance
+     *
+     * @param string $paysNaissance
+     *
+     * @return DemandeEmbauche
+     */
+    public function setPaysNaissance($paysNaissance)
+    {
+        $this->paysNaissance = $paysNaissance;
+
+        return $this;
+    }
+
+    /**
+     * Get paysNaissance
+     *
+     * @return string
+     */
+    public function getPaysNaissance()
+    {
+        return $this->paysNaissance;
+    }
+
+    /**
      * Set nationalite
      *
      * @param string $nationalite
@@ -672,30 +753,6 @@ class DemandeEmbauche extends DemandeForm
     }
 
     /**
-     * Set nbEnfant
-     *
-     * @param integer $nbEnfant
-     *
-     * @return DemandeEmbauche
-     */
-    public function setNbEnfant($nbEnfant)
-    {
-        $this->nbEnfant = $nbEnfant;
-
-        return $this;
-    }
-
-    /**
-     * Get nbEnfant
-     *
-     * @return integer
-     */
-    public function getNbEnfant()
-    {
-        return $this->nbEnfant;
-    }
-
-    /**
      * Set situationFamille
      *
      * @param string $situationFamille
@@ -717,6 +774,30 @@ class DemandeEmbauche extends DemandeForm
     public function getSituationFamille()
     {
         return $this->situationFamille;
+    }
+
+    /**
+     * Set nbEnfant
+     *
+     * @param integer $nbEnfant
+     *
+     * @return DemandeEmbauche
+     */
+    public function setNbEnfant($nbEnfant)
+    {
+        $this->nbEnfant = $nbEnfant;
+
+        return $this;
+    }
+
+    /**
+     * Get nbEnfant
+     *
+     * @return integer
+     */
+    public function getNbEnfant()
+    {
+        return $this->nbEnfant;
     }
 
     /**
@@ -765,54 +846,6 @@ class DemandeEmbauche extends DemandeForm
     public function getDejaSalarie()
     {
         return $this->dejaSalarie;
-    }
-
-    /**
-     * Set precisionDate
-     *
-     * @param string $precisionDate
-     *
-     * @return DemandeEmbauche
-     */
-    public function setprecisionDate($precisionDate)
-    {
-        $this->precisionDate = $precisionDate;
-
-        return $this;
-    }
-
-    /**
-     * Get precisionDate
-     *
-     * @return string
-     */
-    public function getprecisionDate()
-    {
-        return $this->precisionDate;
-    }
-
-    /**
-     * Set $isTempsPartiel
-     *
-     * @param string $isTempsPartiel
-     *
-     * @return DemandeEmbauche
-     */
-    public function setisTempsPartiel($isTempsPartiel)
-    {
-        $this->isTempsPartiel = $isTempsPartiel;
-
-        return $this;
-    }
-
-    /**
-     * Get $isTempsPartiel
-     *
-     * @return string
-     */
-    public function getisTempsPartiel()
-    {
-        return $this->isTempsPartiel;
     }
 
     /**
@@ -962,7 +995,7 @@ class DemandeEmbauche extends DemandeForm
     /**
      * Set salaireBase
      *
-     * @param string $salaireBase
+     * @param integer $salaireBase
      *
      * @return DemandeEmbauche
      */
@@ -976,7 +1009,7 @@ class DemandeEmbauche extends DemandeForm
     /**
      * Get salaireBase
      *
-     * @return string
+     * @return integer
      */
     public function getSalaireBase()
     {
@@ -1080,6 +1113,30 @@ class DemandeEmbauche extends DemandeForm
     }
 
     /**
+     * Set precisionDate
+     *
+     * @param string $precisionDate
+     *
+     * @return DemandeEmbauche
+     */
+    public function setPrecisionDate($precisionDate)
+    {
+        $this->precisionDate = $precisionDate;
+
+        return $this;
+    }
+
+    /**
+     * Get precisionDate
+     *
+     * @return string
+     */
+    public function getPrecisionDate()
+    {
+        return $this->precisionDate;
+    }
+
+    /**
      * Set remplacementNom
      *
      * @param string $remplacementNom
@@ -1101,6 +1158,30 @@ class DemandeEmbauche extends DemandeForm
     public function getRemplacementNom()
     {
         return $this->remplacementNom;
+    }
+
+    /**
+     * Set isTempsPartiel
+     *
+     * @param string $isTempsPartiel
+     *
+     * @return DemandeEmbauche
+     */
+    public function setIsTempsPartiel($isTempsPartiel)
+    {
+        $this->isTempsPartiel = $isTempsPartiel;
+
+        return $this;
+    }
+
+    /**
+     * Get isTempsPartiel
+     *
+     * @return string
+     */
+    public function getIsTempsPartiel()
+    {
+        return $this->isTempsPartiel;
     }
 
     /**
@@ -1269,73 +1350,5 @@ class DemandeEmbauche extends DemandeForm
     public function getMutuelle()
     {
         return $this->mutuelle;
-    }
-
-    /**
-     * Set sexe
-     *
-     * @param string $sexe
-     *
-     * @return DemandeEmbauche
-     */
-    public function setSexe($sexe)
-    {
-        $this->sexe = $sexe;
-
-        return $this;
-    }
-
-    /**
-     * Get sexe
-     *
-     * @return string
-     */
-    public function getSexe()
-    {
-        return $this->sexe;
-    }
-
-    /**
-     * Set paysNaissance
-     *
-     * @param string $paysNaissance
-     *
-     * @return DemandeEmbauche
-     */
-    public function setPaysNaissance($paysNaissance)
-    {
-        $this->paysNaissance = $paysNaissance;
-
-        return $this;
-    }
-
-    /**
-     * Get paysNaissance
-     *
-     * @return string
-     */
-    public function getPaysNaissance()
-    {
-        return $this->paysNaissance;
-    }
-
-    /**
-     * Get nameDemande
-     *
-     * @return integer
-     */
-    public function getNameDemande()
-    {
-        return $this->nameDemande;
-    }
-
-    /**
-     * Get subject
-     *
-     * @return integer
-     */
-    public function getSubject()
-    {
-        return $this->subject;
     }
 }

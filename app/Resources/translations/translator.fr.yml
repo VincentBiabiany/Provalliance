@@ -11,6 +11,7 @@ global:
     choiceFile:    Choisir un fichier
     affirme:       Oui
     negative:      Non
+    fichier:       Choisir un fichier
 
 login:
     username:  Nom d'utilisateur
@@ -332,6 +333,7 @@ ___demande_embauche:
     attention:     Attention !
     msg:           Avant de commencer à remplir le formulaire, veuillez vérifier que vous disposez toutes les pièces justificatives suivantes au format électronique :
     pi:            Carte d'Id. / Titre de Séjour
+    id:            Id. / Titre de Séjour
     diplomes:      Diplôme(s)
     diplome:       Diplôme
     diplome2:      Diplôme 2
@@ -457,7 +459,7 @@ ___demande_avenant:
     vendredi:           Ve
     samedi:             Sa
     total:              Total
-    
+
     popupValidation:
         message:        Votre demande d'avenant a été envoyée.
 
