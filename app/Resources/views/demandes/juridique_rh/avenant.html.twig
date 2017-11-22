@@ -42,6 +42,7 @@
 				<div id="demande_avenant_raison" class="form-controlList">
 					{% for key,child in form.raison %}
 
+					<div class="col-sm-12">
 						{% if key == 0 %}
 
 								{{ form_widget(child, {'attr' : {'class' : ''} }) }}
@@ -49,36 +50,41 @@
 
                 <div id="raison0">
 
-									<div class="col-sm-6">
-										<div class="jour" style="width: 90px;">
-											<label style="display:none" class="control-label label">{{ "___demande_avenant.du"|trans({}, "translator") }}</label>
+									<div class="col-sm-12">
+										<div class="col-sm-6">
+											<div class="jour" style="width: 90px;">
+												<label class="control-label label">{{ "___demande_avenant.du"|trans({}, "translator") }}</label>
+											</div>
+											{{ form_widget(form.du, { 'attr': {'class':'styleDate'} }) }}
 										</div>
-										{{ form_widget(form.du, { 'attr': {'class':'styleDate'} }) }}
+
+										<div class="col-sm-6" id="dateFin" style="display:none" >
+											<div class="jour" style="width: 90px;">
+											 <label class="control-label label">{{ "___demande_avenant.au"|trans({}, "translator") }}</label>
+											</div>
+											{{ form_widget(form.au, { 'attr': {'class':'styleDate'} }) }}
+									 </div>
+
 									</div>
 
-								 <div class="col-sm-6" id="dateFin" style="display:none" >
-									 <div class="jour">
-										<label style="display:none" class="control-label label">{{ "___demande_avenant.au"|trans({}, "translator") }}</label>
-									 </div>
-									 {{ form_widget(form.au, { 'attr': {'class':'styleDate'} }) }}
-								</div>
 
-								<div class="form-group">
 
-									 <label id="pjLabel1" for="demande_avenant_arretMaladie" class="label-file">
-										 <i class="glyphicon glyphicon-download-alt"></i>
-										 <span>{{ "___demande_avenant.arretMaladie"|trans({}, "translator") }}</span>
-									 </label>
+									<div class="form-group">
 
-									 {{ form_widget(form.arretMaladie, { 'attr': {'class': 'input-file'} }) }}
+										 <label id="pjLabel1" for="demande_avenant_arretMaladie" class="label-file">
+											 <i class="glyphicon glyphicon-download-alt"></i>
+											 <span>{{ "___demande_avenant.arretMaladie"|trans({}, "translator") }}</span>
+										 </label>
 
-						       <label id="pjLabel2" for="avisMed" class="label-file">
-										 <i class="glyphicon glyphicon-download-alt"></i>
-										 <span>{{ "___demande_avenant.avisMed"|trans({}, "translator") }}</span>
-									 </label>
+										  {{ form_widget(form.arretMaladie, { 'attr': {'class': 'input-file'} }) }}
 
-									 {{ form_widget(form.avisMed, { 'attr': {'class': 'input-file'} }) }}
-								</div>
+							       <label id="pjLabel2" for="avisMed" class="label-file">
+											 <i class="glyphicon glyphicon-download-alt"></i>
+											 <span>{{ "___demande_avenant.avisMed"|trans({}, "translator") }}</span>
+										 </label>
+
+										 {{ form_widget(form.avisMed, { 'attr': {'class': 'input-file'} }) }}
+									</div>
 
               </div>
 
@@ -114,7 +120,7 @@
                 </div>
 
 					 {% endif %}
-
+				 </div>
 					{% endfor %}
 
 				</div>
@@ -131,7 +137,7 @@
           <label class="control-label label col-sm-3 col-xs-12" for="prenom">{{ "___demande_avenant.TempsPartiel"|trans({}, "translator") }}</label>
 
           <div id="listeJours" class="col-sm-9 col-xs-12 pad-box">
-            <label class="control-label label col-sm-12 col-xs-12"  for="nom"></label>
+
 
               {% for key,child in form.tempsPartiel %}
 
@@ -216,8 +222,7 @@ $(document).ready(function(){
     if ($('#demande_avenant_raison_0').is(':checked')) {
 
       $('#demande_avenant_pieceJointe1').attr('required', 'required');
-      $('#demande_avenant_dateDebut').attr('required', 'required');
-      $('#demande_avenant_dateFin').attr('required', 'required');
+
 
       $('#pjLabel1').show();
       $('#pjLabel2').hide();
@@ -263,8 +268,8 @@ $(document).ready(function(){
       if ($('#demande_avenant_raison_0').is(':checked')) {
 
         $('#champsPartiel').appendTo($('#raison0'));
-        $('#dates').appendTo($('#raison0'));
-        $('#pieceJointe').show().appendTo($('#raison0'));
+        //$('#dates').appendTo($('#raison0'));
+        //$('#pieceJointe').show().appendTo($('#raison0'));
 
       } else {
 
