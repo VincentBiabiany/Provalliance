@@ -19,6 +19,7 @@ class ImportService
   private $em;
   private $dir;
   private $trans;
+  private  $batchSize = 70;
 
   public function __construct(EntityManager $em, TranslatorInterface $trans, $dir)
   {
@@ -36,12 +37,15 @@ class ImportService
                 "nb"       => 19
               );
     $result = self::handleFile($file, $champs);
+
+    $i = 0;
     foreach ($result["result"] as $key => $personnel)
     {
       $entity = $this->em->getRepository('ApiBundle:Personnel')->find($personnel[0]);
 
-      if ($entity === null)
-        $entity = (new Personnel())->setMatricule($personnel[0]);
+      if ($entity === null){
+          $entity = (new Personnel())->setMatricule($personnel[0]);
+      }
 
       $entity->setCivilite($personnel[1]);
       $entity->setNom($personnel[2]);
@@ -60,24 +64,36 @@ class ImportService
       $entity->setTelephone1($personnel[15]);
       $entity->setEmail($personnel[16]);
 
+
       $entity->setDateEntree(self::returnDate($personnel[17]));
       $entity->setDateSortie(self::returnDate($personnel[18]));
 
+      $entity->setActif(1);
+
       $this->em->persist($entity);
-      $this->em->flush();
+      if (($i % $this->batchSize) === 0) {
+        $this->em->flush();
+        $this->em->clear();
+      }
+      $i++;
     }
+    $this->em->flush();
+    $this->em->clear();
   }
 
   public function importSalon($file)
   {
     $champs = array(
                     "champs"   => ["Sage", "Groupe", "Enseigne", "Pays"],
-                    "valeur"   => ["0", "20", "21", "22"],
+                    "valeur"   => ["0", "19", "20", "21"],
                     "colonnes" => ["sage","appelation","forme_juridique","rcs_ville","code_naf","siren","capital","raison_sociale","adresse1","adresse2","code_postal","ville","telephone1","telephone2","email","code_marlix","date_ouverture","date_fermeture_sociale","date_fermeture_commerciale","groupe_id","enseigne_id","pays_id"],
-                    "nb"       => 23
+                    "nb"       => 22
                   );
 
     $result = self::handleFile($file, $champs);
+
+    $i = 0;
+
 
     foreach ($result["result"] as $key => $salon)
     {
@@ -106,26 +122,26 @@ class ImportService
       $entity->setDateFermetureCommerciale(self::returnDate($salon[18]));
 
 
-      $group = $this->em->getRepository('ApiBundle:Groupe')->find($salon[20]);
-      if (!$group)
-        throw new Exception($this->trans->trans('import.groupe', ["%line%"=> ($key+2)], 'translator'));
+      $group = $this->em->getRepository('ApiBundle:Groupe')->find($salon[19]);
       $entity->setGroupe($group);
 
-      $enseigne = $this->em->getRepository('ApiBundle:Enseigne')->find($salon[21]);
-      if (!$enseigne)
-        throw new Exception($this->trans->trans('import.enseigne', ["%line%"=> ($key+2)], 'translator'));
+      $enseigne = $this->em->getRepository('ApiBundle:Enseigne')->find($salon[20]);
       $entity->setEnseigne($enseigne);
 
-      $pays = $this->em->getRepository('ApiBundle:Pays')->find($salon[22]);
-      if (!$pays)
-        throw new Exception($this->trans->trans('import.pays', ["%line%"=> ($key+2)], 'translator'));
-
+      $pays = $this->em->getRepository('ApiBundle:Pays')->find($salon[21]);
       $entity->setPays($pays);
 
       $this->em->persist($entity);
-      $this->em->flush();
+      if (($i % $this->batchSize) === 0) {
+          $this->em->flush();
+          $this->em->clear(); // Detaches all objects from Doctrine!
+       }
+       $i++;
     }
+    $this->em->flush();
+    $this->em->clear();
   }
+
 
   public function returnDate($date)
   {
@@ -144,43 +160,47 @@ class ImportService
   public function importLien($file)
   {
     $champs = array(
-                    "champs"   => ["Profession", "Matricule", "Sage"],
-                    "valeur"   => ["2", "1", "3"],
-                    "colonnes" => ["personnel_matricule","profession_id","salon_sage","date_debut","date_fin"],
-                    "nb"       => 5
+                    "champs"   => ["Matricule","Profession","Sage"],
+                    "valeur"   => ["1", "2", "3"],
+                    "colonnes" => ["id","personnel_matricule","profession_id","salon_sage","date_debut","date_fin"],
+                    "nb"       => 6
                   );
 
     $result = self::handleFile($file, $champs);
+
+    $i = 0;
+    $this->em->getConnection()->getConfiguration()->setSQLLogger(null);
     foreach ($result["result"] as $key => $lien)
     {
-      $link = "{$lien[0]}{$lien[1]}{$lien[2]}";
-      $entity = $this->em->getRepository('ApiBundle:PersonnelHasSalon')->find($link);
+      $link = "{$lien[1]}{$lien[2]}{$lien[3]}";
+      $entity = $this->em->getRepository('ApiBundle:PersonnelHasSalon')->find($lien[0]);
 
       if ($entity === null)
         $entity = (new PersonnelHasSalon())->setId($link);
 
-      $profession = $this->em->getRepository('ApiBundle:Profession')->find($lien[1]);
-      if (!$profession)
-        throw new Exception($this->trans->trans('import.prof', ["%line%"=> ($key+2)],'translator'));
+      $profession = $this->em->getRepository('ApiBundle:Profession')->find($lien[2]);
       $entity->setProfession($profession);
 
-      $personnel = $this->em->getRepository('ApiBundle:Personnel')->find($lien[0]);
-      if (!$personnel)
-        throw new Exception($this->trans->trans('import.matr', ["%line%"=> ($key+2)], 'translator'));
+      $personnel = $this->em->getRepository('ApiBundle:Personnel')->find($lien[1]);
       $entity->setPersonnelMatricule($personnel);
 
-      $salon = $this->em->getRepository('ApiBundle:Salon')->find($lien[2]);
-      if (!$salon)
-        throw new Exception($this->trans->trans('import.salonEr', ["%line%"=> ($key+2)],'translator'));
+      $salon = $this->em->getRepository('ApiBundle:Salon')->find($lien[3]);
       $entity->setSalonSage($salon);
 
-      $entity->setDateDebut(self::returnDate($lien[3]));
-      $entity->setDateFin(self::returnDate($lien[4]));
+      $entity->setDateDebut(self::returnDate($lien[4]));
+      $entity->setDateFin(self::returnDate($lien[5]));
       //$entity->setActif($lien[6]);
 
+
       $this->em->persist($entity);
-      $this->em->flush();
+       if (($i % $this->batchSize) === 0) {
+          $this->em->flush();
+          $this->em->clear(); // Detaches all objects from Doctrine!
+       }
+       $i++;
     }
+    $this->em->flush();
+    $this->em->clear();
   }
 
   public function handleFile($file, $champs)
@@ -203,26 +223,22 @@ class ImportService
         $this->dir,
         $fileName
       );
-    }
-    else
-    {
+    } else {
       // Efface le fichier et fais remonter l'erreur
       $fs->remove($file->getRealPath());
       throw new Exception($this->trans->trans('import.nocsv', [],'translator'));
     }
 
     $csv = fopen($file->getRealPath(), "r");
-    if (!$csv)
-    {
+    if (!$csv) {
       $fs->remove($file->getRealPath());
       throw new Exception($this->trans->trans('import.corrupt', [],'translator'));
     }
     // Test des noms de colonnes
     ini_set('auto_detect_line_endings', true);
     $head = fgetcsv($csv, 2000000, ';', '"');
-    dump($head);
-    if (!($head == $champs["colonnes"]))
-    {
+
+    if (!($head == $champs["colonnes"])) {
       fclose($csv);
       $fs->remove($file->getRealPath());
       throw new Exception($this->trans->trans('import.nbchamps', ["%champs%"=>implode("\r",$champs["colonnes"]) ],'translator'));
@@ -250,9 +266,7 @@ class ImportService
     $array = array();
     $error = array();
 
-
-    while (($line = fgetcsv($csv, 4096, ';', '"')) != null)
-    {
+    while (($line = fgetcsv($csv, 4096, ';', '"')) != null) {
       // Clean chaques champs, si vide retourne null, sinon retourne en utf8
       $line = array_map(function($v){
         return ($v == "") ? null : utf8_encode($v);
@@ -277,9 +291,51 @@ class ImportService
                       ],
                         'translator'
                     );
+          self::testDbValue($line[$value], $chpObligatoire['colonnes'][$value], ($i + 2));
       }
       ++$i;
     }
     return array("error" => $error, "result" => $array, "count" => $i, "line" => $line);
+  }
+
+  public function testDbValue($value, $name, $line)
+  {
+
+    if ($name == "profession_id") {
+      $profession = $this->em->getRepository('ApiBundle:Profession')->find($value);
+      if (!$profession)
+        throw new Exception($this->trans->trans('import.prof', ["%line%"=> $line],'translator'));
+    }
+
+    if ($name == "personnel_matricule") {
+      $personnel = $this->em->getRepository('ApiBundle:Personnel')->find($value);
+      if (!$personnel)
+        throw new Exception($this->trans->trans('import.matr', ["%line%"=> $line], 'translator'));
+    }
+
+    if ($name == "salon_sage") {
+      $salon = $this->em->getRepository('ApiBundle:Salon')->find($value);
+      if (!$salon)
+        throw new Exception($this->trans->trans('import.salonEr', ["%line%"=> $line],'translator'));
+    }
+
+
+    if ($name == "groupe_id") {
+      $group = $this->em->getRepository('ApiBundle:Groupe')->find($value);
+      if (!$group)
+        throw new Exception($this->trans->trans('import.groupe', ["%line%"=> $line], 'translator'));
+    }
+
+    if ($name == "enseigne_id") {
+      $enseigne = $this->em->getRepository('ApiBundle:Enseigne')->find($value);
+      if (!$enseigne)
+        throw new Exception($this->trans->trans('import.enseigne', ["%line%"=> $line], 'translator'));
+    }
+
+    if ($name == "pays_id") {
+      $pays = $this->em->getRepository('ApiBundle:Pays')->find($value);
+      if (!$pays)
+        throw new Exception($this->trans->trans('import.pays', ["%line%"=> $line], 'translator'));
+    }
   }
 }

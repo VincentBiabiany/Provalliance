@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 class PersonnelHasSalon
 {
     /**
-     * @var integer
+     * @var string
      *
      * @ORM\Column(name="id", type="string")
      * @ORM\Id
