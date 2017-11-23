@@ -603,7 +603,8 @@ import:
 
     nb:        "Probleme de nombre de champs ligne: %line% - attendu: %expd% alors qu'il y en a: %nb%"
     champs:    "Champs obligatoire %champs% non présent ligne: %line%"
-
+    date:      "Champs obligatoire %champs% invalide (mal formaté) ligne: %line%"
+    
     groupe:    "Le groupe ligne %line% n'existe pas."
     enseigne:  "L'enseigne ligne %line% n'existe pas."
     pays:      "Le pays ligne %line% n'existe pas."

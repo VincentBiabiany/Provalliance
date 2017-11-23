@@ -31,8 +31,8 @@ class ImportService
   public function importPersonnel($file)
   {
     $champs = array(
-                "champs"   => ["matricule"],
-                "valeur"   => ["0"],
+                "champs"   => ["Matricule", "Date d'entrée"],
+                "valeur"   => ["0", "17"],
                 "colonnes" => ["matricule","civilite","nom","prenom","date_naissance","ville_naissance","pays_naissance","sexe","nationalite","niveau","echelon","adresse1","adresse2","codepostal","ville","telephone","email","date_entree","date_sortie"],
                 "nb"       => 19
               );
@@ -84,8 +84,8 @@ class ImportService
   public function importSalon($file)
   {
     $champs = array(
-                    "champs"   => ["Sage", "Groupe", "Enseigne", "Pays"],
-                    "valeur"   => ["0", "19", "20", "21"],
+                    "champs"   => ["Sage", "Groupe", "Enseigne", "Pays", "Date d'ouverture"],
+                    "valeur"   => ["0", "19", "20", "21", "16"],
                     "colonnes" => ["sage","appelation","forme_juridique","rcs_ville","code_naf","siren","capital","raison_sociale","adresse1","adresse2","code_postal","ville","telephone1","telephone2","email","code_marlix","date_ouverture","date_fermeture_sociale","date_fermeture_commerciale","groupe_id","enseigne_id","pays_id"],
                     "nb"       => 22
                   );
@@ -150,9 +150,11 @@ class ImportService
       $date =  \DateTime::createFromFormat('d/m/Y', $date);
       if (!$date)
         $date =  \DateTime::createFromFormat('Y-m-d', $datet);
+      if(!$date)
+        $date = null;//\DateTime::createFromFormat('d/m/Y', '01/01/1970');
     }
     else
-      $date = \DateTime::createFromFormat('d/m/Y', '01/01/1970');
+      $date = null;//\DateTime::createFromFormat('d/m/Y', '01/01/1970');
 
     return $date;
   }
@@ -160,8 +162,8 @@ class ImportService
   public function importLien($file)
   {
     $champs = array(
-                    "champs"   => ["Matricule","Profession","Sage"],
-                    "valeur"   => ["1", "2", "3"],
+                    "champs"   => ["Matricule","Profession","Sage", "Date de début"],
+                    "valeur"   => ["1", "2", "3", "4"],
                     "colonnes" => ["id","personnel_matricule","profession_id","salon_sage","date_debut","date_fin"],
                     "nb"       => 6
                   );
@@ -291,6 +293,22 @@ class ImportService
                       ],
                         'translator'
                     );
+
+          // Vérifie si les champs dates obligatoires sont bien formatés
+          $date = $chpObligatoire['colonnes'][$value];
+          if ($date == 'date_entree' || $date == 'date_debut' || $date == 'date_ouverture') {
+            if (self::returnDate($line[$value]) == null){
+              $error[] =  $this->trans->trans('import.date',[
+                            "%line%" => ($i + 2),
+                            "%champs%" => $chpObligatoire["champs"][$key],
+                          ],
+                            'translator'
+                        );
+                        dump('date');
+            }
+
+          }
+
           self::testDbValue($line[$value], $chpObligatoire['colonnes'][$value], ($i + 2));
       }
       ++$i;
