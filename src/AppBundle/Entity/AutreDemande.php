@@ -115,7 +115,7 @@ class AutreDemande extends DemandeForm
     public function setService($service)
     {
         $this->service = $service;
-        
+
         return $this;
     }
 
@@ -132,7 +132,7 @@ class AutreDemande extends DemandeForm
     /**
      * Set matricule
      *
-     * @param integer $matricule
+     * @param string $matricule
      *
      * @return AutreDemande
      */
@@ -146,7 +146,7 @@ class AutreDemande extends DemandeForm
     /**
      * Get matricule
      *
-     * @return integer
+     * @return string
      */
     public function getMatricule()
     {

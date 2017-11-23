@@ -25,7 +25,7 @@ class DemandeCongeParental extends DemandeForm
    *
    * @var int
    *
-   * @ORM\Column(name="matricule", type="integer")
+   * @ORM\Column(name="matricule", type="string")
    */
   private $matricule;
 
@@ -107,7 +107,7 @@ class DemandeCongeParental extends DemandeForm
   {
       return $this->nameDemande;
   }
-  
+
   /**
    * Get nomDoc
    *
@@ -152,7 +152,7 @@ class DemandeCongeParental extends DemandeForm
     /**
      * Set matricule
      *
-     * @param integer $matricule
+     * @param string $matricule
      *
      * @return DemandeCongeParental
      */
@@ -166,7 +166,7 @@ class DemandeCongeParental extends DemandeForm
     /**
      * Get matricule
      *
-     * @return integer
+     * @return string
      */
     public function getMatricule()
     {

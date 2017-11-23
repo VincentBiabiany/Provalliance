@@ -33,7 +33,7 @@ class DemandeLettreMission extends DemandeForm
      *
      * @var int
      *
-     * @ORM\Column(name="matricule", type="integer", nullable=false)
+     * @ORM\Column(name="matricule", type="string", nullable=false)
      */
     private $matricule;
 
@@ -91,7 +91,7 @@ class DemandeLettreMission extends DemandeForm
     /**
      * Set matricule
      *
-     * @param integer $matricule
+     * @param string $matricule
      *
      * @return DemandeLettreMission
      */
@@ -101,7 +101,7 @@ class DemandeLettreMission extends DemandeForm
 
         return $this;
     }
-    
+
     /**
      * Get nomDoc
      *
@@ -115,7 +115,7 @@ class DemandeLettreMission extends DemandeForm
     /**
      * Get matricule
      *
-     * @return integer
+     * @return string
      */
     public function getMatricule()
     {

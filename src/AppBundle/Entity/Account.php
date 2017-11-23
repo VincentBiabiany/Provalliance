@@ -15,9 +15,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Account
 {
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="matricule", type="integer")
+     * @ORM\Column(name="matricule", type="string")
      */
     private $matricule;
 
@@ -33,7 +33,7 @@ class Account
     /**
      * Set matricule
      *
-     * @param integer $matricule
+     * @param string $matricule
      *
      * @return DemandeAcompte
      */
@@ -47,7 +47,7 @@ class Account
     /**
      * Get matricule
      *
-     * @return integer
+     * @return string
      */
     public function getMatricule()
     {

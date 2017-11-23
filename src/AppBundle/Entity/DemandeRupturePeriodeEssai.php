@@ -34,7 +34,7 @@ class DemandeRupturePeriodeEssai extends DemandeForm
      *
      * @var int
      *
-     * @ORM\Column(name="matricule", type="integer")
+     * @ORM\Column(name="matricule", type="string")
      */
     protected $matricule;
 
@@ -85,7 +85,7 @@ class DemandeRupturePeriodeEssai extends DemandeForm
     {
         return $this->nomDoc;
     }
-    
+
     /**
      * Get typeForm
      *
@@ -119,7 +119,7 @@ class DemandeRupturePeriodeEssai extends DemandeForm
     /**
      * Set matricule
      *
-     * @param integer $matricule
+     * @param string $matricule
      *
      * @return DemandeRupturePeriodeEssai
      */
@@ -133,7 +133,7 @@ class DemandeRupturePeriodeEssai extends DemandeForm
     /**
      * Get matricule
      *
-     * @return integer
+     * @return string
      */
     public function getMatricule()
     {

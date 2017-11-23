@@ -25,7 +25,7 @@ class DemandeAttestationSalaire extends DemandeForm
      *
      * @var int
      *
-     * @ORM\Column(name="matricule", type="integer")
+     * @ORM\Column(name="matricule", type="string")
      */
     private $matricule;
 
@@ -76,7 +76,7 @@ class DemandeAttestationSalaire extends DemandeForm
     {
         return $this->nameDemande;
     }
-    
+
     /**
      * Get nomDoc
      *
@@ -120,7 +120,7 @@ class DemandeAttestationSalaire extends DemandeForm
     /**
      * Set matricule
      *
-     * @param integer $matricule
+     * @param string $matricule
      *
      * @return DemandeAttestationSalaire
      */
@@ -134,7 +134,7 @@ class DemandeAttestationSalaire extends DemandeForm
     /**
      * Get matricule
      *
-     * @return integer
+     * @return string
      */
     public function getMatricule()
     {

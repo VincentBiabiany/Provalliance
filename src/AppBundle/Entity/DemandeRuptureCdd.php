@@ -33,7 +33,7 @@ class DemandeRuptureCdd extends DemandeForm
    *
    * @var int
    *
-   * @ORM\Column(name="matricule", type="integer", nullable=false)
+   * @ORM\Column(name="matricule", type="string", nullable=false)
    */
   private $matricule;
 
@@ -194,7 +194,7 @@ class DemandeRuptureCdd extends DemandeForm
     /**
      * Set matricule
      *
-     * @param integer $matricule
+     * @param string $matricule
      *
      * @return DemandeRuptureCdd
      */
@@ -208,7 +208,7 @@ class DemandeRuptureCdd extends DemandeForm
     /**
      * Get matricule
      *
-     * @return integer
+     * @return string
      */
     public function getMatricule()
     {

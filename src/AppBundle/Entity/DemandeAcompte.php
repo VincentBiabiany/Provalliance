@@ -25,7 +25,7 @@ class DemandeAcompte extends DemandeForm
      *
      * @var int
      *
-     * @ORM\Column(name="matricule", type="integer")
+     * @ORM\Column(name="matricule", type="string")
      */
     private $matricule;
 
@@ -78,7 +78,7 @@ class DemandeAcompte extends DemandeForm
     /**
      * Set montant
      *
-     * @param integer $montant
+     * @param string $montant
      *
      * @return DemandeAcompte
      */
@@ -92,7 +92,7 @@ class DemandeAcompte extends DemandeForm
     /**
      * Get montant
      *
-     * @return integer
+     * @return string
      */
     public function getMontant()
     {

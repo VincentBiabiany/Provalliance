@@ -26,7 +26,7 @@ class DemandeSoldeToutCompte extends DemandeForm
      *
      * @var int
      *
-     * @ORM\Column(name="matricule", type="integer")
+     * @ORM\Column(name="matricule", type="string")
      */
     private $matricule;
 
@@ -175,7 +175,7 @@ class DemandeSoldeToutCompte extends DemandeForm
     /**
      * Set matricule
      *
-     * @param integer $matricule
+     * @param string $matricule
      *
      * @return DemandeSoldeToutCompte
      */
@@ -189,7 +189,7 @@ class DemandeSoldeToutCompte extends DemandeForm
     /**
      * Get matricule
      *
-     * @return integer
+     * @return string
      */
     public function getMatricule()
     {

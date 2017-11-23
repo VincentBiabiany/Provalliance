@@ -32,7 +32,7 @@ class User extends BaseUser
 	/**
      * @var int
      *
-     * @ORM\Column(name="matricule", type="integer", nullable=true)
+     * @ORM\Column(name="matricule", type="string", nullable=true)
      */
     private $matricule;
 
@@ -57,7 +57,7 @@ class User extends BaseUser
      /**
       * Set matricule
       *
-      * @param integer $matricule
+      * @param string $matricule
       *
       * @return DemandeAcompte
       */
@@ -71,7 +71,7 @@ class User extends BaseUser
      /**
       * Get matricule
       *
-      * @return integer
+      * @return string
       */
      public function getMatricule()
      {

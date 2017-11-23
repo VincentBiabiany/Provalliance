@@ -33,7 +33,7 @@ class DemandePromesseEmbauche extends DemandeForm
      *
      * @var int
      *
-     * @ORM\Column(name="matricule", type="integer")
+     * @ORM\Column(name="matricule", type="string")
      */
     protected $matricule;
 
@@ -122,7 +122,7 @@ class DemandePromesseEmbauche extends DemandeForm
     {
         return $this->nomDoc;
     }
-    
+
     /**
      * Get typeForm
      *
@@ -157,7 +157,7 @@ class DemandePromesseEmbauche extends DemandeForm
     /**
      * Set matricule
      *
-     * @param integer $matricule
+     * @param string $matricule
      *
      * @return DemandePromesseEmbauche
      */
@@ -171,7 +171,7 @@ class DemandePromesseEmbauche extends DemandeForm
     /**
      * Get matricule
      *
-     * @return integer
+     * @return string
      */
     public function getMatricule()
     {
