@@ -431,9 +431,7 @@ class DemandeEmbaucheType extends AbstractType
         ->add('diplomeFile', FileType::class, array(
           'required' => 'required'
         ))
-        ->add('diplomeFile2', FileType::class, array(
-          'required' => 'required'
-        ))
+        ->add('diplomeFile2', FileType::class)
         ->add('rib', FileType::class, array(
           'required' => 'required'
         ))

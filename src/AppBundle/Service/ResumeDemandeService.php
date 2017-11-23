@@ -168,17 +168,16 @@ class ResumeDemandeService
     // $infosDemande = $demandeRepo->infosDemande($idDemande);
     $infosSalon = $salonRepo->infosSalon($infoDemande['codeSage']);
     $statutDemande = $demandeRepo->whichStatut($infoDemande['statut']);
-    
+
     $response .= '<p><b class="col-sm-2">Demandeur</b> '.$infosCollab['nom'].' '.$infosCollab['prenom'].'</p>';
     $response .= '<p><b class="col-sm-2">Date d\'envoi</b>  '.$infoDemande['dateTraitement']->format('d/m/Y').'</p>';
-    $response .= '<p><b class="col-sm-2">Statut</b>  <span class="statutLabel '.$statutDemande.'">' . $statutDemande .'</span></p>';
+    $response .= '<p><b class="col-sm-2">Statut</b>  <span class="statutLabel '.str_replace(' ','_',$statutDemande).'">' . $statutDemande .'</span></p>';
     $response .= '<p><b class="col-sm-2">Salon</b>  '.$infosSalon['appelation'].'</p>';
     $response .= '<p><b class="col-sm-2">Adresse</b>  '.$infosSalon['adresse1'].' '.$infosSalon['codePostal'].' '.$infosSalon['ville'].'</p>';
 
     if ($statutDemande == "Rejeté")
       $response .= '<p><b>Motif du rejet</b>'.$infoDemande['message'].'</p>';
 
-    $response .= '</div>';
     $response .= '</div>';
 
 
@@ -213,6 +212,7 @@ class ResumeDemandeService
       $response .= '</ul></div>';
     }
 
+    $response .= '</div>';
 
 
 

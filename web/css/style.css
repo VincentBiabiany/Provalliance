@@ -526,8 +526,8 @@ margin-bottom: 15px;
 
 }
 
-#wrapperForm #infosDemandePrint{
-
+#wrapperForm #infosDemandePrint .statutLabel{
+  display: initial;
 }
 #wrapperForm .contentBlock{
 	background-color: #f0f0f0 !important;
