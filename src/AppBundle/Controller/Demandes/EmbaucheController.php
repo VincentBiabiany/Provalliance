@@ -40,7 +40,7 @@ class EmbaucheController extends Controller
         return $this->redirectToRoute('rh_embauche2');
       }
 
-      return $this->render('embauche.html.twig', array(
+      return $this->render('demandes/juridique_rh/embauche.html.twig', array(
         'img'   => $request->getSession()->get('img'),
         'form'  => $form->createView(),
         'isSubmitted' => $isSubmitted
@@ -71,7 +71,7 @@ class EmbaucheController extends Controller
        return $this->redirectToRoute('rh_embauche3');
       }
 
-      return $this->render('embauche2.html.twig', array(
+      return $this->render('demandes/juridique_rh/embauche2.html.twig', array(
         'img'   => $request->getSession()->get('img'),
         'form'  => $form->createView()
         )
@@ -118,7 +118,7 @@ class EmbaucheController extends Controller
                 array('flash' => "___demande_embauche.popupValidation.message")));
         }
 
-      return $this->render('embauche3.html.twig', array(
+      return $this->render('demandes/juridique_rh/embauche3.html.twig', array(
         'img'   => $request->getSession()->get('img'),
         'form'  => $form->createView()
         )

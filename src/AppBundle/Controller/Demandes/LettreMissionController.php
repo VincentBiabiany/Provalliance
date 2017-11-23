@@ -36,7 +36,7 @@ class LettreMissionController extends Controller
 
     }
 
-    return $this->render('demande_lettre_mission.html.twig', array(
+    return $this->render('demandes/juridique_rh/demande_lettre_mission.html.twig', array(
                                                   'img' => $img,
                                                   'form' => $form->createView(),
                                                   'errors' => null
