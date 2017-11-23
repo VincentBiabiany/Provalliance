@@ -37,7 +37,7 @@ class AutreDemandeType extends AbstractType
        $builder
                 ->add('matricule', ChoiceType::class, array(
                       'choices' => $listePerso,
-                      'label' => 'autre_demande.collab',
+                      'label' => '___autre_demande.collab',
                       'translation_domain' => 'translator'
                      ))
                 ->add('service', ChoiceType::class, array(
@@ -47,16 +47,16 @@ class AutreDemandeType extends AbstractType
                           'multiple' => false
                         ))
                 ->add('objet', TextType::class, array(
-                      'label' => 'autre_demande.objet',
+                      'label' => '___autre_demande.objet',
                       'translation_domain' => 'translator',
                     ))
                 ->add('pieceJointe', FileType::class, array(
                   'required'  => false,
-                  'label' => 'autre_demande.pieceJointe',
+                  'label' => '___autre_demande.pieceJointe',
                   'translation_domain' => 'translator',
                     ))
                 ->add('commentaire', TextareaType::class, array(
-                                  'label' => 'autre_demande.commentaire',
+                                  'label' => '___autre_demande.commentaire',
                                   'translation_domain' => 'translator',
                                   'attr' => array('rows' => '5')
                       ))
