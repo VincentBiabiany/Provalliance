@@ -8,7 +8,7 @@
 					if(types[i] == types[i+1]){
 						result = true;
 					}else{
-						result = false;
+						return false;
 					}
 		  }
 			return result;
@@ -67,4 +67,6 @@
 			 $('#deselect').on( 'click', function () {
 					$('tr.selected').removeClass('selected');
 					$('#selectionMultiple div').css('display','none');
+          $('#shadow').css('display','none');
+
 			 });
