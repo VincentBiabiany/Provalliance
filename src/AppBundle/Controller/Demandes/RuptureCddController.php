@@ -32,7 +32,7 @@ class RuptureCddController extends Controller
         array('flash' => "___demande_rupture_cdd.popupValidation.message")));
     }
 
-    return $this->render('demande_rupture_cdd.html.twig', array(
+    return $this->render('demandes/juridique_rh/demande_rupture_cdd.html.twig', array(
                                                   'img' => $img,
                                                   'form' => $form->createView(),
                                                   'errors' => null
