@@ -214,8 +214,15 @@ class DemandeDetailController extends Controller
   {
     if ($demande->getDemandeform() instanceof DemandeEssaiProfessionnel || $demande->getDemandeform() instanceof DemandeEmbauche)
       $matricule = 0;
-    else
+    else if ($demande->getDemandeform() instanceof AutreDemande) {
+
+      if ($demande->getDemandeform()->getMatricule() != null)
+        $matricule = $demande->getDemandeform()->getMatricule();
+      else
+        $matricule = 0;
+    } else {
       $matricule = $demande->getDemandeform()->getMatricule();
+    }
 
     $nomDoc = $demande->getDemandeform()->getNomDoc();
 
@@ -227,7 +234,6 @@ class DemandeDetailController extends Controller
         $demande->setMessage($form2["message"]->getData());
 
       if ($form2->has('docSalon') && $form2["docSalon"]->getData() != null) {
-
 
         $fileName = $fileUploader->upload($form2["docSalon"]->getData(), $matricule, $nomDoc, 'pj-salon');
         $demande->setDocSalon($fileName);

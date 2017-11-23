@@ -63,7 +63,7 @@ class DemandeAcompte extends DemandeForm
     {
         return $this->nomDoc;
     }
-    
+
     /**
      * Get matricule
      *
@@ -119,6 +119,7 @@ class DemandeAcompte extends DemandeForm
     {
         return $this->typeForm;
     }
+
     /**
      * Get service
      *

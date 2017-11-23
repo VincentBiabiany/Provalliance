@@ -50,7 +50,7 @@ class AutreDemandeType extends AbstractType
                       'label' => 'autre_demande.objet',
                       'translation_domain' => 'translator',
                     ))
-                ->add('pieceJointes', FileType::class, array(
+                ->add('pieceJointe', FileType::class, array(
                   'required'  => false,
                   'label' => 'autre_demande.pieceJointe',
                   'translation_domain' => 'translator',
@@ -71,16 +71,20 @@ class AutreDemandeType extends AbstractType
                     $form = $event->getForm();
                     $data = $event->getForm()->getData();
                     $data->setMatricule($form['matricule']->getData());
-                    $event->setData($data);
 
-                    if ($data->getPieceJointes() != null ){
-                    $fileName = $this->fileUploader->upload($data->getPieceJointes(),0,'autre_demande', 'pieceJointe');
-                    $data->setPieceJointes($fileName);
+                    $data->setService($data->getService());
+                    if ($data->getPieceJointe() != null) {
+                      if ($data->getMatricule() != null) {
+                        $fileName = $this->fileUploader->upload($data->getPieceJointe(), $data->getMatricule(),'autre_demande', 'pieceJointe');
+                        $data->setPieceJointe($fileName);
+                      } else {
+                        $fileName = $this->fileUploader->upload($data->getPieceJointe(), 0,'autre_demande', 'pieceJointe');
+                        $data->setPieceJointe($fileName);
+                      }
 
                     }
-
+                    $event->setData($data);
                   });
-
     }
 
 	public function configureOptions(OptionsResolver $resolver)

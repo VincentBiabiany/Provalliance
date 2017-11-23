@@ -88,7 +88,7 @@ ___demande_rib:
     popupValidation:
         message:    Votre demande de rib a été envoyée.
 
-autre_demande:
+___autre_demande:
     titre:       Autre demande
     collab:      Collaborateur
     envoyer:     Envoyer

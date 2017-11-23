@@ -273,16 +273,20 @@ class DemandeService
   public function createDemandeSimple($demande, $idSalon){
 
     if ($demande->getSubject() == 'connu'){
-        $personnel =  $this->em->getRepository('ApiBundle:Personnel')
-                               ->findOneBy(array('matricule' => $demande->getMatricule()));
+      $personnel =  $this->em->getRepository('ApiBundle:Personnel')
+                             ->findOneBy(array('matricule' => $demande->getMatricule()));
 
+      if ($personnel)
         $personnel = $personnel->getPrenom().' '.$personnel->getNom();
-       }else{
+      else
         $personnel = 'Nouveau Collaborateur';
-       }
+    } else {
+      $personnel = 'Nouveau Collaborateur';
+    }
+
     $demandeSimple = new DemandeSimple();
 
-    $demande->setTypeForm( $demande->getTypeForm());
+    $demande->setTypeForm($demande->getTypeForm());
 
     $demandeSimple->setService($demande->getService());
     $demandeSimple->setUser($this->token->getUser());
@@ -326,9 +330,8 @@ class DemandeService
     self::generateAbsUrl($demandeComplexe);
 
     // Envoie du mail
-    self::sendMail($idSalon, $personnel, [1, 5],  $demande->getTypeForm());
+    self::sendMail($idSalon, $personnel, [2, 7],  $demande->getTypeForm());
   }
-
 
 
   public function createDemandeEmbauche($demande, $idSalon)

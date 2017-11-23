@@ -18,7 +18,7 @@ class AutreDemande extends DemandeForm
     protected $nameDemande ='AutreDemande';
     protected $typeForm ='Autre demande';
     protected $subject ='connu';
-    private $service;
+    protected $service;
     protected $nomDoc = 'absence';
 
     /**
@@ -31,13 +31,17 @@ class AutreDemande extends DemandeForm
     private $id;
 
     /**
+     * ___autre_demande.collab
+     *
      * @var int
      *
-     * @ORM\Column(name="matricule", type="integer", nullable=true)
+     * @ORM\Column(name="matricule", type="string", nullable=true)
      */
     private $matricule;
 
     /**
+     * ___autre_demande.objet
+     *
      * @var string
      *
      * @ORM\Column(name="objet", type="string", nullable=false)
@@ -45,6 +49,8 @@ class AutreDemande extends DemandeForm
     private $objet;
 
     /**
+     * ___autre_demande.commentaire
+     *
      * @var string
      *
      * @ORM\Column(name="commentaire", type="string", nullable=false)
@@ -53,10 +59,75 @@ class AutreDemande extends DemandeForm
 
 
     /**
-     * @var array
+     * ___autre_demande.pieceJointe
      *
-     * @ORM\Column(name="piece_jointes", type="array", nullable=true)
+     * @var string
+     *
+     * @ORM\Column(name="piece_jointe", type="string", nullable=true)
      */
+     private $pieceJointe;
+
+    /**
+     * Get nameDemande
+     *
+     * @return integer
+     */
+    public function getNameDemande()
+    {
+        return $this->nameDemande;
+    }
+
+    /**
+     * Get nomDoc
+     *
+     * @return integer
+     */
+    public function getNomDoc()
+    {
+        return $this->nomDoc;
+    }
+
+    /**
+     * Get typeForm
+     *
+     * @return integer
+     */
+    public function getTypeForm()
+    {
+        return $this->typeForm;
+    }
+
+    /**
+     * Get service
+     *
+     * @return integer
+     */
+    public function getService()
+    {
+        return $this->service;
+    }
+
+    /**
+     * Set service
+     *
+     * @return integer
+     */
+    public function setService($service)
+    {
+        $this->service = $service;
+        
+        return $this;
+    }
+
+    /**
+     * Get subject
+     *
+     * @return integer
+     */
+    public function getSubject()
+    {
+        return $this->subject;
+    }
 
     /**
      * Set matricule
@@ -131,90 +202,26 @@ class AutreDemande extends DemandeForm
     }
 
     /**
-     * Set service
+     * Set pieceJointe
      *
-     * @param string $service
+     * @param string $pieceJointe
      *
      * @return AutreDemande
      */
-    public function setService($service)
+    public function setPieceJointe($pieceJointe)
     {
-        $this->service = $service;
+        $this->pieceJointe = $pieceJointe;
 
         return $this;
     }
 
     /**
-     * Get service
+     * Get pieceJointe
      *
      * @return string
      */
-    public function getService()
+    public function getPieceJointe()
     {
-        return $this->service;
-    }
-
-    /**
-     * Set pieceJointes
-     *
-     * @param array $pieceJointes
-     *
-     * @return AutreDemande
-     */
-    public function setPieceJointes($pieceJointes)
-    {
-        $this->pieceJointes = $pieceJointes;
-
-        return $this;
-    }
-
-    /**
-     * Get pieceJointes
-     *
-     * @return array
-     */
-    public function getPieceJointes()
-    {
-        return $this->pieceJointes;
-    }
-
-    /**
-     * Get nameDemande
-     *
-     * @return integer
-     */
-    public function getNameDemande()
-    {
-        return $this->nameDemande;
-    }
-    
-    /**
-     * Get nomDoc
-     *
-     * @return integer
-     */
-    public function getNomDoc()
-    {
-        return $this->nomDoc;
-    }
-
-    /**
-     * Get typeForm
-     *
-     * @return integer
-     */
-    public function getTypeForm()
-    {
-        return $this->typeForm;
-    }
-
-    /**
-     * Get subject
-     *
-     * @return integer
-     */
-    public function getSubject()
-    {
-        return $this->subject;
+        return $this->pieceJointe;
     }
 }

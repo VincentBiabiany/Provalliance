@@ -43,7 +43,7 @@ class ImportService
     {
       $entity = $this->em->getRepository('ApiBundle:Personnel')->find($personnel[0]);
 
-      if ($entity === null){
+      if ($entity === null) {
           $entity = (new Personnel())->setMatricule($personnel[0]);
       }
 
