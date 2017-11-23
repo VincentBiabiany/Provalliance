@@ -130,7 +130,7 @@ ___demande_demission:
 
 ___demande_promesse_embauche:
       titre:           Promesse d'embauche
-      collaborateur:          Collaborateur
+      collaborateur:   Collaborateur
       contrat:         Contrat
       cdi:             CDI
       cdd:             CDD

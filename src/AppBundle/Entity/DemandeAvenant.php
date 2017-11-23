@@ -119,7 +119,7 @@ class DemandeAvenant extends DemandeForm
   protected $salaireFixe;
 
   /**
-   * ___demande_avenant.variable
+   * ___demande_avenant.variable2
    *
    * @var int
    *
@@ -128,7 +128,7 @@ class DemandeAvenant extends DemandeForm
   protected $salaireMens;
 
   /**
-   * ___demande_avenant.trim
+   * ___demande_avenant.trim2
    *
    * @var int
    *
