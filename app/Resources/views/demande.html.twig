@@ -125,11 +125,8 @@
 	</div>
 
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/jquery.dataTables.min.css') }}">
-	{% javascripts
-	   '@AppBundle/Resources/public/js/demande.js.twig' %}
-	    <script type="text/javascript" src="{{ asset_url }}"></script>
-	{% endjavascripts %}
 
+		<script src="{{ asset('js/demande.js') }}"></script>
 		<script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
 	<script src="{{ asset('js/printThis.js') }}"></script>
 	<script type="text/javascript" class="init">
@@ -231,8 +228,6 @@
 												 setFilter[i] = selected;
 											 }
 
-											 console.log(selected);
-											 console.log(setFilter);
 
 											 api.ajax.reload( null, true );
 										 })
@@ -253,7 +248,7 @@
 
 			$('#filtre').appendTo($('#header-filtre'));
 
-			//Affiche le détail d'une demande 
+			//Affiche le détail d'une demande
 			$('#demande tbody').on( 'click', 'tr td.details-control', function () {
 					var id = dt.row(this).data()['id'];
 					$.ajax({
@@ -372,19 +367,31 @@
 			 	 // Description : Validation multiple des demandes simples
 			 		$('#validation').on( 'click', function () {
 			 			demandes = [];
+						types =[];
 			 			nbValidates = 0;
 			 			$('tr.selected').each(function(i, obj) {
 			 						var id = dt.row(this).data()['id'];
 			 						 demandes[i]=id;
 			 						 nbValidates = nbValidates +1;
+									 types[i] =  dt.row(this).data()['type'];
+
 			 				});
-			 				$.ajax({
-			 						url: "{{ path('demandeValidate') }}",
-			 						data: {"demandes" : demandes,'nbValidates':nbValidates},
-			 						type: 'POST'
-			 					}).done(function( response ) {
-			 						window.location.href = response;
-			 				});
+							//On vérifie que les demandes soient du même type
+							if (sameDemande(types)){
+								$.ajax({
+										url: "{{ path('demandeValidate') }}",
+										data: {"demandes" : demandes,'nbValidates':nbValidates},
+										type: 'POST'
+									}).done(function( response ) {
+										window.location.href = response;
+								});
+							}else{
+							$(".flashConfirmation").html('');
+							$(".flashConfirmation").css('color','red');
+							$(".flashConfirmation").append('Validation impossible !<br/> Les demandes sélectionnées ne sont pas du même types.');
+							$("#myModal").modal();
+						 $("#myModal").css('display','flex');
+						}
 
 			 	});
 
