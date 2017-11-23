@@ -24,7 +24,8 @@ class RetardsType extends AbstractType
               'label' => '___demande_absences.date',
               'label_attr' => array('class' => 'control-label label'),
               'translation_domain' => 'translator',
-              'attr' => ['class' => ' styleDate ','required' => 'required']
+              'attr' => ['class' => ' styleDate ','required' => 'required'],
+              'data' => new \DateTime()
             ])
             ->add('minute', NumberType::class, [
               'label' => '___demande_absences.minute',

@@ -49,7 +49,9 @@ class DemandeAbsencesInjustifieesType extends AbstractType
               'format' => 'dd/MM/y',
               'years' => range(date('Y') - 5, date('Y') + 10),
               'attr' => ['class' => ''],
-              'label' => ''
+              'label' => '',
+              'data' => new \DateTime()
+
             ))
             ->add('raison', ChoiceType::class, array(
               'choices' => array(
@@ -77,6 +79,8 @@ class DemandeAbsencesInjustifieesType extends AbstractType
                   'widget' => 'choice',
                   'format' => 'dd/MM/y',
                   'years' => range(date('Y') - 5, date('Y') + 10),
+                  'data' => new \DateTime()
+
               ),
               'allow_add'      => true,
               'allow_delete'   => true
