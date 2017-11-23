@@ -179,6 +179,9 @@ $( "#form1" ).validate( {
       validateDate: true,
     },'demande_embauche[numSecu]':{
       minlength: 5
+    },'demande_embauche[email]':{
+      required: true,
+      email: true
     }
   },
   messages: {
@@ -190,8 +193,12 @@ $( "#form1" ).validate( {
     'demande_embauche[ville]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
     'demande_embauche[telephone]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
     'demande_embauche[nationalite]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+    'demande_embauche[autre_nationalite]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
     'demande_embauche[numSecu]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
-    'demande_embauche[email]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+	 	'demande_embauche[email]': {
+	 			required: "{{ "message_validation.enabled_required"|trans({}, "translator") }}",
+	 			email: "{{ "message_validation.email_valid"|trans({}, "translator") }}"
+      },
     'demande_embauche[nbEnfant]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
     'demande_embauche[nom]':"{{ "message_validation.enabled_required"|trans({}, "translator") }}",
     'demande_embauche[villeNaissance]': "{{ "message_validation.enabled_required"|trans({}, "translator") }}",
