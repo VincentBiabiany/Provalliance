@@ -44,7 +44,7 @@ class AutreDemandeController extends Controller
       $demandeService->createDemande($form->getData(), $idSalon);
 
       return $this->redirect($this->generateUrl('homepage',
-                              array('flash' => "autre_demande.popupValidation.message")));
+                              array('flash' => "___autre_demande.popupValidation.message")));
     }
 
     return $this->render('demandes/autre_demande.html.twig', array(
