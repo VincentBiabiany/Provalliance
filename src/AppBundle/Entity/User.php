@@ -11,7 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  /**
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
- * @ORM\Entity(repositoryClass="UserRepository")
+ * @ORM\Entity(repositoryClass="Admin/UserRepository")
  * @UniqueEntity(fields="usernameCanonical", errorPath="username", message="fos_user.username.already_used")
  * @ORM\AttributeOverrides({
  *      @ORM\AttributeOverride(name="email", column=@ORM\Column(type="string", name="email", length=255, unique=false, nullable=true)),
