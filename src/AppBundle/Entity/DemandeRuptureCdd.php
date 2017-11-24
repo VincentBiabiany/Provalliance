@@ -29,7 +29,7 @@ class DemandeRuptureCdd extends DemandeForm
   private $id;
 
   /**
-   * ___demande_rupture_cdd.nomCol
+   * ___demande_rupture_cdd.matricule
    *
    * @var int
    *

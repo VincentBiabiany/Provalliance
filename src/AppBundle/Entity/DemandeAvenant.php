@@ -29,7 +29,7 @@ class DemandeAvenant extends DemandeForm
   private $id;
 
   /**
-   * ___demande_avenant.collaborateur
+   * ___demande_avenant.matricule
    *
    * @var int
    *

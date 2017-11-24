@@ -30,7 +30,7 @@ class DemandeRupturePeriodeEssai extends DemandeForm
     private $id;
 
     /**
-     * ___demande_rupture_periode_essai.collab
+     * ___demande_rupture_periode_essai.matricule
      *
      * @var int
      *

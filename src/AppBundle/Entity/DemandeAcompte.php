@@ -21,7 +21,7 @@ class DemandeAcompte extends DemandeForm
     protected $nomDoc = 'absence';
 
     /**
-     * ___demande_acompte.nom
+     * ___demande_acompte.matricule
      *
      * @var int
      *

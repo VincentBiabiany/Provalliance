@@ -29,7 +29,7 @@ class DemandeDemission extends DemandeForm
     private $id;
 
     /**
-     * ___demande_demission.collab
+     * ___demande_demission.matricule
      *
      * @var int
      *

@@ -1,7 +1,7 @@
 {% trans_default_domain 'FOSUserBundle' %}
 <link rel="stylesheet" href="{{ asset('css/loader.css') }}">
 
-<div id="loader" >
+<!-- <div id="loader" >
 	 <div class="for_vcenter"></div>
            <div class="vertical_center_content">
                <div id="contener_bar">
@@ -9,7 +9,7 @@
                </div>
                 <div id="percentage"></div>
            </div>
-</div>
+</div> -->
 <div class="container">
 
 	<div class="col-md-12 " style="padding-bottom: 90px;">
@@ -68,24 +68,24 @@
 	</div>
 
 </div>
-<script src="{{ asset('js/jquery.html5Loader.js') }}"></script>
+<!-- <script src="{ asset('js/jquery.html5Loader.js') }}"></script> -->
 
 <script type="text/javascript">
           $('#topNav, .bg').css('display','none');
-					$.html5Loader({
-					      filesToLoad:    '{{ asset('json/files.json') }}', // this could be a JSON or simply a javascript object
-					      onBeforeLoad:       function () {},
-					      onComplete:         function () {
-					     //faire apparraitre login
-							 $('#loader').css('display','none');
-							  // $('#loader').fadeIn('slow');
-					      },
-					      onElementLoaded:    function ( obj, elm) { },
-					      onUpdate:           function ( percentage ) {
-
-					          $('#percentage').html(percentage+'%');
-					          $('#contener_bar div').css('width',percentage+'%');
-
-					      }
-					});
+					// $.html5Loader({
+					//       filesToLoad:    '{ asset('json/files.json') }}', // this could be a JSON or simply a javascript object
+					//       onBeforeLoad:       function () {},
+					//       onComplete:         function () {
+					//      //faire apparraitre login
+					// 		 $('#loader').css('display','none');
+					// 		  // $('#loader').fadeIn('slow');
+					//       },
+					//       onElementLoaded:    function ( obj, elm) { },
+					//       onUpdate:           function ( percentage ) {
+          //
+					//           $('#percentage').html(percentage+'%');
+					//           $('#contener_bar div').css('width',percentage+'%');
+          //
+					//       }
+					// });
 </script>

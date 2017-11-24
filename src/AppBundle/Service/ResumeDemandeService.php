@@ -123,8 +123,6 @@ class ResumeDemandeService
       // Boucle pour propriétés de la demande
 
       foreach ($properties as $idProperty => $valueProperty) {
-
-
           //Si la propriété est une date on la formate
           $prop = $this->formatPropriete->transformDate($qb[0][$valueProperty]);
 
@@ -132,6 +130,7 @@ class ResumeDemandeService
           if ($prop != null) {
 
             if (is_array($prop)) {
+
               $response .= '<p><b class="col-sm-3"> '.$this->formatPropriete->getTraduction($valueProperty, $this->nameEntity, $this->propertyInfo).'</b>  ';
               $response .= $this->formatPropriete->transformArray($prop);
               $response .= '</p>';
@@ -143,11 +142,19 @@ class ResumeDemandeService
               $path = $package->getUrl($prop); //$this->formatPropriete->generateAbsUrl($prop);
               $fileList .= '<a class="downloadFile" href="'.$path.'">Télécharger le document</a></li>';
             } else {
+
               $response .= '<p><b class="col-sm-3"> '.$this->formatPropriete->getTraduction($valueProperty,$this->nameEntity, $this->propertyInfo).'</b>  ';
               //champs classique
               //on vérifie si c'est une valeur provenant du fichier de traduction 'translator'
               $response .= $this->formatPropriete->transformNormal($prop);
               $response .= '</p>';
+
+              //On récupère le nom et le prenom du collaborateur visé par la demande
+              if( $valueProperty == 'matricule'){
+                $response .= '<p><b class="col-sm-3">Collaborateur</b>  ';
+                $response .= $persoRepo->whichPersonnel($prop);
+                $response .= '</p>';
+              }
 
             }
           }

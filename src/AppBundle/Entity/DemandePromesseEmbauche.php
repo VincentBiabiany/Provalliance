@@ -29,7 +29,7 @@ class DemandePromesseEmbauche extends DemandeForm
     private $id;
 
     /**
-     * ___demande_promesse_embauche.collaborateur
+     * ___demande_promesse_embauche.matricule
      *
      * @var int
      *

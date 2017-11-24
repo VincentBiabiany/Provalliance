@@ -22,7 +22,7 @@ class DemandeAbsencesInjustifiees extends DemandeForm
 
 
   /**
-   * ___demande_absences.collaborateur
+   * ___demande_absences.matricule
    *
    * @var int
    *

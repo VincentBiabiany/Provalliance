@@ -88,8 +88,9 @@ class PersonnelRepository extends EntityRepository
     return $listPerso;
   }
 
-  // Fonction whichPersonnel: Retourne les infos du personnel pour chaque demande dans partie Suivi des Demandes
-  public function whichPersonnel($demande, $idP)
+  // Fonction whichPersonnel: Retourne le nom et prenom du personnel
+  // Paramètre : matricule du Personnel
+  public function whichPersonnel($idP)
   {
     $collab = $this->findOneBy(array('matricule' => $idP ));
 

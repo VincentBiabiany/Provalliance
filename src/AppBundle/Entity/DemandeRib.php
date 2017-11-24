@@ -30,7 +30,7 @@ class DemandeRib extends DemandeForm
 
 
     /**
-     * ___demande_rib.collaborateur
+     * ___demande_rib.matricule
      *
      * @var int
      *

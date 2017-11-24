@@ -31,7 +31,7 @@ class AutreDemande extends DemandeForm
     private $id;
 
     /**
-     * ___autre_demande.collab
+     * ___autre_demande.matricule
      *
      * @var int
      *

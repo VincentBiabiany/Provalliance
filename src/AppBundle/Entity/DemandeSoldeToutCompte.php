@@ -22,7 +22,7 @@ class DemandeSoldeToutCompte extends DemandeForm
 
 
     /**
-     * ___demande_solde_tout_compte.collaborateur
+     * ___demande_solde_tout_compte.matricule
      *
      * @var int
      *

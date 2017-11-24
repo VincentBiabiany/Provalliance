@@ -21,7 +21,7 @@ class DemandeAttestationSalaire extends DemandeForm
     protected $nomDoc = 'attestation_salaire';
 
     /**
-     * ___demande_attestation_salaire.collaborateur
+     * ___demande_attestation_salaire.matricule
      *
      * @var int
      *

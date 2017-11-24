@@ -191,7 +191,7 @@ class DemandeController extends Controller
                 $collab[] = $demandeRepo->whichPersonnel($demande);
               } else {
                 $idP = $demande->getDemandeform()->getMatricule();
-                $collab[] =  $persoRepo->whichPersonnel($demande,$idP);
+                $collab[] =  $persoRepo->whichPersonnel($idP);
               }
             }
 
@@ -303,7 +303,7 @@ class DemandeController extends Controller
           /* Nom et Prenom du personnel concerné par la demande  */
           if ($demande->getDemandeform()->getSubject() == "connu") {
             $idP = $demande->getDemandeform()->getMatricule();
-            $collab  = $persoRepo->whichPersonnel($demande,$idP);
+            $collab  = $persoRepo->whichPersonnel($idP);
           } else {
             $collab  = $demandeRepo->whichPersonnel($demande);
           }

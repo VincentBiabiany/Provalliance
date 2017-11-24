@@ -29,7 +29,7 @@ class DemandeLettreMission extends DemandeForm
     private $id;
 
     /**
-     * ___demande_lettre_mission.nom
+     * ___demande_lettre_mission.matricule
      *
      * @var int
      *

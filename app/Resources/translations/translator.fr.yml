@@ -80,6 +80,7 @@ ___demande_rib:
     rib:                RIB
     rappel:             Rappel
     collaborateur:      Collaborateur
+    matricule:          Matricule
     envoyer:            Envoyer
     back:               Retour
     info:               'Pour rappel:  Fax 01 44 43 94 55 - 01 44 43 94 56'
@@ -91,6 +92,7 @@ ___demande_rib:
 ___autre_demande:
     titre:       Autre demande
     collab:      Collaborateur
+    matricule:   Matricule
     envoyer:     Envoyer
     objet:       Objet
     back:        Retour
@@ -105,6 +107,7 @@ ___autre_demande:
 ___demande_rupture_periode_essai:
     titre:       Rupture de Période d'essai
     collab:      Collaborateur
+    matricule:   Matricule
     contrat:     Contrat
     moyen:       Moyen
     lrar:        LRAR
@@ -118,6 +121,7 @@ ___demande_rupture_periode_essai:
 ___demande_demission:
       titre:       Démission
       collab:      Collaborateur
+      matricule:   Matricule
       dem:         DEM signée
       clause:      Clause
       desactiver:  Désactiver la clause
@@ -131,6 +135,7 @@ ___demande_demission:
 ___demande_promesse_embauche:
       titre:           Promesse d'embauche
       collaborateur:          Collaborateur
+      matricule:   Matricule
       contrat:         Contrat
       cdi:             CDI
       cdd:             CDD
@@ -208,6 +213,7 @@ ___demande_lettre_mission:
 ___demande_rupture_cdd:
     titre:         Rupture CDD
     collaborateur: Collaborateur
+    matricule:     Matricule
     raison:        Raison
     retour:        Fin de CDD (Retour)
     depart:        Fin de CDD (Départ)
@@ -239,6 +245,7 @@ ___demande_rupture_cdd:
 ___demande_conge_parental:
     titre:        Congé Parental
     collaborateur:       Collaborateur
+    matricule:   Matricule
     raison:       Raison
     passage:      Passage à temps partiel
     reprise:      Reprise anticipé à 35h/semaine
@@ -264,6 +271,7 @@ ___demande_conge_parental:
 ___demande_attestation_salaire:
     titre:               Attestation Salaire
     collaborateur:       Collaborateur
+    matricule:           Matricule
     etat:                Etat
     reprise:             Reprise
     nonReprise:          Non reprise
@@ -289,6 +297,7 @@ ___demande_solde_tout_compte:
     sousTitreRupture:         Rupture de contrat
     sousTitreSalaireVariable: Salaire Variable
     collaborateur:            Collaborateur
+    matricule:                Matricule
     adresse:                  Adresse
     dateSortie:               Date de sortie
     dateDernierJour:          Date du dernier jour
@@ -429,6 +438,7 @@ ___demande_embauche:
 ___demande_avenant:
     titre:              Demande d'avenant
     collaborateur:      Collaborateur
+    matricule:          Matricule
     raison:             Raison
     partielTherap:      Temps partiel thérapeuthique
 
@@ -466,6 +476,7 @@ ___demande_avenant:
 ___demande_absences:
     titre:              Absences Injustifiees
     collaborateur:      Collaborateur
+    matricule:          Matricule
     raison:             Raison
     abs:                Absence injustifée depuis le
     absLes:             Absences injustifiees les
