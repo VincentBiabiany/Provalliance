@@ -62,11 +62,12 @@ home_juridique_rh:
     back:         Retour
 
 ___demande_acompte:
-    titre:    Demande d'acompte
-    nom:      Collaborateur
-    envoyer:  Envoyer
-    montant:  Montant (€)
-    back:     Retour
+    titre:       Demande d'acompte
+    nom:         Collaborateur
+    matricule:   Matricule
+    envoyer:     Envoyer
+    montant:     Montant (€)
+    back:        Retour
 
     popupInfo:
         titre:      Information
@@ -190,6 +191,7 @@ ___demande_essai_pro:
 ___demande_lettre_mission:
     titre:         Lettre de mission
     nom:           Collaborateur
+    matricule:     Matricule
     35h:           Passage à 35h/semaine
     xh:            Passage à temps partiel
     tempsTravail:  Temps de travail
