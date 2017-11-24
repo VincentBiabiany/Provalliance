@@ -527,7 +527,9 @@ margin-bottom: 15px;
 }
 
 #wrapperForm #infosDemandePrint .statutLabel{
-  display: initial;
+	display: block;
+	position: relative;
+	margin: 0;
 }
 #wrapperForm .contentBlock{
 	background-color: #f0f0f0 !important;
@@ -561,7 +563,8 @@ display: inline-block;
 margin-left: 15px;
 }
 #wrapperForm p{
-    margin-bottom: 14px;
+	display: flex;
+  margin-bottom: 14px;
 	}
 
 #wrapperForm .page{
@@ -577,6 +580,7 @@ margin-left: 15px;
 	background: #333;
 	color: white;
 	padding: 13px;
+	letter-spacing: 1px;
 }
 #wrapperForm .page div h2{
 	font-size: 17px;
@@ -1276,6 +1280,7 @@ span.inactif{
 	display: table-cell;
 	vertical-align: middle;
   color: white;
+	padding: 5px;
 }
 .carre:hover{
 	background-color: black;

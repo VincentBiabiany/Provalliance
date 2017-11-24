@@ -4,7 +4,6 @@ namespace AppBundle\Service;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Symfony\Component\Config\Definition\Exception\Exception;
-use Symfony\Component\Translation\TranslatorInterface;
 use Doctrine\ORM\EntityManager;
 use ApiBundle\Entity\Personnel;
 use ApiBundle\Entity\Salon;
@@ -16,28 +15,62 @@ use ApiBundle\Entity\Profession;
 use AppBundle\Entity\DemandeAcompte;
 use AppBundle\Entity\DemandeEmbauche;
 use AppBundle\Entity\DemandeEntity;
-
+use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\Translation\Translator;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Bridge\Doctrine\PropertyInfo\DoctrineExtractor;
 use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
 use Symfony\Component\PropertyInfo\PropertyInfoExtractor;
 use Symfony\Component\PropertyInfo\PropertyInfo;
+use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
+use AppBundle\Service\Util\FormatProprieteService;
 
 class ExportService
 {
   private $em;
   private $em2;
   private $phpexcel;
+  private $translator;
+  private $propertyInfo;
+  private $nameEntity;
+  private $formatPropriete;
 
-  public function __construct(EntityManager $em, EntityManager $em2, \Liuggio\ExcelBundle\Factory $phpexcel)
+
+  public function __construct(EntityManager $em, EntityManager $em2, \Liuggio\ExcelBundle\Factory $phpexcel, Translator $translator, FormatProprieteService $formatPropriete)
   {
     $this->em           = $em;
     $this->em2          = $em2;
     $this->phpexcel     = $phpexcel;
+    $this->translator   = $translator;
+    $this->formatPropriete = $formatPropriete;
+
   }
 
   public function createExcel($demandeExports)
   {
+    $phpDocExtractor = new PhpDocExtractor();
+    $reflectionExtractor = new ReflectionExtractor();
+
+    // array of PropertyListExtractorInterface
+    $listExtractors = array($reflectionExtractor);
+
+    // array of PropertyTypeExtractorInterface
+    $typeExtractors = array($phpDocExtractor, $reflectionExtractor);
+
+    // array of PropertyDescriptionExtractorInterface
+    $descriptionExtractors = array($phpDocExtractor);
+
+    // array of PropertyAccessExtractorInterface
+    $accessExtractors = array($reflectionExtractor);
+
+    $propertyInfo = new PropertyInfoExtractor(
+      $listExtractors,
+      $typeExtractors,
+      $descriptionExtractors,
+      $accessExtractors
+    );
+
+    $this->propertyInfo = $propertyInfo;
     $persoRepo = $this->em->getRepository('ApiBundle:Personnel');
     $demandeRepo = $this->em2->getRepository('AppBundle:DemandeEntity');
     $salonRepo = $this->em->getRepository('ApiBundle:Salon');
@@ -65,12 +98,17 @@ class ExportService
                $demandeSelfRepo = $this->em2->getRepository('AppBundle:'.$demandes['nameDemande']);
                $collaborateur = $demandeSelfRepo->infosDemandeSelf($demandes['demandeId']);
 
+
             //Cas ou la demande concerne un collaborateur existant
            }else{
               $demandeItSelf = $this->em2->getRepository('AppBundle:'.$demandes['nameDemande'])
                                         ->findOneBy(array('id' => $demandes['demandeId']));
               $collaborateur = $persoRepo->infosCollab($demandeItSelf->getMatricule());
            }
+
+           $nameEntity = $demandes['nameDemande'];
+           $this->nameEntity = $nameEntity;
+
     $phpExcelObject->createSheet();
     // Colonnes Génériques
       if ($i ==1){
@@ -89,15 +127,30 @@ class ExportService
       ->setCellValue('AS'.$i, 'Date')->setCellValue('AT'.$i, 'Statut demande')->setCellValue('AU'.$i, 'Type demande');
 
           //Colonnes spécifiques à chaque demande
-              $ColDemandes= self::whichCol($demandes['nameDemande']);
+              $ColDemandes= $this->formatPropriete->whichCol($demandes['nameDemande']);
               $tabExcelCol= array('AV','AW','AX','AY','AZ','BA','BB','BC','BD','BE','BF','BG','BH','BI','BK','BL','BM','BN'
                             ,'BO','BP','BQ','BR','BS','BT','BU','BV','BW','BX','BY','BZ','CA','CB','CC','CD','CE','CF','CG',
                             'CH','CI','CJ','CK','CL','CM','CN','CO','CP','CQ','CR','CS','CT','CU','CV','CW','CX','CY','CZ',
                             'DA','DB','DC','DD');
-              for ($k = 0; $k < $ColDemandes['nb']; $k++) {
-               if(isset($ColDemandes['col'][$k])){
-                 $phpExcelObject->setActiveSheetIndex(0)->setCellValue($tabExcelCol[$k].$i, $ColDemandes['col'][$k]);
-                 }
+            $k=0;
+            foreach ($ColDemandes as $key => $valueProperty) {
+               //Génération du nom de la propritété
+                 $nameColonne =  $this->formatPropriete->getTraduction($valueProperty,  $this->nameEntity, $this->propertyInfo);
+                 $phpExcelObject->setActiveSheetIndex(0)->setCellValue($tabExcelCol[$k].$i, $nameColonne);
+                 $k++;
+
+                //Génération de la valeur de la propritété
+                $valueCol=  $this->formatPropriete->whichVal($demandes['nameDemande'],$demandes['demandeId'],$valueProperty );
+
+                if (is_array($valueCol)) {
+                  $valueCol=  $this->formatPropriete->transformArray($valueCol);
+                }elseif(is_object($valueCol)){
+                  $valueCol =  $this->formatPropriete->transformDate($valueCol);
+                }else{
+                $valueCol =  $this->formatPropriete->transformNormal($valueCol);
+                }
+                $phpExcelObject->setActiveSheetIndex(0)->setCellValue($tabExcelCol[$k].$j, $valueCol);
+
               }
       }
      $phpExcelObject->setActiveSheetIndex(0)->setCellValue('A'.$j, $demandes['codeSage'])->setCellValue('B'.$j, $salon['enseigne'])->setCellValue('C'.$j, $salon['appelation'])
@@ -111,16 +164,7 @@ class ExportService
       ->setCellValue('AF'.$j, $coordo['dateDeb'])->setCellValue('AG'.$j, $coordo['dateFin'])->setCellValue('AH'.$j, $collaborateur['niveau'])->setCellValue('AI'.$j,  $collaborateur['echelon'])
       ->setCellValue('AJ'.$j, $coordo['profession'])->setCellValue('AK'.$j, $collaborateur['adresse1'])->setCellValue('AL'.$j, $collaborateur['adresse2'])->setCellValue('AM'.$j, $collaborateur["codePostal"])
       ->setCellValue('AN'.$j, $collaborateur['ville'])->setCellValue('AO'.$j, 'Pays')->setCellValue('AP'.$j, $collaborateur['telephone'])->setCellValue('AQ'.$j, '')->setCellValue('AR'.$j, $collaborateur['email'])
-      ->setCellValue('AS'.$j, $demandes['dateTraitement']->format('d-m-Y'))->setCellValue('AT'.$j, self::labelStatut($demandes['statut']))->setCellValue('AU'.$j, $demandes['typeForm']);
-
-      for ($k = 0; $k < $ColDemandes['nb']; $k++) {
-      //Valeurs spécifiques à chaque propriété pour une demande
-      if(isset($ColDemandes['col'][$k])){
-
-          $valueCol= self::whichVal($demandes['nameDemande'],$demandes['demandeId'],$ColDemandes['col'][$k] );
-          $phpExcelObject->setActiveSheetIndex(0)->setCellValue($tabExcelCol[$k].$j, $valueCol);
-       }
-    }
+      ->setCellValue('AS'.$j, $demandes['dateTraitement']->format('d-m-Y'))->setCellValue('AT'.$j, $this->formatPropriete->labelStatut($demandes['statut']))->setCellValue('AU'.$j, $demandes['typeForm']);
 
     $phpExcelObject->getActiveSheet()->setTitle($collaborateur['nom'].'-'.$demandes['dateTraitement']->format('d-m-Y'));
     // Set active sheet index to the first sheet, so Excel opens this as the first sheet
@@ -144,63 +188,4 @@ class ExportService
     return $response;
 
   }
-
-  //Fonction whichCol: Retourne les noms des différentes propriétés d'une entity et leur nombre
-  //Paramètre : Entity Name
-  //Return array
-  public function whichCol($nameEntity){
-      $reflectionExtractor = new ReflectionExtractor();
-      $listExtractors = $reflectionExtractor;
-      $propertyInfo = new PropertyInfoExtractor(array( $listExtractors ));
-      $ColDemandes = [];
-
-      $properties = $propertyInfo->getProperties('AppBundle\Entity\\'.$nameEntity);
-      $properties = array_diff($properties,['discr','typeForm','id','nameDemande','service','subject']);
-
-      $ColDemandes['col']= $properties;
-      $ColDemandes['nb']= count($properties);
-
-      return $ColDemandes;
-
-  }
-
-  //Fonction whichVal: Retourne les noms des différentes propriétés d'une entity et leur nombre
-  //Paramètre : Entity Name, Id Demande , Property Name
-  //Return string
-  public function whichVal($nameEntity,$idDemande,$nameProperty){
-    $qb = $this->em2->createQueryBuilder()
-                    ->add('select', 'u')
-                    ->add('from', 'AppBundle:'.$nameEntity.' u')
-                    ->add('where', 'u.id = :idDemande')
-                    ->setParameter('idDemande', $idDemande)
-                    ->getQuery()
-                    ->getArrayResult();
-
-                        return $result = $qb[0][$nameProperty];
-
-}
-
-
-  public function labelStatut($statut){
-
-              switch ($statut) {
-                      case 0:
-                          $labelstatut= 'Rejeté';
-                          break;
-                      case 1:
-                          $labelstatut= 'En cours';
-                          break;
-                      case 2:
-                          $labelstatut= 'Traité';
-                          break;
-                      case 3:
-                          $labelstatut= 'A signé';
-                          break;
-                      case 4:
-                          $labelstatut= 'A validé';
-                          break;
-              }
-    return $labelstatut;
-        }
-
 }

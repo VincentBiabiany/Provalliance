@@ -24,6 +24,7 @@ use Symfony\Component\Asset\PathPackage;
 use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
 use Symfony\Component\Routing\Router;
+use AppBundle\Service\Util\FormatProprieteService;
 
 class ResumeDemandeService
 {
@@ -33,13 +34,16 @@ class ResumeDemandeService
   private $propertyInfo;
   private $nameEntity;
   private $router;
+  private $formatPropriete;
 
-  public function __construct(EntityManager $em, EntityManager $em2, Translator $translator, Router $router)
+  public function __construct(EntityManager $em, EntityManager $em2, Translator $translator, Router $router, FormatProprieteService $formatPropriete)
   {
     $this->em           = $em;
     $this->em2          = $em2;
     $this->translator   = $translator;
     $this->router       = $router;
+    $this->formatPropriete = $formatPropriete;
+
   }
 
   public function generateAbsUrl($doc)
@@ -113,41 +117,40 @@ class ResumeDemandeService
       $properties = array_diff($properties, ['discr', 'typeForm', 'id', 'nameDemande', 'subject', 'service', 'nomDoc']);
 
       $response .= '<div class="page">';
-      $response .= '<h1>'.$infoDemande['typeForm'].'  |  '.$infoDemande['dateTraitement']->format('d/m/y').'|  Réf. : '.$idDemandeItSelf.'</h1>';
+      $response .= '<h1>'.$infoDemande['typeForm'].'  |  '.$infoDemande['dateTraitement']->format('d/m/y').' |  Réf. : '.$idDemandeItSelf.'</h1>';
       $response .= "<div id='propertiesDemandePrint'  class='contentBlock'><h2> Récapitulatif de la demande </h2>";
 
       // Boucle pour propriétés de la demande
 
       foreach ($properties as $idProperty => $valueProperty) {
 
-         if (isset($properties[$idProperty])){
-
-          $property = $properties[$idProperty];
 
           //Si la propriété est une date on la formate
-          $prop = self::transformDate($qb[0][$property]);
+          $prop = $this->formatPropriete->transformDate($qb[0][$valueProperty]);
 
           //On affiche pas les fichiers liés à la demande
           if ($prop != null) {
 
             if (is_array($prop)) {
-              $response .= '<p><b class="col-sm-2"> '.self::getTraduction($property).'</b>  ';
-              $response .= self::transformArray($prop);
+              $response .= '<p><b class="col-sm-3"> '.$this->formatPropriete->getTraduction($valueProperty, $this->nameEntity, $this->propertyInfo).'</b>  ';
+              $response .= $this->formatPropriete->transformArray($prop);
+              $response .= '</p>';
 
-            } else if (self::ifFile($prop) == true && $action =='detail') {
+            } else if ($this->formatPropriete->ifFile($prop) == true && $action =='detail') {
 
               // Si cest un file et qu'on est dans le résumé des demandes
-              $fileList .= '<li><b class="col-sm-2">'.ucfirst($property).'</b>';
-              $path = $package->getUrl($prop); //self::generateAbsUrl($prop);
+              $fileList .= '<li><b class="col-sm-3">'.ucfirst($valueProperty).'</b>';
+              $path = $package->getUrl($prop); //$this->formatPropriete->generateAbsUrl($prop);
               $fileList .= '<a class="downloadFile" href="'.$path.'">Télécharger le document</a></li>';
             } else {
-              $response .= '<p><b class="col-sm-2"> '.self::getTraduction($property).'</b>  ';
+              $response .= '<p><b class="col-sm-3"> '.$this->formatPropriete->getTraduction($valueProperty,$this->nameEntity, $this->propertyInfo).'</b>  ';
               //champs classique
               //on vérifie si c'est une valeur provenant du fichier de traduction 'translator'
-              $response .= self::transformNormal($prop);
+              $response .= $this->formatPropriete->transformNormal($prop);
+              $response .= '</p>';
+
             }
           }
-        } // If isset
       } // Fin for sur propriétés
     } // Fin du foreach
 
@@ -169,11 +172,11 @@ class ResumeDemandeService
     $infosSalon = $salonRepo->infosSalon($infoDemande['codeSage']);
     $statutDemande = $demandeRepo->whichStatut($infoDemande['statut']);
 
-    $response .= '<p><b class="col-sm-2">Demandeur</b> '.$infosCollab['nom'].' '.$infosCollab['prenom'].'</p>';
-    $response .= '<p><b class="col-sm-2">Date d\'envoi</b>  '.$infoDemande['dateTraitement']->format('d/m/Y').'</p>';
-    $response .= '<p><b class="col-sm-2">Statut</b>  <span class="statutLabel '.str_replace(' ','_',$statutDemande).'">' . $statutDemande .'</span></p>';
-    $response .= '<p><b class="col-sm-2">Salon</b>  '.$infosSalon['appelation'].'</p>';
-    $response .= '<p><b class="col-sm-2">Adresse</b>  '.$infosSalon['adresse1'].' '.$infosSalon['codePostal'].' '.$infosSalon['ville'].'</p>';
+    $response .= '<p><b class="col-sm-3">Demandeur</b> '.$infosCollab['nom'].' '.$infosCollab['prenom'].'</p>';
+    $response .= '<p><b class="col-sm-3">Date d\'envoi</b>  '.$infoDemande['dateTraitement']->format('d/m/Y').'</p>';
+    $response .= '<p><b class="col-sm-3">Statut</b>  <span class="statutLabel '.str_replace(' ','_',$statutDemande).'">' . $statutDemande .'</span></p>';
+    $response .= '<p><b class="col-sm-3">Salon</b>  '.$infosSalon['appelation'].'</p>';
+    $response .= '<p><b class="col-sm-3">Adresse</b>  '.$infosSalon['adresse1'].' '.$infosSalon['codePostal'].' '.$infosSalon['ville'].'</p>';
 
     if ($statutDemande == "Rejeté")
       $response .= '<p><b>Motif du rejet</b>'.$infoDemande['message'].'</p>';
@@ -185,13 +188,13 @@ class ResumeDemandeService
     if ($infoDemande['complexe']) {
       $fileList ='';
       if ($infoDemande['docService']){
-        $fileList .= '<li><b class="col-sm-2">Document du service</b>';
+        $fileList .= '<li><b class="col-sm-3">Document du service</b>';
         $path = $package->getUrl($infoDemande['docService']);//self::generateAbsUrl($infoDemande['docService']);
         $fileList .= '<a class="downloadFile" href="'.$path.'">Télécharger le document</a></li>';
       }
 
       if ($infoDemande['docSalon']) {
-        $fileList .= '<li><b class="col-sm-2">Document du salon</b>';
+        $fileList .= '<li><b class="col-sm-3">Document du salon</b>';
         $path = $package->getUrl($infoDemande['docService']);//self::generateAbsUrl($infoDemande['docSalon']);
         $fileList .= '<a class="downloadFile" href="'.$path.'">Télécharger le document</a></li>';
       }
@@ -202,7 +205,7 @@ class ResumeDemandeService
     } else {
       $fileList ='';
       if ($infoDemande['docService']){
-        $fileList .= '<li><b class="col-sm-2">Document du service</b>';
+        $fileList .= '<li><b class="col-sm-3">Document du service</b>';
         $path = $package->getUrl($infoDemande['docService']);//self::generateAbsUrl($infoDemande['docService']);
         $fileList .= '<a class="downloadFile" href="'.$path.'">Télécharger le document</a></li>';
       }
@@ -217,138 +220,5 @@ class ResumeDemandeService
 
 
     return $response;
-  }
-
-  public function transformDate($propriete)
-  {
-    if (is_object ($propriete)) {
-      $prop = $propriete->format('d/m/y');
-    } else {
-      $prop = $propriete;
-    }
-
-    return $prop;
-  }
-
-
-  public function transformNormal($prop)
-  {
-    $response ='';
-
-    if ( preg_match_all( '/_{3,}/', $prop, $matches, PREG_SET_ORDER, 0)) {
-      $response .= $this->translator->trans($prop, array(),'translator');
-    } else {
-
-      switch ($prop) {
-        case '':
-          //$response .= 'n/a';
-        break;
-
-        case 'true':
-          $response .= $this->translator->trans('global.affirme',array(),'translator');
-        break;
-
-        case 'false':
-          $response .= $this->translator->trans('global.negative',array(),'translator');
-        break;
-
-        default:
-          $response .= $prop;
-
-
-      }
-      $response .= '</p>';
-    }
-    return $response;
-  }
-
-  public function getTraduction($prop)
-  {
-    $trad = $this->translator
-                  ->trans($this->propertyInfo->getShortDescription('AppBundle\Entity\\'. $this->nameEntity, $prop),
-                                                                  array(),'translator');
-    return $trad;
-  }
-
-  public function transformArray($prop)
-  {
-    $response = "";
-    $b = 1;
-    $lastItem = count($prop);
-
-    // Cas du tableau à 2 dimensions
-    if (isset($prop[0]) && is_array($prop[0]))
-    {
-      foreach ($prop as $keys => $values){
-        foreach ($values as $key => $value){
-
-          $value = self::transformDate($value);
-          if (preg_match_all('/_{3,}/', $value, $matches, PREG_SET_ORDER, 0)) {
-            $value = $this->translator->trans($value,array(),'translator');
-          }
-
-          if (is_numeric($key)) {
-            $key = '';
-          } else {
-            $key = $key.'';
-          }
-
-          if ($b == $lastItem) {
-            $response .= $key.': '.$value ;
-          } else {
-            $response .= $key.': '.$value.' - ';
-          }
-          $b++;
-        }
-      }
-
-    } else {
-
-      foreach ($prop as $key => $value){
-        if (preg_match_all('/_{3,}/', $value, $matches, PREG_SET_ORDER, 0)) {
-          $value = $this->translator->trans($value,array(),'translator');
-        }
-
-        if (is_numeric($key)) {
-          $key = '';
-        } else {
-          $key = $key.'';
-        }
-
-        if ($b == $lastItem) {
-          $response .= $key.': '.$value ;
-        } else {
-          $response .= $key.': '.$value.' - ';
-        }
-        $b++;
-      }
-    }
-
-
-    $response .= '</p>';
-
-    return $response;
-  }
-
-  //Function ifFile: test si le champs est un fichier
-  //Return: retourne false si $property est un fichier
-  public function ifFile($property)
-  {
-    $tabFiles = ['png','jpg','pdf','jpeg','bmp','doc','docx','txt', 'html', 'csv', 'tmp', 'xlsx', 'md'];
-    $occ = 0;
-
-    if (!is_array($property)) {
-      foreach ($tabFiles as $tabFile ) {
-        if(strpos($property, $tabFile) !== false) {
-          $occ++;
-        }
-      }
-    }
-
-    if ($occ > 0) {
-      return true;
-    } else {
-      return false;
-    }
   }
 }

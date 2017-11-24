@@ -31,8 +31,7 @@ class DemandeEmbaucheRepository extends \Doctrine\ORM\EntityRepository
     $collaborateur['adresse2']       = $requete->getAdresse2();
     $collaborateur['codePostal']     = $requete->getCodepostal();
     $collaborateur['ville' ]         = $requete->getVille();
-    $collaborateur['telephone1']     = $requete->getTelephone();
-    $collaborateur['telephone2']     = '';
+    $collaborateur['telephone']     = $requete->getTelephone();
     $collaborateur['email']          = $requete->getEmail();
 
     return $collaborateur;

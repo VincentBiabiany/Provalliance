@@ -62,6 +62,10 @@ services:
                     '@mailer',
                     '@security.token_storage',
                     '@templating']
+                    
+    AppBundle\Service\Util\FormatProprieteService:
+        arguments: ['@doctrine.orm.referentiel_entity_manager',
+                    '@doctrine.orm.default_entity_manager']
 
     AppBundle\Service\ExportService:
         arguments: ['@doctrine.orm.referentiel_entity_manager',
@@ -71,6 +75,8 @@ services:
     AppBundle\Service\ResumeDemandeService:
         arguments: ['@doctrine.orm.referentiel_entity_manager',
                     '@doctrine.orm.default_entity_manager']
+
+
 
     app.eventsubscriber.session_idle:
             class: AppBundle\EventSubscriber\SessionIdleHandler

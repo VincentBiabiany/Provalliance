@@ -21,7 +21,7 @@ class DemandeCongeParental extends DemandeForm
   protected $nomDoc = 'conge_parental';
 
   /**
-   * ___demande_conge_parental.collab
+   * ___demande_conge_parental.collaborateur
    *
    * @var int
    *
