@@ -84,7 +84,7 @@ class PersonnelHasSalon
 
        $now = (new \DateTime())->format('Y-m-d');
 
-       if ($this->dateFin->format('Y-m-d') <= $now)
+       if ($this->dateFin != null && $this->dateFin->format('Y-m-d') <= $now)
        $this->actif = 0;
        else
        $this->actif = 1;

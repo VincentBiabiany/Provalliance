@@ -19,7 +19,7 @@ login:
     connexion: Connexion
     lost:      Je n'arrive pas à me connecter
     contact:   Contact support
-    msg:       Pour tout problème de connexion, merci d’envoyer un mail à l’adresse suivante :
+    msg:       Pour tout problème de connexion, merci d’envoyer un e-mail à l’adresse suivante :
     phone:     'Tél: 01 40 23 12 19'
     email:     'support@hairdress.com'
     close:     Fermer
@@ -62,12 +62,11 @@ home_juridique_rh:
     back:         Retour
 
 ___demande_acompte:
-    titre:       Demande d'acompte
-    nom:         Collaborateur
-    matricule:   Matricule
-    envoyer:     Envoyer
-    montant:     Montant (€)
-    back:        Retour
+    titre:    Demande d'acompte
+    nom:      Collaborateur
+    envoyer:  Envoyer
+    montant:  Montant (€)
+    back:     Retour
 
     popupInfo:
         titre:      Information
@@ -81,7 +80,6 @@ ___demande_rib:
     rib:                RIB
     rappel:             Rappel
     collaborateur:      Collaborateur
-    matricule:          Matricule
     envoyer:            Envoyer
     back:               Retour
     info:               'Pour rappel:  Fax 01 44 43 94 55 - 01 44 43 94 56'
@@ -93,7 +91,6 @@ ___demande_rib:
 ___autre_demande:
     titre:       Autre demande
     collab:      Collaborateur
-    matricule:   Matricule
     envoyer:     Envoyer
     objet:       Objet
     back:        Retour
@@ -106,9 +103,8 @@ ___autre_demande:
         message:    Votre demande a été envoyée.
 
 ___demande_rupture_periode_essai:
-    titre:       Rupture de Période d'essai
+    titre:       Rupture de période d'essai
     collab:      Collaborateur
-    matricule:   Matricule
     contrat:     Contrat
     moyen:       Moyen
     lrar:        LRAR
@@ -122,11 +118,10 @@ ___demande_rupture_periode_essai:
 ___demande_demission:
       titre:       Démission
       collab:      Collaborateur
-      matricule:   Matricule
       dem:         DEM signée
       clause:      Clause
       desactiver:  Désactiver la clause
-      payer:       Payer la Clause
+      payer:       Payer la clause
       choice:      Choisir un fichier
       date:        Date
 
@@ -136,7 +131,6 @@ ___demande_demission:
 ___demande_promesse_embauche:
       titre:           Promesse d'embauche
       collaborateur:          Collaborateur
-      matricule:   Matricule
       contrat:         Contrat
       cdi:             CDI
       cdd:             CDD
@@ -182,7 +176,7 @@ ___demande_essai_pro:
 
       popupInfo:
          attention: Attention
-         msg:          Avant de commencer à remplir le formulaire, veuillez vérifier que vous disposez toutes les pièces justificatives suivantes au format électronique :
+         msg:          Avant de commencer à remplir le formulaire, veuillez vérifier que vous disposez de toutes les pièces justificatives suivantes au format électronique :
          docRib:       Photocopie de la pièce d'identité
          docCarteId:   RIB
          titreArticle: '*Article 7.1.1 de la convention Collective de la Coiffure - Essai Professionnel'
@@ -191,7 +185,6 @@ ___demande_essai_pro:
 ___demande_lettre_mission:
     titre:         Lettre de mission
     nom:           Collaborateur
-    matricule:     Matricule
     35h:           Passage à 35h/semaine
     xh:            Passage à temps partiel
     tempsTravail:  Temps de travail
@@ -215,7 +208,6 @@ ___demande_lettre_mission:
 ___demande_rupture_cdd:
     titre:         Rupture CDD
     collaborateur: Collaborateur
-    matricule:     Matricule
     raison:        Raison
     retour:        Fin de CDD (Retour)
     depart:        Fin de CDD (Départ)
@@ -247,7 +239,6 @@ ___demande_rupture_cdd:
 ___demande_conge_parental:
     titre:        Congé Parental
     collaborateur:       Collaborateur
-    matricule:   Matricule
     raison:       Raison
     passage:      Passage à temps partiel
     reprise:      Reprise anticipé à 35h/semaine
@@ -273,7 +264,6 @@ ___demande_conge_parental:
 ___demande_attestation_salaire:
     titre:               Attestation Salaire
     collaborateur:       Collaborateur
-    matricule:           Matricule
     etat:                Etat
     reprise:             Reprise
     nonReprise:          Non reprise
@@ -284,7 +274,7 @@ ___demande_attestation_salaire:
     paternite:           Paternité
     miTemps:             Mi-temps
     accidentTravail:     Accident du travail
-    maladiePro:          Maladie Professionnel
+    maladiePro:          Maladie Professionnelle
     dateDernierJour:     Date du dernier jour
     dateReprise:         Date de reprise
     du:           Du
@@ -299,7 +289,6 @@ ___demande_solde_tout_compte:
     sousTitreRupture:         Rupture de contrat
     sousTitreSalaireVariable: Salaire Variable
     collaborateur:            Collaborateur
-    matricule:                Matricule
     adresse:                  Adresse
     dateSortie:               Date de sortie
     dateDernierJour:          Date du dernier jour
@@ -317,7 +306,7 @@ ___demande_solde_tout_compte:
     dateDebutAbsence:         Du
     dateFinAbsence:           Au
     arretMaladie:             Arrêt Maladie
-    absenceInjustifiee:       Absence injustifée
+    absenceInjustifiee:       Absence injustifiée
     congePayes:               Congés payés
     congeParental:            Congé Parental
     autre:                    Autre
@@ -333,7 +322,7 @@ ___demande_solde_tout_compte:
         msg:          Avant de commencer à remplir le formulaire, veuillez vérifier que vous disposez toutes les pièces justificatives suivantes au format électronique :
         docRupture:       Document juridique justifiant la rupture accompagné de ce document à la paie
         gestionAdministrativeTitre: Gestion Administrative
-        gestionAdministrativeMessage: Supprimer le code caisse, remplir le registre du personnel, informer la médecin du travail
+        gestionAdministrativeMessage: Supprimer le code caisse, remplir le registre du personnel, informer la médecine du travail
 
 
 ___demande_embauche:
@@ -362,7 +351,7 @@ ___demande_embauche:
     nat.fr:        Française
     nat.etr:       Etrangère
     ss:            N° de Sécu
-    email:         Email
+    email:         E-mail
     fam:           Situation familliale
     fam.marie:     Marié(e)
     fam.pacse:     Pacsé(e)
@@ -440,7 +429,6 @@ ___demande_embauche:
 ___demande_avenant:
     titre:              Demande d'avenant
     collaborateur:      Collaborateur
-    matricule:          Matricule
     raison:             Raison
     partielTherap:      Temps partiel thérapeuthique
 
@@ -476,18 +464,17 @@ ___demande_avenant:
         message:        Votre demande d'avenant a été envoyée.
 
 ___demande_absences:
-    titre:              Absences Injustifiees
+    titre:              Absences Injustifiées
     collaborateur:      Collaborateur
-    matricule:          Matricule
     raison:             Raison
-    abs:                Absence injustifée depuis le
-    absLes:             Absences injustifiees les
+    abs:                Absence injustifiée depuis le
+    absLes:             Absences injustifiées les
     retards:            Retards répétés les
     date:               Date
     minute:             Minute
 
     popupValidation:
-        message:        Votre demande d'absence injustifiée à bien été envoyé.
+        message:        Votre demande d'absence injustifiée a bien été envoyé.
 
 suivi_demandes:
     header:              Suivre les demandes
@@ -583,7 +570,7 @@ message_validation:
     secondPassword_required:            Veuillez confirmer votre mot de passe
     secondPassword_minlength:           Votre mot de passe doit comporter au moins 5 caractères
     secondPassword_equalTo:             Veuillez entrer le même mot de passe
-    email_valid:                        L'e-mail saisit n'est pas valide
+    email_valid:                        L'e-mail saisi n'est pas valide
     enabled_required:                   Champs requis
 
     acompte_montant_required:           Merci de saisir un montant
@@ -616,7 +603,7 @@ import:
 
                       %champs%
 
-    nb:        "Probleme de nombre de champs ligne: %line% - attendu: %expd% alors qu'il y en a: %nb%"
+    nb:        "Problème de nombre de champs ligne: %line% - attendu: %expd% alors qu'il y en a: %nb%"
     champs:    "Champs obligatoire %champs% non présent ligne: %line%"
     date:      "Champs obligatoire %champs% invalide (mal formaté) ligne: %line%"
 
