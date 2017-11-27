@@ -101,6 +101,13 @@ class PersonnelRepository extends EntityRepository
 
     return $collab;
   }
+  // Fonction whichAdress: Retourne l adresse du personnel
+  // Paramètre : matricule du Personnel
+  public function whichAdresse($idP)
+  {
+    $req = $this->findOneBy(array('matricule' => $idP ));
+    return $adresse = $req->getAdresse1().' '. $req->getCodepostal().' '.$req->getVille();
+  }
 
 
   // Fonction getListPerso: Retourne la liste du personnel avec la possibilité de n'effectuer aucune sélection

@@ -154,6 +154,9 @@ class ResumeDemandeService
                 $response .= '<p><b class="col-sm-3">Collaborateur</b>  ';
                 $response .= $persoRepo->whichPersonnel($prop);
                 $response .= '</p>';
+                $response .= '<p><b class="col-sm-3">Adresse</b>  ';
+                $response .= $persoRepo->whichAdresse($prop);
+                $response .= '</p>';
               }
 
             }
