@@ -304,7 +304,6 @@ class ImportService
                           ],
                             'translator'
                         );
-                        dump('date');
             }
 
           }
