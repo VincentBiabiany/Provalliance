@@ -4,6 +4,7 @@ namespace AppBundle\Form;
 
 use AppBundle\Entity\DemandeSoldeToutCompte;
 use AppBundle\Form\DemandeSoldeToutCompteType;
+use AppBundle\Form\AbsenceType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Type;
@@ -20,6 +21,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -96,41 +98,49 @@ class DemandeSoldeToutCompteType extends AbstractType
                   'required' => true,
                   'data' => '___demande_solde_tout_compte.preavis'
                 ))
-                ->add('typeAbsence', ChoiceType::class, array(
-                  'choices'  => array(
-                    '___demande_solde_tout_compte.arretMaladie'  => '___demande_solde_tout_compte.arretMaladie',
-                    '___demande_solde_tout_compte.absenceInjustifiee' => '___demande_solde_tout_compte.absenceInjustifiee',
-                    '___demande_solde_tout_compte.congePayes' => '___demande_solde_tout_compte.congePayes',
-                    '___demande_solde_tout_compte.congeParental' => '___demande_solde_tout_compte.congeParental',
-                    '___demande_solde_tout_compte.autre' => '___demande_solde_tout_compte.autre',
+                ->add('typeAbsence',CollectionType::class, array(
+                  'entry_type'     => AbsenceType::class,
+                  'entry_options'  => array(
+                      'attr'       => array('class' => 'email-box sousLabel'),
                   ),
-                  'choice_translation_domain' => 'translator',
-                  'translation_domain' => 'translator',
-                  'attr' => ['class' => 'form-controlList labelRadioStyle'],
-                  'label' => '___demande_solde_tout_compte.typeAbsence',
-                  'expanded' => true,
-                  'multiple' => false,
-                  'required' => true,
-                  'data' => '___demande_solde_tout_compte.arretMaladie'
-
+                  'allow_add'      => true,
+                  'allow_delete'   => true
                 ))
-                ->add('dateDebutAbsence', DateType::class, array(
-                  'widget' => 'choice',
-                  'format' => 'dd/MM/y',
-                  'years' => range(date('Y') - 5, date('Y') + 10),
-                  'attr' => ['class' => ''],
-                  'label' => '',
-                  'data' => new \DateTime()
-
-                ))
-                ->add('dateFinAbsence', DateType::class, array(
-                  'widget' => 'choice',
-                  'format' => 'dd/MM/y',
-                  'years' => range(date('Y') - 5, date('Y') + 10),
-                  'attr' => ['class' => ''],
-                  'label' => '',
-                  'data' => new \DateTime()
-                ))
+                // ->add('typeAbsence', ChoiceType::class, array(
+                //   'choices'  => array(
+                //     '___demande_solde_tout_compte.arretMaladie'  => '___demande_solde_tout_compte.arretMaladie',
+                //     '___demande_solde_tout_compte.absenceInjustifiee' => '___demande_solde_tout_compte.absenceInjustifiee',
+                //     '___demande_solde_tout_compte.congePayes' => '___demande_solde_tout_compte.congePayes',
+                //     '___demande_solde_tout_compte.congeParental' => '___demande_solde_tout_compte.congeParental',
+                //     '___demande_solde_tout_compte.autre' => '___demande_solde_tout_compte.autre',
+                //   ),
+                //   'choice_translation_domain' => 'translator',
+                //   'translation_domain' => 'translator',
+                //   'attr' => ['class' => 'form-controlList labelRadioStyle'],
+                //   'label' => '___demande_solde_tout_compte.typeAbsence',
+                //   'expanded' => false,
+                //   'multiple' => false,
+                //   'required' => true,
+                //   'data' => '___demande_solde_tout_compte.arretMaladie'
+                //
+                // ))
+                // ->add('dateDebutAbsence', DateType::class, array(
+                //   'widget' => 'choice',
+                //   'format' => 'dd/MM/y',
+                //   'years' => range(date('Y') - 5, date('Y') + 10),
+                //   'attr' => ['class' => ''],
+                //   'label' => '',
+                //   'data' => new \DateTime()
+                //
+                // ))
+                // ->add('dateFinAbsence', DateType::class, array(
+                //   'widget' => 'choice',
+                //   'format' => 'dd/MM/y',
+                //   'years' => range(date('Y') - 5, date('Y') + 10),
+                //   'attr' => ['class' => ''],
+                //   'label' => '',
+                //   'data' => new \DateTime()
+                // ))
                 ->add('primes', TextType::class, array(
                      'label' => '___demande_solde_tout_compte.primes',
                      'translation_domain' => 'translator',

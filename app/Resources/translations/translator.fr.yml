@@ -313,7 +313,9 @@ ___demande_solde_tout_compte:
     primes:                   Primes
     remarques:                Remarques
     rupture:                  Rupture
-
+    dateDebut:                Du
+    dateFin:                  Jusqu'au
+    
     popupValidation:
         message:    Votre demande de solde tout compte a été envoyée.
 

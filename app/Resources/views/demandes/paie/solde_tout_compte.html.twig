@@ -44,6 +44,7 @@
 						{{ form_widget(form.dateDernierJour, {'attr':{'class':'styleDate'}}) }}
 					</div>
 				</div>
+
 				<div id='GroupMotif' class="form-group">
 					<label class="control-label label col-sm-4 col-xs-12" for="typeMotif">{{ form_label(form.motif) }}</label>
 					<div class="col-sm-8  col-xs-12 ">
@@ -55,33 +56,23 @@
 				<div id='GroupAbsence' class="form-group ">
 					<label class="control-label label col-sm-4 col-xs-12 " for="typeAbsence">{{ form_label(form.typeAbsence) }}</label>
 					<div class="col-sm-8  col-xs-12 ">
-						{{ form_widget(form.typeAbsence) }}
-					</div>
-				</div>
 
-				<!-- Champs date -->
-				<div class="form-group row imbriq">
-					<label class="control-label label col-sm-3 col-xs-12">{{ "___demande_solde_tout_compte.dateAbsence"|trans({}, "translator") }}</label>
+						<div id="absence-fields-list" data-prototype="{{ form_widget(form.typeAbsence.vars.prototype)|e }}">
+						{{ form_widget(form.typeAbsence, {'attr' : {'class' : ' '}}) }}
+						{% for absence in form.typeAbsence %}
+								<div class="col-xs-4 absence-item ">
+										{{ form_errors(absence) }}
+										{{ form_widget(absence) }}
+								</div>
+						{% endfor %}
 
-
-				<div class="col-sm-8">
-					<div class="col-sm-8">
-
-						<div class="jour">
-							<label class="control-label label">{{ form_label(form.dateDebutAbsence) }}</label>
 						</div>
-						{{ form_widget(form.dateDebutAbsence, { 'attr': {'class':'styleDate'} }) }}
+					<a href="#" class="add" id="add-another-absence"><span class="glyphicon glyphicon-plus"></span> Ajouter une absence</a>
 
-					 </div>
-
-					 <div class="col-sm-8">
-						 <div class="jour">
-							<label class="control-label label">{{ form_label(form.dateFinAbsence) }}</label>
-						 </div>
-						 {{ form_widget(form.dateFinAbsence, { 'attr': {'class':'styleDate'} }) }}
 					</div>
 				</div>
-		</div>
+
+
 				<div class="form-group">
 					<label class="control-label label col-sm-4 col-xs-12" for="adresse">{{ form_label(form.primes) }}</label>
 					<div class="col-sm-8  col-xs-12">
@@ -151,16 +142,15 @@
 </div>
 <script type="text/javascript" src="{{ asset('js/jquery.validate.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/additional-methods.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/global/global-method.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/custom-file-input.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/jquery.validate.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/jquery.maskMoney.min.js') }}"></script>
-
+<script type="text/javascript" src="{{ asset('js/global/global-method.js') }}"></script>
 
 <script type="text/javascript">
   	$('#myModal').modal('show');
 		$("#myModal").css('display','flex');
-
+$(document).ready(function(){
 		$("#demande_solde_tout_compte_montant").maskMoney({
 			thousands:',',
 			decimal:'.',
@@ -173,7 +163,14 @@
 	 		'demande_solde_tout_compte[montant]': {
 	 			required: true,
 	 			min: '1.00',
-	 		}
+	 		},
+			'demande_solde_tout_compte[dateSortie][month]' : {
+				validateDate: true,
+			},
+			'demande_solde_tout_compte[dateDernierJour][month]' : {
+				validateDate: true,
+				greaterThan: '#demande_solde_tout_compte_dateSortie_year'
+			},
 	 	},
 	 	messages: {
 	 		'demande_solde_tout_compte[typeAbsence]': {
@@ -223,6 +220,67 @@
 	 	}
 	 } );
 
+controlChangeDate('#demande_solde_tout_compte_dateSortie', '#demande_solde_tout_compte_dateDernierJour');
+ var absences = '{{ form.typeAbsence|length }}';
+
+
+ 		jQuery('#add-another-absence').click(function(e) {
+ 				e.preventDefault();
+
+ 				var emailList = jQuery('#absence-fields-list');
+
+ 				// grab the prototype template
+ 				var newWidget = emailList.attr('data-prototype');
+ 				// replace the "__name__" used in the id and name of the prototype
+ 				// with a number that's unique to your emails
+ 				// end name attribute looks like name="contact[emails][2]"
+ 				newWidget = newWidget.replace(/__name__/g, absences);
+ 				absences++;
+
+ 				// create a new list element and add it to the list
+ 				var newLi = jQuery('<div class="listRetards"></div>').html(newWidget)
+ 										.append('<a href="#" class="remove-abs pull-right"> \
+ 														<span class="glyphicon glyphicon-minus"></span> \
+ 												</a>')
+ 										.on('click', '.remove-abs', function(e){
+ 												e.preventDefault();
+
+ 												$(this).parent()
+ 															 .fadeOut()
+ 															 .remove();
+
+ 															 absences--;
+
+ 										})
+ 				newLi.appendTo(emailList);
+
+ 			 validateNewField('typeAbsence_' + (absences - 1) );
+ 		});
+
+
+		function validateNewField($selector) {
+
+			$('#demande_solde_tout_compte_'  + $selector).focusout(function(){
+					console.log('test ' + $selector)
+					$('#demande_solde_tout_compte_'+ $selector + '_dateDebut_month').valid();
+			})
+
+			$('#demande_solde_tout_compte_'  + $selector).focusout(function(){
+				$('#demande_solde_tout_compte_'+ $selector + '_dateDebut_month').valid();
+					$('#demande_solde_tout_compte_'+ $selector + '_dateFin_month').valid();
+			})
+
+
+			$('#demande_solde_tout_compte_' + $selector + '_dateDebut_month').rules( "add", {
+				  validateDate: true,
+			})
+			$('#demande_solde_tout_compte_' + $selector + '_dateFin_month').rules( "add", {
+				  validateDate: true,
+					greaterThan: '#demande_solde_tout_compte_' + $selector + '_dateDebut_month'
+
+			})
+		}
+})
 </script>
 
 {% endblock %}

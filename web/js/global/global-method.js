@@ -40,10 +40,10 @@ function(value, element, params) {
   dateFin = getDateFromParent(element);
   dateDebut = getDateFromParent(params)
 
-  return  dateFin > dateDebut;
+  return  dateFin >= dateDebut;
 
 
-},'Must be greater than {0}.');
+},'Doit être plus grande que la date de début');
 
 
 /*

@@ -96,7 +96,7 @@ private $router;
       return $trad;
     }
 
-    public function transformArray($prop)
+    public function transformArray($prop, $nameEntity, $infoProperty)
     {
       $response = "";
       $b = 1;
@@ -109,6 +109,8 @@ private $router;
           foreach ($values as $key => $value){
 
             $value = self::transformDate($value);
+            dump($key);
+
             if (preg_match_all('/_{3,}/', $value, $matches, PREG_SET_ORDER, 0)) {
               $value = $this->translator->trans($value,array(),'translator');
             }
@@ -116,7 +118,8 @@ private $router;
             if (is_numeric($key)) {
               $key = '';
             } else {
-              $key = $key.'';
+              
+              $key = $this->getTraduction($key, $nameEntity, $infoProperty).'';
             }
 
             if ($b == $lastItem) {

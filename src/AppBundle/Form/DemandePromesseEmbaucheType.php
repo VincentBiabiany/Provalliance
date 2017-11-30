@@ -30,9 +30,8 @@ class DemandePromesseEmbaucheType extends AbstractType
 
     public function __construct(FileUploader $fileUploader,Session $session)
     {
-    $this->fileUploader = $fileUploader;
-    $this->session = $session;
-
+      $this->fileUploader = $fileUploader;
+      $this->session = $session;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)

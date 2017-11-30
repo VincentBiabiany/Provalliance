@@ -132,7 +132,7 @@ class ResumeDemandeService
             if (is_array($prop)) {
 
               $response .= '<p><b class="col-sm-3"> '.$this->formatPropriete->getTraduction($valueProperty, $this->nameEntity, $this->propertyInfo).'</b>  ';
-              $response .= $this->formatPropriete->transformArray($prop);
+              $response .= $this->formatPropriete->transformArray($prop, $this->nameEntity, $this->propertyInfo);
               $response .= '</p>';
 
             } else if ($this->formatPropriete->ifFile($prop) == true && $action =='detail') {
@@ -141,16 +141,17 @@ class ResumeDemandeService
               $fileList .= '<li><b class="col-sm-3">'.ucfirst($valueProperty).'</b>';
               $path = $package->getUrl($prop); //$this->formatPropriete->generateAbsUrl($prop);
               $fileList .= '<a class="downloadFile" href="'.$path.'">Télécharger le document</a></li>';
+
             } else {
 
-              $response .= '<p><b class="col-sm-3"> '.$this->formatPropriete->getTraduction($valueProperty,$this->nameEntity, $this->propertyInfo).'</b>  ';
+              $response .= '<p><b class="col-sm-3"> '.$this->formatPropriete->getTraduction($valueProperty, $this->nameEntity, $this->propertyInfo).'</b>  ';
               //champs classique
               //on vérifie si c'est une valeur provenant du fichier de traduction 'translator'
               $response .= $this->formatPropriete->transformNormal($prop);
               $response .= '</p>';
 
               //On récupère le nom et le prenom du collaborateur visé par la demande
-              if( $valueProperty == 'matricule'){
+              if ($valueProperty == 'matricule'){
                 $response .= '<p><b class="col-sm-3">Collaborateur</b>  ';
                 $response .= $persoRepo->whichPersonnel($prop);
                 $response .= '</p>';

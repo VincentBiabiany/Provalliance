@@ -69,29 +69,11 @@ class DemandeSoldeToutCompte extends DemandeForm
     /**
      * ___demande_solde_tout_compte.typeAbsence
      *
-     * @var string
+     * @var array
      *
-     * @ORM\Column(name="type_absence", type="string")
+     * @ORM\Column(name="type_absence", type="array")
      */
     private $typeAbsence;
-
-    /**
-     * ___demande_solde_tout_compte.dateDebutAbsence
-     *
-     * @var string
-     *
-     * @ORM\Column(name="date_debut_absence", type="date", length=255)
-     */
-    private $dateDebutAbsence;
-
-    /**
-     * ___demande_solde_tout_compte.dateFinAbsence
-     *
-     * @var string
-     *
-     * @ORM\Column(name="date_fin_absence", type="date", length=255)
-     */
-    private $dateFinAbsence;
 
     /**
      * ___demande_solde_tout_compte.primes
@@ -120,6 +102,9 @@ class DemandeSoldeToutCompte extends DemandeForm
      * @ORM\Column(name="rupture", type="string")
      */
     private $rupture;
+
+
+
 
     /**
      * Get nameDemande
@@ -170,6 +155,8 @@ class DemandeSoldeToutCompte extends DemandeForm
     {
         return $this->subject;
     }
+
+
 
 
     /**
@@ -295,7 +282,7 @@ class DemandeSoldeToutCompte extends DemandeForm
     /**
      * Set typeAbsence
      *
-     * @param string $typeAbsence
+     * @param array $typeAbsence
      *
      * @return DemandeSoldeToutCompte
      */
@@ -309,59 +296,11 @@ class DemandeSoldeToutCompte extends DemandeForm
     /**
      * Get typeAbsence
      *
-     * @return string
+     * @return array
      */
     public function getTypeAbsence()
     {
         return $this->typeAbsence;
-    }
-
-    /**
-     * Set dateDebutAbsence
-     *
-     * @param \DateTime $dateDebutAbsence
-     *
-     * @return DemandeSoldeToutCompte
-     */
-    public function setDateDebutAbsence($dateDebutAbsence)
-    {
-        $this->dateDebutAbsence = $dateDebutAbsence;
-
-        return $this;
-    }
-
-    /**
-     * Get dateDebutAbsence
-     *
-     * @return \DateTime
-     */
-    public function getDateDebutAbsence()
-    {
-        return $this->dateDebutAbsence;
-    }
-
-    /**
-     * Set dateFinAbsence
-     *
-     * @param \DateTime $dateFinAbsence
-     *
-     * @return DemandeSoldeToutCompte
-     */
-    public function setDateFinAbsence($dateFinAbsence)
-    {
-        $this->dateFinAbsence = $dateFinAbsence;
-
-        return $this;
-    }
-
-    /**
-     * Get dateFinAbsence
-     *
-     * @return \DateTime
-     */
-    public function getDateFinAbsence()
-    {
-        return $this->dateFinAbsence;
     }
 
     /**
@@ -435,6 +374,4 @@ class DemandeSoldeToutCompte extends DemandeForm
     {
         return $this->rupture;
     }
-
-
 }
