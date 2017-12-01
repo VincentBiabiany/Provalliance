@@ -13,8 +13,9 @@ use AppBundle\Entity\DemandeForm;
  */
 class DemandeEmbauche extends DemandeForm
 {
+      protected $nameDemande ='DemandeEmbauche';
       protected $nomDoc = 'embauche';
-
+      protected $subject ='inconnu';
     /**
      * @var int
      *
@@ -376,14 +377,12 @@ class DemandeEmbauche extends DemandeForm
     protected $mutuelle;
 
 
-    protected $nameDemande ='DemandeEmbauche';
-    protected $subject ='inconnu';
-
 
     public function __construct()
     {
       $this->tempsPartiel = ['lundi'=>0, 'mardi'=>0,'mercredi'=>0, 'jeudi'=>0,'vendredi'=>0,'samedi'=>0,'total'=>0];
     }
+
 
 
     /**
@@ -405,7 +404,7 @@ class DemandeEmbauche extends DemandeForm
     {
         return $this->nomDoc;
     }
-    
+
     /**
      * Get subject
      *

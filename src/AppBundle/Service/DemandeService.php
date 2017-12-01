@@ -95,10 +95,10 @@ class DemandeService
     }
 
   }
-  /*         M   C   les 2
-  * array -> 0,  1 , 2
-  *          Paie  RH  Adm  rh+paie  paie + adm          tous
-  *       -> 1,    2,  4,    3          5          6      7
+  /*         M    C   les 2   Aucun
+  * array -> 0,   1    2       -1
+  *          Paie  RH   Adm   | rh+paie   paie + adm          tous
+  *       -> 1,    2,   4,    |  3           5          6      7
   *
   */
 
@@ -300,7 +300,10 @@ class DemandeService
     // Generation de l'url
     self::generateAbsUrl($demandeSimple);
     // Envoie du mail
-    self::sendMail($idSalon, $personnel, [2, 7],  $demande->getTypeForm());
+
+    $notification = $this->emWebapp->getRepository('AppBundle:Notification')->findOneBy(['demande' => $demande->getNameDemande()]);
+
+    self::sendMail($idSalon, $personnel, $notification->getValeur(),  $demande->getTypeForm());
   }
 
   public function createDemandeComplexe($demande, $idSalon){
@@ -329,8 +332,9 @@ class DemandeService
     // Generation de l'url
     self::generateAbsUrl($demandeComplexe);
 
+    $notification = $this->emWebapp->getRepository('AppBundle:Notification')->findOneBy(['demande' => $demande->getNameDemande()]);
     // Envoie du mail
-    self::sendMail($idSalon, $personnel, [2, 7],  $demande->getTypeForm());
+    self::sendMail($idSalon, $personnel, $notification->getValeur(),  $demande->getTypeForm());
   }
 
 

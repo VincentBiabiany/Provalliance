@@ -18,7 +18,7 @@ class DemandeAbsencesInjustifiees extends DemandeForm
   protected $typeForm = 'Demande d\'absences injustifiees';
   protected $subject = 'connu';
   protected $service = 'juridique';
-  protected $nomDoc = 'acompte';
+  protected $nomDoc = 'absence_injustifiees';
 
 
   /**

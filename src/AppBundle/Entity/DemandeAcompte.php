@@ -18,7 +18,7 @@ class DemandeAcompte extends DemandeForm
     protected $typeForm ='Demande acompte';
     protected $subject ='connu';
     protected $service ='paie';
-    protected $nomDoc = 'absence';
+    protected $nomDoc = 'acompte';
 
     /**
      * ___demande_acompte.matricule
