@@ -68,6 +68,20 @@ class DemandeAbsencesInjustifiees extends DemandeForm
    */
   private $dateDebut;
 
+
+  /**
+   * ___demande_absences.date
+   *
+   */
+  private $date;
+
+  /**
+   * ___demande_absences.minute
+   *
+   */
+  private $minute;
+
+
   /**
    * Get subject
    *

@@ -103,8 +103,17 @@ class DemandeSoldeToutCompte extends DemandeForm
      */
     private $rupture;
 
+    /**
+     * ___demande_solde_tout_compte.dateDebut
+     *
+     */
+    private $dateDebut;
 
-
+    /**
+     * ___demande_solde_tout_compte.dateFin
+     *
+     */
+    private $dateFin;
 
     /**
      * Get nameDemande
